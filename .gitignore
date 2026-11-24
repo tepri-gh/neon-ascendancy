@@ -10,3 +10,5 @@ build/
 refs/
 tools/.cache/
 native/third_party/
+__pycache__/
+*.pyc
