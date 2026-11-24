@@ -72,7 +72,18 @@ public native func NcOfferNearestRivalMission(x: Float, y: Float, gameSeconds: I
 
 public native func NcCompleteMission(missionId: Int32, gameSeconds: Int32) -> Int64;
 
-public native func NcOnNpcIncapacitated(entityHash: Uint64, x: Float, y: Float, z: Float, gameSeconds: Int32) -> Int64;
+public native func NcOnNpcIncapacitated(
+  entityHash: Uint64,
+  affiliationEnum: Int32,
+  isCrowd: Bool,
+  isCivilian: Bool,
+  isVendor: Bool,
+  isHostile: Bool,
+  x: Float,
+  y: Float,
+  z: Float,
+  gameSeconds: Int32
+) -> Int64;
 
 public native func NcAdvanceTime(currentGameSeconds: Int32) -> Int64;
 

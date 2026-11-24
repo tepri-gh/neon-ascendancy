@@ -71,6 +71,16 @@ void TestEraAndSanitizerPolicy() {
     NC_CHECK(p.suppress_johnny);
   }
 
+  // Raid combatant filter must reject civilians, crowds, vendors, and Unaffiliated/Unknown.
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(true, false, false, true, 34));
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(false, true, false, true, 34));
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(false, false, true, true, 34));
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(false, false, false, true, 7));  // Civilian
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(false, false, false, true, 30)); // Unaffiliated
+  NC_CHECK(!neon::sim::SimEngine::IsValidRaidCombatant(false, false, false, true, 32)); // Unknown
+  NC_CHECK(neon::sim::SimEngine::IsValidRaidCombatant(false, false, false, true, 34));  // VoodooBoys
+  NC_CHECK(neon::sim::SimEngine::IsValidRaidCombatant(false, false, false, false, 4));  // Barghest
+
   // Values > 1 (e.g. q101_enable_side_content = 2) classify identically to > 0.
   {
     neon::sim::EraFacts f;

@@ -166,8 +166,10 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     jm.GetQuests(ctx, quests);
     for q in quests {
       if IsDefined(q) {
+        // JournalQuest.GetId() returns short IDs (q301_..., sq..., mq..., sts_...).
+        // Suppress every vanilla active quest unless explicitly tagged na_*.
         const id = q.GetId();
-        if StrBeginsWith(id, "quests") || StrBeginsWith(id, "ep1/quest") {
+        if !StrBeginsWith(id, "na_") {
           jm
             .ChangeEntryStateByHash(
               Cast<Uint32>(jm.GetEntryHash(q)),
@@ -198,6 +200,7 @@ private func NeonAscendancy_IsSuppressedVanillaMappinVariant(v: gamedataMappinVa
     case gamedataMappinVariant.DefaultQuestVariant:
     case gamedataMappinVariant.QuestGiverVariant:
     case gamedataMappinVariant.ExclamationMarkVariant:
+    case gamedataMappinVariant.MinorActivityVariant:
     case gamedataMappinVariant.FixerVariant:
     case gamedataMappinVariant.RetrievingVariant:
     case gamedataMappinVariant.SabotageVariant:
@@ -205,8 +208,17 @@ private func NeonAscendancy_IsSuppressedVanillaMappinVariant(v: gamedataMappinVa
     case gamedataMappinVariant.HuntForPsychoVariant:
     case gamedataMappinVariant.ClientInDistressVariant:
     case gamedataMappinVariant.BountyHuntVariant:
-    case gamedataMappinVariant.Zzz02_MotorcycleForPurchaseVariant:
+    case gamedataMappinVariant.OutpostVariant:
+    case gamedataMappinVariant.GangWatchVariant:
+    case gamedataMappinVariant.HiddenStashVariant:
+    case gamedataMappinVariant.ConvoyVariant:
+    case gamedataMappinVariant.CourierVariant:
+    case gamedataMappinVariant.TarotVariant:
     case gamedataMappinVariant.Zzz01_CarForPurchaseVariant:
+    case gamedataMappinVariant.Zzz02_MotorcycleForPurchaseVariant:
+    case gamedataMappinVariant.Zzz06_NCPDGigVariant:
+    case gamedataMappinVariant.Zzz09_CourierSandboxActivityVariant:
+    case gamedataMappinVariant.Zzz12_WorldEncounterVariant:
       return true;
     default:
       return false;
@@ -250,6 +262,36 @@ protected cb func OnDialogsData(value: Variant) -> Bool {
   return wrappedMethod(value);
 }
 
+// Fullscreen World Map (M) mappin filter: always keep our control-center & raid
+// pins, hide vanilla quest/gig/NCPD clutter, preserve shops/FT/apartments.
+@wrapMethod(WorldMapMenuGameController)
+public func CreateMappinUIProfile(
+  mappin: wref<IMappin>,
+  mappinVariant: gamedataMappinVariant,
+  customData: ref<MappinControllerCustomData>
+) -> MappinUIProfile {
+  const game = GetGameInstance();
+  if GameInstance.IsValid(game) && IsDefined(mappin) {
+    const mapSys = GameInstance
+      .GetScriptableSystemsContainer(game)
+      .Get(n"NeonAscendancy.Map.NeonAscendancy_TerritoryMapSystem") as NeonAscendancy_TerritoryMapSystem;
+    if IsDefined(mapSys) && mapSys.IsOurMappin(mappin.GetNewMappinID()) {
+      return MappinUIProfile
+        .Create(
+          r"base\\gameplay\\gui\\fullscreen\\world_map\\mappins\\default_mappin.inkwidget",
+          t"MappinUISpawnProfile.Always",
+          t"MapMappinUIProfile.Default"
+        );
+    }
+    if NeonAscendancy_IsSanitizerEnabled(game)
+      && NeonAscendancy_IsSuppressedVanillaMappinVariant(mappinVariant) {
+      return MappinUIProfile.None();
+    }
+  }
+  return wrappedMethod(mappin, mappinVariant, customData);
+}
+
+// 3D in-world floating mappin filter.
 @wrapMethod(WorldMappinsContainerController)
 public func CreateMappinUIProfile(
   mappin: wref<IMappin>,
@@ -271,6 +313,7 @@ public func CreateMappinUIProfile(
   return wrappedMethod(mappin, mappinVariant, customData);
 }
 
+// Minimap mappin filter.
 @wrapMethod(MinimapContainerController)
 public func CreateMappinUIProfile(
   mappin: wref<IMappin>,

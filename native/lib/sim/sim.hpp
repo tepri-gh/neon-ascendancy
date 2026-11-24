@@ -176,6 +176,15 @@ class SimEngine {
 
   [[nodiscard]] int64_t ComputeCycleIncome(const SimState& state, int32_t faction_id) const;
 
+  // Pure raid combatant filter: rejects crowds, civilians, vendors, and non-combatant
+  // affiliations so innocent bystanders never count toward territory capture.
+  [[nodiscard]] static bool IsValidRaidCombatant(
+      bool is_crowd,
+      bool is_civilian,
+      bool is_vendor,
+      bool is_hostile,
+      int32_t affiliation_enum);
+
   // Pure read-only queries and presentation helpers (keep UI logic in C++).
   [[nodiscard]] static const TerritoryRuntime* FindTerritoryConst(
       const SimState& state, int32_t sub_territory_id);

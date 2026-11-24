@@ -5,6 +5,10 @@ import NeonAscendancy.Core.*
 // 20-byte durable revision-watermark anchor persisted per save file.
 // Never store large simulation tables here; external SQLite checkpoints are
 // keyed by (m_playthroughIdHi, m_playthroughIdLo, m_saveGeneration).
+//
+// Fresh playthrough DBs are created lazily when the player starts Neon Ascendancy
+// (EnsureSessionInitialized), so the main menu / character creator and untouched
+// vanilla saves never create empty pt_*.db files.
 public class NeonAscendancy_AnchorSystem extends ScriptableSystem {
   private persistent let m_schemaVersion: Int32;
   private persistent let m_playthroughIdHi: Uint32;
@@ -12,42 +16,17 @@ public class NeonAscendancy_AnchorSystem extends ScriptableSystem {
   private persistent let m_saveGeneration: Int32;
   private persistent let m_flags: Uint32;
   private let m_sessionReady: Bool;
-  private let m_playerAttachedCallbackId: Uint32;
-
-  public func OnAttach() -> Void {
-    // Only open a fresh session once a real PlayerPuppet attaches in-world
-    // (avoids creating an empty playthrough DB on the main menu / char creator).
-    if this.m_playerAttachedCallbackId == 0u {
-      const game = this.GetGameInstance();
-      if GameInstance.IsValid(game) {
-        this.m_playerAttachedCallbackId = GameInstance
-          .GetPlayerSystem(game)
-          .RegisterPlayerPuppetAttachedCallback(this, n"OnPlayerAttachedCallback");
-      }
-    }
-  }
 
   public func OnRestored(saveVersion: Int32, gameVersion: Int32) -> Void {
-    this.BeginNativeSession();
+    if this.m_playthroughIdHi != 0u || this.m_playthroughIdLo != 0u {
+      this.BeginNativeSession();
+    }
   }
 
   public func OnDetach() -> Void {
-    const game = this.GetGameInstance();
-    if this.m_playerAttachedCallbackId > 0u && GameInstance.IsValid(game) {
-      GameInstance
-        .GetPlayerSystem(game)
-        .UnregisterPlayerPuppetAttachedCallback(this.m_playerAttachedCallbackId);
-      this.m_playerAttachedCallbackId = 0u;
-    }
     if this.m_sessionReady {
       NcSessionEnd();
       this.m_sessionReady = false;
-    }
-  }
-
-  private final func OnPlayerAttachedCallback(playerPuppet: ref<GameObject>) -> Void {
-    if IsDefined(playerPuppet) && !this.m_sessionReady {
-      this.BeginNativeSession();
     }
   }
 

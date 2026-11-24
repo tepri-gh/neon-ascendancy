@@ -156,14 +156,42 @@ public class NeonAscendancy_AscendancySystem extends ScriptableSystem {
     if !IsDefined(puppet) || puppet.IsPlayer() || !this.IsAscendancyActive() {
       return;
     }
+    const isCrowd = puppet.IsCrowd();
+    const isCivilian = puppet.IsCivilian() || puppet.IsCharacterCivilian();
+    const isVendor = puppet.IsVendor();
+    if isCrowd || isCivilian || isVendor {
+      return;
+    }
     const game = this.GetGameInstance();
     if !GameInstance.IsValid(game) {
       return;
     }
+    let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+    const isHostile = IsDefined(player)
+      && Equals(GameObject.GetAttitudeTowards(puppet, player), EAIAttitude.AIA_Hostile);
+    let affEnum = -1;
+    let rec = puppet.GetRecord();
+    if IsDefined(rec) {
+      let aff = rec.Affiliation();
+      if IsDefined(aff) {
+        affEnum = EnumInt(aff.Type());
+      }
+    }
     const pos = puppet.GetWorldPosition();
     const entityHash = Cast<Uint64>(EntityID.GetHash(puppet.GetEntityID()));
     const gameSeconds = GameTime.GetSeconds(GameInstance.GetTimeSystem(game).GetGameTime());
-    const payout = NcOnNpcIncapacitated(entityHash, pos.X, pos.Y, pos.Z, gameSeconds);
+    const payout = NcOnNpcIncapacitated(
+      entityHash,
+      affEnum,
+      isCrowd,
+      isCivilian,
+      isVendor,
+      isHostile,
+      pos.X,
+      pos.Y,
+      pos.Z,
+      gameSeconds
+    );
     if payout > 0l {
       this.GrantPlayerEddies(game, payout);
       let anchor = GameInstance

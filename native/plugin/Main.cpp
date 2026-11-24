@@ -578,9 +578,22 @@ int64_t NcCompleteMission(int32_t mission_id, int32_t game_seconds) {
 }
 
 int64_t NcOnNpcIncapacitated(
-    uint64_t entity_hash, float x, float y, float z, int32_t game_seconds) {
+    uint64_t entity_hash,
+    int32_t affiliation_enum,
+    bool is_crowd,
+    bool is_civilian,
+    bool is_vendor,
+    bool is_hostile,
+    float x,
+    float y,
+    float z,
+    int32_t game_seconds) {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   if (!g_rt.session_active || g_rt.engine == nullptr || entity_hash == 0U) {
+    return 0;
+  }
+  if (!neon::sim::SimEngine::IsValidRaidCombatant(
+          is_crowd, is_civilian, is_vendor, is_hostile, affiliation_enum)) {
     return 0;
   }
   const auto* active = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);

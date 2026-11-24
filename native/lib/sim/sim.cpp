@@ -49,6 +49,31 @@ TerritoryRuntime* SimEngine::FindTerritory(SimState& state, int32_t sub_territor
   return nullptr;
 }
 
+bool SimEngine::IsValidRaidCombatant(
+    bool is_crowd,
+    bool is_civilian,
+    bool is_vendor,
+    bool is_hostile,
+    int32_t affiliation_enum) {
+  if (is_crowd || is_civilian || is_vendor) {
+    return false;
+  }
+  // Cyberpunk 2077 gamedataAffiliation non-combatant / sentinel values:
+  // Civilian=7, Classified=8, REDACTED=19, Unaffiliated=30, Unknown=32, Count=44, Invalid=45.
+  switch (affiliation_enum) {
+    case 7:  // Civilian
+    case 30: // Unaffiliated
+    case 32: // Unknown
+    case 44: // Count
+    case 45: // Invalid
+      return false;
+    default:
+      break;
+  }
+  // Require either a valid combatant faction affiliation or explicit hostile attitude.
+  return affiliation_enum >= 0 || is_hostile;
+}
+
 const TerritoryRuntime* SimEngine::FindTerritoryConst(
     const SimState& state, int32_t sub_territory_id) {
   for (const auto& t : state.territories) {
