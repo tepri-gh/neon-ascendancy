@@ -288,17 +288,9 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   // Level-1 Mercenary Starter Kit: Paraline cyberdeck + Kiroshi + Power Grip +
   // Boring Plating, V's Unity + ammo, Q001 outfit, starter car, 2,500 eb, and
   // basic crafting mats. Every grant is guarded so the whole kit is idempotent.
+  // Placement in V's H10 apartment is handled natively by ascendancy.gamedef's
+  // spawnPointTags (mq000_spwn_player) with full streaming before fade-in.
   private final func GrantCleanSlateStarterKit(game: GameInstance, player: ref<GameObject>) -> Void {
-    // H10 safety net: the root quest phase normally teleports to the apartment;
-    // if we are still more than 50 m away on first bootstrap, teleport cleanly.
-    const h10Apartment = Vector4(-1381.758, 1271.708, 123.065, 1.0);
-    if Vector4.Distance(player.GetWorldPosition(), h10Apartment) > 50.0 {
-      let teleport = GameInstance.GetTeleportationFacility(game);
-      if IsDefined(teleport) {
-        teleport.Teleport(player, h10Apartment, EulerAngles());
-      }
-    }
-
     let ts = GameInstance.GetTransactionSystem(game);
     if !IsDefined(ts) {
       this.ScheduleCleanSlateBootstrap(1.0);
@@ -343,6 +335,10 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     NcLogInfo(
       s"Sanitizer.CleanSlateBootstrap: granted starter kit (Paraline + car + 2500 eb) pos=(\(posAfter.X),\(posAfter.Y),\(posAfter.Z))"
     );
+    let autosave = GameInstance.GetAutoSaveSystem(game);
+    if IsDefined(autosave) {
+      autosave.RequestCheckpoint();
+    }
     NeonAscendancy_ShowHudNotice(
       game,
       "Neon Ascendancy \u{2014} Clean-Slate Night City. Open Pause Menu to found your gang."

@@ -19,7 +19,7 @@
   },
   "gamedef": {
     "main_quest": "mod\\neon_ascendancy\\ascendancy.quest",
-    "spawn_point_tags": ["#q000_spwn_start"],
+    "spawn_point_tags": ["mq000_spwn_player"],
     "world": "base\\worlds\\03_night_city\\03_night_city.world",
     "streaming_world": "base\\worlds\\03_night_city\\_compiled\\default\\03_night_city.streamingworld",
     "world_name": "03_night_city"
@@ -29,7 +29,7 @@
   },
   "questphase": {
     "entry_socket": "Start",
-    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is performed by SanitizerSystem via TeleportationFacility so the quest graph never blocks waiting on mq000's prefab (#mq000_pr_apartment) before persistent_content activates.",
+    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
     "initial_facts": [
       {"fact": "na_clean_slate", "value": 1},
       {"fact": "watson_prolog_lock", "value": 0},
@@ -60,7 +60,6 @@
       {"depot_path": "base\\open_world\\vendors\\open_world_vendors.questphase", "why": "Vendors + ripperdocs"},
       {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest.questphase", "why": "Vehicle purchases"},
       {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest_new.questphase", "why": "Vehicle purchases (2.x)"},
-      {"depot_path": "base\\open_world\\fixers\\open_world_fixers.questphase", "why": "Fixer presence"},
       {"depot_path": "base\\open_world\\combat_events\\open_world_combat_events.questphase", "why": "Ambient gang combat"},
       {"depot_path": "base\\open_world\\combat_events\\ce_living_city_pass.questphase", "why": "Living city pass"},
       {"depot_path": "base\\open_world\\fast_travel\\open_world_fast_travel.questphase", "why": "Fast travel points"},
@@ -112,6 +111,7 @@
       "base\\open_world\\community\\santo_domingo\\arroyo\\community\\ultimate_edition_metro_community\\arroyo_metro.questphase"
     ],
     "omitted_depot_phases": [
+      "base\\open_world\\fixers\\open_world_fixers.questphase",
       "base\\open_world\\street_stories\\street_stories.questphase",
       "base\\open_world\\minor_activities\\open_world_minor_activities.questphase",
       "base\\open_world\\mini_world_stories\\ow_mini_world_stories.questphase",
@@ -138,6 +138,7 @@
       "bugfixing",
       "epilogue",
       "final_boards",
+      "open_world_fixers",
       "street_stories",
       "minor_activities",
       "mini_world_stories",
