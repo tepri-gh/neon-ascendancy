@@ -285,17 +285,18 @@ int64_t NcAdvanceTime(int32_t current_game_seconds) {
 } // namespace
 
 RTTI_DEFINE_GLOBALS({
-  RTTI_FUNCTION(NcCoreVersion);
-  RTTI_FUNCTION(NcSessionBegin);
-  RTTI_FUNCTION(NcSessionGetPlaythroughIdHi);
-  RTTI_FUNCTION(NcSessionGetPlaythroughIdLo);
-  RTTI_FUNCTION(NcSessionCurrentRevision);
-  RTTI_FUNCTION(NcSessionEnd);
-  RTTI_FUNCTION(NcLookupSubTerritoryAt);
-  RTTI_FUNCTION(NcFoundGang);
-  RTTI_FUNCTION(NcOfferCombatMission);
-  RTTI_FUNCTION(NcCompleteMission);
-  RTTI_FUNCTION(NcAdvanceTime);
+  RTTI_FUNCTION(NcCoreVersion, "NeonAscendancy.Core.NcCoreVersion");
+  RTTI_FUNCTION(NcSessionBegin, "NeonAscendancy.Core.NcSessionBegin");
+  RTTI_FUNCTION(NcSessionGetPlaythroughIdHi, "NeonAscendancy.Core.NcSessionGetPlaythroughIdHi");
+  RTTI_FUNCTION(NcSessionGetPlaythroughIdLo, "NeonAscendancy.Core.NcSessionGetPlaythroughIdLo");
+  RTTI_FUNCTION(NcSessionCurrentRevision, "NeonAscendancy.Core.NcSessionCurrentRevision");
+  RTTI_FUNCTION(NcSessionEnd, "NeonAscendancy.Core.NcSessionEnd");
+  RTTI_FUNCTION(NcLookupSubTerritoryAt, "NeonAscendancy.Core.NcLookupSubTerritoryAt");
+  RTTI_FUNCTION(NcFoundGang, "NeonAscendancy.Core.NcFoundGang");
+  RTTI_FUNCTION(NcOfferCombatMission, "NeonAscendancy.Core.NcOfferCombatMission");
+  RTTI_FUNCTION(NcCompleteMission, "NeonAscendancy.Core.NcCompleteMission");
+  RTTI_FUNCTION(NcAdvanceTime, "NeonAscendancy.Core.NcAdvanceTime");
+  LogInfo("Registered 11 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {
