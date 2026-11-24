@@ -609,30 +609,6 @@ protected const final func IsInTier2Locomotion(const scriptInterface: ref<StateG
   return res;
 }
 
-@wrapMethod(ForceWalkDecisions)
-protected const func EnterCondition(
-  const stateContext: ref<StateContext>,
-  const scriptInterface: ref<StateGameScriptInterface>
-) -> Bool {
-  if NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
-    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
-    return false;
-  }
-  return wrappedMethod(stateContext, scriptInterface);
-}
-
-@wrapMethod(ForceWalkDecisions)
-protected const final func ToStand(
-  const stateContext: ref<StateContext>,
-  const scriptInterface: ref<StateGameScriptInterface>
-) -> Bool {
-  if NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
-    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
-    return true;
-  }
-  return wrappedMethod(stateContext, scriptInterface);
-}
-
 @wrapMethod(SceneTierAbstractDecisions)
 protected const final func ToExploration(
   const stateContext: ref<StateContext>,
