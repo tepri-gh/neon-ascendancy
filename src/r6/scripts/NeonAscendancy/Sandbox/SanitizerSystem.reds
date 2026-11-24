@@ -222,15 +222,34 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     if forceEmptyFact != 0 {
       qs.SetFact(n"ForceEmptyHands", 0);
     }
-    if hasNoCombat
-      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"VehicleScene")
-      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"FastForward") {
-      StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoCombat");
-    }
-    if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"NoWeapons")
-      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"VehicleScene")
-      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"FastForward") {
-      StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoWeapons");
+    if !NeonAscendancy_HasNonSafeCombatLock(player) {
+      if hasNoCombat {
+        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoCombat");
+      }
+      if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"NoWeapons") {
+        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoWeapons");
+      }
+      if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"InDaClub") {
+        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"InDaClub");
+      }
+      if StatusEffectSystem
+        .ObjectHasStatusEffectWithTag(player, n"Tier2Locomotion") {
+        StatusEffectHelper
+          .RemoveStatusEffectsWithTag(player, n"Tier2Locomotion");
+      }
+      if StatusEffectSystem
+        .ObjectHasStatusEffect(player, t"GameplayRestriction.NoSprint") {
+        StatusEffectHelper
+          .RemoveStatusEffect(player, t"GameplayRestriction.NoSprint");
+      }
+      const isCarrying = IsDefined(psmBB)
+        && psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
+      if !isCarrying
+        && StatusEffectSystem
+          .ObjectHasStatusEffect(player, t"GameplayRestriction.NoJump") {
+        StatusEffectHelper
+          .RemoveStatusEffect(player, t"GameplayRestriction.NoJump");
+      }
     }
     if IsDefined(pp) {
       pp.OnZoneFactChanged(cityAreaFact);
@@ -239,6 +258,11 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       clearEmptyHands.value = false;
       clearEmptyHands.aspect = gamestateMachineParameterAspect.Permanent;
       pp.QueueEvent(clearEmptyHands);
+      let clearForceWalk = new PSMPostponedParameterBool();
+      clearForceWalk.id = n"ForceWalk";
+      clearForceWalk.value = false;
+      clearForceWalk.aspect = gamestateMachineParameterAspect.Permanent;
+      pp.QueueEvent(clearForceWalk);
       if psmZonesBefore == 2 {
         pp
           .SetBlackboardIntVariable(GetAllBlackboardDefs().PlayerStateMachine.Zones, 1);
@@ -576,6 +600,39 @@ protected const final func EnterCondition(
   return wrappedMethod(stateContext, scriptInterface);
 }
 
+@wrapMethod(DefaultTransition)
+protected const final func IsInTier2Locomotion(const scriptInterface: ref<StateGameScriptInterface>) -> Bool {
+  const res = wrappedMethod(scriptInterface);
+  if res && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner) {
+    return false;
+  }
+  return res;
+}
+
+@wrapMethod(ForceWalkDecisions)
+protected const func EnterCondition(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  if NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
+    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
+    return false;
+  }
+  return wrappedMethod(stateContext, scriptInterface);
+}
+
+@wrapMethod(ForceWalkDecisions)
+protected const final func ToStand(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  if NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
+    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
+    return true;
+  }
+  return wrappedMethod(stateContext, scriptInterface);
+}
+
 @wrapMethod(SceneTierAbstractDecisions)
 protected const final func ToExploration(
   const stateContext: ref<StateContext>,
@@ -605,22 +662,37 @@ protected cb func OnStatusEffectApplied(evt: ref<ApplyStatusEffectEvent>) -> Boo
     const game = this.GetGame();
     if NeonAscendancy_IsSanitizerEnabled(game) {
       let staticData = evt.staticData;
+      const effectId = staticData.GetID();
       const tags = staticData.GameplayTags();
-      const blocksCombat = ArrayContains(tags, n"NoCombat") || ArrayContains(tags, n"NoWeapons");
-      if blocksCombat
+      const isNoJump = effectId
+        == t"GameplayRestriction.NoJump"
+        || ArrayContains(tags, n"NoJump");
+      const isSafeZoneRestriction = ArrayContains(tags, n"NoCombat")
+        || ArrayContains(tags, n"NoWeapons")
+        || ArrayContains(tags, n"InDaClub")
+        || ArrayContains(tags, n"Tier2Locomotion")
+        || effectId == t"GameplayRestriction.NoSprint"
+        || isNoJump;
+      if isSafeZoneRestriction
         && !ArrayContains(tags, n"VehicleScene")
         && !ArrayContains(tags, n"FastForward")
-        && !ArrayContains(tags, n"Braindance") {
+        && !ArrayContains(tags, n"Braindance")
+        && !ArrayContains(tags, n"NoMovement") {
         let psmBB = this.GetPlayerStateMachineBlackboard();
         const hl = IsDefined(psmBB) ? psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel) : 1;
+        const isCarrying = IsDefined(psmBB)
+          && psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
+        if isNoJump && isCarrying {
+          return wrappedMethod(evt);
+        }
         const pos = this.GetWorldPosition();
         const allowed = NeonAscendancy_IsAllowedSafeZone(game, pos);
         if hl < 3 || hl > 5 {
           NcLogInfo(
-            s"Sanitizer.OnStatusEffectApplied: combat-lock effect=\(TDBID.ToStringDEBUG(staticData.GetID())) hl=\(hl) allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+            s"Sanitizer.OnStatusEffectApplied: zone-lock effect=\(TDBID.ToStringDEBUG(effectId)) hl=\(hl) allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
           );
           if !allowed {
-            StatusEffectHelper.RemoveStatusEffect(this, staticData.GetID());
+            StatusEffectHelper.RemoveStatusEffect(this, effectId);
             return true;
           }
         }
