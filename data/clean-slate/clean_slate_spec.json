@@ -15,7 +15,6 @@
     "gamedef": "base\\quest\\cyberpunk2077.gamedef",
     "quest": "base\\quest\\cyberpunk2077.quest",
     "open_world_content_questphase": "base\\open_world\\phases\\open_world_content.questphase",
-    "teleport_node_template": "base\\quest\\main_quests\\prologue\\q001\\q001.quest",
     "spawn_manager_node_template": "base\\open_world\\street_stories\\watson\\kabuki\\sts_wat_kab_07\\phase\\sts_wat_kab_07_combat.questphase"
   },
   "gamedef": {
@@ -30,12 +29,7 @@
   },
   "questphase": {
     "entry_socket": "Start",
-    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> questTeleportPuppetNodeDefinition (#mq000_01_sm_apartment) -> fan-out to every kept phase node below.",
-    "teleport": {
-      "destination_ref": "#mq000_01_sm_apartment",
-      "use_fast_travel_mechanism": 0,
-      "heal_at_teleport": 1
-    },
+    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is performed by SanitizerSystem via TeleportationFacility so the quest graph never blocks waiting on mq000's prefab (#mq000_pr_apartment) before persistent_content activates.",
     "initial_facts": [
       {"fact": "na_clean_slate", "value": 1},
       {"fact": "watson_prolog_lock", "value": 0},
@@ -96,7 +90,7 @@
       {"owc_node_id": 7, "why": "lch/kab/nid prolog roadblocks, pause-gated on watson_prolog_lock > 0 (inert while unlocked)"},
       {"owc_node_id": 8, "why": "NCPD PreventionSystem init: 36 trigger-area pause conditions + 36 questEventManagerNodeDefinition (managerName=PreventionSystem)"},
       {"owc_node_id": 139, "why": "Metro communities: 6 sub-phases pulling the 12 ultimate_edition_metro_community questphases"},
-      {"owc_node_id": 142, "why": "District interactive-object managers (doors/data terms). Vanilla runs the ForceDisabled branch while watson_prolog_lock > 0 and the ForceEnabled branch when watson_prolog_lock == 0. Clean-slate boots with lock == 0 and never transitions, so the builder adds ONE extra connection from the hub to the lock == 0 pause gate (node 3) so the ForceEnabled branch runs at boot; the locked branch stays dormant exactly as in vanilla.", "extra_wire": {"target": "inner pause condition node with questFactsDBCondition watson_prolog_lock Equal 0", "from": "hub fan-out"}},
+      {"owc_node_id": 142, "why": "District interactive-object managers (doors/data terms). Kept unmodified from vanilla: its ForceDisabled branch is gated on watson_prolog_lock > 0 so it never runs in clean-slate, leaving district data terms in their default enabled state without any cross-graph handle wiring."},
       {"owc_node_id": 156, "why": "ue_metro ride wiring: night_city_metro_nge + ue_metro_main gated on ue_metro_ride_started"}
     ],
     "inline_phase_depot_refs": [

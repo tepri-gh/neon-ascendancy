@@ -313,21 +313,6 @@ class QuestGraph:
         )
         return inp, out
 
-    def add_teleport_node(self, template_node: dict[str, Any], spec_teleport: dict[str, Any]) -> tuple[str, str]:
-        data = self.renumber(template_node)  # deep copy with fresh internal handles
-        data.pop("sockets", None)  # sockets are rebuilt below with graph-local handles
-        data["id"] = self.node_id()
-        params = data["params"]["Data"]
-        params["destinationRef"]["Data"]["entityReference"]["reference"]["$value"] = spec_teleport["destination_ref"]
-        params["useFastTravelMechanism"] = spec_teleport["use_fast_travel_mechanism"]
-        params["healAtTeleport"] = spec_teleport["heal_at_teleport"]
-        cut = self.new_socket("CutDestination", "CutDestination")
-        inp = self.new_socket("In", "Input")
-        out = self.new_socket("Out", "Output")
-        data["_sockets"] = [cut, inp, out]
-        self.nodes.append({"HandleId": self.alloc(), "Data": data})
-        return inp, out
-
     def add_phase_node(self, depot: str) -> str:
         cut = self.new_socket("CutDestination", "CutDestination")
         inp = self.new_socket("In1", "Input")
@@ -454,7 +439,7 @@ def build_quest(template: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any
 def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
-    Start -> hub -> 15 fact managers (chained) -> teleport -> fan-out to:
+    Start -> hub -> 15 fact managers (chained) -> fan-out to:
       29 kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
     """
     qp = spec["questphase"]
@@ -479,11 +464,8 @@ def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any])
         g.connect(prev_out, f_in)
         prev_out = f_out
 
-    tel_in, tel_out = g.add_teleport_node(templates["teleport_node"], qp["teleport"])
-    g.connect(prev_out, tel_in)
-
-    # fan-out source for every phase (including the spike gate and [142] extra wire)
-    fan = tel_out
+    # Fan-out directly from the final fact node (zero blocking teleport nodes).
+    fan = prev_out
 
     # spike: gate pause -> spike phase node
     spike = qp["spike"]
@@ -499,22 +481,17 @@ def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any])
         p_in = g.add_phase_node(entry["depot_path"])
         g.connect(fan, p_in)
 
-    # copied inline phases from open_world_content
+    # copied inline phases from open_world_content (strictly untouched internals,
+    # zero cross-graph handle references)
     for entry in qp["kept_inline_phases"]:
         vanilla = find_node_by_id(owc, entry["owc_node_id"])["Data"]
         in_handle = g.add_copied_phase_node(vanilla)
         g.connect(fan, in_handle)
-        # [142] extra wire: also feed the `watson_prolog_lock == 0` pause gate so the
-        # ForceEnabled data-term branch runs at boot (clean-slate never transitions lock).
-        if entry.get("extra_wire"):
-            pause_in_handle = find_lock_zero_pause_in_socket(vanilla)
-            g.register_socket(pause_in_handle, "In", "Input")
-            g.connect(fan, pause_in_handle)
 
     nodes = g.finalize()
     validate_refs(nodes)
 
-    return wrap_resource(
+    doc = wrap_resource(
         {
             "$type": "questQuestPhaseResource",
             "cookingPlatform": "PLATFORM_PC",
@@ -526,6 +503,10 @@ def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any])
             "phasePrefabs": [],
         }
     )
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds detected: {cross[:5]}")
+    return doc
 
 
 def build_spike(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
@@ -609,37 +590,64 @@ def find_first_node_of_type(resource: dict[str, Any], node_type: str) -> dict[st
     return found
 
 
-def find_lock_zero_pause_in_socket(vanilla_phase_node: dict[str, Any]) -> str:
-    """Find the 'In' socket handle of the pause condition inside the copied inline phase
-    whose condition is `watson_prolog_lock Equal 0` (the [142] unlock branch gate)."""
-    def find_pause(value: Any) -> dict[str, Any] | None:
+def find_cross_graph_refs(doc: dict[str, Any]) -> list[tuple[str, str, str]]:
+    """Return any HandleRefIds whose target HandleId belongs to a different questGraphDefinition."""
+    owner: dict[str, str] = {}
+
+    def map_graphs(value: Any, gid: str = "root") -> None:
         if isinstance(value, dict):
-            if value.get("$type") == "questPauseConditionNodeDefinition":
-                cond = value.get("condition", {}).get("Data", {})
-                typ = cond.get("type", {})
-                if isinstance(typ, dict):
-                    typ = typ.get("Data", {})
-                if typ.get("factName") == "watson_prolog_lock" and typ.get("comparisonType") == "Equal" and typ.get("value") == 0:
-                    return value
+            if value.get("$type") == "questGraphDefinition":
+                gid = f"graph@{id(value)}"
+            if "HandleId" in value and isinstance(value.get("HandleId"), str):
+                owner[value["HandleId"]] = gid
             for v in value.values():
-                found = find_pause(v)
-                if found is not None:
-                    return found
+                map_graphs(v, gid)
         elif isinstance(value, list):
             for v in value:
-                found = find_pause(v)
-                if found is not None:
-                    return found
-        return None
+                map_graphs(v, gid)
 
-    pause = find_pause(vanilla_phase_node)
-    if pause is None:
-        raise ValueError("no watson_prolog_lock Equal 0 pause condition in copied [142] node")
-    slot = pause["sockets"][1]
-    handle = slot.get("HandleId") or slot.get("HandleRefId")
-    if handle is None:
-        raise ValueError("pause condition In socket has no handle")
-    return str(handle)
+    map_graphs(doc)
+    bad: list[tuple[str, str, str]] = []
+
+    def check_refs(value: Any, gid: str = "root") -> None:
+        if isinstance(value, dict):
+            if value.get("$type") == "questGraphDefinition":
+                gid = f"graph@{id(value)}"
+            if "HandleRefId" in value and isinstance(value.get("HandleRefId"), str):
+                ref = value["HandleRefId"]
+                ref_gid = owner.get(ref)
+                if ref_gid is not None and ref_gid != gid:
+                    bad.append((ref, ref_gid, gid))
+            for v in value.values():
+                check_refs(v, gid)
+        elif isinstance(value, list):
+            for v in value:
+                check_refs(v, gid)
+
+    check_refs(doc)
+    return bad
+
+
+def find_duplicate_handles(doc: dict[str, Any]) -> list[str]:
+    seen: set[str] = set()
+    dups: list[str] = []
+
+    def walk(value: Any) -> None:
+        if isinstance(value, dict):
+            if "HandleId" in value and isinstance(value.get("HandleId"), str):
+                h = value["HandleId"]
+                if h in seen:
+                    dups.append(h)
+                else:
+                    seen.add(h)
+            for v in value.values():
+                walk(v)
+        elif isinstance(value, list):
+            for v in value:
+                walk(v)
+
+    walk(doc)
+    return dups
 
 
 def validate_refs(nodes: list[dict[str, Any]]) -> None:
@@ -684,7 +692,6 @@ def extract_templates(wk: Path, game_dir: Path, spec: dict[str, Any], tmp: Path)
         tpl["gamedef"],
         tpl["quest"],
         tpl["open_world_content_questphase"],
-        tpl["teleport_node_template"],
         tpl["spawn_manager_node_template"],
     ]
     escaped = [p.replace("\\", "\\\\").replace(".", "\\.") for p in depot_paths]
@@ -703,13 +710,11 @@ def extract_templates(wk: Path, game_dir: Path, spec: dict[str, Any], tmp: Path)
     gamedef = load(tpl["gamedef"])
     quest = load(tpl["quest"])
     owc = load(tpl["open_world_content_questphase"])
-    teleport_resource = load(tpl["teleport_node_template"])
     spawn_resource = load(tpl["spawn_manager_node_template"])
     return {
         "gamedef": gamedef,
         "quest": quest,
         "open_world_content_questphase": owc,
-        "teleport_node": find_first_node_of_type(teleport_resource, "questTeleportPuppetNodeDefinition"),
         "spawn_manager_node": find_first_node_of_type(spawn_resource, "questSpawnManagerNodeDefinition"),
     }
 
@@ -1012,8 +1017,7 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
            f"expected {len(qp['initial_facts'])} fact nodes, found {len(facts)}")
         expected_reachable += facts
         teles = by_type("questTeleportPuppetNodeDefinition")
-        ok(len(teles) == 1, f"expected 1 teleport node, found {len(teles)}")
-        expected_reachable += teles
+        ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
         ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 1,
@@ -1024,11 +1028,11 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         unreachable = [n for n in expected_reachable if id_of(n) not in reachable]
         ok(not unreachable, f"nodes unreachable from Start: {[id_of(n) for n in unreachable]}")
 
-        # teleport destination
-        if teles:
-            dest = teles[0]["Data"]["params"]["Data"]["destinationRef"]["Data"]["entityReference"]["reference"]["$value"]
-            ok(dest == qp["teleport"]["destination_ref"],
-               f"teleport destinationRef {dest} != {qp['teleport']['destination_ref']}")
+        # strict graph integrity: zero duplicate HandleIds and zero cross-graph HandleRefIds
+        dups = find_duplicate_handles(doc)
+        ok(not dups, f"duplicate HandleIds in ascendancy.questphase: {dups[:10]}")
+        cross = find_cross_graph_refs(doc)
+        ok(not cross, f"cross-graph HandleRefIds in ascendancy.questphase: {cross[:10]}")
 
         # facts exactly match the spec, none forbidden
         actual_facts = _collect_setvar_facts(rc)
@@ -1048,7 +1052,7 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         excluded = sorted({r for r in refs if any(p in r for p in qp["excluded_phase_patterns"])})
         ok(not excluded, f"excluded phase refs present: {excluded}")
 
-        # spike gate wired: fan-out source -> gate pause -> spike phase node
+        # spike gate wired: fan-out source (final fact node) -> gate pause -> spike phase node
         spike = qp["spike"]
         spike_ref = spike["resource"]
         spike_phase = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == spike_ref]
@@ -1063,12 +1067,12 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
                     and typ.get("value") == spike["gate"]["value"]):
                 gate_pauses.append(p)
         ok(len(gate_pauses) == 1, f"expected 1 spike gate pause condition, found {len(gate_pauses)}")
-        if gate_pauses and spike_phase and teles:
+        if gate_pauses and spike_phase and facts:
             gate_id = id_of(gate_pauses[0])
             spike_id = id_of(spike_phase[0])
-            tel_id = id_of(teles[0])
+            fan_id = id_of(facts[-1])
             edges = _graph_edges(nodes)
-            ok((tel_id, gate_id) in edges, "teleport is not connected to the spike gate pause")
+            ok((fan_id, gate_id) in edges, "final fact node is not connected to the spike gate pause")
             ok((gate_id, spike_id) in edges, "spike gate pause is not connected to the spike phase node")
             gate = gate_pauses[0]["Data"]
             gate_in = _socket_handle(gate["sockets"][1])
@@ -1083,8 +1087,7 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         ok(len(_collect_nodes_of_type(rc, "questTriggerCondition")) == 36,
            "expected 36 PreventionSystem trigger conditions")
 
-        # [142] unlock branch: the watson_prolog_lock == 0 pause gate must have 2 incoming
-        # connections (vanilla AND9 chain + the clean-slate boot wire).
+        # [142] kept cleanly unmodified (no cross-graph wire into its nested phaseGraph)
         lock_zero_pauses = []
         for p in _collect_nodes_of_type(rc, "questPauseConditionNodeDefinition"):
             cond = p.get("condition", {}).get("Data", {})
@@ -1098,7 +1101,7 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
             pz = lock_zero_pauses[0]
             in_h = _socket_handle(pz["sockets"][1])
             n_in, _ = _count_connections(rc, in_h)
-            ok(n_in == 2, f"watson_prolog_lock == 0 pause gate has {n_in} incoming connections (expected 2: boot wire + vanilla AND chain)")
+            ok(n_in == 1, f"watson_prolog_lock == 0 pause gate has {n_in} incoming connections (expected 1: vanilla AND chain)")
 
 
 def _graph_edges(nodes: list[dict[str, Any]]) -> set[tuple[int, int]]:

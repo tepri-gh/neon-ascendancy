@@ -514,8 +514,9 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       }
     }
 
+    const cleanSlateFact = IsDefined(qs) ? qs.GetFact(n"na_clean_slate") : -1;
     NcLogInfo(
-      s"Sanitizer.EnforceSafeZone: tier=\(sceneTier) allowed=\(allowed) sanctuaries=\(NcGetSafeSanctuaryCount()) cityArea=\(cityAreaFact) forceEmpty=\(forceEmptyFact) noCombat=\(hasNoCombat) psmZones=\(psmZonesBefore) secArea=\(secAreaBefore)"
+      s"Sanitizer.EnforceSafeZone: tier=\(sceneTier) cleanSlate=\(cleanSlateFact) allowed=\(allowed) sanctuaries=\(NcGetSafeSanctuaryCount()) cityArea=\(cityAreaFact) forceEmpty=\(forceEmptyFact) noCombat=\(hasNoCombat) psmZones=\(psmZonesBefore) secArea=\(secAreaBefore)"
     );
 
     if allowed || sceneTier >= 3 {
