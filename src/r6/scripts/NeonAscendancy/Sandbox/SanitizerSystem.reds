@@ -12,6 +12,17 @@ private class NeonAscendancy_SanitizerApplyCallback extends DelayCallback {
   }
 }
 
+private class NeonAscendancy_SafeZoneStripCallback extends DelayCallback {
+  public let m_system: wref<NeonAscendancy_SanitizerSystem>;
+  public let m_allowFollowUp: Bool;
+
+  public func Call() -> Void {
+    if IsDefined(this.m_system) {
+      this.m_system.RunDelayedSafeZoneStrip(this.m_allowFollowUp);
+    }
+  }
+}
+
 // Thin adapter that delegates era, sanctuary, and vanilla-pin policies to C++
 // and applies the results cleanly to Cyberpunk's quest/zone/UI hooks.
 public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
@@ -20,6 +31,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   private persistent let m_lastEraCode: Int32;
   private let m_playerAttachedCallbackId: Uint32;
   private let m_sanctuariesSynced: Bool;
+  private let m_stripPending: Bool;
 
   public func OnAttach() -> Void {
     if this.m_playerAttachedCallbackId == 0u {
@@ -34,6 +46,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
 
   public func OnRestored(saveVersion: Int32, gameVersion: Int32) -> Void {
     this.m_sanctuariesSynced = false;
+    this.m_stripPending = false;
     NcSetSanitizerActive(this.m_enabled);
     if this.m_enabled {
       this.ScheduleApply(0.5);
@@ -42,6 +55,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
 
   public func OnDetach() -> Void {
     this.m_sanctuariesSynced = false;
+    this.m_stripPending = false;
     NcSetSanitizerActive(false);
     NcClearSafeSanctuaries();
     const game = this.GetGameInstance();
@@ -86,6 +100,63 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       let cb = new NeonAscendancy_SanitizerApplyCallback();
       cb.m_system = this;
       ds.DelayCallback(cb, delaySeconds, false);
+    }
+  }
+
+  public final func ScheduleSafeZoneStrip(delaySeconds: Float, allowFollowUp: Bool) -> Void {
+    if this.m_stripPending {
+      return;
+    }
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let ds = GameInstance.GetDelaySystem(game);
+    if IsDefined(ds) {
+      this.m_stripPending = true;
+      let cb = new NeonAscendancy_SafeZoneStripCallback();
+      cb.m_system = this;
+      cb.m_allowFollowUp = allowFollowUp;
+      ds.DelayCallback(cb, delaySeconds, false);
+    }
+  }
+
+  public final func RunDelayedSafeZoneStrip(allowFollowUp: Bool) -> Void {
+    this.m_stripPending = false;
+    if !this.m_enabled {
+      return;
+    }
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+    if !IsDefined(player) {
+      return;
+    }
+    const pos = player.GetWorldPosition();
+    const allowed = this.IsAllowedSafeZoneAt(game, pos);
+    let bbSys = GameInstance.GetBlackboardSystem(game);
+    let psmBB: ref<IBlackboard>;
+    let hl = 1;
+    let isCarrying = false;
+    if IsDefined(bbSys) {
+      psmBB = bbSys
+        .GetLocalInstanced(player.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine);
+      if IsDefined(psmBB) {
+        hl = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel);
+        isCarrying = psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
+      }
+    }
+    let stripped = 0;
+    if !allowed && (hl < 3 || hl > 5) && !NeonAscendancy_HasNonSafeCombatLock(player) {
+      stripped = NeonAscendancy_StripAllSafeZoneRestrictions(player, isCarrying);
+      NeonAscendancy_ClearSafeZonePsmParams(player, psmBB);
+      PlayerGameplayRestrictions.PushForceRefreshInputHintsEventToPSM(player);
+    }
+    NeonAscendancy_LogSafeZoneDiagnostics(game, player, psmBB, allowed, stripped);
+    if allowFollowUp && stripped > 0 && !allowed && (hl < 3 || hl > 5) {
+      this.ScheduleSafeZoneStrip(0.25, false);
     }
   }
 
@@ -223,62 +294,14 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       qs.SetFact(n"ForceEmptyHands", 0);
     }
     if !NeonAscendancy_HasNonSafeCombatLock(player) {
-      if hasNoCombat {
-        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoCombat");
-      }
-      if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"NoWeapons") {
-        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoWeapons");
-      }
-      if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"InDaClub") {
-        StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"InDaClub");
-      }
-      if StatusEffectSystem
-        .ObjectHasStatusEffectWithTag(player, n"Tier2Locomotion") {
-        StatusEffectHelper
-          .RemoveStatusEffectsWithTag(player, n"Tier2Locomotion");
-      }
-      if StatusEffectSystem
-        .ObjectHasStatusEffect(player, t"GameplayRestriction.NoSprint") {
-        StatusEffectHelper
-          .RemoveStatusEffect(player, t"GameplayRestriction.NoSprint");
-      }
       const isCarrying = IsDefined(psmBB)
         && psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
-      if !isCarrying
-        && StatusEffectSystem
-          .ObjectHasStatusEffect(player, t"GameplayRestriction.NoJump") {
-        StatusEffectHelper
-          .RemoveStatusEffect(player, t"GameplayRestriction.NoJump");
-      }
+      NeonAscendancy_StripAllSafeZoneRestrictions(player, isCarrying);
     }
     if IsDefined(pp) {
       pp.OnZoneFactChanged(cityAreaFact);
-      let clearEmptyHands = new PSMPostponedParameterBool();
-      clearEmptyHands.id = n"ForceEmptyHandsByZone";
-      clearEmptyHands.value = false;
-      clearEmptyHands.aspect = gamestateMachineParameterAspect.Permanent;
-      pp.QueueEvent(clearEmptyHands);
-      let clearForceWalk = new PSMPostponedParameterBool();
-      clearForceWalk.id = n"ForceWalk";
-      clearForceWalk.value = false;
-      clearForceWalk.aspect = gamestateMachineParameterAspect.Permanent;
-      pp.QueueEvent(clearForceWalk);
-      if psmZonesBefore == 2 {
-        pp
-          .SetBlackboardIntVariable(GetAllBlackboardDefs().PlayerStateMachine.Zones, 1);
-      }
     }
-    if IsDefined(psmBB) && secAreaBefore == EnumInt(ESecurityAreaType.SAFE) {
-      let clearedSec: SecurityAreaData;
-      clearedSec.securityAreaType = ESecurityAreaType.DISABLED;
-      clearedSec.entered = false;
-      psmBB
-        .SetVariant(
-          GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData,
-          ToVariant(clearedSec),
-          true
-        );
-    }
+    NeonAscendancy_ClearSafeZonePsmParams(player, psmBB);
   }
 
   private final func ApplyCityUnlock(game: GameInstance, qs: QuestsSystem) -> Void {
@@ -492,7 +515,337 @@ private func NeonAscendancy_HasNonSafeCombatLock(const owner: wref<GameObject>) 
   const eid = owner.GetEntityID();
   return ses.HasStatusEffectWithTag(eid, n"VehicleScene")
     || ses.HasStatusEffectWithTag(eid, n"FastForward")
-    || ses.HasStatusEffectWithTag(eid, n"Braindance");
+    || ses.HasStatusEffectWithTag(eid, n"Braindance")
+    || ses.HasStatusEffectWithTag(eid, n"FistFight")
+    || ses.HasStatusEffectWithTag(eid, n"ShootingRangeCompetition")
+    || ses.HasStatusEffectWithTag(eid, n"Cyberspace")
+    || ses.HasStatusEffectWithTag(eid, n"MetroRide")
+    || ses.HasStatusEffectWithTag(eid, n"SpaceShuttleInterior");
+}
+
+private func NeonAscendancy_IsSafeZoneRestriction(effectId: TweakDBID, const tags: [CName], isCarrying: Bool) -> Bool {
+  if ArrayContains(tags, n"VehicleScene")
+    || ArrayContains(tags, n"FastForward")
+    || ArrayContains(tags, n"Braindance")
+    || ArrayContains(tags, n"NoMovement")
+    || ArrayContains(tags, n"FistFight")
+    || ArrayContains(tags, n"ShootingRangeCompetition")
+    || ArrayContains(tags, n"Firearms")
+    || ArrayContains(tags, n"Melee")
+    || ArrayContains(tags, n"Cyberspace")
+    || ArrayContains(tags, n"MetroRide")
+    || ArrayContains(tags, n"SpaceShuttleInterior")
+    || ArrayContains(tags, n"SandstormLocomotion")
+    || ArrayContains(tags, n"FocusModeLocomotion")
+    || ArrayContains(tags, n"ForceCrouch")
+    || ArrayContains(tags, n"ForceStand")
+    || ArrayContains(tags, n"BodyCarryingGeneric")
+    || ArrayContains(tags, n"BodyCarryingFriendly")
+    || ArrayContains(tags, n"BodyCarryingWoundedSoldier")
+    || ArrayContains(tags, n"BodyCarryingCanSprint")
+    || ArrayContains(tags, n"BodyCarryingBodyMasterPerk5")
+    || effectId == t"GameplayRestriction.CinematicCamera"
+    || effectId == t"GameplayRestriction.BinocularView" {
+    return false;
+  }
+  const isNoJump = effectId == t"GameplayRestriction.NoJump" || ArrayContains(tags, n"NoJump");
+  if isNoJump {
+    return !isCarrying;
+  }
+  return ArrayContains(tags, n"NoCombat")
+    || ArrayContains(tags, n"NoWeapons")
+    || ArrayContains(tags, n"InDaClub")
+    || ArrayContains(tags, n"Tier2Locomotion")
+    || ArrayContains(tags, n"NoWeaponWheel")
+    || ArrayContains(tags, n"NoQuickHacks")
+    || ArrayContains(tags, n"NoGrenadeOrGadget")
+    || effectId == t"GameplayRestriction.NoSprint"
+    || effectId == t"GameplayRestriction.NoCombat"
+    || effectId == t"GameplayRestriction.InDaClub"
+    || effectId == t"GameplayRestriction.NoWeapons"
+    || effectId == t"GameplayRestriction.NoCyberware"
+    || effectId == t"GameplayRestriction.NoDangerousCyberware"
+    || effectId == t"GameplayRestriction.NoDangerousPerks"
+    || effectId == t"GameplayRestriction.NoCombatWithQuickhacks";
+}
+
+private func NeonAscendancy_StripEffectHard(player: GameObject, effectId: TweakDBID, staticData: wref<StatusEffect_Record>) -> Bool {
+  const game = player.GetGame();
+  if !GameInstance.IsValid(game) {
+    return false;
+  }
+  let ses = GameInstance.GetStatusEffectSystem(game);
+  if !IsDefined(ses) {
+    return false;
+  }
+  const eid = player.GetEntityID();
+  let matches: array<ref<StatusEffect>>;
+  ses.GetAppliedEffectsWithID(eid, effectId, matches);
+  let totalStacks: Uint32 = 0u;
+  for m in matches {
+    if IsDefined(m) {
+      totalStacks += m.GetStackCount();
+    }
+  }
+  if totalStacks == 0u {
+    totalStacks = 1u;
+  }
+  let removed = ses.RemoveStatusEffect(eid, effectId, totalStacks);
+  if ses.HasStatusEffect(eid, effectId) {
+    removed = ses.RemoveStatusEffect(eid, effectId, 999u) || removed;
+  }
+  if ses.HasStatusEffect(eid, effectId) {
+    removed = ses.RemoveStatusEffect(eid, effectId) || removed;
+  }
+
+  let es = GameInstance.GetEffectorSystem(game);
+  let glps = GameInstance.GetGameplayLogicPackageSystem(game);
+  const stillActive = ses.HasStatusEffect(eid, effectId);
+  let appliedPkgs: array<TweakDBID>;
+  if stillActive && IsDefined(glps) {
+    glps.GetAppliedPackages(player, appliedPkgs);
+  }
+  if IsDefined(staticData) {
+    const pkgCount = staticData.GetPackagesCount();
+    let p = 0;
+    while p < pkgCount {
+      let pkg = staticData.GetPackagesItem(p);
+      if IsDefined(pkg) {
+        if IsDefined(es) {
+          const effCount = pkg.GetEffectorsCount();
+          let e = 0;
+          while e < effCount {
+            let eff = pkg.GetEffectorsItem(e);
+            if IsDefined(eff) {
+              es.RemoveEffectorsByID(eid, eff.GetID());
+              let applyEff = eff as ApplyEffectorEffector_Record;
+              if IsDefined(applyEff) {
+                let inner = applyEff.EffectorToApply();
+                if IsDefined(inner) {
+                  es.RemoveEffectorsByID(eid, inner.GetID());
+                }
+              }
+            }
+            e += 1;
+          }
+        }
+        if stillActive && IsDefined(glps) {
+          const pkgId = pkg.GetID();
+          if ArrayContains(appliedPkgs, pkgId) {
+            glps.RemovePackages(player, pkgId, 999u);
+          }
+        }
+      }
+      p += 1;
+    }
+  }
+  return removed;
+}
+
+private func NeonAscendancy_StripAllSafeZoneRestrictions(player: GameObject, isCarrying: Bool) -> Int32 {
+  const game = player.GetGame();
+  if !GameInstance.IsValid(game) {
+    return 0;
+  }
+  let ses = GameInstance.GetStatusEffectSystem(game);
+  if !IsDefined(ses) {
+    return 0;
+  }
+  let applied: array<ref<StatusEffect>>;
+  ses.GetAppliedEffects(player.GetEntityID(), applied);
+  let stripped = 0;
+  for eff in applied {
+    if IsDefined(eff) {
+      let rec = eff.GetRecord();
+      if IsDefined(rec) {
+        const effectId = rec.GetID();
+        const tags = rec.GameplayTags();
+        if NeonAscendancy_IsSafeZoneRestriction(effectId, tags, isCarrying) {
+          NeonAscendancy_StripEffectHard(player, effectId, rec);
+          stripped += 1;
+        }
+      }
+    }
+  }
+  return stripped;
+}
+
+private func NeonAscendancy_QueueClearPsmBool(pp: PlayerPuppet, paramId: CName) -> Void {
+  let evt = new PSMPostponedParameterBool();
+  evt.id = paramId;
+  evt.value = false;
+  evt.aspect = gamestateMachineParameterAspect.Permanent;
+  pp.QueueEvent(evt);
+}
+
+private func NeonAscendancy_ClearSafeZonePsmParams(player: GameObject, psmBB: ref<IBlackboard>) -> Void {
+  let pp = player as PlayerPuppet;
+  if IsDefined(pp) {
+    NeonAscendancy_QueueClearPsmBool(pp, n"ForceEmptyHandsByZone");
+    NeonAscendancy_QueueClearPsmBool(pp, n"ForceSafeStateByZone");
+    NeonAscendancy_QueueClearPsmBool(pp, n"ForceEmptyHands");
+    NeonAscendancy_QueueClearPsmBool(pp, n"ForceSafeState");
+    NeonAscendancy_QueueClearPsmBool(pp, n"ForceWalk");
+    if IsDefined(psmBB)
+      && psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Zones) == 2 {
+      pp
+        .SetBlackboardIntVariable(GetAllBlackboardDefs().PlayerStateMachine.Zones, 1);
+    }
+  }
+  if IsDefined(psmBB) {
+    const secVar = psmBB.GetVariant(GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData);
+    if IsDefined(secVar) {
+      const secData = FromVariant<SecurityAreaData>(secVar);
+      if Equals(secData.securityAreaType, ESecurityAreaType.SAFE) {
+        let clearedSec: SecurityAreaData;
+        clearedSec.securityAreaType = ESecurityAreaType.DISABLED;
+        clearedSec.entered = false;
+        psmBB
+          .SetVariant(
+            GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData,
+            ToVariant(clearedSec),
+            true
+          );
+      }
+    }
+  }
+}
+
+private func NeonAscendancy_LogSafeZoneDiagnostics(
+  game: GameInstance,
+  player: GameObject,
+  psmBB: ref<IBlackboard>,
+  allowed: Bool,
+  stripped: Int32
+) -> Void {
+  const pos = player.GetWorldPosition();
+  const eid = player.GetEntityID();
+  const statsId = Cast<StatsObjectID>(eid);
+  let stats = GameInstance.GetStatsSystem(game);
+  let canSprint = false;
+  let hasDodge = false;
+  let canJump = false;
+  let hasDoubleJump = false;
+  let hasChargeJump = false;
+  let hasSandy = false;
+  let maxSpeed = 0.0;
+  if IsDefined(stats) {
+    canSprint = stats.GetStatBoolValue(statsId, gamedataStatType.CanSprint);
+    hasDodge = stats.GetStatBoolValue(statsId, gamedataStatType.HasDodge);
+    canJump = stats.GetStatBoolValue(statsId, gamedataStatType.CanJump);
+    hasDoubleJump = stats.GetStatBoolValue(statsId, gamedataStatType.HasDoubleJump);
+    hasChargeJump = stats.GetStatBoolValue(statsId, gamedataStatType.HasChargeJump);
+    hasSandy = stats.GetStatBoolValue(statsId, gamedataStatType.HasSandevistan);
+    maxSpeed = stats.GetStatValue(statsId, gamedataStatType.MaxSpeed);
+  }
+  let hl = -1;
+  let zones = -1;
+  let upper = -1;
+  let loco = -1;
+  let secArea = -1;
+  if IsDefined(psmBB) {
+    hl = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel);
+    zones = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Zones);
+    upper = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.UpperBody);
+    loco = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Locomotion);
+    const secVar = psmBB.GetVariant(GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData);
+    if IsDefined(secVar) {
+      const secData = FromVariant<SecurityAreaData>(secVar);
+      secArea = EnumInt(secData.securityAreaType);
+    }
+  }
+  let effectList = "";
+  let ses = GameInstance.GetStatusEffectSystem(game);
+  if IsDefined(ses) {
+    let applied: array<ref<StatusEffect>>;
+    ses.GetAppliedEffects(eid, applied);
+    for eff in applied {
+      if IsDefined(eff) && IsDefined(eff.GetRecord()) {
+        if StrLen(effectList) > 0 {
+          effectList += ",";
+        }
+        effectList
+          += s"\(TDBID.ToStringDEBUG(eff.GetRecord().GetID()))(x\(eff.GetStackCount()))";
+      }
+    }
+  }
+  NcLogInfo(
+    s"Sanitizer.PostStrip: stripped=\(stripped) allowed=\(allowed) hl=\(hl) zones=\(zones) secArea=\(secArea) upper=\(upper) loco=\(loco) canSprint=\(canSprint) hasDodge=\(hasDodge) canJump=\(canJump) hasDoubleJump=\(hasDoubleJump) hasChargeJump=\(hasChargeJump) hasSandy=\(hasSandy) maxSpeed=\(maxSpeed) pos=(\(pos.X),\(pos.Y),\(pos.Z)) effects=[\(effectList)]"
+  );
+}
+
+private func NeonAscendancy_ScheduleSafeZoneStrip(game: GameInstance, delaySeconds: Float) -> Void {
+  if !GameInstance.IsValid(game) {
+    return;
+  }
+  let sys = GameInstance
+    .GetScriptableSystemsContainer(game)
+    .Get(n"NeonAscendancy.Sandbox.NeonAscendancy_SanitizerSystem") as NeonAscendancy_SanitizerSystem;
+  if IsDefined(sys) {
+    sys.ScheduleSafeZoneStrip(delaySeconds, true);
+  }
+}
+
+private func NeonAscendancy_IsSafeZoneBlockedStat(statType: gamedataStatType) -> Bool {
+  return Equals(statType, gamedataStatType.CanSprint)
+    || Equals(statType, gamedataStatType.HasDodge)
+    || Equals(statType, gamedataStatType.HasDodgeAir)
+    || Equals(statType, gamedataStatType.HasChargeJump)
+    || Equals(statType, gamedataStatType.HasDoubleJump)
+    || Equals(statType, gamedataStatType.CanJump)
+    || Equals(statType, gamedataStatType.HasSandevistan)
+    || Equals(statType, gamedataStatType.HasBerserk)
+    || Equals(statType, gamedataStatType.HasKerenzikov)
+    || Equals(statType, gamedataStatType.CanUseOverclock);
+}
+
+// Block nested ApplyStatGroupEffector payloads (e.g. GameplayRestriction.InDaClub
+// and GameplayRestriction.NoSprint -> ApplyEffectorOnPlayer -> ApplyStatGroupOnPlayer)
+// from zeroing movement/cyberware stats outside allowed sanctuaries.
+@wrapMethod(ApplyStatGroupEffector)
+public final func ApplyModifierGroup() -> Void {
+  if IsDefined(this.m_owner)
+    && this.m_owner.IsPlayer()
+    && NeonAscendancy_ShouldOverrideSafeZone(this.m_owner)
+    && !NeonAscendancy_HasNonSafeCombatLock(this.m_owner)
+    && !StatusEffectSystem
+      .ObjectHasStatusEffect(this.m_owner, t"BaseStatusEffect.Encumbered") {
+    let blockedByPlayerState = false;
+    const pp = this.m_owner as PlayerPuppet;
+    if IsDefined(pp) {
+      const psmBB = pp.GetPlayerStateMachineBlackboard();
+      if IsDefined(psmBB) {
+        blockedByPlayerState = psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying)
+          || psmBB
+            .GetBool(GetAllBlackboardDefs().PlayerStateMachine.MountedToVehicle)
+          || psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.Vision) == 1;
+      }
+    }
+    if !blockedByPlayerState {
+      let groupRec = TweakDBInterface.GetStatModifierGroupRecord(this.m_record);
+      if IsDefined(groupRec) {
+        const modCount = groupRec.GetStatModifiersCount();
+        let i = 0;
+        while i < modCount {
+          let modRec = groupRec.GetStatModifiersItem(i) as ConstantStatModifier_Record;
+          if IsDefined(modRec)
+            && Equals(modRec.ModifierType(), n"Multiplier")
+            && modRec.Value() <= 0.0 {
+            let statRec = modRec.StatType();
+            if IsDefined(statRec)
+              && NeonAscendancy_IsSafeZoneBlockedStat(statRec.StatType()) {
+              NcLogInfo(
+                s"Sanitizer.BlockStatGroup: group=\(TDBID.ToStringDEBUG(this.m_record)) stat=\(statRec.EnumName())"
+              );
+              return;
+            }
+          }
+          i += 1;
+        }
+      }
+    }
+  }
+  wrappedMethod();
 }
 
 @wrapMethod(PlayerPuppet)
@@ -664,37 +1017,27 @@ protected cb func OnStatusEffectApplied(evt: ref<ApplyStatusEffectEvent>) -> Boo
       let staticData = evt.staticData;
       const effectId = staticData.GetID();
       const tags = staticData.GameplayTags();
-      const isNoJump = effectId
-        == t"GameplayRestriction.NoJump"
-        || ArrayContains(tags, n"NoJump");
-      const isSafeZoneRestriction = ArrayContains(tags, n"NoCombat")
-        || ArrayContains(tags, n"NoWeapons")
-        || ArrayContains(tags, n"InDaClub")
-        || ArrayContains(tags, n"Tier2Locomotion")
-        || effectId == t"GameplayRestriction.NoSprint"
-        || isNoJump;
-      if isSafeZoneRestriction
-        && !ArrayContains(tags, n"VehicleScene")
-        && !ArrayContains(tags, n"FastForward")
-        && !ArrayContains(tags, n"Braindance")
-        && !ArrayContains(tags, n"NoMovement") {
-        let psmBB = this.GetPlayerStateMachineBlackboard();
-        const hl = IsDefined(psmBB) ? psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel) : 1;
-        const isCarrying = IsDefined(psmBB)
-          && psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
-        if isNoJump && isCarrying {
-          return wrappedMethod(evt);
-        }
+      let psmBB = this.GetPlayerStateMachineBlackboard();
+      const hl = IsDefined(psmBB) ? psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel) : 1;
+      const isCarrying = IsDefined(psmBB)
+        && psmBB.GetBool(GetAllBlackboardDefs().PlayerStateMachine.Carrying);
+      if NeonAscendancy_IsSafeZoneRestriction(effectId, tags, isCarrying) {
         const pos = this.GetWorldPosition();
         const allowed = NeonAscendancy_IsAllowedSafeZone(game, pos);
         if hl < 3 || hl > 5 {
-          NcLogInfo(
-            s"Sanitizer.OnStatusEffectApplied: zone-lock effect=\(TDBID.ToStringDEBUG(effectId)) hl=\(hl) allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
-          );
           if !allowed {
-            StatusEffectHelper.RemoveStatusEffect(this, effectId);
+            const removed = NeonAscendancy_StripEffectHard(this, effectId, staticData);
+            let ses = GameInstance.GetStatusEffectSystem(game);
+            const still = IsDefined(ses) && ses.HasStatusEffect(this.GetEntityID(), effectId);
+            NcLogInfo(
+              s"Sanitizer.OnStatusEffectApplied: zone-lock effect=\(TDBID.ToStringDEBUG(effectId)) hl=\(hl) allowed=\(allowed) removed=\(removed) still=\(still) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+            );
+            NeonAscendancy_ScheduleSafeZoneStrip(game, 0.05);
             return true;
           }
+          NcLogInfo(
+            s"Sanitizer.OnStatusEffectApplied: sanctuary-allowed effect=\(TDBID.ToStringDEBUG(effectId)) hl=\(hl) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+          );
         }
       }
     }
