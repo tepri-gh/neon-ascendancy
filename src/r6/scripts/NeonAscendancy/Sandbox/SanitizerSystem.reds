@@ -109,7 +109,11 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     }
     let qs = GameInstance.GetQuestsSystem(game);
     const cleanSlate = IsDefined(qs) && qs.GetFact(n"na_clean_slate") > 0;
-    if cleanSlate || NcIsAscendancyStartPending() {
+    const wasPending = NcIsAscendancyStartPending();
+    if cleanSlate || wasPending {
+      NcLogInfo(
+        s"Sanitizer.OnPlayerAttached: cleanSlate=\(cleanSlate) pending=\(wasPending)"
+      );
       // Clean-slate world attached: consume the arm/pending handshake, then
       // auto-enable the sanitizer so a clean-slate run is never unmanaged.
       NcSetAscendancyStartPending(false);
@@ -123,7 +127,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       NcSetSanitizerActive(true);
       this.ScheduleApply(0.5);
     }
-    if cleanSlate {
+    if cleanSlate || wasPending {
       this.ScheduleCleanSlateBootstrap(1.0);
     }
   }
@@ -246,6 +250,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     }
     let qs = GameInstance.GetQuestsSystem(game);
     if !IsDefined(qs) || qs.GetFact(n"na_clean_slate") == 0 {
+      NcLogInfo("Sanitizer.CleanSlateBootstrap: skipped (na_clean_slate=0)");
       return;
     }
     let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
@@ -313,21 +318,22 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
         .EnablePlayerVehicle("Vehicle.v_standard2_archer_hella_player", true, false);
     }
 
-    // Cyberware (give + equip into their slots).
-    this.GrantAndEquipItem(ts, player, t"Items.KiroshiOptics");
+    // Cyberware (give + equip into their slots via EquipmentSystem request queue).
+    this.GrantAndEquipItem(game, ts, player, t"Items.KiroshiOptics");
     this
-      .GrantAndEquipItem(ts, player, t"Items.AdvancedMilitechParalineMKICommon");
-    this.GrantAndEquipItem(ts, player, t"Items.PowerGripRare");
-    this.GrantAndEquipItem(ts, player, t"Items.AdvancedBoringPlating_Q001");
+      .GrantAndEquipItem(game, ts, player, t"Items.AdvancedMilitechParalineMKICommon");
+    this.GrantAndEquipItem(game, ts, player, t"Items.PowerGripRare");
+    this
+      .GrantAndEquipItem(game, ts, player, t"Items.AdvancedBoringPlating_Q001");
 
     // Weapon & ammo.
-    this.GrantAndEquipItem(ts, player, t"Items.Preset_V_Unity");
+    this.GrantAndEquipItem(game, ts, player, t"Items.Preset_V_Unity");
     this.GrantItem(ts, player, t"Ammo.HandgunAmmo", 60);
 
     // Outfit.
-    this.GrantAndEquipItem(ts, player, t"Items.Q001_TShirt");
-    this.GrantAndEquipItem(ts, player, t"Items.Q001_Pants");
-    this.GrantAndEquipItem(ts, player, t"Items.Q001_Shoes");
+    this.GrantAndEquipItem(game, ts, player, t"Items.Q001_TShirt");
+    this.GrantAndEquipItem(game, ts, player, t"Items.Q001_Pants");
+    this.GrantAndEquipItem(game, ts, player, t"Items.Q001_Shoes");
 
     // Basic crafting mats.
     this.GrantItem(ts, player, t"Items.CommonMaterial1", 50);
@@ -343,14 +349,23 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     );
   }
 
-  private final func GrantAndEquipItem(ts: TransactionSystem, player: ref<GameObject>, tdbid: TweakDBID) -> Void {
+  private final func GrantAndEquipItem(
+    game: GameInstance,
+    ts: TransactionSystem,
+    player: ref<GameObject>,
+    tdbid: TweakDBID
+  ) -> Void {
     const itemId = ItemID.FromTDBID(tdbid);
-    if !ts.HasItem(player, itemId) {
+    const hasAny = ts.HasItem(player, ItemID.CreateQuery(tdbid));
+    let es = GameInstance.GetScriptableSystemsContainer(game).Get(n"EquipmentSystem") as EquipmentSystem;
+    if IsDefined(es) {
+      let req = new EquipRequest();
+      req.owner = player;
+      req.itemID = itemId;
+      req.addToInventory = !hasAny;
+      es.QueueRequest(req);
+    } else if !hasAny {
       ts.GiveItem(player, itemId, 1);
-    }
-    let eq = EquipmentSystem.GetData(player);
-    if IsDefined(eq) && !eq.IsEquipped(itemId) {
-      eq.EquipItem(itemId);
     }
   }
 

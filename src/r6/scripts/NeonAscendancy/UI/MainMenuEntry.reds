@@ -27,6 +27,38 @@ protected cb func OnStartAscendancy() -> Bool {
   this.SwitchToScenario(n"MenuScenario_Difficulty");
 }
 
+// On EP1 installs, vanilla initializes CharacterCustomizationSystem state in
+// ExpansionNewGame and skips InitializeState/ClearState in
+// CharacterCreationBackstorySelectionMenu. Because Start Ascendancy skips
+// ExpansionNewGame, mirror the non-EP1 lifecycle here when EP1 is enabled.
+@wrapMethod(CharacterCreationBackstorySelectionMenu)
+protected cb func OnInitialize() -> Bool {
+  if NcIsAscendancyStartPending()
+    && this.GetSystemRequestsHandler().IsAdditionalContentEnabled(n"EP1") {
+    let ccSys = this.GetCharacterCustomizationSystem();
+    if IsDefined(ccSys) {
+      ccSys.InitializeState();
+      let state = ccSys.GetState();
+      if IsDefined(state) {
+        state.SetIsExpansionStandalone(false);
+      }
+    }
+  }
+  return wrappedMethod();
+}
+
+@wrapMethod(CharacterCreationBackstorySelectionMenu)
+protected func PriorMenu() -> Void {
+  if NcIsAscendancyStartPending()
+    && this.GetSystemRequestsHandler().IsAdditionalContentEnabled(n"EP1") {
+    let ccSys = this.GetCharacterCustomizationSystem();
+    if IsDefined(ccSys) {
+      ccSys.ClearState();
+    }
+  }
+  wrappedMethod();
+}
+
 // Returning to the main menu (or any vanilla New Game / Load Game) must never
 // observe an armed .gamedef redirect.
 @wrapMethod(MenuScenario_SingleplayerMenu)
