@@ -64,8 +64,10 @@ function(neon_apply_warnings target)
   endif()
 endfunction()
 
-# 3. Pure C++20 causal simulation engine (zero Windows.h, SQLite, or RedLib).
+# 3. Pure C++20 causal simulation engine & era policy (zero Windows.h, SQLite, or RedLib).
 add_library(neon_sim STATIC
+  lib/sim/era.cpp
+  lib/sim/era.hpp
   lib/sim/sim.cpp
   lib/sim/sim.hpp
 )

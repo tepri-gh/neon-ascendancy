@@ -9,6 +9,8 @@ namespace neon::sim {
 inline constexpr int32_t kPlayerFactionIdBase = 1000;
 inline constexpr int32_t kDefaultCycleSeconds = 86400; // 1 in-game day
 inline constexpr int32_t kMaxEventDepth = 64;
+inline constexpr int32_t kDefaultCombatKillsRequired = 3;
+inline constexpr uint32_t kPlayerOrgColorRgba = 0x00F0FFFFU; // Neon Cyan (#00F0FF, alpha 255)
 
 enum class OrgKind : uint8_t {
   Gang = 0,
@@ -27,6 +29,14 @@ enum class MissionState : uint8_t {
   Succeeded = 2,
   Failed = 3,
   Expired = 4,
+};
+
+enum class PauseMenuAction : int32_t {
+  None = 0,
+  ActivateAscendancy = 1,
+  FoundGangHere = 2,
+  LaunchRivalRaid = 3,
+  ShowStatus = 4,
 };
 
 struct TerritoryDef {
@@ -76,6 +86,8 @@ struct MissionRuntime {
   int32_t deadline_seconds = 0;
   int32_t resolved_seconds = 0;
   int32_t resolved_revision = 0;
+  int32_t kills_required = kDefaultCombatKillsRequired;
+  int32_t kills_done = 0;
 };
 
 struct SimClock {
@@ -133,12 +145,20 @@ class SimEngine {
       int32_t home_sub_territory_id,
       int32_t game_seconds) const;
 
-  // Generate/offer a simple combat clear mission against a rival sub-territory.
+  // Generate/offer a combat clear-out mission against a rival sub-territory.
   CommandResult OfferCombatMission(
       SimState& state,
       int32_t sub_territory_id,
       int32_t control_center_id,
       int32_t reward_eddies,
+      int32_t game_seconds,
+      int32_t kills_required = kDefaultCombatKillsRequired) const;
+
+  // Record a hostile takedown for an active combat mission; automatically completes
+  // and flips the territory immediately once kills_done >= kills_required.
+  CommandResult RecordMissionKill(
+      SimState& state,
+      int32_t mission_id,
       int32_t game_seconds) const;
 
   // Complete a mission; in v0.1.0, completing a combat mission flips the
@@ -155,6 +175,28 @@ class SimEngine {
       int32_t cycle_seconds = kDefaultCycleSeconds) const;
 
   [[nodiscard]] int64_t ComputeCycleIncome(const SimState& state, int32_t faction_id) const;
+
+  // Pure read-only queries and presentation helpers (keep UI logic in C++).
+  [[nodiscard]] static const TerritoryRuntime* FindTerritoryConst(
+      const SimState& state, int32_t sub_territory_id);
+  [[nodiscard]] static const OrgRuntime* FindPlayerOrgConst(const SimState& state);
+  [[nodiscard]] static const MissionRuntime* FindActiveCombatMissionConst(const SimState& state);
+  [[nodiscard]] static int32_t CountOwnedTerritories(const SimState& state, int32_t faction_id);
+
+  [[nodiscard]] static PauseMenuAction ResolvePauseMenuAction(
+      const SimState& state, bool ascendancy_enabled);
+  [[nodiscard]] static std::string FormatPauseMenuLabel(
+      const SimState& state, bool ascendancy_enabled);
+  [[nodiscard]] static std::string FormatTerritoryTooltipDesc(
+      const std::string& district_name,
+      const std::string& owner_name,
+      int32_t base_income_per_cycle,
+      bool is_player_owned,
+      bool is_active_raid_target,
+      int32_t raid_kills_done,
+      int32_t raid_kills_required);
+  [[nodiscard]] std::string FormatStatusSummary(
+      const SimState& state, const std::string& active_target_name) const;
 
  private:
   const TerritoryDef* FindDef(int32_t sub_territory_id) const;

@@ -1,18 +1,26 @@
 #include <Windows.h>
 
+#include <cmath>
 #include <cstdio>
+#include <deque>
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include <RED4ext/RED4ext.hpp>
 #include <RedLib.hpp>
 
+#include "era.hpp"
 #include "sim.hpp"
 #include "store.hpp"
 
 namespace {
+
+constexpr double kCombatMissionRadiusXY = 160.0;
+constexpr double kCombatMissionRadiusZ = 60.0;
+constexpr size_t kMaxQueuedHudNotices = 16;
 
 RED4ext::v1::PluginHandle g_plugin_handle = nullptr;
 const RED4ext::v1::Sdk* g_sdk = nullptr;
@@ -25,6 +33,8 @@ struct CoreRuntime {
   neon::store::PlaythroughDb playthrough;
   std::unique_ptr<neon::sim::SimEngine> engine;
   neon::sim::SimState state;
+  std::unordered_set<uint64_t> counted_kill_entities;
+  std::deque<std::string> hud_notices;
   uint32_t playthrough_id_hi = 0;
   uint32_t playthrough_id_lo = 0;
   bool world_loaded = false;
@@ -49,6 +59,16 @@ void LogError(const char* msg) {
   if (g_sdk != nullptr && g_sdk->logger != nullptr && g_plugin_handle != nullptr) {
     g_sdk->logger->Error(g_plugin_handle, msg);
   }
+}
+
+void PushHudNoticeLocked(std::string msg) {
+  if (msg.empty()) {
+    return;
+  }
+  if (g_rt.hud_notices.size() >= kMaxQueuedHudNotices) {
+    g_rt.hud_notices.pop_front();
+  }
+  g_rt.hud_notices.push_back(std::move(msg));
 }
 
 std::string WideToUtf8(const std::wstring& ws) {
@@ -123,10 +143,62 @@ bool EnsureWorldLoadedLocked() {
   return true;
 }
 
+std::string ResolveFactionNameLocked(int32_t faction_id) {
+  if (faction_id >= neon::sim::kPlayerFactionIdBase) {
+    const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+    if (org != nullptr && org->faction_id == faction_id) {
+      return org->display_name;
+    }
+    return "Player Gang";
+  }
+  const auto* fac = g_rt.world.FindFaction(faction_id);
+  return fac != nullptr ? fac->display_name : "Unclaimed";
+}
+
+uint32_t ResolveFactionColorLocked(int32_t faction_id) {
+  if (faction_id >= neon::sim::kPlayerFactionIdBase) {
+    return neon::sim::kPlayerOrgColorRgba;
+  }
+  const auto* fac = g_rt.world.FindFaction(faction_id);
+  return fac != nullptr ? fac->color_rgba_packed : 0xAAAAAAFFU;
+}
+
+int32_t ResolveOwnerFactionIdLocked(int32_t sub_territory_id) {
+  if (g_rt.session_active) {
+    const auto* tr = neon::sim::SimEngine::FindTerritoryConst(g_rt.state, sub_territory_id);
+    if (tr != nullptr) {
+      return tr->owner_faction_id;
+    }
+  }
+  const auto* st = g_rt.world.FindSubTerritory(sub_territory_id);
+  return st != nullptr ? st->initial_owner_faction_id : 0;
+}
+
 // --- Native functions exposed to redscript 1.x via RedLib -------------------
 
 Red::CString NcCoreVersion() {
   return Red::CString("0.0.0-dev");
+}
+
+Red::CString NcPopHudNotice() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (g_rt.hud_notices.empty()) {
+    return Red::CString("");
+  }
+  std::string msg = std::move(g_rt.hud_notices.front());
+  g_rt.hud_notices.pop_front();
+  return Red::CString(msg.c_str());
+}
+
+uint32_t NcEvaluateSanitizer(uint32_t fact_bits, bool enabled) {
+  const auto facts = neon::sim::UnpackEraFactsMask(fact_bits);
+  const auto policy = neon::sim::ComputeSanitizerPolicy(facts, enabled);
+  return neon::sim::PackSanitizerPolicyMask(policy);
+}
+
+Red::CString NcGetEraName(int32_t era_code) {
+  const auto era = static_cast<neon::sim::WorldEra>(era_code);
+  return Red::CString(neon::sim::WorldEraName(era));
 }
 
 int32_t NcSessionBegin(
@@ -143,8 +215,6 @@ int32_t NcSessionBegin(
   uint32_t req_hi = id_hi;
   uint32_t req_lo = id_lo;
   if (req_hi == 0 && req_lo == 0) {
-    // Let PlaythroughDb generate ID on a temporary unique path? Generate here first
-    // so filename matches the stored playthrough_id deterministically.
     LARGE_INTEGER qpc{};
     QueryPerformanceCounter(&qpc);
     req_hi = static_cast<uint32_t>((static_cast<uint64_t>(qpc.QuadPart) >> 32U) ^ GetCurrentProcessId());
@@ -173,8 +243,17 @@ int32_t NcSessionBegin(
 
   g_rt.playthrough_id_hi = res.playthrough_id_hi;
   g_rt.playthrough_id_lo = res.playthrough_id_lo;
+  g_rt.counted_kill_entities.clear();
+  g_rt.hud_notices.clear();
   g_rt.session_active = true;
-  LogInfo("NcSessionBegin succeeded");
+
+  char msg[160] = {};
+  std::snprintf(
+      msg, sizeof(msg),
+      "NcSessionBegin succeeded: pt=%08x%08x status=%u anchor_rev=%d -> rev=%d",
+      res.playthrough_id_hi, res.playthrough_id_lo,
+      static_cast<unsigned>(res.status), anchor_revision, res.durable_revision);
+  LogInfo(msg);
   return res.durable_revision;
 }
 
@@ -196,7 +275,121 @@ int32_t NcSessionCurrentRevision() {
 bool NcSessionEnd() {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   g_rt.session_active = false;
+  g_rt.counted_kill_entities.clear();
+  g_rt.hud_notices.clear();
   return g_rt.playthrough.Close(true);
+}
+
+// --- World & Map O(1) RAM Queries -------------------------------------------
+
+int32_t NcGetControlCenterCount() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return 0;
+  }
+  return static_cast<int32_t>(g_rt.world.ControlCenters().size());
+}
+
+int32_t NcGetControlCenterSubTerritoryId(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.ControlCenters().size()) {
+    return 0;
+  }
+  return g_rt.world.ControlCenters()[static_cast<size_t>(index)].sub_territory_id;
+}
+
+int32_t NcGetControlCenterId(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.ControlCenters().size()) {
+    return 0;
+  }
+  return g_rt.world.ControlCenters()[static_cast<size_t>(index)].control_center_id;
+}
+
+float NcGetControlCenterX(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.ControlCenters().size()) {
+    return 0.0F;
+  }
+  return static_cast<float>(g_rt.world.ControlCenters()[static_cast<size_t>(index)].x);
+}
+
+float NcGetControlCenterY(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.ControlCenters().size()) {
+    return 0.0F;
+  }
+  return static_cast<float>(g_rt.world.ControlCenters()[static_cast<size_t>(index)].y);
+}
+
+float NcGetControlCenterZ(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.ControlCenters().size()) {
+    return 0.0F;
+  }
+  return static_cast<float>(g_rt.world.ControlCenters()[static_cast<size_t>(index)].z);
+}
+
+int32_t NcGetSubTerritoryOwner(int32_t sub_territory_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return 0;
+  }
+  return ResolveOwnerFactionIdLocked(sub_territory_id);
+}
+
+uint32_t NcGetFactionColorRgba(int32_t faction_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return 0xAAAAAAFFU;
+  }
+  return ResolveFactionColorLocked(faction_id);
+}
+
+Red::CString NcGetControlCenterTooltipTitle(int32_t sub_territory_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return Red::CString("Control Center");
+  }
+  const auto* st = g_rt.world.FindSubTerritory(sub_territory_id);
+  return Red::CString(st != nullptr ? st->display_name.c_str() : "Control Center");
+}
+
+Red::CString NcGetControlCenterTooltipDesc(int32_t sub_territory_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return Red::CString("");
+  }
+  const auto* st = g_rt.world.FindSubTerritory(sub_territory_id);
+  if (st == nullptr) {
+    return Red::CString("");
+  }
+  const auto* dist = g_rt.world.FindDistrict(st->district_id);
+  const std::string dist_name = dist != nullptr ? dist->display_name : "Night City";
+  const int32_t owner_id = ResolveOwnerFactionIdLocked(sub_territory_id);
+  const std::string owner_name = ResolveFactionNameLocked(owner_id);
+  const auto* org = g_rt.session_active
+                        ? neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state)
+                        : nullptr;
+  const bool is_player = (org != nullptr && owner_id == org->faction_id);
+  const auto* active = g_rt.session_active
+                           ? neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state)
+                           : nullptr;
+  const bool is_raid = (active != nullptr && active->sub_territory_id == sub_territory_id);
+  const std::string desc = neon::sim::SimEngine::FormatTerritoryTooltipDesc(
+      dist_name,
+      owner_name,
+      st->base_income_per_cycle,
+      is_player,
+      is_raid,
+      is_raid ? active->kills_done : 0,
+      is_raid ? active->kills_required : 0);
+  return Red::CString(desc.c_str());
 }
 
 int32_t NcLookupSubTerritoryAt(float x, float y) {
@@ -205,6 +398,67 @@ int32_t NcLookupSubTerritoryAt(float x, float y) {
     return 0;
   }
   return g_rt.world.LookupSubTerritoryAt(static_cast<double>(x), static_cast<double>(y));
+}
+
+int32_t NcFindBestSubTerritoryAt(float x, float y) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return 0;
+  }
+  const int32_t exact = g_rt.world.LookupSubTerritoryAt(static_cast<double>(x), static_cast<double>(y));
+  if (exact > 0) {
+    return exact;
+  }
+  return g_rt.world.FindNearestSubTerritory(static_cast<double>(x), static_cast<double>(y));
+}
+
+// --- Org, Economy & Combat Mission Commands / Queries -----------------------
+
+bool NcHasPlayerOrg() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return g_rt.session_active && neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state) != nullptr;
+}
+
+Red::CString NcGetPlayerOrgName() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) {
+    return Red::CString("");
+  }
+  const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+  return Red::CString(org != nullptr ? org->display_name.c_str() : "");
+}
+
+int32_t NcGetPlayerOwnedCount() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) {
+    return 0;
+  }
+  const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+  if (org == nullptr) {
+    return 0;
+  }
+  return neon::sim::SimEngine::CountOwnedTerritories(g_rt.state, org->faction_id);
+}
+
+int64_t NcGetPlayerCycleIncome() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active || g_rt.engine == nullptr) {
+    return 0;
+  }
+  const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+  if (org == nullptr) {
+    return 0;
+  }
+  return g_rt.engine->ComputeCycleIncome(g_rt.state, org->faction_id);
+}
+
+int64_t NcGetPlayerTreasury() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) {
+    return 0;
+  }
+  const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+  return org != nullptr ? org->treasury_eddies : 0;
 }
 
 int32_t NcFoundGang(Red::CString display_name, int32_t home_sub_territory_id, int32_t game_seconds) {
@@ -224,6 +478,12 @@ int32_t NcFoundGang(Red::CString display_name, int32_t home_sub_territory_id, in
     LogError(("NcFoundGang commit failed: " + err).c_str());
     return -1;
   }
+  const auto* st = g_rt.world.FindSubTerritory(home_sub_territory_id);
+  const std::string st_name = st != nullptr ? st->display_name : "Control Center";
+  const int64_t daily = g_rt.engine->ComputeCycleIncome(g_rt.state, neon::sim::kPlayerFactionIdBase);
+  PushHudNoticeLocked(
+      "GANG FOUNDED: " + name + " | Claimed " + st_name +
+      " (" + std::to_string(daily) + " eb/day)");
   return rev;
 }
 
@@ -244,7 +504,58 @@ int32_t NcOfferCombatMission(
     LogError(("NcOfferCombatMission commit failed: " + err).c_str());
     return -1;
   }
+  g_rt.counted_kill_entities.clear();
   return g_rt.state.missions.empty() ? -1 : g_rt.state.missions.back().mission_id;
+}
+
+int32_t NcOfferNearestRivalMission(float x, float y, int32_t game_seconds) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active || g_rt.engine == nullptr) {
+    return -1;
+  }
+  const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+  if (org == nullptr) {
+    return -1;
+  }
+  if (const auto* existing = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+      existing != nullptr) {
+    return existing->mission_id;
+  }
+
+  const int32_t rival_st = g_rt.world.FindNearestRivalSubTerritory(
+      static_cast<double>(x), static_cast<double>(y), org->faction_id, g_rt.state.territories);
+  if (rival_st <= 0) {
+    PushHudNoticeLocked("No rival territories remaining in Night City.");
+    return -1;
+  }
+  const auto* st = g_rt.world.FindSubTerritory(rival_st);
+  const auto* cc = g_rt.world.FindControlCenterBySubTerritory(rival_st);
+  if (st == nullptr || cc == nullptr) {
+    return -1;
+  }
+
+  const int32_t reward = 1500 + std::max(0, st->defense_rating) * 250;
+  auto res = g_rt.engine->OfferCombatMission(
+      g_rt.state, rival_st, cc->control_center_id, reward, game_seconds,
+      neon::sim::kDefaultCombatKillsRequired);
+  if (!res.ok) {
+    LogWarn(("NcOfferNearestRivalMission rejected: " + res.error).c_str());
+    return -1;
+  }
+  std::string err;
+  if (g_rt.playthrough.CommitState(g_rt.state, res.emitted, false, err) <= 0) {
+    LogError(("NcOfferNearestRivalMission commit failed: " + err).c_str());
+    return -1;
+  }
+  g_rt.counted_kill_entities.clear();
+
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  const std::string rival_name = m != nullptr ? ResolveFactionNameLocked(m->target_faction_id) : "Rival";
+  PushHudNoticeLocked(
+      "RIVAL RAID: Clear " + st->display_name + " (" + rival_name + ") — " +
+      std::to_string(neon::sim::kDefaultCombatKillsRequired) + " hostiles | +" +
+      std::to_string(reward) + " eb");
+  return m != nullptr ? m->mission_id : -1;
 }
 
 int64_t NcCompleteMission(int32_t mission_id, int32_t game_seconds) {
@@ -262,7 +573,73 @@ int64_t NcCompleteMission(int32_t mission_id, int32_t game_seconds) {
     LogError(("NcCompleteMission commit failed: " + err).c_str());
     return -1;
   }
+  g_rt.counted_kill_entities.clear();
   return res.payout_eddies;
+}
+
+int64_t NcOnNpcIncapacitated(
+    uint64_t entity_hash, float x, float y, float z, int32_t game_seconds) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active || g_rt.engine == nullptr || entity_hash == 0U) {
+    return 0;
+  }
+  const auto* active = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  if (active == nullptr) {
+    return 0;
+  }
+  if (g_rt.counted_kill_entities.contains(entity_hash)) {
+    return 0;
+  }
+  const auto* cc = g_rt.world.FindControlCenterBySubTerritory(active->sub_territory_id);
+  if (cc == nullptr) {
+    return 0;
+  }
+
+  const double dx = static_cast<double>(x) - cc->x;
+  const double dy = static_cast<double>(y) - cc->y;
+  const double dz = std::abs(static_cast<double>(z) - cc->z);
+  if ((dx * dx + dy * dy) > (kCombatMissionRadiusXY * kCombatMissionRadiusXY) ||
+      dz > kCombatMissionRadiusZ) {
+    return 0;
+  }
+
+  const int32_t mission_id = active->mission_id;
+  const int32_t target_st = active->sub_territory_id;
+  g_rt.counted_kill_entities.insert(entity_hash);
+
+  auto res = g_rt.engine->RecordMissionKill(g_rt.state, mission_id, game_seconds);
+  if (!res.ok) {
+    return 0;
+  }
+
+  std::string err;
+  if (g_rt.playthrough.CommitState(g_rt.state, res.emitted, false, err) <= 0) {
+    LogError(("NcOnNpcIncapacitated commit failed: " + err).c_str());
+    return -1;
+  }
+
+  const auto* st = g_rt.world.FindSubTerritory(target_st);
+  const std::string st_name = st != nullptr ? st->display_name : "Control Center";
+
+  if (res.payout_eddies > 0) {
+    g_rt.counted_kill_entities.clear();
+    const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+    const int64_t daily = org != nullptr
+                              ? g_rt.engine->ComputeCycleIncome(g_rt.state, org->faction_id)
+                              : 0;
+    PushHudNoticeLocked(
+        "TERRITORY CAPTURED: " + st_name + " | +" + std::to_string(res.payout_eddies) +
+        " eb | Income: " + std::to_string(daily) + " eb/day");
+    return res.payout_eddies;
+  }
+
+  const auto* updated = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  if (updated != nullptr) {
+    PushHudNoticeLocked(
+        "Raid Progress (" + st_name + "): " + std::to_string(updated->kills_done) + "/" +
+        std::to_string(updated->kills_required) + " hostiles");
+  }
+  return 0;
 }
 
 int64_t NcAdvanceTime(int32_t current_game_seconds) {
@@ -279,24 +656,129 @@ int64_t NcAdvanceTime(int32_t current_game_seconds) {
     LogError(("NcAdvanceTime commit failed: " + err).c_str());
     return -1;
   }
+  if (res.payout_eddies > 0) {
+    const auto* org = neon::sim::SimEngine::FindPlayerOrgConst(g_rt.state);
+    const int32_t owned = org != nullptr
+                              ? neon::sim::SimEngine::CountOwnedTerritories(g_rt.state, org->faction_id)
+                              : 0;
+    PushHudNoticeLocked(
+        "TERRITORY INCOME: +" + std::to_string(res.payout_eddies) +
+        " eb (" + std::to_string(owned) + " zones)");
+  }
   return res.payout_eddies;
+}
+
+int32_t NcGetActiveMissionId() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) return 0;
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  return m != nullptr ? m->mission_id : 0;
+}
+
+int32_t NcGetActiveMissionSubTerritoryId() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) return 0;
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  return m != nullptr ? m->sub_territory_id : 0;
+}
+
+float NcGetActiveMissionTargetX() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) return 0.0F;
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  const auto* cc = m != nullptr ? g_rt.world.FindControlCenterBySubTerritory(m->sub_territory_id) : nullptr;
+  return cc != nullptr ? static_cast<float>(cc->x) : 0.0F;
+}
+
+float NcGetActiveMissionTargetY() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) return 0.0F;
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  const auto* cc = m != nullptr ? g_rt.world.FindControlCenterBySubTerritory(m->sub_territory_id) : nullptr;
+  return cc != nullptr ? static_cast<float>(cc->y) : 0.0F;
+}
+
+float NcGetActiveMissionTargetZ() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active) return 0.0F;
+  const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+  const auto* cc = m != nullptr ? g_rt.world.FindControlCenterBySubTerritory(m->sub_territory_id) : nullptr;
+  return cc != nullptr ? static_cast<float>(cc->z) : 0.0F;
+}
+
+int32_t NcGetPauseMenuActionCode(bool ascendancy_enabled) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return static_cast<int32_t>(
+      neon::sim::SimEngine::ResolvePauseMenuAction(g_rt.state, ascendancy_enabled));
+}
+
+Red::CString NcGetPauseMenuLabel(bool ascendancy_enabled) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const std::string label =
+      neon::sim::SimEngine::FormatPauseMenuLabel(g_rt.state, ascendancy_enabled);
+  return Red::CString(label.c_str());
+}
+
+Red::CString NcFormatStatusSummary() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!g_rt.session_active || g_rt.engine == nullptr) {
+    return Red::CString("Neon Ascendancy session not initialized.");
+  }
+  std::string target_name;
+  if (const auto* m = neon::sim::SimEngine::FindActiveCombatMissionConst(g_rt.state);
+      m != nullptr) {
+    if (const auto* st = g_rt.world.FindSubTerritory(m->sub_territory_id); st != nullptr) {
+      target_name = st->display_name;
+    }
+  }
+  const std::string summary = g_rt.engine->FormatStatusSummary(g_rt.state, target_name);
+  return Red::CString(summary.c_str());
 }
 
 } // namespace
 
 RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcCoreVersion, "NeonAscendancy.Core.NcCoreVersion");
+  RTTI_FUNCTION(NcPopHudNotice, "NeonAscendancy.Core.NcPopHudNotice");
+  RTTI_FUNCTION(NcEvaluateSanitizer, "NeonAscendancy.Core.NcEvaluateSanitizer");
+  RTTI_FUNCTION(NcGetEraName, "NeonAscendancy.Core.NcGetEraName");
   RTTI_FUNCTION(NcSessionBegin, "NeonAscendancy.Core.NcSessionBegin");
   RTTI_FUNCTION(NcSessionGetPlaythroughIdHi, "NeonAscendancy.Core.NcSessionGetPlaythroughIdHi");
   RTTI_FUNCTION(NcSessionGetPlaythroughIdLo, "NeonAscendancy.Core.NcSessionGetPlaythroughIdLo");
   RTTI_FUNCTION(NcSessionCurrentRevision, "NeonAscendancy.Core.NcSessionCurrentRevision");
   RTTI_FUNCTION(NcSessionEnd, "NeonAscendancy.Core.NcSessionEnd");
+  RTTI_FUNCTION(NcGetControlCenterCount, "NeonAscendancy.Core.NcGetControlCenterCount");
+  RTTI_FUNCTION(NcGetControlCenterSubTerritoryId, "NeonAscendancy.Core.NcGetControlCenterSubTerritoryId");
+  RTTI_FUNCTION(NcGetControlCenterId, "NeonAscendancy.Core.NcGetControlCenterId");
+  RTTI_FUNCTION(NcGetControlCenterX, "NeonAscendancy.Core.NcGetControlCenterX");
+  RTTI_FUNCTION(NcGetControlCenterY, "NeonAscendancy.Core.NcGetControlCenterY");
+  RTTI_FUNCTION(NcGetControlCenterZ, "NeonAscendancy.Core.NcGetControlCenterZ");
+  RTTI_FUNCTION(NcGetSubTerritoryOwner, "NeonAscendancy.Core.NcGetSubTerritoryOwner");
+  RTTI_FUNCTION(NcGetFactionColorRgba, "NeonAscendancy.Core.NcGetFactionColorRgba");
+  RTTI_FUNCTION(NcGetControlCenterTooltipTitle, "NeonAscendancy.Core.NcGetControlCenterTooltipTitle");
+  RTTI_FUNCTION(NcGetControlCenterTooltipDesc, "NeonAscendancy.Core.NcGetControlCenterTooltipDesc");
   RTTI_FUNCTION(NcLookupSubTerritoryAt, "NeonAscendancy.Core.NcLookupSubTerritoryAt");
+  RTTI_FUNCTION(NcFindBestSubTerritoryAt, "NeonAscendancy.Core.NcFindBestSubTerritoryAt");
+  RTTI_FUNCTION(NcHasPlayerOrg, "NeonAscendancy.Core.NcHasPlayerOrg");
+  RTTI_FUNCTION(NcGetPlayerOrgName, "NeonAscendancy.Core.NcGetPlayerOrgName");
+  RTTI_FUNCTION(NcGetPlayerOwnedCount, "NeonAscendancy.Core.NcGetPlayerOwnedCount");
+  RTTI_FUNCTION(NcGetPlayerCycleIncome, "NeonAscendancy.Core.NcGetPlayerCycleIncome");
+  RTTI_FUNCTION(NcGetPlayerTreasury, "NeonAscendancy.Core.NcGetPlayerTreasury");
   RTTI_FUNCTION(NcFoundGang, "NeonAscendancy.Core.NcFoundGang");
   RTTI_FUNCTION(NcOfferCombatMission, "NeonAscendancy.Core.NcOfferCombatMission");
+  RTTI_FUNCTION(NcOfferNearestRivalMission, "NeonAscendancy.Core.NcOfferNearestRivalMission");
   RTTI_FUNCTION(NcCompleteMission, "NeonAscendancy.Core.NcCompleteMission");
+  RTTI_FUNCTION(NcOnNpcIncapacitated, "NeonAscendancy.Core.NcOnNpcIncapacitated");
   RTTI_FUNCTION(NcAdvanceTime, "NeonAscendancy.Core.NcAdvanceTime");
-  LogInfo("Registered 11 NeonAscendancy.Core native RTTI globals");
+  RTTI_FUNCTION(NcGetActiveMissionId, "NeonAscendancy.Core.NcGetActiveMissionId");
+  RTTI_FUNCTION(NcGetActiveMissionSubTerritoryId, "NeonAscendancy.Core.NcGetActiveMissionSubTerritoryId");
+  RTTI_FUNCTION(NcGetActiveMissionTargetX, "NeonAscendancy.Core.NcGetActiveMissionTargetX");
+  RTTI_FUNCTION(NcGetActiveMissionTargetY, "NeonAscendancy.Core.NcGetActiveMissionTargetY");
+  RTTI_FUNCTION(NcGetActiveMissionTargetZ, "NeonAscendancy.Core.NcGetActiveMissionTargetZ");
+  RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
+  RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
+  RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
+  LogInfo("Registered 40 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {
@@ -323,6 +805,8 @@ RED4EXT_C_EXPORT bool RED4EXT_CALL Main(
     case RED4ext::v1::EMainReason::Unload: {
       std::lock_guard<std::mutex> lock(g_rt.mu);
       g_rt.session_active = false;
+      g_rt.counted_kill_entities.clear();
+      g_rt.hud_notices.clear();
       g_rt.playthrough.Close(true);
       g_rt.world.Close();
       LogInfo("NeonAscendancy native core unloaded");
@@ -335,7 +819,7 @@ RED4EXT_C_EXPORT bool RED4EXT_CALL Main(
 RED4EXT_C_EXPORT void RED4EXT_CALL Query(RED4ext::v1::PluginInfo* aInfo) {
   aInfo->name = L"NeonAscendancy";
   aInfo->author = L"Neon Ascendancy";
-  aInfo->version = RED4EXT_V1_SEMVER(0, 0, 0);
+  aInfo->version = RED4EXT_V1_SEMVER(0, 1, 0);
   aInfo->runtime = RED4EXT_V1_RUNTIME_VERSION_LATEST;
   aInfo->sdk = RED4EXT_V1_SDK_VERSION_CURRENT;
 }

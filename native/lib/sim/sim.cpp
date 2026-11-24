@@ -49,7 +49,24 @@ TerritoryRuntime* SimEngine::FindTerritory(SimState& state, int32_t sub_territor
   return nullptr;
 }
 
+const TerritoryRuntime* SimEngine::FindTerritoryConst(
+    const SimState& state, int32_t sub_territory_id) {
+  for (const auto& t : state.territories) {
+    if (t.sub_territory_id == sub_territory_id) {
+      return &t;
+    }
+  }
+  return nullptr;
+}
+
 OrgRuntime* SimEngine::FindPlayerOrg(SimState& state) {
+  if (state.orgs.empty()) {
+    return nullptr;
+  }
+  return &state.orgs.front();
+}
+
+const OrgRuntime* SimEngine::FindPlayerOrgConst(const SimState& state) {
   if (state.orgs.empty()) {
     return nullptr;
   }
@@ -65,6 +82,26 @@ MissionRuntime* SimEngine::FindMission(SimState& state, int32_t mission_id) {
   return nullptr;
 }
 
+const MissionRuntime* SimEngine::FindActiveCombatMissionConst(const SimState& state) {
+  for (auto it = state.missions.rbegin(); it != state.missions.rend(); ++it) {
+    if (it->kind == MissionKind::Combat &&
+        (it->state == MissionState::Active || it->state == MissionState::Offered)) {
+      return &(*it);
+    }
+  }
+  return nullptr;
+}
+
+int32_t SimEngine::CountOwnedTerritories(const SimState& state, int32_t faction_id) {
+  int32_t count = 0;
+  for (const auto& t : state.territories) {
+    if (t.owner_faction_id == faction_id) {
+      ++count;
+    }
+  }
+  return count;
+}
+
 int64_t SimEngine::ComputeCycleIncome(const SimState& state, int32_t faction_id) const {
   int64_t total = 0;
   for (const auto& t : state.territories) {
@@ -77,6 +114,75 @@ int64_t SimEngine::ComputeCycleIncome(const SimState& state, int32_t faction_id)
     }
   }
   return total;
+}
+
+PauseMenuAction SimEngine::ResolvePauseMenuAction(
+    const SimState& state, bool ascendancy_enabled) {
+  if (!ascendancy_enabled) {
+    return PauseMenuAction::ActivateAscendancy;
+  }
+  if (FindPlayerOrgConst(state) == nullptr) {
+    return PauseMenuAction::FoundGangHere;
+  }
+  if (FindActiveCombatMissionConst(state) == nullptr) {
+    return PauseMenuAction::LaunchRivalRaid;
+  }
+  return PauseMenuAction::ShowStatus;
+}
+
+std::string SimEngine::FormatPauseMenuLabel(
+    const SimState& state, bool ascendancy_enabled) {
+  switch (ResolvePauseMenuAction(state, ascendancy_enabled)) {
+    case PauseMenuAction::ActivateAscendancy:
+      return "NEON ASCENDANCY: START SANDBOX";
+    case PauseMenuAction::FoundGangHere:
+      return "NEON ASCENDANCY: FOUND GANG HERE";
+    case PauseMenuAction::LaunchRivalRaid:
+      return "NEON ASCENDANCY: LAUNCH RIVAL RAID";
+    case PauseMenuAction::ShowStatus:
+      return "NEON ASCENDANCY: GANG STATUS";
+    case PauseMenuAction::None:
+      break;
+  }
+  return "NEON ASCENDANCY";
+}
+
+std::string SimEngine::FormatTerritoryTooltipDesc(
+    const std::string& district_name,
+    const std::string& owner_name,
+    int32_t base_income_per_cycle,
+    bool is_player_owned,
+    bool is_active_raid_target,
+    int32_t raid_kills_done,
+    int32_t raid_kills_required) {
+  std::string out = "District: " + district_name +
+                    "\nOwner: " + owner_name +
+                    "\nDaily Income: " + std::to_string(base_income_per_cycle) + " eb";
+  if (is_player_owned) {
+    out += "\n[YOUR TURF]";
+  } else if (is_active_raid_target) {
+    out += "\n[ACTIVE RAID: " + std::to_string(raid_kills_done) + "/" +
+           std::to_string(raid_kills_required) + " hostiles]";
+  }
+  return out;
+}
+
+std::string SimEngine::FormatStatusSummary(
+    const SimState& state, const std::string& active_target_name) const {
+  const auto* org = FindPlayerOrgConst(state);
+  if (org == nullptr) {
+    return "Neon Ascendancy active. No gang founded yet.";
+  }
+  const int32_t owned = CountOwnedTerritories(state, org->faction_id);
+  const int64_t daily = ComputeCycleIncome(state, org->faction_id);
+  std::string s = org->display_name + " | Turf: " + std::to_string(owned) +
+                  " | Income: " + std::to_string(daily) + " eb/day";
+  const auto* mission = FindActiveCombatMissionConst(state);
+  if (mission != nullptr) {
+    s += " | Raid: " + active_target_name + " (" + std::to_string(mission->kills_done) + "/" +
+         std::to_string(mission->kills_required) + ")";
+  }
+  return s;
 }
 
 void SimEngine::ProcessEventQueue(
@@ -145,7 +251,8 @@ void SimEngine::ProcessEventQueue(
         auto* org = FindPlayerOrg(state);
         if (org != nullptr) {
           const int64_t gross = ComputeCycleIncome(state, org->faction_id);
-          const int64_t net = std::max<int64_t>(0, gross - static_cast<int64_t>(org->upkeep_per_cycle));
+          const int64_t net =
+              std::max<int64_t>(0, gross - static_cast<int64_t>(org->upkeep_per_cycle));
           if (net > 0) {
             org->treasury_eddies += net;
             out.payout_eddies += net;
@@ -229,11 +336,16 @@ CommandResult SimEngine::OfferCombatMission(
     int32_t sub_territory_id,
     int32_t control_center_id,
     int32_t reward_eddies,
-    int32_t game_seconds) const {
+    int32_t game_seconds,
+    int32_t kills_required) const {
   CommandResult res;
   auto* org = FindPlayerOrg(state);
   if (org == nullptr) {
     res.error = "no player organization founded";
+    return res;
+  }
+  if (FindActiveCombatMissionConst(state) != nullptr) {
+    res.error = "an active combat mission is already in progress";
     return res;
   }
   auto* terr = FindTerritory(state, sub_territory_id);
@@ -264,6 +376,8 @@ CommandResult SimEngine::OfferCombatMission(
   m.difficulty = 1.0F;
   m.reward_eddies = std::max(0, reward_eddies);
   m.created_seconds = game_seconds;
+  m.kills_required = std::max(1, kills_required);
+  m.kills_done = 0;
   state.missions.push_back(m);
 
   res.ok = true;
@@ -272,6 +386,31 @@ CommandResult SimEngine::OfferCombatMission(
       {SimEvent{SimEventType::MissionOffered, game_seconds, m.mission_id, m.target_faction_id,
                 m.sub_territory_id}},
       res);
+  return res;
+}
+
+CommandResult SimEngine::RecordMissionKill(
+    SimState& state,
+    int32_t mission_id,
+    int32_t game_seconds) const {
+  CommandResult res;
+  auto* m = FindMission(state, mission_id);
+  if (m == nullptr) {
+    res.error = "unknown mission_id";
+    return res;
+  }
+  if (m->kind != MissionKind::Combat ||
+      (m->state != MissionState::Active && m->state != MissionState::Offered)) {
+    res.error = "mission is not an active combat mission";
+    return res;
+  }
+
+  m->kills_done += 1;
+  if (m->kills_done >= m->kills_required) {
+    return CompleteMission(state, mission_id, game_seconds);
+  }
+
+  res.ok = true;
   return res;
 }
 
@@ -290,6 +429,7 @@ CommandResult SimEngine::CompleteMission(
     return res;
   }
   m->state = MissionState::Succeeded;
+  m->kills_done = std::max(m->kills_done, m->kills_required);
   m->resolved_seconds = game_seconds;
   m->resolved_revision = state.clock.revision;
 

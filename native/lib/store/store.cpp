@@ -208,9 +208,39 @@ void WorldDb::Close() {
     db_ = nullptr;
   }
   content_hash_.clear();
+  factions_.clear();
+  districts_.clear();
   sub_territories_.clear();
   control_centers_.clear();
+  faction_index_.clear();
+  district_index_.clear();
+  sub_territory_index_.clear();
+  cc_by_st_index_.clear();
   cell_grid_.clear();
+}
+
+uint32_t WorldDb::ParseHexColorRgba(const std::string& hex) {
+  auto nibble = [](char c) -> int {
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return 10 + (c - 'a');
+    if (c >= 'A' && c <= 'F') return 10 + (c - 'A');
+    return -1;
+  };
+  size_t off = (!hex.empty() && hex[0] == '#') ? 1U : 0U;
+  const size_t rem = hex.size() - off;
+  if (rem != 6U && rem != 8U) {
+    return 0xCCCCCCFFU;
+  }
+  uint32_t out = 0;
+  for (size_t i = 0; i < rem; ++i) {
+    const int v = nibble(hex[off + i]);
+    if (v < 0) return 0xCCCCCCFFU;
+    out = (out << 4U) | static_cast<uint32_t>(v);
+  }
+  if (rem == 6U) {
+    out = (out << 8U) | 0xFFU;
+  }
+  return out;
 }
 
 uint64_t WorldDb::PackCellKey(int32_t cx, int32_t cy) {
@@ -254,6 +284,57 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
     }
   }
 
+  // Load factions
+  {
+    StmtGuard g;
+    const char* sql =
+        "SELECT faction_id, code, display_name, category, color_rgba "
+        "FROM factions ORDER BY faction_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      WorldFaction f;
+      f.faction_id = sqlite3_column_int(g.stmt, 0);
+      f.code = ColText(g.stmt, 1);
+      f.display_name = ColText(g.stmt, 2);
+      f.category = ColText(g.stmt, 3);
+      f.color_rgba_packed = ParseHexColorRgba(ColText(g.stmt, 4));
+      faction_index_[f.faction_id] = factions_.size();
+      factions_.push_back(std::move(f));
+    }
+  }
+
+  // Load districts
+  {
+    StmtGuard g;
+    const char* sql =
+        "SELECT district_id, code, display_name, kind, "
+        "COALESCE(bbox_min_x, 0.0), COALESCE(bbox_min_y, 0.0), "
+        "COALESCE(bbox_max_x, 0.0), COALESCE(bbox_max_y, 0.0) "
+        "FROM districts ORDER BY district_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      WorldDistrict d;
+      d.district_id = sqlite3_column_int(g.stmt, 0);
+      d.code = ColText(g.stmt, 1);
+      d.display_name = ColText(g.stmt, 2);
+      d.kind = ColText(g.stmt, 3);
+      d.bbox_min_x = sqlite3_column_double(g.stmt, 4);
+      d.bbox_min_y = sqlite3_column_double(g.stmt, 5);
+      d.bbox_max_x = sqlite3_column_double(g.stmt, 6);
+      d.bbox_max_y = sqlite3_column_double(g.stmt, 7);
+      district_index_[d.district_id] = districts_.size();
+      districts_.push_back(std::move(d));
+    }
+  }
+
   // Load sub_territories
   {
     StmtGuard g;
@@ -280,6 +361,7 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
       st.centroid_x = sqlite3_column_double(g.stmt, 8);
       st.centroid_y = sqlite3_column_double(g.stmt, 9);
       st.centroid_z = sqlite3_column_double(g.stmt, 10);
+      sub_territory_index_[st.sub_territory_id] = sub_territories_.size();
       sub_territories_.push_back(std::move(st));
     }
   }
@@ -305,6 +387,7 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
       cc.y = sqlite3_column_double(g.stmt, 5);
       cc.z = sqlite3_column_double(g.stmt, 6);
       cc.capture_radius_m = sqlite3_column_double(g.stmt, 7);
+      cc_by_st_index_[cc.sub_territory_id] = control_centers_.size();
       control_centers_.push_back(std::move(cc));
     }
   }
@@ -345,6 +428,26 @@ std::vector<sim::TerritoryDef> WorldDb::BuildTerritoryDefs() const {
   return out;
 }
 
+const WorldFaction* WorldDb::FindFaction(int32_t faction_id) const {
+  const auto it = faction_index_.find(faction_id);
+  return it != faction_index_.end() ? &factions_[it->second] : nullptr;
+}
+
+const WorldDistrict* WorldDb::FindDistrict(int32_t district_id) const {
+  const auto it = district_index_.find(district_id);
+  return it != district_index_.end() ? &districts_[it->second] : nullptr;
+}
+
+const WorldSubTerritory* WorldDb::FindSubTerritory(int32_t sub_territory_id) const {
+  const auto it = sub_territory_index_.find(sub_territory_id);
+  return it != sub_territory_index_.end() ? &sub_territories_[it->second] : nullptr;
+}
+
+const WorldControlCenter* WorldDb::FindControlCenterBySubTerritory(int32_t sub_territory_id) const {
+  const auto it = cc_by_st_index_.find(sub_territory_id);
+  return it != cc_by_st_index_.end() ? &control_centers_[it->second] : nullptr;
+}
+
 int32_t WorldDb::LookupSubTerritoryAt(double x, double y) const {
   if (cell_size_m_ <= 0.0) {
     return 0;
@@ -353,6 +456,47 @@ int32_t WorldDb::LookupSubTerritoryAt(double x, double y) const {
   const int32_t cy = static_cast<int32_t>(std::floor(y / cell_size_m_));
   const auto it = cell_grid_.find(PackCellKey(cx, cy));
   return it != cell_grid_.end() ? it->second : 0;
+}
+
+int32_t WorldDb::FindNearestSubTerritory(double x, double y) const {
+  int32_t best_id = 0;
+  double best_d2 = 0.0;
+  for (const auto& cc : control_centers_) {
+    const double dx = cc.x - x;
+    const double dy = cc.y - y;
+    const double d2 = dx * dx + dy * dy;
+    if (best_id == 0 || d2 < best_d2) {
+      best_id = cc.sub_territory_id;
+      best_d2 = d2;
+    }
+  }
+  return best_id;
+}
+
+int32_t WorldDb::FindNearestRivalSubTerritory(
+    double x,
+    double y,
+    int32_t exclude_faction_id,
+    const std::vector<sim::TerritoryRuntime>& territories) const {
+  int32_t best_id = 0;
+  double best_d2 = 0.0;
+  for (const auto& t : territories) {
+    if (t.owner_faction_id == exclude_faction_id) {
+      continue;
+    }
+    const auto* cc = FindControlCenterBySubTerritory(t.sub_territory_id);
+    if (cc == nullptr) {
+      continue;
+    }
+    const double dx = cc->x - x;
+    const double dy = cc->y - y;
+    const double d2 = dx * dx + dy * dy;
+    if (best_id == 0 || d2 < best_d2) {
+      best_id = t.sub_territory_id;
+      best_d2 = d2;
+    }
+  }
+  return best_id;
 }
 
 std::vector<int32_t> WorldDb::QuerySpawnPointsNear(
@@ -462,6 +606,8 @@ std::vector<uint8_t> PlaythroughDb::EncodeFullSnapshot(const sim::SimState& stat
     w.PutI32(m.deadline_seconds);
     w.PutI32(m.resolved_seconds);
     w.PutI32(m.resolved_revision);
+    w.PutI32(m.kills_required);
+    w.PutI32(m.kills_done);
   }
 
   w.AppendFooterCrc();
@@ -491,7 +637,7 @@ bool PlaythroughDb::DecodeFullSnapshot(const std::vector<uint8_t>& blob, sim::Si
   if (!r.GetU16(magic) || !r.GetU16(ver) || !r.GetU32(total_rows)) {
     return false;
   }
-  if (magic != kPayloadMagic || ver != kPayloadFormatVersion) {
+  if (magic != kPayloadMagic || (ver != 1U && ver != kPayloadFormatVersion)) {
     return false;
   }
 
@@ -544,6 +690,14 @@ bool PlaythroughDb::DecodeFullSnapshot(const std::vector<uint8_t>& blob, sim::Si
         !r.GetI32(m.created_seconds) || !r.GetI32(m.deadline_seconds) ||
         !r.GetI32(m.resolved_seconds) || !r.GetI32(m.resolved_revision)) {
       return false;
+    }
+    if (ver >= 2U) {
+      if (!r.GetI32(m.kills_required) || !r.GetI32(m.kills_done)) {
+        return false;
+      }
+    } else {
+      m.kills_required = sim::kDefaultCombatKillsRequired;
+      m.kills_done = 0;
     }
     m.kind = static_cast<sim::MissionKind>(kind);
     m.state = static_cast<sim::MissionState>(mstate);
