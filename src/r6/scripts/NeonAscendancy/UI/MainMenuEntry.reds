@@ -68,9 +68,9 @@ protected cb func OnEnterScenario(prevScenario: CName, userData: ref<IScriptable
   return wrappedMethod(prevScenario, userData);
 }
 
-// Arm the native .gamedef redirect immediately before the vanilla
-// FinalizeState + StartNewGame call site runs. Pending stays true until the
-// world attaches so SanitizerSystem can also detect the clean-slate entry.
+// Arm the native .gamedef + LifePath spawn-tag redirect immediately before the
+// vanilla FinalizeState + StartNewGame call site runs. Pending stays true until
+// the world attaches so SanitizerSystem can also detect the clean-slate entry.
 @wrapMethod(characterCreationSummaryMenu)
 protected cb func OnOutroComplete(anim: ref<inkAnimProxy>) -> Bool {
   if NcIsAscendancyStartPending() {
@@ -78,7 +78,15 @@ protected cb func OnOutroComplete(anim: ref<inkAnimProxy>) -> Bool {
       this.m_characterCustomizationState.SetIsExpansionStandalone(false);
     }
     const armed = NcArmAscendancyStart();
-    NcLogInfo(s"MainMenu.StartAscendancy: armed=\(armed)");
+    let spawnTag = "None";
+    if IsDefined(this.m_characterCustomizationState) {
+      let lpRec = TweakDBInterface
+        .GetLifePathRecord(this.m_characterCustomizationState.GetLifePath());
+      if IsDefined(lpRec) {
+        spawnTag = NameToString(lpRec.NewGameSpawnTag());
+      }
+    }
+    NcLogInfo(s"MainMenu.StartAscendancy: armed=\(armed) spawnTag=\(spawnTag)");
   }
   return wrappedMethod(anim);
 }

@@ -1,5 +1,6 @@
 #include <Windows.h>
 
+#include <array>
 #include <cmath>
 #include <cstdio>
 #include <deque>
@@ -11,9 +12,11 @@
 #include <unordered_set>
 #include <vector>
 
+#include <RED4ext/CNamePool.hpp>
 #include <RED4ext/RED4ext.hpp>
 #include <RED4ext/ResourceDepot.hpp>
 #include <RED4ext/ResourceLoader.hpp>
+#include <RED4ext/TweakDB.hpp>
 #include <RedLib.hpp>
 
 #include "era.hpp"
@@ -37,6 +40,21 @@ constexpr const char* kAscendancyGamedefPath = "mod\\neon_ascendancy\\ascendancy
 constexpr const char* kAscendancyQuestPath = "mod\\neon_ascendancy\\ascendancy.quest";
 constexpr const char* kAscendancyQuestPhasePath = "mod\\neon_ascendancy\\ascendancy.questphase";
 
+// H10 apartment player spawn marker (worldStaticMarkerNode in
+// always_loaded_1.streamingsector at (-1383.64, 1271.17, 123.06), literal tag
+// "mq000_spwn_player" matching vanilla mq000.gamedef and
+// data/clean-slate/clean_slate_spec.json). Native StartNewGame overrides
+// gamedef.spawnPointTags with LifePath_Record.NewGameSpawnTag(), so
+// NcArmAscendancyStart temporarily swaps the three unique
+// LifePaths.*.newGameSpawnTag flats in-place and NcDisarmAscendancyStart
+// restores their exact original CNames so vanilla New Game is untouched.
+constexpr const char* kAscendancySpawnTag = "mq000_spwn_player";
+constexpr std::array<const char*, 3> kLifePathSpawnTagFlats = {
+    "LifePaths.Nomad.newGameSpawnTag",
+    "LifePaths.Corporate.newGameSpawnTag",
+    "LifePaths.StreetKid.newGameSpawnTag",
+};
+
 RED4ext::v1::PluginHandle g_plugin_handle = nullptr;
 const RED4ext::v1::Sdk* g_sdk = nullptr;
 HMODULE g_module_handle = nullptr;
@@ -52,12 +70,15 @@ struct CoreRuntime {
   std::deque<std::string> hud_notices;
   std::vector<neon::sim::SafeSanctuaryZone> safe_sanctuaries;
   std::unordered_map<uint64_t, int32_t> control_center_pins;
+  std::array<RED4ext::CName, kLifePathSpawnTagFlats.size()> saved_lifepath_spawn_tags{};
+  std::array<bool, kLifePathSpawnTagFlats.size()> saved_lifepath_spawn_tag_valid{};
   uint32_t playthrough_id_hi = 0;
   uint32_t playthrough_id_lo = 0;
   bool world_loaded = false;
   bool session_active = false;
   bool sanitizer_active = false;
   bool ascendancy_start_pending = false;
+  bool lifepath_spawn_tags_overridden = false;
 };
 
 CoreRuntime g_rt;
@@ -223,12 +244,109 @@ bool NcIsAscendancyStartPending() {
   return g_rt.ascendancy_start_pending;
 }
 
+// In-place flat swap for LifePaths.*.newGameSpawnTag. Safe because the three
+// vanilla tag CNames (#q000_nomad_wp_garage_start,
+// #q000_corpo_spwn_player_toilet_female, #q000_kid_spawn_start) are unique
+// across the entire TweakDB, so their FlatValue slots in flatDataBuffer are
+// never pooled with any other record. LifePath_Record::NewGameSpawnTag() reads
+// *(CName*)(staticFlatDataBuffer + offset) directly via GetValueOffset_CName.
+// NOTE: Never call TweakDB::GetFlatValue() while holding tdb->mutex00 because
+// GetFlatValue() acquires a shared_lock on mutex00 itself.
+int OverrideLifePathSpawnTagsLocked(const RED4ext::CName target_tag) {
+  RED4ext::TweakDB* tdb = RED4ext::TweakDB::Get();
+  if (tdb == nullptr) {
+    LogWarn("NcArmAscendancyStart: TweakDB::Get() unavailable");
+    return 0;
+  }
+
+  int swapped = 0;
+  std::lock_guard<RED4ext::SharedSpinLock> tdb_guard(tdb->mutex00);
+  const uintptr_t buf =
+      tdb->flatDataBuffer != 0 ? tdb->flatDataBuffer : tdb->staticFlatDataBuffer;
+  if (buf == 0) {
+    LogWarn("NcArmAscendancyStart: TweakDB flatDataBuffer unavailable");
+    return 0;
+  }
+
+  for (size_t i = 0; i < kLifePathSpawnTagFlats.size(); ++i) {
+    const RED4ext::TweakDBID flat_id(kLifePathSpawnTagFlats[i]);
+    const auto it = tdb->flats.Find(flat_id);
+    if (it == tdb->flats.end()) {
+      continue;
+    }
+    auto* fv = reinterpret_cast<RED4ext::TweakDB::FlatValue*>(buf + it->ToTDBOffset());
+    if (fv == nullptr) {
+      continue;
+    }
+    RED4ext::TweakDBID value_ref;
+    if (!fv->GetValueOffset_CName(&value_ref) || !value_ref.HasTDBOffset()) {
+      continue;
+    }
+    auto* cname_ptr = reinterpret_cast<RED4ext::CName*>(buf + value_ref.ToTDBOffset());
+    if (!g_rt.saved_lifepath_spawn_tag_valid[i]) {
+      g_rt.saved_lifepath_spawn_tags[i] = *cname_ptr;
+      g_rt.saved_lifepath_spawn_tag_valid[i] = true;
+    }
+    *cname_ptr = target_tag;
+    ++swapped;
+  }
+
+  if (swapped > 0) {
+    g_rt.lifepath_spawn_tags_overridden = true;
+  }
+  return swapped;
+}
+
+int RestoreLifePathSpawnTagsLocked() {
+  if (!g_rt.lifepath_spawn_tags_overridden) {
+    return 0;
+  }
+  RED4ext::TweakDB* tdb = RED4ext::TweakDB::Get();
+  if (tdb == nullptr) {
+    return 0;
+  }
+
+  int restored = 0;
+  std::lock_guard<RED4ext::SharedSpinLock> tdb_guard(tdb->mutex00);
+  const uintptr_t buf =
+      tdb->flatDataBuffer != 0 ? tdb->flatDataBuffer : tdb->staticFlatDataBuffer;
+  if (buf == 0) {
+    return 0;
+  }
+
+  for (size_t i = 0; i < kLifePathSpawnTagFlats.size(); ++i) {
+    if (!g_rt.saved_lifepath_spawn_tag_valid[i]) {
+      continue;
+    }
+    const RED4ext::TweakDBID flat_id(kLifePathSpawnTagFlats[i]);
+    const auto it = tdb->flats.Find(flat_id);
+    if (it == tdb->flats.end()) {
+      continue;
+    }
+    auto* fv = reinterpret_cast<RED4ext::TweakDB::FlatValue*>(buf + it->ToTDBOffset());
+    if (fv == nullptr) {
+      continue;
+    }
+    RED4ext::TweakDBID value_ref;
+    if (!fv->GetValueOffset_CName(&value_ref) || !value_ref.HasTDBOffset()) {
+      continue;
+    }
+    auto* cname_ptr = reinterpret_cast<RED4ext::CName*>(buf + value_ref.ToTDBOffset());
+    *cname_ptr = g_rt.saved_lifepath_spawn_tags[i];
+    g_rt.saved_lifepath_spawn_tag_valid[i] = false;
+    g_rt.saved_lifepath_spawn_tags[i] = RED4ext::CName{};
+    ++restored;
+  }
+
+  g_rt.lifepath_spawn_tags_overridden = false;
+  return restored;
+}
+
 // Redirect both base\quest\cyberpunk2077.gamedef (non-EP1) and
 // ep1\quest\ep1.gamedef (EP1) -> mod\neon_ascendancy\ascendancy.gamedef in
-// ResourceBank::resolvedPathMap. ResourceLoader::IssueLoadingRequest calls
-// ResourceBank::ResolvePath before checking ResourceLoader::tokens or
-// ResourceBank::resourceMap, so this takes effect even if a vanilla gamedef
-// was previously loaded.
+// ResourceBank::resolvedPathMap, and temporarily redirect the three
+// LifePaths.*.newGameSpawnTag flats to kAscendancySpawnTag so StartNewGame
+// spawns directly into V's H10 apartment with full world streaming.
 bool NcArmAscendancyStart() {
   RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
   if (loader == nullptr || loader->bank == nullptr) {
@@ -272,27 +390,46 @@ bool NcArmAscendancyStart() {
     size_after = map.size;
   }
 
-  char msg[384] = {};
+  // Register CName before taking g_rt.mu / tdb->mutex00.
+  const RED4ext::CName target_tag = RED4ext::CNamePool::Add(kAscendancySpawnTag);
+  int swapped_tags = 0;
+  {
+    std::lock_guard<std::mutex> lock(g_rt.mu);
+    swapped_tags = OverrideLifePathSpawnTagsLocked(target_tag);
+  }
+
+  char msg[448] = {};
   std::snprintf(
       msg, sizeof(msg),
       "NcArmAscendancyStart: {base,ep1}.gamedef -> %s; depotExists(gd=%d,q=%d,qp=%d); "
-      "existed(base=%d,ep1=%d); tokens(base=%d,ep1=%d); map %u -> %u",
+      "existed(base=%d,ep1=%d); tokens(base=%d,ep1=%d); map %u -> %u; "
+      "lifepathSpawnTags=%d (%s)",
       kAscendancyGamedefPath,
       depot_has_gamedef ? 1 : 0, depot_has_quest ? 1 : 0, depot_has_phase ? 1 : 0,
       base_existed ? 1 : 0, ep1_existed ? 1 : 0,
       base_token_cached ? 1 : 0, ep1_token_cached ? 1 : 0,
-      size_before, size_after);
+      size_before, size_after, swapped_tags, kAscendancySpawnTag);
   LogInfo(msg);
   if (!depot_has_gamedef || !depot_has_quest || !depot_has_phase) {
     LogWarn("NcArmAscendancyStart: one or more mod\\neon_ascendancy\\* resources missing in ResourceDepot");
   }
+  if (swapped_tags != static_cast<int>(kLifePathSpawnTagFlats.size())) {
+    LogWarn("NcArmAscendancyStart: did not swap all 3 LifePaths.*.newGameSpawnTag flats");
+  }
   return true;
 }
 
-// Remove Ascendancy gamedef mappings idempotently. Only removes entries that
-// currently point to mod\neon_ascendancy\ascendancy.gamedef so vanilla
-// resolvedPathMap cache entries are never disturbed when not armed.
+// Remove Ascendancy gamedef mappings and restore LifePaths.*.newGameSpawnTag
+// flats idempotently. Only removes resolvedPathMap entries that currently point
+// to mod\neon_ascendancy\ascendancy.gamedef so vanilla cache entries are never
+// disturbed when not armed.
 bool NcDisarmAscendancyStart() {
+  int restored_tags = 0;
+  {
+    std::lock_guard<std::mutex> lock(g_rt.mu);
+    restored_tags = RestoreLifePathSpawnTagsLocked();
+  }
+
   RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
   if (loader == nullptr || loader->bank == nullptr) {
     LogWarn("NcDisarmAscendancyStart: ResourceLoader/ResourceBank unavailable");
@@ -322,11 +459,11 @@ bool NcDisarmAscendancyStart() {
     size_after = map.size;
   }
 
-  char msg[160] = {};
+  char msg[192] = {};
   std::snprintf(
       msg, sizeof(msg),
-      "NcDisarmAscendancyStart: removed=%d; resolvedPathMap size %u -> %u",
-      removed, size_before, size_after);
+      "NcDisarmAscendancyStart: removed=%d; restoredTags=%d; resolvedPathMap size %u -> %u",
+      removed, restored_tags, size_before, size_after);
   LogInfo(msg);
   return true;
 }
