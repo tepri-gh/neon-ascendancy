@@ -23,7 +23,18 @@ performance rules for Neon Ascendancy.
 3. **Human-readable data in Git:** Static world definitions live as declarative
    seed files under `data/` and compile reproducibly into `world.db`. Never
    hand-edit binary `.db` files in Git.
-4. **Codeware-free baseline (for now):** Redscript code targets the pinned
+4. **Thick C++20 core + paper-thin redscript adapters:** Keep **90%+ of the
+   mod in C++20 (`native/`)**—all simulation, economy, mission generation, kill
+   tracking, territory ownership, world-era classification, sanitizer policy
+   decisions, tooltip/HUD text formatting, contextual menu state machines, and
+   SQLite storage. This maximizes agent code quality, native runtime
+   performance, and millisecond offline unit testing (`ctest`) without booting
+   Cyberpunk 2077. Keep redscript (`src/r6/scripts/`) strictly as dumb,
+   thin plumbing (`@wrapMethod` hooks on scripted gameplay/UI methods, the
+   20-byte `ScriptableSystem` `.sav` watermark, and compile-time-checked calls
+   to `MappinSystem`, `TransactionSystem`, `JournalManager`, and `inkWidget`
+   APIs).
+5. **Codeware-free baseline (for now):** Redscript code targets the pinned
    redscript 1.x stack in `tools/lib/versions.sh` without Codeware until an
    upstream release supports 1.x. CET is approved for dev/schema prototyping and
    is acceptable if needed, while the native RED4ext plugin remains the primary

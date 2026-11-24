@@ -132,12 +132,7 @@ local function get_active_quests()
   ctx.stateFilter = filter
 
   local ok, res = pcall(function()
-    local out = {}
-    local ret = jm:GetQuests(ctx, out)
-    if type(ret) == "table" and #ret > 0 then
-      return ret
-    end
-    return out
+    return jm:GetQuests(ctx)
   end)
   if ok and type(res) == "table" then
     return jm, res
@@ -175,10 +170,7 @@ end
 function Probe.audit_mappins()
   local ms = Game.GetMappinSystem()
   local ok, mappins = pcall(function()
-    local out = {}
-    local ret = ms:GetMappins(gamemappinsMappinTargetType.Map, out)
-    if type(ret) == "table" and #ret > 0 then return ret end
-    return out
+    return ms:GetMappins(gamemappinsMappinTargetType.Map)
   end)
   if not ok or type(mappins) ~= "table" then
     print("WARN: GetMappins failed")
