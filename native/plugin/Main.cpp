@@ -12,6 +12,7 @@
 #include <vector>
 
 #include <RED4ext/RED4ext.hpp>
+#include <RED4ext/ResourceDepot.hpp>
 #include <RED4ext/ResourceLoader.hpp>
 #include <RedLib.hpp>
 
@@ -25,10 +26,16 @@ constexpr double kCombatMissionRadiusXY = 160.0;
 constexpr double kCombatMissionRadiusZ = 60.0;
 constexpr size_t kMaxQueuedHudNotices = 16;
 
-// Ascendancy clean-slate .gamedef redirect. The key is the resource the engine
-// requests; the value is the mod resource resolved instead.
-constexpr const char* kVanillaGamedefPath = "base\\quest\\cyberpunk2077.gamedef";
+// Ascendancy clean-slate .gamedef redirect. On EP1 installs, native
+// StartNewGame loads ep1\quest\ep1.gamedef (when !IsExpansionStandalone); on
+// non-EP1 installs it loads base\quest\cyberpunk2077.gamedef. Redirecting both
+// covers every install while keeping ep1_standalone.gamedef and vanilla New
+// Game completely untouched.
+constexpr const char* kVanillaBaseGamedefPath = "base\\quest\\cyberpunk2077.gamedef";
+constexpr const char* kVanillaEp1GamedefPath = "ep1\\quest\\ep1.gamedef";
 constexpr const char* kAscendancyGamedefPath = "mod\\neon_ascendancy\\ascendancy.gamedef";
+constexpr const char* kAscendancyQuestPath = "mod\\neon_ascendancy\\ascendancy.quest";
+constexpr const char* kAscendancyQuestPhasePath = "mod\\neon_ascendancy\\ascendancy.questphase";
 
 RED4ext::v1::PluginHandle g_plugin_handle = nullptr;
 const RED4ext::v1::Sdk* g_sdk = nullptr;
@@ -216,10 +223,12 @@ bool NcIsAscendancyStartPending() {
   return g_rt.ascendancy_start_pending;
 }
 
-// Insert base\quest\cyberpunk2077.gamedef -> mod\neon_ascendancy\ascendancy.gamedef
-// into ResourceBank::resolvedPathMap (the same path->path resolution table
-// ArchiveXL's "resource: link:" entries populate). Idempotent: re-arming keeps a
-// single mapping and logs whether the base gamedef token was already cached.
+// Redirect both base\quest\cyberpunk2077.gamedef (non-EP1) and
+// ep1\quest\ep1.gamedef (EP1) -> mod\neon_ascendancy\ascendancy.gamedef in
+// ResourceBank::resolvedPathMap. ResourceLoader::IssueLoadingRequest calls
+// ResourceBank::ResolvePath before checking ResourceLoader::tokens or
+// ResourceBank::resourceMap, so this takes effect even if a vanilla gamedef
+// was previously loaded.
 bool NcArmAscendancyStart() {
   RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
   if (loader == nullptr || loader->bank == nullptr) {
@@ -227,54 +236,62 @@ bool NcArmAscendancyStart() {
     return false;
   }
 
-  const RED4ext::ResourcePath src(kVanillaGamedefPath);
+  const RED4ext::ResourcePath base_src(kVanillaBaseGamedefPath);
+  const RED4ext::ResourcePath ep1_src(kVanillaEp1GamedefPath);
   const RED4ext::ResourcePath dst(kAscendancyGamedefPath);
 
-  // ResourceLoader::tokens (ResourceLoader.hpp) is the engine token cache.
-  // Check it under tokenLock's shared lock; never evict it — a cached base
-  // gamedef token may mean the redirect only applies to later resolutions.
-  bool token_cached = false;
+  bool depot_has_gamedef = false;
+  bool depot_has_quest = false;
+  bool depot_has_phase = false;
+  if (RED4ext::ResourceDepot* depot = RED4ext::ResourceDepot::Get(); depot != nullptr) {
+    depot_has_gamedef = depot->ResourceExists(dst);
+    depot_has_quest = depot->ResourceExists(RED4ext::ResourcePath(kAscendancyQuestPath));
+    depot_has_phase = depot->ResourceExists(RED4ext::ResourcePath(kAscendancyQuestPhasePath));
+  }
+
+  bool base_token_cached = false;
+  bool ep1_token_cached = false;
   {
     std::shared_lock<RED4ext::SharedSpinLock> token_guard(loader->tokenLock);
-    token_cached = loader->tokens.Contains(src);
+    base_token_cached = loader->tokens.Contains(base_src);
+    ep1_token_cached = loader->tokens.Contains(ep1_src);
   }
 
   uint32_t size_before = 0;
   uint32_t size_after = 0;
-  bool was_present = false;
+  bool base_existed = false;
+  bool ep1_existed = false;
   {
     std::lock_guard<RED4ext::SharedSpinLock> map_guard(loader->bank->resolvedPathMapLock);
-    size_before = loader->bank->resolvedPathMap.size;
-    if (const RED4ext::ResourcePath* prev = loader->bank->resolvedPathMap.Get(src);
-        prev != nullptr) {
-      was_present = true;
-      if (*prev != dst) {
-        loader->bank->resolvedPathMap.InsertOrAssign(src, dst);
-      }
-    } else {
-      loader->bank->resolvedPathMap.InsertOrAssign(src, dst);
-    }
-    size_after = loader->bank->resolvedPathMap.size;
+    auto& map = loader->bank->resolvedPathMap;
+    size_before = map.size;
+    base_existed = map.Get(base_src) != nullptr;
+    ep1_existed = map.Get(ep1_src) != nullptr;
+    map.InsertOrAssign(base_src, dst);
+    map.InsertOrAssign(ep1_src, dst);
+    size_after = map.size;
   }
 
-  char msg[320] = {};
+  char msg[384] = {};
   std::snprintf(
       msg, sizeof(msg),
-      "NcArmAscendancyStart: base\\quest\\cyberpunk2077.gamedef -> "
-      "mod\\neon_ascendancy\\ascendancy.gamedef (%s); resolvedPathMap size %u -> %u; "
-      "base gamedef token cached=%d",
-      was_present ? "overwrote-or-kept existing entry" : "inserted",
-      size_before, size_after, token_cached ? 1 : 0);
+      "NcArmAscendancyStart: {base,ep1}.gamedef -> %s; depotExists(gd=%d,q=%d,qp=%d); "
+      "existed(base=%d,ep1=%d); tokens(base=%d,ep1=%d); map %u -> %u",
+      kAscendancyGamedefPath,
+      depot_has_gamedef ? 1 : 0, depot_has_quest ? 1 : 0, depot_has_phase ? 1 : 0,
+      base_existed ? 1 : 0, ep1_existed ? 1 : 0,
+      base_token_cached ? 1 : 0, ep1_token_cached ? 1 : 0,
+      size_before, size_after);
   LogInfo(msg);
-  if (token_cached) {
-    LogWarn(
-        "NcArmAscendancyStart: base gamedef token already cached in ResourceLoader; "
-        "redirect applies to subsequent resolutions, verify in-game");
+  if (!depot_has_gamedef || !depot_has_quest || !depot_has_phase) {
+    LogWarn("NcArmAscendancyStart: one or more mod\\neon_ascendancy\\* resources missing in ResourceDepot");
   }
   return true;
 }
 
-// Remove the Ascendancy gamedef mapping idempotently (absence is not an error).
+// Remove Ascendancy gamedef mappings idempotently. Only removes entries that
+// currently point to mod\neon_ascendancy\ascendancy.gamedef so vanilla
+// resolvedPathMap cache entries are never disturbed when not armed.
 bool NcDisarmAscendancyStart() {
   RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
   if (loader == nullptr || loader->bank == nullptr) {
@@ -282,22 +299,34 @@ bool NcDisarmAscendancyStart() {
     return false;
   }
 
-  const RED4ext::ResourcePath src(kVanillaGamedefPath);
+  const RED4ext::ResourcePath base_src(kVanillaBaseGamedefPath);
+  const RED4ext::ResourcePath ep1_src(kVanillaEp1GamedefPath);
+  const RED4ext::ResourcePath dst(kAscendancyGamedefPath);
   uint32_t size_before = 0;
   uint32_t size_after = 0;
-  bool removed = false;
+  int removed = 0;
   {
     std::lock_guard<RED4ext::SharedSpinLock> map_guard(loader->bank->resolvedPathMapLock);
-    size_before = loader->bank->resolvedPathMap.size;
-    removed = loader->bank->resolvedPathMap.Remove(src);
-    size_after = loader->bank->resolvedPathMap.size;
+    auto& map = loader->bank->resolvedPathMap;
+    size_before = map.size;
+    if (const RED4ext::ResourcePath* cur = map.Get(base_src); cur != nullptr && *cur == dst) {
+      if (map.Remove(base_src)) {
+        ++removed;
+      }
+    }
+    if (const RED4ext::ResourcePath* cur = map.Get(ep1_src); cur != nullptr && *cur == dst) {
+      if (map.Remove(ep1_src)) {
+        ++removed;
+      }
+    }
+    size_after = map.size;
   }
 
   char msg[160] = {};
   std::snprintf(
       msg, sizeof(msg),
       "NcDisarmAscendancyStart: removed=%d; resolvedPathMap size %u -> %u",
-      removed ? 1 : 0, size_before, size_after);
+      removed, size_before, size_after);
   LogInfo(msg);
   return true;
 }
