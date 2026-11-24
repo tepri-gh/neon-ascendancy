@@ -9,6 +9,12 @@ public native func NcEvaluateSanitizer(factBits: Uint32, enabled: Bool) -> Uint3
 
 public native func NcGetEraName(eraCode: Int32) -> String;
 
+public native func NcClearSafeSanctuaries() -> Void;
+
+public native func NcRegisterSafeSanctuaryPin(mappinVariantEnum: Int32, x: Float, y: Float, z: Float) -> Bool;
+
+public native func NcIsAllowedSafeZone(x: Float, y: Float, z: Float) -> Bool;
+
 public native func NcSessionBegin(
   schemaVersion: Int32,
   idHi: Uint32,

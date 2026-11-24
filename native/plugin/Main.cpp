@@ -35,6 +35,7 @@ struct CoreRuntime {
   neon::sim::SimState state;
   std::unordered_set<uint64_t> counted_kill_entities;
   std::deque<std::string> hud_notices;
+  std::vector<neon::sim::SafeSanctuaryZone> safe_sanctuaries;
   uint32_t playthrough_id_hi = 0;
   uint32_t playthrough_id_lo = 0;
   bool world_loaded = false;
@@ -201,6 +202,35 @@ Red::CString NcGetEraName(int32_t era_code) {
   return Red::CString(neon::sim::WorldEraName(era));
 }
 
+void NcClearSafeSanctuaries() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.safe_sanctuaries.clear();
+}
+
+bool NcRegisterSafeSanctuaryPin(int32_t mappin_variant_enum, float x, float y, float z) {
+  const auto kind = neon::sim::ClassifySafeSanctuaryVariant(mappin_variant_enum);
+  if (kind == neon::sim::SafeSanctuaryKind::None) {
+    return false;
+  }
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.safe_sanctuaries.push_back(neon::sim::SafeSanctuaryZone{
+      kind,
+      static_cast<double>(x),
+      static_cast<double>(y),
+      static_cast<double>(z),
+  });
+  return true;
+}
+
+bool NcIsAllowedSafeZone(float x, float y, float z) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return neon::sim::IsAllowedSafeZone(
+      static_cast<double>(x),
+      static_cast<double>(y),
+      static_cast<double>(z),
+      g_rt.safe_sanctuaries);
+}
+
 int32_t NcSessionBegin(
     int32_t schema_version,
     uint32_t id_hi,
@@ -277,6 +307,7 @@ bool NcSessionEnd() {
   g_rt.session_active = false;
   g_rt.counted_kill_entities.clear();
   g_rt.hud_notices.clear();
+  g_rt.safe_sanctuaries.clear();
   return g_rt.playthrough.Close(true);
 }
 
@@ -755,6 +786,9 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcPopHudNotice, "NeonAscendancy.Core.NcPopHudNotice");
   RTTI_FUNCTION(NcEvaluateSanitizer, "NeonAscendancy.Core.NcEvaluateSanitizer");
   RTTI_FUNCTION(NcGetEraName, "NeonAscendancy.Core.NcGetEraName");
+  RTTI_FUNCTION(NcClearSafeSanctuaries, "NeonAscendancy.Core.NcClearSafeSanctuaries");
+  RTTI_FUNCTION(NcRegisterSafeSanctuaryPin, "NeonAscendancy.Core.NcRegisterSafeSanctuaryPin");
+  RTTI_FUNCTION(NcIsAllowedSafeZone, "NeonAscendancy.Core.NcIsAllowedSafeZone");
   RTTI_FUNCTION(NcSessionBegin, "NeonAscendancy.Core.NcSessionBegin");
   RTTI_FUNCTION(NcSessionGetPlaythroughIdHi, "NeonAscendancy.Core.NcSessionGetPlaythroughIdHi");
   RTTI_FUNCTION(NcSessionGetPlaythroughIdLo, "NeonAscendancy.Core.NcSessionGetPlaythroughIdLo");
@@ -791,7 +825,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 40 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 43 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {

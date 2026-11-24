@@ -1,8 +1,27 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 namespace neon::sim {
+
+enum class SafeSanctuaryKind : uint8_t {
+  None = 0,
+  PlayerApartment = 1,
+  StoreOrRipperdoc = 2,
+};
+
+struct SafeSanctuaryZone {
+  SafeSanctuaryKind kind = SafeSanctuaryKind::None;
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+};
+
+inline constexpr double kApartmentSanctuaryRadiusXY = 30.0;
+inline constexpr double kApartmentSanctuaryHalfHeightZ = 12.0;
+inline constexpr double kStoreSanctuaryRadiusXY = 18.0;
+inline constexpr double kStoreSanctuaryHalfHeightZ = 6.0;
 
 enum class WorldEra : uint8_t {
   Unknown = 0,
@@ -61,5 +80,31 @@ struct SanitizerPolicy {
 [[nodiscard]] uint32_t PackSanitizerPolicyMask(const SanitizerPolicy& p);
 
 [[nodiscard]] const char* WorldEraName(WorldEra era);
+
+// Classify a Cyberpunk 2077 gamedataMappinVariant enum integer into a safe-zone
+// sanctuary category (V's apartments, stores, and ripperdocs only).
+[[nodiscard]] SafeSanctuaryKind ClassifySafeSanctuaryVariant(int32_t mappin_variant_enum);
+
+// Returns true if (player_x, player_y, player_z) lies inside a single sanctuary cylinder.
+[[nodiscard]] bool IsInsideSafeSanctuaryZone(
+    const SafeSanctuaryZone& zone,
+    double player_x,
+    double player_y,
+    double player_z);
+
+// Static fallback table covering V's owned apartments so safe zones remain valid even
+// before live MappinSystem pins sync on frame 0.
+[[nodiscard]] bool IsInsideKnownPlayerApartment(
+    double player_x,
+    double player_y,
+    double player_z);
+
+// Master safe-zone allowlist check: returns true only inside V's apartments,
+// stores, or ripperdocs (static apartment fallback + live MappinSystem sanctuaries).
+[[nodiscard]] bool IsAllowedSafeZone(
+    double player_x,
+    double player_y,
+    double player_z,
+    const std::vector<SafeSanctuaryZone>& dynamic_zones);
 
 } // namespace neon::sim

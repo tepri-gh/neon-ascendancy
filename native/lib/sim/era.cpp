@@ -1,6 +1,23 @@
 #include "era.hpp"
 
+#include <cmath>
+
 namespace neon::sim {
+
+namespace {
+
+// V's base-game apartments verified from always_loaded_*.streamingsector.json
+// (Dogtown Kress Street Hideout and any DLC/modded apartments are additionally
+// picked up dynamically from MappinSystem ApartmentVariant pins).
+constexpr SafeSanctuaryZone kKnownPlayerApartments[] = {
+    {SafeSanctuaryKind::PlayerApartment, -1381.758, 1271.708, 123.065}, // Megabuilding H10
+    {SafeSanctuaryKind::PlayerApartment, -1505.056, 2231.156, 22.200},  // Northside Motel
+    {SafeSanctuaryKind::PlayerApartment, -785.577, 977.945, 28.210},    // Japantown
+    {SafeSanctuaryKind::PlayerApartment, -1520.291, -976.132, 86.803},  // The Glen
+    {SafeSanctuaryKind::PlayerApartment, -1609.054, 356.505, 49.236},   // Corpo Plaza
+};
+
+} // namespace
 
 EraFacts UnpackEraFactsMask(uint32_t b) {
   EraFacts f;
@@ -102,6 +119,84 @@ const char* WorldEraName(WorldEra era) {
     case WorldEra::PLStandalone: return "Phantom Liberty Standalone";
   }
   return "Unknown";
+}
+
+SafeSanctuaryKind ClassifySafeSanctuaryVariant(int32_t mappin_variant_enum) {
+  // Exact values from Cyberpunk 2077 2.5 enum gamedataMappinVariant.
+  switch (mappin_variant_enum) {
+    case 10:  // ApartmentVariant
+    case 125: // Zzz05_ApartmentToPurchaseVariant
+      return SafeSanctuaryKind::PlayerApartment;
+
+    case 96:  // ServicePointClothesVariant
+    case 97:  // ServicePointCyberwareVariant
+    case 100: // ServicePointGunsVariant
+    case 101: // ServicePointJunkVariant
+    case 102: // ServicePointMedsVariant
+    case 103: // ServicePointMeleeTrainerVariant
+    case 104: // ServicePointNetTrainerVariant
+    case 106: // ServicePointRipperdocVariant
+    case 107: // ServicePointTechVariant
+    case 135: // Zzz14_ServicePointBlackMarketVariant
+    case 143: // Zzz21_ServicePointGlamdocVariant
+      return SafeSanctuaryKind::StoreOrRipperdoc;
+
+    default:
+      return SafeSanctuaryKind::None;
+  }
+}
+
+bool IsInsideSafeSanctuaryZone(
+    const SafeSanctuaryZone& zone,
+    double player_x,
+    double player_y,
+    double player_z) {
+  double radius_xy = 0.0;
+  double half_z = 0.0;
+  switch (zone.kind) {
+    case SafeSanctuaryKind::PlayerApartment:
+      radius_xy = kApartmentSanctuaryRadiusXY;
+      half_z = kApartmentSanctuaryHalfHeightZ;
+      break;
+    case SafeSanctuaryKind::StoreOrRipperdoc:
+      radius_xy = kStoreSanctuaryRadiusXY;
+      half_z = kStoreSanctuaryHalfHeightZ;
+      break;
+    case SafeSanctuaryKind::None:
+      return false;
+  }
+  const double dx = player_x - zone.x;
+  const double dy = player_y - zone.y;
+  const double dz = std::abs(player_z - zone.z);
+  return (dx * dx + dy * dy) <= (radius_xy * radius_xy) && dz <= half_z;
+}
+
+bool IsInsideKnownPlayerApartment(
+    double player_x,
+    double player_y,
+    double player_z) {
+  for (const auto& apt : kKnownPlayerApartments) {
+    if (IsInsideSafeSanctuaryZone(apt, player_x, player_y, player_z)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+bool IsAllowedSafeZone(
+    double player_x,
+    double player_y,
+    double player_z,
+    const std::vector<SafeSanctuaryZone>& dynamic_zones) {
+  if (IsInsideKnownPlayerApartment(player_x, player_y, player_z)) {
+    return true;
+  }
+  for (const auto& zone : dynamic_zones) {
+    if (IsInsideSafeSanctuaryZone(zone, player_x, player_y, player_z)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 } // namespace neon::sim

@@ -91,6 +91,56 @@ void TestEraAndSanitizerPolicy() {
     NC_CHECK(p.era == neon::sim::WorldEra::Act2);
     NC_CHECK(p.suppress_johnny);
   }
+
+  // Safe-zone allowlist: only V's apartments, stores, and ripperdocs remain safe zones.
+  {
+    using neon::sim::ClassifySafeSanctuaryVariant;
+    using neon::sim::IsAllowedSafeZone;
+    using neon::sim::SafeSanctuaryKind;
+    using neon::sim::SafeSanctuaryZone;
+
+    // Variant classification
+    NC_CHECK(ClassifySafeSanctuaryVariant(10) == SafeSanctuaryKind::PlayerApartment);   // Apartment
+    NC_CHECK(ClassifySafeSanctuaryVariant(125) == SafeSanctuaryKind::PlayerApartment);  // ApartmentToPurchase
+    NC_CHECK(ClassifySafeSanctuaryVariant(106) == SafeSanctuaryKind::StoreOrRipperdoc); // Ripperdoc
+    NC_CHECK(ClassifySafeSanctuaryVariant(100) == SafeSanctuaryKind::StoreOrRipperdoc); // Guns
+    NC_CHECK(ClassifySafeSanctuaryVariant(96) == SafeSanctuaryKind::StoreOrRipperdoc);  // Clothes
+    NC_CHECK(ClassifySafeSanctuaryVariant(102) == SafeSanctuaryKind::StoreOrRipperdoc); // Meds
+    NC_CHECK(ClassifySafeSanctuaryVariant(103) == SafeSanctuaryKind::StoreOrRipperdoc); // Melee
+    NC_CHECK(ClassifySafeSanctuaryVariant(104) == SafeSanctuaryKind::StoreOrRipperdoc); // Netrunner
+    NC_CHECK(ClassifySafeSanctuaryVariant(101) == SafeSanctuaryKind::StoreOrRipperdoc); // Junk
+    NC_CHECK(ClassifySafeSanctuaryVariant(135) == SafeSanctuaryKind::StoreOrRipperdoc); // BlackMarket
+    NC_CHECK(ClassifySafeSanctuaryVariant(143) == SafeSanctuaryKind::StoreOrRipperdoc); // Glamdoc
+    NC_CHECK(ClassifySafeSanctuaryVariant(95) == SafeSanctuaryKind::None);              // Bar (not store)
+    NC_CHECK(ClassifySafeSanctuaryVariant(98) == SafeSanctuaryKind::None);              // DropPoint
+    NC_CHECK(ClassifySafeSanctuaryVariant(99) == SafeSanctuaryKind::None);              // Food stall
+    NC_CHECK(ClassifySafeSanctuaryVariant(25) == SafeSanctuaryKind::None);              // DefaultQuest
+
+    std::vector<SafeSanctuaryZone> dynamic_zones = {
+        {SafeSanctuaryKind::PlayerApartment, -2100.0, -2550.0, 45.0},   // Dynamic Dogtown apartment pin
+        {SafeSanctuaryKind::StoreOrRipperdoc, -1549.0, 1188.0, 18.0},   // Viktor's clinic ripperdoc
+        {SafeSanctuaryKind::StoreOrRipperdoc, -1700.0, -1835.0, 60.0},  // Nearby Coastview melee shop (~50m away)
+    };
+
+    // Static fallback apartments (even with empty dynamic list).
+    const std::vector<SafeSanctuaryZone> empty_zones;
+    NC_CHECK(IsAllowedSafeZone(-1381.758, 1271.708, 123.065, empty_zones)); // H10
+    NC_CHECK(IsAllowedSafeZone(-1505.056, 2231.156, 22.200, empty_zones));  // Northside
+    NC_CHECK(IsAllowedSafeZone(-785.577, 977.945, 28.210, empty_zones));    // Japantown
+    NC_CHECK(IsAllowedSafeZone(-1520.291, -976.132, 86.803, empty_zones));  // The Glen
+    NC_CHECK(IsAllowedSafeZone(-1609.054, 356.505, 49.236, empty_zones));   // Corpo Plaza
+    // Wrong floor below H10 apartment must NOT be safe.
+    NC_CHECK(!IsAllowedSafeZone(-1381.758, 1271.708, 100.0, empty_zones));
+
+    // Dynamic apartment & store/ripperdoc pins.
+    NC_CHECK(IsAllowedSafeZone(-2110.0, -2540.0, 46.0, dynamic_zones));     // Inside Dogtown apartment
+    NC_CHECK(IsAllowedSafeZone(-1545.0, 1192.0, 19.5, dynamic_zones));      // Inside Viktor's clinic
+    NC_CHECK(!IsAllowedSafeZone(-1545.0, 1192.0, 30.0, dynamic_zones));     // Floor above clinic (|dz|=12 > 6)
+    NC_CHECK(!IsAllowedSafeZone(-1520.0, 1188.0, 18.0, dynamic_zones));     // 29m outside clinic
+
+    // Coastview plaza safe area from playtest must NOT be a safe zone even with a shop 50m away.
+    NC_CHECK(!IsAllowedSafeZone(-1750.597, -1835.524, 60.889, dynamic_zones));
+  }
 }
 
 void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {

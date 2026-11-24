@@ -20,6 +20,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   private persistent let m_enabled: Bool;
   private persistent let m_lastEraCode: Int32;
   private let m_playerAttachedCallbackId: Uint32;
+  private let m_sanctuariesSynced: Bool;
 
   public func OnAttach() -> Void {
     if this.m_playerAttachedCallbackId == 0u {
@@ -33,12 +34,15 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   }
 
   public func OnRestored(saveVersion: Int32, gameVersion: Int32) -> Void {
+    this.m_sanctuariesSynced = false;
     if this.m_enabled {
       this.ScheduleApply(1.0);
     }
   }
 
   public func OnDetach() -> Void {
+    this.m_sanctuariesSynced = false;
+    NcClearSafeSanctuaries();
     const game = this.GetGameInstance();
     if this.m_playerAttachedCallbackId > 0u && GameInstance.IsValid(game) {
       GameInstance
@@ -120,7 +124,75 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     if (mask & 8u) != 0u {
       StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"JohnnySickness");
     }
+    this.SyncSafeSanctuaries(game);
+    this.EnforceSafeZonePolicy(game, qs, player);
     return eraCode;
+  }
+
+  public final func SyncSafeSanctuaries(game: GameInstance) -> Void {
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let ms = GameInstance.GetMappinSystem(game);
+    if !IsDefined(ms) {
+      return;
+    }
+    let mappins: array<ref<IMappin>>;
+    ms.GetMappins(gamemappinsMappinTargetType.Map, mappins);
+    if ArraySize(mappins) == 0 {
+      return;
+    }
+    NcClearSafeSanctuaries();
+    for m in mappins {
+      if IsDefined(m) {
+        const pos = m.GetWorldPosition();
+        NcRegisterSafeSanctuaryPin(EnumInt(m.GetVariant()), pos.X, pos.Y, pos.Z);
+      }
+    }
+    this.m_sanctuariesSynced = true;
+  }
+
+  public final func IsAllowedSafeZoneAt(game: GameInstance, pos: Vector4) -> Bool {
+    if !this.m_sanctuariesSynced {
+      this.SyncSafeSanctuaries(game);
+    }
+    return NcIsAllowedSafeZone(pos.X, pos.Y, pos.Z);
+  }
+
+  private final func EnforceSafeZonePolicy(game: GameInstance, qs: QuestsSystem, player: ref<GameObject>) -> Void {
+    const pos = player.GetWorldPosition();
+    if this.IsAllowedSafeZoneAt(game, pos) {
+      return;
+    }
+    if !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"VehicleScene")
+      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"FastForward") {
+      StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoCombat");
+    }
+    let pp = player as PlayerPuppet;
+    if IsDefined(pp) {
+      pp.OnZoneFactChanged(qs.GetFact(n"CityAreaType"));
+      let bbSys = GameInstance.GetBlackboardSystem(game);
+      if IsDefined(bbSys) {
+        let psmBB = bbSys
+          .GetLocalInstanced(pp.GetEntityID(), GetAllBlackboardDefs().PlayerStateMachine);
+        if IsDefined(psmBB) {
+          const secVar = psmBB
+            .GetVariant(GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData);
+          if IsDefined(secVar) {
+            let secData = FromVariant<SecurityAreaData>(secVar);
+            if Equals(secData.securityAreaType, ESecurityAreaType.SAFE) {
+              secData.securityAreaType = ESecurityAreaType.DISABLED;
+              psmBB
+                .SetVariant(
+                  GetAllBlackboardDefs().PlayerStateMachine.SecurityZoneData,
+                  ToVariant(secData),
+                  true
+                );
+            }
+          }
+        }
+      }
+    }
   }
 
   private final func ApplyCityUnlock(game: GameInstance, qs: QuestsSystem) -> Void {
@@ -193,6 +265,19 @@ public func NeonAscendancy_IsSanitizerEnabled(game: GameInstance) -> Bool {
     .GetScriptableSystemsContainer(game)
     .Get(n"NeonAscendancy.Sandbox.NeonAscendancy_SanitizerSystem") as NeonAscendancy_SanitizerSystem;
   return IsDefined(sys) && sys.IsEnabled();
+}
+
+public func NeonAscendancy_IsAllowedSafeZone(game: GameInstance, pos: Vector4) -> Bool {
+  if !GameInstance.IsValid(game) {
+    return false;
+  }
+  let sys = GameInstance
+    .GetScriptableSystemsContainer(game)
+    .Get(n"NeonAscendancy.Sandbox.NeonAscendancy_SanitizerSystem") as NeonAscendancy_SanitizerSystem;
+  if IsDefined(sys) {
+    return sys.IsAllowedSafeZoneAt(game, pos);
+  }
+  return NcIsAllowedSafeZone(pos.X, pos.Y, pos.Z);
 }
 
 private func NeonAscendancy_IsSuppressedVanillaMappinVariant(v: gamedataMappinVariant) -> Bool {
@@ -333,5 +418,60 @@ public func CreateMappinUIProfile(
     }
   }
   return wrappedMethod(mappin, mappinVariant, customData);
+}
+
+// Disable vanilla Safe Zones everywhere in Sandbox Mode except V's apartments,
+// stores, and ripperdocs (policy + bounds live in C++ via NcIsAllowedSafeZone).
+@wrapMethod(PlayerPuppet)
+protected const final func GetCurrentZoneType(factValue: Int32) -> gameCityAreaType {
+  const zoneType = wrappedMethod(factValue);
+  if Equals(zoneType, gameCityAreaType.SafeZone)
+    && NeonAscendancy_IsSanitizerEnabled(this.GetGame())
+    && !NeonAscendancy_IsAllowedSafeZone(this.GetGame(), this.GetWorldPosition()) {
+    return gameCityAreaType.PublicZone;
+  }
+  return zoneType;
+}
+
+// Block area-applied NoCombat status effects outside apartments, stores, ripperdocs,
+// and active scenes/vehicles.
+@wrapMethod(PlayerPuppet)
+protected cb func OnStatusEffectApplied(evt: ref<ApplyStatusEffectEvent>) -> Bool {
+  if IsDefined(evt) && IsDefined(evt.staticData) {
+    const game = this.GetGame();
+    if NeonAscendancy_IsSanitizerEnabled(game) {
+      let staticData = evt.staticData;
+      const tags = staticData.GameplayTags();
+      if ArrayContains(tags, n"NoCombat")
+        && !ArrayContains(tags, n"VehicleScene")
+        && !ArrayContains(tags, n"FastForward")
+        && !NeonAscendancy_IsAllowedSafeZone(game, this.GetWorldPosition()) {
+        let scene = GameInstance.GetSceneSystem(game).GetScriptInterface();
+        if !scene.IsEntityInScene(this.GetEntityID())
+          && !scene.IsRewindableSectionActive() {
+          StatusEffectHelper.RemoveStatusEffect(this, staticData.GetID());
+          return true;
+        }
+      }
+    }
+  }
+  return wrappedMethod(evt);
+}
+
+// Suppress the blue "SAFE AREA" minimap badge and HUD banner outside apartments,
+// stores, and ripperdocs while leaving Restricted / Dangerous security zones intact.
+@wrapMethod(SecuritySystemControllerPS)
+private final func UpdateSecurityZoneDataBlackboard(securityAreaData: SecurityAreaData) -> Void {
+  if Equals(securityAreaData.securityAreaType, ESecurityAreaType.SAFE) {
+    const game = this.GetGameInstance();
+    if GameInstance.IsValid(game) && NeonAscendancy_IsSanitizerEnabled(game) {
+      const player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+      if IsDefined(player)
+        && !NeonAscendancy_IsAllowedSafeZone(game, player.GetWorldPosition()) {
+        securityAreaData.securityAreaType = ESecurityAreaType.DISABLED;
+      }
+    }
+  }
+  wrappedMethod(securityAreaData);
 }
 
