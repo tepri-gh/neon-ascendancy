@@ -19,6 +19,9 @@ tools/deploy.sh               # deploy src/r6/scripts/NeonAscendancy/*.reds into
 
 ## Documentation
 
+- [`docs/roadmap.md`](docs/roadmap.md) — Phase 0 foundations, `v0.1.0` vertical slice, causal pillars, and deferred systems.
+- [`docs/architecture.md`](docs/architecture.md) — system layers, causal event bus, native SQLite core, and performance rules.
+- [`docs/glossary.md`](docs/glossary.md) — canonical domain terminology.
 - [`docs/modding.md`](docs/modding.md) — toolchain, Wine/Linux notes, logging, and stack constraints.
 - [`docs/versioning.md`](docs/versioning.md) — SemVer, save schema versioning, and framework pinning policy.
 - [`AGENTS.md`](AGENTS.md) — engineering principles, testing policy, and contributor/agent rules.
