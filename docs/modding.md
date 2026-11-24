@@ -79,30 +79,47 @@ override) and invokes it directly without Wine.
 src/r6/scripts/NeonAscendancy/   redscript sources (.reds)
 src/r6/tweaks/                   TweakXL YAML/TweakDB sources, when used
 src/archive/pc/mod/              packaged .archive files, when used
-tools/                           install, compile, lint, format, deploy, reference helpers
+data/                            deterministic JSON world seeds + canonical SQLite schemas
+native/                          C++20 simulation/store core, unit tests, RED4ext + RedLib DLL
+tools/                           install, extract, compile, lint, format, verify, deploy helpers
 tools/lib/versions.sh            canonical pinned game/framework/CLI versions & checksums
+tools/probes/                    dev-only CET verification probe pack (not a mod dependency)
 .agents/skills/redscript/        cross-agent redscript 1.x skill (symlinked for .opencode/.claude)
 refs/                            decompiled game scripts and SDK checkouts (gitignored)
-dist/                            compile output (gitignored)
+build/                           CMake Linux/Windows native build outputs (gitignored)
+dist/                            compile output, extracted caches, and built world.db (gitignored)
 ```
 
 Note on `refs/` (cloned by `tools/fetch-refs.sh`):
 
 - `refs/cyberpunk` — decompiled vanilla 2.5 scripts (`.swift` files containing REDscript); primary API reference.
-- `refs/RED4ext.SDK` and `refs/cp2077-red-lib` — native RTTI/engine struct references (and reference for a native RED4ext C++ plugin if the simulation core ever warrants one). Not required to build `.reds` files.
+- `refs/RED4ext.SDK` and `refs/cp2077-red-lib` — native RTTI/engine struct references (also fetched at pinned commits into `native/third_party/` by `tools/fetch-native-deps.sh`).
 
 ## Workflow
 
 ```bash
 tools/install-frameworks.sh         # reinstall pinned framework versions (game closed)
+tools/install-dev-cet.sh            # optional dev-only CET 1.38.1 + Phase 0 probe pack
 tools/fetch-refs.sh                 # one-time: clone decompiled scripts and SDK references
+tools/fetch-native-deps.sh --xwin   # one-time: fetch pinned SQLite3, RED4ext.SDK, RedLib, xwin
+tools/extract-world.py --emit-seeds # extract EP1-over-base world data -> data/*.json
+tools/build-world-db.py             # compile data/*.json + schema -> dist/world.db
 tools/format-redscript.sh           # rewrite src/ with the formatter
 tools/format-redscript.sh --check   # fail if formatting is stale
 tools/lint-redscript.sh             # fast standalone analysis (-W unused_locals), no output bundle
 tools/check-redscript.sh            # compile src/ (-W unused_locals) against the game's 2.5 cache
-tools/verify.sh                     # format check + compile (compile already runs full lint analysis)
-tools/deploy.sh                     # copy .reds files into <game>/r6/scripts/NeonAscendancy
+tools/verify.sh                     # redscript format check + compile
+tools/verify-native.sh              # world.db --check + Linux C++20 ctest + Windows /MT DLL PE gates
+tools/deploy.sh                     # deploy .reds + (when built) NeonAscendancy.dll & world.db
 ```
+
+`tools/deploy.sh` preserves `<game>/red4ext/plugins/NeonAscendancy/playthroughs/`
+across redeploys and accepts `--scripts-only` to deploy only `.reds` files.
+
+`NeonAscendancy.dll` MUST link the static MSVC runtime (`/MT`). Proton 11's
+builtin `msvcp140.dll` exports zero `__std_*` symbols required by RedLib's
+`std::format` helpers; `tools/verify-native.sh` enforces zero dynamic CRT
+imports via `llvm-readobj --coff-imports`.
 
 `check-redscript.sh` writes `dist/final_patched.redscripts`. Never overwrite the
 game's `r6/cache/final.redscripts`.
