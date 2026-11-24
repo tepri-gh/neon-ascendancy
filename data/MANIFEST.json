@@ -1,0 +1,13 @@
+{
+  "counts": {
+    "control_centers": 41,
+    "districts": 8,
+    "factions": 38,
+    "landmarks": 41,
+    "spawn_points": 1128,
+    "sub_territories": 41
+  },
+  "game_version": "2.5",
+  "registry_communities": 10324,
+  "wolvenkit_version": "10.0.0-beta.1"
+}

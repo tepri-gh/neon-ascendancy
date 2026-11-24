@@ -1,0 +1,122 @@
+[
+  {
+    "bbox_max_x": -305.2,
+    "bbox_max_y": 3522.3,
+    "bbox_min_x": -2424.6,
+    "bbox_min_y": 402.1,
+    "code": "watson",
+    "crime_multiplier": 0.85,
+    "display_name": "Watson",
+    "district_id": 1,
+    "gamedata_district": "Watson",
+    "kind": "city",
+    "vanilla_gangs": [
+      "Maelstrom"
+    ]
+  },
+  {
+    "bbox_max_x": 1091.5,
+    "bbox_max_y": 1799.0,
+    "bbox_min_x": -1294.6,
+    "bbox_min_y": -898.2,
+    "code": "westbrook",
+    "crime_multiplier": 0.85,
+    "display_name": "Westbrook",
+    "district_id": 2,
+    "gamedata_district": "Westbrook",
+    "kind": "city",
+    "vanilla_gangs": [
+      "TheMox",
+      "TygerClaws"
+    ]
+  },
+  {
+    "bbox_max_x": -658.7,
+    "bbox_max_y": -401.0,
+    "bbox_min_x": -2792.8,
+    "bbox_min_y": -1748.9,
+    "code": "heywood",
+    "crime_multiplier": 0.8,
+    "display_name": "Heywood",
+    "district_id": 3,
+    "gamedata_district": "Heywood",
+    "kind": "city",
+    "vanilla_gangs": [
+      "Valentinos"
+    ]
+  },
+  {
+    "bbox_max_x": 1584.5,
+    "bbox_max_y": -566.5,
+    "bbox_min_x": -1058.5,
+    "bbox_min_y": -2582.8,
+    "code": "santo_domingo",
+    "crime_multiplier": 0.8,
+    "display_name": "Santo Domingo",
+    "district_id": 4,
+    "gamedata_district": "SantoDomingo",
+    "kind": "city",
+    "vanilla_gangs": [
+      "SixthStreet"
+    ]
+  },
+  {
+    "bbox_max_x": -1120.7,
+    "bbox_max_y": -1353.2,
+    "bbox_min_x": -3222.1,
+    "bbox_min_y": -3380.9,
+    "code": "pacifica",
+    "crime_multiplier": 0.7,
+    "display_name": "Pacifica",
+    "district_id": 5,
+    "gamedata_district": "Pacifica",
+    "kind": "city",
+    "vanilla_gangs": [
+      "VoodooBoys",
+      "Animals"
+    ]
+  },
+  {
+    "bbox_max_x": -903.0,
+    "bbox_max_y": 696.7,
+    "bbox_min_x": -2395.0,
+    "bbox_min_y": -730.1,
+    "code": "city_center",
+    "crime_multiplier": 1.2,
+    "display_name": "City Center",
+    "district_id": 6,
+    "gamedata_district": "CityCenter",
+    "kind": "city",
+    "vanilla_gangs": []
+  },
+  {
+    "bbox_max_x": 6163.6,
+    "bbox_max_y": 6264.5,
+    "bbox_min_x": -6657.4,
+    "bbox_min_y": -6652.1,
+    "code": "badlands",
+    "crime_multiplier": 1.0,
+    "display_name": "Badlands",
+    "district_id": 7,
+    "gamedata_district": "Badlands",
+    "kind": "badlands",
+    "vanilla_gangs": [
+      "Aldecaldos"
+    ]
+  },
+  {
+    "bbox_max_x": -1166.1,
+    "bbox_max_y": -1774.0,
+    "bbox_min_x": -2639.8,
+    "bbox_min_y": -3245.0,
+    "code": "dogtown",
+    "crime_multiplier": 1.0,
+    "display_name": "Dogtown",
+    "district_id": 8,
+    "gamedata_district": "Dogtown",
+    "kind": "dogtown",
+    "vanilla_gangs": [
+      "Barghest"
+    ]
+  }
+]
