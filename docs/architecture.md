@@ -45,7 +45,7 @@ performance rules for Neon Ascendancy.
 │  - Sandbox: World-Era Detector + Idempotent Campaign Sanitizer        │
 │  - UI: ncity.pub browser menu, HUD alerts, World Map overlay/mappins  │
 │  - World: Puppet OnDeath, District/Chunk crossings, TimeSystem ticks  │
-│  - Save Anchor: tiny persistent ScriptableSystem (12-byte checkpoint) │
+│  - Save Anchor: tiny persistent ScriptableSystem (20-byte watermark) │
 └───────────────────────────────────────────────────────────────────────┘
                    │ SimCommand                    ▲ View / World Diff
                    ▼                               │
@@ -67,20 +67,28 @@ performance rules for Neon Ascendancy.
 Players must be able to launch Neon Ascendancy from **any save** (fresh Act 1,
 Act 2+, Phantom Liberty skip-ahead, or third-party intro/Watson-skip mods).
 
-- **Era detection:** Inspects canonical `QuestsSystem` facts (`watson_prolog_lock`,
-  `q005_done`, `q101_done`, `ep1_standalone`, etc.) to classify the save's entry
-  era.
+- **Era detection:** Inspects canonical `QuestsSystem` facts (`ep1_standalone`,
+  `q005_done`, `q101_done`, `watson_prolog_lock`, `watson_prolog_unlock`,
+  `q101_enable_activities_flat`, `q101_enable_side_content`,
+  `q115_point_of_no_return`, `q301_00_done`) using `> 0` checks (never `== 1`).
+  Never mutate story-completion facts (`q005_done`, `q101_done`) just to lift
+  world gates.
 - **Idempotent sanitization:** Applies era-appropriate unlocks and suppression
-  layers safely even if re-run on every load:
-  1. Ensure city traversal is unlocked (lift Watson lockdown if active) while
-     leaving vendors, ripperdocs, stashes, and fast travel operational.
+  layers safely even if re-run on every load (see
+  [`docs/research/campaign-sanitizer.md`](research/campaign-sanitizer.md)):
+  1. Ensure city traversal is unlocked (`watson_prolog_lock = 0`,
+     `watson_prolog_unlock = 1`, `q101_enable_activities_flat = 1`,
+     `q101_enable_side_content = 1`) while leaving vendors, ripperdocs,
+     stashes, and fast travel operational.
   2. Suppress and untrack vanilla `MainQuest`, `SideQuest`, `MinorQuest`, and
-     `Contract` journal entries and prevent new ones from tracking.
-  3. Block vanilla quest/fixer/Johnny/Songbird incoming calls at
-     `PhoneSystem.OnTriggerCall`.
-  4. Filter vanilla quest dialogue hubs in `dialogWidgetGameController` while
-     preserving vendor, ripperdoc, and device interactions.
-  5. Suppress Johnny appearances/Relic malfunctions in post-Heist saves.
+     `Contract` journal entries via journal callbacks + `UntrackEntry`, and
+     filter quest/gig pins in `CreateMappinUIProfile`.
+  3. Drop incoming non-player quest/fixer/Songbird calls at
+     `PhoneSystem.OnTriggerCall` while always passing `EndCall`.
+  4. Filter `QuestImportant` dialogue choices in `InteractionUIBase.OnDialogsData`
+     while preserving vendor, ripperdoc, and device service interactions.
+  5. Remove `JohnnySickness` status effects in post-Heist saves (2.2/2.3
+     passenger Johnny control pending in-game CET probe).
 
 ### 3.2 Pure Causal Simulation Core (`Sim`)
 Each gameplay pillar owns its own isolated module with two pure entry points:
@@ -102,42 +110,65 @@ Each gameplay pillar owns its own isolated module with two pure entry points:
 ### 3.3 Database & Save-Branch-Safe Persistence (`SQLite3`)
 Two logical databases keep static mod content separate from player state:
 
-1. **Static `world.db` (read-only, built from `data/`):**
-   - `factions` (gangs, megacorps, fixers, civic/independents, colors, affiliations)
-   - `districts` and `sub_territories` (~5 control centers per major district,
-     anchor `(x, y, z)`, polygon/cell IDs, base economy values)
+1. **Static `world.db` (read-only/`immutable=1`, built from `data/`):**
+   - Extracted from plain-text `<game>/tools/redmod/tweaks/**/*.tweak` +
+     EP1-over-base `always_loaded_0/1/2` and streaming sectors via pinned
+     `WolvenKit.CLI 10.0.0-beta.1` (see
+     [`docs/research/game-data-extraction.md`](research/game-data-extraction.md)).
+   - `factions` (gangs, megacorps—including synthetic IDs for Night Corp,
+     Kiroshi, Kendachi, Petrochem, and Budget Arms which lack vanilla
+     `gamedataAffiliation` entries—fixers, civic/independents, colors)
+   - `districts` (linked by `ParentDistrict()`, excluding `Dogtown_Worldmap_Sub`)
+     and `sub_territories` (~5 control centers per major district, `owner_kind`
+     in `{gang, corp, enclave, unclaimed}`, anchor `(x, y, z)`, boot-loaded
+     grid/cell index + 2D R-Tree prefilter, base economy values)
    - `spawn_points` (exact game coordinates, faction affiliation, encounter type,
      linked `sub_territory_id`)
-   - `landmarks` (key buildings, HQs, purchasable corp assets)
-   - *(Later)* `road_chunks` and `road_edges` (spatial R-Tree indexed for the
-     vehicle transit ledger)
-2. **Dynamic playthrough DB (mutable, per playthrough):**
-   - **Save-branching safety:** A tiny `persistent` redscript `ScriptableSystem`
-     stores only `(m_schemaVersion: Int32, m_playthroughId: Uint64, m_saveGeneration: Int32)`.
-   - On save, the native core records an immutable checkpoint keyed by
-     `(playthroughId, saveGeneration)` and increments the generation for future
-     saves. On load (`OnRestored`), the native core restores the exact
-     checkpoint matching the loaded save's `(playthroughId, saveGeneration)`—so
-     quicksave/reload and branching manual saves never drift out of sync.
+   - `landmarks` (key buildings, fixer hubs, purchasable corp assets)
+   - *(Schema-ready, populated later)* `road_chunks` and `road_edges` from
+     `all.traffic_persistent` (33,953 lanes) for the vehicle transit ledger
+2. **Dynamic playthrough DB (mutable, per playthrough, WAL + `synchronous=NORMAL`):**
+   - **Save-branching safety without a save hook:** Cyberpunk 2077 has no
+     universal script-level save event (autosaves bypass `OnSavingComplete`).
+     Instead, a tiny 20-byte `persistent` redscript `ScriptableSystem` stores
+     `(m_schemaVersion, m_playthroughId, m_saveGeneration)` where
+     `m_saveGeneration` acts as a **durable revision watermark**—advanced
+     *only after* the native SQLite `COMMIT` returns.
+   - Any save (manual, quick, or autosave) therefore captures a guaranteed-durable
+     revision `R`. On load (`OnRestored`), the native core restores the newest
+     checkpoint `<= R` plus deltas up to `R` and forks at `max(db, R) + 1` with
+     a full snapshot—keeping reloads and branching saves exact with zero native
+     save hooks (see [`docs/research/native-db-architecture.md`](research/native-db-architecture.md)).
    - Follow [`docs/versioning.md`](versioning.md) for all schema bumps.
 
 ### 3.4 Native Build & Cross-Compilation Constraint
 - RED4ext / REDengine 4 uses the **MSVC x64 C++ ABI** (`x86_64-pc-windows-msvc`).
-- Cross-compiling the native plugin from Linux must use `clang-cl` + `lld-link`
-  + `xwin` (MSVC CRT/SDK), **not** MinGW/GNU ABI.
+- Cross-compiling from Linux uses `clang-cl` + `lld-link` + `xwin` (MSVC
+  CRT/SDK), **not** MinGW/GNU ABI, and **must link `/MT` (static CRT), not
+  `/MD`**: Proton 11's builtin `msvcp140.dll` exports zero `__std_*` symbols,
+  so `/MD` fails at plugin load on RedLib's `std::format` calls. Use Win32 path
+  APIs instead of `<filesystem>`.
+- Pin exact `RED4ext.SDK` and `cp2077-red-lib` commits compatible with 2.5
+  rather than outdated tags.
 - Pure C++ simulation and SQLite logic compiles natively on Linux (`clang++` /
   `g++`) for fast offline unit tests without launching Cyberpunk 2077.
 
 ### 3.5 World Map Territory Visualization
 - Sub-territories are **pre-partitioned** around ~5 control centers per major
   district (derived from Step 0.2 spawn/building research).
-- Visual targets:
-  - Transparent faction-colored fill + border for each pre-partitioned
-    sub-territory cell, meeting neighboring borders cleanly.
-  - Control-center dot marking each sub-territory's faction spawn hub.
-- Exact rendering mechanism on CP2077's 3D World Map (`WorldMapMenuGameController`,
-  `.inkwidget` / `inkShape` / ArchiveXL overlay vs dynamic texture/plane) is
-  selected in Step 0.5 based on measured pan/zoom alignment and frame cost.
+- `WorldMapMenuGameController` renders a 3D hologram into a dynamic texture
+  (`world_map_texture.dtex`), and `WorldMapDistrictLogicController` only drives
+  labels/icons (see
+  [`docs/research/world-map-visualization.md`](research/world-map-visualization.md)).
+- Phased rendering path (Codeware-free):
+  - **`v0.1.0`:** Vanilla map-only `MappinSystem` control-center dots tinted by
+    owning faction in `BaseWorldMapMappinController.UpdateIcon` with custom
+    tooltips.
+  - **`v0.2.0`:** Pre-partitioned transparent fill + border polygons rendered as
+    an `inkShape` layer inside `EntityPreview`, projected from world coordinates
+    via a **4-anchor-mappin homography** (handles pan, zoom, tilt, and mod yaw
+    rotation with O(1) recolor and zero idle per-frame cost—gated on 3 quick
+    in-game spikes).
 
 ---
 
