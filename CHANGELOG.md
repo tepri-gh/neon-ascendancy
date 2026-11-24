@@ -30,3 +30,19 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Initial redscript 1.x core foundation (`Core/Version.reds`,
   `Core/NativeBridge.reds`, `Sandbox/WorldEra.reds`,
   `Persistence/AnchorSystem.reds`).
+- `v0.1.0` playable slice (thick C++20 core + thin redscript 1.x wires):
+  - Pure C++20 world-era classifier and sanitizer policy engine (`native/lib/sim/era.*`),
+    `WorldDb` faction/district/color metadata & nearest-rival lookup, combat
+    mission kill progression (`RecordMissionKill`), and backwards-compatible
+    v2 snapshot serialization.
+  - Pre-game-safe `AnchorSystem` (opens session only on `PlayerPuppet` attach
+    or save restore, avoiding main-menu dummy DB files).
+  - Opt-in `SanitizerSystem` (monotonic city/FT unlock, Act 2 content flags,
+    vanilla quest suppression, unsolicited call/dialog/mappin filters).
+  - TweakXL mappin definitions (`src/r6/tweaks/NeonAscendancy/Mappins.yaml`),
+    41 faction-tinted World Map control-center pins with custom tooltips,
+    and active combat raid waypoints (`Map/TerritoryMapSystem.reds`).
+  - Contextual Codeware-free Pause Menu entry (`UI/PauseMenuEntry.reds`) and
+    gameplay/income coordinator (`Gameplay/AscendancySystem.reds`) wiring
+    gang founding, NPC takedown raid tracking, immediate territory flip,
+    and periodic `GameTime` eddie payouts.

@@ -5,16 +5,21 @@ and grows a corporation or gang—adding organization management, territory
 control, a stock market, and dynamically generated economic, espionage, and
 military missions.
 
-> **Status:** Early bootstrap (`0.0.0-dev`). Toolchain, docs, and versioning
-> policy are in place; gameplay systems are not yet implemented.
+> **Status:** `v0.1.0` playable slice in development (`0.0.0-dev`). Native C++20
+> SQLite core (`NeonAscendancy.dll`), `world.db` extraction pipeline, Campaign
+> Sanitizer, World Map control-center pins, Pause Menu entry, and combat raid
+> territory-flip loop are implemented and verified offline; in-game gameplay
+> testing is in progress.
 
 ## Quick start
 
 ```bash
 tools/install-frameworks.sh   # install pinned RED4ext/redscript/ArchiveXL/TweakXL (game closed)
 tools/fetch-refs.sh           # clone local decompiled game scripts & SDK refs into refs/
-tools/verify.sh               # format check + compile against the game's 2.5 script cache
-tools/deploy.sh               # deploy src/r6/scripts/NeonAscendancy/*.reds into the game
+tools/fetch-native-deps.sh --xwin # fetch pinned SQLite3, RED4ext.SDK, RedLib, xwin splat
+tools/verify.sh               # redscript 1.x format check + compile against 2.5 cache
+tools/verify-native.sh        # world.db --check + Linux ctest + Windows /MT DLL PE gates
+tools/deploy.sh               # deploy .reds, tweaks, NeonAscendancy.dll, and world.db
 ```
 
 ## Documentation
