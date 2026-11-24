@@ -6,6 +6,8 @@ GAME_DIR="${GAME_DIR:-$HOME/Games/Cyberpunk 2077}"
 MOD_NAME="NeonAscendancy"
 SRC="$ROOT/src/r6/scripts/$MOD_NAME"
 DEST="$GAME_DIR/r6/scripts/$MOD_NAME"
+TWEAKS_SRC="$ROOT/src/r6/tweaks/$MOD_NAME"
+TWEAKS_DEST="$GAME_DIR/r6/tweaks/$MOD_NAME"
 NATIVE_DLL="$ROOT/build/win/$MOD_NAME.dll"
 NATIVE_PDB="$ROOT/build/win/$MOD_NAME.pdb"
 WORLD_DB="$ROOT/dist/world.db"
@@ -53,6 +55,19 @@ while IFS= read -r -d '' file; do
 done < <(find "$SRC" -type f -name '*.reds' -print0)
 
 printf 'Deployed %s (%d .reds files) to %s\n' "$MOD_NAME" "$count" "$DEST"
+
+if [[ -d "$TWEAKS_SRC" ]]; then
+  rm -rf "$TWEAKS_DEST"
+  mkdir -p "$TWEAKS_DEST"
+  tweak_count=0
+  while IFS= read -r -d '' file; do
+    rel="${file#"$TWEAKS_SRC"/}"
+    mkdir -p "$TWEAKS_DEST/$(dirname "$rel")"
+    cp -a "$file" "$TWEAKS_DEST/$rel"
+    tweak_count=$((tweak_count + 1))
+  done < <(find "$TWEAKS_SRC" -type f \( -name '*.yaml' -o -name '*.yml' -o -name '*.tweak' \) -print0)
+  printf 'Deployed %s (%d tweak files) to %s\n' "$MOD_NAME" "$tweak_count" "$TWEAKS_DEST"
+fi
 
 if ((SCRIPTS_ONLY == 0)) && [[ -f "$NATIVE_DLL" ]]; then
   if [[ ! -f "$WORLD_DB" ]]; then

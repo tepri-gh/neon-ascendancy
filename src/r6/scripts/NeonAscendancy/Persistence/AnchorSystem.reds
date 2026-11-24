@@ -2,16 +2,6 @@ module NeonAscendancy.Persistence
 
 import NeonAscendancy.Core.*
 
-private class NeonAscendancy_SessionInitCallback extends DelayCallback {
-  public let m_system: wref<NeonAscendancy_AnchorSystem>;
-
-  public func Call() -> Void {
-    if IsDefined(this.m_system) {
-      this.m_system.EnsureSessionInitialized();
-    }
-  }
-}
-
 // 20-byte durable revision-watermark anchor persisted per save file.
 // Never store large simulation tables here; external SQLite checkpoints are
 // keyed by (m_playthroughIdHi, m_playthroughIdLo, m_saveGeneration).
@@ -22,17 +12,17 @@ public class NeonAscendancy_AnchorSystem extends ScriptableSystem {
   private persistent let m_saveGeneration: Int32;
   private persistent let m_flags: Uint32;
   private let m_sessionReady: Bool;
+  private let m_playerAttachedCallbackId: Uint32;
 
   public func OnAttach() -> Void {
-    // Defer initial session open by one tick so OnRestored (when loading a save)
-    // always runs first with real persisted IDs instead of opening an orphan DB.
-    const game = this.GetGameInstance();
-    if GameInstance.IsValid(game) {
-      let delaySystem = GameInstance.GetDelaySystem(game);
-      if IsDefined(delaySystem) {
-        let cb = new NeonAscendancy_SessionInitCallback();
-        cb.m_system = this;
-        delaySystem.DelayCallback(cb, 0.01, false);
+    // Only open a fresh session once a real PlayerPuppet attaches in-world
+    // (avoids creating an empty playthrough DB on the main menu / char creator).
+    if this.m_playerAttachedCallbackId == 0u {
+      const game = this.GetGameInstance();
+      if GameInstance.IsValid(game) {
+        this.m_playerAttachedCallbackId = GameInstance
+          .GetPlayerSystem(game)
+          .RegisterPlayerPuppetAttachedCallback(this, n"OnPlayerAttachedCallback");
       }
     }
   }
@@ -42,9 +32,22 @@ public class NeonAscendancy_AnchorSystem extends ScriptableSystem {
   }
 
   public func OnDetach() -> Void {
+    const game = this.GetGameInstance();
+    if this.m_playerAttachedCallbackId > 0u && GameInstance.IsValid(game) {
+      GameInstance
+        .GetPlayerSystem(game)
+        .UnregisterPlayerPuppetAttachedCallback(this.m_playerAttachedCallbackId);
+      this.m_playerAttachedCallbackId = 0u;
+    }
     if this.m_sessionReady {
       NcSessionEnd();
       this.m_sessionReady = false;
+    }
+  }
+
+  private final func OnPlayerAttachedCallback(playerPuppet: ref<GameObject>) -> Void {
+    if IsDefined(playerPuppet) && !this.m_sessionReady {
+      this.BeginNativeSession();
     }
   }
 

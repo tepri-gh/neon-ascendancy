@@ -1,0 +1,17 @@
+NeonAscendancy.ControlCenterMappin:
+  $type: MappinDefinition
+  showOnMinimap: false
+  showOnMap: true
+  showInWorld: false
+  visibilityRange: 0.0
+  possibleVariants:
+    - Mappins.DefaultQuestVariant
+
+NeonAscendancy.MissionTargetMappin:
+  $type: MappinDefinition
+  showOnMinimap: true
+  showOnMap: true
+  showInWorld: true
+  visibilityRange: 0.0
+  possibleVariants:
+    - Mappins.DefaultQuestVariant
