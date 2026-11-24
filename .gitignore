@@ -1,0 +1,10 @@
+# Machine-specific agent instructions
+AGENTS-LOCAL.md
+
+# Build/deploy output
+dist/
+*.redscripts
+
+# Local reference checkouts
+refs/
+tools/.cache/
