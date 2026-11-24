@@ -1,6 +1,7 @@
 module NeonAscendancy.Sandbox
 
 import NeonAscendancy.Core.*
+import NeonAscendancy.Gameplay.*
 
 private class NeonAscendancy_SanitizerApplyCallback extends DelayCallback {
   public let m_system: wref<NeonAscendancy_SanitizerSystem>;
@@ -8,6 +9,16 @@ private class NeonAscendancy_SanitizerApplyCallback extends DelayCallback {
   public func Call() -> Void {
     if IsDefined(this.m_system) {
       this.m_system.ApplyIfSafe();
+    }
+  }
+}
+
+private class NeonAscendancy_CleanSlateBootstrapCallback extends DelayCallback {
+  public let m_system: wref<NeonAscendancy_SanitizerSystem>;
+
+  public func Call() -> Void {
+    if IsDefined(this.m_system) {
+      this.m_system.RunCleanSlateBootstrap();
     }
   }
 }
@@ -29,9 +40,11 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   private persistent let m_schemaVersion: Int32;
   private persistent let m_enabled: Bool;
   private persistent let m_lastEraCode: Int32;
+  private persistent let m_starterKitGranted: Bool;
   private let m_playerAttachedCallbackId: Uint32;
   private let m_sanctuariesSynced: Bool;
   private let m_stripPending: Bool;
+  private let m_bootstrapPending: Bool;
 
   public func OnAttach() -> Void {
     if this.m_playerAttachedCallbackId == 0u {
@@ -47,15 +60,34 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   public func OnRestored(saveVersion: Int32, gameVersion: Int32) -> Void {
     this.m_sanctuariesSynced = false;
     this.m_stripPending = false;
+    const game = this.GetGameInstance();
+    let cleanSlate = false;
+    if GameInstance.IsValid(game) {
+      let qs = GameInstance.GetQuestsSystem(game);
+      cleanSlate = IsDefined(qs) && qs.GetFact(n"na_clean_slate") > 0;
+    }
+    if cleanSlate {
+      // Never leave a redirect armed across a save load.
+      NcSetAscendancyStartPending(false);
+      NcDisarmAscendancyStart();
+      if !this.m_enabled {
+        this.m_enabled = true;
+        this.m_schemaVersion = NeonAscendancy_SchemaVersion();
+      }
+    }
     NcSetSanitizerActive(this.m_enabled);
     if this.m_enabled {
       this.ScheduleApply(0.5);
+    }
+    if cleanSlate {
+      this.ScheduleCleanSlateBootstrap(1.0);
     }
   }
 
   public func OnDetach() -> Void {
     this.m_sanctuariesSynced = false;
     this.m_stripPending = false;
+    this.m_bootstrapPending = false;
     NcSetSanitizerActive(false);
     NcClearSafeSanctuaries();
     const game = this.GetGameInstance();
@@ -68,9 +100,31 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
   }
 
   private final func OnPlayerAttachedCallback(playerPuppet: ref<GameObject>) -> Void {
-    if IsDefined(playerPuppet) && this.m_enabled {
+    if !IsDefined(playerPuppet) {
+      return;
+    }
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let qs = GameInstance.GetQuestsSystem(game);
+    const cleanSlate = IsDefined(qs) && qs.GetFact(n"na_clean_slate") > 0;
+    if cleanSlate || NcIsAscendancyStartPending() {
+      // Clean-slate world attached: consume the arm/pending handshake, then
+      // auto-enable the sanitizer so a clean-slate run is never unmanaged.
+      NcSetAscendancyStartPending(false);
+      NcDisarmAscendancyStart();
+      if !this.m_enabled {
+        this.m_enabled = true;
+        this.m_schemaVersion = NeonAscendancy_SchemaVersion();
+      }
+    }
+    if this.m_enabled {
       NcSetSanitizerActive(true);
       this.ScheduleApply(0.5);
+    }
+    if cleanSlate {
+      this.ScheduleCleanSlateBootstrap(1.0);
     }
   }
 
@@ -157,6 +211,169 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     NeonAscendancy_LogSafeZoneDiagnostics(game, player, psmBB, allowed, stripped);
     if allowFollowUp && stripped > 0 && !allowed && (hl < 3 || hl > 5) {
       this.ScheduleSafeZoneStrip(0.25, false);
+    }
+  }
+
+  // --- Clean-Slate Bootstrap -------------------------------------------------
+  //
+  // Runs on the na_clean_slate fact (set by the custom root quest phase) for
+  // both a fresh "Start Ascendancy" boot and clean-slate save loads. Fact
+  // application and the Ascendancy session boot are idempotent and re-run every
+  // load; the Level-1 Mercenary starter kit is granted exactly once per
+  // character via the persisted m_starterKitGranted flag.
+  public final func ScheduleCleanSlateBootstrap(delaySeconds: Float) -> Void {
+    if this.m_bootstrapPending {
+      return;
+    }
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let ds = GameInstance.GetDelaySystem(game);
+    if IsDefined(ds) {
+      this.m_bootstrapPending = true;
+      let cb = new NeonAscendancy_CleanSlateBootstrapCallback();
+      cb.m_system = this;
+      ds.DelayCallback(cb, delaySeconds, false);
+    }
+  }
+
+  public final func RunCleanSlateBootstrap() -> Void {
+    this.m_bootstrapPending = false;
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let qs = GameInstance.GetQuestsSystem(game);
+    if !IsDefined(qs) || qs.GetFact(n"na_clean_slate") == 0 {
+      return;
+    }
+    let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+    if !IsDefined(player) {
+      this.ScheduleCleanSlateBootstrap(1.0);
+      return;
+    }
+    this.ApplyCleanSlateFacts(qs);
+    if !this.m_starterKitGranted {
+      this.GrantCleanSlateStarterKit(game, player);
+    }
+    this.BootAscendancySystems(game);
+  }
+
+  // Mandatory usability facts for a clean-slate run (HUD, map, phone/car
+  // summoning, full RPG progression, tutorials off, apartment, open city).
+  // NEVER story-completion facts.
+  private final func ApplyCleanSlateFacts(qs: QuestsSystem) -> Void {
+    qs.SetFact(n"unlock_phone_hud_dpad", 1);
+    qs.SetFact(n"unlock_car_hud_dpad", 1);
+    qs.SetFact(n"q000_started", 1);
+    qs.SetFact(n"dpad_hints_visibility_enabled", 1);
+    qs.SetFact(n"initial_gadget_picked", 1);
+    qs.SetFact(n"map_blocked", 0);
+    qs.SetFact(n"full_rpg_progression_on", 1);
+    qs.SetFact(n"q000_patch_2_0_new_game", 1);
+    qs.SetFact(n"disable_tutorials", 1);
+    qs.SetFact(n"apartment_on", 1);
+    qs.SetFact(n"watson_prolog_lock", 0);
+    qs.SetFact(n"watson_prolog_unlock", 1);
+    qs.SetFact(n"q101_enable_activities_flat", 1);
+    qs.SetFact(n"q101_enable_side_content", 1);
+  }
+
+  // Level-1 Mercenary Starter Kit: Paraline cyberdeck + Kiroshi + Power Grip +
+  // Boring Plating, V's Unity + ammo, Q001 outfit, starter car, 2,500 eb, and
+  // basic crafting mats. Every grant is guarded so the whole kit is idempotent.
+  private final func GrantCleanSlateStarterKit(game: GameInstance, player: ref<GameObject>) -> Void {
+    // H10 safety net: the root quest phase normally teleports to the apartment;
+    // if we are still more than 50 m away on first bootstrap, teleport cleanly.
+    const h10Apartment = Vector4(-1381.758, 1271.708, 123.065, 1.0);
+    if Vector4.Distance(player.GetWorldPosition(), h10Apartment) > 50.0 {
+      let teleport = GameInstance.GetTeleportationFacility(game);
+      if IsDefined(teleport) {
+        teleport.Teleport(player, h10Apartment, EulerAngles());
+      }
+    }
+
+    let ts = GameInstance.GetTransactionSystem(game);
+    if !IsDefined(ts) {
+      this.ScheduleCleanSlateBootstrap(1.0);
+      return;
+    }
+
+    // Money: top up to 2,500 eb cleanly (never overshoot, never take away).
+    const money = ts.GetItemQuantity(player, MarketSystem.Money());
+    if money < 2500 {
+      ts.GiveItem(player, MarketSystem.Money(), 2500 - money);
+    }
+
+    // Starter car (Archer Hella is the canonical starter vehicle).
+    let vs = GameInstance.GetVehicleSystem(game);
+    if IsDefined(vs) {
+      vs
+        .EnablePlayerVehicle("Vehicle.v_standard2_archer_hella_player", true, false);
+    }
+
+    // Cyberware (give + equip into their slots).
+    this.GrantAndEquipItem(ts, player, t"Items.KiroshiOptics");
+    this
+      .GrantAndEquipItem(ts, player, t"Items.AdvancedMilitechParalineMKICommon");
+    this.GrantAndEquipItem(ts, player, t"Items.PowerGripRare");
+    this.GrantAndEquipItem(ts, player, t"Items.AdvancedBoringPlating_Q001");
+
+    // Weapon & ammo.
+    this.GrantAndEquipItem(ts, player, t"Items.Preset_V_Unity");
+    this.GrantItem(ts, player, t"Ammo.HandgunAmmo", 60);
+
+    // Outfit.
+    this.GrantAndEquipItem(ts, player, t"Items.Q001_TShirt");
+    this.GrantAndEquipItem(ts, player, t"Items.Q001_Pants");
+    this.GrantAndEquipItem(ts, player, t"Items.Q001_Shoes");
+
+    // Basic crafting mats.
+    this.GrantItem(ts, player, t"Items.CommonMaterial1", 50);
+
+    this.m_starterKitGranted = true;
+    const posAfter = player.GetWorldPosition();
+    NcLogInfo(
+      s"Sanitizer.CleanSlateBootstrap: granted starter kit (Paraline + car + 2500 eb) pos=(\(posAfter.X),\(posAfter.Y),\(posAfter.Z))"
+    );
+    NeonAscendancy_ShowHudNotice(
+      game,
+      "Neon Ascendancy \u{2014} Clean-Slate Night City. Open Pause Menu to found your gang."
+    );
+  }
+
+  private final func GrantAndEquipItem(ts: TransactionSystem, player: ref<GameObject>, tdbid: TweakDBID) -> Void {
+    const itemId = ItemID.FromTDBID(tdbid);
+    if !ts.HasItem(player, itemId) {
+      ts.GiveItem(player, itemId, 1);
+    }
+    let eq = EquipmentSystem.GetData(player);
+    if IsDefined(eq) && !eq.IsEquipped(itemId) {
+      eq.EquipItem(itemId);
+    }
+  }
+
+  private final func GrantItem(
+    ts: TransactionSystem,
+    player: ref<GameObject>,
+    tdbid: TweakDBID,
+    amount: Int32
+  ) -> Void {
+    const itemId = ItemID.FromTDBID(tdbid);
+    const have = ts.GetItemQuantity(player, itemId);
+    if have < amount {
+      ts.GiveItem(player, itemId, amount - have);
+    }
+  }
+
+  // Ensure the Ascendancy session/pins boot automatically on a clean-slate run.
+  private final func BootAscendancySystems(game: GameInstance) -> Void {
+    let sys = GameInstance
+      .GetScriptableSystemsContainer(game)
+      .Get(n"NeonAscendancy.Gameplay.NeonAscendancy_AscendancySystem") as NeonAscendancy_AscendancySystem;
+    if IsDefined(sys) {
+      sys.BootCleanSlateSession();
     }
   }
 

@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <filesystem>
 #include <iostream>
 #include <string>
@@ -68,6 +69,42 @@ void TestEraAndSanitizerPolicy() {
     NC_CHECK(!p.unlock_city); // already unlocked
     NC_CHECK(!p.unlock_act2_content); // side content already active
     NC_CHECK(p.suppress_campaign);
+    NC_CHECK(p.suppress_johnny);
+  }
+
+  // Clean-slate boot (Watson open + side content with zero story progress) is
+  // its own era: campaign suppressed, Johnny suppression off, no unlock flags.
+  {
+    neon::sim::EraFacts f;
+    f.watson_prolog_unlock = 1;
+    f.q101_enable_side_content = 1;
+    const auto p = neon::sim::ComputeSanitizerPolicy(f, true);
+    NC_CHECK(p.era == neon::sim::WorldEra::CleanSlate);
+    NC_CHECK(!p.unlock_city);
+    NC_CHECK(!p.unlock_act2_content);
+    NC_CHECK(p.suppress_campaign);
+    NC_CHECK(!p.suppress_johnny);
+    const uint32_t mask = neon::sim::PackSanitizerPolicyMask(p);
+    NC_CHECK(((mask >> 8U) & 0xFFU) == static_cast<uint32_t>(neon::sim::WorldEra::CleanSlate));
+    NC_CHECK(!strcmp(neon::sim::WorldEraName(neon::sim::WorldEra::CleanSlate), "Clean Slate"));
+  }
+
+  // CleanSlate via packed bitmask (bits 7 + 15 only).
+  {
+    const uint32_t bits = (1U << 7U) | (1U << 15U); // side_content + unlock, no story bits
+    const auto f = neon::sim::UnpackEraFactsMask(bits);
+    NC_CHECK(neon::sim::ClassifyWorldEra(f) == neon::sim::WorldEra::CleanSlate);
+  }
+
+  // A sanitized vanilla save (q001_done) with the same unlock facts is NOT
+  // CleanSlate: story progress exists, so Interlude classification is kept.
+  {
+    neon::sim::EraFacts f;
+    f.q001_done = 1;
+    f.watson_prolog_unlock = 1;
+    f.q101_enable_side_content = 1;
+    const auto p = neon::sim::ComputeSanitizerPolicy(f, true);
+    NC_CHECK(p.era == neon::sim::WorldEra::Interlude);
     NC_CHECK(p.suppress_johnny);
   }
 

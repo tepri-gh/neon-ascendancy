@@ -1,0 +1,172 @@
+{
+  "spec_version": 1,
+  "description": "Clean-Slate Night City start: declarative spec for tools/build-clean-slate.py. The builder reads this file and emits mod\\neon_ascendancy\\ascendancy.gamedef + .quest + .questphase + spike_kab07.questphase packed into dist/neon_ascendancy_world.archive via WolvenKit.CLI 10.0.0-beta.1. The vanilla New Game path is untouched; this archive is only reachable through the ArmAscendancy gamedef redirect (docs/research/option-a-clean-slate-start.md, mechanism 1).",
+  "game_version": "2.5",
+  "wolvenkit_version": "10.0.0-beta.1",
+  "output_archive": "dist/neon_ascendancy_world.archive",
+  "archive_resources": [
+    "mod\\neon_ascendancy\\ascendancy.gamedef",
+    "mod\\neon_ascendancy\\ascendancy.quest",
+    "mod\\neon_ascendancy\\ascendancy.questphase",
+    "mod\\neon_ascendancy\\spike_kab07.questphase"
+  ],
+  "templates": {
+    "archive": "archive/pc/content/basegame_4_gamedata.archive",
+    "gamedef": "base\\quest\\cyberpunk2077.gamedef",
+    "quest": "base\\quest\\cyberpunk2077.quest",
+    "open_world_content_questphase": "base\\open_world\\phases\\open_world_content.questphase",
+    "teleport_node_template": "base\\quest\\main_quests\\prologue\\q001\\q001.quest",
+    "spawn_manager_node_template": "base\\open_world\\street_stories\\watson\\kabuki\\sts_wat_kab_07\\phase\\sts_wat_kab_07_combat.questphase"
+  },
+  "gamedef": {
+    "main_quest": "mod\\neon_ascendancy\\ascendancy.quest",
+    "spawn_point_tags": ["#q000_spwn_start"],
+    "world": "base\\worlds\\03_night_city\\03_night_city.world",
+    "streaming_world": "base\\worlds\\03_night_city\\_compiled\\default\\03_night_city.streamingworld",
+    "world_name": "03_night_city"
+  },
+  "quest": {
+    "questphase": "mod\\neon_ascendancy\\ascendancy.questphase"
+  },
+  "questphase": {
+    "entry_socket": "Start",
+    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> questTeleportPuppetNodeDefinition (#mq000_01_sm_apartment) -> fan-out to every kept phase node below.",
+    "teleport": {
+      "destination_ref": "#mq000_01_sm_apartment",
+      "use_fast_travel_mechanism": 0,
+      "heal_at_teleport": 1
+    },
+    "initial_facts": [
+      {"fact": "na_clean_slate", "value": 1},
+      {"fact": "watson_prolog_lock", "value": 0},
+      {"fact": "watson_prolog_unlock", "value": 1},
+      {"fact": "q101_enable_activities_flat", "value": 1},
+      {"fact": "q101_enable_side_content", "value": 1},
+      {"fact": "map_blocked", "value": 0},
+      {"fact": "unlock_phone_hud_dpad", "value": 1},
+      {"fact": "unlock_car_hud_dpad", "value": 1},
+      {"fact": "q000_started", "value": 1},
+      {"fact": "dpad_hints_visibility_enabled", "value": 1},
+      {"fact": "initial_gadget_picked", "value": 1},
+      {"fact": "full_rpg_progression_on", "value": 1},
+      {"fact": "q000_patch_2_0_new_game", "value": 1},
+      {"fact": "disable_tutorials", "value": 1},
+      {"fact": "apartment_on", "value": 1}
+    ],
+    "forbidden_facts": [
+      "q000_done",
+      "q001_done",
+      "q005_done",
+      "q101_done",
+      "sts_loop_start"
+    ],
+    "forbidden_fact_prefixes": ["q115_", "ep1_"],
+    "kept_depot_phases": [
+      {"depot_path": "base\\open_world\\community\\global_phase\\open_world_global_commuinity_phase.questphase", "why": "Crowds/communities"},
+      {"depot_path": "base\\open_world\\vendors\\open_world_vendors.questphase", "why": "Vendors + ripperdocs"},
+      {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest.questphase", "why": "Vehicle purchases"},
+      {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest_new.questphase", "why": "Vehicle purchases (2.x)"},
+      {"depot_path": "base\\open_world\\fixers\\open_world_fixers.questphase", "why": "Fixer presence"},
+      {"depot_path": "base\\open_world\\combat_events\\open_world_combat_events.questphase", "why": "Ambient gang combat"},
+      {"depot_path": "base\\open_world\\combat_events\\ce_living_city_pass.questphase", "why": "Living city pass"},
+      {"depot_path": "base\\open_world\\fast_travel\\open_world_fast_travel.questphase", "why": "Fast travel points"},
+      {"depot_path": "base\\open_world\\phases\\radio\\open_world_radio.questphase", "why": "Radio"},
+      {"depot_path": "base\\open_world\\dynamic_events\\open_world_dynamic_events.questphase", "why": "World encounters"},
+      {"depot_path": "base\\open_world\\city_scenes\\open_world_city_scenes.questphase", "why": "City scenes"},
+      {"depot_path": "base\\open_world\\phases\\chats\\open_world_chats.questphase", "why": "NPC chats"},
+      {"depot_path": "base\\open_world\\phases\\city_entities\\city_entities.questphase", "why": "City entities"},
+      {"depot_path": "base\\open_world\\phases\\autofixer_spots\\autofixer_spots_poi.questphase", "why": "Autofixer spots"},
+      {"depot_path": "base\\open_world\\metro\\night_city_metro_nge.questphase", "why": "NCART metro main"},
+      {"depot_path": "base\\open_world\\scenes\\ue_cats\\wst_ue_cats.questphase", "why": "Cats (2.2)"},
+      {"depot_path": "base\\open_world\\delamain_taxi\\phases\\delamain_taxi.questphase", "why": "Delamain taxi"},
+      {"depot_path": "base\\open_world\\autodrive\\autodrive.questphase", "why": "Autodrive"},
+      {"depot_path": "base\\open_world\\vendors\\glamdocs.questphase", "why": "Glamdocs (2.3)"},
+      {"depot_path": "base\\gameplay\\gui\\world\\internet\\internet_content.questphase", "why": "ncity.pub pages (mod UI depends on it)"},
+      {"depot_path": "base\\quest\\default_dialogs.questphase", "why": "Ambient NPC dialogue"},
+      {"depot_path": "base\\quest\\holocalls\\holocall_initializers.questphase", "why": "Phone/holocall init"},
+      {"depot_path": "base\\quest\\character_entries.questphase", "why": "Codex character entries"},
+      {"depot_path": "base\\quest\\cyberpunk2077_metajournal.questphase", "why": "Meta journal"},
+      {"depot_path": "base\\quest\\glossary_entries.questphase", "why": "Glossary"},
+      {"depot_path": "base\\quest\\hiding_av_loops.questphase", "why": "AV loops"},
+      {"depot_path": "base\\quest\\loading_screens.questphase", "why": "Loading screens"},
+      {"depot_path": "base\\quest\\locations_entries.questphase", "why": "Locations entries"},
+      {"depot_path": "base\\quest\\persistent_content.questphase", "why": "Pulls mq000 (H10 apartment) + dlc6_apart (4 purchasable apartments) + tutorials + air traffic; internal story-gated sub-phases stay dormant at fact 0"}
+    ],
+    "kept_inline_phases": [
+      {"owc_node_id": 7, "why": "lch/kab/nid prolog roadblocks, pause-gated on watson_prolog_lock > 0 (inert while unlocked)"},
+      {"owc_node_id": 8, "why": "NCPD PreventionSystem init: 36 trigger-area pause conditions + 36 questEventManagerNodeDefinition (managerName=PreventionSystem)"},
+      {"owc_node_id": 139, "why": "Metro communities: 6 sub-phases pulling the 12 ultimate_edition_metro_community questphases"},
+      {"owc_node_id": 142, "why": "District interactive-object managers (doors/data terms). Vanilla runs the ForceDisabled branch while watson_prolog_lock > 0 and the ForceEnabled branch when watson_prolog_lock == 0. Clean-slate boots with lock == 0 and never transitions, so the builder adds ONE extra connection from the hub to the lock == 0 pause gate (node 3) so the ForceEnabled branch runs at boot; the locked branch stays dormant exactly as in vanilla.", "extra_wire": {"target": "inner pause condition node with questFactsDBCondition watson_prolog_lock Equal 0", "from": "hub fan-out"}},
+      {"owc_node_id": 156, "why": "ue_metro ride wiring: night_city_metro_nge + ue_metro_main gated on ue_metro_ride_started"}
+    ],
+    "inline_phase_depot_refs": [
+      "base\\open_world\\phases\\prolog_roadblocks\\lch_prolog_roadblocks.questphase",
+      "base\\open_world\\phases\\prolog_roadblocks\\kab_prolog_roadblocks.questphase",
+      "base\\open_world\\phases\\prolog_roadblocks\\nid_prolog_roadblocks.questphase",
+      "base\\open_world\\metro\\ue_metro\\ue_metro_main.questphase",
+      "base\\open_world\\community\\city_centre\\downtown\\community\\ultimate_edition_metro_community\\downtown_metro.questphase",
+      "base\\open_world\\community\\city_centre\\corpo_plaza\\community\\ultimate_edition_metro_community\\arasaka_tower_metro.questphase",
+      "base\\open_world\\community\\pacifica\\coastview\\community\\ultimate_edition_metro_community\\pacifica_metro.questphase",
+      "base\\open_world\\community\\watson\\arasaka_waterfront\\community\\ultimate_edition_metro_community\\arasaka_waterfront_metro.questphase",
+      "base\\open_world\\community\\watson\\little_china\\little_china_community\\ultimate_edition_metro_community\\little_china_metro.questphase",
+      "base\\open_world\\community\\westbrook\\japan_town\\communities\\ultimate_edition_metro_community\\japan_town_metro.questphase",
+      "base\\open_world\\community\\westbrook\\charter_hill\\ultimate_edition_metro_community\\charter_hill_metro.questphase",
+      "base\\open_world\\community\\heywood\\wellsprings\\community\\ultimate_edition_metro_community\\well_springs_metro.questphase",
+      "base\\open_world\\community\\heywood\\glen\\community\\ultimate_edition_metro_community\\glen_metro.questphase",
+      "base\\open_world\\community\\heywood\\vista_del_rey\\community\\ultimate_edition_metro_community\\vista_del_rey_metro.questphase",
+      "base\\open_world\\community\\santo_domingo\\rancho_coronado\\community\\ultimate_edition_metro_community\\rancho_corronado_metro.questphase",
+      "base\\open_world\\community\\santo_domingo\\arroyo\\community\\ultimate_edition_metro_community\\arroyo_metro.questphase"
+    ],
+    "omitted_depot_phases": [
+      "base\\open_world\\street_stories\\street_stories.questphase",
+      "base\\open_world\\minor_activities\\open_world_minor_activities.questphase",
+      "base\\open_world\\mini_world_stories\\ow_mini_world_stories.questphase",
+      "base\\open_world\\passenger\\phases\\thepassenger.questphase"
+    ],
+    "omitted_inline_phases": [
+      {"owc_node_id": 32, "why": "q000_done-gated q112 blockade resets (story content; unreachable in clean-slate anyway)"}
+    ],
+    "never_included": [
+      "base\\quest\\main_quests\\prologue\\prologue.questphase (q000-q005)",
+      "base\\quest\\main_quests\\part1\\act_1.questphase (q101-q116)",
+      "base\\quest\\main_quests\\epilogue\\epilogue.questphase",
+      "base\\quest\\main_quests\\epilogue\\final_boards.questphase",
+      "base\\quest\\side_quests\\sidequests.questphase",
+      "base\\quest\\minor_quests\\minorquests.questphase",
+      "base\\quest\\bugfixing.questphase",
+      "ep1\\quest\\main_quests\\ep1_main_quests.questphase (not wired; ep1.gamedef auto-merge keeps Dogtown city-life dormant)",
+      "the vanilla root graph node [82] (activates additional_game_elements/bugfixing/sidequests/minorquests)"
+    ],
+    "excluded_phase_patterns": [
+      "main_quests",
+      "side_quests",
+      "minor_quests",
+      "bugfixing",
+      "epilogue",
+      "final_boards",
+      "street_stories",
+      "minor_activities",
+      "mini_world_stories",
+      "thepassenger"
+    ],
+    "spike": {
+      "resource": "mod\\neon_ascendancy\\spike_kab07.questphase",
+      "why": "Dormant living-world prefab-instantiation spike (docs/research/living-world-site-modeling.md section 2.7). The phase node is gated by questPauseConditionNodeDefinition (na_spike_kab07_active > 0) so NOTHING instantiates or spawns during normal play. Flipping na_spike_kab07_active = 1 in CET during testing activates the sts_wat_kab_07 street-story prefab and spawns the kab_07 enemies community in the 0combat phase, letting us empirically verify prefab + community activation in the same in-game test.",
+      "gate": {
+        "fact": "na_spike_kab07_active",
+        "comparison_type": "Greater",
+        "value": 0
+      },
+      "phase_prefabs": [
+        "#sts_wat_kab_07_streetstory"
+      ],
+      "spawn_manager": {
+        "action": "Activate",
+        "spawner_reference": "#kab_07_com_enemies",
+        "community_entry_name": "None",
+        "community_entry_phase_name": "0combat"
+      },
+      "entry_socket": "In1"
+    }
+  }
+}

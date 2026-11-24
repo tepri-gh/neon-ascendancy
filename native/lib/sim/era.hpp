@@ -32,6 +32,9 @@ enum class WorldEra : uint8_t {
   Endgame = 5,
   PostStory = 6,
   PLStandalone = 7,
+  // "Start Ascendancy" clean-slate boot: full city open (Watson unlocked,
+  // side content enabled) with zero story progress (no q000/q001/q005/q101).
+  CleanSlate = 8,
 };
 
 struct EraFacts {

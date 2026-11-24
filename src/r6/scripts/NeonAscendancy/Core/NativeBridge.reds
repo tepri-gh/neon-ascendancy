@@ -9,6 +9,14 @@ public native func NcSetSanitizerActive(active: Bool) -> Void;
 
 public native func NcIsSanitizerActive() -> Bool;
 
+public native func NcSetAscendancyStartPending(pending: Bool) -> Void;
+
+public native func NcIsAscendancyStartPending() -> Bool;
+
+public native func NcArmAscendancyStart() -> Bool;
+
+public native func NcDisarmAscendancyStart() -> Bool;
+
 public native func NcIsSuppressedVanillaMappinVariant(mappinVariantEnum: Int32) -> Bool;
 
 public native func NcClearControlCenterPins() -> Void;

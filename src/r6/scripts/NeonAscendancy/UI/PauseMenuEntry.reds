@@ -5,12 +5,17 @@ import NeonAscendancy.Gameplay.*
 import NeonAscendancy.Sandbox.*
 
 // Paper-thin Codeware-free Pause Menu entry. Label & action state machine live in C++.
+// Decision A2: the item only exists inside an active Ascendancy run (clean-slate
+// boot or an enabled sanitizer), so vanilla campaign saves stay 100% untouched.
 @wrapMethod(PauseMenuGameController)
 private func PopulateMenuItemList() -> Void {
   wrappedMethod();
-  const enabled = NeonAscendancy_IsSanitizerEnabled(this.m_gameInstance);
-  this.AddMenuItem(NcGetPauseMenuLabel(enabled), n"NeonAscendancy_PauseAction");
-  this.m_menuListController.Refresh();
+  let qs = GameInstance.GetQuestsSystem(this.m_gameInstance);
+  const cleanSlateRun = IsDefined(qs) && qs.GetFact(n"na_clean_slate") > 0;
+  if cleanSlateRun || NeonAscendancy_IsSanitizerEnabled(this.m_gameInstance) {
+    this.AddMenuItem(NcGetPauseMenuLabel(true), n"NeonAscendancy_PauseAction");
+    this.m_menuListController.Refresh();
+  }
 }
 
 @wrapMethod(PauseMenuGameController)

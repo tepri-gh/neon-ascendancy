@@ -50,6 +50,16 @@ WorldEra ClassifyWorldEra(const EraFacts& f) {
   if (f.q115_point_of_no_return > 0 || f.q116_done > 0) {
     return WorldEra::Endgame;
   }
+  // Clean-slate: Watson open with zero story progress. Vanilla saves always
+  // carry at least q000_done or q001_done, so this signature is unique to the
+  // Ascendancy .gamedef boot (which sets only the traversal/content facts).
+  if (f.q000_done == 0 && f.q001_active == 0 && f.q001_done == 0 &&
+      f.q005_active == 0 && f.q005_done == 0 && f.q101_done == 0 &&
+      f.q115_point_of_no_return == 0 && f.q116_done == 0 &&
+      f.q201_done == 0 && f.q202_done == 0 && f.q203_done == 0 &&
+      f.q204_done == 0 && f.watson_prolog_lock == 0 && f.watson_prolog_unlock > 0) {
+    return WorldEra::CleanSlate;
+  }
   if (f.q005_done > 0) {
     if (f.q101_done > 0 || f.q101_enable_side_content > 0 || f.watson_prolog_lock == 0) {
       return WorldEra::Act2;
@@ -117,6 +127,7 @@ const char* WorldEraName(WorldEra era) {
     case WorldEra::Endgame: return "Endgame";
     case WorldEra::PostStory: return "Post-Story";
     case WorldEra::PLStandalone: return "Phantom Liberty Standalone";
+    case WorldEra::CleanSlate: return "Clean Slate";
   }
   return "Unknown";
 }

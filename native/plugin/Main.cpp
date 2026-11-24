@@ -5,12 +5,14 @@
 #include <deque>
 #include <memory>
 #include <mutex>
+#include <shared_mutex>
 #include <string>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
 #include <RED4ext/RED4ext.hpp>
+#include <RED4ext/ResourceLoader.hpp>
 #include <RedLib.hpp>
 
 #include "era.hpp"
@@ -22,6 +24,11 @@ namespace {
 constexpr double kCombatMissionRadiusXY = 160.0;
 constexpr double kCombatMissionRadiusZ = 60.0;
 constexpr size_t kMaxQueuedHudNotices = 16;
+
+// Ascendancy clean-slate .gamedef redirect. The key is the resource the engine
+// requests; the value is the mod resource resolved instead.
+constexpr const char* kVanillaGamedefPath = "base\\quest\\cyberpunk2077.gamedef";
+constexpr const char* kAscendancyGamedefPath = "mod\\neon_ascendancy\\ascendancy.gamedef";
 
 RED4ext::v1::PluginHandle g_plugin_handle = nullptr;
 const RED4ext::v1::Sdk* g_sdk = nullptr;
@@ -43,6 +50,7 @@ struct CoreRuntime {
   bool world_loaded = false;
   bool session_active = false;
   bool sanitizer_active = false;
+  bool ascendancy_start_pending = false;
 };
 
 CoreRuntime g_rt;
@@ -196,6 +204,102 @@ void NcSetSanitizerActive(bool active) {
 bool NcIsSanitizerActive() {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   return g_rt.sanitizer_active;
+}
+
+void NcSetAscendancyStartPending(bool pending) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.ascendancy_start_pending = pending;
+}
+
+bool NcIsAscendancyStartPending() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return g_rt.ascendancy_start_pending;
+}
+
+// Insert base\quest\cyberpunk2077.gamedef -> mod\neon_ascendancy\ascendancy.gamedef
+// into ResourceBank::resolvedPathMap (the same path->path resolution table
+// ArchiveXL's "resource: link:" entries populate). Idempotent: re-arming keeps a
+// single mapping and logs whether the base gamedef token was already cached.
+bool NcArmAscendancyStart() {
+  RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
+  if (loader == nullptr || loader->bank == nullptr) {
+    LogWarn("NcArmAscendancyStart: ResourceLoader/ResourceBank unavailable");
+    return false;
+  }
+
+  const RED4ext::ResourcePath src(kVanillaGamedefPath);
+  const RED4ext::ResourcePath dst(kAscendancyGamedefPath);
+
+  // ResourceLoader::tokens (ResourceLoader.hpp) is the engine token cache.
+  // Check it under tokenLock's shared lock; never evict it — a cached base
+  // gamedef token may mean the redirect only applies to later resolutions.
+  bool token_cached = false;
+  {
+    std::shared_lock<RED4ext::SharedSpinLock> token_guard(loader->tokenLock);
+    token_cached = loader->tokens.Contains(src);
+  }
+
+  uint32_t size_before = 0;
+  uint32_t size_after = 0;
+  bool was_present = false;
+  {
+    std::lock_guard<RED4ext::SharedSpinLock> map_guard(loader->bank->resolvedPathMapLock);
+    size_before = loader->bank->resolvedPathMap.size;
+    if (const RED4ext::ResourcePath* prev = loader->bank->resolvedPathMap.Get(src);
+        prev != nullptr) {
+      was_present = true;
+      if (*prev != dst) {
+        loader->bank->resolvedPathMap.InsertOrAssign(src, dst);
+      }
+    } else {
+      loader->bank->resolvedPathMap.InsertOrAssign(src, dst);
+    }
+    size_after = loader->bank->resolvedPathMap.size;
+  }
+
+  char msg[320] = {};
+  std::snprintf(
+      msg, sizeof(msg),
+      "NcArmAscendancyStart: base\\quest\\cyberpunk2077.gamedef -> "
+      "mod\\neon_ascendancy\\ascendancy.gamedef (%s); resolvedPathMap size %u -> %u; "
+      "base gamedef token cached=%d",
+      was_present ? "overwrote-or-kept existing entry" : "inserted",
+      size_before, size_after, token_cached ? 1 : 0);
+  LogInfo(msg);
+  if (token_cached) {
+    LogWarn(
+        "NcArmAscendancyStart: base gamedef token already cached in ResourceLoader; "
+        "redirect applies to subsequent resolutions, verify in-game");
+  }
+  return true;
+}
+
+// Remove the Ascendancy gamedef mapping idempotently (absence is not an error).
+bool NcDisarmAscendancyStart() {
+  RED4ext::ResourceLoader* loader = RED4ext::ResourceLoader::Get();
+  if (loader == nullptr || loader->bank == nullptr) {
+    LogWarn("NcDisarmAscendancyStart: ResourceLoader/ResourceBank unavailable");
+    return false;
+  }
+
+  const RED4ext::ResourcePath src(kVanillaGamedefPath);
+  uint32_t size_before = 0;
+  uint32_t size_after = 0;
+  bool removed = false;
+  {
+    std::lock_guard<RED4ext::SharedSpinLock> map_guard(loader->bank->resolvedPathMapLock);
+    size_before = loader->bank->resolvedPathMap.size;
+    removed = loader->bank->resolvedPathMap.Remove(src);
+    size_after = loader->bank->resolvedPathMap.size;
+  }
+
+  char msg[160] = {};
+  std::snprintf(
+      msg, sizeof(msg),
+      "NcDisarmAscendancyStart: removed=%d; resolvedPathMap size %u -> %u",
+      removed ? 1 : 0, size_before, size_after);
+  LogInfo(msg);
+  return true;
 }
 
 bool NcIsSuppressedVanillaMappinVariant(int32_t mappin_variant_enum) {
@@ -863,6 +967,10 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcLogInfo, "NeonAscendancy.Core.NcLogInfo");
   RTTI_FUNCTION(NcSetSanitizerActive, "NeonAscendancy.Core.NcSetSanitizerActive");
   RTTI_FUNCTION(NcIsSanitizerActive, "NeonAscendancy.Core.NcIsSanitizerActive");
+  RTTI_FUNCTION(NcSetAscendancyStartPending, "NeonAscendancy.Core.NcSetAscendancyStartPending");
+  RTTI_FUNCTION(NcIsAscendancyStartPending, "NeonAscendancy.Core.NcIsAscendancyStartPending");
+  RTTI_FUNCTION(NcArmAscendancyStart, "NeonAscendancy.Core.NcArmAscendancyStart");
+  RTTI_FUNCTION(NcDisarmAscendancyStart, "NeonAscendancy.Core.NcDisarmAscendancyStart");
   RTTI_FUNCTION(NcIsSuppressedVanillaMappinVariant, "NeonAscendancy.Core.NcIsSuppressedVanillaMappinVariant");
   RTTI_FUNCTION(NcClearControlCenterPins, "NeonAscendancy.Core.NcClearControlCenterPins");
   RTTI_FUNCTION(NcBindControlCenterPin, "NeonAscendancy.Core.NcBindControlCenterPin");
@@ -911,7 +1019,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 52 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 56 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {
@@ -936,6 +1044,7 @@ RED4EXT_C_EXPORT bool RED4EXT_CALL Main(
       break;
     }
     case RED4ext::v1::EMainReason::Unload: {
+      NcDisarmAscendancyStart();
       std::lock_guard<std::mutex> lock(g_rt.mu);
       g_rt.session_active = false;
       g_rt.counted_kill_entities.clear();

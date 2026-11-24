@@ -59,6 +59,24 @@ public class NeonAscendancy_AscendancySystem extends ScriptableSystem {
     return NeonAscendancy_IsSanitizerEnabled(this.GetGameInstance());
   }
 
+  // Auto-boot for clean-slate runs (called by SanitizerSystem once the
+  // na_clean_slate world has attached): initialize the durable session if
+  // needed and sync territory pins + the income ticker. Idempotent; shows no
+  // extra HUD notice (the starter-kit notice already covered the entry).
+  public final func BootCleanSlateSession() -> Void {
+    const game = this.GetGameInstance();
+    if !GameInstance.IsValid(game) {
+      return;
+    }
+    let anchor = GameInstance
+      .GetScriptableSystemsContainer(game)
+      .Get(n"NeonAscendancy.Persistence.NeonAscendancy_AnchorSystem") as NeonAscendancy_AnchorSystem;
+    if IsDefined(anchor) {
+      anchor.EnsureSessionInitialized();
+    }
+    this.SyncMapAndStartTicker();
+  }
+
   public final func HandlePauseMenuAction() -> Void {
     const game = this.GetGameInstance();
     if !GameInstance.IsValid(game) {
