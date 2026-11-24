@@ -3,8 +3,10 @@ AGENTS-LOCAL.md
 
 # Build/deploy output
 dist/
+build/
 *.redscripts
 
-# Local reference checkouts
+# Local reference checkouts and fetched native vendor SDKs
 refs/
 tools/.cache/
+native/third_party/
