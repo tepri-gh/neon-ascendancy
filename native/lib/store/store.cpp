@@ -339,8 +339,8 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
   {
     StmtGuard g;
     const char* sql =
-        "SELECT sub_territory_id, district_id, code, display_name, owner_kind, "
-        "COALESCE(initial_owner_faction_id, 0), base_income_per_cycle, defense_rating, "
+        "SELECT sub_territory_id, district_id, code, display_name, COALESCE(gamedata_subdistrict, ''), "
+        "owner_kind, COALESCE(initial_owner_faction_id, 0), base_income_per_cycle, defense_rating, "
         "centroid_x, centroid_y, centroid_z "
         "FROM sub_territories ORDER BY sub_territory_id";
     if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
@@ -354,13 +354,14 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
       st.district_id = sqlite3_column_int(g.stmt, 1);
       st.code = ColText(g.stmt, 2);
       st.display_name = ColText(g.stmt, 3);
-      st.owner_kind = ColText(g.stmt, 4);
-      st.initial_owner_faction_id = sqlite3_column_int(g.stmt, 5);
-      st.base_income_per_cycle = sqlite3_column_int(g.stmt, 6);
-      st.defense_rating = sqlite3_column_int(g.stmt, 7);
-      st.centroid_x = sqlite3_column_double(g.stmt, 8);
-      st.centroid_y = sqlite3_column_double(g.stmt, 9);
-      st.centroid_z = sqlite3_column_double(g.stmt, 10);
+      st.gamedata_subdistrict = ColText(g.stmt, 4);
+      st.owner_kind = ColText(g.stmt, 5);
+      st.initial_owner_faction_id = sqlite3_column_int(g.stmt, 6);
+      st.base_income_per_cycle = sqlite3_column_int(g.stmt, 7);
+      st.defense_rating = sqlite3_column_int(g.stmt, 8);
+      st.centroid_x = sqlite3_column_double(g.stmt, 9);
+      st.centroid_y = sqlite3_column_double(g.stmt, 10);
+      st.centroid_z = sqlite3_column_double(g.stmt, 11);
       sub_territory_index_[st.sub_territory_id] = sub_territories_.size();
       sub_territories_.push_back(std::move(st));
     }
@@ -1054,6 +1055,49 @@ SessionBeginResult PlaythroughDb::SessionBegin(
     return res;
   }
 
+  // Reconcile restored territories if static world.db topology was upgraded
+  // (e.g. expanding 41 -> 96 sub-territories across subdistricts).
+  {
+    std::string db_world_hash;
+    {
+      StmtGuard g;
+      if (sqlite3_prepare_v2(db_, "SELECT world_content_hash FROM sim_clock WHERE singleton = 1", -1, &g.stmt, nullptr) == SQLITE_OK &&
+          sqlite3_step(g.stmt) == SQLITE_ROW) {
+        db_world_hash = ColText(g.stmt, 0);
+      }
+    }
+    const auto world_defs = world.BuildTerritoryDefs();
+    if (db_world_hash != world.ContentHash() || out_state.territories.size() != world_defs.size()) {
+      std::vector<sim::TerritoryRuntime> reconciled;
+      reconciled.reserve(world_defs.size());
+      for (const auto& d : world_defs) {
+        sim::TerritoryRuntime tr;
+        tr.sub_territory_id = d.sub_territory_id;
+        tr.owner_faction_id = d.initial_owner_faction_id;
+        tr.control_level = 1.0F;
+        if (db_world_hash == world.ContentHash()) {
+          if (const auto* prev = sim::SimEngine::FindTerritoryConst(out_state, d.sub_territory_id);
+              prev != nullptr) {
+            tr = *prev;
+          }
+        }
+        reconciled.push_back(tr);
+      }
+      out_state.territories = std::move(reconciled);
+      if (db_world_hash != world.ContentHash()) {
+        // Drop active missions whose old control-center IDs belong to a previous world.db topology.
+        out_state.missions.erase(
+            std::remove_if(
+                out_state.missions.begin(),
+                out_state.missions.end(),
+                [](const sim::MissionRuntime& m) {
+                  return m.state == sim::MissionState::Active || m.state == sim::MissionState::Offered;
+                }),
+            out_state.missions.end());
+      }
+    }
+  }
+
   const int32_t fork_rev = std::max(max_rev, restore_target) + 1;
   out_state.clock.revision = fork_rev;
   const auto fork_payload = EncodeFullSnapshot(out_state);
@@ -1070,6 +1114,13 @@ SessionBeginResult PlaythroughDb::SessionBegin(
     StmtGuard g;
     if (sqlite3_prepare_v2(db_, "UPDATE checkpoints SET pinned = 1 WHERE revision = ?1", -1, &g.stmt, nullptr) == SQLITE_OK) {
       sqlite3_bind_int(g.stmt, 1, restore_target);
+      sqlite3_step(g.stmt);
+    }
+  }
+  {
+    StmtGuard g;
+    if (sqlite3_prepare_v2(db_, "UPDATE sim_clock SET world_content_hash = ?1 WHERE singleton = 1", -1, &g.stmt, nullptr) == SQLITE_OK) {
+      sqlite3_bind_text(g.stmt, 1, world.ContentHash().c_str(), -1, SQLITE_TRANSIENT);
       sqlite3_step(g.stmt);
     }
   }

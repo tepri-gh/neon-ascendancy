@@ -47,6 +47,7 @@ struct WorldSubTerritory {
   int32_t district_id = 0;
   std::string code;
   std::string display_name;
+  std::string gamedata_subdistrict;
   std::string owner_kind;
   int32_t initial_owner_faction_id = 0;
   int32_t base_income_per_cycle = 0;

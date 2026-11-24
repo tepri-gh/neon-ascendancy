@@ -1,9 +1,9 @@
 [
   {
-    "bbox_max_x": -305.2,
-    "bbox_max_y": 3522.3,
-    "bbox_min_x": -2424.6,
-    "bbox_min_y": 402.1,
+    "bbox_max_x": -305.0,
+    "bbox_max_y": 3525.0,
+    "bbox_min_x": -2450.0,
+    "bbox_min_y": 900.0,
     "code": "watson",
     "crime_multiplier": 0.85,
     "display_name": "Watson",
@@ -11,14 +11,15 @@
     "gamedata_district": "Watson",
     "kind": "city",
     "vanilla_gangs": [
-      "Maelstrom"
+      "Maelstrom",
+      "TygerClaws"
     ]
   },
   {
-    "bbox_max_x": 1091.5,
-    "bbox_max_y": 1799.0,
-    "bbox_min_x": -1294.6,
-    "bbox_min_y": -898.2,
+    "bbox_max_x": 1095.0,
+    "bbox_max_y": 2150.0,
+    "bbox_min_x": -1050.0,
+    "bbox_min_y": -750.0,
     "code": "westbrook",
     "crime_multiplier": 0.85,
     "display_name": "Westbrook",
@@ -31,10 +32,10 @@
     ]
   },
   {
-    "bbox_max_x": -658.7,
-    "bbox_max_y": -401.0,
-    "bbox_min_x": -2792.8,
-    "bbox_min_y": -1748.9,
+    "bbox_max_x": -400.0,
+    "bbox_max_y": -50.0,
+    "bbox_min_x": -2795.0,
+    "bbox_min_y": -1750.0,
     "code": "heywood",
     "crime_multiplier": 0.8,
     "display_name": "Heywood",
@@ -46,10 +47,10 @@
     ]
   },
   {
-    "bbox_max_x": 1584.5,
-    "bbox_max_y": -566.5,
-    "bbox_min_x": -1058.5,
-    "bbox_min_y": -2582.8,
+    "bbox_max_x": 1585.0,
+    "bbox_max_y": -565.0,
+    "bbox_min_x": -1060.0,
+    "bbox_min_y": -2585.0,
     "code": "santo_domingo",
     "crime_multiplier": 0.8,
     "display_name": "Santo Domingo",
@@ -61,10 +62,10 @@
     ]
   },
   {
-    "bbox_max_x": -1120.7,
-    "bbox_max_y": -1353.2,
-    "bbox_min_x": -3222.1,
-    "bbox_min_y": -3380.9,
+    "bbox_max_x": -1120.0,
+    "bbox_max_y": -1350.0,
+    "bbox_min_x": -3225.0,
+    "bbox_min_y": -3385.0,
     "code": "pacifica",
     "crime_multiplier": 0.7,
     "display_name": "Pacifica",
@@ -77,10 +78,10 @@
     ]
   },
   {
-    "bbox_max_x": -903.0,
-    "bbox_max_y": 696.7,
+    "bbox_max_x": -900.0,
+    "bbox_max_y": 750.0,
     "bbox_min_x": -2395.0,
-    "bbox_min_y": -730.1,
+    "bbox_min_y": -350.0,
     "code": "city_center",
     "crime_multiplier": 1.2,
     "display_name": "City Center",
@@ -90,10 +91,10 @@
     "vanilla_gangs": []
   },
   {
-    "bbox_max_x": 6163.6,
-    "bbox_max_y": 6264.5,
-    "bbox_min_x": -6657.4,
-    "bbox_min_y": -6652.1,
+    "bbox_max_x": 6165.0,
+    "bbox_max_y": 6265.0,
+    "bbox_min_x": -6660.0,
+    "bbox_min_y": -6655.0,
     "code": "badlands",
     "crime_multiplier": 1.0,
     "display_name": "Badlands",
@@ -101,13 +102,14 @@
     "gamedata_district": "Badlands",
     "kind": "badlands",
     "vanilla_gangs": [
-      "Aldecaldos"
+      "Aldecaldos",
+      "Wraiths"
     ]
   },
   {
-    "bbox_max_x": -1166.1,
-    "bbox_max_y": -1774.0,
-    "bbox_min_x": -2639.8,
+    "bbox_max_x": -1165.0,
+    "bbox_max_y": -1770.0,
+    "bbox_min_x": -2640.0,
     "bbox_min_y": -3245.0,
     "code": "dogtown",
     "crime_multiplier": 1.0,
@@ -118,5 +120,18 @@
     "vanilla_gangs": [
       "Barghest"
     ]
+  },
+  {
+    "bbox_max_x": -2950.0,
+    "bbox_max_y": 1150.0,
+    "bbox_min_x": -4800.0,
+    "bbox_min_y": -400.0,
+    "code": "morro_rock",
+    "crime_multiplier": 1.0,
+    "display_name": "Morro Rock",
+    "district_id": 9,
+    "gamedata_district": "MorroRock",
+    "kind": "city",
+    "vanilla_gangs": []
   }
 ]

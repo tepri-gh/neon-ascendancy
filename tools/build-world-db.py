@@ -60,7 +60,10 @@ def build_grid_and_polygons(
     for st in sub_territories:
         sts_by_dist.setdefault(st["district_id"], []).append(st)
 
-    cells: dict[tuple[int, int], int] = {}
+    # Value is (dist_sq, sub_territory_id, is_badlands).
+    # Non-badlands districts win over the map-spanning badlands bbox; among overlapping
+    # non-badlands district bboxes, the geometrically nearest control center wins.
+    best_cells: dict[tuple[int, int], tuple[float, int, bool]] = {}
     st_points: dict[int, list[tuple[float, float]]] = {st["sub_territory_id"]: [] for st in sub_territories}
 
     for d in districts:
@@ -68,26 +71,40 @@ def build_grid_and_polygons(
         dsts = sts_by_dist.get(did, [])
         if not dsts:
             continue
+        is_badlands = d["kind"] == "badlands"
         anchors = []
         for st in dsts:
             cc = cc_by_st[st["sub_territory_id"]]
             anchors.append((st["sub_territory_id"], cc["x"], cc["y"]))
 
         min_cx = math.floor(d["bbox_min_x"] / CELL_SIZE_M)
-        max_cx = math.ceil(d["bbox_max_x"] / CELL_SIZE_M)
+        max_cx = math.floor(d["bbox_max_x"] / CELL_SIZE_M)
         min_cy = math.floor(d["bbox_min_y"] / CELL_SIZE_M)
-        max_cy = math.ceil(d["bbox_max_y"] / CELL_SIZE_M)
+        max_cy = math.floor(d["bbox_max_y"] / CELL_SIZE_M)
 
         for cx in range(min_cx, max_cx + 1):
             wx = (cx + 0.5) * CELL_SIZE_M
             for cy in range(min_cy, max_cy + 1):
                 wy = (cy + 0.5) * CELL_SIZE_M
-                # Nearest control center within this district; if cell already claimed by
-                # an urban district before badlands, keep the urban district owner.
-                if (cx, cy) in cells and d["kind"] == "badlands":
+                prev = best_cells.get((cx, cy))
+                if prev is not None and not prev[2] and is_badlands:
                     continue
-                best_st = min(anchors, key=lambda a: (wx - a[1]) ** 2 + (wy - a[2]) ** 2)[0]
-                cells[(cx, cy)] = best_st
+                best_st = -1
+                best_d2 = float("inf")
+                for stid, ax, ay in anchors:
+                    d2 = (wx - ax) ** 2 + (wy - ay) ** 2
+                    if d2 < best_d2 or (d2 == best_d2 and stid < best_st):
+                        best_d2 = d2
+                        best_st = stid
+                if (
+                    prev is None
+                    or (prev[2] and not is_badlands)
+                    or best_d2 < prev[0]
+                    or (best_d2 == prev[0] and best_st < prev[1])
+                ):
+                    best_cells[(cx, cy)] = (best_d2, best_st, is_badlands)
+
+    cells: dict[tuple[int, int], int] = {k: v[1] for k, v in best_cells.items()}
 
     for (cx, cy), stid in cells.items():
         wx = (cx + 0.5) * CELL_SIZE_M

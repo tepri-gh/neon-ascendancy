@@ -1,11 +1,11 @@
 {
   "counts": {
-    "control_centers": 41,
-    "districts": 8,
+    "control_centers": 96,
+    "districts": 9,
     "factions": 38,
-    "landmarks": 41,
-    "spawn_points": 1128,
-    "sub_territories": 41
+    "landmarks": 96,
+    "spawn_points": 1329,
+    "sub_territories": 96
   },
   "game_version": "2.5",
   "registry_communities": 10324,

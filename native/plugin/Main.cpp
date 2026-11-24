@@ -446,6 +446,27 @@ Red::CString NcGetControlCenterTooltipTitle(int32_t sub_territory_id) {
   return Red::CString(st != nullptr ? st->display_name.c_str() : "Control Center");
 }
 
+std::string FormatSubdistrictDisplay(const std::string& district_name, const std::string& gamedata_sub) {
+  if (gamedata_sub.empty()) return district_name;
+  if (gamedata_sub == "LittleChina") return district_name + " - Little China";
+  if (gamedata_sub == "Kabuki") return district_name + " - Kabuki";
+  if (gamedata_sub == "Northside") return district_name + " - Northside";
+  if (gamedata_sub == "ArasakaWaterfront") return district_name + " - Arasaka Waterfront";
+  if (gamedata_sub == "JapanTown") return district_name + " - Japantown";
+  if (gamedata_sub == "CharterHill") return district_name + " - Charter Hill";
+  if (gamedata_sub == "NorthOaks") return district_name + " - North Oak";
+  if (gamedata_sub == "VistaDelRey") return district_name + " - Vista Del Rey";
+  if (gamedata_sub == "Glen") return district_name + " - The Glen";
+  if (gamedata_sub == "Wellsprings") return district_name + " - Wellsprings";
+  if (gamedata_sub == "Arroyo") return district_name + " - Arroyo";
+  if (gamedata_sub == "RanchoCoronado") return district_name + " - Rancho Coronado";
+  if (gamedata_sub == "Coastview") return district_name + " - Coastview";
+  if (gamedata_sub == "WestWindEstate") return district_name + " - West Wind Estate";
+  if (gamedata_sub == "Downtown") return district_name + " - Downtown";
+  if (gamedata_sub == "CorpoPlaza") return district_name + " - Corpo Plaza";
+  return district_name;
+}
+
 Red::CString NcGetControlCenterTooltipDesc(int32_t sub_territory_id) {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   if (!EnsureWorldLoadedLocked()) {
@@ -456,7 +477,8 @@ Red::CString NcGetControlCenterTooltipDesc(int32_t sub_territory_id) {
     return Red::CString("");
   }
   const auto* dist = g_rt.world.FindDistrict(st->district_id);
-  const std::string dist_name = dist != nullptr ? dist->display_name : "Night City";
+  const std::string base_dist = dist != nullptr ? dist->display_name : "Night City";
+  const std::string dist_name = FormatSubdistrictDisplay(base_dist, st->gamedata_subdistrict);
   const int32_t owner_id = ResolveOwnerFactionIdLocked(sub_territory_id);
   const std::string owner_name = ResolveFactionNameLocked(owner_id);
   const auto* org = g_rt.session_active

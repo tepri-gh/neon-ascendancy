@@ -227,6 +227,11 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
       && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"FastForward") {
       StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoCombat");
     }
+    if StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"NoWeapons")
+      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"VehicleScene")
+      && !StatusEffectSystem.ObjectHasStatusEffectWithTag(player, n"FastForward") {
+      StatusEffectHelper.RemoveStatusEffectsWithTag(player, n"NoWeapons");
+    }
     if IsDefined(pp) {
       pp.OnZoneFactChanged(cityAreaFact);
       let clearEmptyHands = new PSMPostponedParameterBool();
@@ -434,29 +439,164 @@ public func CreateMappinUIProfile(
 }
 
 // --- Safe Zone Disabling (everywhere except V's apartments, stores, and ripperdocs) ---
+private func NeonAscendancy_ShouldOverrideSafeZone(const owner: wref<GameObject>) -> Bool {
+  if !NcIsSanitizerActive() || !IsDefined(owner) {
+    return false;
+  }
+  const pp = owner as PlayerPuppet;
+  if IsDefined(pp) {
+    const psmBB = pp.GetPlayerStateMachineBlackboard();
+    if IsDefined(psmBB) {
+      const hl = psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel);
+      if hl >= 3 && hl <= 5 {
+        return false;
+      }
+    }
+  }
+  const pos = owner.GetWorldPosition();
+  if NcGetSafeSanctuaryCount() == 0 {
+    return !NeonAscendancy_IsAllowedSafeZone(owner.GetGame(), pos);
+  }
+  return !NcIsAllowedSafeZone(pos.X, pos.Y, pos.Z);
+}
+
+private func NeonAscendancy_HasNonSafeCombatLock(const owner: wref<GameObject>) -> Bool {
+  let ses = GameInstance.GetStatusEffectSystem(owner.GetGame());
+  if !IsDefined(ses) {
+    return false;
+  }
+  const eid = owner.GetEntityID();
+  return ses.HasStatusEffectWithTag(eid, n"VehicleScene")
+    || ses.HasStatusEffectWithTag(eid, n"FastForward")
+    || ses.HasStatusEffectWithTag(eid, n"Braindance");
+}
+
 @wrapMethod(PlayerPuppet)
 protected const final func GetCurrentZoneType(factValue: Int32) -> gameCityAreaType {
   const zoneType = wrappedMethod(factValue);
   if Equals(zoneType, gameCityAreaType.SafeZone)
-    && NeonAscendancy_IsSanitizerEnabled(this.GetGame())
-    && !NeonAscendancy_IsAllowedSafeZone(this.GetGame(), this.GetWorldPosition()) {
-    return gameCityAreaType.PublicZone;
+    && NeonAscendancy_IsSanitizerEnabled(this.GetGame()) {
+    const pos = this.GetWorldPosition();
+    const allowed = NeonAscendancy_IsAllowedSafeZone(this.GetGame(), pos);
+    NcLogInfo(
+      s"Sanitizer.GetCurrentZoneType: SafeZone fact=\(factValue) allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+    );
+    if !allowed {
+      return gameCityAreaType.PublicZone;
+    }
   }
   return zoneType;
+}
+
+@wrapMethod(PlayerPuppet)
+private final func OnEnterSafeZone() -> Void {
+  if NeonAscendancy_IsSanitizerEnabled(this.GetGame()) {
+    const pos = this.GetWorldPosition();
+    const allowed = NeonAscendancy_IsAllowedSafeZone(this.GetGame(), pos);
+    NcLogInfo(
+      s"Sanitizer.OnEnterSafeZone: allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+    );
+    if !allowed {
+      this.OnExitSafeZone();
+      this
+        .SetBlackboardIntVariable(GetAllBlackboardDefs().PlayerStateMachine.Zones, 1);
+      return;
+    }
+  }
+  wrappedMethod();
 }
 
 @wrapMethod(DefaultTransition)
 protected const final func IsInSafeZone(const scriptInterface: ref<StateGameScriptInterface>) -> Bool {
   const res = wrappedMethod(scriptInterface);
-  if res && NcIsSanitizerActive() && IsDefined(scriptInterface.executionOwner) {
-    if !NeonAscendancy_IsAllowedSafeZone(
-      scriptInterface.executionOwner.GetGame(),
-      scriptInterface.executionOwner.GetWorldPosition()
-    ) {
-      return false;
-    }
+  if res && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner) {
+    return false;
   }
   return res;
+}
+
+@wrapMethod(DefaultTransition)
+public const final func IsEmptyHandsForced(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  const res = wrappedMethod(stateContext, scriptInterface);
+  if res
+    && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
+    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner)
+    && !stateContext.IsStateActive(n"HighLevel", n"minigame")
+    && !stateContext.IsStateActive(n"HighLevel", n"inspection") {
+    return false;
+  }
+  return res;
+}
+
+@wrapMethod(DefaultTransition)
+public const final func IsSafeStateForced(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  const res = wrappedMethod(stateContext, scriptInterface);
+  if res
+    && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
+    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
+    return false;
+  }
+  return res;
+}
+
+@wrapMethod(DefaultTransition)
+protected const final func IsNoCombatActionsForced(const scriptInterface: ref<StateGameScriptInterface>) -> Bool {
+  const res = wrappedMethod(scriptInterface);
+  if res
+    && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner)
+    && !NeonAscendancy_HasNonSafeCombatLock(scriptInterface.executionOwner) {
+    return false;
+  }
+  return res;
+}
+
+@wrapMethod(DefaultTransition)
+protected const final func IsInSafeSceneTier(const scriptInterface: ref<StateGameScriptInterface>) -> Bool {
+  const res = wrappedMethod(scriptInterface);
+  if res && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner) {
+    return false;
+  }
+  return res;
+}
+
+@wrapMethod(SceneTierIIDecisions)
+protected const final func EnterCondition(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  if NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner) {
+    return false;
+  }
+  return wrappedMethod(stateContext, scriptInterface);
+}
+
+@wrapMethod(SceneTierAbstractDecisions)
+protected const final func ToExploration(
+  const stateContext: ref<StateContext>,
+  const scriptInterface: ref<StateGameScriptInterface>
+) -> Bool {
+  if Equals(this.SceneTierToEnter(), GameplayTier.Tier2_StagedGameplay)
+    && NeonAscendancy_ShouldOverrideSafeZone(scriptInterface.executionOwner) {
+    return true;
+  }
+  return wrappedMethod(stateContext, scriptInterface);
+}
+
+@wrapMethod(WeaponReadyListenerTransition)
+protected func UpdateWeaponReadyListenerReturnValue() -> Void {
+  if !this.m_beingCreated
+    && !this.m_hasStatusEffectVehicleScene
+    && NeonAscendancy_ShouldOverrideSafeZone(this.m_executionOwner) {
+    this.m_hasStatusEffectNoCombat = false;
+    this.m_isInSafeSceneTier = false;
+  }
+  wrappedMethod();
 }
 
 @wrapMethod(PlayerPuppet)
@@ -466,15 +606,23 @@ protected cb func OnStatusEffectApplied(evt: ref<ApplyStatusEffectEvent>) -> Boo
     if NeonAscendancy_IsSanitizerEnabled(game) {
       let staticData = evt.staticData;
       const tags = staticData.GameplayTags();
-      if ArrayContains(tags, n"NoCombat")
+      const blocksCombat = ArrayContains(tags, n"NoCombat") || ArrayContains(tags, n"NoWeapons");
+      if blocksCombat
         && !ArrayContains(tags, n"VehicleScene")
         && !ArrayContains(tags, n"FastForward")
-        && !NeonAscendancy_IsAllowedSafeZone(game, this.GetWorldPosition()) {
+        && !ArrayContains(tags, n"Braindance") {
         let psmBB = this.GetPlayerStateMachineBlackboard();
-        const sceneTier = IsDefined(psmBB) ? psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.SceneTier) : 1;
-        if sceneTier < 3 {
-          StatusEffectHelper.RemoveStatusEffect(this, staticData.GetID());
-          return true;
+        const hl = IsDefined(psmBB) ? psmBB.GetInt(GetAllBlackboardDefs().PlayerStateMachine.HighLevel) : 1;
+        const pos = this.GetWorldPosition();
+        const allowed = NeonAscendancy_IsAllowedSafeZone(game, pos);
+        if hl < 3 || hl > 5 {
+          NcLogInfo(
+            s"Sanitizer.OnStatusEffectApplied: combat-lock effect=\(TDBID.ToStringDEBUG(staticData.GetID())) hl=\(hl) allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+          );
+          if !allowed {
+            StatusEffectHelper.RemoveStatusEffect(this, staticData.GetID());
+            return true;
+          }
         }
       }
     }
@@ -498,6 +646,28 @@ public const final func GetSecurityAreaType() -> ESecurityAreaType {
   return areaType;
 }
 
+@wrapMethod(SecurityAreaControllerPS)
+private final func UpdateMiniMapRepresentation() -> Void {
+  if Equals(this.m_securityAreaType, ESecurityAreaType.SAFE) && NcIsSanitizerActive() {
+    const game = this.GetGameInstance();
+    if GameInstance.IsValid(game) {
+      const entity = this.GetOwnerEntityWeak();
+      if IsDefined(entity)
+        && !NeonAscendancy_IsAllowedSafeZone(game, entity.GetWorldPosition()) {
+        GameInstance
+          .GetMappinSystem(game)
+          .OnAreaTypeChanged(
+            PersistentID.ExtractEntityID(this.GetID()),
+            SecurityAreaControllerPS
+              .SecurityAreaTypeEnumToName(ESecurityAreaType.DISABLED)
+          );
+        return;
+      }
+    }
+  }
+  wrappedMethod();
+}
+
 @wrapMethod(SecuritySystemControllerPS)
 private final func UpdateSecurityZoneDataBlackboard(securityAreaData: SecurityAreaData) -> Void {
   if Equals(securityAreaData.securityAreaType, ESecurityAreaType.SAFE)
@@ -505,9 +675,15 @@ private final func UpdateSecurityZoneDataBlackboard(securityAreaData: SecurityAr
     const game = this.GetGameInstance();
     if GameInstance.IsValid(game) {
       const player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
-      if IsDefined(player)
-        && !NeonAscendancy_IsAllowedSafeZone(game, player.GetWorldPosition()) {
-        securityAreaData.securityAreaType = ESecurityAreaType.DISABLED;
+      if IsDefined(player) {
+        const pos = player.GetWorldPosition();
+        const allowed = NeonAscendancy_IsAllowedSafeZone(game, pos);
+        NcLogInfo(
+          s"Sanitizer.SecurityZoneBB: SAFE allowed=\(allowed) pos=(\(pos.X),\(pos.Y),\(pos.Z))"
+        );
+        if !allowed {
+          securityAreaData.securityAreaType = ESecurityAreaType.DISABLED;
+        }
       }
     }
   }

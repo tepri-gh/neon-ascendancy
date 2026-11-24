@@ -18,10 +18,10 @@ struct SafeSanctuaryZone {
   double z = 0.0;
 };
 
-inline constexpr double kApartmentSanctuaryRadiusXY = 30.0;
-inline constexpr double kApartmentSanctuaryHalfHeightZ = 12.0;
-inline constexpr double kStoreSanctuaryRadiusXY = 18.0;
-inline constexpr double kStoreSanctuaryHalfHeightZ = 6.0;
+inline constexpr double kApartmentSanctuaryRadiusXY = 28.0;
+inline constexpr double kApartmentSanctuaryHalfHeightZ = 10.0;
+inline constexpr double kStoreSanctuaryRadiusXY = 14.0;
+inline constexpr double kStoreSanctuaryHalfHeightZ = 4.5;
 
 enum class WorldEra : uint8_t {
   Unknown = 0,

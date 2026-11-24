@@ -162,9 +162,13 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
   NC_CHECK(world.Open(world_db_path, true, err));
   NC_CHECK(!world.ContentHash().empty());
   NC_CHECK(world.Factions().size() >= 30);
-  NC_CHECK(world.Districts().size() == 8);
-  NC_CHECK(world.SubTerritories().size() >= 40);
+  NC_CHECK(world.Districts().size() == 9);
+  NC_CHECK(world.SubTerritories().size() == 96);
   NC_CHECK(world.ControlCenters().size() == world.SubTerritories().size());
+  const auto* morro = world.FindDistrict(9);
+  NC_CHECK(morro != nullptr && morro->code == "morro_rock");
+  const int32_t spaceport_st = world.LookupSubTerritoryAt(-3562.8, 390.3);
+  NC_CHECK(spaceport_st == 96);
 
   // Color parsing & metadata lookup.
   NC_CHECK(neon::store::WorldDb::ParseHexColorRgba("#D92626CC") == 0xD92626CCU);
