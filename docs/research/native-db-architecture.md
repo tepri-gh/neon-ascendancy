@@ -364,9 +364,23 @@ name.
 ### 3.1 Amalgamation and compile flags
 
 Vendor `sqlite3.c` / `sqlite3.h` (public domain, no attribution obligation, no
-link dependency). Pin the same version the local CLI uses (**3.54.1**) so the
-schema that is prototyped and tested on Linux is byte-for-byte the same engine
-that runs in-game.
+link dependency). Two things matter, in this order:
+
+1. **The runtime engine must be the engine the tests run.** Because the
+   amalgamation is compiled into the plugin *and* into the host test binary, the
+   cleanest guarantee is: pin one amalgamation, run `neon_tests` (which executes
+   the real DDL and the real checkpoint codec) against it, and stop comparing to
+   the distro `sqlite3` CLI entirely.
+2. **Prefer an offline-vendorable version.** This machine already has
+   amalgamations in `~/Projects/netto/third_party/sqlite3/src/sqlite3.c`
+   (`3.53.4`, source id `2026-07-24 …`) and
+   `~/Projects/netto/third_party/rust/libsqlite3-sys/sqlite3/sqlite3.c`
+   (`3.50.2`). `3.53.4` has everything this design needs (`STRICT`, WAL,
+   R-Tree), so it can be vendored and SHA-256-pinned without any network
+   fetch. The distro CLI on this box is `3.54.1`, which is why the schema
+   validation in §5 was run with it; if the vendored engine is `3.53.4`, re-run
+   the same DDL through `neon_tests` so the pinned engine is the one that proves
+   the schema.
 
 ```cmake
 add_library(neon_sqlite STATIC third_party/sqlite/sqlite3.c)
@@ -753,11 +767,14 @@ corrupted file loses one campaign, not all of them. Bounded retention per file
 
 ## 5. Part D — Initial schema blueprint
 
-Both DDL files below were **executed** against SQLite 3.54.1 (the pinned
-amalgamation version) and passed `PRAGMA integrity_check`; sample rows and the
-checkpoint lookup query were exercised. They are intended to be the literal
-contents of `data/schema/world_v1.sql` and `data/schema/playthrough_v1.sql`, with
-`build-db` embedding the same bytes into both the runtime and the tests.
+Both DDL files below were **executed** against SQLite 3.54.1 (the installed CLI)
+and passed `PRAGMA integrity_check` + `foreign_key_check`; sample rows and the
+checkpoint lookup query were exercised. Before trusting a pinned amalgamation
+(3.53.4 or newer), re-run these exact bytes through `neon_tests` linked against
+that amalgamation — the tests are the authority, not the CLI. They are intended
+to become the literal contents of `data/schema/world_v1.sql` and
+`data/schema/playthrough_v1.sql`, with `build-db` embedding the same bytes into
+both the runtime and the tests.
 
 Conventions:
 
@@ -1307,4 +1324,5 @@ toolchain present). Each has a concrete, cheap probe.
 | clang-cl/lld-link produce a valid PE DLL | local build test (`/dll /noentry /machine:x64`, exported `add`) |
 | Validated flag set | local `/W4 /WX` compile, clang-cl 23.1.5 |
 | Schemas valid on 3.54.1 | local `sqlite3 <schema` + `integrity_check` + `foreign_key_check` |
+| Offline amalgamation available | `~/Projects/netto/third_party/sqlite3/src/sqlite3.c` (3.53.4, source id `2026-07-24`) |
 | SQLite latencies | local micro-benchmark, WAL + `synchronous=NORMAL`, page cache warm (see §3.5 caveats) |
