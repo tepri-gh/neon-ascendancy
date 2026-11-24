@@ -6,6 +6,7 @@
 #include <memory>
 #include <mutex>
 #include <string>
+#include <unordered_map>
 #include <unordered_set>
 #include <vector>
 
@@ -36,10 +37,12 @@ struct CoreRuntime {
   std::unordered_set<uint64_t> counted_kill_entities;
   std::deque<std::string> hud_notices;
   std::vector<neon::sim::SafeSanctuaryZone> safe_sanctuaries;
+  std::unordered_map<uint64_t, int32_t> control_center_pins;
   uint32_t playthrough_id_hi = 0;
   uint32_t playthrough_id_lo = 0;
   bool world_loaded = false;
   bool session_active = false;
+  bool sanitizer_active = false;
 };
 
 CoreRuntime g_rt;
@@ -181,6 +184,56 @@ Red::CString NcCoreVersion() {
   return Red::CString("0.0.0-dev");
 }
 
+void NcLogInfo(Red::CString msg) {
+  LogInfo(msg.c_str());
+}
+
+void NcSetSanitizerActive(bool active) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.sanitizer_active = active;
+}
+
+bool NcIsSanitizerActive() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return g_rt.sanitizer_active;
+}
+
+bool NcIsSuppressedVanillaMappinVariant(int32_t mappin_variant_enum) {
+  return neon::sim::IsSuppressedVanillaMappinVariant(mappin_variant_enum);
+}
+
+void NcClearControlCenterPins() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.control_center_pins.clear();
+}
+
+void NcBindControlCenterPin(uint64_t mappin_id, int32_t sub_territory_id) {
+  if (mappin_id == 0U || sub_territory_id <= 0) {
+    return;
+  }
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.control_center_pins[mappin_id] = sub_territory_id;
+}
+
+int32_t NcLookupControlCenterPin(uint64_t mappin_id) {
+  if (mappin_id == 0U) {
+    return 0;
+  }
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto it = g_rt.control_center_pins.find(mappin_id);
+  return it != g_rt.control_center_pins.end() ? it->second : 0;
+}
+
+int32_t NcGetBoundControlCenterPinCount() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return static_cast<int32_t>(g_rt.control_center_pins.size());
+}
+
+int32_t NcGetSafeSanctuaryCount() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  return static_cast<int32_t>(g_rt.safe_sanctuaries.size());
+}
+
 Red::CString NcPopHudNotice() {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   if (g_rt.hud_notices.empty()) {
@@ -305,9 +358,11 @@ int32_t NcSessionCurrentRevision() {
 bool NcSessionEnd() {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   g_rt.session_active = false;
+  g_rt.sanitizer_active = false;
   g_rt.counted_kill_entities.clear();
   g_rt.hud_notices.clear();
   g_rt.safe_sanctuaries.clear();
+  g_rt.control_center_pins.clear();
   return g_rt.playthrough.Close(true);
 }
 
@@ -783,6 +838,15 @@ Red::CString NcFormatStatusSummary() {
 
 RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcCoreVersion, "NeonAscendancy.Core.NcCoreVersion");
+  RTTI_FUNCTION(NcLogInfo, "NeonAscendancy.Core.NcLogInfo");
+  RTTI_FUNCTION(NcSetSanitizerActive, "NeonAscendancy.Core.NcSetSanitizerActive");
+  RTTI_FUNCTION(NcIsSanitizerActive, "NeonAscendancy.Core.NcIsSanitizerActive");
+  RTTI_FUNCTION(NcIsSuppressedVanillaMappinVariant, "NeonAscendancy.Core.NcIsSuppressedVanillaMappinVariant");
+  RTTI_FUNCTION(NcClearControlCenterPins, "NeonAscendancy.Core.NcClearControlCenterPins");
+  RTTI_FUNCTION(NcBindControlCenterPin, "NeonAscendancy.Core.NcBindControlCenterPin");
+  RTTI_FUNCTION(NcLookupControlCenterPin, "NeonAscendancy.Core.NcLookupControlCenterPin");
+  RTTI_FUNCTION(NcGetBoundControlCenterPinCount, "NeonAscendancy.Core.NcGetBoundControlCenterPinCount");
+  RTTI_FUNCTION(NcGetSafeSanctuaryCount, "NeonAscendancy.Core.NcGetSafeSanctuaryCount");
   RTTI_FUNCTION(NcPopHudNotice, "NeonAscendancy.Core.NcPopHudNotice");
   RTTI_FUNCTION(NcEvaluateSanitizer, "NeonAscendancy.Core.NcEvaluateSanitizer");
   RTTI_FUNCTION(NcGetEraName, "NeonAscendancy.Core.NcGetEraName");
@@ -825,7 +889,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 43 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 52 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {

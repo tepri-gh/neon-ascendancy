@@ -3,6 +3,24 @@ module NeonAscendancy.Core
 // Native RTTI bindings exported by NeonAscendancy.dll (RED4ext + RedLib).
 public native func NcCoreVersion() -> String;
 
+public native func NcLogInfo(msg: String) -> Void;
+
+public native func NcSetSanitizerActive(active: Bool) -> Void;
+
+public native func NcIsSanitizerActive() -> Bool;
+
+public native func NcIsSuppressedVanillaMappinVariant(mappinVariantEnum: Int32) -> Bool;
+
+public native func NcClearControlCenterPins() -> Void;
+
+public native func NcBindControlCenterPin(mappinId: Uint64, subTerritoryId: Int32) -> Void;
+
+public native func NcLookupControlCenterPin(mappinId: Uint64) -> Int32;
+
+public native func NcGetBoundControlCenterPinCount() -> Int32;
+
+public native func NcGetSafeSanctuaryCount() -> Int32;
+
 public native func NcPopHudNotice() -> String;
 
 public native func NcEvaluateSanitizer(factBits: Uint32, enabled: Bool) -> Uint32;

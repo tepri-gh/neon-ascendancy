@@ -1045,7 +1045,9 @@ SessionBeginResult PlaythroughDb::SessionBegin(
   id_lo_ = db_lo;
 
   const int32_t max_rev = MaxCheckpointRevision();
-  const int32_t restore_target = (anchor_revision == 0 && max_rev > 0) ? max_rev : anchor_revision;
+  // Checkpoint 0 is always written and pinned at playthrough creation, so an older
+  // save with anchor_revision == 0 must restore rev 0 (not fast-forward to max_rev).
+  const int32_t restore_target = anchor_revision;
   if (!RestoreAtRevision(restore_target, out_state, err)) {
     res.warning_or_error = err;
     Close(false);

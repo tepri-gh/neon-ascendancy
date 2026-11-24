@@ -107,4 +107,8 @@ struct SanitizerPolicy {
     double player_z,
     const std::vector<SafeSanctuaryZone>& dynamic_zones);
 
+// Returns true for vanilla campaign/gig/NCPD/fixer/encounter/tarot/car-purchase
+// mappin variants that Sandbox Mode hides from the World Map, Minimap, and 3D HUD.
+[[nodiscard]] bool IsSuppressedVanillaMappinVariant(int32_t mappin_variant_enum);
+
 } // namespace neon::sim

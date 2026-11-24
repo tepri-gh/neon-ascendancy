@@ -140,6 +140,19 @@ void TestEraAndSanitizerPolicy() {
 
     // Coastview plaza safe area from playtest must NOT be a safe zone even with a shop 50m away.
     NC_CHECK(!IsAllowedSafeZone(-1750.597, -1835.524, 60.889, dynamic_zones));
+
+    // Vanilla mappin suppression allow/deny policy.
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(25));   // DefaultQuest
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(49));   // ExclamationMark
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(52));   // Fixer
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(87));   // QuestGiver
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(126));  // NCPDGig
+    NC_CHECK(neon::sim::IsSuppressedVanillaMappinVariant(133));  // WorldEncounter
+    NC_CHECK(!neon::sim::IsSuppressedVanillaMappinVariant(10));  // Apartment (kept)
+    NC_CHECK(!neon::sim::IsSuppressedVanillaMappinVariant(51));  // FastTravel (kept)
+    NC_CHECK(!neon::sim::IsSuppressedVanillaMappinVariant(98));  // DropPoint (kept)
+    NC_CHECK(!neon::sim::IsSuppressedVanillaMappinVariant(106)); // Ripperdoc (kept)
+    NC_CHECK(!neon::sim::IsSuppressedVanillaMappinVariant(100)); // Gun store (kept)
   }
 }
 
@@ -303,6 +316,18 @@ void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
   NC_CHECK(r_load3.durable_revision == 7);
   NC_CHECK(FindTerr(restored_r3, rival_st)->owner_faction_id == neon::sim::kPlayerFactionIdBase);
   NC_CHECK(restored_r3.orgs[0].treasury_eddies == 2500);
+  NC_CHECK(pt.Close(true));
+
+  // Reload an older manual save at rev 0 (pre-gang founding) -> must restore rev 0, NOT max_rev!
+  neon::sim::SimState restored_r0;
+  auto r_load0 = pt.SessionBegin(
+      tmp_db, world, neon::store::PlaythroughDb::kSchemaVersion,
+      0x11223344U, 0x55667788U, 0, 1000, restored_r0);
+  NC_CHECK(r_load0.status == neon::store::SessionStatus::Restored);
+  NC_CHECK(r_load0.durable_revision == 8);
+  NC_CHECK(restored_r0.orgs.empty());
+  NC_CHECK(restored_r0.missions.empty());
+  NC_CHECK(FindTerr(restored_r0, rival_st)->owner_faction_id == rival_orig_owner);
 
   // 8. Prune checkpoints aggressively: pinned revisions (1, 3) must remain restorable.
   NC_CHECK(pt.PruneCheckpoints(1024, err));

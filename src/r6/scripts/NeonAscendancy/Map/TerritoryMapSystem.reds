@@ -3,11 +3,11 @@ module NeonAscendancy.Map
 import NeonAscendancy.Core.*
 
 // Thin map adapter registering the 41 world.db control-center pins and the single
-// active combat mission waypoint. All color/tooltip logic lives in C++.
+// active combat mission waypoint. All ownership, color, tooltip, and pin-id lookup
+// state lives in C++ so WorldMap UI controllers never rely on global GetGameInstance().
 public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
   private let m_pinsRegistered: Bool;
   private let m_pinIds: array<Uint64>;
-  private let m_pinSubTerritories: array<Int32>;
   private let m_hasMissionPin: Bool;
   private let m_missionPinId: NewMappinID;
   private let m_missionPinSubTerritory: Int32;
@@ -39,6 +39,7 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
         ms.UnregisterMappin(this.m_missionPinId);
         this.m_hasMissionPin = false;
         this.m_missionPinSubTerritory = 0;
+        this.RebindControlCenterIds();
       }
       return;
     }
@@ -50,8 +51,8 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
       this.m_hasMissionPin = false;
     }
     let data: MappinData;
-    data.mappinType = t"NeonAscendancy.MissionTargetMappin";
-    data.variant = gamedataMappinVariant.DefaultQuestVariant;
+    data.mappinType = t"Mappins.QuestStaticMappinDefinition";
+    data.variant = gamedataMappinVariant.CustomPositionVariant;
     data.active = true;
     data.visibleThroughWalls = true;
     data.debugCaption = "NA_RAID";
@@ -65,6 +66,7 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
     ms.SetMappinActive(this.m_missionPinId, true);
     this.m_missionPinSubTerritory = targetSt;
     this.m_hasMissionPin = true;
+    NcBindControlCenterPin(this.m_missionPinId.value, targetSt);
   }
 
   public final func ClearAllPins() -> Void {
@@ -83,33 +85,26 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
       }
     }
     ArrayClear(this.m_pinIds);
-    ArrayClear(this.m_pinSubTerritories);
+    NcClearControlCenterPins();
     this.m_pinsRegistered = false;
     this.m_hasMissionPin = false;
     this.m_missionPinSubTerritory = 0;
   }
 
-  public const final func LookupSubTerritoryForMappin(id: NewMappinID) -> Int32 {
-    if this.m_hasMissionPin && id.value == this.m_missionPinId.value {
-      return this.m_missionPinSubTerritory;
-    }
+  private final func RebindControlCenterIds() -> Void {
+    NcClearControlCenterPins();
+    const count = ArraySize(this.m_pinIds);
     let i = 0;
-    const n = ArraySize(this.m_pinIds);
-    while i < n {
-      if this.m_pinIds[i] == id.value {
-        return this.m_pinSubTerritories[i];
+    while i < count {
+      const stId = NcGetControlCenterSubTerritoryId(i);
+      if stId > 0 {
+        NcBindControlCenterPin(this.m_pinIds[i], stId);
       }
       i += 1;
     }
-    return 0;
-  }
-
-  public const final func IsMissionPin(id: NewMappinID) -> Bool {
-    return this.m_hasMissionPin && id.value == this.m_missionPinId.value;
-  }
-
-  public const final func IsOurMappin(id: NewMappinID) -> Bool {
-    return this.LookupSubTerritoryForMappin(id) > 0;
+    if this.m_hasMissionPin && this.m_missionPinSubTerritory > 0 {
+      NcBindControlCenterPin(this.m_missionPinId.value, this.m_missionPinSubTerritory);
+    }
   }
 
   private final func RegisterControlCenterPins(game: GameInstance) -> Void {
@@ -117,16 +112,20 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
     if !IsDefined(ms) {
       return;
     }
+    NcClearControlCenterPins();
+    ArrayClear(this.m_pinIds);
     const count = NcGetControlCenterCount();
     let i = 0;
     while i < count {
       const stId = NcGetControlCenterSubTerritoryId(i);
       if stId > 0 {
+        // Use vanilla DropPointStaticMappin (same path as DropPointSystem.RegisterDropPointMappin)
+        // so WorldMapMenuGameController always spawns a BaseWorldMapMappinController for each dot.
         let data: MappinData;
-        data.mappinType = t"NeonAscendancy.ControlCenterMappin";
-        data.variant = gamedataMappinVariant.DefaultQuestVariant;
+        data.mappinType = t"Mappins.DropPointStaticMappin";
+        data.variant = gamedataMappinVariant.ServicePointDropPointVariant;
         data.active = true;
-        data.visibleThroughWalls = true;
+        data.visibleThroughWalls = false;
         data.debugCaption = s"NA_CC_\(stId)";
         const pos = Vector4(
           NcGetControlCenterX(i),
@@ -137,29 +136,42 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
         const pinId = ms.RegisterMappin(data, pos);
         ms.SetMappinActive(pinId, true);
         ArrayPush(this.m_pinIds, pinId.value);
-        ArrayPush(this.m_pinSubTerritories, stId);
+        NcBindControlCenterPin(pinId.value, stId);
       }
       i += 1;
     }
     this.m_pinsRegistered = count > 0;
+    NcLogInfo(
+      s"TerritoryMap: registered \(ArraySize(this.m_pinIds)) control-center pins (bound=\(NcGetBoundControlCenterPinCount()))"
+    );
   }
 }
 
-private func NeonAscendancy_ResolvePinSubTerritory(mappin: wref<IMappin>) -> Int32 {
+public func NeonAscendancy_ResolvePinSubTerritory(mappin: wref<IMappin>) -> Int32 {
   if !IsDefined(mappin) {
     return 0;
   }
-  const game = GetGameInstance();
-  if !GameInstance.IsValid(game) {
-    return 0;
+  const pinId = mappin.GetNewMappinID();
+  return NcLookupControlCenterPin(pinId.value);
+}
+
+private func NeonAscendancy_ShouldHideWorldMapPin(mappin: wref<IMappin>) -> Bool {
+  if !IsDefined(mappin) || !NcIsSanitizerActive() {
+    return false;
   }
-  const mapSys = GameInstance
-    .GetScriptableSystemsContainer(game)
-    .Get(n"NeonAscendancy.Map.NeonAscendancy_TerritoryMapSystem") as NeonAscendancy_TerritoryMapSystem;
-  if !IsDefined(mapSys) {
-    return 0;
+  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
+    return false;
   }
-  return mapSys.LookupSubTerritoryForMappin(mappin.GetNewMappinID());
+  return NcIsSuppressedVanillaMappinVariant(EnumInt(mappin.GetVariant()));
+}
+
+@wrapMethod(WorldMapMenuGameController)
+protected cb func OnInitialize() -> Bool {
+  const res = wrappedMethod();
+  NcLogInfo(
+    s"WorldMap opened: sanitizer=\(NcIsSanitizerActive()) boundPins=\(NcGetBoundControlCenterPinCount())"
+  );
+  return res;
 }
 
 @addField(BaseWorldMapMappinController)
@@ -168,23 +180,38 @@ private let NeonAscendancy_cachedOwner: Int32;
 @wrapMethod(BaseWorldMapMappinController)
 private final func GetDesiredOpacityAndInteractivity(out opacity: Float, out interactive: Bool) -> Void {
   wrappedMethod(opacity, interactive);
-  if NeonAscendancy_ResolvePinSubTerritory(this.GetMappin()) > 0 {
+  let mappin = this.GetMappin();
+  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
     opacity = 1.0;
     interactive = true;
     this.isVisibleInFilterAndZoom = true;
+    return;
+  }
+  if NeonAscendancy_ShouldHideWorldMapPin(mappin) {
+    opacity = 0.0;
+    interactive = false;
+    this.isVisibleInFilterAndZoom = false;
   }
 }
 
 @wrapMethod(BaseWorldMapMappinController)
 protected func UpdateVisibility() -> Void {
   wrappedMethod();
-  if NeonAscendancy_ResolvePinSubTerritory(this.GetMappin()) > 0 {
-    let root = this.GetRootWidget();
-    if IsDefined(root) {
-      root.SetVisible(true);
-      root.SetOpacity(1.0);
-      root.SetInteractive(true);
-    }
+  let mappin = this.GetMappin();
+  let root = this.GetRootWidget();
+  if !IsDefined(root) {
+    return;
+  }
+  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
+    root.SetVisible(true);
+    root.SetOpacity(1.0);
+    root.SetInteractive(true);
+    return;
+  }
+  if NeonAscendancy_ShouldHideWorldMapPin(mappin) {
+    root.SetVisible(false);
+    root.SetOpacity(0.0);
+    root.SetInteractive(false);
   }
 }
 
@@ -194,11 +221,20 @@ protected func UpdateIcon() -> Void {
   let mappin = this.GetMappin();
   const stId = NeonAscendancy_ResolvePinSubTerritory(mappin);
   if stId <= 0 {
+    if NeonAscendancy_ShouldHideWorldMapPin(mappin) {
+      let hiddenRoot = this.GetRootWidget();
+      if IsDefined(hiddenRoot) {
+        hiddenRoot.SetVisible(false);
+        hiddenRoot.SetOpacity(0.0);
+        hiddenRoot.SetInteractive(false);
+      }
+    }
     return;
   }
   const isRaidTarget = NcGetActiveMissionSubTerritoryId() == stId;
+  // Valid ink atlas texture parts verified in mappinUtils.swift:63,91.
   inkImageRef
-    .SetTexturePart(this.iconWidget, isRaidTarget ? n"outpost" : n"minor_quest");
+    .SetTexturePart(this.iconWidget, isRaidTarget ? n"map_bounty" : n"minor_quest");
 
   const owner = NcGetSubTerritoryOwner(stId);
   if owner
@@ -213,6 +249,7 @@ protected func UpdateIcon() -> Void {
     if IsDefined(iconW) {
       iconW.UnbindProperty(n"tintColor");
       iconW.SetTintColor(r, g, b, Cast<Uint8>(255u));
+      iconW.SetScale(Vector2(1.2, 1.2));
     }
   }
   let root = this.GetRootWidget();

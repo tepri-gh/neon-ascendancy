@@ -199,4 +199,40 @@ bool IsAllowedSafeZone(
   return false;
 }
 
+bool IsSuppressedVanillaMappinVariant(int32_t mappin_variant_enum) {
+  // Exact values from Cyberpunk 2077 2.5 enum gamedataMappinVariant.
+  // Preserves Fast Travel, Apartments, Drop Points, Vehicles, Ripperdocs, and Stores.
+  switch (mappin_variant_enum) {
+    case 13:  // BountyHuntVariant
+    case 16:  // ClientInDistressVariant
+    case 18:  // ConvoyVariant
+    case 20:  // CourierVariant
+    case 25:  // DefaultQuestVariant
+    case 29:  // DynamicEventVariant
+    case 49:  // ExclamationMarkVariant
+    case 52:  // FixerVariant
+    case 56:  // GangWatchVariant
+    case 64:  // HiddenStashVariant
+    case 66:  // HuntForPsychoVariant
+    case 75:  // MinorActivityVariant
+    case 85:  // OutpostVariant
+    case 87:  // QuestGiverVariant
+    case 88:  // QuestionMarkVariant
+    case 92:  // RetrievingVariant
+    case 93:  // SOSsignalVariant
+    case 94:  // SabotageVariant
+    case 109: // SmugglersDenVariant
+    case 115: // TarotVariant
+    case 117: // ThieveryVariant
+    case 121: // Zzz01_CarForPurchaseVariant
+    case 122: // Zzz02_MotorcycleForPurchaseVariant
+    case 126: // Zzz06_NCPDGigVariant
+    case 129: // Zzz09_CourierSandboxActivityVariant
+    case 133: // Zzz12_WorldEncounterVariant
+      return true;
+    default:
+      return false;
+  }
+}
+
 } // namespace neon::sim
