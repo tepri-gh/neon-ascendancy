@@ -104,3 +104,37 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   - Dev-only on-site door repair: when the player is within 60 m, the probe
     re-issues the vanilla sequence against the live PS, because the phase's own
     device actions fire at bootstrap while the player is still in H10.
+- Venue phase proximity waits (vanilla-native, replaces the bootstrap problem):
+  - The builder emits `questPauseConditionNodeDefinition` ->
+    `questDistanceCondition` (`questDistanceComparison_ConditionType`, player
+    within N metres of an authored node), schema from vanilla `q304.questphase`.
+    Every venue declares a `proximity_wait`, so its device actions run only once
+    the player is near and the venue has streamed. `--check` round-trips the
+    waits.
+- Clouds (item 7): the manager/Tyger entries were already correct but never
+  streamed; `#q105_ws_03a_manager_start` is not in `#q105_pr_dollhouse`, so the
+  manager seat comes from the `#q105_pr_03c_dollhouse_woodman` sub-prefab.
+  Added the office doors (`#q105_dvc_dollhouse_door_woodman`,
+  `..._woodman_glass`) and the VIP lounge door
+  (`#q105_dvc_dollhouse_door_vip`) with `AuthorizationDisable` first.
+- Authorization doors (item 8): `AuthorizationDisable`
+  (`QuestForceAuthorizationDisabled`) is now an allowed venue-door action and
+  leads the Clouds VIP sequence; the probe logs `authModuleOn=<0|1|-1>` so a
+  test proves the module state. The dev keycard grant was dropped by owner
+  request.
+- Dogtown dataterms (item 4): they live in
+  `combat_zone_data_terminals_prefabLN6J6KI`, streamed only via the
+  `combat_zone_data_terminals_active` variant (default off). New
+  `dogtown_dataterms` venue declares that prefab and swaps the variant.
+- Totentanz DJ/music (item 6): the DJ and club audio come from
+  `dancefloors.questphase`'s `#dancefloor_totentanz` sub-phase
+  (`dancefloor_totentanz.scene`), gated on fact `totentanz_dancefloor_on >= 1`;
+  it is already wired, so only that fact is needed (set by DevDebug, not the
+  archive). The DJ is not a `#com_totentanz` entry.
+- Dexter DeShawn (item 9): added to the cast layer as an ambient fixer at the
+  Afterlife booth via `questSpawnSet` `#dex` / `dex` /
+  `q005_afterlife_default` (exactly as vanilla `q005_01_plan`), with
+  `#q005_pr_afterlife` declared for his seat workspot
+  `#q005_ws_dex_afterlife_01`.
+- Dogtown vendor findings and the Afterlife back-room door (auth ref
+  unresolved) are recorded in `venue_phases.json` notes rather than guessed.
