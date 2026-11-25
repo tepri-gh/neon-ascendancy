@@ -53,3 +53,24 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Faction headquarters map markers (`faction_headquarters` world table,
   faction-tinted fixer-icon pins with tooltips; not capturable yet), seeded
   from the lore research in `docs/research/factions/`.
+- Dev-only venue-access probe (the first in-game test that a Neon-authored
+  phase can open quest-only interiors):
+  - `data/clean-slate/venue_phases.json` declarative spec; the builder emits
+    `mod\neon_ascendancy\venue_probe.questphase` and wires it off
+    `ascendancy.questphase` behind the dev fact `na_dev_venue_probe > 0`. The
+    builder asserts venue phases carry prefabs, doors and communities only
+    (never journal/mappin/phone/street-story/gig phases) and `--check`
+    round-trip-verifies the new `questInteractiveObjectManagerNodeDefinition`
+    (`questDeviceManager_NodeType`) door nodes.
+  - Nine venues: Ho-Oh/Kabuki (section 5.1 case, `#sts_wat_kab_07_streetstory`,
+    `#kab_07_com_enemies` `0combat`, entrance gate power/open) plus Konpeki
+    Plaza, Clouds, All Foods, Totentanz, Batty's Hotel, Embers, Black Sapphire
+    and Arasaka Tower, each with refs verified from vanilla phase and streaming
+    sector extractions.
+  - Native helpers `NcResolveNodeRefByHash(Uint64) -> GlobalNodeRef` and
+    `NcHashNodeRefPath(String) -> Uint64` (RED4ext `NodeRef::Hash`, FNV-1a 64
+    with `#` stripped), because redscript 1.x cannot construct or hash a NodeRef.
+  - Dev-only `NeonAscendancy.Debug.VenueProbe` reports, once after bootstrap and
+    once after a delay, whether each venue's workspot resolves, the probed door
+    `DoorControllerPS` state (`IsOpen/IsLocked/IsSealed/IsDisabled/IsPowered`),
+    and the community spawner's spawned-entity count.
