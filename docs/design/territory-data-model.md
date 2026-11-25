@@ -174,9 +174,16 @@ Steps:
 
 ## 6. Open questions
 
-1. **Dogtown and the Badlands** are single vanilla sub-districts. Split them
-   into neighbourhood sub-districts for holding (the Barghest research has a
-   breakdown)?
+1. ~~Dogtown and the Badlands~~ **Decided: split them.** Use the vanilla
+   `gamedataDistrict` records as sub-districts: Badlands → Biotechnica Flats,
+   Dry Creek, Jackson Plains, Laguna Bend, Las Palapas, North Sunrise Oil
+   Field, Rattlesnake Creek, Red Peaks, Rocky Ridge, Santa Clara, Sierra
+   Sonora, SoCal Border Crossing, Vasquez Pass, Yucca (`Badlands_Spaceport`,
+   `_YuccaGarage` and `_YuccaRadioTower` are locations, not sub-districts);
+   Dogtown → Akebono, Brooklyn, Capitan Caliente, Cynosure, Expo
+   (`Dogtown_Hideout` and `Dogtown_Worldmap_Sub` excluded). Open sub-task:
+   assigning points to them needs the district trigger areas from the
+   extract, or the runtime `PreventionSystem.GetCurrentDistrict()` probe.
 2. **Vanilla gang lists per sub-district** (`District_Record.Gangs()`): read
    them with a one-time dev CET probe to sanity-check computed starting
    holders?

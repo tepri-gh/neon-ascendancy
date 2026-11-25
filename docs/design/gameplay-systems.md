@@ -137,8 +137,6 @@ lieutenants) are to be represented. Design pending.
   below leadership control, the point comes from the second most powerful
   bloc instead; when tied blocs matter, pick between them with an even
   random roll.
-- **Alternate timeline:** Yorinobu Arasaka is alive. Arasaka's ship and
-  Yorinobu's daughter are in the city.
 - **Deferred:** spawning faction leaders. With the campaign disabled, most
   named leaders are story-only, so the mod must spawn them itself.
 
@@ -152,7 +150,28 @@ lieutenants) are to be represented. Design pending.
   wars). What an alliance concretely provides waits until the economy and
   other pillar systems are designed.
 
-## 7. Architecture
+## 7. Alternate timeline (canon for this mod)
+
+- The Konpeki heist and the Relic plot never happen, and neither do Phantom
+  Liberty's Songbird/Space Force One events.
+- Yorinobu Arasaka is alive. Arasaka's ship and Yorinobu's daughter are in
+  the city.
+- Kurt Hansen is alive and leads Barghest.
+- Songbird should still exist somewhere in the world (players want her);
+  placement to be decided.
+- **NUSA:** an external military/political special faction that influences
+  the city in a special way (design pending; the owner will work out how it
+  enters the game).
+
+## 8. Companions and relationships (future)
+
+- A companion/relationship system where characters such as Jackie Welles
+  can roll with V.
+- Johnny Silverhand later: e.g. a message that V was knocked out by Scavs
+  and woke up with the chip in her head, but she is not dying. The hard part
+  is making sure Johnny never references V dying.
+
+## 9. Architecture
 
 The mod owns its world model in `world.db` rather than steering vanilla
 through flags and triggers. That stays the long-term architecture.
