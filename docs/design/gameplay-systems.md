@@ -137,8 +137,11 @@ lieutenants) are to be represented. Design pending.
   below leadership control, the point comes from the second most powerful
   bloc instead; when tied blocs matter, pick between them with an even
   random roll.
-- **Deferred:** spawning faction leaders. With the campaign disabled, most
-  named leaders are story-only, so the mod must spawn them itself.
+- **Deferred:** spawning faction leaders, garrisons for HQs and major
+  points (several flagship venues are empty with the campaign disabled),
+  using the faction's own records or its spawn template. Corps with no named
+  2077 head (Kang Tao, Biotechnica, Petrochem) get original Night City
+  directors; Kang Tao's answers to the Chinese state.
 
 ## 6. Relations
 
@@ -149,6 +152,26 @@ lieutenants) are to be represented. Design pending.
 - **Alliances carry obligations** (allies get pulled into each other's
   wars). What an alliance concretely provides waits until the economy and
   other pillar systems are designed.
+- **Rivalry** is a flag on a pair, not a level: rivals start Neutral (or
+  Hostile where attested) but coalition drift and casus belli between them
+  are cheaper. A pair can be Hostile *and* rivals (Animals–Maelstrom).
+- **Non-aggression pacts** are a state between factions (like being at
+  war): they block war declarations for a duration and can be broken at a
+  political cost. Tyger Claws–Mox start Hostile under a pact (the 2067 deal).
+- **Trade with anyone:** hostile factions, Scavs included, can still trade.
+  Hostility penalises trade. Trade will run through a generic deal system
+  designed with the economy; no per-relation "kind" (supplier/buyer/…)
+  labels.
+- **War resolution:** both sides accumulate war pressure (exhaustion);
+  losing raises it faster and eventually forces a settlement in which the
+  winner takes the loser's legitimate claims. Design pending: the owner
+  wants something better than a copy of Paradox's war score.
+- **Starting matrix rules:** an attested stance beats a "no evidence"
+  neutral placeholder; stances that exist only on story branches the
+  timeline removes start Neutral and stay documented as history; Scavs are
+  Hostile with everyone.
+- **Personal standing:** the player has a personal relation with each
+  faction, built by doing work for it. It gates access (see §10).
 
 ## 7. Alternate timeline (canon for this mod)
 
@@ -171,7 +194,30 @@ lieutenants) are to be represented. Design pending.
   and woke up with the chip in her head, but she is not dying. The hard part
   is making sure Johnny never references V dying.
 
-## 9. Architecture
+## 9. Factions outside the territory game
+
+- **Kang Tao** is a full territorial faction.
+- **External powers** (the Chinese state, NUSA, NetWatch, SovOil) shape
+  relations without holding territory. NetWatch and NUSA exist in-game, so
+  they can field assault squads via spawn templates like the corps. Whether
+  they live in the factions table (with a kind/flag) or a separate table is
+  under discussion.
+- Places owned by unmodeled factions (Trauma Team, Afterlife, Orbital Air,
+  Zetatech, NetWatch) are not influence points, but their locations are
+  stored for later use as externals or factions. Fixers' locations are not
+  needed. Alternate-history idea: Trauma Team folded into NCPD.
+- **Scanner labels** must show the faction an NPC belongs to (e.g. a
+  Petrochem guard spawned from a Militech template reads Petrochem).
+
+## 10. Access and gigs
+
+- **No vanilla gigs, ever.** The player gets access to faction content
+  through the mod's own gates (missions for a faction, personal standing).
+- **Every location accessible** to V and NPCs (doors, areas), except places
+  that would not exist in this timeline (e.g. the nomad-camp tent after
+  Panam's story, Kurtz/Kutcher's home).
+
+## 11. Architecture
 
 The mod owns its world model in `world.db` rather than steering vanilla
 through flags and triggers. That stays the long-term architecture.
