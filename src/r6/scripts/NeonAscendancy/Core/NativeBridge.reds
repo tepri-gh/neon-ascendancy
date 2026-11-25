@@ -9,6 +9,8 @@ public native func NcResolveNodeRefByHash(nodeRefHash: Uint64) -> GlobalNodeRef;
 
 public native func NcHashNodeRefPath(path: String) -> Uint64;
 
+public native func NcNodeRefFromHash(nodeRefHash: Uint64) -> NodeRef;
+
 public native func NcSetSanitizerActive(active: Bool) -> Void;
 
 public native func NcIsSanitizerActive() -> Bool;

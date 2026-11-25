@@ -29,15 +29,18 @@ public class NeonAscendancy_VenueProbeCallback extends DelayCallback {
   }
 }
 
-// Resolve an authored NodeRef path (full "$/03_night_city/...#name" or short
-// "#name") to the engine's GlobalNodeRef. redscript cannot hash a path itself
-// (no character-code primitive), so the DLL hashes with RED4ext's own
-// NodeRef::Hash and returns the GlobalNodeRef.
+// Resolve an authored NodeRef path to the engine's GlobalNodeRef the same way
+// vanilla does: hash the path (the DLL calls RED4ext's own NodeRef::Hash, since
+// redscript has no character-code primitive), then run it through the engine's
+// ResolveNodeRef(local, root). The resolve step is what maps short "#name"
+// community spawners and prefab-relative door refs to their global ids, exactly
+// like NPCReference.GetSpawnerEntityID and the quest device managers do.
 private func NeonAscendancy_ResolveProbeRef(path: String) -> GlobalNodeRef {
   if Equals(path, "") {
     return NcResolveNodeRefByHash(0ul);
   }
-  return NcResolveNodeRefByHash(NcHashNodeRefPath(path));
+  const nodeRef = NcNodeRefFromHash(NcHashNodeRefPath(path));
+  return ResolveNodeRef(nodeRef, Cast<GlobalNodeRef>(GlobalNodeID.GetRoot()));
 }
 
 private func NeonAscendancy_FormatDoorState(ps: ref<DoorControllerPS>) -> String {

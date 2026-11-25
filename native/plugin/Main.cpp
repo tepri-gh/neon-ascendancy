@@ -250,6 +250,15 @@ uint64_t NcHashNodeRefPath(Red::CString path) {
   return RED4ext::NodeRef::Hash(path.c_str());
 }
 
+// Build a local NodeRef from a hash so redscript can feed it to the engine's
+// ResolveNodeRef(local, root). Vanilla resolves short "#name" community
+// spawners and prefab-relative door refs exactly this way
+// (NPCReference.GetSpawnerEntityID). Returns NodeRef (RTTI "NodeRef"), not
+// GlobalNodeRef, because ResolveNodeRef's first argument is a NodeRef.
+Red::NodeRef NcNodeRefFromHash(uint64_t node_ref_hash) {
+  return Red::NodeRef(node_ref_hash);
+}
+
 
 void NcSetSanitizerActive(bool active) {
   std::lock_guard<std::mutex> lock(g_rt.mu);
@@ -1249,6 +1258,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcLogInfo, "NeonAscendancy.Core.NcLogInfo");
   RTTI_FUNCTION(NcResolveNodeRefByHash, "NeonAscendancy.Core.NcResolveNodeRefByHash");
   RTTI_FUNCTION(NcHashNodeRefPath, "NeonAscendancy.Core.NcHashNodeRefPath");
+  RTTI_FUNCTION(NcNodeRefFromHash, "NeonAscendancy.Core.NcNodeRefFromHash");
   RTTI_FUNCTION(NcSetSanitizerActive, "NeonAscendancy.Core.NcSetSanitizerActive");
   RTTI_FUNCTION(NcIsSanitizerActive, "NeonAscendancy.Core.NcIsSanitizerActive");
   RTTI_FUNCTION(NcSetAscendancyStartPending, "NeonAscendancy.Core.NcSetAscendancyStartPending");
@@ -1313,7 +1323,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 68 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 69 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {
