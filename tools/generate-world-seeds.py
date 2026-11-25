@@ -412,6 +412,11 @@ FACTION_HEADQUARTERS: list[dict[str, Any]] = [
         "x": 3427.93, "y": -360.963, "z": 134.071,
         "source": "dist/extract/markers.jsonl bls_bls_dataterm_03, camp fast-travel dataterm (docs/research/factions/aldecaldos.md)",
     },
+    {
+        "faction": "night_corp", "display_name": "Night Corp Headquarters", "gamedata_subdistrict": "Downtown",
+        "x": -1809.43, "y": 233.868, "z": 27.77,
+        "source": "dist/extract/markers.jsonl mq061_01_sm_nc_tower_scene (docs/research/factions/night-corp.md)",
+    },
 ]
 
 

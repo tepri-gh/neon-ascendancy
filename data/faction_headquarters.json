@@ -140,6 +140,16 @@
     "z": 74.413
   },
   {
+    "code": "hq_night_corp",
+    "display_name": "Night Corp Headquarters",
+    "faction_id": 40,
+    "gamedata_subdistrict": "Downtown",
+    "source": "dist/extract/markers.jsonl mq061_01_sm_nc_tower_scene (docs/research/factions/night-corp.md)",
+    "x": -1809.43,
+    "y": 233.868,
+    "z": 27.77
+  },
+  {
     "code": "hq_petrochem",
     "display_name": "North Sunrise Oil Fields",
     "faction_id": 43,
