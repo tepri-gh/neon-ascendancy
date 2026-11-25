@@ -29,7 +29,7 @@
   },
   "questphase": {
     "entry_socket": "Start",
-    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 15x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
+    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 18x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
     "initial_facts": [
       {"fact": "na_clean_slate", "value": 1},
       {"fact": "watson_prolog_lock", "value": 0},
@@ -45,7 +45,10 @@
       {"fact": "full_rpg_progression_on", "value": 1},
       {"fact": "q000_patch_2_0_new_game", "value": 1},
       {"fact": "disable_tutorials", "value": 1},
-      {"fact": "apartment_on", "value": 1}
+      {"fact": "apartment_on", "value": 1},
+      {"fact": "wilson_met", "value": 1},
+      {"fact": "wat_lch_gun_01_met", "value": 1},
+      {"fact": "q001_wilson_shop_tutorial_seen", "value": 1}
     ],
     "forbidden_facts": [
       "q000_done",
@@ -57,7 +60,22 @@
     "forbidden_fact_prefixes": ["q115_", "ep1_"],
     "kept_depot_phases": [
       {"depot_path": "base\\open_world\\community\\global_phase\\open_world_global_commuinity_phase.questphase", "why": "Crowds/communities"},
-      {"depot_path": "base\\open_world\\vendors\\open_world_vendors.questphase", "why": "Vendors + ripperdocs"},
+      {"depot_path": "base\\open_world\\vendors\\watson\\little_china\\little_china_vendors.questphase", "why": "Little China vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\watson\\kabuki\\kabuki_vendors.questphase", "why": "Kabuki vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\watson\\northside\\northside_vendors.questphase", "why": "Northside vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\westbrook\\japantown\\japantown_vendors.questphase", "why": "Japantown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\westbrook\\charter_hill\\charter_hill_vendors.questphase", "why": "Charter Hill vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\city_center\\downtown\\downtown_vendors.questphase", "why": "Downtown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\city_center\\corpo_plaza\\corpo_plaza_vendors.questphase", "why": "Corpo Plaza vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\heywood\\wellsprings\\wellsprings_vendors.questphase", "why": "Wellsprings vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\heywood\\glen\\glen_vendors.questphase", "why": "The Glen vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\heywood\\vista_del_rey\\vista_del_rey_vendors.questphase", "why": "Vista del Rey vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\santo_domingo\\arroyo\\arroyo_vendors.questphase", "why": "Arroyo vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\santo_domingo\\rancho_coronado\\rancho_coronado_vendors.questphase", "why": "Rancho Coronado vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\pacifica\\coastview\\coastview_vendors.questphase", "why": "Coastview vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\pacifica\\west_wind_estate\\west_wind_estate_vendors.questphase", "why": "West Wind Estate vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se1\\inland_avenue_se1_vendors.questphase", "why": "Badlands SE1 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
+      {"depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se5\\inland_avenue_se5_vendors.questphase", "why": "Badlands SE5 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
       {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest.questphase", "why": "Vehicle purchases"},
       {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest_new.questphase", "why": "Vehicle purchases (2.x)"},
       {"depot_path": "base\\open_world\\combat_events\\open_world_combat_events.questphase", "why": "Ambient gang combat"},
@@ -115,6 +133,7 @@
     ],
     "omitted_depot_phases": [
       "base\\quest\\persistent_content.questphase",
+      "base\\open_world\\vendors\\open_world_vendors.questphase",
       "base\\open_world\\fixers\\open_world_fixers.questphase",
       "base\\open_world\\street_stories\\street_stories.questphase",
       "base\\open_world\\minor_activities\\open_world_minor_activities.questphase",
@@ -126,6 +145,7 @@
     ],
     "never_included": [
       "base\\quest\\persistent_content.questphase (pulls q001_wilson Dying Night job, q001_fast_travel_unlock which ForceDisables #q001_lch_data_term_10 outside V's H10 apartment, q001 tutorials/story follow-ups, and gates mq000 behind q000_done > 0; its 4 clean non-story sub-phases are wired directly instead)",
+      "base\\open_world\\vendors\\open_world_vendors.questphase (gates all 16 district vendor sub-phases behind q000_done > 0 || debug_sts_start > 0; all 16 district *_vendors.questphase files are wired directly instead)",
       "base\\quest\\main_quests\\prologue\\prologue.questphase (q000-q005)",
       "base\\quest\\main_quests\\part1\\act_1.questphase (q101-q116)",
       "base\\quest\\main_quests\\epilogue\\epilogue.questphase",
@@ -138,6 +158,7 @@
     ],
     "excluded_phase_patterns": [
       "persistent_content",
+      "open_world_vendors",
       "main_quests",
       "side_quests",
       "minorquests",

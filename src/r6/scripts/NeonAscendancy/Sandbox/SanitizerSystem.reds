@@ -283,6 +283,11 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     qs.SetFact(n"watson_prolog_unlock", 1);
     qs.SetFact(n"q101_enable_activities_flat", 1);
     qs.SetFact(n"q101_enable_side_content", 1);
+    // Mark Wilson's gun-shop intro/tutorial already seen so wat_lch_gunsmith_01.scene
+    // opens directly as a normal gunsmith vendor without activating sq_q001_wilson ("The Gun").
+    qs.SetFact(n"wilson_met", 1);
+    qs.SetFact(n"wat_lch_gun_01_met", 1);
+    qs.SetFact(n"q001_wilson_shop_tutorial_seen", 1);
   }
 
   // Level-1 Mercenary Starter Kit: Paraline cyberdeck + Kiroshi + Power Grip +
