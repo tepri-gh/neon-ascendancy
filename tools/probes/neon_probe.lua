@@ -286,7 +286,13 @@ end
 
 local function emit(line)
   print(line)
-  spdlog.info(line)
+  -- Append to lookat.log in this mod's folder and close at once, so each line
+  -- is on disk immediately (CET's own logs are buffered until exit).
+  local f = io.open("lookat.log", "a")
+  if f then
+    f:write(os.date("%H:%M:%S "), line, "\n")
+    f:close()
+  end
 end
 
 function Probe.look_at()
