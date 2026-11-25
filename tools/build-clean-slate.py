@@ -368,6 +368,88 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_proximity_pause_node(
+        self,
+        node_ref: str,
+        within: float,
+    ) -> tuple[str, str]:
+        """Add a questPauseConditionNodeDefinition that waits until the player is
+        within `within` metres of `node_ref`.
+
+        Schema matches vanilla ep1\\quest\\main_quests\\q304\\q304.questphase: a
+        questDistanceCondition wrapping questDistanceComparison_ConditionType with
+        distanceDefinition1 = questObjectDistance (refLocalPlayer=1, nodeRef2 =
+        the authored node) and distanceDefinition2 = questValueDistance. This is
+        the vanilla-native way to defer a phase's device actions until the venue
+        streams in near the player, instead of firing them at bootstrap."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        player_ref = {
+            "$type": "gameEntityReference",
+            "dynamicEntityUniqueName": cname("None"),
+            "names": [],
+            "reference": {"$type": "NodeRef", "$storage": "uint64", "$value": "0"},
+            "sceneActorContextName": cname("None"),
+            "slotName": cname("None"),
+            "type": "EntityRef",
+        }
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questPauseConditionNodeDefinition",
+                    "id": self.node_id(),
+                    "condition": {
+                        "HandleId": self.alloc(),
+                        "Data": {
+                            "$type": "questDistanceCondition",
+                            "type": {
+                                "HandleId": self.alloc(),
+                                "Data": {
+                                    "$type": "questDistanceComparison_ConditionType",
+                                    "comparisonType": "Less",
+                                    "distanceDefinition1": {
+                                        "HandleId": self.alloc(),
+                                        "Data": {
+                                            "$type": "questObjectDistance",
+                                            "entityRef": {
+                                                "HandleId": self.alloc(),
+                                                "Data": {
+                                                    "$type": "questUniversalRef",
+                                                    "entityReference": player_ref,
+                                                    "mainPlayerObject": 0,
+                                                    "refLocalPlayer": 1,
+                                                },
+                                            },
+                                            "nodeRef2": {
+                                                "$type": "gameEntityReference",
+                                                "dynamicEntityUniqueName": cname("None"),
+                                                "names": [],
+                                                "reference": noderef(node_ref),
+                                                "sceneActorContextName": cname("None"),
+                                                "slotName": cname("None"),
+                                                "type": "EntityRef",
+                                            },
+                                        },
+                                    },
+                                    "distanceDefinition2": {
+                                        "HandleId": self.alloc(),
+                                        "Data": {
+                                            "$type": "questValueDistance",
+                                            "distanceValue": int(round(within)),
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                    "_sockets": [cut, inp, out],
+                },
+            }
+        )
+        return inp, out
+
     def add_register_fast_travel_points_node(self, points: list[dict[str, Any]]) -> tuple[str, str]:
         """Add a questEventManagerNodeDefinition (RegisterFastTravelPointsRequest).
 
@@ -1138,7 +1220,7 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
     allowed_actions = {
         "ForcePower", "ForceUnpower", "ForceOpen", "ForceClose", "ForceCloseImmediate",
         "ForceLock", "ForceUnlock", "ForceSeal", "ForceUnseal", "ForceEnabled",
-        "ForceDisabled", "ForceON", "ForceOFF",
+        "ForceDisabled", "ForceON", "ForceOFF", "AuthorizationDisable",
     }
     forbidden_prefixes = tuple(venue_spec["forbidden_device_controller_prefixes"])
     codes: set[str] = set()
@@ -1182,6 +1264,16 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
             for name, show in states.items():
                 if show not in (0, 1):
                     raise ValueError(f"{venue_path}: venue {code} variant {name} show must be 0 or 1")
+        if "proximity_wait" in v:
+            prox = v["proximity_wait"]
+            if not prox.get("ref", "").startswith("#"):
+                raise ValueError(f"{venue_path}: venue {code} proximity_wait.ref must be an authored '#name' ref")
+            try:
+                within = float(prox.get("within"))
+            except (TypeError, ValueError):
+                raise ValueError(f"{venue_path}: venue {code} proximity_wait.within must be a number")
+            if not 1.0 <= within <= 500.0:
+                raise ValueError(f"{venue_path}: venue {code} proximity_wait.within {within} out of range 1..500")
     return venue_spec
 
 
@@ -1212,6 +1304,15 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 entry_name=com.get("entry_name", "None"),
                 phase_name=com.get("phase_name", "None"),
             )
+            g.connect(prev, inp)
+            prev = out
+        # Defer the venue's device actions until the player is near the venue, so
+        # they run against streamed entities. Firing them at bootstrap (while the
+        # player is still in H10) hits no entity. `proximity` is an authored
+        # workspot/door ref plus a radius; without it the actions run immediately.
+        prox = venue.get("proximity_wait")
+        if prox:
+            inp, out = g.add_proximity_pause_node(prox["ref"], float(prox["within"]))
             g.connect(prev, inp)
             prev = out
         doors = venue.get("doors", [])
@@ -2088,6 +2189,39 @@ def _check_venue_probe(
             actual_toggles.append((p.get("prefabNodeRef", {}).get("$value"), states))
     ok(actual_toggles == expected_toggles,
        f"venue_probe variant toggles mismatch:\n  actual:   {actual_toggles}\n  expected: {expected_toggles}")
+
+    # Proximity waits: one questPauseConditionNodeDefinition with a
+    # questDistanceCondition per venue proximity_wait, waiting for the player to
+    # come within the spec radius of the spec node.
+    expected_prox = [
+        (v["proximity_wait"]["ref"], float(v["proximity_wait"]["within"]))
+        for v in venue_spec["venues"] if "proximity_wait" in v
+    ]
+    actual_prox = []
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questPauseConditionNodeDefinition":
+            continue
+        cond = d.get("condition", {}).get("Data", {})
+        if cond.get("$type") != "questDistanceCondition":
+            continue
+        typ = cond.get("type", {}).get("Data", {})
+        ok(typ.get("$type") == "questDistanceComparison_ConditionType",
+           "proximity condition type is not questDistanceComparison_ConditionType")
+        ok(typ.get("comparisonType") == "Less",
+           "proximity condition comparisonType must be Less (player within radius)")
+        d1 = typ.get("distanceDefinition1", {}).get("Data", {})
+        d2 = typ.get("distanceDefinition2", {}).get("Data", {})
+        ok(d1.get("$type") == "questObjectDistance", "proximity distanceDefinition1 must be questObjectDistance")
+        ok(d1.get("entityRef", {}).get("Data", {}).get("refLocalPlayer") == 1,
+           "proximity entityRef must reference the local player")
+        ok(d2.get("$type") == "questValueDistance", "proximity distanceDefinition2 must be questValueDistance")
+        actual_prox.append((
+            d1.get("nodeRef2", {}).get("reference", {}).get("$value"),
+            float(d2.get("distanceValue")),
+        ))
+    ok(actual_prox == expected_prox,
+       f"venue_probe proximity waits mismatch:\n  actual:   {actual_prox}\n  expected: {expected_prox}")
 
     # Communities: exact multiset match.
     actual_comms = set()
