@@ -1,0 +1,589 @@
+{
+  "spec_version": 1,
+  "description": "Declarative World Cast & Hubs Layer for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\cast_and_hubs.questphase and wired off ascendancy.questphase. Populates gated district hub crowds, spawns all 7 fixers and 10 iconic hub/faction residents at their canonical locations with their required workspot prefabs (zero vanilla gigs/SMS/holocalls/quests, ready for Neon Ascendancy overhaul systems), and enables all clean service vendors/bartenders/ripperdocs without setting forbidden story-completion facts.",
+  "phase_resource": "mod\\neon_ascendancy\\cast_and_hubs.questphase",
+  "entry_socket": "In1",
+  "keep_alive_pause": {
+    "fact": "na_cast_and_hubs_shutdown",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Never set during normal play; keeps cast_and_hubs.questphase alive for the entire save so its phasePrefabs and questSpawnSet activations are never released."
+  },
+  "phase_prefabs": [
+    {
+      "prefab": "#pr_reggie_default",
+      "why": "Owns Regina Jones leaning workspot (#regina_jones_ws_default_leaning)"
+    },
+    {
+      "prefab": "#wakako_okada_default",
+      "why": "Owns Wakako Okada HQ workspot (#ws_wakako_okada_default)"
+    },
+    {
+      "prefab": "#pr_mr_hands_default",
+      "why": "Owns Mr. Hands workspot (#ws_mr_hands_default)"
+    },
+    {
+      "prefab": "#pr_rogue_default",
+      "why": "Owns Rogue Amendiares Afterlife booth workspot (#ws_rogue_default)"
+    },
+    {
+      "prefab": "#pr_mama_welles_default",
+      "why": "Owns Mama Welles El Coyote Cojo workspot (#ws_mama_welles_default_001)"
+    },
+    {
+      "prefab": "#pr_misty_default",
+      "why": "Owns Misty's Esoterica workspot (#ws_misty_default) without wiring mq033_tarot"
+    },
+    {
+      "prefab": "#pr_totentanz_bouncer_default",
+      "why": "Owns Totentanz Bouncer workspot (#ws_totentanz_bouncer_default)"
+    },
+    {
+      "prefab": "#pr_delamain_default",
+      "why": "Owns Delamain HQ workspot (#ws_delamain_default)"
+    },
+    {
+      "prefab": "#pr_judy_default",
+      "why": "Owns Judy Alvarez workspot (#ws_judy_default)"
+    },
+    {
+      "prefab": "#pr_panam_default",
+      "why": "Owns Panam Palmer camp workspot (#ws_panam_default)"
+    },
+    {
+      "prefab": "#pr_sobchak_default",
+      "why": "Owns River Ward trailer park workspot (#ws_sobchak_default)"
+    }
+  ],
+  "world_hubs": [
+    {
+      "id": "el_coyote_cojo_crowd",
+      "district": "heywood_vista_del_rey",
+      "spawner_reference": "#sq022_el_coyote_bar_com",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "El Coyote Cojo bar patrons and staff (vanilla gates behind q000_done >= 1 and coyote_community_activated >= 1)"
+    },
+    {
+      "id": "northside_hobotown_camp",
+      "district": "watson_northside",
+      "spawner_reference": "#wat_nid_com_hobotown",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "Northside Hobo Town civilian camp (vanilla gates behind hobotown_community > 0)"
+    },
+    {
+      "id": "northside_hobotown_pair",
+      "district": "watson_northside",
+      "spawner_reference": "#nid_hobotown_ic_027_028",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "Northside Hobo Town ambient civilian pair (paired with #wat_nid_com_hobotown)"
+    },
+    {
+      "id": "regina_hq_coworkers",
+      "district": "watson_kabuki",
+      "spawner_reference": "#reggina_coworkers",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "Regina Jones HQ ambient office coworkers (vanilla spawns inside reggie.questphase)"
+    },
+    {
+      "id": "badlands_se5_foodshop_crowd",
+      "district": "badlands_se5",
+      "spawner_reference": "#bls_ina_se5_foodshop_01_com",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "Badlands SE5 foodshop patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "badlands_se1_foodshop_crowd",
+      "district": "badlands_se1",
+      "spawner_reference": "#bls_ina_se1_foodshop_03_com",
+      "community_entry_name": "None",
+      "community_entry_phase_name": "None",
+      "why": "Badlands SE1 foodshop patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_waitress_ground",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "waitress_ground",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar ground-floor waitresses (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_waitress_upstairs",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "waitress_upstairs",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar upstairs waitresses (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_male_high",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_male_high",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_female_high",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_female_high",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_female_high_bd",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_female_high_bd",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar BD patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_male_high_bd",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_male_high_bd",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar BD patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_female_middle",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_female_middle",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_male_middle",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_male_middle",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_female_middle_bd",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_female_middle_bd",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar BD patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_male_middle_bd",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_male_middle_bd",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar BD patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_moving_female",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_moving_female",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar walking patrons (vanilla gates behind q000_done)"
+    },
+    {
+      "id": "lizzies_customer_moving_male",
+      "district": "watson_kabuki",
+      "spawner_reference": "#wat_kab_com_lizzies_default",
+      "community_entry_name": "customer_moving_male",
+      "community_entry_phase_name": "default",
+      "why": "Lizzie's Bar walking patrons (vanilla gates behind q000_done)"
+    }
+  ],
+  "overhaul_actors": [
+    {
+      "id": "regina_jones",
+      "name": "Regina Jones",
+      "role": "fixer",
+      "district": "watson",
+      "faction": "independent_fixer",
+      "character_record": "Character.reggie",
+      "spot_ref": "#regina_jones_ws_default_leaning",
+      "reference": "#reggie",
+      "entry_name": "reggie",
+      "phase_name": "leaning",
+      "notes": "Watson fixer HQ; reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "wakako_okada",
+      "name": "Wakako Okada",
+      "role": "fixer",
+      "district": "westbrook",
+      "faction": "tyger_claws_fixer",
+      "character_record": "Character.wakako_okada",
+      "spot_ref": "#ws_wakako_okada_default",
+      "reference": "#wakako",
+      "entry_name": "wakako",
+      "phase_name": "default",
+      "notes": "Westbrook fixer HQ (Jig-Jig Street pachinko parlor); reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "padre_ibarra",
+      "name": "Sebastian \"Padre\" Ibarra",
+      "role": "fixer",
+      "district": "heywood",
+      "faction": "valentinos_fixer",
+      "character_record": "Character.Padre",
+      "spot_ref": "#ws_padre_default_glen",
+      "reference": "#padre",
+      "entry_name": "padre",
+      "phase_name": "default_glen",
+      "notes": "Heywood fixer HQ (The Glen); reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "dakota_smith",
+      "name": "Dakota Smith",
+      "role": "fixer",
+      "district": "badlands",
+      "faction": "aldecaldos_fixer",
+      "character_record": "Character.dakota_smith",
+      "spot_ref": "#ws_dakota_smith_default",
+      "reference": "#dakota",
+      "entry_name": "dakota",
+      "phase_name": "default",
+      "notes": "Badlands fixer HQ (Rocky Ridge garage); reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "dino_dinovic",
+      "name": "Dino Dinovic",
+      "role": "fixer",
+      "district": "city_center",
+      "faction": "city_center_fixer",
+      "character_record": "Character.dyno",
+      "spot_ref": "#ws_dyno_default",
+      "reference": "#dyno",
+      "entry_name": "dyno",
+      "phase_name": "default",
+      "notes": "City Center fixer HQ (Electric Orgasm bar); reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "muamar_reyes",
+      "name": "Muamar \"El Capitan\" Reyes",
+      "role": "fixer",
+      "district": "santo_domingo",
+      "faction": "santo_domingo_fixer",
+      "character_record": "Character.muamar_reyes",
+      "spot_ref": "#ws_el_capitan_default",
+      "reference": "#el_capitan",
+      "entry_name": "el_capitan",
+      "phase_name": "default",
+      "notes": "Santo Domingo fixer HQ (dam overlook); reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "mr_hands",
+      "name": "Mr. Hands",
+      "role": "fixer",
+      "district": "pacifica",
+      "faction": "pacifica_fixer",
+      "character_record": "Character.mr_hands",
+      "spot_ref": "#ws_mr_hands_default",
+      "reference": "#mr_hands",
+      "entry_name": "mr_hands",
+      "phase_name": "default",
+      "notes": "Pacifica fixer presence; reserved for Fixer Freelance Contract System"
+    },
+    {
+      "id": "rogue_amendiares",
+      "name": "Rogue Amendiares",
+      "role": "hub_leader",
+      "district": "watson_little_china",
+      "faction": "afterlife",
+      "character_record": "Character.Rogue",
+      "spot_ref": "#ws_rogue_default",
+      "reference": "#rogue",
+      "entry_name": "rogue",
+      "phase_name": "default",
+      "notes": "Afterlife Queen of Fixers booth; reserved for high-tier Freelance Contracts"
+    },
+    {
+      "id": "mama_welles",
+      "name": "Guadalupe \"Mama\" Welles",
+      "role": "hub_resident",
+      "district": "heywood_vista_del_rey",
+      "faction": "valentinos",
+      "character_record": "Character.mama_welles",
+      "spot_ref": "#ws_mama_welles_default_001",
+      "reference": "#mama_welles",
+      "entry_name": "mama_welles",
+      "phase_name": "default",
+      "notes": "El Coyote Cojo proprietor (silent presence; Pepe runs the bar shop without sq018 funeral dialogue)"
+    },
+    {
+      "id": "misty_olszewski",
+      "name": "Misty Olszewski",
+      "role": "hub_resident",
+      "district": "watson_little_china",
+      "faction": "independent",
+      "character_record": "Character.Misty",
+      "spot_ref": "#ws_misty_default",
+      "reference": "#misty",
+      "entry_name": "misty",
+      "phase_name": "default",
+      "notes": "Misty's Esoterica beside Viktor's alley; spawned cleanly without mq033_tarot"
+    },
+    {
+      "id": "nix",
+      "name": "Nix",
+      "role": "hub_vendor_netrunner",
+      "district": "watson_little_china",
+      "faction": "afterlife",
+      "character_record": "Character.Nix",
+      "spot_ref": "#ws_nix_default",
+      "reference": "#nix",
+      "entry_name": "nix",
+      "phase_name": "default",
+      "notes": "Afterlife netrunner; paired with nix_default_on=1 in default_dialogs (Vendors.wat_lch_netrunner_01, zero quest triggers)"
+    },
+    {
+      "id": "totentanz_bouncer",
+      "name": "Totentanz Bouncer",
+      "role": "hub_resident",
+      "district": "watson_northside",
+      "faction": "maelstrom",
+      "character_record": "Character.totentanz_bouncer",
+      "spot_ref": "#ws_totentanz_bouncer_default",
+      "reference": "#totentanz_bouncer",
+      "entry_name": "totentanz_bouncer",
+      "phase_name": "default",
+      "notes": "Maelstrom club Totentanz entrance guard"
+    },
+    {
+      "id": "delamain",
+      "name": "Delamain",
+      "role": "hub_resident",
+      "district": "heywood_vista_del_rey",
+      "faction": "delamain",
+      "character_record": "Character.Delamain",
+      "spot_ref": "#ws_delamain_default",
+      "reference": "#delamain",
+      "entry_name": "delamain",
+      "phase_name": "default",
+      "notes": "Delamain HQ physical core presence"
+    },
+    {
+      "id": "judy_alvarez",
+      "name": "Judy Alvarez",
+      "role": "faction_resident",
+      "district": "watson_kabuki",
+      "faction": "mox",
+      "character_record": "Character.Judy",
+      "spot_ref": "#ws_judy_default",
+      "reference": "#judy",
+      "entry_name": "judy",
+      "phase_name": "default",
+      "notes": "Mox BD technician (Kabuki apartment); silent overhaul cast presence"
+    },
+    {
+      "id": "panam_palmer",
+      "name": "Panam Palmer",
+      "role": "faction_resident",
+      "district": "badlands",
+      "faction": "aldecaldos",
+      "character_record": "Character.Panam",
+      "spot_ref": "#ws_panam_default",
+      "reference": "#panam",
+      "entry_name": "panam",
+      "phase_name": "default",
+      "notes": "Aldecaldo camp leader; silent overhaul cast presence"
+    },
+    {
+      "id": "river_ward",
+      "name": "River Ward",
+      "role": "faction_resident",
+      "district": "badlands_red_peaks",
+      "faction": "ncpd_independent",
+      "character_record": "Character.River",
+      "spot_ref": "#ws_sobchak_default",
+      "reference": "#sobchak",
+      "entry_name": "sobchak",
+      "phase_name": "default",
+      "notes": "Trailer park residence; silent overhaul cast presence"
+    },
+    {
+      "id": "kerry_eurodyne",
+      "name": "Kerry Eurodyne",
+      "role": "faction_resident",
+      "district": "westbrook_north_oak",
+      "faction": "independent",
+      "character_record": "Character.Kerry",
+      "spot_ref": "#kerry_ws_default_villa_guitar",
+      "reference": "#kerry",
+      "entry_name": "kerry",
+      "phase_name": "default",
+      "notes": "North Oak villa; silent overhaul cast presence"
+    }
+  ],
+  "service_vendors": {
+    "vendor_facts": [
+      {
+        "fact": "q001_left_clinic_first_time",
+        "value": 1,
+        "why": "Unblocks default_dialogs phase 7/33/3/40 n5 pause so Viktor Vektor's ripperdoc dialogue starts immediately"
+      },
+      {
+        "fact": "vv_default_initial_dialogue_played",
+        "value": 1,
+        "why": "Skips Viktor's post-q001 initial story dialogue straight to ripperdoc shop"
+      },
+      {
+        "fact": "victor_debt_paid_full",
+        "value": 1,
+        "why": "Clears Viktor's 21,000 eb prologue debt lock so his ripperdoc panel opens immediately"
+      },
+      {
+        "fact": "victor_debt_talk_active",
+        "value": 0,
+        "why": "Keeps Viktor's debt-talk guard cleared"
+      },
+      {
+        "fact": "victor_contact_added",
+        "value": 1,
+        "why": "Prevents victor_vector_default.scene from firing questAddRemoveContact for Viktor"
+      },
+      {
+        "fact": "q001_fistfight_trainer_sits",
+        "value": 1,
+        "why": "Unblocks wat_lch_melee_01.scene in-scene pause n175 so Coach Fred opens his melee weapon shop (Beat on the Brat dialogue stays hidden because mq025_fist_fight_quest_start == 0)"
+      },
+      {
+        "fact": "wat_lch_melee_01_met",
+        "value": 1,
+        "why": "Skips Coach Fred's first-visit greeting directly to his melee vendor panel"
+      },
+      {
+        "fact": "claire_default_on",
+        "value": 1,
+        "why": "Enables Claire Russell (Afterlife bartender, Vendors.wat_lch_foodshop_01) in default_dialogs 4/19 with zero sq024 race quest triggers"
+      },
+      {
+        "fact": "nix_default_on",
+        "value": 1,
+        "why": "Enables Nix (Afterlife netrunner, Vendors.wat_lch_netrunner_01) in default_dialogs 4/37 with zero quest triggers"
+      },
+      {
+        "fact": "wat_kab_foodshop_02_default_on",
+        "value": 1,
+        "why": "Enables Mateo Thiago (Lizzie's Bar bartender, Vendors.wat_kab_foodshop_02) in default_dialogs 7/32/2 without q000_done"
+      },
+      {
+        "fact": "bls_ina_se5_gunsmith_01_default_on",
+        "value": 1,
+        "why": "Enables Badlands SE5 gunsmith in default_dialogs 7/19 without q005_done"
+      },
+      {
+        "fact": "bls_ina_se1_foodshop_01_default_on",
+        "value": 1,
+        "why": "Enables Badlands SE1 foodshop in default_dialogs 7/22 without q005_done"
+      },
+      {
+        "fact": "cct_dtn_cloth_01_default_on",
+        "value": 1,
+        "why": "Enables Zane Jagger (Jinguji Downtown clothing, Vendors.cct_dtn_cloth_01) in default_dialogs 7/25 without q005_done"
+      },
+      {
+        "fact": "hey_rey_junkshop_01_default_on",
+        "value": 1,
+        "why": "Enables Vista del Rey junkshop in default_dialogs 7/29 without q005_done"
+      },
+      {
+        "fact": "wbr_jpn_junk_01_default_on",
+        "value": 1,
+        "why": "Enables Japantown junkshop 01 in default_dialogs 7/35/6"
+      },
+      {
+        "fact": "wbr_jpn_junk_02_default_on",
+        "value": 1,
+        "why": "Enables Japantown BD/junkshop 02 in default_dialogs 7/35/5"
+      },
+      {
+        "fact": "elcoyote_barman_default_on",
+        "value": 1,
+        "why": "Keeps directly-wired Pepe El Coyote Cojo bartender phase (default_dialogs 7/27/3) active"
+      },
+      {
+        "fact": "std_arr_foodshop_03_default_on",
+        "value": 1,
+        "why": "Keeps directly-wired Arroyo foodshop_03 phase (default_dialogs 7/30/3) active"
+      },
+      {
+        "fact": "std_arr_foodshop_04_default_on",
+        "value": 1,
+        "why": "Unblocks directly-wired Diner vendor phase (default_dialogs 7/30/4)"
+      },
+      {
+        "fact": "wbr_jpn_ripdoc_02_default_on",
+        "value": 1,
+        "why": "Keeps directly-wired Fingers ripperdoc phase (default_dialogs 7/35/3/19) active"
+      }
+    ],
+    "direct_vendor_phases": [
+      {
+        "id": "pepe_el_coyote_barman",
+        "vendor_id": "Vendors.hey_rey_foodshop_01",
+        "default_dialogs_id_path": [7, 27, 3],
+        "expected_scene": "base\\open_world\\vendors\\heywood\\vista_del_rey\\hey_rey_foodshop_01\\elcoyote_barman_default.scene",
+        "expected_prefabs": ["#pr_elcoyote_barman_default"],
+        "why": "Pepe (El Coyote Cojo bartender); vanilla gates parent 7/27 behind q005_done and q000_done. Cloning 7/27/3 preserves its #pr_elcoyote_barman_default prefab and distance streaming loop with zero story facts."
+      },
+      {
+        "id": "arroyo_foodshop_03",
+        "vendor_id": "Vendors.std_arr_foodshop_03",
+        "default_dialogs_id_path": [7, 30, 3],
+        "expected_scene": "base\\open_world\\vendors\\santo_domingo\\arroyo\\std_arr_cyberware_store_01\\std_arr_foodshop_03.scene",
+        "expected_prefabs": [],
+        "why": "Arroyo foodshop_03; vanilla gates parent 7/30 behind q005_done. Cloning 7/30/3 preserves its distance streaming loop with zero story facts."
+      },
+      {
+        "id": "northside_diner_barman",
+        "vendor_id": "Vendors.wat_nid_foodshop_02",
+        "default_dialogs_id_path": [7, 30, 4],
+        "expected_scene": "base\\open_world\\vendors\\watson\\northside\\wat_nid_foodshop_02\\wat_nid_foodshop_02.scene",
+        "expected_prefabs": [],
+        "why": "Diner foodshop vendor; vanilla gates parent 7/30 behind q005_done. Cloning 7/30/4 preserves its distance streaming loop and enters only the non-quest std_arr_foodshop_04 branch."
+      },
+      {
+        "id": "fingers_ripperdoc",
+        "vendor_id": "Vendors.wbr_jpn_ripperdoc_02",
+        "default_dialogs_id_path": [7, 35, 3, 19],
+        "expected_scene": "base\\open_world\\vendors\\westbrook\\japantown\\wbr_jpn_ripdoc_02\\wbr_jpn_ripdoc_02.scene",
+        "expected_prefabs": [],
+        "spawn_set": {
+          "reference": "#fingers",
+          "entry_name": "fingers",
+          "phase_name": "vendor_default"
+        },
+        "why": "Fingers (Japantown Jig-Jig Street ripperdoc); vanilla gates 7/35/3 behind q105_02_active. Cloning 7/35/3/19 + activating #fingers/fingers/vendor_default enables his clinic cleanly without q105."
+      }
+    ]
+  },
+  "forbidden_default_on_facts": [
+    "reggie_default_on",
+    "wakako_default_on",
+    "padre_default_on",
+    "dakota_default_on",
+    "dyno_default_on",
+    "el_capitan_default_on",
+    "mr_hands_default_on",
+    "rogue_default_on",
+    "mama_welles_default_on",
+    "misty_default_on",
+    "totentanz_bouncer_default_on",
+    "delamain_default_on",
+    "judy_default_on",
+    "panam_default_on",
+    "sobchak_default_on",
+    "kerry_default_on",
+    "johnny_default_on"
+  ]
+}

@@ -129,6 +129,17 @@ events (`SimEvent`) so every player or faction action ripples across Night City.
 Tracked explicitly here so Phase 0 database and architecture choices stay
 compatible without premature implementation:
 
+- **Fixer Freelance Contract System:** Gangs and megacorporations route
+  freelance contract missions to V through the canonical Night City fixers
+  (Regina Jones, Wakako Okada, Sebastian "Padre" Ibarra, Dakota Smith, Dino
+  Dinovic, Muamar "El Capitán" Reyes, Rogue Amendiares, and Mr. Hands). The
+  clean-slate world cast layer (`data/clean-slate/cast_and_hubs.json`) keeps
+  every fixer physically present in their canonical HQ with zero vanilla gig
+  phases or intro holocalls so Neon Ascendancy can hook custom freelance
+  contract interactions directly onto them.
+- **Iconic Weapons Rework Sweep:** Dedicated later pass to sweep vanilla iconic
+  weapons (including vendor-stocked iconics such as Wilson's Dying Night) and
+  integrate them into a Neon Ascendancy acquisition/reward system.
 - **Road-Chunk Vehicle Transit Ledger:** Simulate offscreen convoys, patrols,
   and deliveries traveling from point A to point B along Night City's road
   network. Store chunk traversal intervals in SQLite indexed by road chunk;

@@ -288,6 +288,28 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     qs.SetFact(n"wilson_met", 1);
     qs.SetFact(n"wat_lch_gun_01_met", 1);
     qs.SetFact(n"q001_wilson_shop_tutorial_seen", 1);
+    // Clean non-story service-vendor facts (mirrors data/clean-slate/cast_and_hubs.json
+    // so existing clean-slate saves pick them up idempotently on load).
+    qs.SetFact(n"q001_left_clinic_first_time", 1);
+    qs.SetFact(n"vv_default_initial_dialogue_played", 1);
+    qs.SetFact(n"victor_debt_paid_full", 1);
+    qs.SetFact(n"victor_debt_talk_active", 0);
+    qs.SetFact(n"victor_contact_added", 1);
+    qs.SetFact(n"q001_fistfight_trainer_sits", 1);
+    qs.SetFact(n"wat_lch_melee_01_met", 1);
+    qs.SetFact(n"claire_default_on", 1);
+    qs.SetFact(n"nix_default_on", 1);
+    qs.SetFact(n"wat_kab_foodshop_02_default_on", 1);
+    qs.SetFact(n"bls_ina_se5_gunsmith_01_default_on", 1);
+    qs.SetFact(n"bls_ina_se1_foodshop_01_default_on", 1);
+    qs.SetFact(n"cct_dtn_cloth_01_default_on", 1);
+    qs.SetFact(n"hey_rey_junkshop_01_default_on", 1);
+    qs.SetFact(n"wbr_jpn_junk_01_default_on", 1);
+    qs.SetFact(n"wbr_jpn_junk_02_default_on", 1);
+    qs.SetFact(n"elcoyote_barman_default_on", 1);
+    qs.SetFact(n"std_arr_foodshop_03_default_on", 1);
+    qs.SetFact(n"std_arr_foodshop_04_default_on", 1);
+    qs.SetFact(n"wbr_jpn_ripdoc_02_default_on", 1);
   }
 
   // Level-1 Mercenary Starter Kit: Paraline cyberdeck + Kiroshi + Power Grip +
@@ -638,6 +660,13 @@ private final func OnTriggerCall(request: ref<questTriggerCallRequest>) -> Void 
 protected cb func OnDialogsData(value: Variant) -> Bool {
   const player = this.GetPlayerControlledObject();
   if IsDefined(player) && NeonAscendancy_IsSanitizerEnabled(player.GetGame()) {
+    // Clean-slate runs excise campaign/sidequest/gig questphases at the graph
+    // layer, so we must NOT strip QuestImportant choices here (vendor "Shop" /
+    // "Browse wares" choices carry the QuestImportant flag in vanilla scenes).
+    let qs = GameInstance.GetQuestsSystem(player.GetGame());
+    if IsDefined(qs) && qs.GetFact(n"na_clean_slate") > 0 {
+      return wrappedMethod(value);
+    }
     let data = FromVariant<DialogChoiceHubs>(value);
     let keptHubs: array<ListChoiceHubData>;
     for hub in data.choiceHubs {

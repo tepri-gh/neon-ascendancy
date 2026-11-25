@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 """Build the Clean-Slate Night City world archive for Neon Ascendancy.
 
-Reads the declarative spec `data/clean-slate/clean_slate_spec.json` and produces
-`dist/neon_ascendancy_world.archive` containing exactly four CR2W resources:
+Reads the declarative specs `data/clean-slate/clean_slate_spec.json` and
+`data/clean-slate/cast_and_hubs.json`, and produces
+`dist/neon_ascendancy_world.archive` containing five CR2W resources:
 
-  mod\\neon_ascendancy\\ascendancy.gamedef    (custom gsmGameDefinition)
-  mod\\neon_ascendancy\\ascendancy.quest      (Start -> ascendancy.questphase)
-  mod\\neon_ascendancy\\ascendancy.questphase (clean-slate hub graph)
-  mod\\neon_ascendancy\\spike_kab07.questphase (dormant fact-gated living-world spike)
+  mod\\neon_ascendancy\\ascendancy.gamedef      (custom gsmGameDefinition)
+  mod\\neon_ascendancy\\ascendancy.quest        (Start -> ascendancy.questphase)
+  mod\\neon_ascendancy\\ascendancy.questphase   (clean-slate hub graph)
+  mod\\neon_ascendancy\\cast_and_hubs.questphase (world cast, hubs & direct service vendors)
+  mod\\neon_ascendancy\\spike_kab07.questphase  (dormant fact-gated living-world spike)
 
 Pipeline (all through the pinned WolvenKit.CLI 10.0.0-beta.1, DOTNET_ROLL_FORWARD=Major):
   1. Extract vanilla templates from basegame_4_gamedata.archive into a temp dir:
@@ -191,7 +193,9 @@ class QuestGraph:
                 for k, item in v.items():
                     if k == "HandleId" and isinstance(item, str) and item in remap:
                         out[k] = remap[item]
-                    elif k == "HandleRefId" and isinstance(item, str) and item in remap:
+                    elif k == "HandleRefId" and isinstance(item, str):
+                        if item not in remap:
+                            raise ValueError(f"unmapped external HandleRefId {item} in renumbered subtree")
                         out[k] = remap[item]
                     else:
                         out[k] = pass2(item)
@@ -383,6 +387,89 @@ class QuestGraph:
         self.nodes.append({"HandleId": self.alloc(), "Data": data})
         return in_handle
 
+    def add_community_spawn_node(
+        self,
+        template: dict[str, Any],
+        action: str,
+        spawner_reference: str,
+        entry_name: str,
+        phase_name: str,
+    ) -> tuple[str, str]:
+        """Add a questSpawnManagerNodeDefinition (questCommunityTemplate_NodeType)."""
+        raw = json.loads(json.dumps(template))
+        raw.pop("sockets", None)
+        data = self.renumber(raw)
+        data["id"] = self.node_id()
+        for act in data.get("actions", []):
+            act_type = act["type"]["Data"]
+            act_type["action"] = action
+            act_type["spawnerReference"]["$value"] = spawner_reference
+            act_type["communityEntryName"]["$value"] = entry_name
+            act_type["communityEntryPhaseName"]["$value"] = phase_name
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        data["_sockets"] = [cut, inp, out]
+        self.nodes.append({"HandleId": self.alloc(), "Data": data})
+        return inp, out
+
+    def add_spawn_set_node(
+        self,
+        action: str,
+        reference: str,
+        entry_name: str,
+        phase_name: str,
+    ) -> tuple[str, str]:
+        """Add a questSpawnManagerNodeDefinition (questSpawnSet_NodeType).
+        Schema matches vanilla wakako.questphase node 17 field-for-field."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questSpawnManagerNodeDefinition",
+                    "actions": [
+                        {
+                            "$type": "questSpawnManagerNodeActionEntry",
+                            "type": {
+                                "HandleId": self.alloc(),
+                                "Data": {
+                                    "$type": "questSpawnSet_NodeType",
+                                    "action": action,
+                                    "entryName": cname(entry_name),
+                                    "phaseName": cname(phase_name),
+                                    "reference": noderef(reference),
+                                },
+                            },
+                        }
+                    ],
+                    "id": self.node_id(),
+                    "_sockets": [cut, inp, out],
+                },
+            }
+        )
+        return inp, out
+
+    def add_renumbered_inline_phase_node(
+        self,
+        vanilla_node: dict[str, Any],
+        input_socket_name: str = "In1",
+    ) -> str:
+        """Clone a self-contained vanilla inline questPhaseNodeDefinition into this graph.
+        Strips outer sockets so zero parent-graph connections leak, renumbers all internal
+        handles, and attaches fresh CutDestination + input sockets."""
+        raw = json.loads(json.dumps(vanilla_node))
+        raw.pop("sockets", None)
+        data = self.renumber(raw)
+        data["id"] = self.node_id()
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket(input_socket_name, "Input")
+        data["_sockets"] = [cut, inp]
+        self.nodes.append({"HandleId": self.alloc(), "Data": data})
+        return inp
+
     def finalize(self) -> list[dict[str, Any]]:
         """Materialize node socket slots (full defs / HandleRefIds per target state)."""
         out = []
@@ -436,11 +523,15 @@ def build_quest(template: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any
     return doc
 
 
-def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
+def build_questphase(
+    templates: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    cast_spec: dict[str, Any],
+) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
-    Start -> hub -> initial fact managers (chained) -> fan-out to:
-      kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
+    Start -> hub -> initial + service-vendor fact managers (chained) -> fan-out to:
+      cast_and_hubs phase + kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
     """
     qp = spec["questphase"]
     owc = templates["open_world_content_questphase"]
@@ -458,14 +549,24 @@ def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any])
     hub_in, hub_out = g.add_hub_node()
     g.connect(start_out, hub_in)
 
+    all_facts = list(qp["initial_facts"]) + list(cast_spec["service_vendors"]["vendor_facts"])
+    seen_facts: set[str] = set()
     prev_out = hub_out
-    for entry in qp["initial_facts"]:
-        f_in, f_out = g.add_fact_node(entry["fact"], entry["value"])
+    for entry in all_facts:
+        fname = entry["fact"]
+        if fname in seen_facts:
+            raise ValueError(f"duplicate initial/vendor fact {fname}")
+        seen_facts.add(fname)
+        f_in, f_out = g.add_fact_node(fname, entry["value"])
         g.connect(prev_out, f_in)
         prev_out = f_out
 
     # Fan-out directly from the final fact node (zero blocking teleport nodes).
     fan = prev_out
+
+    # World Cast & Hubs layer (wired directly off fan-out after all facts are set)
+    cast_phase_in = g.add_phase_node(cast_spec["phase_resource"])
+    g.connect(fan, cast_phase_in)
 
     # spike: gate pause -> spike phase node
     spike = qp["spike"]
@@ -509,6 +610,98 @@ def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any])
     return doc
 
 
+def build_cast_and_hubs(
+    templates: dict[str, dict[str, Any]],
+    cast_spec: dict[str, Any],
+) -> dict[str, Any]:
+    """Assemble mod\\neon_ascendancy\\cast_and_hubs.questphase.
+
+    In1 -> hub -> fan-out to:
+      - world_hubs community activations (questCommunityTemplate_NodeType)
+      - overhaul_actors spawn sets (questSpawnSet_NodeType; 7 fixers + 10 iconic residents)
+      - direct_vendor_phases cloned cleanly from default_dialogs.questphase (plus any spawn_set)
+      - keep-alive pause condition (always-false fact, zero Output nodes -> phase never terminates)
+    RootChunk.phasePrefabs owns the 11 required workspot prefabs.
+    """
+    spawn_tpl = templates["spawn_manager_node"]
+    default_dialogs = templates["default_dialogs_questphase"]
+
+    g = QuestGraph(start_handle=1)
+    start_out = g.add_input_node(cast_spec["entry_socket"])
+    hub_in, hub_out = g.add_hub_node()
+    g.connect(start_out, hub_in)
+
+    # 1. Gated district hub crowds (questCommunityTemplate_NodeType)
+    for hub in cast_spec["world_hubs"]:
+        inp, _ = g.add_community_spawn_node(
+            spawn_tpl,
+            action="Activate",
+            spawner_reference=hub["spawner_reference"],
+            entry_name=hub["community_entry_name"],
+            phase_name=hub["community_entry_phase_name"],
+        )
+        g.connect(hub_out, inp)
+
+    # 2. Overhaul actors (7 fixers + 10 iconic hub/faction residents; questSpawnSet_NodeType)
+    for actor in cast_spec["overhaul_actors"]:
+        inp, _ = g.add_spawn_set_node(
+            action="Activate",
+            reference=actor["reference"],
+            entry_name=actor["entry_name"],
+            phase_name=actor["phase_name"],
+        )
+        g.connect(hub_out, inp)
+
+    # 3. Direct service-vendor phases cloned from default_dialogs.questphase
+    for vendor in cast_spec["service_vendors"]["direct_vendor_phases"]:
+        if "spawn_set" in vendor:
+            ss = vendor["spawn_set"]
+            ss_in, _ = g.add_spawn_set_node(
+                action="Activate",
+                reference=ss["reference"],
+                entry_name=ss["entry_name"],
+                phase_name=ss["phase_name"],
+            )
+            g.connect(hub_out, ss_in)
+        vanilla = find_node_by_id_path(default_dialogs, vendor["default_dialogs_id_path"])["Data"]
+        p_in = g.add_renumbered_inline_phase_node(vanilla, input_socket_name="In1")
+        g.connect(hub_out, p_in)
+
+    # 4. Keep-alive pause (never fires; keeps phasePrefabs and questSpawnSet entries active forever)
+    ka = cast_spec["keep_alive_pause"]
+    ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
+    g.connect(hub_out, ka_in)
+
+    nodes = g.finalize()
+    validate_refs(nodes)
+
+    doc = wrap_resource(
+        {
+            "$type": "questQuestPhaseResource",
+            "cookingPlatform": "PLATFORM_PC",
+            "graph": {
+                "HandleId": g.alloc(),
+                "Data": {"$type": "questGraphDefinition", "nodes": nodes},
+            },
+            "inplacePhases": [],
+            "phasePrefabs": [
+                {
+                    "$type": "questQuestPrefabEntry",
+                    "prefabNodeRef": noderef(entry["prefab"]),
+                }
+                for entry in cast_spec["phase_prefabs"]
+            ],
+        }
+    )
+    dups = find_duplicate_handles(doc)
+    if dups:
+        raise ValueError(f"duplicate HandleIds in cast_and_hubs.questphase: {dups[:5]}")
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds in cast_and_hubs.questphase: {cross[:5]}")
+    return doc
+
+
 def build_spike(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
     """Dormant fact-gated living-world spike resource (phasePrefabs + spawn manager)."""
     spike = spec["questphase"]["spike"]
@@ -517,21 +710,13 @@ def build_spike(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> d
     g = QuestGraph(start_handle=1)
 
     start_out = g.add_input_node(spike["entry_socket"])
-
-    data = g.renumber(template)  # deep copy with fresh internal handles
-    data.pop("sockets", None)  # sockets are rebuilt below with graph-local handles
-    data["id"] = g.node_id()
-    for action in data.get("actions", []):
-        act_type = action["type"]["Data"]
-        act_type["action"] = spike["spawn_manager"]["action"]
-        act_type["communityEntryName"]["$value"] = spike["spawn_manager"]["community_entry_name"]
-        act_type["communityEntryPhaseName"]["$value"] = spike["spawn_manager"]["community_entry_phase_name"]
-        act_type["spawnerReference"]["$value"] = spike["spawn_manager"]["spawner_reference"]
-    cut = g.new_socket("CutDestination", "CutDestination")
-    inp = g.new_socket("In", "Input")
-    out = g.new_socket("Out", "Output")
-    data["_sockets"] = [cut, inp, out]
-    g.nodes.append({"HandleId": g.alloc(), "Data": data})
+    inp, _ = g.add_community_spawn_node(
+        template,
+        action=spike["spawn_manager"]["action"],
+        spawner_reference=spike["spawn_manager"]["spawner_reference"],
+        entry_name=spike["spawn_manager"]["community_entry_name"],
+        phase_name=spike["spawn_manager"]["community_entry_phase_name"],
+    )
     g.connect(start_out, inp)
 
     nodes = g.finalize()
@@ -566,6 +751,25 @@ def find_node_by_id(resource: dict[str, Any], node_id: int) -> dict[str, Any]:
         if node["Data"].get("id") == node_id:
             return node
     raise KeyError(f"node id {node_id} not found in template")
+
+
+def find_node_by_id_path(resource: dict[str, Any], id_path: list[int]) -> dict[str, Any]:
+    """Locate a nested node inside inline questPhaseNodeDefinition phaseGraphs by id path."""
+    if not id_path:
+        raise ValueError("empty id_path")
+    nodes = resource["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
+    found: dict[str, Any] | None = None
+    for depth, nid in enumerate(id_path):
+        found = next((n for n in nodes if n["Data"].get("id") == nid), None)
+        if found is None:
+            raise KeyError(f"node id {nid} not found at depth {depth} of path {id_path}")
+        if depth + 1 < len(id_path):
+            pg = found["Data"].get("phaseGraph")
+            if not isinstance(pg, dict) or "Data" not in pg:
+                raise KeyError(f"node id {nid} at depth {depth} has no inline phaseGraph")
+            nodes = pg["Data"]["nodes"]
+    assert found is not None
+    return found
 
 
 def find_first_node_of_type(resource: dict[str, Any], node_type: str) -> dict[str, Any]:
@@ -692,6 +896,7 @@ def extract_templates(wk: Path, game_dir: Path, spec: dict[str, Any], tmp: Path)
         tpl["gamedef"],
         tpl["quest"],
         tpl["open_world_content_questphase"],
+        tpl["default_dialogs_questphase"],
         tpl["spawn_manager_node_template"],
     ]
     escaped = [p.replace("\\", "\\\\").replace(".", "\\.") for p in depot_paths]
@@ -710,13 +915,23 @@ def extract_templates(wk: Path, game_dir: Path, spec: dict[str, Any], tmp: Path)
     gamedef = load(tpl["gamedef"])
     quest = load(tpl["quest"])
     owc = load(tpl["open_world_content_questphase"])
+    default_dialogs = load(tpl["default_dialogs_questphase"])
     spawn_resource = load(tpl["spawn_manager_node_template"])
     return {
         "gamedef": gamedef,
         "quest": quest,
         "open_world_content_questphase": owc,
+        "default_dialogs_questphase": default_dialogs,
         "spawn_manager_node": find_first_node_of_type(spawn_resource, "questSpawnManagerNodeDefinition"),
     }
+
+
+def load_cast_spec(spec: dict[str, Any]) -> dict[str, Any]:
+    cast_path = ROOT / spec["questphase"]["cast_and_hubs"]["spec"]
+    if not cast_path.is_file():
+        raise FileNotFoundError(f"missing cast_and_hubs spec: {cast_path}")
+    with cast_path.open("r", encoding="utf-8") as fh:
+        return json.load(fh)
 
 
 def write_resource_json(directory: Path, rel_path: str, doc: dict[str, Any]) -> None:
@@ -725,7 +940,7 @@ def write_resource_json(directory: Path, rel_path: str, doc: dict[str, Any]) -> 
     target.write_text(json.dumps(doc, indent=2), encoding="utf-8")
 
 
-def build(args: argparse.Namespace, spec: dict[str, Any]) -> Path:
+def build(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, Any]) -> Path:
     wk = Path(args.wk_cli)
     if not wk.is_file():
         raise FileNotFoundError(f"WolvenKit.CLI not found at {wk}")
@@ -743,7 +958,10 @@ def build(args: argparse.Namespace, spec: dict[str, Any]) -> Path:
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.gamedef.json", build_gamedef(templates["gamedef"], spec))
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.quest.json", build_quest(templates["quest"], spec))
         write_resource_json(
-            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec)
+            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec)
+        )
+        write_resource_json(
+            build_dir, "mod/neon_ascendancy/cast_and_hubs.questphase.json", build_cast_and_hubs(templates, cast_spec)
         )
         write_resource_json(build_dir, "mod/neon_ascendancy/spike_kab07.questphase.json", build_spike(templates, spec))
 
@@ -774,7 +992,7 @@ class CheckFailure(Exception):
     pass
 
 
-def check(args: argparse.Namespace, spec: dict[str, Any]) -> None:
+def check(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, Any]) -> None:
     wk = Path(args.wk_cli)
     if not wk.is_file():
         raise FileNotFoundError(f"WolvenKit.CLI not found at {wk}")
@@ -811,7 +1029,8 @@ def check(args: argparse.Namespace, spec: dict[str, Any]) -> None:
         if not failures and len(resources) == len(spec["archive_resources"]):
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
-            _check_questphase(resources, spec, ok)
+            _check_questphase(resources, spec, cast_spec, ok)
+            _check_cast_and_hubs(resources, spec, cast_spec, ok)
             _check_spike(resources, spec, ok)
 
     if failures:
@@ -991,7 +1210,12 @@ def _count_connections(rc: dict[str, Any], socket_handle: str | None) -> tuple[i
     return n_in, n_out
 
 
-def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any], ok: Callable[[bool, str], None]) -> None:
+def _check_questphase(
+    resources: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    cast_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
     doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
     rc = doc["Data"]["RootChunk"]
     qp = spec["questphase"]
@@ -1012,16 +1236,17 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         hubs = by_type("questLogicalHubNodeDefinition")
         ok(len(hubs) == 1, f"expected 1 hub node, found {len(hubs)}")
         expected_reachable += hubs
+        all_expected_facts = list(qp["initial_facts"]) + list(cast_spec["service_vendors"]["vendor_facts"])
         facts = by_type("questFactsDBManagerNodeDefinition")
-        ok(len(facts) == len(qp["initial_facts"]),
-           f"expected {len(qp['initial_facts'])} fact nodes, found {len(facts)}")
+        ok(len(facts) == len(all_expected_facts),
+           f"expected {len(all_expected_facts)} fact nodes, found {len(facts)}")
         expected_reachable += facts
         teles = by_type("questTeleportPuppetNodeDefinition")
         ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
-        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 1,
-           f"expected {len(qp['kept_depot_phases']) + 1} external phase nodes ({len(qp['kept_depot_phases'])} kept + spike), found {len(top_phase_nodes)}")
+        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 2,
+           f"expected {len(qp['kept_depot_phases']) + 2} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + spike), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause
@@ -1034,19 +1259,23 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         cross = find_cross_graph_refs(doc)
         ok(not cross, f"cross-graph HandleRefIds in ascendancy.questphase: {cross[:10]}")
 
-        # facts exactly match the spec, none forbidden
+        # facts exactly match the spec + cast vendor_facts, none forbidden
         actual_facts = _collect_setvar_facts(rc)
-        expected_facts = [(f["fact"], f["value"]) for f in qp["initial_facts"]]
+        expected_facts = [(f["fact"], f["value"]) for f in all_expected_facts]
         ok(sorted(actual_facts) == sorted(expected_facts),
            f"setvar facts mismatch:\n  actual:   {sorted(actual_facts)}\n  expected: {sorted(expected_facts)}")
-        forbidden = set(qp["forbidden_facts"])
+        forbidden = set(qp["forbidden_facts"]) | set(cast_spec["forbidden_default_on_facts"])
         prefixes = tuple(qp["forbidden_fact_prefixes"])
         bad = [f for f, _ in actual_facts if f in forbidden or f.startswith(prefixes)]
-        ok(not bad, f"forbidden story facts set: {bad}")
+        ok(not bad, f"forbidden story/default_on facts set: {bad}")
 
-        # phase refs: kept present, excluded absent
+        # phase refs: kept + cast_and_hubs + spike present, excluded absent
         refs = _collect_phase_refs(rc)
-        expected_refs = {e["depot_path"] for e in qp["kept_depot_phases"]} | set(qp["inline_phase_depot_refs"]) | {qp["spike"]["resource"]}
+        expected_refs = (
+            {e["depot_path"] for e in qp["kept_depot_phases"]}
+            | set(qp["inline_phase_depot_refs"])
+            | {cast_spec["phase_resource"], qp["spike"]["resource"]}
+        )
         missing = sorted(expected_refs - set(refs))
         ok(not missing, f"missing kept phase refs: {missing}")
         excluded = sorted({r for r in refs if any(p in r for p in qp["excluded_phase_patterns"])})
@@ -1134,6 +1363,130 @@ def _graph_edges(nodes: list[dict[str, Any]]) -> set[tuple[int, int]]:
     return edges
 
 
+def _check_cast_and_hubs(
+    resources: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    cast_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    doc = resources[cast_spec["phase_resource"]]
+    rc = doc["Data"]["RootChunk"]
+    ok(rc.get("$type") == "questQuestPhaseResource", "cast_and_hubs root type is not questQuestPhaseResource")
+
+    # Required workspot phasePrefabs
+    actual_prefabs = [e["prefabNodeRef"]["$value"] for e in rc.get("phasePrefabs", [])]
+    expected_prefabs = [e["prefab"] for e in cast_spec["phase_prefabs"]]
+    ok(actual_prefabs == expected_prefabs,
+       f"cast_and_hubs phasePrefabs mismatch:\n  actual:   {actual_prefabs}\n  expected: {expected_prefabs}")
+
+    # Strict handle integrity
+    dups = find_duplicate_handles(doc)
+    ok(not dups, f"duplicate HandleIds in cast_and_hubs.questphase: {dups[:10]}")
+    cross = find_cross_graph_refs(doc)
+    ok(not cross, f"cross-graph HandleRefIds in cast_and_hubs.questphase: {cross[:10]}")
+
+    nodes = rc["graph"]["Data"]["nodes"]
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    ok(len(inputs) == 1, f"cast_and_hubs has {len(inputs)} input nodes")
+    top_outputs = [n for n in nodes if n["Data"].get("$type") == "questOutputNodeDefinition"]
+    ok(len(top_outputs) == 0,
+       f"cast_and_hubs has {len(top_outputs)} top-level Output nodes (phase must stay alive forever)")
+
+    if inputs:
+        ok(inputs[0]["Data"]["socketName"]["$value"] == cast_spec["entry_socket"],
+           f"cast_and_hubs input socketName != {cast_spec['entry_socket']}")
+        reachable = reachable_nodes(nodes, inputs[0])
+        unreachable = [id_of(n) for n in nodes if id_of(n) not in reachable]
+        ok(not unreachable, f"cast_and_hubs nodes unreachable from {cast_spec['entry_socket']}: {unreachable}")
+
+    # Verify all top-level community and spawn-set activations
+    actual_communities: set[tuple[str, str, str, str]] = set()
+    actual_spawn_sets: set[tuple[str, str, str, str]] = set()
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            t = at.get("$type")
+            if t == "questCommunityTemplate_NodeType":
+                actual_communities.add((
+                    at.get("action"),
+                    at.get("spawnerReference", {}).get("$value"),
+                    at.get("communityEntryName", {}).get("$value"),
+                    at.get("communityEntryPhaseName", {}).get("$value"),
+                ))
+            elif t == "questSpawnSet_NodeType":
+                actual_spawn_sets.add((
+                    at.get("action"),
+                    at.get("reference", {}).get("$value"),
+                    at.get("entryName", {}).get("$value"),
+                    at.get("phaseName", {}).get("$value"),
+                ))
+
+    expected_communities = {
+        ("Activate", h["spawner_reference"], h["community_entry_name"], h["community_entry_phase_name"])
+        for h in cast_spec["world_hubs"]
+    }
+    ok(expected_communities <= actual_communities,
+       f"cast_and_hubs missing world_hubs activations: {sorted(expected_communities - actual_communities)}")
+
+    expected_spawn_sets = {
+        ("Activate", a["reference"], a["entry_name"], a["phase_name"])
+        for a in cast_spec["overhaul_actors"]
+    }
+    for v in cast_spec["service_vendors"]["direct_vendor_phases"]:
+        if "spawn_set" in v:
+            ss = v["spawn_set"]
+            expected_spawn_sets.add(("Activate", ss["reference"], ss["entry_name"], ss["phase_name"]))
+    ok(expected_spawn_sets <= actual_spawn_sets,
+       f"cast_and_hubs missing spawn_set activations: {sorted(expected_spawn_sets - actual_spawn_sets)}")
+
+    # Verify direct vendor inline phases (expected scenes & phaseInstancePrefabs)
+    inline_phases = [n["Data"] for n in nodes if n["Data"].get("$type") == "questPhaseNodeDefinition"]
+    ok(len(inline_phases) == len(cast_spec["service_vendors"]["direct_vendor_phases"]),
+       f"cast_and_hubs expected {len(cast_spec['service_vendors']['direct_vendor_phases'])} direct vendor phases, found {len(inline_phases)}")
+    all_scenes = {
+        s.get("sceneFile", {}).get("DepotPath", {}).get("$value")
+        for s in _collect_nodes_of_type(rc, "questSceneNodeDefinition")
+    }
+    all_inst_prefabs = {
+        e["prefabNodeRef"]["$value"]
+        for p in _collect_nodes_of_type(rc, "questPhaseNodeDefinition")
+        for e in p.get("phaseInstancePrefabs", [])
+    }
+    for v in cast_spec["service_vendors"]["direct_vendor_phases"]:
+        ok(v["expected_scene"] in all_scenes,
+           f"cast_and_hubs missing direct vendor scene: {v['expected_scene']}")
+        for pf in v.get("expected_prefabs", []):
+            ok(pf in all_inst_prefabs,
+               f"cast_and_hubs missing direct vendor phaseInstancePrefab: {pf}")
+
+    # Verify keep-alive pause condition
+    ka = cast_spec["keep_alive_pause"]
+    top_pauses = [n["Data"] for n in nodes if n["Data"].get("$type") == "questPauseConditionNodeDefinition"]
+    ka_found = False
+    for p in top_pauses:
+        typ = p.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+        if (typ.get("factName") == ka["fact"]
+                and typ.get("comparisonType") == ka["comparison_type"]
+                and typ.get("value") == ka["value"]):
+            ka_found = True
+    ok(ka_found, f"cast_and_hubs missing keep-alive pause {ka['fact']} {ka['comparison_type']} {ka['value']}")
+
+    # Verify zero forbidden facts and zero excluded phases inside cast_and_hubs
+    qp = spec["questphase"]
+    actual_facts = _collect_setvar_facts(rc)
+    forbidden = set(qp["forbidden_facts"]) | set(cast_spec["forbidden_default_on_facts"])
+    prefixes = tuple(qp["forbidden_fact_prefixes"])
+    bad_facts = [f for f, _ in actual_facts if f in forbidden or f.startswith(prefixes)]
+    ok(not bad_facts, f"forbidden facts set inside cast_and_hubs.questphase: {bad_facts}")
+
+    refs = _collect_phase_refs(rc)
+    excluded = sorted({r for r in refs if any(p in r for p in qp["excluded_phase_patterns"])})
+    ok(not excluded, f"excluded phase refs inside cast_and_hubs.questphase: {excluded}")
+
+
 def _check_spike(resources: dict[str, dict[str, Any]], spec: dict[str, Any], ok: Callable[[bool, str], None]) -> None:
     doc = resources["mod\\neon_ascendancy\\spike_kab07.questphase"]
     rc = doc["Data"]["RootChunk"]
@@ -1184,11 +1537,12 @@ def main() -> int:
         raise FileNotFoundError(f"missing spec: {args.spec}")
     with args.spec.open("r", encoding="utf-8") as fh:
         spec = json.load(fh)
+    cast_spec = load_cast_spec(spec)
 
     if args.check:
-        check(args, spec)
+        check(args, spec, cast_spec)
     else:
-        archive = build(args, spec)
+        archive = build(args, spec, cast_spec)
         print(f"\nBuilt {archive} ({archive.stat().st_size} bytes).")
         print("Run `python3 tools/build-clean-slate.py --check` to verify the round-trip.")
     return 0
