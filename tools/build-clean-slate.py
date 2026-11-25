@@ -564,6 +564,47 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_variant_toggle_node(self, prefab_ref: str, states: dict[str, int]) -> tuple[str, str]:
+        """Add a questWorldDataManagerNodeDefinition (questTogglePrefabVariant_NodeType).
+
+        Schema matches vanilla
+        ep1\\quest\\main_quests\\q303\\phases\\q303_06b_paradise_technical.questphase
+        field-for-field. `prefab_ref` is an authored '#name' prefab; `states` maps a
+        variant name to 1 (show) or 0 (hide). This is how a venue phase swaps a
+        closed prefab state (e.g. var_tower_gate_closed_default) for an open one
+        (var_tower_gate_open_indestructible) - the only way to change baked
+        geometry, which no door action can move."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questWorldDataManagerNodeDefinition",
+                    "id": self.node_id(),
+                    "_sockets": [cut, inp, out],
+                    "type": {
+                        "HandleId": self.alloc(),
+                        "Data": {
+                            "$type": "questTogglePrefabVariant_NodeType",
+                            "params": [
+                                {
+                                    "$type": "questTogglePrefabVariant_NodeTypeParams",
+                                    "prefabNodeRef": noderef(prefab_ref),
+                                    "variantStates": [
+                                        {"$type": "questVariantState", "name": cname(name), "show": show}
+                                        for name, show in states.items()
+                                    ],
+                                }
+                            ],
+                        },
+                    },
+                },
+            }
+        )
+        return inp, out
+
     def add_renumbered_inline_phase_node(
         self,
         vanilla_node: dict[str, Any],
@@ -1130,6 +1171,17 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"{venue_path}: venue {code} bad community spawner {c}")
             if c.get("action") not in ("Activate", "Deactivate"):
                 raise ValueError(f"{venue_path}: venue {code} bad community action {c.get('action')}")
+        for t in v.get("variant_toggles", []):
+            if not t.get("prefab", "").startswith("#"):
+                raise ValueError(f"{venue_path}: venue {code} bad variant_toggles prefab {t}")
+            if any(pat in t["prefab"] for pat in venue_spec["forbidden_phase_patterns"]):
+                raise ValueError(f"{venue_path}: venue {code} variant_toggles prefab looks like a quest/gig phase: {t['prefab']}")
+            states = t.get("states")
+            if not isinstance(states, dict) or not states:
+                raise ValueError(f"{venue_path}: venue {code} variant_toggles needs a non-empty states map")
+            for name, show in states.items():
+                if show not in (0, 1):
+                    raise ValueError(f"{venue_path}: venue {code} variant {name} show must be 0 or 1")
     return venue_spec
 
 
@@ -1173,6 +1225,10 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 for d in doors
             ]
             inp, out = g.add_device_manager_node(entries)
+            g.connect(prev, inp)
+            prev = out
+        for toggle in venue.get("variant_toggles", []):
+            inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
             g.connect(prev, inp)
             prev = out
 
@@ -2007,6 +2063,31 @@ def _check_venue_probe(
         actual_groups.append(group)
     ok(actual_groups == expected_device_groups,
        f"venue_probe device groups mismatch:\n  actual:   {actual_groups}\n  expected: {expected_device_groups}")
+
+    # Variant toggles: one questWorldDataManagerNodeDefinition per variant_toggles
+    # entry, each carrying exactly the spec's prefab + show map.
+    expected_toggles = [
+        (t["prefab"], dict(t["states"]))
+        for v in venue_spec["venues"] for t in v.get("variant_toggles", [])
+    ]
+    toggle_nodes = [
+        n["Data"] for n in nodes
+        if n["Data"].get("$type") == "questWorldDataManagerNodeDefinition"
+    ]
+    ok(len(toggle_nodes) == len(expected_toggles),
+       f"expected {len(expected_toggles)} variant toggle nodes, found {len(toggle_nodes)}")
+    actual_toggles = []
+    for t_node in toggle_nodes:
+        typ = t_node.get("type", {}).get("Data", {})
+        ok(typ.get("$type") == "questTogglePrefabVariant_NodeType",
+           "variant toggle node type is not questTogglePrefabVariant_NodeType")
+        for p in typ.get("params", []):
+            ok(p.get("$type") == "questTogglePrefabVariant_NodeTypeParams",
+               "variant toggle param type mismatch")
+            states = {s["name"]["$value"]: s["show"] for s in p.get("variantStates", [])}
+            actual_toggles.append((p.get("prefabNodeRef", {}).get("$value"), states))
+    ok(actual_toggles == expected_toggles,
+       f"venue_probe variant toggles mismatch:\n  actual:   {actual_toggles}\n  expected: {expected_toggles}")
 
     # Communities: exact multiset match.
     actual_comms = set()

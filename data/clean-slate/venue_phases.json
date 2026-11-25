@@ -128,7 +128,22 @@
           "why": "Residential floor booked-room door"
         }
       ],
-      "communities": [],
+      "communities": [
+        {
+          "spawner": "#q005_com_hotel_guests",
+          "entry_name": "None",
+          "phase_name": "default",
+          "action": "Activate",
+          "why": "Konpeki lobby/hotel guests (vanilla q005_03_outside activates #q005_com_hotel_guests None/default)"
+        },
+        {
+          "spawner": "#q005_com_hotel_staff",
+          "entry_name": "None",
+          "phase_name": "default",
+          "action": "Activate",
+          "why": "Konpeki hotel staff (concierge/doormen; vanilla q005_05_courier uses None/default)"
+        }
+      ],
       "probe_refs": {
         "workspot": "$/03_night_city/c_watson/arasaka_waterfront/loc_q004_q005_arasaka_hotel_prefabSAJNFOI/loc_q004_q005_arasaka_hotel_questdesign_prefabNPCBDRY/#q005_pr_arasaka/#q005_ws_concierge_during_escape",
         "door": "#konpeki_plaza_entrance_door",
@@ -196,7 +211,49 @@
           "entry_name": "None",
           "phase_name": "None",
           "action": "Activate",
-          "why": "Clouds ambient staff/patron community"
+          "why": "Clouds ambient staff/patron community (already present)"
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "employees_fem",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Clouds female staff (world-activity entry; no scene)"
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "employees_male",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Clouds male staff (world-activity entry; no scene)"
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "manager",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Hiromi Sato, Clouds manager. Vanilla activates him from the q105_setup_dollhouse location phase (manager/start); we activate the community entry directly with no scene wiring."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_owner",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Clouds shop owner (q105_dollhouse_way activates shop_owner/start)"
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_tc_01",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Tyger Claws shop guard 01 (q105_dollhouse_way activates shop_tc_01/start)"
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_tc_02",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Tyger Claws shop guard 02 (q105_dollhouse_way activates shop_tc_02/start)"
         }
       ],
       "probe_refs": {
@@ -274,7 +331,7 @@
     {
       "code": "loc_sq011_totentanz",
       "display_name": "Totentanz",
-      "why": "Three-state openworld venue (section 1.6/5.5). Declares the pre-quest state prefab explicitly and opens the club doors.",
+      "why": "Three-state openworld venue (section 1.6/5.5). Declares the pre-quest state prefab explicitly; its crowd workspots live under #loc_pre_quest_totentanz, so the probe targets one there.",
       "prefabs": [
         "#loc_pre_quest_totentanz"
       ],
@@ -330,7 +387,7 @@
         }
       ],
       "probe_refs": {
-        "workspot": "",
+        "workspot": "$/03_night_city/c_watson/northside/loc_sq011_totentanz_prefabOSRVQDA/#loc_sq011_totentanz_openworld/#loc_pre_quest_totentanz/#ws_totentanz_pre_quest_crowd_bar_standing_003",
         "door": "#sq011_dvc_door_sliding_totentanz_entrance",
         "community": "#com_totentanz",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
@@ -403,7 +460,7 @@
     {
       "code": "q303_paradise",
       "display_name": "Black Sapphire",
-      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab and opens the combat-tower main door and tunnel entrance.",
+      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab, opens the combat-tower main door and tunnel entrance, and swaps the baked tower-gate shutters to the open variant (as vanilla q303_06b does).",
       "prefabs": [
         "#q303_pr_paradise_technical"
       ],
@@ -453,7 +510,19 @@
         "door": "#q303_dvc_ct_tunnel_entrance_door",
         "community": "#q303_com_paradise_technical_floor_guards",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
-      }
+      },
+      "variant_toggles": [
+        {
+          "prefab": "#loc_q304_pr_combat_tower_decoration",
+          "states": {
+            "var_tower_gate_closed_damaged": 0,
+            "var_tower_gate_closed_default": 0,
+            "var_tower_gate_open_indestructible": 1,
+            "var_tower_gate_open_destructible": 0
+          },
+          "why": "Vanilla q303_06b_paradise_technical shows var_tower_gate_open_indestructible on #loc_q304_pr_combat_tower_decoration to open the Black Sapphire tower-gate geometry. These shutters are baked mesh (worldCookedStaticMeshNode), not a door device, so a prefab-variant swap is the only way to open them. No scene/journal wiring."
+        }
+      ]
     },
     {
       "code": "loc_arasaka_tower",
