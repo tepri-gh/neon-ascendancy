@@ -65,12 +65,18 @@ every number below is reproducible with the commands in Appendix A.
    instantiates. Everything else — keycards, skill checks, lifts, security
    areas — is real but secondary, and each has a documented override. **[V]**
 
-6. **Recommended approach: layered, phase-first, script as safety net.**
-   Author a *venue phase* (built by `build-clean-slate.py`) that declares each
-   venue's `phasePrefabs` and issues `ForcePower`/`ForceOpen`, then a redscript
-   sweeper that fixes residual `LOCKED`/`SEALED`/`DISABLED` doors near the
-   player. Do not chase facts: almost no interior door is gated on a fact, it is
+6. **Recommended approach: phase-first.** Author a *venue phase* (built by
+   `build-clean-slate.py`) that declares each venue's `phasePrefabs` and issues
+   `ForcePower`/`ForceOpen`, plus native helpers where redscript needs them.
+   Do not chase facts: almost no interior door is gated on a fact, it is
    driven by device events. **[R]**
+
+   *Owner decision (2026-11-25):* **no redscript door sweeper.** Ascendancy
+   runs are fully decoupled from the story campaign: every run starts fresh
+   via *Start Ascendancy*, so there are no older saves with locked doors to
+   repair. Layer 2 below is kept only as a record of the rejected option.
+   Target venues: Konpeki Plaza, Arasaka Tower, Clouds, All Foods, Black
+   Sapphire, Batty's Hotel, Embers.
 
 7. **Five things need an in-game probe** (§5), the most important being whether
    a Neon-authored phase's `phasePrefabs` makes its `NodeRef`s resolve. If it
@@ -519,7 +525,10 @@ Why this is the right foundation:
 - **It composes.** Prefab declaration is additive and reference-counted.
 - **It fixes the root cause.** The venue exists *because a phase says so*.
 
-**Layer 2 — redscript door sweeper (O2). The safety net.**
+**Layer 2 — redscript door sweeper (O2). Rejected by the owner**
+(Ascendancy runs never load a pre-existing story save). Kept for reference;
+its native `NodeRef` helper note still applies to any script that needs to
+address world objects.
 
 A door can still be `LOCKED`/`SEALED`/`DISABLED` from an older save or another
 mod. The sweeper should:
@@ -585,7 +594,7 @@ helper is genuinely the cheapest path.** **[V]**
 | Risk | Mitigation |
 | --- | --- |
 | **Prefab reference-count conflicts** with another mod declaring the venue | Declaration is additive; test with a known venue mod installed |
-| **Save made before the venue phase** still has locked doors | Layer 2 sweeper |
+| **Save made before the venue phase** still has locked doors | Not applicable: Ascendancy runs always start fresh |
 | **A venue's "open" state is a quest variant** (Totentanz) | Pick the state prefab explicitly; never assume a default |
 | **Enabling a venue re-enables gig content** | Venue phases declare prefabs and doors only — never journal, mappin, phone or `street_stories` phases. Make this a builder assertion |
 | **`ForcePower` re-enabling a security system** | Only act on `DoorControllerPS`/`LiftControllerPS` unless intended |

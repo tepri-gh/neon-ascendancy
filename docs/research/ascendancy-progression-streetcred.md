@@ -1,5 +1,10 @@
 # Level-1 Clean-Slate Baseline & Street Cred Rework
 
+> **Status note (2026-11-25):** Ascendancy runs are fully decoupled from the
+> story campaign. A run always starts fresh via *Start Ascendancy*; loading or
+> converting an existing story save is not supported. The "existing save"
+> branches in this document are obsolete.
+
 **Status:** Research + design spec (no source changes, no game launch)
 **Date:** 2026-11-24
 **Scope:** Cyberpunk 2077 2.5, redscript 1.x, Codeware-free, Neon Ascendancy

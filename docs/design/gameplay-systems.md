@@ -221,3 +221,7 @@ lieutenants) are to be represented. Design pending.
 
 The mod owns its world model in `world.db` rather than steering vanilla
 through flags and triggers. That stays the long-term architecture.
+
+Ascendancy runs are fully decoupled from the story campaign: a run always
+starts fresh via *Start Ascendancy*. Existing story saves are not loaded,
+converted or repaired, so no system needs a "fix up an old save" path.
