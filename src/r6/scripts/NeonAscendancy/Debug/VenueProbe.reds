@@ -16,17 +16,16 @@ public struct NeonAscendancy_VenueProbe {
 
 // Dev-only in-game venue-access probe. Reports whether Neon-authored venue
 // phases make their NodeRefs resolve, the DoorControllerPS state of the probed
-// doors, and whether community spawners report spawned entities.
-//
-// Bounded by construction: it runs once after clean-slate bootstrap (and once
-// more after a short delay), never per frame and never on a timer. It is a pure
-// observer - it never mutates world state.
+// doors, and whether community spawners report spawned entities. It re-runs
+// every 60 s while na_dev_venue_probe is set so an on-site check settles as the
+// player moves and prefabs stream in. Never per frame.
 public class NeonAscendancy_VenueProbeCallback extends DelayCallback {
   public let m_game: GameInstance;
   public let m_pass: Int32 = 1;
 
   public func Call() -> Void {
     NeonAscendancy_RunVenueProbe(this.m_game, this.m_pass);
+    NeonAscendancy_ScheduleVenueProbe(this.m_game);
   }
 }
 
@@ -149,7 +148,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
     venues,
     NeonAscendancy_VenueProbe(
       "totentanz",
-      "",
+      "$/03_night_city/c_watson/northside/loc_sq011_totentanz_prefabOSRVQDA/#loc_sq011_totentanz_openworld/#loc_pre_quest_totentanz/#ws_totentanz_pre_quest_crowd_bar_standing_003",
       "#sq011_dvc_door_sliding_totentanz_entrance",
       "#com_totentanz"
     )
@@ -198,9 +197,31 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
   NcLogInfo(s"VenueProbe: done pass=\(pass)");
 }
 
-// Schedule the bounded two-pass probe: once ~2 s after bootstrap, once ~30 s
-// later to let prefab streaming and community spawns settle.
+// Schedule the bounded repeating probe: the first pass ~2 s after bootstrap,
+// then every 60 s while na_dev_venue_probe stays set. The callback re-schedules
+// itself via this function, so there is exactly one live timer chain. It stops
+// on its own the moment the fact is cleared.
 public func NeonAscendancy_ScheduleVenueProbe(game: GameInstance) -> Void {
+  if !GameInstance.IsValid(game) {
+    return;
+  }
+  let qs = GameInstance.GetQuestsSystem(game);
+  if !IsDefined(qs) || qs.GetFact(n"na_dev_venue_probe") <= 0 {
+    return;
+  }
+  let ds = GameInstance.GetDelaySystem(game);
+  if !IsDefined(ds) {
+    return;
+  }
+  let cb = new NeonAscendancy_VenueProbeCallback();
+  cb.m_game = game;
+  cb.m_pass = 1;
+  ds.DelayCallback(cb, 60.0, false);
+}
+
+// First pass shortly after bootstrap so the log is not empty in the first
+// minute, then NeonAscendancy_ScheduleVenueProbe keeps the 60 s chain alive.
+public func NeonAscendancy_StartVenueProbe(game: GameInstance) -> Void {
   if !GameInstance.IsValid(game) {
     return;
   }
@@ -216,18 +237,14 @@ public func NeonAscendancy_ScheduleVenueProbe(game: GameInstance) -> Void {
   first.m_game = game;
   first.m_pass = 1;
   ds.DelayCallback(first, 2.0, false);
-  let second = new NeonAscendancy_VenueProbeCallback();
-  second.m_game = game;
-  second.m_pass = 2;
-  ds.DelayCallback(second, 30.0, false);
 }
 
 // Dev-only door census: while the venue probe is armed, every door that streams
-// in within 60 m of the player logs its global id, name and state. Venue doors
-// only exist as entities near the player, so this is how the on-site state of a
-// venue entrance is read. The global id matches `global_node_id` in
-// data/sites/doors.json and the raw sector extracts. Bounded by streaming: one
-// line per door attach, never per frame.
+// in within 150 m of the player logs its global id, authored debug name/path and
+// state. Venue doors only exist as entities near the player, so this is how the
+// on-site state of a venue entrance is read. The global id low 32 bits match the
+// EntityID hash in data/sites/doors.json and the raw sector extracts. Bounded by
+// streaming: one line per door attach, never per frame.
 @wrapMethod(Door)
 protected cb func OnGameAttached() -> Bool {
   const res = wrappedMethod();
@@ -244,12 +261,19 @@ protected cb func OnGameAttached() -> Bool {
     return res;
   }
   const pos = this.GetWorldPosition();
-  if Vector4.Distance(pos, player.GetWorldPosition()) > 60.0 {
+  const dist = Vector4.Distance(pos, player.GetWorldPosition());
+  if dist > 150.0 {
     return res;
   }
   let ps = this.GetDevicePS();
+  let debugName = "";
+  let debugPath = "";
+  if IsDefined(ps) {
+    debugName = ps.GetDebugName();
+    debugPath = NameToString(ps.GetDebugPath());
+  }
   NcLogInfo(
-    s"DoorCensus: id=\(EntityID.GetHash(this.GetEntityID())) name=\(IsDefined(ps) ? ps.GetDeviceName() : "") pos=(\(pos.X),\(pos.Y),\(pos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
+    s"DoorCensus: id=\(EntityID.GetHash(this.GetEntityID())) dist=\(dist) name=\(debugName) path=\(debugPath) entity=\(this.GetName()) pos=(\(pos.X),\(pos.Y),\(pos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
   );
   return res;
 }

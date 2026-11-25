@@ -138,6 +138,6 @@ private func NeonAscendancy_DevDebugEnableVenueProbe(game: GameInstance) -> Void
   if qs.GetFact(n"na_dev_venue_probe") == 0 {
     qs.SetFact(n"na_dev_venue_probe", 1);
   }
-  NeonAscendancy_ScheduleVenueProbe(game);
+  NeonAscendancy_StartVenueProbe(game);
 }
 
