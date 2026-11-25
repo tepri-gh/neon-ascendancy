@@ -1,0 +1,525 @@
+{
+  "spec_version": 1,
+  "description": "Declarative venue-access probe for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\venue_probe.questphase and wired off ascendancy.questphase behind the dev fact na_dev_venue_probe > 0 (set only by NeonAscendancy_ApplyDevDebug). Each entry declares a venue's quest prefab, the door device actions that open it, and any community spawner activations. Venue phases carry prefabs, doors and communities ONLY - never journal, mappin, phone or street-story/gig phases (enforced by the builder). See docs/research/world-access.md section 4.2 Layer 1 and section 5.",
+  "phase_resource": "mod\\neon_ascendancy\\venue_probe.questphase",
+  "entry_socket": "In1",
+  "gate": {
+    "fact": "na_dev_venue_probe",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Dormant unless DevDebug sets it. Keeps the whole probe out of normal play while allowing a single in-game test of prefab instantiation, door power/open state and community spawning."
+  },
+  "keep_alive_pause": {
+    "fact": "na_venue_probe_shutdown",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Never set during normal play; keeps venue_probe.questphase alive so its phasePrefabs stay instantiated for the whole test session."
+  },
+  "forbidden_phase_patterns": [
+    "street_stories",
+    "minor_activities",
+    "open_world_fixers",
+    "journal",
+    "mappin",
+    "phone",
+    "holocall",
+    "quests\\main",
+    "quests\\side",
+    "minorquests"
+  ],
+  "forbidden_device_controller_prefixes": [
+    "Journal",
+    "Mappin",
+    "Phone",
+    "Holocall"
+  ],
+  "venues": [
+    {
+      "code": "sts_wat_kab_07",
+      "display_name": "Ho-Oh Casino (Kabuki)",
+      "why": "Section 5.1 blocking test case: a Neon-authored phase declaring #sts_wat_kab_07_streetstory, activating #kab_07_com_enemies phase 0combat, and powering/opening the entrance gate.",
+      "prefabs": [
+        "#sts_wat_kab_07_streetstory"
+      ],
+      "doors": [
+        {
+          "ref": "#kab_07_gate_001",
+          "action": "ForcePower",
+          "why": "Entrance gate; vanilla _openworld unpowered+closed it"
+        },
+        {
+          "ref": "#kab_07_gate_001",
+          "action": "ForceOpen",
+          "why": "Physical open after power (section 5.4 pairing)"
+        },
+        {
+          "ref": "#kab_07_doors_008",
+          "action": "ForcePower",
+          "why": "Interior single door 008"
+        },
+        {
+          "ref": "#kab_07_doors_008",
+          "action": "ForceOpen",
+          "why": "Interior single door 008"
+        },
+        {
+          "ref": "#kab_07_doors_010",
+          "action": "ForcePower",
+          "why": "Interior single door 010"
+        },
+        {
+          "ref": "#kab_07_doors_010",
+          "action": "ForceOpen",
+          "why": "Interior single door 010"
+        },
+        {
+          "ref": "#kab_07_doors_016",
+          "action": "ForcePower",
+          "why": "Interior single door 016"
+        },
+        {
+          "ref": "#kab_07_doors_016",
+          "action": "ForceOpen",
+          "why": "Interior single door 016"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#kab_07_com_enemies",
+          "entry_name": "None",
+          "phase_name": "0combat",
+          "action": "Activate",
+          "why": "15-enemy combat community used by section 5.1"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_07_casino_bar_prefab43ERUKQ/loc_sts_wat_kab_07_casino_bar_openworld_prefabAH5TG5A/#sts_wat_kab_07_streetstory/loc_sts_wat_kab_07_casino_bar_combat_prefabH3W2SIY/#kab_07_ws_bottom_guard_001",
+        "door": "#kab_07_gate_001",
+        "community": "#kab_07_com_enemies",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "q004_q005_arasaka_hotel",
+      "display_name": "Konpeki Plaza",
+      "why": "Quest-only interior (world-access section 2.2). Declares the hotel questdesign prefab and powers/opens the plaza entrance and the booked-room door.",
+      "prefabs": [
+        "#q005_pr_arasaka"
+      ],
+      "doors": [
+        {
+          "ref": "#konpeki_plaza_entrance_door",
+          "action": "ForcePower",
+          "why": "Plaza entrance; vanilla only unlocks it, never powers"
+        },
+        {
+          "ref": "#konpeki_plaza_entrance_door",
+          "action": "ForceOpen",
+          "why": "Plaza entrance open"
+        },
+        {
+          "ref": "#q005_dvc_res_floor_booked_room_door",
+          "action": "ForcePower",
+          "why": "Residential floor booked-room door"
+        },
+        {
+          "ref": "#q005_dvc_res_floor_booked_room_door",
+          "action": "ForceOpen",
+          "why": "Residential floor booked-room door"
+        }
+      ],
+      "communities": [],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_watson/arasaka_waterfront/loc_q004_q005_arasaka_hotel_prefabSAJNFOI/loc_q004_q005_arasaka_hotel_questdesign_prefabNPCBDRY/#q005_pr_arasaka/#q005_ws_concierge_during_escape",
+        "door": "#konpeki_plaza_entrance_door",
+        "community": "#q005_com_hotel_guests",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "q105_dollhouse",
+      "display_name": "Clouds",
+      "why": "Quest-only interior. Declares #q105_pr_dollhouse and powers/opens the customer cabin doors without the q105_persistent lock layer.",
+      "prefabs": [
+        "#q105_pr_dollhouse"
+      ],
+      "doors": [
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_customer",
+          "action": "ForcePower",
+          "why": "Customer cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_customer",
+          "action": "ForceOpen",
+          "why": "Customer cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
+          "action": "ForcePower",
+          "why": "Doll 01 cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
+          "action": "ForceOpen",
+          "why": "Doll 01 cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
+          "action": "ForcePower",
+          "why": "Doll 02 cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
+          "action": "ForceOpen",
+          "why": "Doll 02 cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
+          "action": "ForcePower",
+          "why": "Evelyn cabin door; vanilla ForceDisabled it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device before powering"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
+          "action": "ForceOpen",
+          "why": "Evelyn cabin door"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "None",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Clouds ambient staff/patron community"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
+        "door": "#q105_dvc_dollhouse_door_cabin_customer",
+        "community": "#q105_com_dollhouse",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "q003_meat_factory",
+      "display_name": "All Foods",
+      "why": "Quest-only interior. Declares #q003_pr_quest and unseals/opens the Maelstrom gate plus the garage doors.",
+      "prefabs": [
+        "#q003_pr_quest"
+      ],
+      "doors": [
+        {
+          "ref": "#q003_maelstrom_gate_entry",
+          "action": "ForceEnabled",
+          "why": "Gate is ForceSealed by q003; re-enable first"
+        },
+        {
+          "ref": "#q003_maelstrom_gate_entry",
+          "action": "ForcePower",
+          "why": "Gate power"
+        },
+        {
+          "ref": "#q003_maelstrom_gate_entry",
+          "action": "ForceUnseal",
+          "why": "Gate is sealed, not just closed"
+        },
+        {
+          "ref": "#q003_maelstrom_gate_entry",
+          "action": "ForceOpen",
+          "why": "Gate open"
+        },
+        {
+          "ref": "#q003_door_garage_outer",
+          "action": "ForceUnlock",
+          "why": "Garage outer door"
+        },
+        {
+          "ref": "#q003_door_garage_outer",
+          "action": "ForceOpen",
+          "why": "Garage outer door"
+        },
+        {
+          "ref": "#q003_door_garage_inner",
+          "action": "ForceUnlock",
+          "why": "Garage inner door"
+        },
+        {
+          "ref": "#q003_door_garage_inner",
+          "action": "ForceOpen",
+          "why": "Garage inner door"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#q003_com_main_hall",
+          "entry_name": "None",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "All Foods main-hall ambient crowd"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_watson/northside/wnid_07_prefab2UR7MHY/#loc_q003_meat_factory/loc_meat_factory_questdesign_prefabCIYNT2A/#q003_pr_quest/#q003_pr_00_base/#q003_ws_car_by_militech_ditch",
+        "door": "#q003_maelstrom_gate_entry",
+        "community": "#q003_com_main_hall",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "loc_sq011_totentanz",
+      "display_name": "Totentanz",
+      "why": "Three-state openworld venue (section 1.6/5.5). Declares the pre-quest state prefab explicitly and opens the club doors.",
+      "prefabs": [
+        "#loc_pre_quest_totentanz"
+      ],
+      "doors": [
+        {
+          "ref": "#sq011_dvc_door_sliding_totentanz_entrance",
+          "action": "ForceEnabled",
+          "why": "Entrance is ForceSealed by sq011"
+        },
+        {
+          "ref": "#sq011_dvc_door_sliding_totentanz_entrance",
+          "action": "ForcePower",
+          "why": "Entrance power"
+        },
+        {
+          "ref": "#sq011_dvc_door_sliding_totentanz_entrance",
+          "action": "ForceUnseal",
+          "why": "Entrance seal"
+        },
+        {
+          "ref": "#sq011_dvc_door_sliding_totentanz_entrance",
+          "action": "ForceOpen",
+          "why": "Entrance open"
+        },
+        {
+          "ref": "#sq011_club_doors",
+          "action": "ForcePower",
+          "why": "Club interior doors"
+        },
+        {
+          "ref": "#sq011_club_doors",
+          "action": "ForceOpen",
+          "why": "Club interior doors"
+        },
+        {
+          "ref": "#sq011_dvc_door_back_room",
+          "action": "ForceUnlock",
+          "why": "Back room door"
+        },
+        {
+          "ref": "#sq011_dvc_door_back_room",
+          "action": "ForceOpen",
+          "why": "Back room door"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#com_totentanz",
+          "entry_name": "None",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Totentanz crowd"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "",
+        "door": "#sq011_dvc_door_sliding_totentanz_entrance",
+        "community": "#com_totentanz",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "hvdr_02_batty",
+      "display_name": "Batty's Hotel",
+      "why": "Quest-only entropy (mq025). Declares #batty_pr_roof and the roof community; no doors are wired by mq025 for the roof.",
+      "prefabs": [
+        "#batty_pr_roof"
+      ],
+      "doors": [],
+      "communities": [
+        {
+          "spawner": "#batty_com_roof",
+          "entry_name": "batty",
+          "phase_name": "batty",
+          "action": "Activate",
+          "why": "Batty roof community (the only mq025 venue community with a verified ref)"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/#c_heywood/vista_del_rey/hvdr_02/hvdr_02_questdesign_prefabQGPW7TI/#batty_pr_roof/#batty_ws_roof",
+        "door": "",
+        "community": "#batty_com_roof",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "loc_q115_fancy_restaurant",
+      "display_name": "Embers",
+      "why": "Quest-only restaurant interior. Declares #q115_pr_restaurant and unseals/opens the Embers elevator doors.",
+      "prefabs": [
+        "#q115_pr_restaurant"
+      ],
+      "doors": [
+        {
+          "ref": "#q115_dvc_embers_elevator_bottom_door",
+          "action": "ForcePower",
+          "why": "Embers elevator bottom door"
+        },
+        {
+          "ref": "#q115_dvc_embers_elevator_bottom_door",
+          "action": "ForceUnseal",
+          "why": "Embers elevator bottom door is sealed"
+        },
+        {
+          "ref": "#q115_dvc_embers_elevator_bottom_door",
+          "action": "ForceOpen",
+          "why": "Embers elevator bottom door"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#q115_com_restaurant_staff",
+          "entry_name": "None",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Embers restaurant staff (bartender/waitress)"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/#c_heywood/glen/loc_q115_fancy_restaurant_prefabMOPJDYY/loc_q115_fancy_restaurant_questdesign_prefabXXJX6OQ/#q115_pr_restaurant/#q115_ws_hanako_bodyguard_street_000",
+        "door": "#q115_dvc_embers_elevator_bottom_door",
+        "community": "#q115_com_restaurant_staff",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "q303_paradise",
+      "display_name": "Black Sapphire",
+      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab and opens the combat-tower main door and tunnel entrance.",
+      "prefabs": [
+        "#q303_pr_paradise_technical"
+      ],
+      "doors": [
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceEnabled",
+          "why": "Tunnel entrance is ForceSealed"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForcePower",
+          "why": "Tunnel entrance power"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceUnseal",
+          "why": "Tunnel entrance seal"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceOpen",
+          "why": "Tunnel entrance open"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceUnlock",
+          "why": "Combat tower main door"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceOpen",
+          "why": "Combat tower main door"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "None",
+          "phase_name": "None",
+          "action": "Activate",
+          "why": "Paradise technical-floor guards"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks/#q303_ws_nighthawks_customer_06",
+        "door": "#q303_dvc_ct_tunnel_entrance_door",
+        "community": "#q303_com_paradise_technical_floor_guards",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    },
+    {
+      "code": "loc_arasaka_tower",
+      "display_name": "Arasaka Tower",
+      "why": "Quest-only tower interior. Declares the top-atrium and jungle prefabs and opens the atrium lift and CEO doors.",
+      "prefabs": [
+        "#q113_pr_top_atrium_new",
+        "#q113_pr_jungle"
+      ],
+      "doors": [
+        {
+          "ref": "#q113_dvc_atrium_start_lift_door",
+          "action": "ForceEnabled",
+          "why": "Atrium lift door is ForceDisabled"
+        },
+        {
+          "ref": "#q113_dvc_atrium_start_lift_door",
+          "action": "ForcePower",
+          "why": "Atrium lift door power"
+        },
+        {
+          "ref": "#q113_dvc_atrium_start_lift_door",
+          "action": "ForceOpen",
+          "why": "Atrium lift door open"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_01",
+          "action": "ForceUnlock",
+          "why": "CEO floor door 01"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_02",
+          "action": "ForceUnlock",
+          "why": "CEO floor door 02"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_03",
+          "action": "ForceUnlock",
+          "why": "CEO floor door 03"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_04",
+          "action": "ForceUnlock",
+          "why": "CEO floor door 04"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_04",
+          "action": "ForceOpen",
+          "why": "CEO floor door 04 open"
+        }
+      ],
+      "communities": [
+        {
+          "spawner": "#q113_com_atrium_scenes",
+          "entry_name": "officer",
+          "phase_name": "officer",
+          "action": "Activate",
+          "why": "Top-atrium scene NPC (verified entry/phase from q113_11)"
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/#c_city_center/corpo_plaza/#loc_arasaka_tower/loc_arasaka_tower_questdesign_prefabDP2FMWA/#q113_pr_top_atrium_new/#q113_ws_propaganda_voice_atrium",
+        "door": "#q113_dvc_atrium_start_lift_door",
+        "community": "#q113_com_atrium_scenes",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      }
+    }
+  ]
+}

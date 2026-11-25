@@ -2054,6 +2054,19 @@ def _check_venue_probe(
             ka_found = True
     ok(ka_found, f"venue_probe missing keep-alive pause {ka['fact']} {ka['comparison_type']} {ka['value']}")
 
+    # The dev probe redscript hardcodes these refs (it cannot read JSON at
+    # runtime). Fail the build if they drift from the spec so the in-game log
+    # always reports on the refs the venue phase actually addresses.
+    probe_src = ROOT / "src" / "r6" / "scripts" / "NeonAscendancy" / "Debug" / "VenueProbe.reds"
+    if probe_src.is_file():
+        source = probe_src.read_text(encoding="utf-8")
+        for v in venue_spec["venues"]:
+            pr = v.get("probe_refs", {})
+            for key in ("workspot", "door", "community"):
+                val = pr.get(key, "")
+                ok(not val or val in source,
+                   f"VenueProbe.reds is missing probe_refs.{key} for venue {v['code']}: {val}")
+
     # ascendancy.questphase: gate pause -> venue probe phase node, gated on the fact.
     qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
     qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
