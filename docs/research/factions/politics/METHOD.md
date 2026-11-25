@@ -24,6 +24,30 @@ Output: `docs/research/factions/politics/<faction-code>.md`, where the
 filename uses the hyphenated `data/factions.json` code. Use the pilot as the
 worked example of depth and format.
 
+## 1.1 Corrections from the first politics batch (override later sections)
+
+1. **One person, several records.** Named NPCs often have alive, dead,
+   holocall and braindance variants (`Character.Voodoo_Queen`,
+   `q105_voodoo_queen`, `Voodoo_Queen_dead`; `Placide`, `Holocall_Placide`).
+   List all of a person's records under one leader entry. Holocall/BD actors
+   are not world spawns.
+2. **Corps:** the `<Faction> Members` page can be empty. Follow the main
+   page's `{{Main|…}}` link (Arasaka: `List of Arasaka employees`).
+3. **Presence classes:** add `prologue` (lifepath intros such as
+   `q000_corpo_*`: the best model for joining a corp as an employee) and mark
+   canonically dead or V-dependent leaders in the `role` text.
+4. **Several cells:** if a faction has separate cells (the Voodoo Boys in
+   Coastview and Dogtown), name each cell's leadership in `internal_factions`
+   and say which loss decapitates which cell.
+5. **Current vs historical stance:** the stance is the 2077 state (Arasaka
+   and Militech are `rival`, not `war`). Put history in the evidence string.
+6. **Direction of `patron`/`client`:** `patron` means this faction protects
+   or funds the other; `client` means this faction depends on or works for the
+   other. Say which (buyer, supplier, proxy) in the evidence.
+7. **Extra rows:** add `netwatch` and `nusa` rows where they matter. They are
+   political actors, not territory holders. Patronage of a community that is
+   not in `data/factions.json` (e.g. the Haitian diaspora) goes in prose.
+
 ## 2. Procedure
 
 1. **Wiki first, via the API** (`action=parse&prop=wikitext&formatversion=2&redirects=1`).
