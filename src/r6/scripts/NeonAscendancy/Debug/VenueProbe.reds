@@ -91,6 +91,17 @@ private func NeonAscendancy_RepairDoor(game: GameInstance, path: String, range: 
   enabled.SetUp(ps);
   enabled.SetProperties();
   persistency.QueuePSDeviceEvent(enabled);
+  // Turn the authorization module off so a keycard-gated door (Clouds VIP lounge)
+  // opens without a keycard. Vanilla issues the same action
+  // (QuestForceAuthorizationDisabled, actionName AuthorizationDisable) on
+  // DoorControllerPS; the handler early-returns when the module is already off.
+  if ps.IsAuthorizationModuleOn() {
+    let authOff = new QuestForceAuthorizationDisabled();
+    authOff.clearanceLevel = 99;
+    authOff.SetUp(ps);
+    authOff.SetProperties();
+    persistency.QueuePSDeviceEvent(authOff);
+  }
   let power = new QuestForcePower();
   power.clearanceLevel = 99;
   power.SetUp(ps);
@@ -136,7 +147,23 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
     repair = NeonAscendancy_RepairDoor(game, venue.door, 60.0);
   }
 
-  // 3. Does the community spawner report spawned entities?
+  // 3. Authorization-module state for the probed door, so an owner test proves
+  // whether AuthorizationDisable took. -1 means no device/auth module present.
+  let authModule = -1;
+  if NotEquals(venue.door, "") {
+    const doorRef = NeonAscendancy_ResolveProbeRef(venue.door);
+    if GlobalNodeRef.IsDefined(doorRef) {
+      const device = GameInstance.FindEntityByID(game, Cast<EntityID>(doorRef)) as Device;
+      if IsDefined(device) {
+        const ps = device.GetDevicePS();
+        if IsDefined(ps) {
+          authModule = (ps.IsAuthorizationModuleOn() ? 1 : 0);
+        }
+      }
+    }
+  }
+
+  // 4. Does the community spawner report spawned entities?
   let communityCount = -1;
   if NotEquals(venue.community, "") {
     const comRef = NeonAscendancy_ResolveProbeRef(venue.community);
@@ -149,7 +176,7 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
   }
 
   NcLogInfo(
-    s"VenueProbe[\(venue.code)]: workspotResolved=\(workspotResolved) door=\(doorState) repair=\(repair) communitySpawned=\(communityCount)"
+    s"VenueProbe[\(venue.code)]: workspotResolved=\(workspotResolved) door=\(doorState) repair=\(repair) authModuleOn=\(authModule) communitySpawned=\(communityCount)"
   );
 }
 
@@ -192,7 +219,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
     NeonAscendancy_VenueProbe(
       "clouds",
       "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
-      "#q105_dvc_dollhouse_door_cabin_customer",
+      "#q105_dvc_dollhouse_door_vip",
       "#q105_com_dollhouse"
     )
   );
