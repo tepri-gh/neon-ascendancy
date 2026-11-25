@@ -74,3 +74,17 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
     once after a delay, whether each venue's workspot resolves, the probed door
     `DoorControllerPS` state (`IsOpen/IsLocked/IsSealed/IsDisabled/IsPowered`),
     and the community spawner's spawned-entity count.
+  - Prefab-variant support: the builder now emits
+    `questWorldDataManagerNodeDefinition` / `questTogglePrefabVariant_NodeType`
+    (schema from vanilla `q303_06b_paradise_technical`), the only way to open
+    baked geometry such as the Black Sapphire tower-gate shutters. Black
+    Sapphire swaps to `var_tower_gate_open_indestructible` on
+    `#loc_q304_pr_combat_tower_decoration`; `--check` round-trip-verifies the
+    toggle.
+  - Konpeki now activates `#q005_com_hotel_guests`/`#q005_com_hotel_staff`
+    (`None`/`default`); Clouds activates Hiromi (`manager`/`start`) and the
+    Tyger Claws shop staff (`shop_tc_01/02`, `shop_owner`/`start`) plus
+    `employees_fem/male`; Totentanz probes a real workspot under
+    `#loc_pre_quest_totentanz`.
+  - The probe re-runs every 60 s while `na_dev_venue_probe` is set, and the
+    door census logs within 150 m with the authored debug name and path.
