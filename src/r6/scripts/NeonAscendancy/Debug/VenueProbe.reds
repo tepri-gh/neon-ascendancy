@@ -271,6 +271,15 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
   ArrayPush(
     venues,
     NeonAscendancy_VenueProbe(
+      "afterlife_backroom",
+      "$/03_night_city/c_watson/little_china/#loc_q103_afterlife/loc_q103_afterlife_questdesign_prefabPGWI5FY/#q005_pr_afterlife/#q005_cin_01_plan/#q005_ws_dex_afterlife_01",
+      "#q005_dvc_afterlife_briefing_room_door",
+      ""
+    )
+  );
+  ArrayPush(
+    venues,
+    NeonAscendancy_VenueProbe(
       "arasaka_tower",
       "$/03_night_city/#c_city_center/corpo_plaza/#loc_arasaka_tower/loc_arasaka_tower_questdesign_prefabDP2FMWA/#q113_pr_top_atrium_new/#q113_ws_propaganda_voice_atrium",
       "#q113_dvc_atrium_start_lift_door",
@@ -279,6 +288,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
   );
 
   NcLogInfo(s"VenueProbe: start pass=\(pass) venues=\(ArraySize(venues))");
+  NeonAscendancy_LogBridgeState(game, qs);
   for venue in venues {
     NeonAscendancy_ProbeOneVenue(game, venue);
   }
@@ -400,5 +410,38 @@ protected cb func OnGameAttached() -> Bool {
     s"DoorCensus: id=\(doorId) dist=\(dist) pos=(\(pos.X),\(pos.Y),\(pos.Z)) player=(\(playerPos.X),\(playerPos.Y),\(playerPos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
   );
   return res;
+}
+
+// Item 1 bridge state: confirms the always-on Watson lockdown cleanup ran. Logs
+// watson_prolog_lock and how many of the three roadblock-vehicle spawners still
+// report spawned entities, so the owner's test proves the bridge barricades and
+// parked cars are gone (counts 0) while the cleanup kept the fact unlocked.
+private func NeonAscendancy_LogBridgeState(game: GameInstance, qs: QuestsSystem) -> Void {
+  let refs: array<String> = [
+    "#lch_bridge_b_car_001",
+    "#kab_prolog_ow_roadblock_car_001_B",
+    "#nid_prolog_ow_roadblock_car_001_A_001"
+  ];
+  let labels: array<String> = ["lch_bridge_car", "kab_roadblock_car", "nid_roadblock_car"];
+  let counts = "";
+  let i = 0;
+  while i < ArraySize(refs) {
+    const r = NeonAscendancy_ResolveProbeRef(refs[i]);
+    let n = -1;
+    if GlobalNodeRef.IsDefined(r) {
+      let entries: array<CName>;
+      let ids: array<EntityID>;
+      GetFixedEntityIdsFromSpawnerEntityID(Cast<EntityID>(r), entries, game, ids);
+      n = ArraySize(ids);
+    }
+    if i > 0 {
+      counts += " ";
+    }
+    counts += s"\(labels[i])=\(n)";
+    i += 1;
+  }
+  NcLogInfo(
+    s"BridgeState: watson_prolog_lock=\(qs.GetFact(n"watson_prolog_lock")) spawned[\(counts)] (expect 0 spawns after cleanup)"
+  );
 }
 
