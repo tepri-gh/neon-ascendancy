@@ -29,6 +29,74 @@ Each faction doc must deliver:
 Scope is Night City + Badlands + Dogtown in Cyberpunk 2077 **2.5 with Phantom
 Liberty**. Reuse existing factions, spawns, and locations; invent nothing.
 
+### 1.1 Corrections from batch 1 (these override later sections)
+
+Five agents (Arasaka, Valentinos, Maelstrom, 6th Street, Voodoo Boys) used this
+playbook. Their findings, in order of value:
+
+1. **Wiki `baseid` is the best identity join.** Gig, scanner and location
+   infoboxes carry `|baseid=`, which is a `sites.json` `code` (`sts_hey_rey_02`
+   = Dicky Twister, `sts_std_arr_06`, `ma_hey_rey_06` = Mercado Sonora) or a
+   quest id (`sts_ep1_12`, `q303_baron`). Search `Category:Cyberpunk 2077 Gigs`
+   and the faction's location pages for `baseid`, then look up that code in
+   `sites.json` or grep `markers.jsonl` for its prefix. Do this before
+   node-name archaeology (§3.5).
+2. **Raw sector JSON proves identity and sub-district.** Prefab paths in
+   `dist/extract/raw/**/always_loaded_*.streamingsector.json` (e.g.
+   `#c_heywood/glen/loc_sq022_el_coyote_cojo_bar/…`, `#loc_q110_netrunners_den`)
+   name the place and its sub-district for marker-only places. Grep them; never
+   load whole files.
+3. **Main-quest interiors and corp buildings usually have no `sites.json`
+   row** (Totentanz, All Foods, Arasaka Tower, Konpeki, Batty's Hotel). Find
+   them through markers, prefab paths and the `gamedataDistrict` enum
+   (`Northside_Totentaz`, `Coastview_BattysHotel`), which is primary evidence
+   here, not just an existence check. Site count is a poor proxy for
+   quest-driven factions.
+4. **Geocode tokens can lie.** `sts_wat_kab_02` (Clean Cut) sits in Northside.
+   Cross-check token vs `sub_territory_id` vs `gamedataDistrict` enum vs wiki
+   `sub_district=`. Add `awf` (ArasakaWaterfront) and `morro`/`mrr`
+   (MorroRock) to your token map. For Phantom Liberty rows,
+   `district_code == "dogtown"` is reliable.
+5. **`default_faction_id` can be wrong too** (Kendal Park, site 150, is
+   Valentinos-flagged inside 6th Street turf). Cross-check roster
+   `character_record_id` prefixes (`sixthstreet_*` vs generic `gangers_*`).
+6. **Centroid-snapped rows are fake anchors.** 122 of 2,969 `areas.jsonl` rows
+   (e.g. `{q303_com_voodoo_boys_guards}`) sit exactly (< 1 m) on a
+   `sub_territories.json` centroid. Every `landmarks.json` row is such an anchor
+   too. A coordinate equal to a centroid is not evidence: use `TBD`.
+7. **Site anchors can be ~110 m off the building** (`sts_wat_nid_07`). For
+   interiors, prefer that site's guard-area or community coordinates. They are
+   still `[game-data]`; cite the record.
+8. **Duplicate marker names:** some names exist both in the city and in an
+   off-map test space (`padre_sm_default` at `(6013, 6115)`). Reject rows
+   outside `data/districts.json` bboxes and prefer the row nearest the
+   corroborating site. Ignore `dead_zone_marker*` and `*_top` noise.
+9. **Large open sites** (ports, yards, oil fields) may use an `areas.jsonl`
+   community position (cite its `debug_name`), provided it is not
+   centroid-snapped (item 6).
+10. **Nearest CC: always report its owner.** A nearest CC owned by a rival
+    (the Arasaka Memorial's nearest is Militech's) is not a retarget candidate.
+11. **Presence ≠ ownership, more traps:** `mws_tactical_coffee` (corpos at a
+    coffee shop), the `mq060` showcase, `sts_ep1_08` (KGB holograms),
+    `mws_se5_03` (scav ambush), `mws_hey_07` (Trauma Team AV ambush).
+12. **Verify wiki links before chasing them.** Faction pages list book-only
+    red links ("Arroyo HQ", "Old C-Team HQ"). No page, no record → `[lore]`,
+    `TBD`, not seeded.
+13. **Not evidence:** `data/clean-slate/cast_and_hubs.json` (hand-written hub
+    list; its `district` labels have been wrong before) and seed display names
+    in `sub_territories.json`/`landmarks.json` (generic grid labels, several
+    sit hundreds of metres from the place they name: `awf_ebunike_docks` is
+    630 m from the real Ebunike Docks; `dt_luxor_heights` 782 m from the spa).
+14. **`communities.json` holds only site-linked communities.** Quest
+    communities (`mq008_com_6th_street_party`) come from `areas.jsonl`.
+15. **Spawn points:** group by `spawn_points.sub_territory_id`, not by
+    coordinates.
+16. **Seed-only anchors** (generic-grid places with no site, marker or wiki
+    identity) count as neither `named` nor `filler`. List them under Gaps.
+17. **Before finishing**, besides §10.2: check by hand that `named + filler`
+    reconciles (§8) and that every JSON coordinate matches its cited record to
+    3 decimals.
+
 ---
 
 ## 2. Data sources, ranked
@@ -322,10 +390,13 @@ the doc when the owner conflicts with lore.
 - **HQ**: permanent-feeling seat with rooms to assign, canonically owned, and
   ideally in the faction's canon HQ district. Prefer an interior. State the
   trade-off.
-- **Test control point**: an enclosed interior with clean ownership
-  (`default_faction_id == FID`), rich guard/patrol/door records, and **not the
-  HQ**, so the first in-game test exercises capture on a non-seat. Prefer one
-  that is close to an existing CC so no new map plumbing is needed.
+- **Test control point**: **not the HQ**, so the first in-game test exercises
+  capture on a non-seat. Pick by this priority: (1) clean ownership
+  (`default_faction_id == FID`, confirmed by rosters); (2) rich
+  guard/patrol/door records; (3) an enclosed interior. If none is enclosed
+  (typical for corps), take the cleanest fenced site and name the best
+  enclosed interior as a follow-up. Distance to an existing CC does **not**
+  matter: the seed relocates the faction's active CC onto the test point.
 - **Ranked list**: relevance 1–5. Relevance reflects lore + revenue + record
   richness, not raw unit count.
 - **Counts**: `named` and `filler` per sub-district (§8).
@@ -503,6 +574,17 @@ synonyms. A place can have several.
 | `food_drink` | Bars, restaurants, food stalls, nightlife |
 | `media` | News, propaganda, entertainment broadcasting |
 | `agriculture` | Farming, protein/soil production, agri-labs |
+| `logistics` | Legitimate freight, ports, shipping, warehousing |
+| `finance` | Banking, loans, investment, money laundering fronts |
+| `hospitality` | Hotels, spas, resorts, accommodation |
+| `education` | Academies, training programs, schools |
+| `netrunning` | Data theft, hacking contracts, databank raids |
+| `information` | Information brokering, blackmail, intelligence sales |
+| `mercenary` | Muscle for hire, contract violence, robbery and heists |
+| `funeral` | Funeral homes, morgues, death services |
+
+If no code fits, use the closest one and say so in Gaps; never invent a code
+and never leave `revenue_streams` empty for a place that earns money.
 
 ---
 

@@ -59,7 +59,7 @@
   "world_hubs": [
     {
       "id": "el_coyote_cojo_crowd",
-      "district": "heywood_vista_del_rey",
+      "district": "heywood_the_glen",
       "spawner_reference": "#sq022_el_coyote_bar_com",
       "community_entry_name": "None",
       "community_entry_phase_name": "None",
@@ -311,7 +311,7 @@
       "id": "mama_welles",
       "name": "Guadalupe \"Mama\" Welles",
       "role": "hub_resident",
-      "district": "heywood_vista_del_rey",
+      "district": "heywood_the_glen",
       "faction": "valentinos",
       "character_record": "Character.mama_welles",
       "spot_ref": "#ws_mama_welles_default_001",
