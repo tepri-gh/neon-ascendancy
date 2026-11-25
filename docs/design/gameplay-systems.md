@@ -231,6 +231,10 @@ lieutenants) are to be represented. Design pending.
 | Military | **Muscle** (`manpower`) | Per bloc, regenerating from the military nodes each bloc controls; the faction's army is the sum, and the leader can draft from a bloc at a satisfaction cost. Plus **materiel** (weapons, vehicles, equipment, cyberware, drugs): stockpiled **per faction**, bought with eddies, capacity tied to technology. |
 | Culture | none (projected force) | Culture nodes push **cultural pressure** into neighbouring nodes. A node's loyalty drifts toward the strongest pressure unless its controller garrisons it, spends eddies or adopts policies. Culture also feeds recruitment (manpower regeneration) and bloc contentment. |
 
+- **Nodes and titles are tradeable** through the deal system (see
+  [`economy-data-model.md`](economy-data-model.md)).
+- **Upkeep deficits** drain both bloc satisfaction and node loyalty, more
+  steeply the worse the deficit.
 - **Coring does not mean loyalty.** A titled node still has to be
   garrisoned and kept content through policies or eddies, or it drifts
   toward another faction.
