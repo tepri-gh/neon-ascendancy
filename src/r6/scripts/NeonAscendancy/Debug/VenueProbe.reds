@@ -222,3 +222,35 @@ public func NeonAscendancy_ScheduleVenueProbe(game: GameInstance) -> Void {
   ds.DelayCallback(second, 30.0, false);
 }
 
+// Dev-only door census: while the venue probe is armed, every door that streams
+// in within 60 m of the player logs its global id, name and state. Venue doors
+// only exist as entities near the player, so this is how the on-site state of a
+// venue entrance is read. The global id matches `global_node_id` in
+// data/sites/doors.json and the raw sector extracts. Bounded by streaming: one
+// line per door attach, never per frame.
+@wrapMethod(Door)
+protected cb func OnGameAttached() -> Bool {
+  const res = wrappedMethod();
+  const game = this.GetGame();
+  if !GameInstance.IsValid(game) {
+    return res;
+  }
+  let qs = GameInstance.GetQuestsSystem(game);
+  if !IsDefined(qs) || qs.GetFact(n"na_dev_venue_probe") <= 0 {
+    return res;
+  }
+  let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+  if !IsDefined(player) {
+    return res;
+  }
+  const pos = this.GetWorldPosition();
+  if Vector4.Distance(pos, player.GetWorldPosition()) > 60.0 {
+    return res;
+  }
+  let ps = this.GetDevicePS();
+  NcLogInfo(
+    s"DoorCensus: id=\(EntityID.GetHash(this.GetEntityID())) name=\(IsDefined(ps) ? ps.GetDeviceName() : "") pos=(\(pos.X),\(pos.Y),\(pos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
+  );
+  return res;
+}
+
