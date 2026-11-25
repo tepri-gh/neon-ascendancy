@@ -1,0 +1,1171 @@
+{
+  "spec_version": 1,
+  "description": "All 232 verified Cyberpunk 2077 2.5 fast travel points (226 base + 6 EP1 Dogtown; 166 map-visible + 66 hidden metro gates), extracted from compiled world streaming sectors. Registered inside cast_and_hubs.questphase ONLY when DevDebug.reds flips na_dev_unlock_all_ft > 0.",
+  "gate": {
+    "fact": "na_dev_unlock_all_ft",
+    "comparison_type": "Greater",
+    "value": 0
+  },
+  "points": [
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_01",
+      "marker_ref": "#bls_bls_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_02",
+      "marker_ref": "#bls_bls_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_03",
+      "marker_ref": "#bls_bls_dataterm_new_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_04",
+      "marker_ref": "#bls_bls_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_05",
+      "marker_ref": "#bls_bls_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_06",
+      "marker_ref": "#bls_bls_dataterm_new_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_07",
+      "marker_ref": "#bls_bls_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_08",
+      "marker_ref": "#bls_bls_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_09",
+      "marker_ref": "#bls_bls_dataterm_14",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_10",
+      "marker_ref": "#bls_bls_dataterm_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_11",
+      "marker_ref": "#bls_bls_dataterm_16",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_12",
+      "marker_ref": "#bls_bls_dataterm_17",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_13",
+      "marker_ref": "#bls_bls_dataterm_18",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_14",
+      "marker_ref": "#bls_bls_dataterm_19",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_15",
+      "marker_ref": "#bls_bls_dataterm_27",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_16",
+      "marker_ref": "#bls_bls_dataterm_28",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_nth_dataterm_17",
+      "marker_ref": "#bls_bls_dataterm_21",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_01",
+      "marker_ref": "#bls_bls_dataterm_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_02",
+      "marker_ref": "#bls_bls_dataterm_10",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_03",
+      "marker_ref": "#bls_bls_dataterm_11",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_04",
+      "marker_ref": "#bls_bls_dataterm_12",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_05",
+      "marker_ref": "#bls_bls_dataterm_13",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_06",
+      "marker_ref": "#bls_bls_dataterm_20",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_08",
+      "marker_ref": "#bls_bls_dataterm_22",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_09",
+      "marker_ref": "#bls_bls_dataterm_23",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_10",
+      "marker_ref": "#bls_bls_dataterm_24",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_11",
+      "marker_ref": "#bls_bls_dataterm_25",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.bls_sth_dataterm_12",
+      "marker_ref": "#bls_bls_dataterm_26",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_dataterm_01",
+      "marker_ref": "#cct_cpz_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_dataterm_02",
+      "marker_ref": "#cct_cpz_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_dataterm_03",
+      "marker_ref": "#cct_cpz_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_01",
+      "marker_ref": "#cct_cpz_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_02",
+      "marker_ref": "#cct_cpz_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_03",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_04",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_05",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_06",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_07",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_08",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_09",
+      "marker_ref": "#cct_cpz_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_10",
+      "marker_ref": "#cct_cpz_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_11",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_12",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_13",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_14",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_15",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_cpz_metro_ftp_16",
+      "marker_ref": "#cct_cpz_metro_ftp_15",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_01",
+      "marker_ref": "#cct_dtn_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_02",
+      "marker_ref": "#cct_dtn_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_03",
+      "marker_ref": "#cct_dtn_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_04",
+      "marker_ref": "#cct_dtn_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_05",
+      "marker_ref": "#cct_dtn_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_dataterm_07",
+      "marker_ref": "#cct_dtn_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_metro_ftp_02",
+      "marker_ref": "#cct_dtn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.cct_dtn_metro_ftp_03",
+      "marker_ref": "#cct_dtn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_golden_pacific_dataterm_01",
+      "marker_ref": "#combat_zone_dataterm_04",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_longshore_stacks_dataterm_01",
+      "marker_ref": "#combat_zone_dataterm_02",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_luxor_high_01",
+      "marker_ref": "#combat_zone_dataterm_06",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_squat_dataterm_01",
+      "marker_ref": "#combat_zone_dataterm_05",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_stadium_dataterm_01",
+      "marker_ref": "#combat_zone_dataterm_01",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.combat_zone_terra_cognita_dataterm_01",
+      "marker_ref": "#combat_zone_dataterm_03",
+      "is_ep1": 1
+    },
+    {
+      "point_record": "FastTravelPoints.dlc6_apart_cct_dtn_dataterm",
+      "marker_ref": "#dlc6_apart_cct_dtn_dataterm",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.dlc6_apart_hey_gle_dataterm",
+      "marker_ref": "#dlc6_apart_hey_gle_dataterm",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.dlc6_apart_wat_nid_dataterm",
+      "marker_ref": "#dlc6_apart_wat_nid_dataterm_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.dlc6_apart_wbr_jpn_dataterm",
+      "marker_ref": "#dlc6_apart_wbr_jpn_dataterm",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_01",
+      "marker_ref": "#hey_gle_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_02",
+      "marker_ref": "#hey_gle_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_03",
+      "marker_ref": "#hey_gle_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_04",
+      "marker_ref": "#hey_gle_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_05",
+      "marker_ref": "#hey_gle_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_06",
+      "marker_ref": "#hey_gle_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_07",
+      "marker_ref": "#hey_gle_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_dataterm_08",
+      "marker_ref": "#hey_gle_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_01",
+      "marker_ref": "#hey_gle_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_02",
+      "marker_ref": "#hey_gle_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_03",
+      "marker_ref": "#hey_gle_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_04",
+      "marker_ref": "#hey_gle_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_05",
+      "marker_ref": "#hey_gle_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_06",
+      "marker_ref": "#hey_gle_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_07",
+      "marker_ref": "#hey_gle_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_08",
+      "marker_ref": "#hey_gle_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_gle_metro_ftp_09",
+      "marker_ref": "#hey_gle_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_01",
+      "marker_ref": "#hey_rey_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_02",
+      "marker_ref": "#hey_rey_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_03",
+      "marker_ref": "#hey_rey_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_04",
+      "marker_ref": "#hey_rey_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_05",
+      "marker_ref": "#hey_rey_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_06",
+      "marker_ref": "#hey_rey_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_dataterm_07",
+      "marker_ref": "#hey_rey_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_metro_ftp_01",
+      "marker_ref": "#hey_rey_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_metro_ftp_02",
+      "marker_ref": "#hey_rey_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_metro_ftp_03",
+      "marker_ref": "#hey_rey_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_rey_metro_ftp_04",
+      "marker_ref": "#hey_rey_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_01",
+      "marker_ref": "#hey_spr_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_02",
+      "marker_ref": "#hey_spr_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_03",
+      "marker_ref": "#hey_spr_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_04",
+      "marker_ref": "#hey_spr_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_05",
+      "marker_ref": "#hey_spr_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_06",
+      "marker_ref": "#hey_spr_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_dataterm_07",
+      "marker_ref": "#hey_spr_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_metro_ftp_01",
+      "marker_ref": "#hey_spr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_metro_ftp_02",
+      "marker_ref": "#hey_spr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_metro_ftp_03",
+      "marker_ref": "#hey_spr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.hey_spr_metro_ftp_04",
+      "marker_ref": "#hey_spr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_dataterm_01",
+      "marker_ref": "#pac_cvi_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_dataterm_02",
+      "marker_ref": "#pac_cvi_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_dataterm_03",
+      "marker_ref": "#pac_cvi_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_dataterm_04",
+      "marker_ref": "#pac_cvi_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_dataterm_05",
+      "marker_ref": "#pac_cvi_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_metro_ftp_01",
+      "marker_ref": "#pac_cvi_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_cvi_metro_ftp_02",
+      "marker_ref": "#pac_cvi_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.pac_wwd_dataterm_03",
+      "marker_ref": "#pac_wwd_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_01",
+      "marker_ref": "#std_arr_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_02",
+      "marker_ref": "#std_arr_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_03",
+      "marker_ref": "#std_arr_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_04",
+      "marker_ref": "#std_arr_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_05",
+      "marker_ref": "#std_arr_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_06",
+      "marker_ref": "#std_arr_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_07",
+      "marker_ref": "#std_arr_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_08",
+      "marker_ref": "#std_arr_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_dataterm_09",
+      "marker_ref": "#std_arr_dataterm_09_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_01",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_02",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_03",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_04",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_05",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_arr_metro_ftp_06",
+      "marker_ref": "#std_arr_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_01",
+      "marker_ref": "#std_rcr_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_02",
+      "marker_ref": "#std_rcr_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_03",
+      "marker_ref": "#std_rcr_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_05",
+      "marker_ref": "#std_rcr_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_06",
+      "marker_ref": "#std_rcr_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_07",
+      "marker_ref": "#std_rcr_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_08",
+      "marker_ref": "#std_rcr_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_09",
+      "marker_ref": "#std_rcr_dataterm_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_10",
+      "marker_ref": "#std_rcr_dataterm_10",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_dataterm_11",
+      "marker_ref": "#std_rcr_dataterm_11_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_01",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_02",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_03",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_04",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_05",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_06",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_07",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_08",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_09",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_10",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_11",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_12",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_13",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_14",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_15",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.std_rcr_metro_ftp_16",
+      "marker_ref": "#std_rcr_metro_ftp_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_awf_dataterm_01",
+      "marker_ref": "#wat_awf_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_awf_dataterm_03",
+      "marker_ref": "#wat_awf_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_01",
+      "marker_ref": "#wat_kab_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_02",
+      "marker_ref": "#wat_kab_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_03",
+      "marker_ref": "#wat_kab_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_04",
+      "marker_ref": "#wat_kab_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_05",
+      "marker_ref": "#wat_kab_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_06",
+      "marker_ref": "#wat_kab_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_07",
+      "marker_ref": "#wat_kab_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_08",
+      "marker_ref": "#wat_kab_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_10",
+      "marker_ref": "#wat_kab_dataterm_10",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_11",
+      "marker_ref": "#wat_kab_dataterm_11_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_kab_dataterm_12",
+      "marker_ref": "#wat_kab_dataterm_12_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_01",
+      "marker_ref": "#wat_lch_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_02",
+      "marker_ref": "#wat_lch_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_03",
+      "marker_ref": "#wat_lch_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_04",
+      "marker_ref": "#wat_lch_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_05",
+      "marker_ref": "#wat_lch_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_07",
+      "marker_ref": "#wat_lch_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_09",
+      "marker_ref": "#wat_lch_dataterm_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_10",
+      "marker_ref": "#wat_lch_dataterm_10",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_dataterm_11",
+      "marker_ref": "#wat_lch_dataterm_11",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_01",
+      "marker_ref": "#wat_lch_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_02",
+      "marker_ref": "#wat_lch_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_03",
+      "marker_ref": "#wat_lch_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_04",
+      "marker_ref": "#wat_lch_metro_ftp_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_05",
+      "marker_ref": "#wat_lch_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_06",
+      "marker_ref": "#wat_lch_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_07",
+      "marker_ref": "#wat_lch_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_08",
+      "marker_ref": "#wat_lch_metro_ftp_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_09",
+      "marker_ref": "#wat_lch_metro_ftp_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_10",
+      "marker_ref": "#wat_lch_metro_ftp_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_11",
+      "marker_ref": "#wat_lch_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_lch_metro_ftp_12",
+      "marker_ref": "#wat_lch_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_01",
+      "marker_ref": "#wat_nid_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_02",
+      "marker_ref": "#wat_nid_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_03",
+      "marker_ref": "#wat_nid_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_04",
+      "marker_ref": "#wat_nid_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_05",
+      "marker_ref": "#wat_nid_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_06",
+      "marker_ref": "#wat_nid_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_07",
+      "marker_ref": "#wat_nid_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_08",
+      "marker_ref": "#wat_nid_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_dataterm_09",
+      "marker_ref": "#wat_nid_dataterm_09_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_metro_ftp_01",
+      "marker_ref": "#wat_nid_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wat_nid_metro_ftp_02",
+      "marker_ref": "#wat_nid_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_dataterm_01",
+      "marker_ref": "#wbr_hil_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_dataterm_02",
+      "marker_ref": "#wbr_hil_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_dataterm_03",
+      "marker_ref": "#wbr_hil_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_dataterm_04",
+      "marker_ref": "#wbr_hil_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_dataterm_05",
+      "marker_ref": "#wbr_hil_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_01",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_02",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_03",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_04",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_05",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_hil_metro_ftp_06",
+      "marker_ref": "#wbr_hil_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_01",
+      "marker_ref": "#wbr_jpn_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_02",
+      "marker_ref": "#wbr_jpn_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_03",
+      "marker_ref": "#wbr_jpn_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_04",
+      "marker_ref": "#wbr_jpn_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_05",
+      "marker_ref": "#wbr_jpn_dataterm_05",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_06",
+      "marker_ref": "#wbr_jpn_dataterm_06",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_07",
+      "marker_ref": "#wbr_jpn_dataterm_07",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_08",
+      "marker_ref": "#wbr_jpn_dataterm_08",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_09",
+      "marker_ref": "#wbr_jpn_dataterm_09",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_10",
+      "marker_ref": "#wbr_jpn_dataterm_10",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_11",
+      "marker_ref": "#wbr_jpn_dataterm_11",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_dataterm_12",
+      "marker_ref": "#wbr_jpn_dataterm_12_tp",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_01",
+      "marker_ref": "#wbr_jpn_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_02",
+      "marker_ref": "#wbr_jpn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_03",
+      "marker_ref": "#wbr_jpn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_04",
+      "marker_ref": "#wbr_jpn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_05",
+      "marker_ref": "#wbr_jpn_metro_ftp_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_jpn_metro_ftp_06",
+      "marker_ref": "#wbr_jpn_metro_ftp_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_nok_dataterm_01",
+      "marker_ref": "#wbr_nok_dataterm_01",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_nok_dataterm_02",
+      "marker_ref": "#wbr_nok_dataterm_02",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_nok_dataterm_03",
+      "marker_ref": "#wbr_nok_dataterm_03",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_nok_dataterm_04",
+      "marker_ref": "#wbr_nok_dataterm_04",
+      "is_ep1": 0
+    },
+    {
+      "point_record": "FastTravelPoints.wbr_nok_dataterm_05",
+      "marker_ref": "#wbr_nok_dataterm_05",
+      "is_ep1": 0
+    }
+  ]
+}

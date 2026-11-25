@@ -1,6 +1,7 @@
 module NeonAscendancy.Sandbox
 
 import NeonAscendancy.Core.*
+import NeonAscendancy.Debug.*
 import NeonAscendancy.Gameplay.*
 
 private class NeonAscendancy_SanitizerApplyCallback extends DelayCallback {
@@ -261,6 +262,9 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     this.ApplyCleanSlateFacts(qs);
     if !this.m_starterKitGranted {
       this.GrantCleanSlateStarterKit(game, player);
+    }
+    if NeonAscendancy_DevDebugEnabled() {
+      NeonAscendancy_ApplyDevDebug(game, player);
     }
     this.BootAscendancySystems(game);
   }

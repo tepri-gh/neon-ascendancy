@@ -3,6 +3,7 @@
   "description": "Declarative World Cast & Hubs Layer for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\cast_and_hubs.questphase and wired off ascendancy.questphase. Populates gated district hub crowds, spawns all 7 fixers and 10 iconic hub/faction residents at their canonical locations with their required workspot prefabs (zero vanilla gigs/SMS/holocalls/quests, ready for Neon Ascendancy overhaul systems), and enables all clean service vendors/bartenders/ripperdocs without setting forbidden story-completion facts.",
   "phase_resource": "mod\\neon_ascendancy\\cast_and_hubs.questphase",
   "entry_socket": "In1",
+  "dev_fast_travel_spec": "data/clean-slate/dev_fast_travel_points.json",
   "keep_alive_pause": {
     "fact": "na_cast_and_hubs_shutdown",
     "comparison_type": "Greater",

@@ -368,6 +368,64 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_register_fast_travel_points_node(self, points: list[dict[str, Any]]) -> tuple[str, str]:
+        """Add a questEventManagerNodeDefinition (RegisterFastTravelPointsRequest).
+
+        Schema matches vanilla
+        base\\open_world\\fast_travel\\open_world_fast_travel.questphase node 16
+        field-for-field, except that the request carries every point in one list
+        (vanilla registers one point per node)."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        fast_travel_nodes = [
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "gameFastTravelPointData",
+                    "isEP1": p["is_ep1"],
+                    "mappinID": {"$type": "gameNewMappinID", "value": "0"},
+                    "markerRef": noderef(p["marker_ref"]),
+                    "pointRecord": {"$type": "TweakDBID", "$storage": "string", "$value": p["point_record"]},
+                    "requesterID": {"$type": "entEntityID", "hash": "0"},
+                },
+            }
+            for p in points
+        ]
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questEventManagerNodeDefinition",
+                    "componentName": cname("None"),
+                    "event": {
+                        "HandleId": self.alloc(),
+                        "Data": {
+                            "$type": "RegisterFastTravelPointsRequest",
+                            "fastTravelNodes": fast_travel_nodes,
+                            "register": 1,
+                        },
+                    },
+                    "id": self.node_id(),
+                    "isObjectPlayer": 0,
+                    "isUiEvent": 0,
+                    "managerName": "FastTravelSystem",
+                    "objectRef": {
+                        "$type": "gameEntityReference",
+                        "dynamicEntityUniqueName": cname("None"),
+                        "names": [],
+                        "reference": {"$type": "NodeRef", "$storage": "uint64", "$value": "0"},
+                        "sceneActorContextName": cname("None"),
+                        "slotName": cname("None"),
+                        "type": "EntityRef",
+                    },
+                    "PSClassName": cname("None"),
+                    "_sockets": [cut, inp, out],
+                },
+            }
+        )
+        return inp, out
+
     def add_copied_phase_node(self, vanilla_node: dict[str, Any]) -> str:
         """Deep-copy an inline phase node (e.g. open_world_content nodes [7]/[8]/[139]/[142]/[156]).
         Returns the handle of its 'In1' input socket (the only external wiring point)."""
@@ -613,6 +671,7 @@ def build_questphase(
 def build_cast_and_hubs(
     templates: dict[str, dict[str, Any]],
     cast_spec: dict[str, Any],
+    ft_spec: dict[str, Any],
 ) -> dict[str, Any]:
     """Assemble mod\\neon_ascendancy\\cast_and_hubs.questphase.
 
@@ -621,6 +680,8 @@ def build_cast_and_hubs(
       - overhaul_actors spawn sets (questSpawnSet_NodeType; 7 fixers + 10 iconic residents)
       - direct_vendor_phases cloned cleanly from default_dialogs.questphase (plus any spawn_set)
       - keep-alive pause condition (always-false fact, zero Output nodes -> phase never terminates)
+      - dev fast-travel gate pause -> RegisterFastTravelPointsRequest (only when
+        DevDebug.reds flips na_dev_unlock_all_ft; never set by the archive itself)
     RootChunk.phasePrefabs owns the 11 required workspot prefabs.
     """
     spawn_tpl = templates["spawn_manager_node"]
@@ -671,6 +732,16 @@ def build_cast_and_hubs(
     ka = cast_spec["keep_alive_pause"]
     ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
     g.connect(hub_out, ka_in)
+
+    # 5. Dev fast-travel registration, gated on the runtime dev-debug fact.
+    # The archive never sets na_dev_unlock_all_ft itself; only DevDebug.reds does.
+    ft_gate = ft_spec["gate"]
+    ft_in, ft_out = g.add_pause_fact_node(
+        ft_gate["fact"], ft_gate["comparison_type"], ft_gate["value"]
+    )
+    g.connect(hub_out, ft_in)
+    reg_in, _ = g.add_register_fast_travel_points_node(ft_spec["points"])
+    g.connect(ft_out, reg_in)
 
     nodes = g.finalize()
     validate_refs(nodes)
@@ -934,13 +1005,46 @@ def load_cast_spec(spec: dict[str, Any]) -> dict[str, Any]:
         return json.load(fh)
 
 
+def load_ft_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
+    """Load + validate the declarative dev fast-travel point registry."""
+    ft_path = ROOT / cast_spec["dev_fast_travel_spec"]
+    if not ft_path.is_file():
+        raise FileNotFoundError(f"missing dev fast travel spec: {ft_path}")
+    with ft_path.open("r", encoding="utf-8") as fh:
+        ft_spec = json.load(fh)
+    points = ft_spec.get("points")
+    if not isinstance(points, list) or not points:
+        raise ValueError(f"{ft_path}: 'points' must be a non-empty list")
+    records = [p["point_record"] for p in points]
+    if len(set(records)) != len(records):
+        raise ValueError(f"{ft_path}: duplicate point_record entries")
+    if records != sorted(records):
+        raise ValueError(f"{ft_path}: points must be sorted by point_record")
+    for p in points:
+        if not p["point_record"].startswith("FastTravelPoints."):
+            raise ValueError(f"{ft_path}: bad point_record {p['point_record']}")
+        if not p["marker_ref"].startswith("#"):
+            raise ValueError(f"{ft_path}: bad marker_ref {p['marker_ref']}")
+        if p["is_ep1"] not in (0, 1):
+            raise ValueError(f"{ft_path}: bad is_ep1 {p['is_ep1']}")
+    gate = ft_spec.get("gate", {})
+    if gate.get("comparison_type") not in ("Greater", "GreaterOrEqual", "Equal", "Less", "LessOrEqual", "NotEqual"):
+        raise ValueError(f"{ft_path}: bad gate comparison_type {gate.get('comparison_type')}")
+    return ft_spec
+
+
 def write_resource_json(directory: Path, rel_path: str, doc: dict[str, Any]) -> None:
     target = directory / rel_path.replace("\\", "/")
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_text(json.dumps(doc, indent=2), encoding="utf-8")
 
 
-def build(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, Any]) -> Path:
+def build(
+    args: argparse.Namespace,
+    spec: dict[str, Any],
+    cast_spec: dict[str, Any],
+    ft_spec: dict[str, Any],
+) -> Path:
     wk = Path(args.wk_cli)
     if not wk.is_file():
         raise FileNotFoundError(f"WolvenKit.CLI not found at {wk}")
@@ -961,7 +1065,9 @@ def build(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, A
             build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec)
         )
         write_resource_json(
-            build_dir, "mod/neon_ascendancy/cast_and_hubs.questphase.json", build_cast_and_hubs(templates, cast_spec)
+            build_dir,
+            "mod/neon_ascendancy/cast_and_hubs.questphase.json",
+            build_cast_and_hubs(templates, cast_spec, ft_spec),
         )
         write_resource_json(build_dir, "mod/neon_ascendancy/spike_kab07.questphase.json", build_spike(templates, spec))
 
@@ -992,7 +1098,12 @@ class CheckFailure(Exception):
     pass
 
 
-def check(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, Any]) -> None:
+def check(
+    args: argparse.Namespace,
+    spec: dict[str, Any],
+    cast_spec: dict[str, Any],
+    ft_spec: dict[str, Any],
+) -> None:
     wk = Path(args.wk_cli)
     if not wk.is_file():
         raise FileNotFoundError(f"WolvenKit.CLI not found at {wk}")
@@ -1030,7 +1141,7 @@ def check(args: argparse.Namespace, spec: dict[str, Any], cast_spec: dict[str, A
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
             _check_questphase(resources, spec, cast_spec, ok)
-            _check_cast_and_hubs(resources, spec, cast_spec, ok)
+            _check_cast_and_hubs(resources, spec, cast_spec, ft_spec, ok)
             _check_spike(resources, spec, ok)
 
     if failures:
@@ -1363,10 +1474,90 @@ def _graph_edges(nodes: list[dict[str, Any]]) -> set[tuple[int, int]]:
     return edges
 
 
+def _check_fast_travel_registration(
+    rc: dict[str, Any],
+    nodes: list[dict[str, Any]],
+    ft_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Round-trip verify the dev-gated fast-travel registration chain.
+
+    Expected: In1 (reachable) -> gate pause (fact) -> questEventManagerNodeDefinition
+    (managerName=FastTravelSystem, RegisterFastTravelPointsRequest, register=1)
+    carrying exactly the (pointRecord, markerRef, isEP1) triples from the spec."""
+    gate = ft_spec["gate"]
+
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    reachable = reachable_nodes(nodes, inputs[0]) if inputs else set()
+
+    gate_pauses = []
+    for p in nodes:
+        d = p["Data"]
+        if d.get("$type") != "questPauseConditionNodeDefinition":
+            continue
+        typ = d.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+        if (typ.get("factName") == gate["fact"]
+                and typ.get("comparisonType") == gate["comparison_type"]
+                and typ.get("value") == gate["value"]):
+            gate_pauses.append(p)
+    ok(len(gate_pauses) == 1,
+       f"expected 1 fast-travel gate pause ({gate['fact']} {gate['comparison_type']} {gate['value']}), "
+       f"found {len(gate_pauses)}")
+
+    events = [
+        n for n in nodes
+        if n["Data"].get("$type") == "questEventManagerNodeDefinition"
+        and n["Data"].get("event", {}).get("Data", {}).get("$type") == "RegisterFastTravelPointsRequest"
+    ]
+    ok(len(events) == 1, f"expected 1 RegisterFastTravelPointsRequest event node, found {len(events)}")
+    if not gate_pauses or not events:
+        return
+
+    gate_node = gate_pauses[0]
+    event_node = events[0]
+    gate_id = id_of(gate_node)
+    event_id = id_of(event_node)
+    ok(gate_id in reachable, "fast-travel gate pause is not reachable from the phase input")
+    ok(event_id in reachable, "fast-travel registration node is not reachable from the phase input")
+    ok((gate_id, event_id) in _graph_edges(nodes),
+       "fast-travel gate pause is not connected to the registration node")
+
+    gate_in = _socket_handle(gate_node["Data"]["sockets"][1])
+    gate_out = _socket_handle(gate_node["Data"]["sockets"][2])
+    ok(_count_connections(rc, gate_in) == (1, 0), "fast-travel gate In must have exactly 1 incoming connection")
+    ok(_count_connections(rc, gate_out) == (0, 1), "fast-travel gate Out must have exactly 1 outgoing connection")
+
+    data = event_node["Data"]
+    event = data.get("event", {}).get("Data", {})
+    ok(data.get("managerName") == "FastTravelSystem", "fast-travel event managerName != FastTravelSystem")
+    ok(event.get("$type") == "RegisterFastTravelPointsRequest", "fast-travel event type mismatch")
+    ok(event.get("register") == 1, "fast-travel event register != 1")
+    ok(data.get("componentName", {}).get("$value") == "None", "fast-travel event componentName != None")
+    ok(data.get("PSClassName", {}).get("$value") == "None", "fast-travel event PSClassName != None")
+    ok(data.get("isObjectPlayer") == 0 and data.get("isUiEvent") == 0,
+       "fast-travel event isObjectPlayer/isUiEvent must be 0")
+    ok((data.get("objectRef") or {}).get("type") == "EntityRef", "fast-travel event objectRef.type != EntityRef")
+
+    actual = {
+        (ft["Data"]["pointRecord"]["$value"], ft["Data"]["markerRef"]["$value"], ft["Data"]["isEP1"])
+        for ft in event.get("fastTravelNodes", [])
+    }
+    entries = event.get("fastTravelNodes", [])
+    expected = {(p["point_record"], p["marker_ref"], p["is_ep1"]) for p in ft_spec["points"]}
+    ok(len(entries) == len(ft_spec["points"]),
+       f"fast-travel registration has {len(entries)} entries, expected {len(ft_spec['points'])}")
+    ok(len(actual) == len(entries), "fast-travel registration contains duplicate (pointRecord, markerRef, isEP1) entries")
+    missing = sorted(expected - actual)
+    extra = sorted(actual - expected)
+    ok(not missing, f"fast-travel registration missing points: {missing[:5]}")
+    ok(not extra, f"fast-travel registration has unexpected points: {extra[:5]}")
+
+
 def _check_cast_and_hubs(
     resources: dict[str, dict[str, Any]],
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
+    ft_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
     doc = resources[cast_spec["phase_resource"]]
@@ -1474,6 +1665,20 @@ def _check_cast_and_hubs(
             ka_found = True
     ok(ka_found, f"cast_and_hubs missing keep-alive pause {ka['fact']} {ka['comparison_type']} {ka['value']}")
 
+    # Verify the dev fast-travel gate -> RegisterFastTravelPointsRequest chain
+    ft_gate = ft_spec["gate"]
+    _check_fast_travel_registration(rc, nodes, ft_spec, ok)
+
+    # The dev unlock fact must stay runtime-only: no archive resource may set it.
+    for rel in ("mod\\neon_ascendancy\\ascendancy.questphase", cast_spec["phase_resource"]):
+        setvars = [f for f, _ in _collect_setvar_facts(resources[rel]["Data"]["RootChunk"])]
+        ok(ft_gate["fact"] not in setvars,
+           f"{rel} sets {ft_gate['fact']} via questSetVar_NodeType; it must stay DevDebug-only")
+    spec_facts = {f["fact"] for f in spec["questphase"]["initial_facts"]}
+    spec_facts |= {f["fact"] for f in cast_spec["service_vendors"]["vendor_facts"]}
+    ok(ft_gate["fact"] not in spec_facts,
+       f"{ft_gate['fact']} must not be declared in initial_facts/vendor_facts")
+
     # Verify zero forbidden facts and zero excluded phases inside cast_and_hubs
     qp = spec["questphase"]
     actual_facts = _collect_setvar_facts(rc)
@@ -1538,11 +1743,12 @@ def main() -> int:
     with args.spec.open("r", encoding="utf-8") as fh:
         spec = json.load(fh)
     cast_spec = load_cast_spec(spec)
+    ft_spec = load_ft_spec(cast_spec)
 
     if args.check:
-        check(args, spec, cast_spec)
+        check(args, spec, cast_spec, ft_spec)
     else:
-        archive = build(args, spec, cast_spec)
+        archive = build(args, spec, cast_spec, ft_spec)
         print(f"\nBuilt {archive} ({archive.stat().st_size} bytes).")
         print("Run `python3 tools/build-clean-slate.py --check` to verify the round-trip.")
     return 0
