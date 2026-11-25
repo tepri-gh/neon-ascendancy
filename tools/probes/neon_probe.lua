@@ -41,6 +41,7 @@ function Probe.help()
   print("  p.player_pos()       -- Step 0.2: print player world X/Y/Z & current district")
   print("  p.dump_tweak_check() -- Step 0.2/0.4: count Character & District records in runtime TweakDB")
   print("  p.look_at()          -- log the object under the crosshair (also hotkey 'Neon: log look-at')")
+  print("  p.noclip()           -- toggle noclip (also hotkey 'Neon: noclip toggle'; bind the fly keys)")
 end
 
 function Probe.snapshot()
@@ -330,6 +331,42 @@ function Probe.look_at()
   end
   emit(line)
 end
+
+-- Noclip (dev-only). Toggle with "Neon: noclip toggle", then hold the bound
+-- fly keys. While on, the player is held in place and moved along the camera
+-- each frame by teleporting, so walls and gravity are ignored.
+local fly = { on = false, pos = nil, fwd = false, back = false, up = false, down = false, fast = false, speed = 8.0 }
+
+function Probe.noclip(enable)
+  local player = Game.GetPlayer()
+  if not player then return end
+  if enable == nil then enable = not fly.on end
+  fly.on = enable
+  fly.pos = enable and player:GetWorldPosition() or nil
+  emit("NOCLIP " .. (enable and "on" or "off"))
+end
+
+registerHotkey("NeonNoclip", "Neon: noclip toggle", function() Probe.noclip() end)
+registerInput("NeonFlyForward", "Neon: fly forward (hold)", function(down) fly.fwd = down end)
+registerInput("NeonFlyBack", "Neon: fly back (hold)", function(down) fly.back = down end)
+registerInput("NeonFlyUp", "Neon: fly up (hold)", function(down) fly.up = down end)
+registerInput("NeonFlyDown", "Neon: fly down (hold)", function(down) fly.down = down end)
+registerInput("NeonFlyFast", "Neon: fly fast (hold)", function(down) fly.fast = down end)
+
+registerForEvent("onUpdate", function(dt)
+  if not fly.on or not fly.pos then return end
+  local player = Game.GetPlayer()
+  if not player then fly.on = false; return end
+  local fwd = Game.GetCameraSystem():GetActiveCameraForward()
+  local step = fly.speed * (fly.fast and 4.0 or 1.0) * dt
+  local p = fly.pos
+  if fly.fwd then p = Vector4.new(p.x + fwd.x * step, p.y + fwd.y * step, p.z + fwd.z * step, 1.0) end
+  if fly.back then p = Vector4.new(p.x - fwd.x * step, p.y - fwd.y * step, p.z - fwd.z * step, 1.0) end
+  if fly.up then p = Vector4.new(p.x, p.y, p.z + step, 1.0) end
+  if fly.down then p = Vector4.new(p.x, p.y, p.z - step, 1.0) end
+  fly.pos = p
+  Game.GetTeleportationFacility():Teleport(player, p, player:GetWorldOrientation():ToEulerAngles())
+end)
 
 registerHotkey("NeonLookAt", "Neon: log look-at", function() Probe.look_at() end)
 registerHotkey("NeonPlayerPos", "Neon: log player position", function()

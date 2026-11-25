@@ -40,3 +40,10 @@ The line (`LOOKAT class=… id=… app=… pos=… player=… ps=… open=/locke
 target is static world geometry (a baked mesh), not an entity. After editing this
 file, reinstall with `tools/install-dev-cet.sh` or copy it to the mod's
 `init.lua`, then use CET's "Reload All Mods".
+
+## Noclip
+
+Bind **Neon: noclip toggle** and the hold keys **Neon: fly forward/back/up/down**
+and **Neon: fly fast**. While noclip is on, the player hovers and moves along the
+camera direction through walls (teleport each frame). Toggle off to drop back to
+normal movement.
