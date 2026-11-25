@@ -41,7 +41,7 @@ function Probe.help()
   print("  p.player_pos()       -- Step 0.2: print player world X/Y/Z & current district")
   print("  p.dump_tweak_check() -- Step 0.2/0.4: count Character & District records in runtime TweakDB")
   print("  p.look_at()          -- log the object under the crosshair (also hotkey 'Neon: log look-at')")
-  print("  p.noclip()           -- toggle noclip (also hotkey 'Neon: noclip toggle'; bind the fly keys)")
+  print("  p.noclip()           -- toggle noclip (also hotkey 'Neon: noclip toggle'; uses normal movement keys, Shift = fast)")
 end
 
 function Probe.snapshot()
@@ -332,10 +332,11 @@ function Probe.look_at()
   emit(line)
 end
 
--- Noclip (dev-only). Toggle with "Neon: noclip toggle", then hold the bound
--- fly keys. While on, the player is held in place and moved along the camera
--- each frame by teleporting, so walls and gravity are ignored.
-local fly = { on = false, pos = nil, fwd = false, back = false, up = false, down = false, fast = false, speed = 8.0 }
+-- Noclip (dev-only). Toggle with "Neon: noclip toggle". While on, the normal
+-- movement keys drive it: move forward/back/strafe follow the camera, Jump goes
+-- up, Crouch goes down, Sprint (Shift) is fast. The player is held in place and
+-- moved by teleporting each frame, so walls and gravity are ignored.
+local fly = { on = false, pos = nil, mx = 0.0, my = 0.0, up = false, down = false, fast = false, speed = 8.0 }
 
 function Probe.noclip(enable)
   local player = Game.GetPlayer()
@@ -343,27 +344,49 @@ function Probe.noclip(enable)
   if enable == nil then enable = not fly.on end
   fly.on = enable
   fly.pos = enable and player:GetWorldPosition() or nil
+  fly.mx, fly.my, fly.up, fly.down, fly.fast = 0.0, 0.0, false, false, false
   emit("NOCLIP " .. (enable and "on" or "off"))
 end
 
 registerHotkey("NeonNoclip", "Neon: noclip toggle", function() Probe.noclip() end)
-registerInput("NeonFlyForward", "Neon: fly forward (hold)", function(down) fly.fwd = down end)
-registerInput("NeonFlyBack", "Neon: fly back (hold)", function(down) fly.back = down end)
-registerInput("NeonFlyUp", "Neon: fly up (hold)", function(down) fly.up = down end)
-registerInput("NeonFlyDown", "Neon: fly down (hold)", function(down) fly.down = down end)
-registerInput("NeonFlyFast", "Neon: fly fast (hold)", function(down) fly.fast = down end)
+
+local function setup_noclip_input()
+  Observe("PlayerPuppet", "OnAction", function(_, action)
+    if not fly.on then return end
+    local name = Game.NameToString(ListenerAction.GetName(action))
+    local kind = ListenerAction.GetType(action).value
+    local value = ListenerAction.GetValue(action)
+    local pressed = kind == "BUTTON_PRESSED" or kind == "BUTTON_HOLD_PROGRESS"
+    local released = kind == "BUTTON_RELEASED"
+    if name == "MoveX" then fly.mx = value
+    elseif name == "MoveY" then fly.my = value
+    elseif name == "Jump" then
+      if pressed then fly.up = true elseif released then fly.up = false end
+    elseif name == "Crouch" or name == "ToggleCrouch" then
+      if pressed then fly.down = true elseif released then fly.down = false end
+    elseif name == "Sprint" or name == "ToggleSprint" then
+      if pressed then fly.fast = true elseif released then fly.fast = false end
+    end
+  end)
+end
 
 registerForEvent("onUpdate", function(dt)
   if not fly.on or not fly.pos then return end
   local player = Game.GetPlayer()
   if not player then fly.on = false; return end
-  local fwd = Game.GetCameraSystem():GetActiveCameraForward()
+  local f = Game.GetCameraSystem():GetActiveCameraForward()
+  -- Horizontal right vector for strafing.
+  local rl = math.sqrt(f.x * f.x + f.y * f.y)
+  local rx, ry = 0.0, 0.0
+  if rl > 0.0001 then rx, ry = f.y / rl, -f.x / rl end
   local step = fly.speed * (fly.fast and 4.0 or 1.0) * dt
+  local dx = (f.x * fly.my + rx * fly.mx) * step
+  local dy = (f.y * fly.my + ry * fly.mx) * step
+  local dz = f.z * fly.my * step
+  if fly.up then dz = dz + step end
+  if fly.down then dz = dz - step end
   local p = fly.pos
-  if fly.fwd then p = Vector4.new(p.x + fwd.x * step, p.y + fwd.y * step, p.z + fwd.z * step, 1.0) end
-  if fly.back then p = Vector4.new(p.x - fwd.x * step, p.y - fwd.y * step, p.z - fwd.z * step, 1.0) end
-  if fly.up then p = Vector4.new(p.x, p.y, p.z + step, 1.0) end
-  if fly.down then p = Vector4.new(p.x, p.y, p.z - step, 1.0) end
+  p = Vector4.new(p.x + dx, p.y + dy, p.z + dz, 1.0)
   fly.pos = p
   Game.GetTeleportationFacility():Teleport(player, p, player:GetWorldOrientation():ToEulerAngles())
 end)
@@ -377,6 +400,7 @@ registerHotkey("NeonPlayerPos", "Neon: log player position", function()
 end)
 
 registerForEvent("onInit", function()
+  setup_noclip_input()
   print("[NeonAscendancyProbe] Ready. In console: p = GetMod(\"NeonAscendancyProbe\"); p.help()")
 end)
 

@@ -43,7 +43,7 @@ file, reinstall with `tools/install-dev-cet.sh` or copy it to the mod's
 
 ## Noclip
 
-Bind **Neon: noclip toggle** and the hold keys **Neon: fly forward/back/up/down**
-and **Neon: fly fast**. While noclip is on, the player hovers and moves along the
-camera direction through walls (teleport each frame). Toggle off to drop back to
-normal movement.
+Bind **Neon: noclip toggle** in CET Bindings. While noclip is on, your normal
+movement keys drive it: forward/back/strafe follow the camera, Jump goes up,
+Crouch goes down, hold Sprint (Shift) for fast. Collision and gravity are
+ignored (the player is teleported each frame). Toggle off to land.
