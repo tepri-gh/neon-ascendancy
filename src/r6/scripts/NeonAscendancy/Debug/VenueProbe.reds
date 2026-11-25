@@ -50,6 +50,65 @@ private func NeonAscendancy_FormatDoorState(ps: ref<DoorControllerPS>) -> String
   return s"open=\(ps.IsOpen()) locked=\(ps.IsLocked()) sealed=\(ps.IsSealed()) disabled=\(ps.IsDisabled()) powered=\(ps.IsPowered())";
 }
 
+// Dev-only on-site repair for one door. The venue phase's device-manager actions
+// fire once at bootstrap, when the player is usually still in H10 kilometres
+// away, so on a fresh save they hit no streamed entity. This re-issues the same
+// vanilla sequence directly against the live PS, but only when the player is
+// within `range` of the door so it never touches a distant venue. Sequence
+// matches vanilla: ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen
+// (q303_07b_lobby_combat does ForceUnlock -> ForceOpen on the tower main door;
+// ForceEnabled/ForcePower are added so a disabled/unpowered device still opens).
+private func NeonAscendancy_RepairDoor(game: GameInstance, path: String, range: Float) -> String {
+  if Equals(path, "") {
+    return "none";
+  }
+  const ref = NeonAscendancy_ResolveProbeRef(path);
+  if !GlobalNodeRef.IsDefined(ref) {
+    return "unresolved";
+  }
+  const entity = GameInstance.FindEntityByID(game, Cast<EntityID>(ref));
+  const device = entity as Device;
+  if !IsDefined(device) {
+    return "noDevice";
+  }
+  let player = GameInstance.GetPlayerSystem(game).GetLocalPlayerMainGameObject();
+  if !IsDefined(player) {
+    return "noPlayer";
+  }
+  if Vector4.Distance(device.GetWorldPosition(), player.GetWorldPosition()) > range {
+    return "outOfRange";
+  }
+  let ps = device.GetDevicePS();
+  if !IsDefined(ps) {
+    return "noPS";
+  }
+  let persistency = GameInstance.GetPersistencySystem(game);
+  if !IsDefined(persistency) {
+    return "noPersistency";
+  }
+  let enabled = new QuestForceEnabled();
+  enabled.clearanceLevel = 99;
+  enabled.SetUp(ps);
+  enabled.SetProperties();
+  persistency.QueuePSDeviceEvent(enabled);
+  let power = new QuestForcePower();
+  power.clearanceLevel = 99;
+  power.SetUp(ps);
+  power.SetProperties();
+  persistency.QueuePSDeviceEvent(power);
+  let unlock = new QuestForceUnlock();
+  unlock.clearanceLevel = 99;
+  unlock.SetUp(ps);
+  unlock.SetProperties();
+  persistency.QueuePSDeviceEvent(unlock);
+  let open = new QuestForceOpen();
+  open.clearanceLevel = 99;
+  open.SetUp(ps);
+  open.SetProperties();
+  persistency.QueuePSDeviceEvent(open);
+  return "repaired";
+}
+
 private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscendancy_VenueProbe) -> Void {
   // 1. Does the venue's key workspot ref resolve to a node?
   let workspotResolved = false;
@@ -59,6 +118,7 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
 
   // 2. Door PS state, if the authored door ref resolves to a Device entity.
   let doorState = "skipped";
+  let repair = "skipped";
   if NotEquals(venue.door, "") {
     const doorRef = NeonAscendancy_ResolveProbeRef(venue.door);
     if GlobalNodeRef.IsDefined(doorRef) {
@@ -73,6 +133,7 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
     } else {
       doorState = "unresolved";
     }
+    repair = NeonAscendancy_RepairDoor(game, venue.door, 60.0);
   }
 
   // 3. Does the community spawner report spawned entities?
@@ -88,7 +149,7 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
   }
 
   NcLogInfo(
-    s"VenueProbe[\(venue.code)]: workspotResolved=\(workspotResolved) door=\(doorState) communitySpawned=\(communityCount)"
+    s"VenueProbe[\(venue.code)]: workspotResolved=\(workspotResolved) door=\(doorState) repair=\(repair) communitySpawned=\(communityCount)"
   );
 }
 
@@ -176,7 +237,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
     NeonAscendancy_VenueProbe(
       "black_sapphire",
       "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks/#q303_ws_nighthawks_customer_06",
-      "#q303_dvc_ct_tunnel_entrance_door",
+      "#q303_dvc_tech_warehouse_gate",
       "#q303_com_paradise_technical_floor_guards"
     )
   );
@@ -240,11 +301,44 @@ public func NeonAscendancy_StartVenueProbe(game: GameInstance) -> Void {
 }
 
 // Dev-only door census: while the venue probe is armed, every door that streams
-// in within 150 m of the player logs its global id, authored debug name/path and
-// state. Venue doors only exist as entities near the player, so this is how the
-// on-site state of a venue entrance is read. The global id low 32 bits match the
-// EntityID hash in data/sites/doors.json and the raw sector extracts. Bounded by
-// streaming: one line per door attach, never per frame.
+// in within 150 m of the player logs its global id, distance, position, the
+// player position and its state. The debug name/path APIs return None for
+// authored doors, so they are omitted; the player position tells us which door
+// the owner is standing at, and the id is the low 32 bits of the EntityID hash
+// (matches data/sites/doors.json and the raw sector extracts).
+//
+// De-duplication: a door can re-attach on every stream-in, so each id is logged
+// at most once while this process runs. redscript has no module-scope or static
+// fields, so the seen-set is one class instance stored on the PlayerPuppet via
+// @addField; every door reads that same instance.
+public class NeonAscendancy_VenueCensusState extends IScriptable {
+  private let m_seen: array<Uint32>;
+
+  public final func HasSeen(id: Uint32) -> Bool {
+    return ArrayContains(this.m_seen, id);
+  }
+
+  public final func MarkSeen(id: Uint32) -> Void {
+    if !ArrayContains(this.m_seen, id) {
+      ArrayPush(this.m_seen, id);
+    }
+  }
+}
+
+@addField(PlayerPuppet)
+public let NeonAscendancy_venueCensusState: ref<NeonAscendancy_VenueCensusState>;
+
+private func NeonAscendancy_GetCensusState(player: ref<GameObject>) -> ref<NeonAscendancy_VenueCensusState> {
+  let pp = player as PlayerPuppet;
+  if !IsDefined(pp) {
+    return null;
+  }
+  if !IsDefined(pp.NeonAscendancy_venueCensusState) {
+    pp.NeonAscendancy_venueCensusState = new NeonAscendancy_VenueCensusState();
+  }
+  return pp.NeonAscendancy_venueCensusState;
+}
+
 @wrapMethod(Door)
 protected cb func OnGameAttached() -> Bool {
   const res = wrappedMethod();
@@ -261,19 +355,22 @@ protected cb func OnGameAttached() -> Bool {
     return res;
   }
   const pos = this.GetWorldPosition();
-  const dist = Vector4.Distance(pos, player.GetWorldPosition());
+  const playerPos = player.GetWorldPosition();
+  const dist = Vector4.Distance(pos, playerPos);
   if dist > 150.0 {
     return res;
   }
-  let ps = this.GetDevicePS();
-  let debugName = "";
-  let debugPath = "";
-  if IsDefined(ps) {
-    debugName = ps.GetDebugName();
-    debugPath = NameToString(ps.GetDebugPath());
+  const doorId = EntityID.GetHash(this.GetEntityID());
+  let state = NeonAscendancy_GetCensusState(player);
+  if IsDefined(state) {
+    if state.HasSeen(doorId) {
+      return res;
+    }
+    state.MarkSeen(doorId);
   }
+  let ps = this.GetDevicePS();
   NcLogInfo(
-    s"DoorCensus: id=\(EntityID.GetHash(this.GetEntityID())) dist=\(dist) name=\(debugName) path=\(debugPath) entity=\(this.GetName()) pos=(\(pos.X),\(pos.Y),\(pos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
+    s"DoorCensus: id=\(doorId) dist=\(dist) pos=(\(pos.X),\(pos.Y),\(pos.Z)) player=(\(playerPos.X),\(playerPos.Y),\(playerPos.Z)) \(NeonAscendancy_FormatDoorState(ps))"
   );
   return res;
 }
