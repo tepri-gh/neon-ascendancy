@@ -31,6 +31,7 @@ Evidence tags used throughout:
 | `[wiki]` | Cyberpunk Wiki page (cited inline) | Secondary, high |
 | `[lore]` | Book/comic/tabletop lore with no verified in-game artifact | Tertiary |
 | `[inferred]` | My reasoning links a named person, place or stance to a record; reasoning stated | Weak, flagged |
+| `[design]` | Required by this mod's alternate timeline in `docs/design/gameplay-systems.md` §7, not by 2.5 canon | Canon for the mod |
 
 Extra convention for this document only: **presence class**.
 `ambient` = persists in free roam without a quest; `world-activity` = gig,
@@ -40,6 +41,17 @@ present in 2077. The JSON `open_world` flag is `true` only for `ambient` and
 `world-activity`. Every named Arasaka leader below is `story`, `prologue` or
 `historical`, so **no named leader is open-world**.
 
+Timeline convention for this document: the body records 2.5 canon so the
+records, phases and markers stay checkable. Where canon *current state*
+depends on an event this mod removes — the Konpeki heist, Saburo's murder, the
+Relic plot, Phantom Liberty's Songbird/Space Force One arc — the text says so
+and treats that state as a branch or as history. Per
+`docs/design/gameplay-systems.md` §7 the heist never happens, Saburo is not
+murdered, Yorinobu Arasaka lives and leads Arasaka, and Mikoshi's engram
+succession stays a potential rather than the outcome. Presence classes and
+records are unchanged, because they describe what the game spawns, not what
+the mod's story asserts.
+
 ---
 
 ## 1. Leadership and ranks
@@ -48,14 +60,18 @@ present in 2077. The JSON `open_world` flag is `true` only for `ambient` and
 
 Arasaka is a family-controlled public corporation: the Arasaka family holds
 54% of the shares, the board holds 15%, and 31% trades publicly. The family
-chairman is the real sovereign; the CEO is an operator. The 2077 top is
-unusually unstable because Saburo is murdered in *The Heist* and three family
-blocs claim the succession.
+chairman is the real sovereign; the CEO is an operator. In 2.5 canon the 2077
+top is unusually unstable because Saburo is murdered in *The Heist* and three
+family blocs claim the succession. **In this mod's timeline the heist and the
+Relic plot never happen**, so Saburo is not murdered: **Yorinobu Arasaka is
+alive and leads Arasaka** as the Taka reform wing, with the Kiji and Hato
+blocs and the board still contending beneath him. The succession crisis below
+is the branch the removed heist would have opened, not the starting state.
 
 | Name | 2077 role | Character record | Location / influence point | Presence class | Source | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Saburo Arasaka** | Chairman (1960–2077); CEO (1960–late 1990s, again 2023–2077); engram in Mikoshi | `Character.Saburo` | Konpeki Plaza penthouse; Arasaka Tower (Saburo's office, Mikoshi) | `story` | Raw registry phases `q005_*`, `q101_*`; markers `q005_mrk_saburo_av_open_int`, `q113_06_sm_saburo_office`, `q113_07_sm_mikoshi`; wiki *Saburo Arasaka* | `[game-data]` `[wiki]` |
-| **Yorinobu Arasaka** | CEO (2077, after murdering Saburo); Taka faction leader | `Character.Yorinobu` | Konpeki Plaza suite; Arasaka Tower CEO floor | `story` | Raw registry phases `q004_*`, `q005_*`, `q113_yorinobu_14_office*`; markers `mirror_sm_scene_konpeki_room`, `q113_12_sm_ceo_floor`, `q113_14_sm_yorinobu`; wiki *Yorinobu Arasaka* | `[game-data]` `[wiki]` |
+| **Saburo Arasaka** | Chairman (1960–present); CEO (1960–late 1990s, again 2023–present); engram in Mikoshi. *2.5 canon kills him at Konpeki; the mod's timeline does not.* | `Character.Saburo` | Konpeki Plaza penthouse; Arasaka Tower (Saburo's office, Mikoshi) | `story` | Raw registry phases `q005_*`, `q101_*`; markers `q005_mrk_saburo_av_open_int`, `q113_06_sm_saburo_office`, `q113_07_sm_mikoshi`; wiki *Saburo Arasaka* | `[game-data]` `[wiki]` |
+| **Yorinobu Arasaka** | **Leader of Arasaka in the mod timeline**; Taka faction head; canon has him as CEO after murdering Saburo, which the mod's timeline removes | `Character.Yorinobu` | Konpeki Plaza suite; Arasaka Tower CEO floor | `story` | Raw registry phases `q004_*`, `q005_*`, `q113_yorinobu_14_office*`; markers `mirror_sm_scene_konpeki_room`, `q113_12_sm_ceo_floor`, `q113_14_sm_yorinobu`; wiki *Yorinobu Arasaka* | `[game-data]` `[wiki]` |
 | **Hanako Arasaka** | Kiji faction head; legitimist claimant; unofficial spokeswoman | `Character.Hanako` | Arasaka Estate (North Oak); Japantown parade; Arasaka Tower | `story` | Raw registry phases `q112_hanako_*`, `q113_hanako_*`, `q201_ws_hanako_*`; markers `q113_04_sm_hanako_estate`, `q112_08_sm_parade_speech`, `q115_00b_sm_hanako`; wiki *Hanako Arasaka* | `[game-data]` `[wiki]` |
 | **Michiko Arasaka (Sanderson)** | Hato faction head; board member | `Character.Michiko` | Arasaka Tower (boardroom / jungle level) | `story` | Raw registry phases `q113_michiko_09_jungle*`, `#q113_michiko_10_jungle_combat`; marker `q113_10_sm_jungle_combat`; wiki *Michiko Arasaka (Kei's daughter)* | `[game-data]` `[wiki]` |
 | **Kei Arasaka** | CEO (late 1990s–2023); deceased | — (no 2077 record) | — | `historical` | Wiki *Kei Arasaka*; Arasaka employee list | `[wiki]` `[lore]` |
@@ -68,11 +84,14 @@ blocs claim the succession.
 
 Notes:
 
-- **The wiki lists three 2077 leaders because the outcome is dependent.**
+- **The wiki lists several 2077 leaders because the outcome is dependent.**
   Saburo (1960–2077), Hanako (2077), Michiko (2077) and Yorinobu (2077) are all
-  in the leadership infobox, but only one branch is true per playthrough. The
-  base 2077 state after *The Heist* is Yorinobu as CEO; Hanako is the Kiji
-  claimant; Michiko is a board member, not CEO. `[wiki]`
+  in the leadership infobox, but only one branch is true per playthrough. In
+  2.5 canon the base state after *The Heist* is Yorinobu as CEO; Hanako is the
+  Kiji claimant; Michiko is a board member, not CEO. `[wiki]` With the heist
+  removed, **Yorinobu leads and Saburo is alive**; Hanako and Michiko keep
+  their claims and the board remains the prize, so the blocs are a standing
+  contest rather than a crisis triggered by a murder.
 - **Hanako's title is deliberately ambiguous.** The Arasaka page calls her the
   Kiji figurehead and "the figurehead and CEO"; the employee list calls her an
   "unofficial spokeswoman" with no official position, given the task of keeping
@@ -127,16 +146,18 @@ sourcebook and still describes the org chart in 2077:
 | 1960–late 1990s | **Saburo Arasaka** | Took over on Sasai's death; added the Bank (1960s) and Security (1970) divisions; made Arasaka a global megacorp. `[wiki]` |
 | late 1990s–2023 | **Kei Arasaka** | Saburo's eldest son and true believer; nominal CEO while Saburo kept the final say; died on 21 Aug 2023 after the Fourth Corporate War. `[wiki]` |
 | 2023–2077 | **Saburo Arasaka** (nominal), **Hanako** as the face | Kei's death left Saburo in control again; from the 2040s the company split into Kiji (Hanako), Taka (Yorinobu) and Hato (Michiko). `[wiki]` |
-| 2077 | **Yorinobu Arasaka** | Murdered Saburo at Konpeki Plaza; blamed Takemura; took the CEO seat and began sabotaging the company from within. `[wiki]` `[game-data]` |
-| 2077 (dependent) | **Hanako / Saburo's engram** | If V takes Hanako's offer: Hanako confronts the board, Saburo's engram is revealed, Yorinobu is overwritten, and Saburo rules in his son's body. `[wiki]` |
-| 2077 (dependent) | **Yorinobu** | If V sides with Panam, Rogue or goes alone: the Taka coup succeeds, Mikoshi is destroyed or damaged, Hanako dies or withdraws, and Yorinobu returns to Tokyo. `[wiki]` |
-| 2079 (dependent) | **The board** | In the Phantom Liberty path, the board evicts Yorinobu as an inside saboteur; he flees with nomads. `[wiki]` |
+| 2077 (2.5 canon) | **Yorinobu Arasaka** | Canon: murdered Saburo at Konpeki Plaza, blamed Takemura, took the CEO seat and began sabotaging the company from within. **Removed by this mod's timeline.** `[wiki]` `[game-data]` |
+| Mod timeline | **Yorinobu Arasaka** | The heist and Relic plot never happen, so Saburo is not murdered and Yorinobu leads the company openly as the Taka reform head, with Saburo alive as chairman, Hanako's Kiji claim and Michiko's Hato bloc intact. `[design]` |
+| 2077 (dependent) | **Hanako / Saburo's engram** | Canon branch only: if V takes Hanako's offer, Hanako confronts the board, Saburo's engram is revealed, Yorinobu is overwritten, and Saburo rules in his son's body. With the Relic plot removed this is a hypothetical, not a path. `[wiki]` |
+| 2077 (dependent) | **Yorinobu** | Canon branch only: if V sides with Panam, Rogue or goes alone, the Taka coup succeeds, Mikoshi is destroyed or damaged, Hanako dies or withdraws, and Yorinobu returns to Tokyo. `[wiki]` |
+| 2079 (dependent) | **The board** | Canon branch only: in the Phantom Liberty path, the board evicts Yorinobu as an inside saboteur; he flees with nomads. Phantom Liberty's events are removed by this mod's timeline. `[wiki]` |
 
 The pattern is **dynastic and covert**, not meritocratic. The founder's son
 inherits; the grandson is kept secret; the granddaughter is a board member;
-the rebellious son murders the patriarch. External actors — Militech, the
-NUSA, and V — decide the outcome. That is the core of Arasaka's "Politics"
-weakness in §4. `[wiki]`
+in 2.5 canon the rebellious son murders the patriarch, though this mod's
+timeline removes that murder and leaves the contest unresolved. External
+actors — Militech, the NUSA, and V — can still decide the outcome. That is the
+core of Arasaka's "Politics" weakness in §4. `[wiki]`
 
 Historical secondary leaders worth knowing for a succession model:
 **Toshiro** (American Division CEO, killed 2013), **Shintaro Takayama**
@@ -216,8 +237,8 @@ deductions; verify in-game before treating them as canonical.
 
 | Name | Role / note | Character record | Community / marker | Location | Presence class | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| Saburo Arasaka | CEO/Chairman; engram | `Character.Saburo` | `saburo`; phases `q005_hotel_*`, `q101_*`, `#q201_ws_saburo_at_cp` | Konpeki; Tower; Mikoshi | `story` | `[game-data]` `[wiki]` |
-| Yorinobu Arasaka | CEO after the murder; Taka | `Character.Yorinobu` | `yorinobu`; phases `q004_*`, `q005_*`, `q113_yorinobu_14_office*` | Konpeki; Tower CEO floor | `story` | `[game-data]` `[wiki]` |
+| Saburo Arasaka | Chairman; engram | `Character.Saburo` | `saburo`; phases `q005_hotel_*`, `q101_*`, `#q201_ws_saburo_at_cp` | Konpeki; Tower; Mikoshi | `story` | `[game-data]` `[wiki]` |
+| Yorinobu Arasaka | Arasaka's leader in the mod timeline; Taka | `Character.Yorinobu` | `yorinobu`; phases `q004_*`, `q005_*`, `q113_yorinobu_14_office*` | Konpeki; Tower CEO floor | `story` | `[game-data]` `[wiki]` |
 | Hanako Arasaka | Kiji figurehead; claimant | `Character.Hanako` | `hanako`, `hanako_holo`; phases `q112_hanako_*`, `q113_hanako_*` | Estate; parade; Tower | `story` | `[game-data]` `[wiki]` |
 | Michiko Arasaka | Hato head; board member | `Character.Michiko` | `michiko`; phases `q113_michiko_09_jungle*` | Tower jungle/boardroom | `story` | `[game-data]` `[wiki]` |
 | Goro Takemura | Saburo's bodyguard | `Character.Takemura` | `takemura`, `Takemura`, `takemura_holo`; phases `q005_*`, `q101_*`, `q104_*`, `q112_*` | Konpeki; Japantown; Industrial Park; Estate; Tower | `story` | `[game-data]` `[wiki]` |
@@ -289,13 +310,13 @@ ally with or remove. It covers both the family tier and the Night City branch.
 
 | Person | Join under | Climb past | Ally with | Remove |
 | --- | --- | --- | --- | --- |
-| **Saburo (engram)** | The old order; Kiji; the board's traditionalists | The engram is the throne; climbing past it means destroying Mikoshi or denying Hanako | Hanako, Takemura, Oda, the Kiji board | Destroy Mikoshi, side with Yorinobu, or let the Tower fall |
-| **Yorinobu** | The Taka reform/sabotage wing; pro-Western modernisers | Smasher is the gatekeeper; the Taka officers are the ladder | Smasher, Taka loyalists, Hellman (R&D), nomads (later) | Expose him to the board, side with Hanako, or let the Aldecaldos/Rogue reach Mikoshi |
-| **Hanako** | The Kiji legitimist wing; the board's continuity | Oda and Takemura are the gatekeepers; Hanako is the figurehead | Oda, Takemura, Hellman, Michiko (Hato), the board | Side with Yorinobu, destroy Mikoshi, or let her die in the Tower |
-| **Michiko** | The Hato liberal-reform wing; board politics | Her board seat and Danger Gal are the ladder; she has the least muscle | Hanako, Danger Gal, media/politicians, the Hato board | Isolate her from the board; she dies in the coup unless V helps Hanako |
+| **Saburo** | The old order; Kiji; the board's traditionalists. Alive in the mod timeline, so he is the ceiling a Taka or Hato player must climb past | The chairman is the throne; climbing past him means winning the board or the family, or removing him (canon's murder is not an option here) | Hanako, Takemura, Oda, the Kiji board | Split the board from him, side with Yorinobu, or push the succession contest to a vote |
+| **Yorinobu** | The Taka reform wing; pro-Western modernisers. **The leader to join under in this mod's timeline** | Smasher is the gatekeeper; the Taka officers are the ladder | Smasher, Taka loyalists, Hellman (R&D), nomads | Expose his sabotage to the board, side with Hanako or Saburo, or strip Smasher from him |
+| **Hanako** | The Kiji legitimist wing; the board's continuity | Oda and Takemura are the gatekeepers; Hanako is the figurehead | Oda, Takemura, Hellman, Michiko (Hato), the board | Side with Yorinobu, break the Kiji bloc, or isolate her from the board |
+| **Michiko** | The Hato liberal-reform wing; board politics | Her board seat and Danger Gal are the ladder; she has the least muscle | Hanako, Danger Gal, media/politicians, the Hato board | Isolate her from the board or outvote Hato |
 | **Susan Abernathy** | Special Operations; the corporate security state | Jenkins is the rival; her files are the lever | Her (dangerous), or use her files | Side with Jenkins, expose her, or let the purge run |
 | **Arthur Jenkins** | Counterintelligence; the Corpo lifepath | Abernathy is the ceiling; the Frankfurt operation is the test | Jenkins (he saved V), Carter, Frank | Side with Abernathy, expose the Frankfurt op, or let the purge run |
-| **Takemura** | The ex-bodyguard loyalist; Saburo's honour | His honour code is the ceiling; he will not betray Hanako | Takemura for Kiji; Oda as his pupil | Let him die in *Search and Destroy*, or side against Hanako |
+| **Takemura** | The ex-bodyguard loyalist; Saburo's honour | His honour code is the ceiling; he will not betray Hanako | Takemura for Kiji; Oda as his pupil | Remove him from Saburo's guard, or side against Hanako |
 | **Adam Smasher** | Not a joinable path; a power centre | — | Only as Yorinobu's enforcer; he has no political programme | Remove him to decapitate Taka security |
 | **Anders Hellman** | Not a joinable path; an R&D power centre | — | Ally for Relic/Mikoshi expertise; he sells loyalty | Cut the Relic programme or let Kang Tao take him |
 
@@ -321,34 +342,41 @@ overlapping quest phases of one site; do not sum them.
 | **Taka (鷹, Hawk)** | Yorinobu Arasaka | Sabotage Arasaka from within; pro-Western reforms; direct, uncompromising action; military coup | Yorinobu; Adam Smasher; Taka loyalist soldiers in Night City, Kyoto, Dubai and Paris; militant board members | Wiki *Arasaka* (Taka description); *Yorinobu Arasaka*; *Adam Smasher* | `[wiki]` |
 | **Hato (鳩, Dove)** | Michiko Arasaka (Sanderson) | Liberal reforms; deeper changes; US ties; the least powerful bloc | Michiko; Danger Gal; some politicians and media personalities; board liberals | Wiki *Arasaka* (Hato description); *Michiko Arasaka* | `[wiki]` |
 | **The Board / old guard** | Collective (19 Tokyo seats + family) | Preserve the company and their seats; avoid open conflict; accept the strongest claimant | Tokyo board; branch directors from Paris, Shanghai and Kinshasa; family shareholders (54%) | Wiki *Arasaka* (board structure); *Totalimmortal* | `[wiki]` |
-| **Saburo's engram / old order** | Saburo Arasaka (engram) | Restore Saburo's control; overwrite Yorinobu; revert the reforms; peace with Militech/NUSA | Saburo's engram in Mikoshi; Hanako; Kiji; Hellman's Relic team | Wiki *Saburo Arasaka*; *Hanako Arasaka*; *Totalimmortal* | `[wiki]` |
+| **Saburo's engram / old order** | Saburo Arasaka (engram) | Canon branch only (requires the Relic plot this mod removes): restore Saburo's control; overwrite Yorinobu; revert the reforms; peace with Militech/NUSA. Without the Relic, the same traditionalists rally to Saburo alive | Saburo's engram in Mikoshi; Hanako; Kiji; Hellman's Relic team | Wiki *Saburo Arasaka*; *Hanako Arasaka*; *Totalimmortal* | `[wiki]` |
 | **Smasher's security apparatus** | Adam Smasher | Carry out Yorinobu's dirty work; protect the CEO; no loose ends | Smasher; Grayson; Arasaka security teams; Ebunike base | Wiki *Adam Smasher*; *Chippin' In*; raw registry `Character.Smasher`, `Character.Grayson` | `[game-data]` `[wiki]` |
 | **Hellman's R&D / defector wing** | Anders Hellman | Survive; monetise the Relic; sell loyalty to the highest bidder | Hellman; Relic team; Kang Tao contacts | Wiki *Anders Hellman*; raw registry `Character.Haru_Kasai` | `[game-data]` `[wiki]` |
 | **Counterintelligence vs Special Operations** | Arthur Jenkins / Susan Abernathy | Promotion, jurisdiction and survival; each tries to purge the other | Jenkins' counterintel team (V, Carter Smith, Frank Nostra, Harry); Abernathy's Special Operations; Arasaka Tower offices | Wiki *Arthur Jenkins*; *Susan Abernathy*; *Carter Smith*; *Frank Nostra*; raw registry `q000_corpo_*` | `[game-data]` `[wiki]` |
 
 ### 2.2 The 2077 split: Yorinobu vs Hanako/Saburo
 
-This is the central conflict, and it is both personal and ideological.
+This is the central conflict, and it is both personal and ideological. The
+2.5 chain below is recorded as canon history/branches; the mod's timeline keeps
+the blocs and the family quarrel but removes the heist that escalated it into a
+murder.
 
 - **Yorinobu** is Saburo's youngest son and the original heir. He rejected his
   father's vision on the night he graduated, founded the Steel Dragons, and
   spent decades fighting Arasaka from outside. He concluded that the only way
   to destroy the company was from within. `[wiki]`
-- **The Relic theft** is his opening move: he steals a Relic prototype from
-  Saburo's Tokyo lab, ensures the engram on it is Johnny Silverhand, and
-  retreats to Night City. Hellman warns him the chip is not ready and tells
-  Saburo; Saburo sails to Night City on the *Kujira* with Hanako. `[wiki]`
-- **The murder** at Konpeki Plaza is a family argument that turns violent.
-  Yorinobu strangles Saburo, blames Takemura, and takes the CEO seat. `[wiki]`
-  `[game-data]`
+- **The Relic theft** is canon's opening move (*removed by this mod's
+  timeline*): he steals a Relic prototype from Saburo's Tokyo lab, ensures the
+  engram on it is Johnny Silverhand, and retreats to Night City. Hellman warns
+  him the chip is not ready and tells Saburo; Saburo sails to Night City on the
+  *Kujira* with Hanako. `[wiki]`
+- **The murder** at Konpeki Plaza is canon: a family argument that turns
+  violent. Yorinobu strangles Saburo, blames Takemura, and takes the CEO seat.
+  *Removed by this mod's timeline*; Yorinobu instead leads an intact Arasaka
+  and Saburo lives. `[wiki]` `[game-data]`
 - **The coup** is Yorinobu's attempt to break the board and the other blocs:
   he calls an emergency supervisor-board meeting in Night City, brings in
   Tokyo executives and branch directors from Paris, Shanghai and Kinshasa,
   and orders Taka troops to destroy the other factions and remove the board.
-  `[wiki]`
+  In canon this follows the murder; in the mod it is a live possibility
+  rather than a triggered event. `[wiki]`
 - **Hanako's counter-move** is legitimacy: she brings V as a witness, reveals
   Saburo's engram, and tells the board to follow her as if she were Saburo.
-  The engram then overwrites Yorinobu. `[wiki]`
+  The engram then overwrites Yorinobu. Canon only; with the Relic plot removed,
+  her claim rests on the Kiji bloc and the board, not on an engram. `[wiki]`
 
 The policy difference is real, not just a family quarrel:
 
@@ -372,13 +400,16 @@ half-American; she grew up in Night City, founded Danger Gal, and became a
 board member. Hato is the liberal wing, the least powerful of the three, but
 it has support among politicians and media personalities. `[wiki]`
 
-Her 2077 position is cautious:
+Her 2.5 position is cautious, and all of it follows Saburo's death, which this
+mod removes:
 
-- She accepts Yorinobu as CEO after Saburo's death, like the rest of the board.
+- In canon she accepts Yorinobu as CEO after Saburo's death, like the rest of
+  the board. In the mod there is no death to accept, so she is a standing board
+  liberal under a living chairman and a leading Yorinobu.
 - She attends the board meeting in the Hanako path and is reluctant to believe
-  V until Saburo's engram speaks.
+  V until Saburo's engram speaks. Canon branch.
 - She survives the coup only if V helps Hanako; otherwise she is one of the
-  board casualties. `[wiki]`
+  board casualties. Canon branch. `[wiki]`
 
 For a simulation, Michiko is the **reform/legitimacy candidate**: she can give
 a player's faction a board seat, US contacts, and a respectable face, but she
@@ -389,9 +420,11 @@ the Taka troops. `[inferred]`
 
 The board is the legal sovereign, but it is not a deliberative body in 2077.
 It is 19 of Saburo's most trusted allies plus the family; Saburo is chairman;
-Hanako is a nominal shareholder. The board accepts Yorinobu after the murder
-because no one is willing to stand against him; Saburo's engram later calls
-them cowards for it. `[wiki]`
+Hanako is a nominal shareholder. Canon has the board accept Yorinobu after the
+murder because no one is willing to stand against him; Saburo's engram later
+calls them cowards for it. With the murder removed, the board still defers to
+Yorinobu's bloc, but it is deferring to a living chairman's son in a standing
+contest, not ratifying a patricide. `[wiki]`
 
 The Tokyo/Night City axis matters because the 2077 coup is fought in the
 American Division HQ:
@@ -436,8 +469,10 @@ but it matters more to an employee than Kiji/Taka/Hato. `[inferred]`
 Adam Smasher is not a faction leader and has no political programme. He is a
 full-body-conversion mercenary who owes Arasaka his life and repays it by
 killing the corporation's enemies. By 2077 he is Yorinobu's personal bodyguard
-and the manager of Arasaka's dirtiest work; after Saburo's murder he is
-promoted to **head of security**. `[wiki]`
+and the manager of Arasaka's dirtiest work; in canon he is promoted to **head
+of security** after Saburo's murder. The mod's timeline removes the murder, so
+he holds that role as Yorinobu's enforcer without the succession crisis that
+canon attaches to it. `[wiki]`
 
 His political weight is structural:
 
@@ -459,19 +494,25 @@ is the cleanest way to weaken the Taka coup. `[inferred]`
 
 Anders Hellman is the Relic project director, a leading bioengineer, and one
 of Arasaka's scientific pillars. He is on first-name terms with Hanako and in
-personal contact with Saburo. He is also the first person to warn Saburo that
-Yorinobu stole the prototype. `[wiki]`
+personal contact with Saburo. In canon he is the first person to warn Saburo
+that Yorinobu stole the prototype; with the Relic theft removed by this mod's
+timeline, he is simply the R&D chief of a programme that never loses its chip.
+`[wiki]`
 
 His loyalty is for sale:
 
 - He begins negotiating with Kang Tao before the heist, and defects after
-  Yorinobu becomes CEO. `[wiki]`
-- Rogue tracks his AV; V and Panam bring it down over Jackson Plains; V
-  interrogates him at the Sunset Motel. `[wiki]`
+  Yorinobu becomes CEO. *The heist framing is canon only*; the mod keeps the
+  poaching motive (Kang Tao's standing offer) and drops the theft trigger.
+  `[wiki]`
+- Canon: Rogue tracks his AV; V and Panam bring it down over Jackson Plains; V
+  interrogates him at the Sunset Motel. This is the Relic extraction, removed
+  by the mod's timeline. `[wiki]`
 - In the Hanako path he is retrieved and works for Hanako, because he is
-  "worth more alive than harmed or dead." `[wiki]`
+  "worth more alive than harmed or dead." Canon branch. `[wiki]`
 - He runs the Relic/Mikoshi explanation and the Secure Your Soul contract at
-  the Orbital Station. `[wiki]`
+  the Orbital Station. Canon; in the mod the Mikoshi succession is a
+  hypothetical, so treat this as R&D context. `[wiki]`
 
 For a simulation, Hellman is a **portable R&D asset**: he can be bought,
 stolen, or killed, and whichever bloc holds him holds the Relic expertise.
@@ -481,11 +522,14 @@ He is not a member of any family bloc. `[inferred]`
 
 Evidence-based drivers, in rough order of plausibility:
 
-1. **Succession after Saburo's death.** Taka (Yorinobu) vs Kiji (Hanako) vs
-   Hato (Michiko). Each has a different external policy and a different claim.
+1. **Succession.** Taka (Yorinobu) vs Kiji (Hanako) vs Hato (Michiko). In canon
+   the trigger is Saburo's death; the mod removes the murder, so this is the
+   standing contest between a leading Yorinobu and two rival claims. Each has a
+   different external policy and a different claim.
 2. **Yorinobu's sabotage.** He is not trying to win the company; he is trying
    to destroy it. A player who wants Arasaka to survive must stop him, which
-   means siding with Hanako or the board.
+   means siding with Hanako or the board. This driver does not depend on the
+   heist and survives the timeline change.
 3. **The board's survival.** The board is the legal sovereign and the prize.
    Yorinobu's coup tries to kill it; Hanako's counter-coup tries to capture it.
 4. **Control of Mikoshi and the Relic.** The engram is the throne, the
@@ -549,7 +593,7 @@ rows are not claims of friendship.
 | Petrochem | `petrochem` | `neutral` | No attested interaction; fuel/energy supplier only `[inferred]` | `inferred` |
 | Barghest | `barghest` | `neutral` | No attested interaction; the Dogtown KGB hologram set piece is not an Arasaka relationship `[game-data]` `[inferred]` | `game-data+inferred` |
 | 6th Street | `sixth_street` | `rival` | Anti-corporate paramilitary founded by Fourth Corporate War veterans; Arasaka Industrial Park sits in 6th Street's Arroyo turf; no explicit Arasaka gig found `[game-data]` `[wiki]` `[inferred]` | `game-data+wiki+inferred` |
-| Aldecaldos | `aldecaldos` | `hostile` | The Star ending: Aldecaldos invade Arasaka Tower and destroy Mikoshi; dependent on V's choice `[wiki]` | `wiki` |
+| Aldecaldos | `aldecaldos` | `neutral` | Canon history only: in the Star ending the Aldecaldos invade Arasaka Tower and destroy Mikoshi, but that ending requires the Konpeki heist and the Relic plot, which this mod's timeline removes. No attested 2077 incident outside that branch; both operate in the Badlands and the city without a standing fight `[wiki]` `[design]` | `wiki+design` |
 | Wraiths | `wraiths` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | Animals | `animals` | `neutral` | No attested interaction; Animals hire out as bodyguards but no Arasaka contract found `[wiki]` `[inferred]` | `wiki+inferred` |
 | The Mox | `the_mox` | `neutral` | No attested interaction `[inferred]` | `inferred` |
@@ -573,10 +617,12 @@ rows are not claims of friendship.
 | Trauma Team | `trauma_team` | `trade` | Trauma Team partners with Arasaka and gives Arasaka employees memberships; Arasaka is a client `[wiki]` | `wiki` |
 | News 54 | `news54` | `rival` | Network News 54 lost reporters investigating Arasaka scandals; Arasaka avoids direct confrontation while feeding it bad press about rivals `[wiki]` | `wiki` |
 
-Stance counts (31 rows): **hostile 7, rival 5, trade 5, neutral 12, client 1,
+Stance counts (31 rows): **hostile 6, rival 5, trade 5, neutral 13, client 1,
 patron 1, ally 0.** Arasaka has no ally in the matrix. Its closest
 relationship is the Tyger Claws proxy network (`client`), and the City Council
-is the closest thing to a grateful dependent (`patron`). `[inferred]`
+is the closest thing to a grateful dependent (`patron`). The Aldecaldos row
+dropped from `hostile` to `neutral` because its only evidence was the Star
+ending, which the mod's timeline removes. `[inferred]`
 
 ### 3.3 Actors outside `data/factions.json`
 
@@ -628,8 +674,7 @@ guarantee?
   Arasaka-held point, Arasaka is more likely to be the **pre-emptive patron or
   attacker** than the guarantor: it buys proxies, plants sleeper agents, and
   sends Smasher's security apparatus after loose ends. That is consistent with
-  its `client`/`patron` rows and its `hostile` rows toward Maelstrom and the
-  Aldecaldos. `[inferred]`
+  its `client`/`patron` rows and its `hostile` row toward Maelstrom. `[inferred]`
 
 ---
 
@@ -688,11 +733,13 @@ Design cautions, not redesigns:
    shareholders and the branch directors are a collective. The JSON `leaders`
    entry for the board uses `character_record_id: null`; a simulation that
    needs individual board members must invent or research them separately.
-6. **The 2077 leadership is dependent on V.** Yorinobu, Hanako, Saburo's
+6. **The 2.5 leadership is dependent on V.** Yorinobu, Hanako, Saburo's
    engram, Michiko, Takemura, Oda, Smasher, Hellman and Grayson all have
    branches. The document records the branches; a simulation must choose one
-   or model them explicitly. The base state after *The Heist* is Yorinobu as
-   CEO, Hanako as Kiji claimant, Michiko as board member.
+   or model them explicitly. In canon the base state after *The Heist* is
+   Yorinobu as CEO, Hanako as Kiji claimant, Michiko as board member. This
+   mod's timeline removes the heist: Yorinobu leads, Saburo is alive, and the
+   engram branches are hypothetical.
 7. **"Open world with the campaign disabled" is a heuristic.** The mod may
    disable gigs and the prologue along with the campaign. The `story` and
    `prologue` rows are definitely not ambient; the generic security rows need
@@ -819,18 +866,20 @@ Wiki:
   "leaders": [
     {
       "name": "Saburo Arasaka",
-      "role": "Chairman (1960-2077); CEO (1960-late 1990s, again 2023-2077); engram in Mikoshi",
+      "role": "Chairman (1960-present); CEO (1960-late 1990s, again 2023-present); engram in Mikoshi. 2.5 canon kills him at Konpeki; the mod timeline does not",
       "character_record_id": "Character.Saburo",
       "location_name": "Konpeki Plaza / Arasaka Tower (Saburo's office, Mikoshi)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Saburo; phases q005_hotel_*, q101_*, #q201_ws_saburo_at_cp); markers q005_mrk_saburo_av_open_int, q113_06_sm_saburo_office, q113_07_sm_mikoshi; wiki Saburo Arasaka",
       "confidence": "game-data+wiki"
     },
     {
       "name": "Yorinobu Arasaka",
-      "role": "CEO (2077, after Saburo's murder); Taka faction leader",
+      "role": "Leader of Arasaka in the mod timeline; Taka faction head; canon has him as CEO after murdering Saburo, which the mod timeline removes",
       "character_record_id": "Character.Yorinobu",
       "location_name": "Konpeki Plaza suite / Arasaka Tower CEO floor",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Yorinobu; phases q004_*, q005_*, q113_yorinobu_14_office*); markers mirror_sm_scene_konpeki_room, q113_12_sm_ceo_floor, q113_14_sm_yorinobu; wiki Yorinobu Arasaka",
       "confidence": "game-data+wiki"
@@ -840,6 +889,7 @@ Wiki:
       "role": "Kiji faction head; legitimist claimant; unofficial spokeswoman",
       "character_record_id": "Character.Hanako",
       "location_name": "Arasaka Estate (North Oak) / Japantown parade / Arasaka Tower",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Hanako; phases q112_hanako_*, q113_hanako_*, #q201_ws_hanako_*); markers q113_04_sm_hanako_estate, q112_08_sm_parade_speech, q115_00b_sm_hanako; wiki Hanako Arasaka",
       "confidence": "game-data+wiki"
@@ -849,6 +899,7 @@ Wiki:
       "role": "Hato faction head; board member",
       "character_record_id": "Character.Michiko",
       "location_name": "Arasaka Tower (boardroom / jungle level)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Michiko; phases q113_michiko_09_jungle*, #q113_michiko_10_jungle_combat); marker q113_10_sm_jungle_combat; wiki Michiko Arasaka (Kei's daughter)",
       "confidence": "game-data+wiki"
@@ -858,6 +909,7 @@ Wiki:
       "role": "CEO (late 1990s-2023); deceased",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Kei Arasaka; wiki List of Arasaka employees",
       "confidence": "wiki+lore"
@@ -867,15 +919,17 @@ Wiki:
       "role": "Saburo's personal bodyguard; ex-special forces",
       "character_record_id": "Character.Takemura",
       "location_name": "Konpeki Plaza / Japantown / Arasaka Industrial Park / Arasaka Estate / Arasaka Tower",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Takemura; phases q005_*, q101_*, q104_*, q112_*); markers q101_08_sm_takemura, q112_04_sm_takemura; wiki Goro Takemura",
       "confidence": "game-data+wiki"
     },
     {
       "name": "Adam Smasher",
-      "role": "Yorinobu's bodyguard; Head of Security after Saburo's murder; enforcer",
+      "role": "Yorinobu's bodyguard; Head of Security (canon: after Saburo's murder, which the mod timeline removes); enforcer",
       "character_record_id": "Character.Smasher",
       "location_name": "Konpeki Plaza / Arasaka Tower / Ebunike Docks (base, via Grayson)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Smasher; boss variants Character.q113_boss_smasher, Character.main_boss_adam_smasher; phases q005_*, q101_*, q108_atlantis_bar, q112_safe_house_start); markers q113_13_sm_adam_smasher, smasher_marker, q005_14_sm_escape_smasher; wiki Adam Smasher",
       "confidence": "game-data+wiki"
@@ -885,6 +939,7 @@ Wiki:
       "role": "Hanako's bodyguard; cyberninja",
       "character_record_id": "Character.Cyberninja_Oda",
       "location_name": "Japantown parade / Arasaka Tower",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Cyberninja_Oda; phases q112_cyberninja_08_bossfight, q112_cyberninja_oda_stealth); marker q112_00b_sm_secret_meeting_oda_car; wiki Sandayu Oda",
       "confidence": "game-data+wiki"
@@ -894,6 +949,7 @@ Wiki:
       "role": "Relic project director; defected to Kang Tao",
       "character_record_id": "Character.Haru_Kasai",
       "location_name": "Kang Tao AV crash (Jackson Plains) / Sunset Motel / Arasaka Estate / Arasaka Orbital Station",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Haru_Kasai; entries haru, anders_hellman_holo; phases q004_*, q005_*, q101_*, q104_*); markers q104_07b_sm_haru_found, q104_spn_motel_haru_scene, q113_03a_sm_haru_kasai_drive; wiki Anders Hellman (development name Haru Kasai)",
       "confidence": "game-data+wiki+inferred"
@@ -903,6 +959,7 @@ Wiki:
       "role": "Arasaka mercenary; Smasher's right-hand",
       "character_record_id": "Character.Grayson",
       "location_name": "Ebunike Docks",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Grayson; phases q005_default, q103_*, q203_*, sq031_*); marker sq031_04_sm_grayson; wiki Chippin' In",
       "confidence": "game-data+wiki"
@@ -912,6 +969,7 @@ Wiki:
       "role": "Director of Special Operations, American HQ",
       "character_record_id": "Character.q000_corpo_abernathy",
       "location_name": "Arasaka Tower, Corpo Plaza",
+      "presence_class": "prologue",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.q000_corpo_abernathy; entry abernathy, phase conference); wiki Susan Abernathy",
       "confidence": "game-data+wiki"
@@ -921,6 +979,7 @@ Wiki:
       "role": "Senior member and head of Counterintelligence, Night City",
       "character_record_id": "Character.q000_corpo_jenkins",
       "location_name": "Arasaka Tower (Jenkins' office, z~142)",
+      "presence_class": "prologue",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.q000_corpo_jenkins; entries jenkins, jenkins_holo; phases conference, desk); markers q000_corpo_jenkins_office_chair, q000_sm_corpo_03_jenkins; wiki Arthur Jenkins",
       "confidence": "game-data+wiki"
@@ -930,6 +989,7 @@ Wiki:
       "role": "Collective sovereign: 19 Tokyo seats plus family shareholders",
       "character_record_id": null,
       "location_name": "Arasaka Tower, Tokyo / Night City boardroom",
+      "presence_class": "story",
       "open_world": false,
       "source": "wiki Arasaka (board structure: 54% family, 15% board, 31% public); wiki Totalimmortal",
       "confidence": "wiki"
@@ -947,7 +1007,7 @@ Wiki:
     {
       "name": "Taka (Hawk)",
       "leader": "Yorinobu Arasaka",
-      "goals": "Sabotage Arasaka from within; pro-Western reforms; direct, uncompromising action; military coup",
+      "goals": "Sabotage Arasaka from within; pro-Western reforms; direct, uncompromising action; military coup. Leads the company in the mod timeline",
       "members_hint": "Yorinobu; Adam Smasher; Taka loyalist soldiers in Night City, Kyoto, Dubai and Paris; militant board members",
       "source": "wiki Arasaka (Taka description); wiki Yorinobu Arasaka; wiki Adam Smasher",
       "confidence": "wiki"
@@ -1052,9 +1112,9 @@ Wiki:
     },
     {
       "faction_code": "aldecaldos",
-      "stance": "hostile",
-      "evidence": "The Star ending: Aldecaldos invade Arasaka Tower and destroy Mikoshi; dependent on V's choice [wiki]",
-      "confidence": "wiki"
+      "stance": "neutral",
+      "evidence": "Canon history only: in the Star ending the Aldecaldos invade Arasaka Tower and destroy Mikoshi, but that ending requires the Konpeki heist and the Relic plot, which this mod's timeline removes. No attested 2077 incident outside that branch; both operate in the Badlands and the city without a standing fight [wiki] [design]",
+      "confidence": "wiki+design"
     },
     {
       "faction_code": "wraiths",

@@ -22,6 +22,17 @@ Evidence tags used throughout:
 | `[wiki]` | Cyberpunk Wiki page (cited inline) | Secondary, high |
 | `[lore]` | Book/comic/tabletop lore with no verified in-game artifact | Tertiary |
 | `[inferred]` | My reasoning links a named person, place or stance to a record; reasoning stated | Weak, flagged |
+| `[design]` | Required by this mod's alternate timeline in `docs/design/gameplay-systems.md` §7, not by 2.5 canon | Canon for the mod |
+
+Timeline convention for this document: the body records 2.5 canon so the
+records, phases and markers stay checkable. Where a canon *current state*
+depends on an event this mod removes — the Konpeki heist and the Relic plot, or
+Phantom Liberty's Songbird/Space Force One arc — the text says so and treats
+that state as a branch or as history. Per
+`docs/design/gameplay-systems.md` §7 neither happens; **Kurt Hansen is alive
+and leads Barghest**, and Myers is not shot down over Dogtown. Presence
+classes and records are unchanged, because they describe what the game spawns,
+not what the mod's story asserts.
 
 Extra convention for this document only: **presence class**.
 `ambient` = persists in free roam without a quest (Militech patrols, convoys and
@@ -42,9 +53,10 @@ Four adjustments are used throughout and are flagged again in §5:
   the nationalisation.
 - **The best wiki source is the employee list**, and even it is thin: the 2077
   table has three entries with rank "Unknown".
-- **"Dependent" is the normal 2077 state** for the two Night City figures who
+- **"Dependent" is the normal 2.5 state** for the two Night City figures who
   actually have records (Stout, Gilchrist) and for the Phantom Liberty cast
-  (Myers, Hansen).
+  (Myers, Hansen). Phantom Liberty's arc is removed by this mod's timeline, so
+  that dependency is canon history, not a current branch.
 - **The decisive evidence is often in another faction's location doc.** Militech
   is the most-raided, most-infiltrated and most-executed-against corp in the
   game; the Wraiths, 6th Street, Animals and Night Corp documents carry incidents
@@ -67,14 +79,14 @@ That produces a top that is simultaneously corporate and governmental:
 | Name | 2077 role | Character record | Location / influence point | Presence class | Source | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
 | **Lucas Harford** | CEO (2069–2077); Myers's successor and political ally | — (mentioned only) | Rosslyn HQ, Virginia; Militech Tower, Washington D.C. | `off-map` | Wiki *Militech* CEO infobox; wiki *Lucas Harford*; netpage `NETdir://militech.corp/leadership` | `[wiki]` |
-| **Rosalind Myers** | Former CEO (2060–2069); NUSA President (2065–, third term in 2077); Militech's political patron | `Character.myers`; also `Character.myers_hallucination`, `Character.q302_spidertank_myers_follower` | Space Force One crash site, Dogtown; Kress Street Hideout; border crossing; Militech advertorials | `story` | Raw `always_loaded_1` registry entry `myers` (phases `myers_default_dialog`, `q301_06a_myers`, `q302_01_start`, `q302_07_myers_oath_combat`, `q305_11_border_crossing`, `q306_myers_epilogue_bench`); wiki *Rosalind Myers* | `[game-data]` `[wiki]` |
+| **Rosalind Myers** | Former CEO (2060–2069); NUSA President (2065–, third term in 2077); Militech's political patron. *Canon crashes on Space Force One; the mod's timeline does not.* | `Character.myers`; also `Character.myers_hallucination`, `Character.q302_spidertank_myers_follower` | Space Force One crash site, Dogtown; Kress Street Hideout; border crossing; Militech advertorials | `story` | Raw `always_loaded_1` registry entry `myers` (phases `myers_default_dialog`, `q301_06a_myers`, `q302_01_start`, `q302_07_myers_oath_combat`, `q305_11_border_crossing`, `q306_myers_epilogue_bench`); wiki *Rosalind Myers* | `[game-data]` `[wiki]` |
 | **The Board of Directors** | Collective owner: 430M shares; Lundee held 8%, Roland Yee and the board 22%; DoD seats | — (no individual records) | Rosslyn; Militech Tower; Hong Kong (Yee's office, 2020) | `off-map` | Wiki *Militech* (share structure, nationalisation); wiki *List of Militech employees*; wiki *Roland Yee* | `[wiki]` |
 | **Meredith Stout** | Senior Operations Manager, Night City; later Government Relations Executive | `Character.Stout`; holocall variant in a separate community | Watson (Northside/waterfront); All Foods Plant; N54 City Hall signing | `story` | Raw registry entry `stout` (phases `start`, `talk`, `interrogation`, `maelstrom_van`, `maelstrom_end`, `end`, `q003_stout_sex_no_tell`); separate `meredith_holo` community; markers `q003_08_sm_stout`, `{q003_mp_no_tell_stout}`; wiki *Meredith Stout* | `[game-data]` `[wiki]` |
 | **Anthony Gilchrist** | Corp; Militech's mole inside the Maelstrom convoy leak | `Character.Gilchrist`; holocall variant | All Foods Plant (held by Stout's team); Northside storm channel (corpse) | `story` | Raw registry entry `gilchrist` (phases `attack`, `holocall`, `meeting`, `meeting_suv`, `start`, `leaving`); separate `anthony_gilchrist_holo` community; wiki *Anthony Gilchrist* | `[game-data]` `[wiki]` |
 | **Keenan Thorston** | Deputy Director of Operations, Investigations Department, Night City Branch | — (shard author only) | Militech Offices, Corpo Plaza | `off-map` | Shard *Extraction #NC/EX/56/882* (`baseid ma_hey_gle_13_onscreen_01`); wiki *List of Militech employees* | `[wiki]` |
 | **Elizabeth W. Roider** | Senior Armed Engagement Specialist, Department of Intervention, Night City Branch | `Character.ma_hey_gle_13_militech_ranged2_ranged2_ajax_ma_Elizabeth_Roider` | Valentino Alley, Ventura St, the Glen | `world-activity` | Roster site 59 `ma_hey_gle_13` (`faction_id 21`, phase `A`); site anchor `(-1602.629, -1119.905, 9.120)`; shard *Extraction #NC/EX/56/882*; wiki *Elizabeth W. Roider* | `[game-data]` `[wiki]` |
 | **Lt. Mower** | Lieutenant; cyberpsycho after military-grade implants; killed by her own hit squad | `Character.ma_wat_kab_08_cyberpsycho` | Allen & Abraham St arena, Kabuki | `world-activity` | Roster site 177 `ma_wat_kab_08` (`faction_id 21`, phase `default`); site anchor `(-1093.120, 1532.005, -0.090)`; shard *ORDERS*; wiki *Mower* | `[game-data]` `[wiki]` `[inferred]` |
-| **Kurt Hansen** | Ex-Colonel (Militech Armed Forces); founder and head of BARGHEST; holds Dogtown | `Character.kurtz` | Dogtown (Black Sapphire, stadium, borders); Kress St bunker | `story` | Raw registry entry `kurtz` (phases `q301_01_start`, `q301_04_start`, `q303_casino`, `q304_01_start`); wiki *Kurt Hansen*; wiki *Dogtown – Analytical Summary* | `[game-data]` `[wiki]` |
+| **Kurt Hansen** | Ex-Colonel (Militech Armed Forces); founder and head of BARGHEST; holds Dogtown. **Alive in the mod's timeline**, which keeps him in place instead of the canon succession crisis | `Character.kurtz` | Dogtown (Black Sapphire, stadium, borders); Kress St bunker | `story` | Raw registry entry `kurtz` (phases `q301_01_start`, `q301_04_start`, `q303_casino`, `q304_01_start`); wiki *Kurt Hansen*; wiki *Dogtown – Analytical Summary* | `[game-data]` `[wiki]` |
 | **Donald Lundee Sr.** | CEO (2020–d.); rebuilt the corp, nationalised under him, personal Arasaka vendetta | — (no 2077 record) | Rosslyn HQ | `historical` | Wiki *Donald Lundee*; wiki *Militech* history; *Cyberpunk RED* | `[wiki]` `[lore]` |
 | **Elizabeth Kress** | CEO/president of Militech (?–2020); US/NUSA President; nationalised her own former employer | — | Washington D.C. | `historical` | Wiki *Elizabeth Kress*; wiki *Militech*; wiki *NUSA* | `[wiki]` `[lore]` |
 | **Antonio Luccessi** | Co-founder (1996); executive VP; chief designer | — | Armatech/Militech R&D | `historical` | Wiki *List of Militech employees*; wiki *Militech* history | `[wiki]` `[lore]` |
@@ -321,7 +333,9 @@ systems must not assume.
 - **Meredith Stout** and **Anthony Gilchrist** in *The Pickup*; Stout again in
   *Venus in Furs*. **Rosalind Myers** and **Kurt Hansen** across the Phantom
   Liberty chain (`q301`–`q306`). Do not expect any of them with the campaign
-  disabled. `[game-data]` `[wiki]`
+  disabled. `[game-data]` `[wiki]` The records and phases are unaffected by the
+  timeline, but Phantom Liberty's arc is removed in this mod, so with the
+  campaign disabled these are dead content anyway.
 
 **`off-map` — alive in 2077, never spawned.**
 
@@ -349,7 +363,7 @@ simulation agents, not expect the game to provide. `[inferred]`
 | Person | Join under | Climb past | Ally with | Remove |
 | --- | --- | --- | --- | --- |
 | **Lucas Harford** | The patriotic-executive line: NUSA partnership, veteran paternalism, "no soldier left behind" | The board and the Pentagon seats are the ceiling; there is no ladder to CEO without the state | Myers, the board's DoD bloc, NN54 | Removing him means removing the Myers alignment — a political act, not an assassination |
-| **Rosalind Myers** | The state: FIA channels, NUSA contracts, the border | She is the sovereign her own former company answers to; climbing past her is a constitutional coup | Harford, the FIA, the Federalist Party | She is `story`-gated and dies on several Phantom Liberty branches |
+| **Rosalind Myers** | The state: FIA channels, NUSA contracts, the border | She is the sovereign her own former company answers to; climbing past her is a constitutional coup | Harford, the FIA, the Federalist Party | She is `story`-gated; canon's Phantom Liberty branches include her death, which this mod's timeline removes, so in the mod she remains President |
 | **Meredith Stout** | Night City Operations: convoys, contract enforcement, corporate liaison | Gilchrist is the rival; the regional officer above her is the ceiling | A deniable merc (V's role), the NCPD liaison desk | If she loses the leak case she is tortured and drowned; if she wins she has a peer killed |
 | **Anthony Gilchrist** | The mole's path: sell route data, take a cut, stay unprovable | He is the cautionary tale — his own blackmailers (Smasher, Maelstrom) own him | Maelstrom's deal-makers; nobody at Militech | Exposing him (Stout, or a Nomad-lifepath data trail) is the cleanest way to decapitate the leak ring |
 | **Keenan Thorston** | Investigations: political dirt, extrajudicial extraction, "permanently neutralized" witnesses | NCPD liaison and Ministry cover are his ladder | The NCPD (approved operations), City Hall clients | Removing him severs Militech's domestic political-policing channel |
@@ -958,6 +972,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "CEO (2069-2077); Myers's successor and political ally",
       "character_record_id": null,
       "location_name": "Rosslyn HQ, Virginia / Militech Tower, Washington D.C.",
+      "presence_class": "off-map",
       "open_world": false,
       "source": "wiki Militech CEO infobox; wiki Lucas Harford; netpage NETdir://militech.corp/leadership",
       "confidence": "wiki"
@@ -967,6 +982,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Former CEO (2060-2069); NUSA President (2065-, third term in 2077); Militech's political patron",
       "character_record_id": "Character.myers",
       "location_name": "Dogtown crash corridor / Kress Street Hideout / border crossing",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry myers (phases myers_default_dialog, q301_06a_myers, q302_01_start, q302_07_myers_oath_combat, q305_11_border_crossing, q306_myers_epilogue_bench); Character.myers_hallucination; Character.q302_spidertank_myers_follower; wiki Rosalind Myers",
       "confidence": "game-data+wiki"
@@ -976,6 +992,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Collective owner: 430M shares; Lundee held 8%, Roland Yee and the board 22%; several seats double as Ministry of Defense posts",
       "character_record_id": null,
       "location_name": "Rosslyn HQ / Militech Tower, Washington D.C.",
+      "presence_class": "off-map",
       "open_world": false,
       "source": "wiki Militech (nationalisation, share structure, board members in the Ministry of Defense); wiki List of Militech employees; wiki Roland Yee",
       "confidence": "wiki"
@@ -985,6 +1002,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Senior Operations Manager, Night City; later Government Relations Executive",
       "character_record_id": "Character.Stout",
       "location_name": "All Foods Plant / Watson waterfront / N54 City Hall signing",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry stout (phases start, talk, interrogation, maelstrom_van, maelstrom_end, end, q003_stout_sex_no_tell); separate meredith_holo community; markers q003_08_sm_stout, {q003_mp_no_tell_stout}; wiki Meredith Stout",
       "confidence": "game-data+wiki"
@@ -994,6 +1012,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Corp; Militech's mole in the convoy leak",
       "character_record_id": "Character.Gilchrist",
       "location_name": "All Foods Plant (held) / Northside storm channel (corpse)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry gilchrist (phases attack, holocall, meeting, meeting_suv, start, leaving); separate anthony_gilchrist_holo community; wiki Anthony Gilchrist",
       "confidence": "game-data+wiki"
@@ -1003,6 +1022,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Deputy Director of Operations, Investigations Department, Night City Branch",
       "character_record_id": null,
       "location_name": "Militech Offices, Corpo Plaza",
+      "presence_class": "off-map",
       "open_world": false,
       "source": "shard Extraction #NC/EX/56/882 (baseid ma_hey_gle_13_onscreen_01); shard Report, Extraction #NC/EX/56/882; wiki List of Militech employees",
       "confidence": "wiki"
@@ -1012,6 +1032,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Senior Armed Engagement Specialist, Department of Intervention, Night City Branch",
       "character_record_id": "Character.ma_hey_gle_13_militech_ranger2_ranged2_ajax_ma_Elizabeth_Roider",
       "location_name": "Valentino Alley, Ventura St, the Glen",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "roster site 59 ma_hey_gle_13 (faction_id 21, phase A); site anchor -1602.629,-1119.905,9.120; shard Extraction #NC/EX/56/882; wiki Elizabeth W. Roider",
       "confidence": "game-data+wiki"
@@ -1021,6 +1042,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Lieutenant; cyberpsycho after military-grade implants; terminated by her own hit squad",
       "character_record_id": "Character.ma_wat_kab_08_cyberpsycho",
       "location_name": "Allen & Abraham St arena, Kabuki",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "roster site 177 ma_wat_kab_08 (faction_id 21, phase default); site anchor -1093.120,1532.005,-0.090; shard ORDERS (baseid ma_wat_kab_08_onscreen_02); wiki Mower",
       "confidence": "game-data+wiki+inferred"
@@ -1030,6 +1052,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Ex-Colonel, Militech Armed Forces; founder and head of BARGHEST; holds Dogtown",
       "character_record_id": "Character.kurtz",
       "location_name": "Dogtown (Black Sapphire, stadium, borders)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry kurtz (phases q301_01_start, q301_04_start, q303_casino, q304_01_start); wiki Kurt Hansen; shard Dogtown - Analytical Summary",
       "confidence": "game-data+wiki"
@@ -1039,6 +1062,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "CEO (2020-d.); rebuilt the corp, nationalised under him, personal Arasaka vendetta",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Donald Lundee; wiki Militech history; Cyberpunk RED",
       "confidence": "wiki+lore"
@@ -1048,6 +1072,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "CEO or president of Militech (?-2020); US/NUSA President; nationalised her former employer",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Elizabeth Kress; wiki Militech; wiki NUSA",
       "confidence": "wiki+lore"
@@ -1057,6 +1082,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Co-founder (1996); executive VP; chief designer",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki List of Militech employees; wiki Militech history",
       "confidence": "wiki+lore"
@@ -1066,6 +1092,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Chairman of the board (2020); original investor",
       "character_record_id": null,
       "location_name": "Militech Hong Kong office",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki List of Militech employees; wiki Militech (share structure)",
       "confidence": "wiki+lore"
@@ -1075,6 +1102,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "VP and director of the Special Projects Department",
       "character_record_id": null,
       "location_name": "Special Projects Department, New Mexico Proving Grounds",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki List of Militech employees; wiki Militech (Special Projects)",
       "confidence": "wiki+lore"
@@ -1084,6 +1112,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "Employee; son and namesake of the former CEO",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "off-map",
       "open_world": false,
       "source": "wiki Donald Lundee Jr.; The World of Cyberpunk 2077 p.137",
       "confidence": "wiki"
@@ -1093,6 +1122,7 @@ Wiki (MediaWiki API, `action=parse&prop=wikitext`, 2026-11-25):
       "role": "General; the face of the company (2045)",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Samantha Lee Young; Cyberpunk RED p.273",
       "confidence": "wiki+lore"

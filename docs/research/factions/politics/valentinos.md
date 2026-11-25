@@ -444,7 +444,7 @@ neutral rows are placeholders, not claims of friendship.
 | Biotechnica | `biotechnica` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | Petrochem | `petrochem` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | Barghest | `barghest` | `neutral` | No attested interaction. Phantom Liberty only adds Valentino **crowd** records in the Dogtown stadium (`ep1_stadium_valentinos_non_reaction_*`), which is set dressing `[game-data]` `[inferred]` | `game-data+inferred` |
-| 6th Street | `sixth_street` | `war` | Turf war since at least 2071 (a Westbrook firefight), escalated in 2074 over Vista del Rey, "intensifying" in 2077; 6th Street ambushed Gustavo and shot Martha; Nolan Frakes put a contract on Gustavo. Game data: `ma_hey_gle_11`, `ma_std_rcr_05`, and the Phantom Liberty-era `sa_ep1_135`/`sa_ep1_141` 4v4 street fights in the Glen `[game-data]` `[wiki]` | `game-data+wiki` |
+| 6th Street | `sixth_street` | `war` | Turf war since at least 2071 (a Westbrook firefight), escalated in 2074 over Vista del Rey, "intensifying" in 2077; 6th Street ambushed Gustavo and shot Martha; Nolan Frakes put a contract on Gustavo. Game data: `ma_hey_gle_11`, `ma_std_rcr_05`, and `sa_ep1_141` 4v4 street fights in the Glen `[game-data]` `[wiki]` | `game-data+wiki` |
 | Aldecaldos | `aldecaldos` | `rival` | Sold a stolen Militech SUV to nomads, took the eddies, beat them and refused delivery; the nomads' rep Dakota called Padre to recover it. A commercial dispute with violence, mediated but unresolved `[wiki]` | `wiki` |
 | Wraiths | `wraiths` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | Animals | `animals` | `neutral` | No community area contains both factions. The only artifact is a single Valentino customer at Animals-owned Data Inc. (`sts_hey_spr_06`); Animals businesses sit inside Valentino-flagged Wellsprings sub-territories — adjacency, not conflict `[game-data]` `[inferred]` | `game-data+inferred` |
@@ -454,7 +454,7 @@ neutral rows are placeholders, not claims of friendship.
 | NCPD | `ncpd` | `hostile` | Standing target: SOCA at Valentino Alley and Mercado Sonora, Assault in Progress in Downtown and Arroyo, and Zoe Alonzo's NCPD record. But a corrupt channel exists: Detective Aaron McCarlson conspired with Claudio Moreno to frame and murder Dario Sanchez, and Padre has informants in NCPD command `[game-data]` `[wiki]` | `game-data+wiki` |
 | Night Corp | `night_corp` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | City Council | `city_council` | `trade` | Advisor Javier Alvarado (office of interim mayor Weldon Holt) embezzles public money into the gang, is a regular at El Pinche Pollo, and has Militech allies covering it; *Fifth Column* recovers the evidence. A purchased channel, no loyalty `[game-data]` `[wiki]` | `game-data+wiki` |
-| Scavengers | `scavengers` | `rival` | Compete in Vista del Rey; `{sa_ep1_135_com_combat}` is a three-way with Scavengers and 6th Street; ex-member Jackie Welles's antipathy; organ harvesting in the same district `[game-data]` `[wiki]` | `game-data+wiki` |
+| Scavengers | `scavengers` | `neutral` | No reliable incident. The only game-data support was `{sa_ep1_135_com_combat}`, a Phantom Liberty courier-loop pool that METHOD §1.3 item 3 excludes. Both work Vista del Rey's chrome and organ trade and Jackie Welles, an ex-Valentino, despised scavs, but that is overlap and one man's antipathy, not a gang-level fight `[game-data]` `[wiki]` `[inferred]` | `wiki+inferred` |
 | Regina Jones | `fixer_regina` | `neutral` | No Valentino-specific gig or lore link found; her gigs are Watson `[inferred]` | `inferred` |
 | Wakako Okada | `fixer_wakako` | `neutral` | No Valentino-specific gig or lore link found `[inferred]` | `inferred` |
 | Sebastian Ibarra (Padre) | `fixer_padre` | `patron` | Ex-Valentino priest; runs the gang's gigs, brokers with 6th Street and Dakota, and stole Ladrillo's blackmail to keep NCPD from toppling the district — while also taking contracts on Valentinos who break the code (Gustavo, José Luis). Protection plus enforcement `[game-data]` `[wiki]` | `game-data+wiki` |
@@ -584,10 +584,11 @@ Design cautions, not redesigns:
     and `mq061_*` are respawn pools, `{wat_kab_com_lizzies_default}` is a customer
     crowd, and `{q305_com_border_crossing_}002` is a scripted crowd. I used
     co-occurrence only to corroborate wiki-attested rows.
-13. **The best game-data evidence of the 6th Street war is Phantom Liberty-era
-    street activity.** `{sa_ep1_135_com_combat}` and `{sa_ep1_141_com_combat}`
-    are 4v4 fights in the Glen; `ma_hey_gle_11` and `ma_std_rcr_05` are base-game
-    shootouts. None is a territory claim.
+13. **The best game-data evidence of the 6th Street war is base-game street
+    activity.** `ma_hey_gle_11` and `ma_std_rcr_05` are 4v4 shootouts. The
+    Phantom Liberty `{sa_ep1_135_com_combat}` and `{sa_ep1_141_com_combat}`
+    pools are courier-loop spawn tables and are not relation evidence
+    (METHOD §1.3 item 3). None of these is a territory claim.
 14. **Phantom Liberty stadium records are set dressing.** `ep1_stadium_valentinos_non_reaction_*`
     are crowd variants by time of day in the Dogtown stadium. They do not
     indicate a Valentino operation in Dogtown.
@@ -686,6 +687,7 @@ Design cautions, not redesigns:
       "role": "Boss (incarcerated; four years left in 2077)",
       "character_record_id": null,
       "location_name": "Prison (off-map)",
+      "presence_class": "off-map",
       "open_world": false,
       "source": "wiki Valentinos Leadership; wiki Campo Orta; Heroes dialogue",
       "confidence": "wiki"
@@ -695,6 +697,7 @@ Design cautions, not redesigns:
       "role": "Interim leader on the street; Orta family seat",
       "character_record_id": "Character.sts_hey_rey_01_gustavo",
       "location_name": "Gustavo Orta's Apartment, Vista del Rey",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_1 registry entry gustavo (phases A_spawn/B/C); Character.sq018_rey_01_gustavo; site 369 sts_hey_rey_01; wiki Nolan Frakes (interim leader); wiki Gustavo Orta",
       "confidence": "game-data+wiki"
@@ -704,6 +707,7 @@ Design cautions, not redesigns:
       "role": "Secondary leader (dies in 2077, comic)",
       "character_record_id": null,
       "location_name": "Badlands (off-map)",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Valentinos Leadership; wiki El Sombrerón; Cyberpunk 2077: You Have My Word",
       "confidence": "wiki+lore"
@@ -713,6 +717,7 @@ Design cautions, not redesigns:
       "role": "High-ranking member; Glen network chief",
       "character_record_id": "Character.ma_hey_gle_02_outpost_miniboss",
       "location_name": "Valentino Alley, the Glen",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "site 42 ma_hey_gle_02 (11 units, default phase); SOCA Chapel; shard Got a problem; wiki Zoe Alonzo",
       "confidence": "inferred+wiki"
@@ -722,6 +727,7 @@ Design cautions, not redesigns:
       "role": "High-ranking member; Zoe's field commander",
       "character_record_id": "Character.ma_hey_gle_02_valentinos_grunt2_ranged2_ajax_ma_Rogelio_Cruz",
       "location_name": "Valentino Alley, the Glen",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_1 registry entry ganger_04 (phase default, spot #ma_hey_gle_02_ws_ganger_04_a); roster site 42; wiki Rogelio Cruz",
       "confidence": "game-data+wiki"
@@ -731,6 +737,7 @@ Design cautions, not redesigns:
       "role": "High-ranking member; Mercado Sonora smuggling chief",
       "character_record_id": "Character.ma_hey_rey_06_outpost_miniboss",
       "location_name": "Mercado Sonora, Vista del Rey",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "site 66 ma_hey_rey_06 (12 units); SOCA Vista del Rey; wiki Miguel Rodriguez",
       "confidence": "inferred+wiki"
@@ -740,6 +747,7 @@ Design cautions, not redesigns:
       "role": "High-ranking member (imprisoned, then killed by his lieutenant)",
       "character_record_id": null,
       "location_name": "Downtown (shard only)",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Valentinos Members; shards Dario Sanchez/Claudio Moreno and Claudio Moreno/Aaron McCarlson",
       "confidence": "wiki"
@@ -749,6 +757,7 @@ Design cautions, not redesigns:
       "role": "Downtown crew chief; Dario's lieutenant",
       "character_record_id": "Character.ma_cct_dtn_02_claudio_moreno",
       "location_name": "Corporation St, Downtown",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_1 registry entry enemy01 (phases start); site 24 ma_cct_dtn_02 (5 units); wiki Claudio Moreno",
       "confidence": "game-data+wiki"
@@ -874,7 +883,7 @@ Design cautions, not redesigns:
     {
       "faction_code": "sixth_street",
       "stance": "war",
-      "evidence": "Turf war since at least 2071 (Westbrook firefight), escalated in 2074 over Vista del Rey and intensifying in 2077; 6th Street ambushed Gustavo and shot Martha; Nolan Frakes put a contract on Gustavo; game data: ma_hey_gle_11, ma_std_rcr_05, sa_ep1_135/141 4v4 Glen fights [game-data] [wiki]",
+      "evidence": "Turf war since at least 2071 (Westbrook firefight), escalated in 2074 over Vista del Rey and intensifying in 2077; 6th Street ambushed Gustavo and shot Martha; Nolan Frakes put a contract on Gustavo; game data: ma_hey_gle_11, ma_std_rcr_05, sa_ep1_141 4v4 Glen fights [game-data] [wiki]",
       "confidence": "game-data+wiki"
     },
     {
@@ -933,9 +942,9 @@ Design cautions, not redesigns:
     },
     {
       "faction_code": "scavengers",
-      "stance": "rival",
-      "evidence": "Compete in Vista del Rey; sa_ep1_135_com_combat is a three-way with Scavengers and 6th Street; ex-member Jackie Welles's antipathy; organ harvesting in the same district [game-data] [wiki]",
-      "confidence": "game-data+wiki"
+      "stance": "neutral",
+      "evidence": "No reliable incident. The only game-data support was sa_ep1_135_com_combat, a Phantom Liberty courier-loop pool that METHOD 1.3 item 3 excludes. Both work Vista del Rey's chrome and organ trade and Jackie Welles, an ex-Valentino, despised scavs, but that is overlap and one man's antipathy, not a gang-level fight [game-data] [wiki] [inferred]",
+      "confidence": "wiki+inferred"
     },
     {
       "faction_code": "fixer_regina",

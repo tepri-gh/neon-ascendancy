@@ -660,6 +660,7 @@ Design cautions, not redesigns:
       "role": "Boss (2077, after coup)",
       "character_record_id": "Character.Royce",
       "location_name": "All Foods Plant / Totentanz",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry (Character.Royce, Character.q003_royce_boss); markers q003_mp_royce_bossfight_start, royce_sm_default, sq011_07a_sm_royce; wiki Simon Randall",
       "confidence": "game-data+wiki"
@@ -669,6 +670,7 @@ Design cautions, not redesigns:
       "role": "Deposed boss / rival claimant (2070s-2077)",
       "character_record_id": "Character.Brick",
       "location_name": "All Foods Plant (cell)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry entry brick, initial phase q003_brick_hiding; marker q003_mp_brick_prison_door_terminal; wiki Declan Griffin",
       "confidence": "game-data+wiki"
@@ -678,6 +680,7 @@ Design cautions, not redesigns:
       "role": "Royce's lieutenant; deal-maker and gatekeeper",
       "character_record_id": "Character.DumDum",
       "location_name": "All Foods Plant / Totentanz",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry entry DumDum; markers dumdum_sm_default, q003_spwn_player_walk_dumdum; wiki Dum Dum",
       "confidence": "game-data+wiki"
@@ -687,6 +690,7 @@ Design cautions, not redesigns:
       "role": "Brick's lieutenant; succession leader",
       "character_record_id": "Character.sq011_patricia",
       "location_name": "Totentanz",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry entry sq011_patricia; area {sq011_patricia} at -1734.0,2217.8,82.2; wiki Patricia",
       "confidence": "game-data+wiki"

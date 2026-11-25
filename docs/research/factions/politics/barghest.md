@@ -27,6 +27,18 @@ Evidence tags used throughout:
 | `[wiki]` | Cyberpunk Wiki page (cited inline) | Secondary, high |
 | `[lore]` | Book/comic/tabletop lore with no verified in-game artifact | Tertiary |
 | `[inferred]` | My reasoning links a named person, place or stance to a record; reasoning stated | Weak, flagged |
+| `[design]` | Required by this mod's alternate timeline in `docs/design/gameplay-systems.md` §7, not by 2.5 canon | Canon for the mod |
+
+**Timeline convention, and the single biggest change to this document.** The
+body records 2.5 canon so the records, phases and markers stay checkable. But
+Phantom Liberty's Songbird/Space Force One arc is removed by this mod, and per
+`docs/design/gameplay-systems.md` §7 **Kurt Hansen is alive and leads
+Barghest**. That inverts the canon frame: canon is a story about who inherits
+after Hansen dies, and this document's canon sections describe that contest.
+In the mod, **Barghest starts stable under Hansen**; the Bennett-versus-Jago
+succession is a *branch* — what happens if Hansen falls — not the starting
+state. The branches in §1.8 are kept as contingency planning, and every
+"Hansen dies" statement below is a canon branch, not the mod's present.
 
 Extra conventions for this document:
 
@@ -53,13 +65,15 @@ Extra conventions for this document:
 
 Barghest is a **militia**, not a street gang and not a corporation. It has one
 commander, a small veteran elite, a conventional officer corps, and a mass of
-recruits. The chain below is the 2077 state, before Hansen's death.
+recruits. The chain below is the mod's 2077 state: **Hansen alive and in
+command**, with the officer corps beneath him. Canon has this chain break apart
+after `Firestarter`; the mod keeps it intact.
 
 | Name | 2077 role | Character record | Location / influence point | Presence class | Source | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Kurt Hansen** | Colonel; founder, commander and de facto ruler of Dogtown | `Character.kurtz`; boss variant `Character.q304_kurt_miniboss`; memory variant `Character.kurt_hallucination` | Black Sapphire (floor 99), EBM Stadium deal room, Dogtown north gate, stadium market | `story` | Raw registry entry `kurtz` (phases `q301_01_start`, `q301_04_start`, `q301_blackmarket_announcement`, `q303_casino`, `q303_restaurant_host`; spots `#q301_ws_01_kurtz`, `#q301_ws_04_kurtz`, `#q301_ws_02a_kurt_announcement`, `#q303_ws_kurt_paradise_casino`, `#q304_07_ws_kurt_deal_start`); entry `kurtz_miniboss` → `Character.q304_kurt_miniboss`; `#q305_ws_hallucination_kurt`; wiki *Kurt Hansen* | `[game-data]` `[wiki]` |
-| **Chester Bennett** | Lieutenant Colonel; commander of the armed forces; Hansen's chief aide; successor claimant | `Character.mq304_bennett`; party variant `Character.q303_paradise_bennett` | Black Sapphire (party, Hansen's wake), Stadium escape | `story` | Registry entry `bennett` (phases `mq304_01_meeting`, `mq304_after_combat_alley`, `mq304_wake_booth`, `mq304_wake_start`; spots `#mq304_ws_bennett_meeting`, `#mq304_ws_bennett_wake_booth`); entry `25_kurt_bennett` → `Character.q303_paradise_bennett`; wiki *Chester Bennett* | `[game-data]` `[wiki]` |
-| **Jago Szabó** | Chief accountant ("treasurer"); successor claimant | `Character.mq304_jago`; party variant `Character.q303_paradise_jago` | Luxor Heights (Voodoo Boys meeting), Black Sapphire (party, wake), Stadium | `story` | Registry entry `jago` (phases `meeting_arrive`, `meeting_spawn`, `q301_border`, `wake_bennett`, `wake_booth`; spots `#mq304_ws_jago_vdb_arrive`, `#q301_ws_01_jago_gate_cargo`, `#mq304_ws_jago_wake_booth`); wiki *Jago Szabó* | `[game-data]` `[wiki]` |
+| **Kurt Hansen** | Colonel; founder, commander and de facto ruler of Dogtown. **Alive and in command in the mod timeline**; canon kills him in `Firestarter` | `Character.kurtz`; boss variant `Character.q304_kurt_miniboss`; memory variant `Character.kurt_hallucination` | Black Sapphire (floor 99), EBM Stadium deal room, Dogtown north gate, stadium market | `story` | Raw registry entry `kurtz` (phases `q301_01_start`, `q301_04_start`, `q301_blackmarket_announcement`, `q303_casino`, `q303_restaurant_host`; spots `#q301_ws_01_kurtz`, `#q301_ws_04_kurtz`, `#q301_ws_02a_kurt_announcement`, `#q303_ws_kurt_paradise_casino`, `#q304_07_ws_kurt_deal_start`); entry `kurtz_miniboss` → `Character.q304_kurt_miniboss`; `#q305_ws_hallucination_kurt`; wiki *Kurt Hansen* | `[game-data]` `[wiki]` |
+| **Chester Bennett** | Lieutenant Colonel; commander of the armed forces; Hansen's chief aide; **successor claimant only if Hansen falls** | `Character.mq304_bennett`; party variant `Character.q303_paradise_bennett` | Black Sapphire (party, Hansen's wake), Stadium escape | `story` | Registry entry `bennett` (phases `mq304_01_meeting`, `mq304_after_combat_alley`, `mq304_wake_booth`, `mq304_wake_start`; spots `#mq304_ws_bennett_meeting`, `#mq304_ws_bennett_wake_booth`); entry `25_kurt_bennett` → `Character.q303_paradise_bennett`; wiki *Chester Bennett* | `[game-data]` `[wiki]` |
+| **Jago Szabó** | Chief accountant ("treasurer"); **successor claimant only if Hansen falls** | `Character.mq304_jago`; party variant `Character.q303_paradise_jago` | Luxor Heights (Voodoo Boys meeting), Black Sapphire (party, wake), Stadium | `story` | Registry entry `jago` (phases `meeting_arrive`, `meeting_spawn`, `q301_border`, `wake_bennett`, `wake_booth`; spots `#mq304_ws_jago_vdb_arrive`, `#q301_ws_01_jago_gate_cargo`, `#mq304_ws_jago_wake_booth`); wiki *Jago Szabó* | `[game-data]` `[wiki]` |
 | **Albert Murphy** | High-ranking old-guard officer; Hansen's "approachable side", negotiator and enforcer of the district's order | `Character.kruger_combat` (registry entry **`murphy`**) | EBM Stadium (market escape) | `story` | Registry entry `murphy` → `Character.kruger_combat`, phase `q304_01_start`, spot `#q304_ws_escape_murphy_boss`; wiki *Albert Murphy*; FIA photo board | `[game-data]` `[wiki]` |
 | **Yuri Bychkov** | Lieutenant; old guard; convoy/generator command; out of favour in 2077 | No character record found (appearance and photo only) | Black Sapphire garrison, Stadium | `story` | Wiki *Yuri Bychkov*; `Balls to the Wall`; FIA photo board | `[wiki]` |
 | **Leon Rinder** | Old guard; founding member; cyberpsychotic ex-member | No character record found | Longshore Stacks (crime scene), Los Osos Motel (West Wind Estate) | `world-activity` | Wiki *Leon Rinder*; `Gig: The Man Who Killed Jason Foreman` (`baseid sts_ep1_03`); FIA photo board | `[wiki]` `[game-data]` |
@@ -72,22 +86,26 @@ survival depends on V. The branches are in §1.8.
 
 ### 1.2 Succession history: one founder, no institution
 
-Barghest has had exactly one change of leadership, and it happens inside the
-Phantom Liberty story. The line is short and that is the political fact.
+Barghest has had exactly one change of leadership in canon, and it happens
+inside the Phantom Liberty story. This mod removes that story, so in the mod
+there has been **no change at all**: Hansen still holds the seat. The line
+below records the canon event as history/branch.
 
 | Period | Leader | How the position was held |
 | --- | --- | --- |
 | 2067–2070 | **Colonel Kurt Hansen** (Militech) | Given command of the Barghest urban-combat and pacification unit. `[wiki]` |
 | 2070 | **Hansen, mutineer** | Ordered to withdraw from Pacifica on 9 June 2070; refused with the entire unit; ignored the Arvin Accord and kept the stadium foothold. `[wiki]` |
-| 2070–2077 | **Hansen, warlord** | Founded Barghest from the veterans, then mercenaries, then renegade gangers and street kids. Ran Dogtown as army, customs, police and arms dealer. `[wiki]` |
-| 2077 | **Vacancy** | Hansen dies in `Firestarter` on every branch (killed by Alex, killed in the boss fight, or assassinated in hospital / "caught a stray bullet"). `[wiki]` |
-| 2077 | **Chester Bennett** or **Jago Szabó** | Open contest decided in `Run This Town`, with Mr. Hands backing Bennett. `[wiki]` |
+| 2070–present (mod) | **Hansen, warlord** | Founded Barghest from the veterans, then mercenaries, then renegade gangers and street kids. Runs Dogtown as army, customs, police and arms dealer. **Still in command in this mod's timeline.** `[wiki]` `[design]` |
+| 2077 (canon branch) | **Vacancy** | In canon Hansen dies in `Firestarter` on every branch (killed by Alex, killed in the boss fight, or assassinated in hospital / "caught a stray bullet"). That whole arc is removed here; treat this row as the "what if Hansen falls" contingency. `[wiki]` |
+| 2077 (canon branch) | **Chester Bennett** or **Jago Szabó** | The open contest decided in `Run This Town`, with Mr. Hands backing Bennett. A contingency for a Hansen-less Dogtown, not the mod's starting state. `[wiki]` |
 
-There is no council, no vote and no designated deputy. The succession is an
-armed contest between the commander of the forces and the chief accountant,
-arbitrated from outside by a fixer and a mercenary. For a simulation this is
-the cleanest possible succession event: **remove the founder and the faction
-splits into two named blocs with different external policies** (§2.3).
+There is no council, no vote and no designated deputy. In canon the succession
+is an armed contest between the commander of the forces and the chief
+accountant, arbitrated from outside by a fixer and a mercenary. In this mod
+that contest is latent: Hansen is alive, so the blocs exist but are held in
+place by his personal rule. For a simulation it is the cleanest possible
+**succession event template**: **remove the founder and the faction splits into
+two named blocs with different external policies** (§2.3).
 
 ### 1.3 Rank structure, recruitment and advancement
 
@@ -230,8 +248,8 @@ roam with the campaign disabled.**
 
 **`historical` — not in 2077.**
 - None of the leadership is historical: the militia is only seven years old
-  and the founder is alive until `Firestarter`. The dead are 2077 dead, not
-  historical dead. `[wiki]`
+  and the founder is alive throughout this mod. Even in canon the dead are 2077
+  dead, not historical dead. `[wiki]`
 
 Caveat: "campaign disabled" is a heuristic. If the mod disables gigs and
 scanner activities along with the main quest, the `world-activity` rows drop
@@ -287,8 +305,12 @@ water, aid). Every internal bloc in §2 is a claim on one of those monopolies.
 
 ### 1.8 Phantom Liberty branches that change the leadership
 
-Every row below is a V-dependent outcome. A simulation must choose a branch or
-model the branches explicitly; it must not silently pick one.
+Every row below is a V-dependent canon outcome. **This mod removes Phantom
+Liberty's Songbird/Space Force One arc, so none of these branches fires in the
+mod's timeline.** They are kept because they are the best-specified contingency
+plan for a Hansen-less Dogtown: if a simulation removes Hansen, the branches
+say exactly what a Bennett or Jago Dogtown looks like. Do not treat the
+"Effect" column as the mod's starting state.
 
 | Quest | Branch | Effect on the leadership |
 | --- | --- | --- |
@@ -307,10 +329,13 @@ model the branches explicitly; it must not silently pick one.
 | `Balls to the Wall` | V tells Paco to frame Yuri | Paco is executed; his body is hung at The Needle. `[wiki]` |
 | `Balls to the Wall` | V helps Paco leave | Paco flees (or joins the Scavengers); Babs stays or leaves. `[wiki]` |
 
-**One structural note.** Hansen dies on *every* branch. Phantom Liberty is not
-a story in which the player can keep him; it is a story about who inherits.
-That makes Barghest the most simulation-ready faction in the set: the
-succession is canonical, not hypothetical.
+**One structural note, and the mod's key inversion.** In canon Hansen dies on
+*every* branch — Phantom Liberty is not a story in which the player can keep
+him, but a story about who inherits. **In this mod the arc is removed and
+Hansen rules.** So Barghest starts stable, and the succession is a designed
+contingency rather than the canonical present. That still makes it the most
+succession-ready faction in the set: if a simulation needs a succession event,
+the Bennett/Jago contest is fully specified below (§2.3).
 
 ---
 
@@ -357,10 +382,11 @@ legitimacy**. Bennett straddles it: a Midnight Storm Marine and the commander
 of the forces, but not labelled one of the six squadmates. That ambiguity is
 exactly why he is the "obvious" successor and exactly why Jago can contest him.
 
-### 2.3 Bennett versus Jago: the 2077 succession
+### 2.3 Bennett versus Jago: the succession branch (if Hansen falls)
 
-`Run This Town` is the faction's internal war, and it is unusually
-well-instrumented.
+`Run This Town` is the faction's internal war in canon, and it is unusually
+well-instrumented. In this mod it is the **contingency**: it fires only if a
+simulation removes Hansen. Read it as the blueprint for a post-Hansen Dogtown.
 
 - **Bennett's case:** commander of the armed forces, Hansen's chief aide,
   military continuity. Mr. Hands prefers him and calls Jago "immature": "a
@@ -464,8 +490,9 @@ wants him dead. That is the civil layer's price for the militia's protection.
 
 Evidence-based drivers, in rough order of plausibility:
 
-1. **The succession.** Hansen's death opens a two-way contest (Bennett vs
-   Jago) with a peace branch. Each candidate has a different external policy.
+1. **A succession, if Hansen falls.** Hansen is alive in this mod, so the seat
+   is occupied. Removing him opens the two-way contest (Bennett vs Jago) with a
+   peace branch. Each candidate has a different external policy.
 2. **Veteran versus revenue legitimacy.** The six old guard versus the men who
    bought their rank. Bychkov's resentment, Rinder's expulsion and Dodger's
    "right hand" claim are all expressions of it.
@@ -554,7 +581,7 @@ and the community places them (`q303_paradise_jotaro`, `q303_paradise_6th_street
 | Rogue Amendiares | `fixer_rogue` | `neutral` | No Barghest-specific gig or lore link found; Afterlife is neutral ground `[inferred]` | `inferred` |
 | Mr. Hands | `fixer_mr_hands` | `trade` | Keeps a suite at Heavy Hearts and runs Dogtown gigs from it `[wiki]` `[game-data]`; brokers the succession in `Run This Town`, preferring Bennett and paying V to steer it `[wiki]`; "he operates out of there" is the reason a gig tells V not to cause trouble at the club `[wiki]` | `game-data+wiki` |
 | Afterlife | `afterlife` | `neutral` | Neutral merc marketplace; no Barghest-specific link `[inferred]` | `inferred` |
-| NUSA | `nusa` | `war` | Hansen arranged with Songbird to shoot down Space Force One and kill President Myers `[wiki]` `[game-data]`; FIA agents Reed and Alex run a safehouse and a leadership photo board in The Moth `[wiki]`; the NUSA white paper rates Dogtown "a Level 2 threat to NUS security interests" and names Militech deserters and covert Arasaka/Zetatech operations as subjects of interest `[wiki]`; the crash site holds 45 NUSA records `[game-data]` | `game-data+wiki` |
+| NUSA | `nusa` | `hostile` | The standing rupture is the 2070 mutiny: the NUSA ordered Hansen's unit to withdraw from Pacifica, the whole unit refused and kept the stadium foothold against the state that commanded it, and the council later walled Dogtown off. The NUSA white paper rates Dogtown "a Level 2 threat to NUS security interests" and names Militech deserters as a subject of interest `[wiki]`. Canon adds Hansen's deal with Songbird to shoot down Space Force One and the FIA safehouse in The Moth, but Phantom Liberty's arc is removed by this mod, so those are history, not evidence `[game-data]` `[design]` | `game-data+wiki+design` |
 | NetWatch | `netwatch` | `neutral` | An undercover NetWatch agent (Alan Noël) runs an operation against the Dogtown Voodoo Boys from the Luxor spa without Barghest interference `[wiki]` `[game-data]`; NetWatch's Blackwall mandate intersects the Blackwall AI and neural matrix Hansen held `[wiki]`; no direct contact is attested. One NetWatch area in Coastview (`ma_pac_cvi_10_drone_com`) `[game-data]` | `game-data+inferred` |
 
 ### 3.3 The hub-and-spoke economy behind the matrix
@@ -1191,9 +1218,9 @@ These are improvements the next agent should fold into
     },
     {
       "faction_code": "nusa",
-      "stance": "war",
-      "evidence": "Hansen arranged with Songbird to shoot down Space Force One and kill President Myers [wiki] [game-data]; FIA agents Reed and Alex run a safehouse and a leadership photo board in The Moth [wiki]; the NUSA white paper rates Dogtown a Level 2 threat to NUS security interests and names Militech deserters and covert Arasaka/Zetatech operations [wiki]; the crash site holds 45 NUSA records [game-data]",
-      "confidence": "game-data+wiki"
+      "stance": "hostile",
+      "evidence": "The standing rupture is the 2070 mutiny: the NUSA ordered Hansen's unit to withdraw from Pacifica, the whole unit refused and kept the stadium foothold against the state that commanded it, and the council later walled Dogtown off. The NUSA white paper rates Dogtown a Level 2 threat to NUS security interests and names Militech deserters as a subject of interest [wiki]. Canon adds Hansen's deal with Songbird to shoot down Space Force One and the FIA safehouse in The Moth, but Phantom Liberty's arc is removed by this mod, so those are history, not evidence [game-data] [design]",
+      "confidence": "game-data+wiki+design"
     },
     {
       "faction_code": "netwatch",

@@ -20,6 +20,17 @@ Evidence tags used throughout:
 | `[wiki]` | Cyberpunk Wiki page (cited inline) | Secondary, high |
 | `[lore]` | Book/comic/tabletop lore with no verified in-game artifact | Tertiary |
 | `[inferred]` | My reasoning links a named person, place or stance to a record; reasoning stated | Weak, flagged |
+| `[design]` | Required by this mod's alternate timeline in `docs/design/gameplay-systems.md` §7, not by 2.5 canon | Canon for the mod |
+
+Timeline convention for this document: the body records 2.5 canon so the
+records, phases and markers stay checkable. Where a canon *current state*
+depends on an event this mod removes — the Konpeki heist, the Relic plot,
+Phantom Liberty's Songbird/Space Force One arc — the text says so and treats
+that state as a branch or as history. Per
+`docs/design/gameplay-systems.md` §7 neither happens, so the Relic is never
+stolen and **Brigitte never gets her Blackwall bargaining chip that way**.
+Presence classes and records are unchanged, because they describe what the
+game spawns, not what the mod's story asserts.
 
 Extra convention for this document only: **presence class**.
 `ambient` = persists in free roam without a quest; `world-activity` = gig,
@@ -42,7 +53,7 @@ enforcement wing, and a separate Dogtown cell — not a formal rank ladder.
 
 | Name | 2077 role | Character record | Location / influence point | Presence class | Source | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
-| **Maman Brigitte** (Brigitte, "Mama") | Leader of the Coastview Voodoo Boys; netrunner; the wiki database calls her the gang's *chéfine* | `Character.Voodoo_Queen` (holocall/world actor); `Character.q105_voodoo_queen` (braindance actor); `Character.Voodoo_Queen_dead` (dead-state variant) | Batty's Hotel, Pacifica Serenity Bible Church, Old Maglev Tunnel / Rezo Agwe | `story` | Raw `always_loaded_1` `SpawnSet_#voodoo_queen` and `SpawnSet_#maman_brigitte_holo`; raw `always_loaded_0` `{q105_com_voodoo_queen}`; wiki *Maman Brigitte* | `[game-data]` `[wiki]` |
+| **Maman Brigitte** (Brigitte, "Mama") | Leader of the Coastview Voodoo Boys; netrunner; the wiki database calls her the gang's *chéfine*. Canon has her die on V-dependent branches; the mod's timeline removes the Relic route that opens them | `Character.Voodoo_Queen` (holocall/world actor); `Character.q105_voodoo_queen` (braindance actor); `Character.Voodoo_Queen_dead` (dead-state variant) | Batty's Hotel, Pacifica Serenity Bible Church, Old Maglev Tunnel / Rezo Agwe | `story` | Raw `always_loaded_1` `SpawnSet_#voodoo_queen` and `SpawnSet_#maman_brigitte_holo`; raw `always_loaded_0` `{q105_com_voodoo_queen}`; wiki *Maman Brigitte* | `[game-data]` `[wiki]` |
 | **Placide** | Second-in-command; enforcer, gatekeeper and deal-maker | `Character.Placide` (also `Character.Holocall_Placide`; `placideFakeDefault` is a fake, not a second Placide) | Batty's Hotel, Rolland's Butcher Shop, the netrunners' den, the chapel | `story` | Raw `always_loaded_1` `SpawnSet_#placide`; markers `q110_02_sm_placide_butcher`, `110_mp_placide_gate_hacking`; wiki *Placide* | `[game-data]` `[wiki]` |
 | **Wilky "Slider" LaGuerre** | Leader of the Dogtown Voodoo Boys; netrunner; Brigitte's former right hand | No named 2077 record found | Slider's Hideout, Eventide Resort & Spa (Dogtown) | `story` | Wiki *Slider*; quest `q303_baron` (*The Damned*); Eventide computers | `[wiki]` |
 | **Ayo Zarin** | Slider's right hand; Dogtown lieutenant (south wing) | `Character.we_ep1_05_mini_boss` (inferred; the only boss record in the `we_ep1_05` activity) | Luxor High Wellness Spa, south side (Dogtown) | `world-activity` | Site `we_ep1_05`; raw `Character.we_ep1_05_mini_boss`; wiki *Ayo Zarin* | `[game-data]` `[inferred]` `[wiki]` |
@@ -55,7 +66,9 @@ The wiki marks Brigitte, Placide, Slider, Ayo Zarin, Milko, Ti Neptune and most
 2077 named characters "dependent": their survival depends on V's choices in
 *I Walk the Line*, *Transmission*, *The Damned* and *Gig: Treating Symptoms*.
 That is not a source defect — it is the canonical picture of a leadership whose
-top can be removed by an outsider, a NetWatch operation or an AI.
+top can be removed by an outsider, a NetWatch operation or an AI. This mod's
+timeline removes the Relic chain those stories hang on, so the *canon* branch
+deaths are history; the faction's actual fragility is unchanged.
 
 ### 1.2 Succession history: schism, not coup
 
@@ -237,8 +250,10 @@ This is the faction's defining internal conflict, and it is cleanly documented:
 
 - **Brigitte's line:** the Blackwall will eventually crumble; the Voodoo Boys
   should get close to the rogue AIs now so they are on the winning side when it
-  happens. She probes the Blackwall, hires Evelyn Parker to steal the Relic, and
-  ultimately uses V to contact Alt Cunningham. `[wiki]`
+  happens. Canon has her hire Evelyn Parker to steal the Relic — *the mod's
+  timeline removes the Relic theft* — and ultimately use V to contact Alt
+  Cunningham. The Blackwall-Proximity doctrine itself survives; only its Relic
+  step is gone. `[wiki]` `[design]`
 - **Slider's line:** the Blackwall project is too dangerous. He was Brigitte's
   right hand, but "ideological differences arose"; he preferred to stay away
   from NetWatch agents and focus on "corporate heists and assassinations via
@@ -415,7 +430,7 @@ friendship.
 | --- | --- | --- | --- | --- |
 | Tyger Claws | `tyger_claws` | `neutral` | No attested conflict. Voodoo Boys bootleg hacks are sold "under the counter in Kabuki" (Tyger Claws turf) and a Voodoo Boys recruitment shard sits in Little China (`ma_wat_lch_10`), but these are commercial adjacency, not a feud `[wiki]` `[game-data]` | `[game-data]` `[inferred]` |
 | Valentinos | `valentinos` | `neutral` | No attested interaction; different district (Heywood) `[inferred]` | `[inferred]` |
-| Arasaka | `arasaka` | `hostile` | Voodoo Boys hired Evelyn Parker to steal the Relic prototype from Yorinobu Arasaka `[wiki]`; corporate databank theft is their primary income `[wiki]`; Slider refuses jobs against Arasaka as too dangerous `[wiki]` | `[wiki]` |
+| Arasaka | `arasaka` | `neutral` | No attested incident once the timeline is applied. In 2.5 canon the gang hired Evelyn Parker to steal the Relic prototype from Yorinobu Arasaka, but this mod removes the Relic plot, so that operation never happens. What remains is generic: corporate databank theft is their primary income and Slider refuses Arasaka jobs as too dangerous, which is opportunism plus caution, not a vendetta `[wiki]` `[design]` | `wiki+design` |
 | Militech | `militech` | `rival` | Militech combat robots found at the Luxor spa; the NetWatch search report flags possible corporate espionage or sabotage `[game-data]` `[wiki]`; corporate data theft targets Militech among others `[wiki]`; Slider refuses Militech jobs `[wiki]`. No direct firefight attested | `[game-data]` `[wiki]` |
 | Kang Tao | `kang_tao` | `neutral` | No specific operation attested; only generic corporate data theft `[inferred]` | `[inferred]` |
 | Biotechnica | `biotechnica` | `neutral` | No specific operation attested `[inferred]` | `[inferred]` |
@@ -442,9 +457,11 @@ friendship.
 | Afterlife | `afterlife` | `neutral` | Neutral merc marketplace; no Voodoo Boys-specific link `[inferred]` | `[inferred]` |
 | NetWatch | `netwatch` | `war` | NetWatch maintains the Blackwall and hunts rogue netrunners/AI contact `[wiki]`; Bryce Mosley maps and shuts down Rezo Agwe and freezes Brigitte and Ti `[wiki]`; Alan Noël infiltrates the Dogtown cell `[wiki]`; Placide's virus targets NetWatch agents `[wiki]`; NetWatch agents are present across the city (`cvi/kab/cpz_netwatch_agent_*`) `[game-data]` | `[game-data]` `[wiki]` |
 
-**Counts:** `war` 1, `hostile` 4, `rival` 1, `trade` 2, `neutral` 20. No `ally`,
+**Counts:** `war` 1, `hostile` 3, `rival` 1, `trade` 2, `neutral` 21. No `ally`,
 `patron` or `client` row among the coded factions. The Voodoo Boys' only
-patron-like relationship is with the un-coded Haitian community (§3.3).
+patron-like relationship is with the un-coded Haitian community (§3.3). The
+Arasaka row dropped from `hostile` to `neutral` because its only evidence, the
+Relic theft, is removed by the mod's timeline.
 
 ### 3.3 Actors outside `data/factions.json`
 
@@ -457,9 +474,10 @@ These are real relationships but have no faction code, so they are prose only.
   `[wiki]`
 - **The "shadows"** — the gang's needle-armed, hologram-skulled assassins. An
   internal specialist cadre, not a faction. `[wiki]`
-- **Evelyn Parker** — a Clouds doll hired by the Voodoo Boys to locate the
-  Relic, then remotely hacked by Brigitte to keep her quiet. A one-off
-  **client/asset**, then a victim; not a faction. `[wiki]`
+- **Evelyn Parker** — a Clouds doll. In canon the Voodoo Boys hired her to
+  locate the Relic and then remotely hacked her to keep her quiet; the mod's
+  timeline removes that Relic job, so in the mod she is simply a Clouds doll
+  with a professional grievance, not their client/asset. `[wiki]` `[design]`
 - **Bryce Mosley** — the NetWatch agent who maps Rezo Agwe. An individual; the
   NetWatch row covers the institution. `[wiki]`
 - **Alan Noël** — the NetWatch mole inside Milko's cell. An individual power
@@ -664,6 +682,7 @@ Design cautions, not redesigns:
       "role": "Leader of the Coastview Voodoo Boys; netrunner; chefine",
       "character_record_id": "Character.Voodoo_Queen",
       "location_name": "Batty's Hotel / Pacifica Serenity Bible Church / Old Maglev Tunnel (Rezo Agwe)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 SpawnSet_#voodoo_queen (Character.Voodoo_Queen), SpawnSet_#maman_brigitte_holo (Character.Voodoo_Queen); raw always_loaded_0 {q105_com_voodoo_queen} (Character.q105_voodoo_queen, BD actor); wiki Maman Brigitte",
       "confidence": "game-data+wiki"
@@ -673,6 +692,7 @@ Design cautions, not redesigns:
       "role": "Second-in-command; enforcer and gatekeeper",
       "character_record_id": "Character.Placide",
       "location_name": "Batty's Hotel / Rolland's Butcher Shop / netrunners' den / chapel",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 SpawnSet_#placide (Character.Placide; Character.Holocall_Placide; placideFakeDefault is a fake); markers q110_02_sm_placide_butcher and 110_mp_placide_gate_hacking; wiki Placide",
       "confidence": "game-data+wiki"
@@ -682,6 +702,7 @@ Design cautions, not redesigns:
       "role": "Leader of the Dogtown Voodoo Boys; netrunner; Brigitte's former right hand",
       "character_record_id": null,
       "location_name": "Slider's Hideout, Eventide Resort & Spa (Dogtown)",
+      "presence_class": "story",
       "open_world": false,
       "source": "wiki Slider; quest q303_baron (The Damned); Eventide Resort & Spa/Computers; no named character record found in raw always_loaded_*",
       "confidence": "wiki"
@@ -691,6 +712,7 @@ Design cautions, not redesigns:
       "role": "Slider's right hand; Dogtown lieutenant (south wing)",
       "character_record_id": "Character.we_ep1_05_mini_boss",
       "location_name": "Luxor High Wellness Spa (south side), Dogtown",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "site we_ep1_05 (Increased Criminal Activity: Voodoo Boys) boss entry; raw always_loaded_1 Character.we_ep1_05_mini_boss; wiki Ayo Zarin; record mapping inferred",
       "confidence": "game-data+inferred+wiki"
@@ -700,6 +722,7 @@ Design cautions, not redesigns:
       "role": "Dogtown netrunner; blackmail boss (north wing)",
       "character_record_id": "Character.sts_ep1_12_milko_alexis",
       "location_name": "Luxor High Wellness Spa (north side), Dogtown",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_0 {sts_ep1_12_main_com} entry milko_alexis (Character.sts_ep1_12_milko_alexis); site 362 roster; wiki Milko Alexis",
       "confidence": "game-data+wiki"
@@ -709,6 +732,7 @@ Design cautions, not redesigns:
       "role": "Netrunner; Brigitte's close aide",
       "character_record_id": "Character.q110_tineptune",
       "location_name": "Old Maglev Tunnel (Rezo Agwe), Coastview",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 SpawnSet_#q110_tineptune (Character.q110_tineptune); wiki Ti Neptune",
       "confidence": "game-data+wiki"
@@ -718,6 +742,7 @@ Design cautions, not redesigns:
       "role": "Senior/elder netrunners in the data fortress; collective",
       "character_record_id": null,
       "location_name": "Old Maglev Tunnel / elders' lair (Rezo Agwe), Coastview",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 SpawnSet_#q110_com_vdb_elders (Character.q110_vdb_elder_1..5 and _dead variants); prefab {loc_q110_elders_lair}; political role inferred",
       "confidence": "game-data+inferred"
@@ -727,7 +752,7 @@ Design cautions, not redesigns:
     {
       "name": "Brigitte's Coastview inner circle (Blackwall idealists)",
       "leader": "Maman Brigitte",
-      "goals": "Pierce the Blackwall, contact Alt Cunningham and the rogue AIs, secure safe passage for the gang, and keep the Relic project alive",
+      "goals": "Pierce the Blackwall, contact Alt Cunningham and the rogue AIs, secure safe passage for the gang, and keep the Blackwall-proximity project alive (canon's Relic route is removed by the mod's timeline)",
       "members_hint": "Placide, Ti Neptune, Jean-ki-ri, Leon, the five elders, the chapel congregation; q110_com_netrunners_den_vdb_bg 6, q110_com_voodoo_boys_chapel 5, q110_lairs_escape_voodoo_boys 7 + reinforcement 6 (overlapping quest phases)",
       "source": "wiki Voodoo Boys, Maman Brigitte, Placide, Ti Neptune, Transmission, I Walk the Line; raw q110 communities",
       "confidence": "game-data+wiki"
@@ -788,9 +813,9 @@ Design cautions, not redesigns:
     },
     {
       "faction_code": "arasaka",
-      "stance": "hostile",
-      "evidence": "VDB hired Evelyn Parker to steal the Relic prototype from Yorinobu Arasaka; corporate databank theft is their primary income; Slider refuses jobs against Arasaka as too dangerous [wiki]",
-      "confidence": "wiki"
+      "stance": "neutral",
+      "evidence": "No attested incident once the timeline is applied. In 2.5 canon the gang hired Evelyn Parker to steal the Relic prototype from Yorinobu Arasaka, but this mod removes the Relic plot, so that operation never happens. What remains is generic: corporate databank theft is their primary income and Slider refuses Arasaka jobs as too dangerous, which is opportunism plus caution, not a vendetta [wiki] [design]",
+      "confidence": "wiki+design"
     },
     {
       "faction_code": "militech",

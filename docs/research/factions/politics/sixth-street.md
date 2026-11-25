@@ -272,7 +272,7 @@ communities are overlapping phases of one party; do not sum them.
 | **Field captains and the patriotic street culture** | Captain Sherman; Walker; Buck Arnold | Prestige, fighting, turf, recruitment, Gunner's cult of personality | `{mq008_com_shooting}` 14, `{mq008_com_6th_street_party}` 6, `{mq008_com_representative}` 1, `{mq008_com_background}` 1; captain records at sites 153 and 154 | *Stadium Love* (party, shooting contest, membership offer); *Beat on the Brat*; the Members page's captains and champions | `[game-data]` `[wiki]` |
 | **Technical-economic wing (techies, garages, labs)** | Lucius Thoran; site officers | Arms jailbreaking, the Kendachi "Arsenal," vehicle work, drug production, fencing | Sites 384 (15), 389 (15), 125 (13), 416 (12), 382 (10), 368 (8), 379 (6), 131 (5) | *Hacking the Hacker*, *Serious Side Effects*, *Error 404*, *Nasty Hangover*, *Family Heirloom*, *Life's Work* | `[game-data]` `[wiki]` |
 | **Rogue frontier cells** | Olga Longmead; Darius Miles | Personal profit, kidnapping and ransom, drug rings, autonomy outside Gunner's control | Site 153 (13, Olga); site 125 (13, Darius); separate communities with their own bosses | Olga holds hostages "outside the control of 6th Street's General Will Gunner"; Darius runs a drug ring the NCPD treats as a separate target | `[game-data]` `[wiki]` |
-| **Valentinos-war hardliners** | Nolan Frakes; Sam Carter (dead) | Escalate the Vista del Rey war, avenge Martha, push the Valentinos out | Site 57 `ma_hey_gle_11` 4; site 65 `ma_hey_rey_05` 4; `sa_ep1_135_com_combat` 4 vs 4 vs 4 | Nolan ordered the hit on Gustavo; Sam Carter threatened Padre; the war "intensifying" in 2077 | `[game-data]` `[wiki]` |
+| **Valentinos-war hardliners** | Nolan Frakes; Sam Carter (dead) | Escalate the Vista del Rey war, avenge Martha, push the Valentinos out | Site 57 `ma_hey_gle_11` 4; site 65 `ma_hey_rey_05` 4 | Nolan ordered the hit on Gustavo; Sam Carter threatened Padre; the war "intensifying" in 2077 | `[game-data]` `[wiki]` |
 | **Outlying chapters (Glen, Charter Hill, Vista del Rey)** | Local officers (Wicked Tires, Acorn Towers) | Hold revenue outposts in rival districts; survive without heartland support | Site 368 Glen 8; site 416 Charter Hill 12; site 65 Vista del Rey 4; site 47 Glen 6 | Wiki: "other districts under their control had their own local HQs"; the data shows officer-led cells far from Arroyo | `[game-data]` `[wiki]` |
 
 ### 2.2 The 2076 coup: the split that defines 2077
@@ -491,7 +491,7 @@ not claims of friendship.
 | Faction | Code | Stance | Evidence | Confidence |
 | --- | --- | --- | --- | --- |
 | Tyger Claws | `tyger_claws` | `rival` | Acorn Towers lot sits in Tyger Claws-flagged Charter Hill `[game-data]`; Kendal Park carries both a 6th Street community (2 entries) and a Tyger Claws community (4 entries) `[game-data]`; no lore feud attested `[inferred]` | `game-data+inferred` |
-| Valentinos | `valentinos` | `war` | Turf war since at least 2071, escalated over Vista del Rey in 2074, "intensifying" in 2077 `[wiki]`; Sam Carter threatened them and was executed by Padre `[wiki]`; Nolan Frakes ordered the hit that wounded Martha `[wiki]`; game data: `ma_hey_gle_11`, `ma_hey_rey_05`, `sa_ep1_141_com_combat` (4 vs 4), `sa_ep1_135_com_combat` (4 vs 4 vs 4) `[game-data]` | `game-data+wiki` |
+| Valentinos | `valentinos` | `war` | Turf war since at least 2071, escalated over Vista del Rey in 2074, "intensifying" in 2077 `[wiki]`; Sam Carter threatened them and was executed by Padre `[wiki]`; Nolan Frakes ordered the hit that wounded Martha `[wiki]`; game data: `ma_hey_gle_11`, `ma_hey_rey_05`, `sa_ep1_141_com_combat` (4 vs 4) `[game-data]` | `game-data+wiki` |
 | Arasaka | `arasaka` | `neutral` | No 6th Street-specific Arasaka operation found; the Streetkid prologue's Arasaka car theft is Kirk Sawyer's job, not the gang's `[inferred]` | `inferred` |
 | Militech | `militech` | `hostile` | Historical arms supplier `[wiki]`; the H6 cell "jumped a Militech transport" and jailbreaks corporate weapons `[wiki]` `[game-data]`; Gunner ordered the deaths of 6th Streeters held in a Militech prison `[wiki]` | `game-data+wiki` |
 | Kang Tao | `kang_tao` | `hostile` | 6th Street mugged Karl Ginsky for a top-secret Kang Tao shard; Kang Tao agents move to recover it and kill the witnesses `[wiki]` `[game-data]` | `game-data+wiki` |
@@ -507,7 +507,7 @@ not claims of friendship.
 | NCPD | `ncpd` | `hostile` | NCPD runs SOCA/scanner hustles against Darius Miles and Olga Longmead `[game-data]` `[wiki]`; the gang's founding goal was to replace the corrupt NCPD `[wiki]`; but the NCPD tolerates the gang's ersatz law unless it causes trouble outside its turf `[wiki]` | `game-data+wiki` |
 | Night Corp | `night_corp` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | City Council | `city_council` | `trade` | 6th Street runs a server farm pumping pro-Peralez / anti-Holt propaganda (*Error 404*) `[game-data]` `[wiki]`; a political investment, payment not attested `[inferred]` | `game-data+wiki+inferred` |
-| Scavengers | `scavengers` | `rival` | `{sa_ep1_135_com_combat}` is a four-way Glen street fight with 4 Scavengers, 4 6th Streeters, 4 Valentinos and 1 Arasaka `[game-data]`; both compete for Santo Domingo/Arroyo salvage `[wiki]` `[inferred]` | `game-data+wiki+inferred` |
+| Scavengers | `scavengers` | `neutral` | No reliable incident: the only game-data support was `{sa_ep1_135_com_combat}`, a Phantom Liberty courier-loop pool that METHOD §1.3 item 3 excludes. Both compete for Santo Domingo/Arroyo salvage, which is economic overlap only `[wiki]` `[inferred]` | `wiki+inferred` |
 | Regina Jones | `fixer_regina` | `neutral` | No 6th Street-specific gig found; her gigs are Watson `[inferred]` | `inferred` |
 | Wakako Okada | `fixer_wakako` | `neutral` | No 6th Street-specific gig found `[inferred]` | `inferred` |
 | Sebastian Ibarra (Padre) | `fixer_padre` | `hostile` | Padre executed Sam Carter for threatening him `[wiki]`; he is the Valentinos' patron and gig-runner `[wiki]`; he also accepted Nolan Frakes' contract on Gustavo, so a transactional channel exists `[wiki]` | `wiki` |
@@ -562,8 +562,8 @@ guarantee 6th Street's support, and which would 6th Street itself guarantee?
 - **The transactional guarantors are real but narrow:** the Aldecaldos
   (logistics and extraction), Biotechnica's black market (stolen proteins), the
   City Council/Peralez campaign (political cover), and Combat Cab (mobility).
-- **No other gang is an ally.** The Valentinos are at war; the Tyger Claws and
-  Scavengers are rivals; the rest are neutral placeholders.
+- **No other gang is an ally.** The Valentinos are at war, the Tyger Claws are
+  `rival`, and the Scavengers and the rest are neutral placeholders.
 
 **6th Street as a guarantor.** A player who takes over 6th Street inherits:
 
@@ -779,6 +779,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "General (2076-present; seized power in a coup)",
       "character_record_id": "Character.q305_gunner",
       "location_name": "Pre-ambush staging, abandoned hotel overlooking the skybridge, West Wind Estate, Pacifica",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 communitySpawnEntry entryName gunner, characterRecordId Character.q305_gunner, appearance man_average__q305__6thstreet_officer, phase start, spot #q305_ws_pre_ambush_gunner_start; area {q305_com_6th_street_pre_ambush} at -2758.2,-2466.5,17.3; wiki Will Gunner",
       "confidence": "game-data+wiki"
@@ -788,6 +789,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Former General (unknown-2076); killed in Gunner's coup for siding with corporations",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Rick Morton; wiki 6th Street Members",
       "confidence": "wiki"
@@ -797,6 +799,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Captain of a Rancho Coronado company; Walker's CO; hosts Gunner's ascension party (V-dependent)",
       "character_record_id": "Character.mq008_6th_street_representative",
       "location_name": "Stadium Love rooftop, Rancho Coronado",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw mq008 community template uses generic Character.mq008_6th_street_representative and Character.mq008_6th_street_male records; markers mq008_01_sm_party_chats at 495.7,-2143.4,27.3 and mq008_02_sm_shooting_contest at 503.0,-2128.7,27.4; wiki Stadium Love; inferred",
       "confidence": "game-data+inferred+wiki"
@@ -806,6 +809,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Techie and H6 cell technical chief; stole a corporate weapon; El Capitan's target (V-dependent)",
       "character_record_id": "Character.sts_std_arr_11_lucius",
       "location_name": "6th Street hideout, Megabuilding H6 floor 19, Arroyo",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 384 sts_std_arr_11 record Character.sts_std_arr_11_lucius; site anchor -199.039,-843.481,259.170; wiki Lucius Thoran; gig Hacking the Hacker",
       "confidence": "game-data+wiki"
@@ -815,6 +819,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Drug-ring leader (beta acid); NCPD most-wanted (V-dependent)",
       "character_record_id": "Character.ma_std_arr_03_outpost_miniboss",
       "location_name": "Darius Miles' drug lab, Hargreaves St, Arroyo",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 125 ma_std_arr_03 entry #enemy05 role boss; site anchor -614.238,-1038.144,7.390; NCPD dispatch names Darius Miles; wiki Darius Miles; inferred",
       "confidence": "game-data+inferred+wiki"
@@ -824,6 +829,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Rogue cell leader; kidnapping and two murders; operates outside Gunner's control (V-dependent)",
       "character_record_id": "Character.ma_std_rcr_08_outpost_miniboss",
       "location_name": "Two-storey house on Carnitas St, Rancho Coronado",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 153 ma_std_rcr_08 entry miniboss role boss; site anchor -156.981,-2169.689,5.782; NCPD dispatch New Boss, New Rules; wiki Olga Elisabeth Longmead; inferred",
       "confidence": "game-data+inferred+wiki"
@@ -833,6 +839,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Senior member; Valentinos-war hardliner; ordered the hit on Gustavo Orta",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "mentioned",
       "open_world": false,
       "source": "wiki Nolan Frakes; gig Bring Me the Head of Gustavo Orta",
       "confidence": "wiki"
@@ -842,6 +849,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Car thief and fence; guards a Samurai bootleg at the Acorn Towers lot (V-dependent)",
       "character_record_id": "Character.sts_wbr_hil_06_wyatt_alken",
       "location_name": "Acorn Towers parking lot, Crockett St, Charter Hill",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 416 sts_wbr_hil_06; site anchor 375.332,-400.129,2.646; wiki Wyatt Alken; gig Family Heirloom",
       "confidence": "game-data+wiki"
@@ -851,6 +859,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Ex-member and Morton loyalist; fugitive from Gunner's purge",
       "character_record_id": "Character.sts_std_rcr_03_flavio",
       "location_name": "Flavio's house, Mallagra St, Rancho Coronado",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 388 sts_std_rcr_03 entry flavio, phase #rcr_03_ws_flavio_appear, faction_id null; site anchor 446.939,-1267.613,28.730; wiki Flavio dos Santos; gig Going-away Party",
       "confidence": "game-data+wiki"
@@ -860,6 +869,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Auto-shop owner on Mission Street; Assault in Progress target (V-dependent)",
       "character_record_id": "Character.ma_std_arr_09_hilary",
       "location_name": "Mission Street autoshop, Arroyo",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "data/sites/rosters.json site 131 ma_std_arr_09; site anchor -883.503,-1008.289,11.553; wiki Hilary McKenna",
       "confidence": "game-data+wiki"
@@ -869,6 +879,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Member in the Streetkid prologue; tried to push the Valentinos out of Vista del Rey; executed by Padre",
       "character_record_id": null,
       "location_name": "Vista del Rey / the prologue ride through the Glen",
+      "presence_class": "prologue",
       "open_world": false,
       "source": "wiki Sam Carter; The Streetkid; 6th Street Members",
       "confidence": "wiki"
@@ -878,6 +889,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "role": "Former high-ranking member; scapegoated for Morton's death and murdered",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Pablo Silva; shard Sent to 47 users",
       "confidence": "wiki"
@@ -928,7 +940,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
       "name": "Valentinos-war hardliners",
       "leader": "Nolan Frakes; Sam Carter (dead)",
       "goals": "Escalate the Vista del Rey war, avenge Martha, push the Valentinos out",
-      "members_hint": "site 57 ma_hey_gle_11 4; site 65 ma_hey_rey_05 4; sa_ep1_135_com_combat 4 vs 4 vs 4",
+      "members_hint": "site 57 ma_hey_gle_11 4; site 65 ma_hey_rey_05 4",
       "source": "wiki Nolan Frakes, Sam Carter, Bring Me the Head of Gustavo Orta; politics/valentinos.md",
       "confidence": "game-data+wiki"
     },
@@ -951,7 +963,7 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
     {
       "faction_code": "valentinos",
       "stance": "war",
-      "evidence": "Turf war since at least 2071, escalated over Vista del Rey in 2074, intensifying in 2077 [wiki]; Sam Carter threatened them and was executed by Padre [wiki]; Nolan Frakes ordered the hit that wounded Martha [wiki]; game data ma_hey_gle_11, ma_hey_rey_05, sa_ep1_141_com_combat (4 vs 4), sa_ep1_135_com_combat (4 vs 4 vs 4) [game-data]",
+      "evidence": "Turf war since at least 2071, escalated over Vista del Rey in 2074, intensifying in 2077 [wiki]; Sam Carter threatened them and was executed by Padre [wiki]; Nolan Frakes ordered the hit that wounded Martha [wiki]; game data ma_hey_gle_11, ma_hey_rey_05, sa_ep1_141_com_combat (4 vs 4) [game-data]",
       "confidence": "game-data+wiki"
     },
     {
@@ -1046,9 +1058,9 @@ Wiki (MediaWiki API, infoboxes and quest bodies):
     },
     {
       "faction_code": "scavengers",
-      "stance": "rival",
-      "evidence": "sa_ep1_135_com_combat is a four-way Glen street fight with 4 Scavengers, 4 6th Streeters, 4 Valentinos and 1 Arasaka [game-data]; both compete for Santo Domingo/Arroyo salvage [wiki] [inferred]",
-      "confidence": "game-data+wiki+inferred"
+      "stance": "neutral",
+      "evidence": "No reliable incident: the only game-data support was sa_ep1_135_com_combat, a Phantom Liberty courier-loop pool that METHOD 1.3 item 3 excludes. Both compete for Santo Domingo/Arroyo salvage, which is economic overlap only [wiki] [inferred]",
+      "confidence": "wiki+inferred"
     },
     {
       "faction_code": "fixer_regina",

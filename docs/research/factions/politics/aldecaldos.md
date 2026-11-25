@@ -391,8 +391,8 @@ the neutral rows are placeholders, not claims of friendship.
 | --- | --- | --- | --- | --- |
 | Wraiths | `wraiths` | `war` | The defining enemy: "a long history of frequent conflict and warring with the other nomad group, the Aldecaldos" `[wiki]`; Saul kidnapped by Wraiths and held drugged in the cement factory `[wiki]`; the Wraiths attack the camp (`{sq027_com_nomad_defense}` 9, `{sq027_com_guards}` 3) `[game-data]`; Trevor Brass shot, Euralio Alma tortured, Jake Scooter wounded `[wiki]`; Wraiths hold Union Railroad Station and the Corp-Bud Cement Factory `[wiki]` `[game-data]` | `game-data+wiki` |
 | Militech | `militech` | `hostile` | The Basilisk is stolen from a Militech convoy; Saul fears Militech tracing it and moving a strike team `[wiki]`; *Radar Love* steals the P9D/2.161 mobile radar, an **anti-nomad** surveillance system the clan wants to reverse-engineer `[game-data]` `[wiki]`; the Militech Detention Center holds border crossers (Bruce Welby) `[wiki]` `[game-data]`; Militech defends the Maglev site and the Arasaka approach in the *Star* branch `[wiki]`; 4 co-presence areas, all race crowds or the border wall `[game-data]` | `game-data+wiki` |
-| Arasaka | `arasaka` | `hostile` | *Star* branch only: the clan assaults Arasaka Tower, Saul/Bob/Teddy die, Smasher's chestplate is destroyed, Mikoshi is reached `[wiki]`; Saul's motive is plunder. No live Act-2 hostility; Arasaka secretly financed the Free States the veterans fought for in 2069–70 `[wiki]` | `wiki` |
-| Kang Tao | `kang_tao` | `hostile` | *Lightning Breaks* / *Life During Wartime*: Panam and V EMP the Kang Tao transport carrying Anders Hellman; the clan's salvage party walks into the armed crash site and is wiped out, Scorpion killed `[wiki]` `[game-data]`; **Kang Tao blames the Raffen Shiv** — Panam: "they still believe it was the Raffen Shiv who attacked Hellman's transport" `[wiki]`; 10 Kang Tao entries at `{q104_com_petro_gas_station}` `[game-data]` | `game-data+wiki` |
+| Arasaka | `arasaka` | `neutral` | Canon history only: in the *Star* branch the clan assaults Arasaka Tower, Saul/Bob/Teddy die, and Mikoshi is reached — but that branch requires the Konpeki heist and the Relic plot, which this mod's timeline removes. No live Act-2 hostility; Arasaka secretly financed the Free States the veterans fought for in 2069–70, which is a grievance, not a current fight `[wiki]` `[design]` | `wiki+design` |
+| Kang Tao | `kang_tao` | `neutral` | Canon history only: in *Lightning Breaks* / *Life During Wartime* Panam and V EMP the Kang Tao transport carrying Anders Hellman, the clan's salvage party is wiped out and Scorpion is killed. That job exists to seize Hellman's Relic knowledge, so this mod's removal of the Relic plot removes it. No independent Kang Tao–Aldecaldo incident is attested, and Kang Tao itself blamed the Raffen Shiv `[wiki]` `[game-data]` `[design]` | `game-data+wiki+design` |
 | Biotechnica | `biotechnica` | `client` | Saul contracts the clan for crop protection and a lost-cargo recovery, paid in reverse-transpiration xerophytes rather than eddies; terms squeezed to −25% and reclassified "B41" with no insurance; Saul terminates all dealings after *Queen of the Highway* ("a conflict of interest … a clean conscience for the entire family") `[wiki]` `[game-data]`; no Biotechnica area at any Aldecaldo site `[game-data]` | `game-data+wiki` |
 | Petrochem | `petrochem` | `rival` | Panam's recollection of Saul's "more adventurous days": he hijacked a Petrochem tanker, opened the valves and set the desert ablaze for the kids — a historical theft, not a 2077 operation `[wiki]`; the Petrochem Fuel Station (I-9) control centre is 1,087 m from the old camp and adjoins the DaKota autoshop's sub-territory `[game-data]` `[inferred]` | `wiki+inferred` |
 | Barghest | `barghest` | `neutral` | No attested interaction. The only co-presence is `{ce_easy_com}_145` in Dogtown, a dynamic-event crowd of 5 Aldecaldos with no Barghest entry in the same area; the Barghest doc records the same neutrality `[game-data]` `[inferred]` | `game-data+inferred` |
@@ -415,15 +415,18 @@ the neutral rows are placeholders, not claims of friendship.
 | Dino Dinovic | `fixer_dino` | `neutral` | No Aldecaldo-specific gig or lore link found `[inferred]` | `inferred` |
 | Rogue Amendiares | `fixer_rogue` | `trade` | Panam worked Panam's gigs for Rogue after leaving the clan and was paired with Nash (a Wraith, which Panam did not know) `[wiki]`; "how things are going with Rogue… mostly stay out of each other's hair" `[wiki]`; Rogue's *Ghost Town* job is the clan's entry into the Hellman chain `[game-data]` | `game-data+wiki` |
 | Mr. Hands | `fixer_mr_hands` | `neutral` | No Aldecaldo-specific gig or lore link found; his work is Dogtown `[inferred]` | `inferred` |
-| Afterlife | `afterlife` | `trade` | Panam was an **Afterlife mercenary** — her record carries `q005_default` / `q103_afterlife_argument` workspots in the bar, and she appears there during *The Heist* and *Ghost Town* `[game-data]` `[wiki]`; she hoped to "start fresh in Night City, with Rogue, and with new friends" `[wiki]` | `game-data+wiki` |
-| NUSA | `nusa` | `hostile` | The clan's core business is crossing the NUSA/SoCal border: the *Star* escape runs past checkpoints and Border Patrol drones, and the clan's smuggling exists because of the wall `[wiki]`; Militech — NUSA's nationalised force — holds the detention centre and defends the border `[game-data]` `[wiki]`; Border Patrol "will want to stop any trespassers who try to jump the Border Crossing" `[wiki]` | `game-data+wiki` |
+| Afterlife | `afterlife` | `trade` | Panam was an **Afterlife mercenary** — her record carries `q005_default` / `q103_afterlife_argument` workspots in the bar, and she appears there in canon quests including *Ghost Town* `[game-data]` `[wiki]`; she hoped to "start fresh in Night City, with Rogue, and with new friends" `[wiki]` | `game-data+wiki` |
+| NUSA | `nusa` | `hostile` | The clan's core business is crossing the NUSA/SoCal border: smuggling exists because of the wall, Border Patrol "will want to stop any trespassers who try to jump the Border Crossing", and Militech — NUSA's nationalised force — holds the detention centre and defends the border `[wiki]` `[game-data]` `[wiki]`. The *Star* ending's escape run is the canon set piece built on this, but the border conflict stands on its own and survives the mod's timeline change | `game-data+wiki` |
 | Netwatch | `netwatch` | `neutral` | No attested interaction; the clan has one netrunner (Carol) and no Net-facing operations `[inferred]` | `inferred` |
 
-Stance counts (29 rows): **hostile 5, war 1, rival 3, trade 7, neutral 11,
+Stance counts (29 rows): **hostile 3, war 1, rival 3, trade 7, neutral 13,
 client 1, ally 1, patron 0.** The single `ally` row is degenerate (Dakota is a
 member). The single `client` row is the Biotechnica contract, which the clan
-itself terminates. So the honest reading is: **no external ally, one live
-employer, one war, and five hostile great powers.** `[inferred]`
+itself terminates. Arasaka and Kang Tao dropped from `hostile` to `neutral`
+because each row's only evidence is a branch this mod's timeline removes (the
+*Star* Tower assault and the Hellman extraction). So the honest reading is:
+**no external ally, one live employer, one war, and three hostile great
+powers.** `[inferred]`
 
 ### 3.3 Actors outside `data/factions.json`
 
@@ -541,13 +544,15 @@ Design cautions, not redesigns:
    Aldecaldos. One side is wrong, or the METHOD needs an explicit rule for
    recording an *unreciprocated* incident. I record the incident and flag it
    rather than match the neighbour.
-6. **Arasaka hostility is branch-only.** There is no live Act-2 Aldecaldo–Arasaka
-   conflict; the row reflects the *Star* ending, which is V-dependent. In a
-   campaign-disabled Act-2 world this row should probably read `neutral`.
-7. **Kang Tao hostility is covert and misattributed.** Kang Tao believes the
-   Raffen Shiv attacked Hellman's transport. The clan's `hostile` stance is real
-   from the clan's side and invisible from Kang Tao's — the simulation should
-   not surface it as an open war.
+6. **Arasaka hostility is branch-only, and the branch is removed.** There is no
+   live Act-2 Aldecaldo–Arasaka conflict; the old row reflected the *Star*
+   ending, which needs the Konpeki heist and the Relic plot. This mod's timeline
+   removes them, so the row now reads `neutral`.
+7. **Kang Tao hostility is branch-only too, and covert when it exists.** The
+   old row rested on the Hellman extraction; with the Relic plot removed the
+   incident never happens. Even in canon Kang Tao believed the Raffen Shiv did
+   it. The row now reads `neutral`, and a simulation should not surface an open
+   war that no one involved admits to.
 8. **The 2077 "faction" is a pack.** The Aldecaldos nation has tens of thousands
    of members and several families; faction id 9 is the Bright Family plus
    Dakota. Nation-level politics (Seven Nations, the Jodes near-war, Snake
@@ -675,9 +680,10 @@ Design cautions, not redesigns:
   "leaders": [
     {
       "name": "Saul Bright",
-      "role": "Bright Family leader (Act 2); co-leader after Queen of the Highway; killed by Adam Smasher in the Star ending",
+      "role": "Bright Family leader (Act 2); co-leader after Queen of the Highway; canon kills him in the Star ending, which the mod's timeline removes",
       "character_record_id": "Character.Saul",
       "location_name": "Aldecaldo Mobile Camp (old camp) / Nomad Camp",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community registry entry saul, initial phase default, phases default_newcamp/holocall/q114_*; markers {saul_sm_default}, q114_02_sm_saul_sitrep; wiki Saul Bright",
       "confidence": "game-data+wiki"
@@ -687,6 +693,7 @@ Design cautions, not redesigns:
       "role": "Ex-member turned mercenary; co-leader (branch); full leader after Saul's death (Star branch)",
       "character_record_id": "Character.Panam",
       "location_name": "Aldecaldo Mobile Camp / Nomad Camp / Afterlife",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry panam, phases default/default_newcamp/default_hug/holocall/q103_afterlife_argument/q005_default; markers {panam_sm_default}, {panam_sm_hug_default}; wiki Panam Palmer",
       "confidence": "game-data+wiki"
@@ -696,6 +703,7 @@ Design cautions, not redesigns:
       "role": "Interim leader while Saul is abducted; netrunner and technician; Unification War veteran",
       "character_record_id": "Character.Carol",
       "location_name": "Aldecaldo Mobile Camp",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry carol, phases default/default_newcamp/mq002_deal/q114_driller_ctrls; marker {carol_sm_default}; wiki Carol Emeka",
       "confidence": "game-data+wiki"
@@ -705,6 +713,7 @@ Design cautions, not redesigns:
       "role": "Clan elder and best shot in camp; veteran; Panam's protector and the camp's moral referee",
       "character_record_id": "Character.Cassidy",
       "location_name": "Aldecaldo Mobile Camp / Corp-Bud Railroad Station",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry cassidy, phases default/default_newcamp/mq002_deal/q114_dampening_*; markers cassidy_sm_default, sq027_04_sm_preparations_cassidy_teddy; wiki Cassidy Righter",
       "confidence": "game-data+wiki"
@@ -713,25 +722,28 @@ Design cautions, not redesigns:
       "name": "Mitch Anderson",
       "role": "Veteran lieutenant; panzerboy and mechanic; Panam's closest ally and the natural regent",
       "character_record_id": "Character.Mitch",
-      "location_name": "Aldecaldo Mobile Camp / Nomad Camp",
+      "location_name": "Aldecaldo Mobile Camp / Nomad Camp / Maglev assault (Basilisk pilot)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry Mitch, phases default/mitch_default_active/default_newcamp/mq001_camp_funeral; markers {mitch_sm_default}, {fb_sm_mitch}; wiki Mitch Anderson",
       "confidence": "game-data+wiki"
     },
     {
       "name": "Bob Sagan",
-      "role": "Techie and veteran; dies at the Maglev site in the Star ending",
+      "role": "Techie and veteran; canon dies at the Maglev site in the Star ending, which the mod's timeline removes",
       "character_record_id": "Character.Bob",
       "location_name": "Aldecaldo Mobile Camp / Nomad Camp",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry Bob, phases default/default_newcamp/q114_bob_arasaka/q114_bob_attack; marker {bob_sm_default}; wiki Bob Sagan",
       "confidence": "game-data+wiki"
     },
     {
       "name": "Theodore \"Teddy\" Simos",
-      "role": "Member and veteran; dies at the Maglev site in the Star ending",
+      "role": "Member and veteran; canon dies at the Maglev site in the Star ending, which the mod's timeline removes",
       "character_record_id": "Character.Teddy",
       "location_name": "Aldecaldo Mobile Camp / Nomad Camp",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry Teddy, phases #sq027_teddy_post_final_scene/default/default_newcamp/q114_construction; marker {teddy_sm_default}; wiki Teddy Simos",
       "confidence": "game-data+wiki"
@@ -741,6 +753,7 @@ Design cautions, not redesigns:
       "role": "Veteran panzerboy; demoted dissident after proposing Snake Nation (2070); killed by Kang Tao (2077)",
       "character_record_id": "Character.Scorpion",
       "location_name": "Aldecaldo camp funeral zone / Kang Tao crash site",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry scorpion, initial phase mq001_camp, phases q103_ws_scorpion_goodbye/q104_scorpion_dead; wiki Driss Meriana; Saul Bright/Computers Third option",
       "confidence": "game-data+wiki"
@@ -750,6 +763,7 @@ Design cautions, not redesigns:
       "role": "Fixer and clan elder (static); the pack's economic interface, outside the command chain",
       "character_record_id": "Character.dakota_smith",
       "location_name": "DaKota autoshop / Nomad Camp trailer",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_1 registry entry dakota, phases default/ina_06_ws_dakota_working/ina_07_dakota_waiting/q114_dakota_initiation_01; markers ina_07_mp_workshop, q114_03c_sm_dakota_trailer; wiki Dakota Smith; campaign-sanitizer keeps FixerVariant",
       "confidence": "game-data+wiki+inferred"
@@ -759,6 +773,7 @@ Design cautions, not redesigns:
       "role": "Nation founder and first leader (1992-2015)",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Aldecaldos (Main Leaders); wiki Aldecaldos Members",
       "confidence": "wiki"
@@ -768,6 +783,7 @@ Design cautions, not redesigns:
       "role": "Nation leader (2015-2045+); appointed by Juan; forged the Seven Nations in 2017",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Nomad Santiago; wiki Aldecaldos (Main Leaders)",
       "confidence": "wiki"
@@ -825,20 +841,20 @@ Design cautions, not redesigns:
     {
       "faction_code": "militech",
       "stance": "hostile",
-      "evidence": "Basilisk stolen from a Militech convoy and Saul fears the trace [wiki]; Radar Love steals the P9D/2.161 anti-nomad mobile radar for reverse engineering [game-data] [wiki]; Militech Detention Center holds border crossers (Bruce Welby) [wiki]; Militech defends the Maglev site and Arasaka approach in the Star branch [wiki]",
+      "evidence": "Basilisk stolen from a Militech convoy and Saul fears the trace [wiki]; Radar Love steals the P9D/2.161 anti-nomad mobile radar for reverse engineering [game-data] [wiki]; Militech Detention Center holds border crossers (Bruce Welby) [wiki]. In canon Militech also defends the Maglev site and Arasaka approach in the Star branch, but the hostility stands on the base-game incidents above",
       "confidence": "game-data+wiki"
     },
     {
       "faction_code": "arasaka",
-      "stance": "hostile",
-      "evidence": "Star branch only: the clan assaults Arasaka Tower, Saul/Bob/Teddy die, Mikoshi is reached, Saul's motive is plunder [wiki]; no live Act-2 hostility, and Arasaka secretly financed the Free States the veterans fought for [wiki]",
-      "confidence": "wiki"
+      "stance": "neutral",
+      "evidence": "Canon history only: in the Star branch the clan assaults Arasaka Tower, Saul/Bob/Teddy die, and Mikoshi is reached - but that branch requires the Konpeki heist and the Relic plot, which this mod's timeline removes. No live Act-2 hostility; Arasaka secretly financed the Free States the veterans fought for in 2069-70, which is a grievance, not a current fight [wiki] [design]",
+      "confidence": "wiki+design"
     },
     {
       "faction_code": "kang_tao",
-      "stance": "hostile",
-      "evidence": "Panam and V EMP the Kang Tao transport carrying Hellman; the clan's salvage party walks into the armed crash site and is wiped out, Scorpion killed [wiki] [game-data]; Kang Tao blames the Raffen Shiv [wiki]; 10 Kang Tao entries at {q104_com_petro_gas_station} [game-data]",
-      "confidence": "game-data+wiki"
+      "stance": "neutral",
+      "evidence": "Canon history only: in Lightning Breaks / Life During Wartime Panam and V EMP the Kang Tao transport carrying Anders Hellman, the clan's salvage party is wiped out and Scorpion is killed. That job exists to seize Hellman's Relic knowledge, so this mod's removal of the Relic plot removes it. No independent Kang Tao-Aldecaldo incident is attested, and Kang Tao itself blamed the Raffen Shiv [wiki] [game-data] [design]",
+      "confidence": "game-data+wiki+design"
     },
     {
       "faction_code": "biotechnica",
@@ -981,7 +997,7 @@ Design cautions, not redesigns:
     {
       "faction_code": "nusa",
       "stance": "hostile",
-      "evidence": "The clan's business is crossing the NUSA-SoCal border; the Star escape runs past checkpoints and Border Patrol drones and the clan's smuggling exists because of the wall [wiki]; Militech, NUSA's nationalised force, holds the detention centre and defends the border [game-data] [wiki]",
+      "evidence": "The clan's business is crossing the NUSA-SoCal border; smuggling exists because of the wall, Border Patrol will want to stop any trespassers who try to jump the Border Crossing, and Militech, NUSA's nationalised force, holds the detention centre and defends the border [game-data] [wiki]. The Star ending's escape run is the canon set piece built on this, but the border conflict stands on its own and survives the mod's timeline change",
       "confidence": "game-data+wiki"
     },
     {

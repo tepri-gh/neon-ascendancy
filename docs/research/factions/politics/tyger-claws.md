@@ -516,16 +516,16 @@ relationship, and I have excluded it from every row below.
 | 6th Street | `sixth_street` | `rival` | Norio's shard: an op that "took a couple cuts to finish off some of the **6th Streeters**"; the 6th Street doc lists Tyger Claws as a rival over Charter Hill; a shared Kendal Park community `{ma_std_rcr_05_tyger_com}` (note: the community's units are Valentinos, so the *name* is the only Tyger evidence there) `[wiki]` `[game-data]` | `game-data+wiki` |
 | Scavengers | `scavengers` | `rival` | Mini-world story *Tyger Claws vs. Scavengers* (`mws_wbr_03`, Monroe & Sagan, NE of Cherry Blossom Market); *Reported Crime: Lost and Found* is a scav-vs-Tyger scrap in a Japantown alley; both work the Jig-Jig chrome trade `[wiki]` `[game-data]` | `game-data+wiki` |
 | Valentinos | `valentinos` | `rival` | Mini-world story *Tyger Claws vs. Valentinos* (`mws_hey_06`, the Glen); a motorcycle chase between Tygers and Valentinos at Berkeley & Market in Wellsprings; the Valentinos doc records a Valentino street scene in south JapanTown `[wiki]` `[game-data]` | `game-data+wiki` |
-| Maelstrom | `maelstrom` | `rival` | The 2045 Maelstrom push into Old Japantown "caus[ed] them to clash with the local Claws"; adjacent Northside/Kabuki turf; coupled in generic Phantom Liberty combat spawns in Kabuki and Northside `[wiki]` `[game-data]` | `game-data+wiki` |
+| Maelstrom | `maelstrom` | `rival` | The 2045 Maelstrom push into Old Japantown "caus[ed] them to clash with the local Claws"; adjacent Northside/Kabuki turf `[wiki]` `[game-data]` | `game-data+wiki` |
 | Animals | `animals` | `rival` | Jig-Jig Street lists Animals among its four gangs; an Animals assault-in-progress on Salinas St. (`ma_wbr_jpn_19`) sits inside JapanTown with a single Tyger Claw present; the Animals doc lists Tyger Claws as a rival over JapanTown/Kabuki turf `[wiki]` `[game-data]` | `game-data+wiki` |
 | Militech | `militech` | `neutral` | **No attested conflict in lore.** The only co-location is Badlands scanner site `ma_bls_ina_04`: 5 Tyger Claws and 6 Militech units (drone, sniper, HMG gunner) in one hustle with a Wraith "victim" — both are targets of the same NCPD event, not of each other `[game-data]`. Militech's Watson "prologue roadblocks" are prologue staging, not a Tyger feud `[wiki]`. A tempting but unsupported `rival` | `game-data+inferred` |
 | Biotechnica | `biotechnica` | `neutral` | *Olive Branch* delivers a kidnapped **Biotechnica employee** (Alex Pushkin) to the Tyger Claws as a peace offering from a blacklisted solo. Biotechnica is the victim's employer, not a party to the deal `[wiki]` `[game-data]` | `wiki+inferred` |
-| Kang Tao | `kang_tao` | `neutral` | No attested interaction. Only Phantom Liberty shared combat spawns `[inferred]` | `inferred` |
+| Kang Tao | `kang_tao` | `neutral` | No attested interaction `[inferred]` | `inferred` |
 | Petrochem | `petrochem` | `neutral` | No attested interaction `[inferred]` | `inferred` |
-| Barghest | `barghest` | `neutral` | No attested interaction. Dogtown coupling only via `sa_ep1_*` shared spawns `[inferred]` | `inferred` |
+| Barghest | `barghest` | `neutral` | No attested interaction; the Phantom Liberty courier-loop spawn pool that couples them is excluded as evidence `[inferred]` | `inferred` |
 | Aldecaldos | `aldecaldos` | `neutral` | No attested interaction. Only `mq056`/`sq024` city-race contrived crowds `[inferred]` | `inferred` |
 | Wraiths | `wraiths` | `neutral` | No attested interaction `[inferred]` | `inferred` |
-| Voodoo Boys | `voodoo_boys` | `neutral` | No attested interaction. Dogtown shared spawns only `[inferred]` | `inferred` |
+| Voodoo Boys | `voodoo_boys` | `neutral` | No attested interaction; Dogtown co-presence comes only from the excluded Phantom Liberty spawn pool `[inferred]` | `inferred` |
 | Night Corp | `night_corp` | `neutral` | No attested interaction. The Night Corp doc notes `cc_dtn_corporation_st` is Tyger-seeded, with site `ma_cct_dtn_07` 92 m away — a seed accident, not a relationship `[game-data]` `[inferred]` | `game-data+inferred` |
 | City Council | `city_council` | `neutral` | No attested interaction; political, not territorial `[inferred]` | `inferred` |
 | Sebastian Ibarra (Padre) | `fixer_padre` | `neutral` | No Tyger-specific gig or lore link found `[inferred]` | `inferred` |
@@ -795,6 +795,7 @@ Design cautions, not redesigns:
       "role": "Tyger Claw boss; superior of Hiromi Sato",
       "character_record_id": "Character.sq026_tc_leader_01",
       "location_name": "Hiromi's penthouse, Megabuilding H8",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community 960242555655014674, entry tc_boss_01, phase start, workspot #sq026_ws_13_boss_01_start; area {sq026_com_hiromi} at -701.252,835.81,326.112; record name is a generic slot, personal-name mapping inferred; wiki Jun Azegami and Pisces",
       "confidence": "game-data+wiki+inferred"
@@ -804,6 +805,7 @@ Design cautions, not redesigns:
       "role": "Tyger Claw boss; co-superior of Hiromi Sato",
       "character_record_id": "Character.sq026_tc_leader_02",
       "location_name": "Hiromi's penthouse, Megabuilding H8",
+      "presence_class": "story",
       "open_world": false,
       "source": "same community, entry tc_boss_02, phase start, workspot #sq026_ws_13_boss_02_start; personal-name mapping inferred; wiki Marcus Ichida",
       "confidence": "game-data+wiki+inferred"
@@ -813,6 +815,7 @@ Design cautions, not redesigns:
       "role": "Underboss; tried to rule Japantown without Wakako Okada (deceased 2077)",
       "character_record_id": null,
       "location_name": "Chram Denya Jinja shrine",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Taki Kazo and Gig: A Shrine Defiled; mentioned in Archived Conversation: Masaki Osawa and Taki Kazo; no 2077 character record",
       "confidence": "wiki"
@@ -822,6 +825,7 @@ Design cautions, not redesigns:
       "role": "Former leader; his death starts the 2077 succession crisis",
       "character_record_id": null,
       "location_name": null,
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Tyger Claws Members (former leader, presumably killed by other Tyger Claws); Archived Conversation: Julia Lee and Norio Akuhara",
       "confidence": "wiki"
@@ -831,6 +835,7 @@ Design cautions, not redesigns:
       "role": "Oyabun from 2042; won the 2042 inheritance civil war",
       "character_record_id": null,
       "location_name": "Kabuki / Tyger Works Tower",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Hayato Nakagawa, Tyger Claws history, Nakagawa Foundation; Cyberpunk RED lore",
       "confidence": "wiki+lore"
@@ -840,6 +845,7 @@ Design cautions, not redesigns:
       "role": "Captain of the Kimen-Gumi; refused a coup against Hayato",
       "character_record_id": null,
       "location_name": "Kimen-Gumi HQ, Tyger Works Tower",
+      "presence_class": "historical",
       "open_world": false,
       "source": "wiki Takeru Akagi and Kimen-Gumi; Cyberpunk RED lore",
       "confidence": "wiki+lore"
@@ -849,6 +855,7 @@ Design cautions, not redesigns:
       "role": "Manager of Clouds on the gang's behalf",
       "character_record_id": "Character.sq026_hiromi",
       "location_name": "Clouds, Megabuilding H8 floor 12 / Hiromi's Apartment",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 entry hiromi, initial phase stand; roster at community 960242555655014674; wiki Hiromi Sato",
       "confidence": "game-data+wiki"
@@ -858,6 +865,7 @@ Design cautions, not redesigns:
       "role": "Clouds unofficial manager; pitches herself as Hiromi's replacement",
       "character_record_id": "Character.Maiko",
       "location_name": "Clouds office / Judy's apartment",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 community 8891863926077971537, entry maiko, initial phase sq026_04_dh_office_desk; no areas.jsonl row; wiki Maiko Maeda",
       "confidence": "game-data+wiki"
@@ -867,6 +875,7 @@ Design cautions, not redesigns:
       "role": "High-ranking member; owner of Ho-Oh; XBD scroller",
       "character_record_id": "Character.sts_wat_kab_07_jotaro",
       "location_name": "Ho-Oh, Kabuki (3rd floor)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw communities {kab_07_com_jotaro} and {kab_07_com_enemies}, initial phase 0Computer; roster at site 397 sts_wat_kab_07; wiki Jotaro Shobo",
       "confidence": "game-data+wiki"
@@ -876,6 +885,7 @@ Design cautions, not redesigns:
       "role": "Member; runs an independent pachinko operation",
       "character_record_id": "Character.sts_wat_kab_107_taki_kenmochi",
       "location_name": "Cortes-Kennedy Residential Block, Kabuki",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "roster at site 402 sts_wat_kab_107, phase A; community {kab_107_combat_com}; wiki Taki Kenmochi and Gig: Troublesome Neighbors",
       "confidence": "game-data+wiki"
@@ -885,6 +895,7 @@ Design cautions, not redesigns:
       "role": "Lieutenant in charge of trafficking victims",
       "character_record_id": "Character.ma_wbr_jpn_20_outpost_miniboss",
       "location_name": "Willow Street market, Japantown",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "site 285 ma_wbr_jpn_20, 13 Tyger units with a single *outpost_miniboss* slot (mapping inferred); wiki Shinobu Imai and SOCA: Modern Labor Market",
       "confidence": "game-data+wiki+inferred"
@@ -894,6 +905,7 @@ Design cautions, not redesigns:
       "role": "High-ranking racketeer in Little China",
       "character_record_id": "Character.ma_wat_lch_08_outpost_miniboss",
       "location_name": "Drake & Cartwright market, Little China",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "site 199 ma_wat_lch_08, 13 Tyger units with a single *outpost_miniboss* slot (mapping inferred); wiki Mokomichi Yamada and SOCA: Tygers by the Tail",
       "confidence": "game-data+wiki+inferred"
@@ -903,6 +915,7 @@ Design cautions, not redesigns:
       "role": "Westbrook fixer; Tyger Claws member by obligation; nine sons are high-ranking Claws",
       "character_record_id": "Character.wakako_okada",
       "location_name": "Pachinko Parlor, Jig-Jig Street, Japantown",
+      "presence_class": "ambient",
       "open_world": true,
       "source": "raw always_loaded_1 community 10158080887420941720, entry wakako, initial phase default, workspot #ws_wakako_okada_default; marker wakako_sm_okada_default at -671.492,822.324,19.598; not in rosters.json; wiki Wakako Okada",
       "confidence": "game-data+wiki"
@@ -1052,7 +1065,7 @@ Design cautions, not redesigns:
     {
       "faction_code": "barghest",
       "stance": "neutral",
-      "evidence": "No attested interaction; Dogtown coupling only via sa_ep1_* shared spawn tables [inferred]",
+      "evidence": "No attested interaction; the Phantom Liberty courier-loop spawn pool that couples them is excluded as evidence [inferred]",
       "confidence": "inferred"
     },
     {
