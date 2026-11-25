@@ -82,6 +82,36 @@ worked example of depth and format.
 10. **Validator:** also enforce exactly one relation per required faction and
     a `presence_class` from the list above on every leader.
 
+## 1.3 Corrections from Barghest, Militech and Tyger Claws (override later sections)
+
+1. **Collective leadership:** if the leadership list stops or no single
+   2077 leader exists (Tyger Claws: a council of bosses), say so and model a
+   council. Generic leader slots (`Character.sq026_tc_leader_01`) can be the
+   only records; map names to them as `[inferred]`.
+2. **Phase naming varies:** some factions use `0spawn`/`0Guard`/`0combat`
+   rather than `q###_*`. Decide presence from the quest that owns the
+   community, not from a literal prefix.
+3. **Trap:** Phantom Liberty `sa_ep1_*_courier_loop_enemies_*` communities
+   create fake co-presence across seven factions. Exclude them from relation
+   evidence.
+4. **Ex-members drop out of rosters** (`faction_id: null`, e.g. Norio
+   Akuhara). Find them through wiki pages and name records.
+5. **Evidence beyond member pages:** decisive incidents often live in
+   location and gig pages and in `docs/research/factions/*.md`. Read gig
+   dialogue, not titles (*Hot Merchandise* protects Militech).
+6. **Registry entry ≠ record** (`murphy` → `Character.kruger_combat`;
+   slot `joshua` → `…_arden_bentzen`): report both. Don't seed a person
+   whose identity you cannot confirm.
+7. **Splinters, deserters and circular ownership** (Barghest from Militech;
+   NUSA owning, funding and regulating Militech): pick the closest stance
+   and explain it in the evidence string.
+8. **Holdings vs activity:** roster site counts mix scanner hustles and
+   fixer gigs with real holdings. Use the location doc's named places.
+9. **Story-gated flagship venues:** if a faction's main venue is staffed
+   only by story communities (Clouds), say so. With the campaign disabled it
+   may be empty.
+10. **Attested extra rows** include Trauma Team where incidents exist.
+
 ## 2. Procedure
 
 1. **Wiki first, via the API** (`action=parse&prop=wikitext&formatversion=2&redirects=1`).
