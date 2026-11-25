@@ -87,4 +87,20 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
     `employees_fem/male`; Totentanz probes a real workspot under
     `#loc_pre_quest_totentanz`.
   - The probe re-runs every 60 s while `na_dev_venue_probe` is set, and the
-    door census logs within 150 m with the authored debug name and path.
+    door census logs within 150 m with the player position (the debug name/path
+    APIs return `None` for authored doors) and de-duplicates repeat attaches.
+- Venue-door reliability fixes from the first in-game run:
+  - Every venue door now issues ForceEnabled -> ForcePower -> ForceUnlock ->
+    ForceOpen (vanilla `q303_07b_lobby_combat` uses ForceUnlock -> ForceOpen on
+    `#q303_dvc_combat_tower_main_door`; the leading actions are added so a
+    disabled/unpowered device still opens).
+  - The Black Sapphire entry now declares `#loc_q304_pr_combat_tower_decoration`
+    and `#loc_q303_combat_tower_devices_bottom_lobby` (a phasePrefab variant
+    only applies to a prefab the phase declares) and opens the tech-warehouse
+    shutter (`#q303_dvc_tech_warehouse_gate`), the Barghest-logo roller door at
+    the tower entrance.
+  - Totentanz now declares `#loc_sq011_totentanz_openworld` so the
+    `#com_totentanz` crowd spawner resolves.
+  - Dev-only on-site door repair: when the player is within 60 m, the probe
+    re-issues the vanilla sequence against the live PS, because the phase's own
+    device actions fire at bootstrap while the player is still in H10.
