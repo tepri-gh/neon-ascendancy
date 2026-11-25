@@ -102,3 +102,40 @@ lieutenants) are to be represented. Design pending.
   - or take a gang-owned location, which starts a war and needs money,
     recruits and some insurance (e.g. guarantor factions, or contracts that
     keep a territory uncontested).
+
+## 4. Titles, claims and coring (agreed direction)
+
+- Every influence point has one **controller** (who physically holds it:
+  influence, spawns, pillar output) and an optional **title holder** (who
+  has the legal/political claim). Title is a data field now; its mechanics
+  come with the Politics pillar.
+- Factions spend political influence to claim ground and gain title
+  ("coring", a casus belli system).
+- Factions can still fight border wars and hold points without title, at
+  reduced efficiency/strength. That lets them damage rivals or avoid being
+  steamrolled by a faction that starts to snowball.
+- Corps should find it hard to gain territory but be strong at defending
+  what they claim.
+
+## 5. Leadership and internal politics (direction; design pending)
+
+- Every faction and corp has a **Leader** and **sub-leaders**, plus internal
+  blocs where lore has them (e.g. Royce vs Brick in Maelstrom; Valentinos,
+  Tyger Claws and corps such as Arasaka have similar structures).
+- A faction can be in **internal war** with no single leader. This must hurt
+  the faction, and eventually one bloc wins and takes leadership.
+- **Alternate timeline:** Yorinobu Arasaka is alive. Arasaka's ship and
+  Yorinobu's daughter are in the city.
+- **Deferred:** spawning faction leaders. With the campaign disabled, most
+  named leaders are story-only, so the mod must spawn them itself.
+
+## 6. Relations
+
+- Four levels: **Allied, Friendly, Neutral, Hostile.**
+- Open concern: alliances such as Arasaka–Tyger Claws could make factions
+  too strong early.
+
+## 7. Architecture
+
+The mod owns its world model in `world.db` rather than steering vanilla
+through flags and triggers. That stays the long-term architecture.
