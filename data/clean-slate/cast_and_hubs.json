@@ -55,6 +55,10 @@
     {
       "prefab": "#pr_sobchak_default",
       "why": "Owns River Ward trailer park workspot (#ws_sobchak_default)"
+    },
+    {
+      "prefab": "#q005_pr_afterlife",
+      "why": "Owns Dexter DeShawn's Afterlife booth workspot #q005_ws_dex_afterlife_01 (under the #q005_cin_01_plan sub-prefab). Declared so the cast layer can seat him without any q005 story phase."
     }
   ],
   "world_hubs": [
@@ -424,6 +428,18 @@
       "entry_name": "kerry",
       "phase_name": "default",
       "notes": "North Oak villa; silent overhaul cast presence"
+    },
+    {
+      "id": "dexter_deshawn",
+      "name": "Dexter DeShawn",
+      "role": "fixer",
+      "district": "watson_little_china",
+      "faction": "independent_fixer",
+      "spot_ref": "#q005_ws_dex_afterlife_01",
+      "reference": "#dex",
+      "entry_name": "dex",
+      "phase_name": "q005_afterlife_default",
+      "notes": "Afterlife booth fixer, alive in this alt-timeline. Spawned exactly as vanilla q005_01_plan does: questSpawnSet reference #dex, entryName dex, phaseName q005_afterlife_default. The spawner supplies his character; no scene or dialogue."
     }
   ],
   "service_vendors": {
@@ -533,15 +549,25 @@
       {
         "id": "pepe_el_coyote_barman",
         "vendor_id": "Vendors.hey_rey_foodshop_01",
-        "default_dialogs_id_path": [7, 27, 3],
+        "default_dialogs_id_path": [
+          7,
+          27,
+          3
+        ],
         "expected_scene": "base\\open_world\\vendors\\heywood\\vista_del_rey\\hey_rey_foodshop_01\\elcoyote_barman_default.scene",
-        "expected_prefabs": ["#pr_elcoyote_barman_default"],
+        "expected_prefabs": [
+          "#pr_elcoyote_barman_default"
+        ],
         "why": "Pepe (El Coyote Cojo bartender); vanilla gates parent 7/27 behind q005_done and q000_done. Cloning 7/27/3 preserves its #pr_elcoyote_barman_default prefab and distance streaming loop with zero story facts."
       },
       {
         "id": "arroyo_foodshop_03",
         "vendor_id": "Vendors.std_arr_foodshop_03",
-        "default_dialogs_id_path": [7, 30, 3],
+        "default_dialogs_id_path": [
+          7,
+          30,
+          3
+        ],
         "expected_scene": "base\\open_world\\vendors\\santo_domingo\\arroyo\\std_arr_cyberware_store_01\\std_arr_foodshop_03.scene",
         "expected_prefabs": [],
         "why": "Arroyo foodshop_03; vanilla gates parent 7/30 behind q005_done. Cloning 7/30/3 preserves its distance streaming loop with zero story facts."
@@ -549,7 +575,11 @@
       {
         "id": "northside_diner_barman",
         "vendor_id": "Vendors.wat_nid_foodshop_02",
-        "default_dialogs_id_path": [7, 30, 4],
+        "default_dialogs_id_path": [
+          7,
+          30,
+          4
+        ],
         "expected_scene": "base\\open_world\\vendors\\watson\\northside\\wat_nid_foodshop_02\\wat_nid_foodshop_02.scene",
         "expected_prefabs": [],
         "why": "Diner foodshop vendor; vanilla gates parent 7/30 behind q005_done. Cloning 7/30/4 preserves its distance streaming loop and enters only the non-quest std_arr_foodshop_04 branch."
@@ -557,7 +587,12 @@
       {
         "id": "fingers_ripperdoc",
         "vendor_id": "Vendors.wbr_jpn_ripperdoc_02",
-        "default_dialogs_id_path": [7, 35, 3, 19],
+        "default_dialogs_id_path": [
+          7,
+          35,
+          3,
+          19
+        ],
         "expected_scene": "base\\open_world\\vendors\\westbrook\\japantown\\wbr_jpn_ripdoc_02\\wbr_jpn_ripdoc_02.scene",
         "expected_prefabs": [],
         "spawn_set": {

@@ -117,6 +117,11 @@
         "door": "#kab_07_gate_001",
         "community": "#kab_07_com_enemies",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#kab_07_ws_bottom_guard_001",
+        "within": 80.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -179,6 +184,11 @@
         "door": "#konpeki_plaza_entrance_door",
         "community": "#q005_com_hotel_guests",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#q005_ws_concierge_during_escape",
+        "within": 100.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -248,6 +258,71 @@
           "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
           "action": "ForceOpen",
           "why": "Evelyn cabin door"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman",
+          "action": "ForceEnabled",
+          "why": "Manager office door (Woodman's office): Re-enable first (q105_dollhouse_woodman disables it)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman",
+          "action": "ForcePower",
+          "why": "Manager office door (Woodman's office): Power it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman",
+          "action": "ForceUnlock",
+          "why": "Manager office door (Woodman's office): Unlock it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman",
+          "action": "ForceOpen",
+          "why": "Manager office door (Woodman's office): Open it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman_glass",
+          "action": "ForceEnabled",
+          "why": "Manager office glass door: Re-enable first (q105_dollhouse_woodman disables it)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman_glass",
+          "action": "ForcePower",
+          "why": "Manager office glass door: Power it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman_glass",
+          "action": "ForceUnlock",
+          "why": "Manager office glass door: Unlock it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_woodman_glass",
+          "action": "ForceOpen",
+          "why": "Manager office glass door: Open it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_vip",
+          "action": "AuthorizationDisable",
+          "why": "Disable the VIP-lounge authorization module so no keycard check blocks the door (QuestForceAuthorizationDisabled, actionName AuthorizationDisable; vanilla applies it to DoorControllerPS in q105_lizzy/q105_complete)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_vip",
+          "action": "ForceEnabled",
+          "why": "Re-enable the VIP door in case a phase ForceDisabled it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_vip",
+          "action": "ForcePower",
+          "why": "Power it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_vip",
+          "action": "ForceUnlock",
+          "why": "Unlock it"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_vip",
+          "action": "ForceOpen",
+          "why": "Open it"
         }
       ],
       "communities": [
@@ -303,10 +378,18 @@
       ],
       "probe_refs": {
         "workspot": "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
-        "door": "#q105_dvc_dollhouse_door_cabin_customer",
+        "door": "#q105_dvc_dollhouse_door_vip",
         "community": "#q105_com_dollhouse",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
-      }
+      },
+      "proximity_wait": {
+        "ref": "#q105_ws_03c_woodman_friendly_start",
+        "within": 80.0,
+        "why": "Clouds is a story interior far from H10; wait until the player is near the manager's office (verified workspot #q105_ws_03c_woodman_friendly_start, present in #q105_pr_dollhouse) before the door actions run."
+      },
+      "notes": [
+        "VIP lounge door #q105_dvc_dollhouse_door_vip (owner look-at id 15368942420542527538, app=doors_double_entropy_k_glass_v2, pos=(-666.1,771.0,128.3), locked=true). Sequence: AuthorizationDisable -> ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen."
+      ]
     },
     {
       "code": "q003_meat_factory",
@@ -381,6 +464,11 @@
         "door": "#q003_maelstrom_gate_entry",
         "community": "#q003_com_main_hall",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#q003_ws_car_by_militech_ditch",
+        "within": 100.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -457,6 +545,15 @@
         "door": "#sq011_dvc_door_sliding_totentanz_entrance",
         "community": "#com_totentanz",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "notes": [
+        "Music/DJ: club audio+DJ come from base\\open_world\\scenes\\dancefloors\\dancefloors.questphase, which our archive already keeps. Its #dancefloor_totentanz sub-phase (scene dancefloor_totentanz.scene) is gated on fact totentanz_dancefloor_on >= 1; setting that fact enables the full club music state and DJ. Set by DevDebug (dev-only) rather than the venue phase, per the facts policy.",
+        "The DJ is not a #com_totentanz entry (28 entries checked: crowd/gang/IC/tinitus only); it is the stage act mounted by the dancefloor scene."
+      ],
+      "proximity_wait": {
+        "ref": "#ws_totentanz_pre_quest_crowd_bar_standing_003",
+        "within": 100.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -481,6 +578,11 @@
         "door": "",
         "community": "#batty_com_roof",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#batty_ws_roof",
+        "within": 80.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -526,6 +628,11 @@
         "door": "#q115_dvc_embers_elevator_bottom_door",
         "community": "#q115_com_restaurant_staff",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#q115_ws_hanako_bodyguard_street_000",
+        "within": 100.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
     },
     {
@@ -620,7 +727,12 @@
           },
           "why": "Vanilla q303_06b_paradise_technical shows var_tower_gate_open_indestructible on #loc_q304_pr_combat_tower_decoration to open the Black Sapphire tower-gate geometry. These shutters are baked mesh (worldCookedStaticMeshNode), not a door device, so a prefab-variant swap is the only way to open them. No scene/journal wiring."
         }
-      ]
+      ],
+      "proximity_wait": {
+        "ref": "#q303_ws_nighthawks_customer_06",
+        "within": 150.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
+      }
     },
     {
       "code": "loc_arasaka_tower",
@@ -706,7 +818,48 @@
         "door": "#q113_dvc_atrium_start_lift_door",
         "community": "#q113_com_atrium_scenes",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#q113_ws_propaganda_voice_atrium",
+        "within": 150.0,
+        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
       }
+    },
+    {
+      "code": "dogtown_dataterms",
+      "display_name": "Dogtown fast-travel dataterms",
+      "why": "The six EP1 fast-travel dataterms are inside combat_zone_data_terminals_prefabLN6J6KI, which the Dogtown exterior sectors only stream when the streaming variant combat_zone_data_terminals_active is shown (default: _deactive). Declares that prefab and swaps the variant so the dataterm devices exist; the dataterm PS then accepts fast travel once powered (a dataterm offers nothing while IsUnpowered/IsDisabled).",
+      "prefabs": [
+        "#combat_zone_data_terminals_prefabLN6J6KI"
+      ],
+      "doors": [],
+      "communities": [],
+      "variant_toggles": [
+        {
+          "prefab": "#combat_zone_data_terminals_prefabLN6J6KI",
+          "states": {
+            "combat_zone_data_terminals_active": 1,
+            "combat_zone_data_terminals_deactive": 0
+          },
+          "why": "Show the active dataterm prefab state so the six Dogtown dataterms stream in."
+        }
+      ],
+      "probe_refs": {
+        "workspot": "",
+        "door": "",
+        "community": "",
+        "note": "Dataterm device refs are #combat_zone_dataterm_01..06 (data/clean-slate/dev_fast_travel_points.json); they exist only once the active variant streams."
+      }
+    }
+  ],
+  "notes": [
+    {
+      "topic": "dogtown_vendors",
+      "summary": "Dogtown vendors (stadium market + container_zone/monument_av/hillpark/high_peak/boulevard_av) are ep1\\openworld\\vendors\\ep1_vendors.questphase, which our archive does NOT load. Its sub-phases are gated on ep1_side_content >= 1, and stadium additionally on q301_02_active > 0; each vendor zone also needs its *_default_on fact (e.g. cz_stadium_gunsmith_01_default_on) and models vendors as questSpawnSet/questCommunityTemplate nodes inside the location prefabs, not as questPrefabs of the vendor phase. Populating them therefore needs facts set at runtime (DevDebug), which the facts policy keeps out of the archive. Spawner refs verified in the phase: stadium #cz_stadium_black_market_01, _clothing_01, _food_01..03, _gunsmith_01, _junk_01, _medic_01, _netrunner_01, _ripperdoc_01 (entryName=<name>, phase A/None); container_zone #cz_con_{clothingshop,foodshop,gunsmith,junkshop,medicstore,ripdoc}_01; monument_av #cz_monument_av_ripperdoc_anderson, #farida; communities #cz_stadium_clothing_01_tommie_walker_com, #cz_stadium_ws_vendor_06_robot_com."
+    },
+    {
+      "topic": "afterlife_backroom",
+      "summary": "Afterlife back-room door (owner look-at id 17830752525230996744, app=doors_single_entropy_j, pos=(-1430.8,986.5,16.5), locked=true) is an anonymous/base-world door device; its authored ref was not resolvable from the offline extracts, so no unverified ref was added. Dexter: vanilla spawns him via questSpawnSet #dex entry='dex' phase='q005_afterlife_default' in q005_01_plan, which declares only #q005_pr_afterlife (no story prefab needed). His seat workspot #q005_ws_dex_afterlife_01 lives under the #q005_cin_01_plan sub-prefab INSIDE #q005_pr_afterlife, so declaring #q005_pr_afterlife in the cast layer and activating #dex/dex/q005_afterlife_default is enough to seat him with no scene/dialogue. Options if the cinematics sub-prefab is a problem: (a) declare #q005_pr_afterlife and spawn #dex as above; (b) use #q005_ws_dex_limo_afterlife (outside the cin prefab) instead."
     }
   ]
 }
