@@ -592,6 +592,44 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_spawner_node(self, action: str, refs: list[str]) -> tuple[str, str]:
+        """Add a questSpawnManagerNodeDefinition (questSpawner_NodeType).
+
+        Schema matches vanilla
+        base\\open_world\\phases\\prolog_roadblocks\\lch_prolog_roadblocks.questphase
+        field-for-field: one questSpawnManagerNodeActionEntry per ref, each a
+        questSpawner_NodeType with `action` and `spawnerReference` (NOT the
+        questSpawnSet_NodeType `reference`/`entryName`/`phaseName` shape). Used to
+        Deactivate the prologue roadblock vehicle spawners."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questSpawnManagerNodeDefinition",
+                    "actions": [
+                        {
+                            "$type": "questSpawnManagerNodeActionEntry",
+                            "type": {
+                                "HandleId": self.alloc(),
+                                "Data": {
+                                    "$type": "questSpawner_NodeType",
+                                    "action": action,
+                                    "spawnerReference": noderef(ref),
+                                },
+                            },
+                        }
+                        for ref in refs
+                    ],
+                    "id": self.node_id(),
+                    "_sockets": [cut, inp, out],
+                },
+            }
+        )
+        return inp, out
+
     def add_device_manager_node(self, entries: list[dict[str, Any]]) -> tuple[str, str]:
         """Add a questInteractiveObjectManagerNodeDefinition (questDeviceManager_NodeType).
 
@@ -763,12 +801,15 @@ def build_questphase(
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
     venue_spec: dict[str, Any],
+    barricade_spec: dict[str, Any],
+    vendors_spec: dict[str, Any],
 ) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
     Start -> hub -> initial + service-vendor fact managers (chained) -> fan-out to:
-      cast_and_hubs phase + kept external phases + spike gate pause -> spike phase
-      + venue gate pause -> venue probe phase + 5 copied inline phases.
+      cast_and_hubs phase + barricade cleanup phase + kept external phases
+      + spike gate pause -> spike phase + venue gate pause -> venue probe phase
+      + 5 copied inline phases.
     """
     qp = spec["questphase"]
     owc = templates["open_world_content_questphase"]
@@ -804,6 +845,22 @@ def build_questphase(
     # World Cast & Hubs layer (wired directly off fan-out after all facts are set)
     cast_phase_in = g.add_phase_node(cast_spec["phase_resource"])
     g.connect(fan, cast_phase_in)
+
+    # Always-on Watson lockdown cleanup (NOT dev-gated): hide the q001 bridge
+    # blockade variant, hide the prologue security/geometry variants, and
+    # deactivate the roadblock communities + vehicle spawners, exactly as the
+    # skipped watson_prolog_lock == 0 cleanup branches do.
+    cleanup_phase_in = g.add_phase_node(barricade_spec["phase_resource"])
+    g.connect(fan, cleanup_phase_in)
+
+    # Dogtown vendor population: gate pause on the narrow per-vendor fact, then
+    # the phase that re-activates the vendor spawn sets/communities without
+    # ep1_vendors' ep1_side_content / q302_started gates.
+    vgate = vendors_spec["gate"]
+    vg_in, vg_out = g.add_pause_fact_node(vgate["fact"], vgate["comparison_type"], vgate["value"])
+    g.connect(fan, vg_in)
+    vendors_phase_in = g.add_phase_node(vendors_spec["phase_resource"])
+    g.connect(vg_out, vendors_phase_in)
 
     # spike: gate pause -> spike phase node
     spike = qp["spike"]
@@ -1194,6 +1251,182 @@ def load_cast_spec(spec: dict[str, Any]) -> dict[str, Any]:
         return json.load(fh)
 
 
+def load_barricade_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
+    """Load + validate the always-on Watson lockdown cleanup spec.
+
+    Enforces the doc's constraint that this group only ever hides story
+    prologue variants, deactivates prologue roadblock communities, and
+    deactivates prologue roadblock spawners - never anything story/journalled."""
+    path = ROOT / cast_spec["barricade_cleanup_spec"]
+    if not path.is_file():
+        raise FileNotFoundError(f"missing barricade cleanup spec: {path}")
+    with path.open("r", encoding="utf-8") as fh:
+        spec = json.load(fh)
+
+    if not spec.get("phase_resource"):
+        raise ValueError(f"{path}: phase_resource is required")
+    for t in spec.get("variant_toggles", []):
+        if not t.get("prefab"):
+            raise ValueError(f"{path}: variant toggle needs a prefab")
+        if not isinstance(t.get("states"), dict) or not t["states"]:
+            raise ValueError(f"{path}: variant toggle needs a non-empty states map")
+        for name, show in t["states"].items():
+            if show not in (0, 1):
+                raise ValueError(f"{path}: variant {name} show must be 0 or 1")
+    for c in spec.get("communities", []):
+        if not c.get("spawner", "").startswith("#"):
+            raise ValueError(f"{path}: bad community spawner {c}")
+    for s in spec.get("spawners", []):
+        if not s.get("ref", "").startswith("#"):
+            raise ValueError(f"{path}: bad spawner ref {s}")
+    for s in spec.get("probe_spawners", []):
+        if not s.get("ref", "").startswith("#"):
+            raise ValueError(f"{path}: bad probe spawner ref {s}")
+    return spec
+
+
+def build_barricade_cleanup(spec: dict[str, Any], templates: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Assemble mod\\neon_ascendancy\\barricade_cleanup.questphase.
+
+    In1 -> hub -> variant toggles -> community deactivations -> spawner
+    deactivations -> keep-alive pause. Mirrors the watson_prolog_lock == 0
+    cleanup branches of the three prolog roadblock phases plus q001 node 230."""
+    spawn_tpl = templates["spawn_manager_node"]
+
+    g = QuestGraph(start_handle=1)
+    start_out = g.add_input_node(spec["entry_socket"])
+    hub_in, hub_out = g.add_hub_node()
+    g.connect(start_out, hub_in)
+
+    prev = hub_out
+    for toggle in spec.get("variant_toggles", []):
+        inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
+        g.connect(prev, inp)
+        prev = out
+    for com in spec.get("communities", []):
+        inp, out = g.add_community_spawn_node(
+            spawn_tpl,
+            action="Deactivate",
+            spawner_reference=com["spawner"],
+            entry_name="None",
+            phase_name="None",
+        )
+        g.connect(prev, inp)
+        prev = out
+    if spec.get("spawners"):
+        inp, out = g.add_spawner_node("Deactivate", [s["ref"] for s in spec["spawners"]])
+        g.connect(prev, inp)
+        prev = out
+
+    ka = spec["keep_alive_pause"]
+    ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
+    g.connect(hub_out, ka_in)
+
+    nodes = g.finalize()
+    validate_refs(nodes)
+    doc = wrap_resource(
+        {
+            "$type": "questQuestPhaseResource",
+            "cookingPlatform": "PLATFORM_PC",
+            "graph": {
+                "HandleId": g.alloc(),
+                "Data": {"$type": "questGraphDefinition", "nodes": nodes},
+            },
+            "inplacePhases": [],
+            "phasePrefabs": [],
+        }
+    )
+    dups = find_duplicate_handles(doc)
+    if dups:
+        raise ValueError(f"duplicate HandleIds in barricade_cleanup.questphase: {dups[:5]}")
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds in barricade_cleanup.questphase: {cross[:5]}")
+    return doc
+
+
+def load_dogtown_vendors_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
+    """Load + validate the always-on Dogtown vendor population spec."""
+    path = ROOT / cast_spec["dogtown_vendors_spec"]
+    if not path.is_file():
+        raise FileNotFoundError(f"missing dogtown vendors spec: {path}")
+    with path.open("r", encoding="utf-8") as fh:
+        spec = json.load(fh)
+    if not spec.get("phase_resource"):
+        raise ValueError(f"{path}: phase_resource is required")
+    for ss in spec.get("spawn_sets", []):
+        if not ss.get("ref", "").startswith("#"):
+            raise ValueError(f"{path}: bad spawn_set ref {ss}")
+        if not ss.get("entry_name") or not ss.get("phase_name"):
+            raise ValueError(f"{path}: spawn_set needs entry_name and phase_name: {ss}")
+    for c in spec.get("communities", []):
+        if not c.get("spawner", "").startswith("#"):
+            raise ValueError(f"{path}: bad community spawner {c}")
+    gate = spec.get("gate", {})
+    if not gate.get("fact"):
+        raise ValueError(f"{path}: gate.fact is required")
+    return spec
+
+
+def build_dogtown_vendors(spec: dict[str, Any], templates: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Assemble mod\\neon_ascendancy\\dogtown_vendors.questphase.
+
+    In1 -> hub -> spawn-set activations -> community activations -> keep-alive
+    pause. No journal/scene nodes; the story gate pauses are dropped."""
+    spawn_tpl = templates["spawn_manager_node"]
+    g = QuestGraph(start_handle=1)
+    start_out = g.add_input_node(spec["entry_socket"])
+    hub_in, hub_out = g.add_hub_node()
+    g.connect(start_out, hub_in)
+
+    prev = hub_out
+    for ss in spec.get("spawn_sets", []):
+        inp, out = g.add_spawn_set_node(
+            action="Activate",
+            reference=ss["ref"],
+            entry_name=ss["entry_name"],
+            phase_name=ss["phase_name"],
+        )
+        g.connect(prev, inp)
+        prev = out
+    for com in spec.get("communities", []):
+        inp, out = g.add_community_spawn_node(
+            spawn_tpl,
+            action="Activate",
+            spawner_reference=com["spawner"],
+            entry_name=com.get("entry_name", "None"),
+            phase_name=com.get("phase_name", "None"),
+        )
+        g.connect(prev, inp)
+        prev = out
+
+    ka = spec["keep_alive_pause"]
+    ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
+    g.connect(hub_out, ka_in)
+
+    nodes = g.finalize()
+    validate_refs(nodes)
+    doc = wrap_resource(
+        {
+            "$type": "questQuestPhaseResource",
+            "cookingPlatform": "PLATFORM_PC",
+            "graph": {
+                "HandleId": g.alloc(),
+                "Data": {"$type": "questGraphDefinition", "nodes": nodes},
+            },
+            "inplacePhases": [],
+            "phasePrefabs": [],
+        }
+    )
+    dups = find_duplicate_handles(doc)
+    if dups:
+        raise ValueError(f"duplicate HandleIds in dogtown_vendors.questphase: {dups[:5]}")
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds in dogtown_vendors.questphase: {cross[:5]}")
+    return doc
+
+
 def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
     """Load + validate the declarative venue-access probe spec.
 
@@ -1406,6 +1639,8 @@ def build(
     cast_spec: dict[str, Any],
     ft_spec: dict[str, Any],
     venue_spec: dict[str, Any],
+    barricade_spec: dict[str, Any],
+    vendors_spec: dict[str, Any],
 ) -> Path:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1424,7 +1659,7 @@ def build(
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.gamedef.json", build_gamedef(templates["gamedef"], spec))
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.quest.json", build_quest(templates["quest"], spec))
         write_resource_json(
-            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec, venue_spec)
+            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec, venue_spec, barricade_spec, vendors_spec)
         )
         write_resource_json(
             build_dir,
@@ -1434,6 +1669,12 @@ def build(
         write_resource_json(build_dir, "mod/neon_ascendancy/spike_kab07.questphase.json", build_spike(templates, spec))
         write_resource_json(
             build_dir, "mod/neon_ascendancy/venue_probe.questphase.json", build_venue_probe(venue_spec, templates)
+        )
+        write_resource_json(
+            build_dir, "mod/neon_ascendancy/barricade_cleanup.questphase.json", build_barricade_cleanup(barricade_spec, templates)
+        )
+        write_resource_json(
+            build_dir, "mod/neon_ascendancy/dogtown_vendors.questphase.json", build_dogtown_vendors(vendors_spec, templates)
         )
 
         print("Deserializing CR2W JSONs ...", flush=True)
@@ -1469,6 +1710,8 @@ def check(
     cast_spec: dict[str, Any],
     ft_spec: dict[str, Any],
     venue_spec: dict[str, Any],
+    barricade_spec: dict[str, Any],
+    vendors_spec: dict[str, Any],
 ) -> None:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1506,10 +1749,12 @@ def check(
         if not failures and len(resources) == len(spec["archive_resources"]):
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
-            _check_questphase(resources, spec, cast_spec, venue_spec, ok)
+            _check_questphase(resources, spec, cast_spec, venue_spec, barricade_spec, vendors_spec, ok)
             _check_cast_and_hubs(resources, spec, cast_spec, ft_spec, ok)
             _check_spike(resources, spec, ok)
             _check_venue_probe(resources, spec, venue_spec, ok)
+            _check_barricade_cleanup(resources, barricade_spec, ok)
+            _check_dogtown_vendors(resources, vendors_spec, ok)
 
     if failures:
         print("\n--check FAILED:")
@@ -1693,6 +1938,8 @@ def _check_questphase(
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
     venue_spec: dict[str, Any],
+    barricade_spec: dict[str, Any],
+    vendors_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
     doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
@@ -1724,8 +1971,8 @@ def _check_questphase(
         ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
-        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 3,
-           f"expected {len(qp['kept_depot_phases']) + 3} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + spike + venue_probe), found {len(top_phase_nodes)}")
+        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 5,
+           f"expected {len(qp['kept_depot_phases']) + 5} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + barricade_cleanup + dogtown_vendors + spike + venue_probe), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause
@@ -1753,7 +2000,7 @@ def _check_questphase(
         expected_refs = (
             {e["depot_path"] for e in qp["kept_depot_phases"]}
             | set(qp["inline_phase_depot_refs"])
-            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"]}
+            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"], barricade_spec["phase_resource"], vendors_spec["phase_resource"]}
         )
         missing = sorted(expected_refs - set(refs))
         ok(not missing, f"missing kept phase refs: {missing}")
@@ -2093,6 +2340,200 @@ def _check_spike(resources: dict[str, dict[str, Any]], spec: dict[str, Any], ok:
                "spike communityEntryPhaseName mismatch")
 
 
+def _check_barricade_cleanup(
+    resources: dict[str, dict[str, Any]],
+    barricade_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Round-trip verify barricade_cleanup.questphase.
+
+    Expected: exactly the spec's variant toggles (prefab + show map), community
+    Deactivations, and one questSpawner_NodeType Deactivate node carrying every
+    spec spawner ref; plus the keep-alive pause. Nothing story/journalled."""
+    doc = resources[barricade_spec["phase_resource"]]
+    rc = doc["Data"]["RootChunk"]
+    ok(rc.get("$type") == "questQuestPhaseResource", "barricade_cleanup root type is not questQuestPhaseResource")
+    ok(rc.get("phasePrefabs", []) == [], "barricade_cleanup must not declare phasePrefabs (declaring them can re-show the props)")
+
+    dups = find_duplicate_handles(doc)
+    ok(not dups, f"duplicate HandleIds in barricade_cleanup.questphase: {dups[:10]}")
+    cross = find_cross_graph_refs(doc)
+    ok(not cross, f"cross-graph HandleRefIds in barricade_cleanup.questphase: {cross[:10]}")
+
+    nodes = rc["graph"]["Data"]["nodes"]
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    ok(len(inputs) == 1, f"barricade_cleanup has {len(inputs)} input nodes")
+    if inputs:
+        ok(inputs[0]["Data"]["socketName"]["$value"] == barricade_spec["entry_socket"],
+           f"barricade_cleanup input socketName != {barricade_spec['entry_socket']}")
+        reachable = reachable_nodes(nodes, inputs[0])
+        unreachable = [id_of(n) for n in nodes if id_of(n) not in reachable]
+        ok(not unreachable, f"barricade_cleanup nodes unreachable from input: {unreachable}")
+
+    # Variant toggles: exact list, in order.
+    expected_toggles = [(t["prefab"], dict(t["states"])) for t in barricade_spec["variant_toggles"]]
+    actual_toggles = []
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questWorldDataManagerNodeDefinition":
+            continue
+        typ = d.get("type", {}).get("Data", {})
+        ok(typ.get("$type") == "questTogglePrefabVariant_NodeType",
+           "barricade variant toggle type is not questTogglePrefabVariant_NodeType")
+        for p in typ.get("params", []):
+            states = {s["name"]["$value"]: s["show"] for s in p.get("variantStates", [])}
+            actual_toggles.append((p.get("prefabNodeRef", {}).get("$value"), states))
+    ok(actual_toggles == expected_toggles,
+       f"barricade variant toggles mismatch:\n  actual:   {actual_toggles}\n  expected: {expected_toggles}")
+
+    # Communities: exact set of Deactivations.
+    actual_comms = set()
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") == "questCommunityTemplate_NodeType":
+                ok(at.get("action") == "Deactivate", f"barricade community action is {at.get('action')}, not Deactivate")
+                actual_comms.add(at.get("spawnerReference", {}).get("$value"))
+    expected_comms = {c["spawner"] for c in barricade_spec["communities"]}
+    ok(actual_comms == expected_comms,
+       f"barricade communities mismatch:\n  actual:   {sorted(actual_comms)}\n  expected: {sorted(expected_comms)}")
+
+    # Spawners: exact set of Deactivations via questSpawner_NodeType.
+    actual_spawners = set()
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") == "questSpawner_NodeType":
+                ok(at.get("action") == "Deactivate", f"barricade spawner action is {at.get('action')}, not Deactivate")
+                actual_spawners.add(at.get("spawnerReference", {}).get("$value"))
+    expected_spawners = {s["ref"] for s in barricade_spec["spawners"]}
+    ok(len(expected_spawners) == 60, f"expected 60 spawner refs in spec, found {len(expected_spawners)}")
+    ok(actual_spawners == expected_spawners,
+       f"barricade spawners mismatch: missing {sorted(expected_spawners - actual_spawners)[:5]} extra {sorted(actual_spawners - expected_spawners)[:5]}")
+
+    # Keep-alive pause present.
+    ka = barricade_spec["keep_alive_pause"]
+    ka_found = False
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questPauseConditionNodeDefinition":
+            continue
+        typ = d.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+        if (typ.get("factName") == ka["fact"] and typ.get("comparisonType") == ka["comparison_type"]
+                and typ.get("value") == ka["value"]):
+            ka_found = True
+    ok(ka_found, f"barricade_cleanup missing keep-alive pause {ka['fact']}")
+
+    # The cleanup resource must not carry journal/mappin/phone/quest refs.
+    prefixes = ("journal", "mappin", "phone", "holocall", "quests\\main", "quests\\side", "street_stories")
+    refs = _collect_phase_refs(rc)
+    bad = sorted({r for r in refs if any(p in r.lower() for p in prefixes)})
+    ok(not bad, f"barricade_cleanup carries story/journalled phase refs: {bad}")
+
+    # ascendancy.questphase must wire the cleanup phase node off the fan-out.
+    qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
+    qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
+    cleanup_phases = [
+        p for p in qp_nodes
+        if p["Data"].get("$type") == "questPhaseNodeDefinition"
+        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == barricade_spec["phase_resource"]
+    ]
+    ok(len(cleanup_phases) == 1, f"expected 1 barricade cleanup phase node in ascendancy.questphase, found {len(cleanup_phases)}")
+
+
+def _check_dogtown_vendors(
+    resources: dict[str, dict[str, Any]],
+    vendors_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Round-trip verify dogtown_vendors.questphase.
+
+    Expected: exactly the spec's questSpawnSet Activate triples and community
+    Activate triples, no journal/scene nodes, and the phase wired in
+    ascendancy.questphase behind its gate pause."""
+    doc = resources[vendors_spec["phase_resource"]]
+    rc = doc["Data"]["RootChunk"]
+    ok(rc.get("$type") == "questQuestPhaseResource", "dogtown_vendors root type is not questQuestPhaseResource")
+    dups = find_duplicate_handles(doc)
+    ok(not dups, f"duplicate HandleIds in dogtown_vendors.questphase: {dups[:10]}")
+    cross = find_cross_graph_refs(doc)
+    ok(not cross, f"cross-graph HandleRefIds in dogtown_vendors.questphase: {cross[:10]}")
+
+    nodes = rc["graph"]["Data"]["nodes"]
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    ok(len(inputs) == 1, f"dogtown_vendors has {len(inputs)} input nodes")
+    if inputs:
+        ok(inputs[0]["Data"]["socketName"]["$value"] == vendors_spec["entry_socket"],
+           f"dogtown_vendors input socketName != {vendors_spec['entry_socket']}")
+        reachable = reachable_nodes(nodes, inputs[0])
+        unreachable = [id_of(n) for n in nodes if id_of(n) not in reachable]
+        ok(not unreachable, f"dogtown_vendors nodes unreachable from input: {unreachable}")
+
+    actual_sets = set()
+    actual_comms = set()
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") == "questSpawnSet_NodeType":
+                ok(at.get("action") == "Activate", f"vendor spawn_set action is {at.get('action')}")
+                actual_sets.add((at.get("reference", {}).get("$value"),
+                                 at.get("entryName", {}).get("$value"),
+                                 at.get("phaseName", {}).get("$value")))
+            elif at.get("$type") == "questCommunityTemplate_NodeType":
+                ok(at.get("action") == "Activate", f"vendor community action is {at.get('action')}")
+                actual_comms.add((at.get("spawnerReference", {}).get("$value"),
+                                  at.get("communityEntryName", {}).get("$value"),
+                                  at.get("communityEntryPhaseName", {}).get("$value")))
+    expected_sets = {(s["ref"], s["entry_name"], s["phase_name"]) for s in vendors_spec["spawn_sets"]}
+    expected_comms = {(c["spawner"], c.get("entry_name", "None"), c.get("phase_name", "None"))
+                      for c in vendors_spec["communities"]}
+    ok(actual_sets == expected_sets,
+       f"vendor spawn_sets mismatch: missing {sorted(expected_sets - actual_sets)[:5]} extra {sorted(actual_sets - expected_sets)[:5]}")
+    ok(actual_comms == expected_comms,
+       f"vendor communities mismatch:\n  actual:   {sorted(actual_comms)}\n  expected: {sorted(expected_comms)}")
+
+    # No story content copied in.
+    story = [n for n in nodes if n["Data"].get("$type") in
+             ("questJournalNodeDefinition", "questSceneNodeDefinition", "questMappinManagerNodeDefinition")]
+    ok(not story, f"dogtown_vendors must not copy journal/scene/mappin nodes, found {len(story)}")
+
+    # Keep-alive pause lives inside the vendor phase; the gate pause lives in
+    # ascendancy.questphase.
+    gate = vendors_spec["gate"]
+    ka = vendors_spec["keep_alive_pause"]
+    ka_found = False
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") == "questPauseConditionNodeDefinition":
+            typ = d.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+            if typ.get("factName") == ka["fact"] and typ.get("comparisonType") == ka["comparison_type"]:
+                ka_found = True
+    ok(ka_found, "dogtown_vendors missing its keep-alive pause")
+    qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
+    qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
+    phase_nodes = [
+        p for p in qp_nodes
+        if p["Data"].get("$type") == "questPhaseNodeDefinition"
+        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == vendors_spec["phase_resource"]
+    ]
+    ok(len(phase_nodes) == 1, f"expected 1 dogtown_vendors phase node in ascendancy.questphase, found {len(phase_nodes)}")
+    qp_gate = [
+        p for p in qp_nodes
+        if p["Data"].get("$type") == "questPauseConditionNodeDefinition"
+        and p["Data"].get("condition", {}).get("Data", {}).get("type", {}).get("Data", {}).get("factName") == gate["fact"]
+    ]
+    ok(len(qp_gate) == 1, f"expected 1 vendor gate pause in ascendancy.questphase, found {len(qp_gate)}")
+
+
 def _check_venue_probe(
     resources: dict[str, dict[str, Any]],
     spec: dict[str, Any],
@@ -2346,11 +2787,13 @@ def main() -> int:
     cast_spec = load_cast_spec(spec)
     ft_spec = load_ft_spec(cast_spec)
     venue_spec = load_venue_spec(cast_spec)
+    barricade_spec = load_barricade_spec(cast_spec)
+    vendors_spec = load_dogtown_vendors_spec(cast_spec)
 
     if args.check:
-        check(args, spec, cast_spec, ft_spec, venue_spec)
+        check(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec)
     else:
-        archive = build(args, spec, cast_spec, ft_spec, venue_spec)
+        archive = build(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec)
         print(f"\nBuilt {archive} ({archive.stat().st_size} bytes).")
         print("Run `python3 tools/build-clean-slate.py --check` to verify the round-trip.")
     return 0
