@@ -32,7 +32,7 @@
   },
   "questphase": {
     "entry_socket": "Start",
-    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 18x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
+    "hub_shape": "Start -> questLogicalHubNodeDefinition -> 19x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
     "initial_facts": [
       {"fact": "na_clean_slate", "value": 1},
       {"fact": "watson_prolog_lock", "value": 0},
@@ -51,7 +51,8 @@
       {"fact": "apartment_on", "value": 1},
       {"fact": "wilson_met", "value": 1},
       {"fact": "wat_lch_gun_01_met", "value": 1},
-      {"fact": "q001_wilson_shop_tutorial_seen", "value": 1}
+      {"fact": "q001_wilson_shop_tutorial_seen", "value": 1},
+      {"fact": "totentanz_dancefloor_on", "value": 1}
     ],
     "forbidden_facts": [
       "q000_done",
