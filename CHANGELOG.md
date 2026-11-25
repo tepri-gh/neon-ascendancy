@@ -46,3 +46,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
     gameplay/income coordinator (`Gameplay/AscendancySystem.reds`) wiring
     gang founding, NPC takedown raid tracking, immediate territory flip,
     and periodic `GameTime` eddie payouts.
+- Test-scope territory: one active control center per modeled faction
+  (`ACTIVE_TEST_CONTROL_CENTERS` in `tools/generate-world-seeds.py`); the
+  rest ship dormant (`control_centers.is_active = 0`) and stay out of the sim,
+  map and spatial lookups. Existing playthroughs reconcile on load.
+- Faction headquarters map markers (`faction_headquarters` world table,
+  faction-tinted fixer-icon pins with tooltips; not capturable yet), seeded
+  from the lore research in `docs/research/factions/`.

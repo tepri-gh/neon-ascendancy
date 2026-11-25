@@ -212,6 +212,7 @@ void WorldDb::Close() {
   districts_.clear();
   sub_territories_.clear();
   control_centers_.clear();
+  faction_hqs_.clear();
   faction_index_.clear();
   district_index_.clear();
   sub_territory_index_.clear();
@@ -372,7 +373,7 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
     StmtGuard g;
     const char* sql =
         "SELECT control_center_id, sub_territory_id, code, display_name, x, y, z, capture_radius_m "
-        "FROM control_centers ORDER BY control_center_id";
+        "FROM control_centers WHERE is_active = 1 ORDER BY control_center_id";
     if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
       err = sqlite3_errmsg(db_);
       Close();
@@ -393,6 +394,29 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
     }
   }
 
+  // Load faction headquarters (map markers only).
+  {
+    StmtGuard g;
+    const char* sql =
+        "SELECT faction_id, code, display_name, x, y, z "
+        "FROM faction_headquarters ORDER BY faction_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      WorldFactionHq hq;
+      hq.faction_id = sqlite3_column_int(g.stmt, 0);
+      hq.code = ColText(g.stmt, 1);
+      hq.display_name = ColText(g.stmt, 2);
+      hq.x = sqlite3_column_double(g.stmt, 3);
+      hq.y = sqlite3_column_double(g.stmt, 4);
+      hq.z = sqlite3_column_double(g.stmt, 5);
+      faction_hqs_.push_back(std::move(hq));
+    }
+  }
+
   // Boot-load level-0 ownership grid into RAM for O(1) lookup.
   {
     StmtGuard g;
@@ -407,17 +431,28 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
       const int32_t cx = sqlite3_column_int(g.stmt, 0);
       const int32_t cy = sqlite3_column_int(g.stmt, 1);
       const int32_t stid = sqlite3_column_int(g.stmt, 2);
+      if (!cc_by_st_index_.contains(stid)) {
+        continue;  // dormant sub-territory: invisible to runtime lookups
+      }
       cell_grid_[PackCellKey(cx, cy)] = stid;
     }
   }
 
-  return !sub_territories_.empty();
+  if (control_centers_.empty()) {
+    err = "world.db has no active control centers";
+    Close();
+    return false;
+  }
+  return true;
 }
 
 std::vector<sim::TerritoryDef> WorldDb::BuildTerritoryDefs() const {
   std::vector<sim::TerritoryDef> out;
-  out.reserve(sub_territories_.size());
+  out.reserve(control_centers_.size());
   for (const auto& st : sub_territories_) {
+    if (!cc_by_st_index_.contains(st.sub_territory_id)) {
+      continue;
+    }
     out.push_back(sim::TerritoryDef{
         st.sub_territory_id,
         st.district_id,

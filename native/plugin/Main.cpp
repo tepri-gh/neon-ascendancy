@@ -70,6 +70,7 @@ struct CoreRuntime {
   std::deque<std::string> hud_notices;
   std::vector<neon::sim::SafeSanctuaryZone> safe_sanctuaries;
   std::unordered_map<uint64_t, int32_t> control_center_pins;
+  std::unordered_map<uint64_t, int32_t> faction_hq_pins;  // mappin id -> faction id
   std::array<RED4ext::CName, kLifePathSpawnTagFlats.size()> saved_lifepath_spawn_tags{};
   std::array<bool, kLifePathSpawnTagFlats.size()> saved_lifepath_spawn_tag_valid{};
   uint32_t playthrough_id_hi = 0;
@@ -499,6 +500,28 @@ int32_t NcGetBoundControlCenterPinCount() {
   return static_cast<int32_t>(g_rt.control_center_pins.size());
 }
 
+void NcClearFactionHqPins() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.faction_hq_pins.clear();
+}
+
+void NcBindFactionHqPin(uint64_t mappin_id, int32_t faction_id) {
+  if (mappin_id == 0U || faction_id <= 0) {
+    return;
+  }
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  g_rt.faction_hq_pins[mappin_id] = faction_id;
+}
+
+int32_t NcLookupFactionHqPin(uint64_t mappin_id) {
+  if (mappin_id == 0U) {
+    return 0;
+  }
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto it = g_rt.faction_hq_pins.find(mappin_id);
+  return it != g_rt.faction_hq_pins.end() ? it->second : 0;
+}
+
 int32_t NcGetSafeSanctuaryCount() {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   return static_cast<int32_t>(g_rt.safe_sanctuaries.size());
@@ -689,6 +712,73 @@ float NcGetControlCenterZ(int32_t index) {
     return 0.0F;
   }
   return static_cast<float>(g_rt.world.ControlCenters()[static_cast<size_t>(index)].z);
+}
+
+const neon::store::WorldFactionHq* FactionHqAtLocked(int32_t index) {
+  if (!EnsureWorldLoadedLocked() || index < 0 ||
+      static_cast<size_t>(index) >= g_rt.world.FactionHeadquarters().size()) {
+    return nullptr;
+  }
+  return &g_rt.world.FactionHeadquarters()[static_cast<size_t>(index)];
+}
+
+const neon::store::WorldFactionHq* FindFactionHqLocked(int32_t faction_id) {
+  if (!EnsureWorldLoadedLocked()) {
+    return nullptr;
+  }
+  for (const auto& hq : g_rt.world.FactionHeadquarters()) {
+    if (hq.faction_id == faction_id) {
+      return &hq;
+    }
+  }
+  return nullptr;
+}
+
+int32_t NcGetFactionHqCount() {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return 0;
+  }
+  return static_cast<int32_t>(g_rt.world.FactionHeadquarters().size());
+}
+
+int32_t NcGetFactionHqFactionId(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto* hq = FactionHqAtLocked(index);
+  return hq != nullptr ? hq->faction_id : 0;
+}
+
+float NcGetFactionHqX(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto* hq = FactionHqAtLocked(index);
+  return hq != nullptr ? static_cast<float>(hq->x) : 0.0F;
+}
+
+float NcGetFactionHqY(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto* hq = FactionHqAtLocked(index);
+  return hq != nullptr ? static_cast<float>(hq->y) : 0.0F;
+}
+
+float NcGetFactionHqZ(int32_t index) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto* hq = FactionHqAtLocked(index);
+  return hq != nullptr ? static_cast<float>(hq->z) : 0.0F;
+}
+
+Red::CString NcGetFactionHqTooltipTitle(int32_t faction_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  const auto* hq = FindFactionHqLocked(faction_id);
+  return Red::CString(hq != nullptr ? hq->display_name.c_str() : "Headquarters");
+}
+
+Red::CString NcGetFactionHqTooltipDesc(int32_t faction_id) {
+  std::lock_guard<std::mutex> lock(g_rt.mu);
+  if (!EnsureWorldLoadedLocked()) {
+    return Red::CString("");
+  }
+  const std::string desc = ResolveFactionNameLocked(faction_id) + " Headquarters";
+  return Red::CString(desc.c_str());
 }
 
 int32_t NcGetSubTerritoryOwner(int32_t sub_territory_id) {
@@ -1160,6 +1250,16 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetControlCenterX, "NeonAscendancy.Core.NcGetControlCenterX");
   RTTI_FUNCTION(NcGetControlCenterY, "NeonAscendancy.Core.NcGetControlCenterY");
   RTTI_FUNCTION(NcGetControlCenterZ, "NeonAscendancy.Core.NcGetControlCenterZ");
+  RTTI_FUNCTION(NcClearFactionHqPins, "NeonAscendancy.Core.NcClearFactionHqPins");
+  RTTI_FUNCTION(NcBindFactionHqPin, "NeonAscendancy.Core.NcBindFactionHqPin");
+  RTTI_FUNCTION(NcLookupFactionHqPin, "NeonAscendancy.Core.NcLookupFactionHqPin");
+  RTTI_FUNCTION(NcGetFactionHqCount, "NeonAscendancy.Core.NcGetFactionHqCount");
+  RTTI_FUNCTION(NcGetFactionHqFactionId, "NeonAscendancy.Core.NcGetFactionHqFactionId");
+  RTTI_FUNCTION(NcGetFactionHqX, "NeonAscendancy.Core.NcGetFactionHqX");
+  RTTI_FUNCTION(NcGetFactionHqY, "NeonAscendancy.Core.NcGetFactionHqY");
+  RTTI_FUNCTION(NcGetFactionHqZ, "NeonAscendancy.Core.NcGetFactionHqZ");
+  RTTI_FUNCTION(NcGetFactionHqTooltipTitle, "NeonAscendancy.Core.NcGetFactionHqTooltipTitle");
+  RTTI_FUNCTION(NcGetFactionHqTooltipDesc, "NeonAscendancy.Core.NcGetFactionHqTooltipDesc");
   RTTI_FUNCTION(NcGetSubTerritoryOwner, "NeonAscendancy.Core.NcGetSubTerritoryOwner");
   RTTI_FUNCTION(NcGetFactionColorRgba, "NeonAscendancy.Core.NcGetFactionColorRgba");
   RTTI_FUNCTION(NcGetControlCenterTooltipTitle, "NeonAscendancy.Core.NcGetControlCenterTooltipTitle");
@@ -1185,7 +1285,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 56 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 66 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {

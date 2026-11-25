@@ -1,0 +1,12 @@
+[
+  {
+    "code": "hq_tyger_claws",
+    "display_name": "Clouds",
+    "faction_id": 2,
+    "gamedata_subdistrict": "JapanTown",
+    "source": "dist/extract/markers.jsonl q105_mp_dollhouse_entrance (docs/research/factions/tyger-claws.md)",
+    "x": -662.718,
+    "y": 806.865,
+    "z": 129.893
+  }
+]

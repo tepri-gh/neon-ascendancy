@@ -2,12 +2,14 @@ module NeonAscendancy.Map
 
 import NeonAscendancy.Core.*
 
-// Thin map adapter registering the 41 world.db control-center pins and the single
-// active combat mission waypoint. All ownership, color, tooltip, and pin-id lookup
+// Thin map adapter registering the active world.db control-center pins, the faction
+// headquarters markers, and the single active combat mission waypoint. All
+// ownership, color, tooltip, and pin-id lookup
 // state lives in C++ so WorldMap UI controllers never rely on global GetGameInstance().
 public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
   private let m_pinsRegistered: Bool;
   private let m_pinIds: array<Uint64>;
+  private let m_hqPinIds: array<Uint64>;
   private let m_hasMissionPin: Bool;
   private let m_missionPinId: NewMappinID;
   private let m_missionPinSubTerritory: Int32;
@@ -79,13 +81,20 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
           id.value = rawId;
           ms.UnregisterMappin(id);
         }
+        for rawHqId in this.m_hqPinIds {
+          let hqId: NewMappinID;
+          hqId.value = rawHqId;
+          ms.UnregisterMappin(hqId);
+        }
         if this.m_hasMissionPin {
           ms.UnregisterMappin(this.m_missionPinId);
         }
       }
     }
     ArrayClear(this.m_pinIds);
+    ArrayClear(this.m_hqPinIds);
     NcClearControlCenterPins();
+    NcClearFactionHqPins();
     this.m_pinsRegistered = false;
     this.m_hasMissionPin = false;
     this.m_missionPinSubTerritory = 0;
@@ -140,10 +149,35 @@ public class NeonAscendancy_TerritoryMapSystem extends ScriptableSystem {
       }
       i += 1;
     }
+    this.RegisterFactionHqPins(ms);
     this.m_pinsRegistered = count > 0;
     NcLogInfo(
-      s"TerritoryMap: registered \(ArraySize(this.m_pinIds)) control-center pins (bound=\(NcGetBoundControlCenterPinCount()))"
+      s"TerritoryMap: registered \(ArraySize(this.m_pinIds)) control-center pins (bound=\(NcGetBoundControlCenterPinCount())), \(ArraySize(this.m_hqPinIds)) headquarters pins"
     );
+  }
+
+  private final func RegisterFactionHqPins(ms: ref<MappinSystem>) -> Void {
+    NcClearFactionHqPins();
+    ArrayClear(this.m_hqPinIds);
+    const count = NcGetFactionHqCount();
+    let i = 0;
+    while i < count {
+      const factionId = NcGetFactionHqFactionId(i);
+      if factionId > 0 {
+        let data: MappinData;
+        data.mappinType = t"Mappins.DropPointStaticMappin";
+        data.variant = gamedataMappinVariant.ServicePointDropPointVariant;
+        data.active = true;
+        data.visibleThroughWalls = false;
+        data.debugCaption = s"NA_HQ_\(factionId)";
+        const pos = Vector4(NcGetFactionHqX(i), NcGetFactionHqY(i), NcGetFactionHqZ(i) + 1.0, 1.0);
+        const pinId = ms.RegisterMappin(data, pos);
+        ms.SetMappinActive(pinId, true);
+        ArrayPush(this.m_hqPinIds, pinId.value);
+        NcBindFactionHqPin(pinId.value, factionId);
+      }
+      i += 1;
+    }
   }
 }
 
@@ -155,11 +189,26 @@ public func NeonAscendancy_ResolvePinSubTerritory(mappin: wref<IMappin>) -> Int3
   return NcLookupControlCenterPin(pinId.value);
 }
 
+public func NeonAscendancy_ResolvePinHqFaction(mappin: wref<IMappin>) -> Int32 {
+  if !IsDefined(mappin) {
+    return 0;
+  }
+  const pinId = mappin.GetNewMappinID();
+  return NcLookupFactionHqPin(pinId.value);
+}
+
+// True for every pin this mod registers (control centers and headquarters).
+public func NeonAscendancy_IsNeonPin(mappin: wref<IMappin>) -> Bool {
+  return NeonAscendancy_ResolvePinSubTerritory(mappin)
+    > 0
+    || NeonAscendancy_ResolvePinHqFaction(mappin) > 0;
+}
+
 private func NeonAscendancy_ShouldHideWorldMapPin(mappin: wref<IMappin>) -> Bool {
   if !IsDefined(mappin) || !NcIsSanitizerActive() {
     return false;
   }
-  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
+  if NeonAscendancy_IsNeonPin(mappin) {
     return false;
   }
   return NcIsSuppressedVanillaMappinVariant(EnumInt(mappin.GetVariant()));
@@ -181,7 +230,7 @@ private let NeonAscendancy_cachedOwner: Int32;
 private final func GetDesiredOpacityAndInteractivity(out opacity: Float, out interactive: Bool) -> Void {
   wrappedMethod(opacity, interactive);
   let mappin = this.GetMappin();
-  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
+  if NeonAscendancy_IsNeonPin(mappin) {
     opacity = 1.0;
     interactive = true;
     this.isVisibleInFilterAndZoom = true;
@@ -202,7 +251,7 @@ protected func UpdateVisibility() -> Void {
   if !IsDefined(root) {
     return;
   }
-  if NeonAscendancy_ResolvePinSubTerritory(mappin) > 0 {
+  if NeonAscendancy_IsNeonPin(mappin) {
     root.SetVisible(true);
     root.SetOpacity(1.0);
     root.SetInteractive(true);
@@ -219,6 +268,11 @@ protected func UpdateVisibility() -> Void {
 protected func UpdateIcon() -> Void {
   wrappedMethod();
   let mappin = this.GetMappin();
+  const hqFaction = NeonAscendancy_ResolvePinHqFaction(mappin);
+  if hqFaction > 0 {
+    this.NeonAscendancy_ApplyHqIcon(hqFaction);
+    return;
+  }
   const stId = NeonAscendancy_ResolvePinSubTerritory(mappin);
   if stId <= 0 {
     if NeonAscendancy_ShouldHideWorldMapPin(mappin) {
@@ -260,6 +314,31 @@ protected func UpdateIcon() -> Void {
   }
 }
 
+@addMethod(BaseWorldMapMappinController)
+private final func NeonAscendancy_ApplyHqIcon(factionId: Int32) -> Void {
+  // Valid ink atlas texture part verified in mappinUtils.swift:105.
+  inkImageRef.SetTexturePart(this.iconWidget, n"fixer");
+  const rgba = NcGetFactionColorRgba(factionId);
+  let iconW = inkWidgetRef.Get(this.iconWidget);
+  if IsDefined(iconW) {
+    iconW.UnbindProperty(n"tintColor");
+    iconW
+      .SetTintColor(
+        Cast<Uint8>(rgba / 16777216u & 255u),
+        Cast<Uint8>(rgba / 65536u & 255u),
+        Cast<Uint8>(rgba / 256u & 255u),
+        Cast<Uint8>(255u)
+      );
+    iconW.SetScale(Vector2(1.5, 1.5));
+  }
+  let root = this.GetRootWidget();
+  if IsDefined(root) {
+    root.SetVisible(true);
+    root.SetOpacity(1.0);
+    root.SetInteractive(true);
+  }
+}
+
 @wrapMethod(WorldMapTooltipController)
 public func SetData(
   const data: script_ref<WorldMapTooltipData>,
@@ -267,13 +346,19 @@ public func SetData(
 ) -> Void {
   wrappedMethod(data, menu);
   let mappin = Deref(data).mappin;
+  const hqFaction = NeonAscendancy_ResolvePinHqFaction(mappin);
   const stId = NeonAscendancy_ResolvePinSubTerritory(mappin);
-  if stId <= 0 {
+  if hqFaction > 0 {
+    inkTextRef.SetText(this.m_titleText, NcGetFactionHqTooltipTitle(hqFaction));
+    inkWidgetRef.SetVisible(this.m_descText, true);
+    inkTextRef.SetText(this.m_descText, NcGetFactionHqTooltipDesc(hqFaction));
+  } else if stId > 0 {
+    inkTextRef.SetText(this.m_titleText, NcGetControlCenterTooltipTitle(stId));
+    inkWidgetRef.SetVisible(this.m_descText, true);
+    inkTextRef.SetText(this.m_descText, NcGetControlCenterTooltipDesc(stId));
+  } else {
     return;
   }
-  inkTextRef.SetText(this.m_titleText, NcGetControlCenterTooltipTitle(stId));
-  inkWidgetRef.SetVisible(this.m_descText, true);
-  inkTextRef.SetText(this.m_descText, NcGetControlCenterTooltipDesc(stId));
   inkWidgetRef.SetVisible(this.m_warningText, false);
   inkWidgetRef.SetVisible(this.m_threatLevelPanel, false);
   inkWidgetRef.SetVisible(this.m_fixerPanel, false);

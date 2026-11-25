@@ -93,15 +93,15 @@
   {
     "base_price": null,
     "code": "lm_kab_allen_street",
-    "display_name": "Allen Street Tenements",
+    "display_name": "Ho-Oh",
     "gamedata_district": "Kabuki",
     "kind": "hq",
     "landmark_id": 8,
     "purchasable": 0,
     "sub_territory_id": 8,
-    "x": -1114.2,
-    "y": 1202.5,
-    "z": 14.6
+    "x": -1040.161,
+    "y": 1349.624,
+    "z": 9.221
   },
   {
     "base_price": null,

@@ -90,7 +90,7 @@ DISTRICTS: list[dict[str, Any]] = [
 # Faction IDs from data/factions.json:
 #  1=Maelstrom, 2=TygerClaws, 3=Valentinos, 4=SixthStreet, 5=VoodooBoys, 6=Animals,
 #  7=Scavengers, 8=Wraiths, 9=Aldecaldos, 10=Barghest, 11=TheMox,
-#  20=Arasaka, 21=Militech, 22=KangTao, 23=Biotechnica, 28=OrbitalAir
+#  20=Arasaka, 21=Militech, 22=KangTao, 23=Biotechnica, 28=OrbitalAir, 43=Petrochem
 CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int, int, int]] = [
     # --- 1. Watson: Little China (5) ---
     (1, "LittleChina", "lch_dockside_yard",    "Little China Dockside Yard",    -1936.8,  1565.6,   8.6,  1, "gang", 760, 45, 0),
@@ -164,7 +164,7 @@ CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int
 
     # --- 4. Santo Domingo: Arroyo (5) ---
     (4, "Arroyo", "arr_arasaka_industrial", "Arasaka Industrial Park",           -513.2, -1552.9,   6.6, 20, "corp",  960, 80, 1),
-    (4, "Arroyo", "arr_petrochem_yard",     "Petrochem Freight Yard",            -255.9, -1480.0,   7.6, 20, "corp",  900, 70, 0),
+    (4, "Arroyo", "arr_petrochem_yard",     "Petrochem Freight Yard",            -255.9, -1480.0,   7.6, 43, "corp",  900, 70, 0),
     (4, "Arroyo", "arr_kendachi_plant",     "Kendachi Foundry",                  -605.0, -1037.5,   6.7,  4, "gang",  820, 60, 0),
     (4, "Arroyo", "arr_megabuilding_h4",    "Megabuilding H4 Plaza",             -951.7, -1502.8,  25.6,  4, "gang",  790, 55, 0),
     (4, "Arroyo", "arr_red_dirt_cross",     "Red Dirt Crossroads",               -884.3, -1009.7,  11.6,  4, "gang",  780, 55, 0),
@@ -227,6 +227,50 @@ CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int
     (9, "MorroRock", "morro_ncx_spaceport", "Orbital Air NCX Spaceport",        -3562.8,   390.3,  31.8, 28, "corp", 1450, 95, 1),
 ]
 
+# Test scope: exactly one active control center per modeled faction (faction code ->
+# CURATED_ZONES code). Every other control center ships dormant (is_active = 0): kept
+# so site/spawn links stay valid, but not loaded into the sim or drawn on the map.
+# Temporary until the lore-relevant catalog in docs/research/factions/ replaces the
+# generic grid.
+ACTIVE_TEST_CONTROL_CENTERS: dict[str, str] = {
+    "tyger_claws": "kab_allen_street",
+    "valentinos": "rey_college_street",
+    "arasaka": "awf_central_terminal",
+    "militech": "dtn_skyline_west",
+    "kang_tao": "gle_hanford_overpass",
+    "biotechnica": "bls_biotechnica_flats",
+    "petrochem": "arr_petrochem_yard",
+    "barghest": "dt_main_gate",
+    "sixth_street": "arr_megabuilding_h4",
+    "aldecaldos": "bls_aldecaldos_camp",
+    "wraiths": "bls_sunset_motel",
+    "animals": "cvi_east_overpass",
+    "the_mox": "kab_creek_loop",
+    "maelstrom": "nid_martin_st_docks",
+    "voodoo_boys": "cvi_south_boulevard",
+}
+
+# Researched lore points that replace an active test zone's generic anchor (zone code ->
+# name + verified coordinates). The zone keeps its id, owner, and economy fields.
+LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
+    "kab_allen_street": {
+        "display_name": "Ho-Oh",
+        "x": -1040.161, "y": 1349.624, "z": 9.221,
+        "source": "data/sites/sites.json site 397 sts_wat_kab_07 (docs/research/factions/tyger-claws.md)",
+    },
+}
+
+# One map-marker headquarters per faction (not capturable yet). Coordinates must come
+# from extracted game data; `source` cites the record. Researched per faction in
+# docs/research/factions/<faction>.md.
+FACTION_HEADQUARTERS: list[dict[str, Any]] = [
+    {
+        "faction": "tyger_claws", "display_name": "Clouds", "gamedata_subdistrict": "JapanTown",
+        "x": -662.718, "y": 806.865, "z": 129.893,
+        "source": "dist/extract/markers.jsonl q105_mp_dollhouse_entrance (docs/research/factions/tyger-claws.md)",
+    },
+]
+
 
 def write_json(name: str, obj: Any) -> None:
     path = DATA_DIR / name
@@ -244,6 +288,11 @@ def main() -> int:
 
     for idx, row in enumerate(CURATED_ZONES, start=1):
         (did, subdist, code, name, x, y, z, owner_id, owner_kind, income, defense, is_cap) = row
+        if code in LORE_TEST_POINTS:
+            if code not in ACTIVE_TEST_CONTROL_CENTERS.values():
+                raise ValueError(f"LORE_TEST_POINTS entry {code} is not an active test zone")
+            lore = LORE_TEST_POINTS[code]
+            name, x, y, z = lore["display_name"], lore["x"], lore["y"], lore["z"]
         d = dist_by_id[did]
         if not (d["bbox_min_x"] <= x <= d["bbox_max_x"] and d["bbox_min_y"] <= y <= d["bbox_max_y"]):
             raise ValueError(f"{code} ({x}, {y}) outside district {d['code']} bbox!")
@@ -340,10 +389,42 @@ def main() -> int:
             })
             sp_id += 1
 
+    zone_owner = {row[2]: row[7] for row in CURATED_ZONES}
+    active_codes = set(ACTIVE_TEST_CONTROL_CENTERS.values())
+    if len(active_codes) != len(ACTIVE_TEST_CONTROL_CENTERS):
+        raise ValueError("ACTIVE_TEST_CONTROL_CENTERS reuses a control center")
+    for fac_code, zone_code in ACTIVE_TEST_CONTROL_CENTERS.items():
+        if fac_code not in fac_by_code:
+            raise ValueError(f"Unknown faction {fac_code} in ACTIVE_TEST_CONTROL_CENTERS")
+        if zone_owner.get(zone_code) != fac_by_code[fac_code]:
+            raise ValueError(f"Active control center {zone_code} is not owned by {fac_code}")
+    for cc in control_centers:
+        cc["is_active"] = 1 if cc["code"].removeprefix("cc_") in active_codes else 0
+
+    headquarters: list[dict[str, Any]] = []
+    for hq in FACTION_HEADQUARTERS:
+        fac_code = hq["faction"]
+        if fac_code not in fac_by_code:
+            raise ValueError(f"Unknown faction {fac_code} in FACTION_HEADQUARTERS")
+        headquarters.append({
+            "faction_id": fac_by_code[fac_code],
+            "code": f"hq_{fac_code}",
+            "display_name": hq["display_name"],
+            "gamedata_subdistrict": hq["gamedata_subdistrict"],
+            "x": round(hq["x"], 3),
+            "y": round(hq["y"], 3),
+            "z": round(hq["z"], 3),
+            "source": hq["source"],
+        })
+    if len({hq["faction_id"] for hq in headquarters}) != len(headquarters):
+        raise ValueError("FACTION_HEADQUARTERS lists a faction twice")
+    headquarters.sort(key=lambda r: r["faction_id"])
+
     write_json("districts.json", DISTRICTS)
     write_json("sub_territories.json", sub_territories)
     write_json("landmarks.json", landmarks)
     write_json("control_centers.json", control_centers)
+    write_json("faction_headquarters.json", headquarters)
     write_json("spawn_points.json", spawn_points)
 
     manifest = json.loads((DATA_DIR / "MANIFEST.json").read_text(encoding="utf-8"))
@@ -352,6 +433,8 @@ def main() -> int:
         "factions": len(factions),
         "sub_territories": len(sub_territories),
         "control_centers": len(control_centers),
+        "active_control_centers": sum(cc["is_active"] for cc in control_centers),
+        "faction_headquarters": len(headquarters),
         "landmarks": len(landmarks),
         "spawn_points": len(spawn_points),
     }

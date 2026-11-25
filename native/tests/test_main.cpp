@@ -4,6 +4,7 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "era.hpp"
@@ -201,11 +202,28 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
   NC_CHECK(world.Factions().size() >= 30);
   NC_CHECK(world.Districts().size() == 9);
   NC_CHECK(world.SubTerritories().size() == 96);
-  NC_CHECK(world.ControlCenters().size() == world.SubTerritories().size());
+  // Only active control centers load; only their sub-territories enter the sim.
+  NC_CHECK(!world.ControlCenters().empty());
+  NC_CHECK(world.ControlCenters().size() <= world.SubTerritories().size());
+  NC_CHECK(world.BuildTerritoryDefs().size() == world.ControlCenters().size());
   const auto* morro = world.FindDistrict(9);
   NC_CHECK(morro != nullptr && morro->code == "morro_rock");
-  const int32_t spaceport_st = world.LookupSubTerritoryAt(-3562.8, 390.3);
-  NC_CHECK(spaceport_st == 96);
+
+  // Dormant sub-territories are invisible to the runtime spatial grid.
+  for (const auto& st : world.SubTerritories()) {
+    if (world.FindControlCenterBySubTerritory(st.sub_territory_id) == nullptr) {
+      NC_CHECK(world.LookupSubTerritoryAt(st.centroid_x, st.centroid_y) != st.sub_territory_id);
+    }
+  }
+
+  // Headquarters: at most one per faction, each tied to a known faction.
+  {
+    std::unordered_set<int32_t> hq_factions;
+    for (const auto& hq : world.FactionHeadquarters()) {
+      NC_CHECK(world.FindFaction(hq.faction_id) != nullptr);
+      NC_CHECK(hq_factions.insert(hq.faction_id).second);
+    }
+  }
 
   // Color parsing & metadata lookup.
   NC_CHECK(neon::store::WorldDb::ParseHexColorRgba("#D92626CC") == 0xD92626CCU);
@@ -217,7 +235,7 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
   // Every control center resolves via O(1) RAM cell grid and metadata maps.
   for (const auto& cc : world.ControlCenters()) {
     const int32_t resolved = world.LookupSubTerritoryAt(cc.x, cc.y);
-    NC_CHECK(resolved > 0);
+    NC_CHECK(resolved == cc.sub_territory_id);
     const auto* st = world.FindSubTerritory(cc.sub_territory_id);
     NC_CHECK(st != nullptr);
     NC_CHECK(world.FindDistrict(st->district_id) != nullptr);
@@ -225,12 +243,12 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
   }
 
   // Verified live PLStandalone Coastview position (-1750.6, -1835.5) resolves cleanly.
-  const int32_t coastview_st = world.LookupSubTerritoryAt(-1750.597, -1835.524);
+  const int32_t coastview_st = world.FindNearestSubTerritory(-1750.597, -1835.524);
   NC_CHECK(coastview_st > 0);
   const auto* coastview_def = world.FindSubTerritory(coastview_st);
   NC_CHECK(coastview_def != nullptr);
 
-  // R-Tree spatial prefilter + 3D check finds real spawns near at least 20 control centers.
+  // R-Tree spatial prefilter + 3D check finds real spawns near most active control centers.
   size_t centers_with_spawns = 0;
   for (const auto& cc : world.ControlCenters()) {
     const auto nearby = world.QuerySpawnPointsNear(cc.x, cc.y, cc.z, 250.0);
@@ -238,7 +256,7 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
       ++centers_with_spawns;
     }
   }
-  NC_CHECK(centers_with_spawns >= 20);
+  NC_CHECK(centers_with_spawns * 2 >= world.ControlCenters().size());
 }
 
 void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
@@ -252,10 +270,10 @@ void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
   std::filesystem::remove(tmp_db + "-wal");
   std::filesystem::remove(tmp_db + "-shm");
 
-  const int32_t home_st = world.SubTerritories()[0].sub_territory_id;
-  const int32_t rival_st = world.SubTerritories()[1].sub_territory_id;
+  const int32_t home_st = world.ControlCenters()[0].sub_territory_id;
+  const int32_t rival_st = world.ControlCenters()[1].sub_territory_id;
   const int32_t rival_cc = world.ControlCenters()[1].control_center_id;
-  const int32_t rival_orig_owner = world.SubTerritories()[1].initial_owner_faction_id;
+  const int32_t rival_orig_owner = world.FindSubTerritory(rival_st)->initial_owner_faction_id;
 
   // 1. Fresh playthrough creation -> revision 0.
   neon::sim::SimState state;
@@ -263,7 +281,7 @@ void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
   auto begin = pt.SessionBegin(tmp_db, world, 0, 0x11223344U, 0x55667788U, 0, 1000, state);
   NC_CHECK(begin.status == neon::store::SessionStatus::Created);
   NC_CHECK(begin.durable_revision == 0);
-  NC_CHECK(state.territories.size() == world.SubTerritories().size());
+  NC_CHECK(state.territories.size() == world.ControlCenters().size());
   NC_CHECK(neon::sim::SimEngine::ResolvePauseMenuAction(state, false) ==
            neon::sim::PauseMenuAction::ActivateAscendancy);
   NC_CHECK(neon::sim::SimEngine::ResolvePauseMenuAction(state, true) ==

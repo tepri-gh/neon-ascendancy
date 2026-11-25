@@ -3,6 +3,7 @@ module NeonAscendancy.Sandbox
 import NeonAscendancy.Core.*
 import NeonAscendancy.Debug.*
 import NeonAscendancy.Gameplay.*
+import NeonAscendancy.Map.*
 
 private class NeonAscendancy_SanitizerApplyCallback extends DelayCallback {
   public let m_system: wref<NeonAscendancy_SanitizerSystem>;
@@ -692,14 +693,6 @@ protected cb func OnDialogsData(value: Variant) -> Bool {
   return wrappedMethod(value);
 }
 
-private func NeonAscendancy_IsOurMappin(mappin: wref<IMappin>) -> Bool {
-  if !IsDefined(mappin) {
-    return false;
-  }
-  const pinId = mappin.GetNewMappinID();
-  return NcLookupControlCenterPin(pinId.value) > 0;
-}
-
 // Fullscreen World Map (M) mappin filter (uses C++ O(1) lookup, no GetGameInstance()).
 @wrapMethod(WorldMapMenuGameController)
 public func CreateMappinUIProfile(
@@ -707,7 +700,7 @@ public func CreateMappinUIProfile(
   mappinVariant: gamedataMappinVariant,
   customData: ref<MappinControllerCustomData>
 ) -> MappinUIProfile {
-  if NeonAscendancy_IsOurMappin(mappin) {
+  if NeonAscendancy_IsNeonPin(mappin) {
     return MappinUIProfile
       .Create(
         r"base\\gameplay\\gui\\fullscreen\\world_map\\mappins\\default_mappin.inkwidget",
@@ -730,7 +723,7 @@ public func CreateMappinUIProfile(
   customData: ref<MappinControllerCustomData>
 ) -> MappinUIProfile {
   if NcIsSanitizerActive()
-    && !NeonAscendancy_IsOurMappin(mappin)
+    && !NeonAscendancy_IsNeonPin(mappin)
     && NcIsSuppressedVanillaMappinVariant(EnumInt(mappinVariant)) {
     return MappinUIProfile.None();
   }
@@ -745,7 +738,7 @@ public func CreateMappinUIProfile(
   customData: ref<MappinControllerCustomData>
 ) -> MappinUIProfile {
   if NcIsSanitizerActive()
-    && !NeonAscendancy_IsOurMappin(mappin)
+    && !NeonAscendancy_IsNeonPin(mappin)
     && NcIsSuppressedVanillaMappinVariant(EnumInt(mappinVariant)) {
     return MappinUIProfile.None();
   }

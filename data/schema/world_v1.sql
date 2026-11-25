@@ -89,9 +89,22 @@ CREATE TABLE control_centers (
   y                 REAL NOT NULL,
   z                 REAL NOT NULL,
   capture_radius_m  REAL NOT NULL DEFAULT 35.0 CHECK (capture_radius_m > 0.0),
-  is_capital        INTEGER NOT NULL DEFAULT 0 CHECK (is_capital IN (0, 1))
+  is_capital        INTEGER NOT NULL DEFAULT 0 CHECK (is_capital IN (0, 1)),
+  -- 0 = dormant: kept for site/spawn links but not loaded into the sim or map.
+  is_active         INTEGER NOT NULL DEFAULT 1 CHECK (is_active IN (0, 1))
 ) STRICT;
 CREATE INDEX idx_control_centers_territory ON control_centers(sub_territory_id);
+
+-- At most one headquarters per faction. Map marker only for now; not capturable.
+CREATE TABLE faction_headquarters (
+  faction_id           INTEGER PRIMARY KEY REFERENCES factions(faction_id),
+  code                 TEXT NOT NULL UNIQUE,
+  display_name         TEXT NOT NULL,
+  gamedata_subdistrict TEXT,
+  x                    REAL NOT NULL,
+  y                    REAL NOT NULL,
+  z                    REAL NOT NULL
+) STRICT;
 
 CREATE TABLE spawn_points (
   spawn_point_id     INTEGER PRIMARY KEY,

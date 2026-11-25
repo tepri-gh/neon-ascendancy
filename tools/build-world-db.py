@@ -64,6 +64,7 @@ WORLD_SEED_FILES = (
     "districts.json",
     "sub_territories.json",
     "control_centers.json",
+    "faction_headquarters.json",
     "landmarks.json",
     "spawn_points.json",
 )
@@ -618,6 +619,7 @@ def build_db(out_path: Path) -> dict[str, Any]:
     districts = seeds["districts.json"]
     sub_territories = seeds["sub_territories.json"]
     control_centers = seeds["control_centers.json"]
+    headquarters = seeds["faction_headquarters.json"]
     landmarks = seeds["landmarks.json"]
     spawn_points = seeds["spawn_points.json"]
 
@@ -742,16 +744,28 @@ def build_db(out_path: Path) -> dict[str, Any]:
             con.executemany(
                 """INSERT INTO control_centers(
                      control_center_id, sub_territory_id, code, display_name, landmark_id,
-                     x, y, z, capture_radius_m, is_capital
-                   ) VALUES(?,?,?,?,?,?,?,?,?,?)""",
+                     x, y, z, capture_radius_m, is_capital, is_active
+                   ) VALUES(?,?,?,?,?,?,?,?,?,?,?)""",
                 [
                     (
                         cc["control_center_id"], cc["sub_territory_id"], cc["code"],
                         cc["display_name"], cc.get("landmark_id"),
                         cc["x"], cc["y"], cc["z"], cc.get("capture_radius_m", 40.0),
-                        cc.get("is_capital", 0),
+                        cc.get("is_capital", 0), cc["is_active"],
                     )
                     for cc in sorted(control_centers, key=lambda r: r["control_center_id"])
+                ],
+            )
+            con.executemany(
+                """INSERT INTO faction_headquarters(
+                     faction_id, code, display_name, gamedata_subdistrict, x, y, z
+                   ) VALUES(?,?,?,?,?,?,?)""",
+                [
+                    (
+                        hq["faction_id"], hq["code"], hq["display_name"],
+                        hq.get("gamedata_subdistrict"), hq["x"], hq["y"], hq["z"],
+                    )
+                    for hq in headquarters
                 ],
             )
             con.executemany(
@@ -818,6 +832,8 @@ def build_db(out_path: Path) -> dict[str, Any]:
         "districts": len(districts),
         "sub_territories": len(sub_territories),
         "control_centers": len(control_centers),
+        "active_control_centers": sum(cc["is_active"] for cc in control_centers),
+        "faction_headquarters": len(headquarters),
         "landmarks": len(landmarks),
         "spawn_points": len(spawn_points),
         "territory_cells": len(cell_rows),

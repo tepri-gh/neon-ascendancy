@@ -42,6 +42,15 @@ struct WorldControlCenter {
   double capture_radius_m = 40.0;
 };
 
+struct WorldFactionHq {
+  int32_t faction_id = 0;
+  std::string code;
+  std::string display_name;
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+};
+
 struct WorldSubTerritory {
   int32_t sub_territory_id = 0;
   int32_t district_id = 0;
@@ -75,7 +84,10 @@ class WorldDb {
   [[nodiscard]] const std::vector<WorldFaction>& Factions() const { return factions_; }
   [[nodiscard]] const std::vector<WorldDistrict>& Districts() const { return districts_; }
   [[nodiscard]] const std::vector<WorldSubTerritory>& SubTerritories() const { return sub_territories_; }
+  // Active control centers only; dormant rows (is_active = 0) are never loaded.
   [[nodiscard]] const std::vector<WorldControlCenter>& ControlCenters() const { return control_centers_; }
+  [[nodiscard]] const std::vector<WorldFactionHq>& FactionHeadquarters() const { return faction_hqs_; }
+  // Only sub-territories with an active control center enter the sim.
   [[nodiscard]] std::vector<sim::TerritoryDef> BuildTerritoryDefs() const;
 
   // O(1) RAM metadata lookups: zero SQL queries on hot path.
@@ -109,6 +121,7 @@ class WorldDb {
   std::vector<WorldDistrict> districts_;
   std::vector<WorldSubTerritory> sub_territories_;
   std::vector<WorldControlCenter> control_centers_;
+  std::vector<WorldFactionHq> faction_hqs_;
   std::unordered_map<int32_t, size_t> faction_index_;
   std::unordered_map<int32_t, size_t> district_index_;
   std::unordered_map<int32_t, size_t> sub_territory_index_;

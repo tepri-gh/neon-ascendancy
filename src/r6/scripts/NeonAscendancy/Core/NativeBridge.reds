@@ -27,6 +27,12 @@ public native func NcLookupControlCenterPin(mappinId: Uint64) -> Int32;
 
 public native func NcGetBoundControlCenterPinCount() -> Int32;
 
+public native func NcClearFactionHqPins() -> Void;
+
+public native func NcBindFactionHqPin(mappinId: Uint64, factionId: Int32) -> Void;
+
+public native func NcLookupFactionHqPin(mappinId: Uint64) -> Int32;
+
 public native func NcGetSafeSanctuaryCount() -> Int32;
 
 public native func NcPopHudNotice() -> String;
@@ -68,6 +74,20 @@ public native func NcGetControlCenterX(index: Int32) -> Float;
 public native func NcGetControlCenterY(index: Int32) -> Float;
 
 public native func NcGetControlCenterZ(index: Int32) -> Float;
+
+public native func NcGetFactionHqCount() -> Int32;
+
+public native func NcGetFactionHqFactionId(index: Int32) -> Int32;
+
+public native func NcGetFactionHqX(index: Int32) -> Float;
+
+public native func NcGetFactionHqY(index: Int32) -> Float;
+
+public native func NcGetFactionHqZ(index: Int32) -> Float;
+
+public native func NcGetFactionHqTooltipTitle(factionId: Int32) -> String;
+
+public native func NcGetFactionHqTooltipDesc(factionId: Int32) -> String;
 
 public native func NcGetSubTerritoryOwner(subTerritoryId: Int32) -> Int32;
 

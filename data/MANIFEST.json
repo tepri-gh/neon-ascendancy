@@ -1,7 +1,9 @@
 {
   "counts": {
+    "active_control_centers": 15,
     "control_centers": 96,
     "districts": 9,
+    "faction_headquarters": 1,
     "factions": 38,
     "landmarks": 96,
     "spawn_points": 1329,
