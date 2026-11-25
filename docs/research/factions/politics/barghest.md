@@ -30,14 +30,16 @@ Evidence tags used throughout:
 
 Extra conventions for this document:
 
-- **Presence class.** `ambient` = persists in free roam without a quest;
-  `world-activity` = gig, scanner activity or NCPD activity, i.e. free-roam
-  content but still activity-gated; `story` = gated by the Phantom Liberty
-  chain (`q301`–`q304`, `mq301`, `mq304`); `historical` = not present in 2077.
-  The JSON `open_world` flag is `true` for `ambient` + `world-activity`, `false`
-  for `story` + `historical`. One extra value is used in prose only:
-  `shard-only` = a person who exists in 2077 text but has no actor record at
-  all (the METHOD has no class for this; see §5.1, gap M1).
+- **Presence class** (METHOD §1.2 item 2, which superseded the four-class list
+  while this doc was being written). `ambient` = persists in free roam without
+  a quest; `world-activity` = gig, scanner hustle, side/minor job or NCPD
+  activity, i.e. free-roam content but still activity-gated; `story` = gated by
+  the Phantom Liberty chain (`q301`–`q304`, `mq301`, `mq304`); `prologue` =
+  a lifepath intro (none here); `off-map` = alive in lore but never spawned;
+  `mentioned` = named only in shards or dialogue; `historical` = not present in
+  2077. The JSON `open_world` flag is `true` for `ambient` + `world-activity`,
+  `false` for everything else. Fae Nesheim and Leonardo Ware are `mentioned`:
+  they act in 2077 text but have no actor record at all.
 - **Rank is literal.** Barghest is the one Night City gang whose members hold
   real military ranks and are addressed by them. `Colonel`, `Lieutenant
   Colonel`, `Major`, `Captain`, `Sergeant` and `Private` all appear in game
@@ -148,10 +150,15 @@ tolerated until it becomes visible (Ulmer, Paco).
 
 ### 1.4 Named members mapped to game data
 
-Most named Barghest NPCs are **not** in `data/sites/rosters.json`. They live in
-the raw sector community registry, which is why this table names exact records.
-Rows marked `[inferred]` are one-signal deductions; verify in-game before
-seeding them.
+**The roster check comes first (METHOD §1.2 item 1), and it almost fails.** Of
+Barghest's 87 roster units across 4 sites, only two records are named:
+`Character.sts_ep1_10_dodger` (Dodger) and `Character.sts_ep1_12_courier`
+(Kyle Araujo). Every other roster record is a generic archetype
+(`sts_ep1_06_enemy_*`, `sts_ep1_07_kurtz_*`, `sts_ep1_10_kurtz_*`). The rest of
+the leadership lives in the raw sector community registry, which is why this
+table names exact records. All 10,324 `worldCommunityRegistryItem` rows are in
+`always_loaded_1`, matching METHOD §1.2 item 1. Rows marked `[inferred]` are
+one-signal deductions; verify in-game before seeding them.
 
 | Name | Role / note | Character record | Community / site | Location | Presence class | Confidence |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -167,8 +174,8 @@ seeding them.
 | Paco Torres | New recruit; Balls to the Wall | `Character.paco` | `15955641788856784119` | Black Sapphire garrison tent | `story` | `[game-data]` `[wiki]` |
 | Barbara "Babs" Okoye | Soldier; Paco's friend | no record | — | Black Sapphire garrison tent | `story` | `[wiki]` |
 | Kyle Araujo | Courier and implant supplier | `Character.sts_ep1_12_courier` | wake entry `kyle_araujo` | Luxor High Wellness Spa / Dogtown | `world-activity` | `[game-data]` `[wiki]` |
-| Fae Nesheim | Soldier; airdrop-coordinate hunt | no record | — | Akebono Hotel, Luxor Heights | `shard-only` | `[wiki]` |
-| Leonardo Ware | Ex-member; arrested for theft | no record | — | — | `shard-only` | `[wiki]` |
+| Fae Nesheim | Soldier; airdrop-coordinate hunt | no record | — | Akebono Hotel, Luxor Heights | `mentioned` | `[wiki]` |
+| Leonardo Ware | Ex-member; arrested for theft | no record | — | — | `mentioned` | `[wiki]` |
 | The "unidentified" member | Eighth photo on the FIA board | no record | — | — | — | `[wiki]` |
 
 **Two data cautions, both real collisions.**
@@ -218,9 +225,8 @@ roam with the campaign disabled.**
   are initial-phase quest states (`q301_01_start`, `mq304_01_meeting`,
   `mq304_wake_start`, …). `[game-data]`
 
-**`shard-only` — no actor at all.**
-- Fae Nesheim and Leonardo Ware exist in shards and member tables only.
-  `[wiki]`
+**`mentioned` — no actor at all.**
+- Fae Nesheim and Leonardo Ware exist in shards and member tables only. `[wiki]`
 
 **`historical` — not in 2077.**
 - None of the leadership is historical: the militia is only seven years old
@@ -512,6 +518,13 @@ identity enum (Barghest = 10), not a relation table; `Attitude_Record.hpp` is
 opaque. The stances below are judged from quests, shards, the wiki and the
 game's own co-location records.
 
+The Black Sapphire party is the strongest co-location signal and it survives
+METHOD §1.2 item 6's crowd-pool filter: it is a **scripted quest scene**, not a
+respawn pool or time-of-day set dressing. The guest list names specific NPCs,
+and the community places them (`q303_paradise_jotaro`, `q303_paradise_6th_street_leader`,
+`q303_paradise_arasaka_contact`, `q303_paradise_scav_tzar`, …). `[game-data]`
+`[wiki]`
+
 | Faction | Code | Stance | Evidence | Confidence |
 | --- | --- | --- | --- | --- |
 | Tyger Claws | `tyger_claws` | `trade` | High-ranking Tyger Claws (Jotaro Shobo, Maiko Maeda, Marcus Ichida, Jun Azegami) attend Hansen's Black Sapphire party `[wiki]`; 6 Tyger Claws records in the floor-99 community `{q303_com_paradise_quest_interactions}` `[game-data]`; Dodger's past includes "gravely insulting a prominent Tyger Claws boss", sheltered by Hansen `[wiki]` | `game-data+wiki` |
@@ -654,10 +667,12 @@ Design cautions, not redesigns:
 These are improvements the next agent should fold into
 [`METHOD.md`](./METHOD.md), not faction trivia.
 
-1. **M1 — No class for `shard-only` NPCs.** Fae Nesheim and Leonardo Ware are
-   named Barghest members with 2077 events and no actor record at all. The four
-   presence classes cannot express them. Add `shard-only` (open_world false,
-   no record).
+1. **M1 — The schema changed mid-batch.** §1.2 added `presence_class`, the
+   six-class list and the `mentioned`/`off-map` distinction while this doc was
+   being written. The batch-1 docs (Maelstrom, Arasaka, Voodoo Boys) are now
+   missing `presence_class` and use the old four-class prose. Add a version
+   marker to the METHOD or run a migration pass; otherwise every new doc is
+   validated against a schema its predecessors fail.
 2. **M2 — The entry-name/record-name split is undocumented.** Albert Murphy's
    registry entry is `murphy` but its character record is
    `Character.kruger_combat`. METHOD §2 item 2 says to collect
@@ -694,12 +709,12 @@ These are improvements the next agent should fold into
 8. **M8 — The JSON has no divisions field.** The Prevention Unit is a real
    institution (red armour, replaces NCPD inside the wall) with no faction code
    and no slot in the JSON. Add `sub_units`.
-9. **M9 — The required relation list is ambiguous about Zetatech.** The FIA
-   white paper names "covert Zetatech operations" in Dogtown, and Zetatech has
-   a `factions.json` code, but the design does not name it. State the rule:
-   either include every coded faction that has game evidence, or explicitly
-   drop the non-design ones. This document keeps Zetatech in prose and notes
-   the omission.
+9. **M9 — "Attested relation" is not defined against mere presence.** §1.2
+   item 7 now says to add every `factions.json` code with an attested relation.
+   Zetatech is named as a covert operator in Dogtown and News 54's Gillean
+   Jordan attends the Sapphire party, but neither is a Barghest relation.
+   State whether presence alone qualifies; otherwise a parser cannot tell
+   whether to expect a row. This document keeps both in prose.
 10. **M10 — The template has no civil/governance layer.** For a faction that
     governs a district, the market, airdrops, protection, gates and utilities
     are the substance of its politics. Add a "governance layer" section to §5
@@ -790,13 +805,14 @@ These are improvements the next agent should fold into
 
 ### 5.3 Sources consulted
 
-- Local: `data/factions.json`, `data/sites/{sites,rosters,communities,guards,
-  triggers,spots,patrols,doors}.json`, `data/{sub_territories,control_centers,
-  districts}.json`, `dist/extract/areas.jsonl`, `dist/extract/markers.jsonl`,
+- Local: `data/factions.json`, `data/districts.json`,
+  `data/sub_territories.json`, `dist/extract/areas.jsonl`,
   `dist/extract/raw/**/always_loaded_{0,1,2}.streamingsector.json`
   (`worldCommunityRegistryItem` templates, entry names, character record ids
   and spot refs), `refs/RED4ext.SDK/.../game/data/Affiliation.hpp`,
-  `refs/RED4ext.SDK/.../game/data/Attitude_Record.hpp`.
+  `refs/RED4ext.SDK/.../game/data/Attitude_Record.hpp`. The roster/site/area
+  counts in the front matter are from `docs/research/factions/barghest.md`
+  (4 roster sites, 87 units, 187 areas, 1,449 records).
 - Wiki: [BARGHEST](https://cyberpunk.fandom.com/wiki/BARGHEST),
   [BARGHEST Members](https://cyberpunk.fandom.com/wiki/BARGHEST_Members),
   [Kurt Hansen](https://cyberpunk.fandom.com/wiki/Kurt_Hansen),
@@ -876,6 +892,7 @@ These are improvements the next agent should fold into
       "role": "Colonel; founder, commander and de facto ruler of Dogtown",
       "character_record_id": "Character.kurtz",
       "location_name": "Black Sapphire (floor 99) / EBM Stadium deal room / Dogtown north gate",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry kurtz -> Character.kurtz (phases q301_01_start, q301_04_start, q301_blackmarket_announcement, q303_casino, q303_restaurant_host; spots #q301_ws_01_kurtz, #q301_ws_04_kurtz, #q301_ws_02a_kurt_announcement, #q303_ws_kurt_paradise_casino, #q304_07_ws_kurt_deal_start); boss variant Character.q304_kurt_miniboss; memory variant Character.kurt_hallucination; wiki Kurt Hansen",
       "confidence": "game-data+wiki"
@@ -885,6 +902,7 @@ These are improvements the next agent should fold into
       "role": "Lieutenant Colonel; commander of the armed forces; Hansen's chief aide; successor claimant",
       "character_record_id": "Character.mq304_bennett",
       "location_name": "Black Sapphire (party and Hansen's wake) / Stadium escape",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry bennett -> Character.mq304_bennett (phases mq304_01_meeting, mq304_after_combat_alley, mq304_wake_booth, mq304_wake_start); party variant Character.q303_paradise_bennett; wiki Chester Bennett",
       "confidence": "game-data+wiki"
@@ -894,6 +912,7 @@ These are improvements the next agent should fold into
       "role": "Chief accountant (treasurer); successor claimant",
       "character_record_id": "Character.mq304_jago",
       "location_name": "Luxor Heights (Voodoo Boys meeting) / Black Sapphire / Stadium",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry jago -> Character.mq304_jago (phases meeting_arrive, meeting_spawn, q301_border, wake_bennett, wake_booth; spots #mq304_ws_jago_vdb_arrive, #q301_ws_01_jago_gate_cargo, #mq304_ws_jago_wake_booth); party variant Character.q303_paradise_jago; wiki Jago Szabo",
       "confidence": "game-data+wiki"
@@ -903,6 +922,7 @@ These are improvements the next agent should fold into
       "role": "High-ranking old-guard officer; Hansen's negotiator and enforcer of the district's order",
       "character_record_id": "Character.kruger_combat",
       "location_name": "EBM Petrochem Stadium (market escape)",
+      "presence_class": "story",
       "open_world": false,
       "source": "raw always_loaded_1 registry entry murphy -> Character.kruger_combat (phase q304_01_start; spot #q304_ws_escape_murphy_boss); entry-name join, verify in-game; wiki Albert Murphy; FIA photo board",
       "confidence": "game-data+wiki+inferred"
@@ -912,6 +932,7 @@ These are improvements the next agent should fold into
       "role": "Lieutenant; old guard; convoy and generator command; out of favour in 2077",
       "character_record_id": null,
       "location_name": "Black Sapphire garrison / Stadium",
+      "presence_class": "story",
       "open_world": false,
       "source": "wiki Yuri Bychkov; Balls to the Wall; FIA photo board; no character record found",
       "confidence": "wiki"
@@ -921,6 +942,7 @@ These are improvements the next agent should fold into
       "role": "Old guard; founding member; cyberpsychotic ex-member",
       "character_record_id": null,
       "location_name": "Longshore Stacks / Los Osos Motel (West Wind Estate)",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "wiki Leon Rinder; Gig: The Man Who Killed Jason Foreman (baseid sts_ep1_03); FIA photo board; no character record found",
       "confidence": "wiki"
@@ -930,6 +952,7 @@ These are improvements the next agent should fold into
       "role": "High-ranking non-veteran; drug revenue; airdrop and smuggling logistics; claims to be Hansen's right hand",
       "character_record_id": "Character.sts_ep1_10_dodger",
       "location_name": "Former Pacifica NCPD Precinct (Coastview) / Black Sapphire wake",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "raw always_loaded_1 registry entry dodger -> Character.sts_ep1_10_dodger (phase mq304_wake_dodger); community 9529329004064786977 with sts_ep1_10_dodger_goon_01/02; wiki Carl Robinson",
       "confidence": "game-data+wiki"
@@ -939,6 +962,7 @@ These are improvements the next agent should fold into
       "role": "Lieutenant in charge of the Dogtown Tunnel; private side deals; helped Rinder escape",
       "character_record_id": "Character.we_ep1_01_mini_boss_1st_phase",
       "location_name": "Dogtown Tunnel (Longshore Stacks to West Wind Estate)",
+      "presence_class": "world-activity",
       "open_world": true,
       "source": "wake entry mq304_ws_wake_ross_ulmer -> Character.we_ep1_01_mini_boss_1st_phase; Increased Criminal Activity: BARGHEST baseid we_ep1_01; wiki Ross Ulmer",
       "confidence": "game-data+wiki+inferred"
