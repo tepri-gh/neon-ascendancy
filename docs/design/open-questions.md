@@ -6,8 +6,8 @@ accept the suggestion, or write "skip" to defer the question. Answers flow into
 [`gameplay-systems.md`](gameplay-systems.md) and
 [`territory-data-model.md`](territory-data-model.md).
 
-Background: 17 faction location docs, 17 politics docs, and the NCPD
-politics doc still running (retrying), under `docs/research/factions/`.
+Background: 17 faction location docs and 18 politics docs under
+`docs/research/factions/`.
 
 ---
 
@@ -131,7 +131,7 @@ but act together poorly. Scav cells never unify.
 | Mox | Stable: Susie Q; Judy's activist wing |
 | Animals, Wraiths | Packs |
 | Kang Tao, Biotechnica, Petrochem | See B3 |
-| NCPD | Pending its politics doc |
+| NCPD | Stable but hollow: Commissioner Fawlter (off-screen, corrupt); MaxTac as an autonomous vassal under Lt. Melissa Rory; clean-cop remnant (River Ward) vs the precinct machine |
 
 **Answer:**
 
