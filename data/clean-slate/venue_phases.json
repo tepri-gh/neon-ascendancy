@@ -850,6 +850,48 @@
         "community": "",
         "note": "Dataterm device refs are #combat_zone_dataterm_01..06 (data/clean-slate/dev_fast_travel_points.json); they exist only once the active variant streams."
       }
+    },
+    {
+      "code": "loc_q103_afterlife_backroom",
+      "display_name": "Afterlife briefing room (Dexter's booth)",
+      "why": "Afterlife is already open-world; its gameplay/devices prefab streams. The briefing-room door is locked in-game (owner look-at id 17830752525230996744, doors_single_entropy_j, pos=(-1430.8,986.5,16.5)). Ref resolved by hashing the sector at that position: #q005_dvc_afterlife_briefing_room_door.",
+      "prefabs": [
+        "#q005_pr_afterlife"
+      ],
+      "doors": [
+        {
+          "ref": "#q005_dvc_afterlife_briefing_room_door",
+          "action": "ForceEnabled",
+          "why": "Re-enable first"
+        },
+        {
+          "ref": "#q005_dvc_afterlife_briefing_room_door",
+          "action": "ForcePower",
+          "why": "Power it"
+        },
+        {
+          "ref": "#q005_dvc_afterlife_briefing_room_door",
+          "action": "ForceUnlock",
+          "why": "Unlock it (owner: locked=true)"
+        },
+        {
+          "ref": "#q005_dvc_afterlife_briefing_room_door",
+          "action": "ForceOpen",
+          "why": "Open it"
+        }
+      ],
+      "communities": [],
+      "proximity_wait": {
+        "ref": "#q005_ws_dex_afterlife_01",
+        "within": 60.0,
+        "why": "Wait until the player is in the Afterlife booth area before unlocking; the door device is in the always-streamed Afterlife sector but the action should run on arrival."
+      },
+      "probe_refs": {
+        "workspot": "",
+        "door": "#q005_dvc_afterlife_briefing_room_door",
+        "community": "",
+        "note": "Door ref verified by FNV-1a hashing the exterior_-23_15_0_0 sector's node refs against the owner's look-at id."
+      }
     }
   ],
   "notes": [
@@ -860,6 +902,10 @@
     {
       "topic": "afterlife_backroom",
       "summary": "Afterlife back-room door (owner look-at id 17830752525230996744, app=doors_single_entropy_j, pos=(-1430.8,986.5,16.5), locked=true) is an anonymous/base-world door device; its authored ref was not resolvable from the offline extracts, so no unverified ref was added. Dexter: vanilla spawns him via questSpawnSet #dex entry='dex' phase='q005_afterlife_default' in q005_01_plan, which declares only #q005_pr_afterlife (no story prefab needed). His seat workspot #q005_ws_dex_afterlife_01 lives under the #q005_cin_01_plan sub-prefab INSIDE #q005_pr_afterlife, so declaring #q005_pr_afterlife in the cast layer and activating #dex/dex/q005_afterlife_default is enough to seat him with no scene/dialogue. Options if the cinematics sub-prefab is a problem: (a) declare #q005_pr_afterlife and spawn #dex as above; (b) use #q005_ws_dex_limo_afterlife (outside the cin prefab) instead."
+    },
+    {
+      "topic": "dogtown_checkpoint",
+      "summary": "Vanilla ep1\\openworld\\combat_zone_gate\\combat_zone_gate.questphase declares #loc_q303_combat_zone_gate_openworld and drives the pedestrian checkpoint with DoorControllerPS ForcePower + ForceOpen (ForceUnpower/ForceClose to reseal). It is gated on ep1_side_content, q302_started, wanted_level, delamain_taxi_state, q304_block_dogtown_gate and dogtown_gate_combat_on. The pedestrian door NodeRefs are prefab-template placeholders inside loc_q303_combat_zone_gate_gameplay_prefab3JCC64Y (e.g. .../single_door_1_prefabCACGKLA/single_door_1_prefabMDLFXRQ); that prefab's sector was not extractable offline, so no unverified door ref was added, and the earlier census ids could not be hash-matched. Verified present: prefab #loc_q303_combat_zone_gate_openworld, triggers #combat_zone_gate_tr_inside / #combat_zone_gate_tr_entrance_to_cz_start / ..._to_nc_start, and the two ..._tr_entrance_foot_*_scan_close_door triggers (a proximity ref candidate). Also relevant: the combat-zone gate openworld sector is what a future pass should own so its device prefab streams; Dogtown access gate is separate from the Black Sapphire shutters."
     }
   ]
 }

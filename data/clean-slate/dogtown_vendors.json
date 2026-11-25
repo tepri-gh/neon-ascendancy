@@ -1,0 +1,47 @@
+{
+  "spec_version": 1,
+  "description": "Always-on Dogtown vendor population for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\dogtown_vendors.questphase and wired off ascendancy.questphase behind a fan-out pause on the narrow per-vendor default_on facts. Reproduces only the Activate spawn-set and community entries of ep1\\openworld\\vendors\\stadium\\stadium_vendors.questphase (and the container-zone equivalents), bypassing that phase's ep1_side_content / q302_started gates and dropping its 43 journal/scene nodes. Facts set (all read only by the vendor controller/phase): cz_stadium_{black_market,clothing,food_01..03,gunsmith,junk,medic,netrunner,ripperdoc}_01_default_on.",
+  "phase_resource": "mod\\neon_ascendancy\\dogtown_vendors.questphase",
+  "entry_socket": "In1",
+  "gate": {
+    "fact": "cz_stadium_gunsmith_01_default_on",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Set to 1 in clean_slate_spec.json initial_facts. Using a vendor fact (not a story fact) as the gate means the phase is dormant only if the owner removes the vendor facts."
+  },
+  "keep_alive_pause": {
+    "fact": "na_dogtown_vendors_shutdown",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Never set; keeps the vendor spawn sets active for the whole save."
+  },
+  "spawn_sets": [
+    {"ref": "#cz_stadium_gunsmith_01", "entry_name": "cz_stadium_gunsmith_01", "phase_name": "A", "why": "Stadium gunsmith vendor"},
+    {"ref": "#cz_stadium_ripperdoc_01", "entry_name": "cz_stadium_ripperdoc_01", "phase_name": "A", "why": "Stadium ripperdoc vendor"},
+    {"ref": "#cz_stadium_clothing_01", "entry_name": "cz_stadium_clothing_01", "phase_name": "A", "why": "Stadium clothing vendor"},
+    {"ref": "#cz_stadium_junk_01", "entry_name": "cz_stadium_junk_01", "phase_name": "A", "why": "Stadium junk vendor"},
+    {"ref": "#cz_stadium_junk_01_marcin_i", "entry_name": "cz_stadium_junk_01", "phase_name": "A", "why": "Stadium junk vendor (Marcin second stand-in)"},
+    {"ref": "#cz_stadium_junk_01", "entry_name": "cz_stadium_junk_01", "phase_name": "sit", "why": "Stadium junk vendor sitting pose"},
+    {"ref": "#cz_stadium_netrunner_01", "entry_name": "cz_stadium_netrunner_01", "phase_name": "a", "why": "Stadium netrunner vendor"},
+    {"ref": "#cz_stadium_netrunner_01", "entry_name": "cz_stadium_netrunner_01", "phase_name": "b", "why": "Stadium netrunner vendor (b)"},
+    {"ref": "#cz_stadium_black_market_01", "entry_name": "cz_stadium_black_market_01", "phase_name": "A", "why": "Stadium black-market vendor"},
+    {"ref": "#cz_stadium_medic_01", "entry_name": "cz_stadium_medic_01", "phase_name": "A", "why": "Stadium medic vendor"},
+    {"ref": "#cz_stadium_medic_01", "entry_name": "cz_stadium_medic_01", "phase_name": "b", "why": "Stadium medic vendor (b)"},
+    {"ref": "#cz_stadium_medic_01", "entry_name": "cz_stadium_medic_01", "phase_name": "c", "why": "Stadium medic vendor (c)"},
+    {"ref": "#cz_stadium_food_01", "entry_name": "cz_stadium_food_01", "phase_name": "None", "why": "Stadium food vendor 01"},
+    {"ref": "#cz_stadium_food_02", "entry_name": "cz_stadium_food_02", "phase_name": "None", "why": "Stadium food vendor 02"},
+    {"ref": "#cz_stadium_food_03", "entry_name": "cz_stadium_food_03", "phase_name": "None", "why": "Stadium food vendor 03"},
+    {"ref": "#cz_con_clothingshop_01", "entry_name": "cz_con_clothingshop_01", "phase_name": "cz_con_clothingshop_01", "why": "Container-zone clothing shop"},
+    {"ref": "#cz_con_foodshop_01", "entry_name": "cz_con_foodshop_01", "phase_name": "cz_con_junkshop_01", "why": "Container-zone food shop"},
+    {"ref": "#cz_con_gunsmith_01", "entry_name": "cz_con_gunsmith_01", "phase_name": "cz_con_gunsmith_01", "why": "Container-zone gunsmith"},
+    {"ref": "#cz_con_gunsmith_01", "entry_name": "cz_con_gunsmith_01", "phase_name": "cz_con_gunsmith_02", "why": "Container-zone gunsmith (second)"},
+    {"ref": "#cz_con_junkshop_01", "entry_name": "cz_con_junkshop_01", "phase_name": "cz_con_junkshop_01", "why": "Container-zone junkshop"},
+    {"ref": "#cz_con_medicstore_01", "entry_name": "cz_con_medicstore_01", "phase_name": "cz_con_medicstore_01", "why": "Container-zone medicstore"},
+    {"ref": "#cz_con_ripdoc_01", "entry_name": "cz_con_ripdoc_01", "phase_name": "cz_con_ripdoc_01", "why": "Container-zone ripperdoc"},
+    {"ref": "#cz_con_ripdoc_01", "entry_name": "cz_con_ripdoc_01", "phase_name": "cz_con_ripdoc_02", "why": "Container-zone ripperdoc (second)"}
+  ],
+  "communities": [
+    {"spawner": "#cz_stadium_clothing_01_tommie_walker_com", "entry_name": "tommie", "phase_name": "happy", "why": "Stadium clothing vendor Tommie (happy)"},
+    {"spawner": "#cz_stadium_ws_vendor_06_robot_com", "entry_name": "robot_ws", "phase_name": "a", "why": "Stadium vendor robot"}
+  ]
+}

@@ -622,5 +622,7 @@
     "sobchak_default_on",
     "kerry_default_on",
     "johnny_default_on"
-  ]
+  ],
+  "barricade_cleanup_spec": "data/clean-slate/barricade_cleanup.json",
+  "dogtown_vendors_spec": "data/clean-slate/dogtown_vendors.json"
 }

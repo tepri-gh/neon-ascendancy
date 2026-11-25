@@ -10,7 +10,9 @@
     "mod\\neon_ascendancy\\ascendancy.questphase",
     "mod\\neon_ascendancy\\cast_and_hubs.questphase",
     "mod\\neon_ascendancy\\spike_kab07.questphase",
-    "mod\\neon_ascendancy\\venue_probe.questphase"
+    "mod\\neon_ascendancy\\venue_probe.questphase",
+    "mod\\neon_ascendancy\\barricade_cleanup.questphase",
+    "mod\\neon_ascendancy\\dogtown_vendors.questphase"
   ],
   "templates": {
     "archive": "archive/pc/content/basegame_4_gamedata.archive",
@@ -22,7 +24,9 @@
   },
   "gamedef": {
     "main_quest": "mod\\neon_ascendancy\\ascendancy.quest",
-    "spawn_point_tags": ["mq000_spwn_player"],
+    "spawn_point_tags": [
+      "mq000_spwn_player"
+    ],
     "world": "base\\worlds\\03_night_city\\03_night_city.world",
     "streaming_world": "base\\worlds\\03_night_city\\_compiled\\default\\03_night_city.streamingworld",
     "world_name": "03_night_city"
@@ -34,25 +38,122 @@
     "entry_socket": "Start",
     "hub_shape": "Start -> questLogicalHubNodeDefinition -> 19x questFactsDBManagerNodeDefinition (questSetVar_NodeType, setExactValue=1, chained) -> fan-out to every kept phase node below. Initial H10 apartment placement is handled natively by gamedef spawn_point_tags=['mq000_spwn_player'] (worldStaticMarkerNode in always_loaded_1.streamingsector, matching vanilla mq000.gamedef) so the engine streams H10 floor collision before dropping the loading screen.",
     "initial_facts": [
-      {"fact": "na_clean_slate", "value": 1},
-      {"fact": "watson_prolog_lock", "value": 0},
-      {"fact": "watson_prolog_unlock", "value": 1},
-      {"fact": "q101_enable_activities_flat", "value": 1},
-      {"fact": "q101_enable_side_content", "value": 1},
-      {"fact": "map_blocked", "value": 0},
-      {"fact": "unlock_phone_hud_dpad", "value": 1},
-      {"fact": "unlock_car_hud_dpad", "value": 1},
-      {"fact": "q000_started", "value": 1},
-      {"fact": "dpad_hints_visibility_enabled", "value": 1},
-      {"fact": "initial_gadget_picked", "value": 1},
-      {"fact": "full_rpg_progression_on", "value": 1},
-      {"fact": "q000_patch_2_0_new_game", "value": 1},
-      {"fact": "disable_tutorials", "value": 1},
-      {"fact": "apartment_on", "value": 1},
-      {"fact": "wilson_met", "value": 1},
-      {"fact": "wat_lch_gun_01_met", "value": 1},
-      {"fact": "q001_wilson_shop_tutorial_seen", "value": 1},
-      {"fact": "totentanz_dancefloor_on", "value": 1}
+      {
+        "fact": "na_clean_slate",
+        "value": 1
+      },
+      {
+        "fact": "watson_prolog_lock",
+        "value": 0
+      },
+      {
+        "fact": "watson_prolog_unlock",
+        "value": 1
+      },
+      {
+        "fact": "q101_enable_activities_flat",
+        "value": 1
+      },
+      {
+        "fact": "q101_enable_side_content",
+        "value": 1
+      },
+      {
+        "fact": "map_blocked",
+        "value": 0
+      },
+      {
+        "fact": "unlock_phone_hud_dpad",
+        "value": 1
+      },
+      {
+        "fact": "unlock_car_hud_dpad",
+        "value": 1
+      },
+      {
+        "fact": "q000_started",
+        "value": 1
+      },
+      {
+        "fact": "dpad_hints_visibility_enabled",
+        "value": 1
+      },
+      {
+        "fact": "initial_gadget_picked",
+        "value": 1
+      },
+      {
+        "fact": "full_rpg_progression_on",
+        "value": 1
+      },
+      {
+        "fact": "q000_patch_2_0_new_game",
+        "value": 1
+      },
+      {
+        "fact": "disable_tutorials",
+        "value": 1
+      },
+      {
+        "fact": "apartment_on",
+        "value": 1
+      },
+      {
+        "fact": "wilson_met",
+        "value": 1
+      },
+      {
+        "fact": "wat_lch_gun_01_met",
+        "value": 1
+      },
+      {
+        "fact": "q001_wilson_shop_tutorial_seen",
+        "value": 1
+      },
+      {
+        "fact": "totentanz_dancefloor_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_black_market_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_clothing_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_food_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_food_02_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_food_03_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_gunsmith_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_junk_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_medic_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_netrunner_01_default_on",
+        "value": 1
+      },
+      {
+        "fact": "cz_stadium_ripperdoc_01_default_on",
+        "value": 1
+      }
     ],
     "forbidden_facts": [
       "q000_done",
@@ -61,61 +162,217 @@
       "q101_done",
       "sts_loop_start"
     ],
-    "forbidden_fact_prefixes": ["q115_", "ep1_"],
+    "forbidden_fact_prefixes": [
+      "q115_",
+      "ep1_"
+    ],
     "kept_depot_phases": [
-      {"depot_path": "base\\open_world\\community\\global_phase\\open_world_global_commuinity_phase.questphase", "why": "Crowds/communities"},
-      {"depot_path": "base\\open_world\\vendors\\watson\\little_china\\little_china_vendors.questphase", "why": "Little China vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\watson\\kabuki\\kabuki_vendors.questphase", "why": "Kabuki vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\watson\\northside\\northside_vendors.questphase", "why": "Northside vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\westbrook\\japantown\\japantown_vendors.questphase", "why": "Japantown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\westbrook\\charter_hill\\charter_hill_vendors.questphase", "why": "Charter Hill vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\city_center\\downtown\\downtown_vendors.questphase", "why": "Downtown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\city_center\\corpo_plaza\\corpo_plaza_vendors.questphase", "why": "Corpo Plaza vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\heywood\\wellsprings\\wellsprings_vendors.questphase", "why": "Wellsprings vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\heywood\\glen\\glen_vendors.questphase", "why": "The Glen vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\heywood\\vista_del_rey\\vista_del_rey_vendors.questphase", "why": "Vista del Rey vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\santo_domingo\\arroyo\\arroyo_vendors.questphase", "why": "Arroyo vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\santo_domingo\\rancho_coronado\\rancho_coronado_vendors.questphase", "why": "Rancho Coronado vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\pacifica\\coastview\\coastview_vendors.questphase", "why": "Coastview vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\pacifica\\west_wind_estate\\west_wind_estate_vendors.questphase", "why": "West Wind Estate vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se1\\inland_avenue_se1_vendors.questphase", "why": "Badlands SE1 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se5\\inland_avenue_se5_vendors.questphase", "why": "Badlands SE5 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"},
-      {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest.questphase", "why": "Vehicle purchases"},
-      {"depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest_new.questphase", "why": "Vehicle purchases (2.x)"},
-      {"depot_path": "base\\open_world\\combat_events\\open_world_combat_events.questphase", "why": "Ambient gang combat"},
-      {"depot_path": "base\\open_world\\combat_events\\ce_living_city_pass.questphase", "why": "Living city pass"},
-      {"depot_path": "base\\open_world\\fast_travel\\open_world_fast_travel.questphase", "why": "Fast travel points"},
-      {"depot_path": "base\\open_world\\phases\\radio\\open_world_radio.questphase", "why": "Radio"},
-      {"depot_path": "base\\open_world\\dynamic_events\\open_world_dynamic_events.questphase", "why": "World encounters"},
-      {"depot_path": "base\\open_world\\city_scenes\\open_world_city_scenes.questphase", "why": "City scenes"},
-      {"depot_path": "base\\open_world\\phases\\chats\\open_world_chats.questphase", "why": "NPC chats"},
-      {"depot_path": "base\\open_world\\phases\\city_entities\\city_entities.questphase", "why": "City entities"},
-      {"depot_path": "base\\open_world\\phases\\autofixer_spots\\autofixer_spots_poi.questphase", "why": "Autofixer spots"},
-      {"depot_path": "base\\open_world\\metro\\night_city_metro_nge.questphase", "why": "NCART metro main"},
-      {"depot_path": "base\\open_world\\scenes\\ue_cats\\wst_ue_cats.questphase", "why": "Cats (2.2)"},
-      {"depot_path": "base\\open_world\\delamain_taxi\\phases\\delamain_taxi.questphase", "why": "Delamain taxi"},
-      {"depot_path": "base\\open_world\\autodrive\\autodrive.questphase", "why": "Autodrive"},
-      {"depot_path": "base\\open_world\\vendors\\glamdocs.questphase", "why": "Glamdocs (2.3)"},
-      {"depot_path": "base\\gameplay\\gui\\world\\internet\\internet_content.questphase", "why": "ncity.pub pages (mod UI depends on it)"},
-      {"depot_path": "base\\quest\\default_dialogs.questphase", "why": "Ambient NPC dialogue"},
-      {"depot_path": "base\\quest\\holocalls\\holocall_initializers.questphase", "why": "Phone/holocall init"},
-      {"depot_path": "base\\quest\\character_entries.questphase", "why": "Codex character entries"},
-      {"depot_path": "base\\quest\\cyberpunk2077_metajournal.questphase", "why": "Meta journal"},
-      {"depot_path": "base\\quest\\glossary_entries.questphase", "why": "Glossary"},
-      {"depot_path": "base\\quest\\hiding_av_loops.questphase", "why": "AV loops"},
-      {"depot_path": "base\\quest\\loading_screens.questphase", "why": "Loading screens"},
-      {"depot_path": "base\\quest\\locations_entries.questphase", "why": "Locations entries"},
-      {"depot_path": "base\\quest\\minor_quests\\mq000\\mq000.questphase", "why": "V's H10 apartment prefabs (#mq000_pr_apartment, #pr_v_room_stash, #vs_apartment_arch_*), apartment interactions (bed/shower/stash/wardrobe/mirror/PC), and dlc6_apart (4 purchasable apartments); wired directly instead of via persistent_content so it runs without q000_done > 0"},
-      {"depot_path": "base\\gameplay\\air_traffic\\phases\\air_traffic.questphase", "why": "Ambient Night City flying AV traffic (extracted cleanly from persistent_content)"},
-      {"depot_path": "base\\open_world\\scenes\\dancefloors\\dancefloors.questphase", "why": "Night City club dancefloors (wired directly without persistent_content's q001_left_v_apartment gate)"},
-      {"depot_path": "base\\open_world\\scenes\\mirrors\\mirror_interactions_control.questphase", "why": "Mirror interactions across Night City (extracted cleanly from persistent_content)"}
+      {
+        "depot_path": "base\\open_world\\community\\global_phase\\open_world_global_commuinity_phase.questphase",
+        "why": "Crowds/communities"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\watson\\little_china\\little_china_vendors.questphase",
+        "why": "Little China vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\watson\\kabuki\\kabuki_vendors.questphase",
+        "why": "Kabuki vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\watson\\northside\\northside_vendors.questphase",
+        "why": "Northside vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\westbrook\\japantown\\japantown_vendors.questphase",
+        "why": "Japantown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\westbrook\\charter_hill\\charter_hill_vendors.questphase",
+        "why": "Charter Hill vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\city_center\\downtown\\downtown_vendors.questphase",
+        "why": "Downtown vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\city_center\\corpo_plaza\\corpo_plaza_vendors.questphase",
+        "why": "Corpo Plaza vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\heywood\\wellsprings\\wellsprings_vendors.questphase",
+        "why": "Wellsprings vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\heywood\\glen\\glen_vendors.questphase",
+        "why": "The Glen vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\heywood\\vista_del_rey\\vista_del_rey_vendors.questphase",
+        "why": "Vista del Rey vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\santo_domingo\\arroyo\\arroyo_vendors.questphase",
+        "why": "Arroyo vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\santo_domingo\\rancho_coronado\\rancho_coronado_vendors.questphase",
+        "why": "Rancho Coronado vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\pacifica\\coastview\\coastview_vendors.questphase",
+        "why": "Coastview vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\pacifica\\west_wind_estate\\west_wind_estate_vendors.questphase",
+        "why": "West Wind Estate vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se1\\inland_avenue_se1_vendors.questphase",
+        "why": "Badlands SE1 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\badlands\\inland_avenue_se5\\inland_avenue_se5_vendors.questphase",
+        "why": "Badlands SE5 vendors + ripperdocs (wired directly without open_world_vendors' q000_done gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest.questphase",
+        "why": "Vehicle purchases"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\vehicles_metaquest\\phases\\vehicles_metaquest_new.questphase",
+        "why": "Vehicle purchases (2.x)"
+      },
+      {
+        "depot_path": "base\\open_world\\combat_events\\open_world_combat_events.questphase",
+        "why": "Ambient gang combat"
+      },
+      {
+        "depot_path": "base\\open_world\\combat_events\\ce_living_city_pass.questphase",
+        "why": "Living city pass"
+      },
+      {
+        "depot_path": "base\\open_world\\fast_travel\\open_world_fast_travel.questphase",
+        "why": "Fast travel points"
+      },
+      {
+        "depot_path": "base\\open_world\\phases\\radio\\open_world_radio.questphase",
+        "why": "Radio"
+      },
+      {
+        "depot_path": "base\\open_world\\dynamic_events\\open_world_dynamic_events.questphase",
+        "why": "World encounters"
+      },
+      {
+        "depot_path": "base\\open_world\\city_scenes\\open_world_city_scenes.questphase",
+        "why": "City scenes"
+      },
+      {
+        "depot_path": "base\\open_world\\phases\\chats\\open_world_chats.questphase",
+        "why": "NPC chats"
+      },
+      {
+        "depot_path": "base\\open_world\\phases\\city_entities\\city_entities.questphase",
+        "why": "City entities"
+      },
+      {
+        "depot_path": "base\\open_world\\phases\\autofixer_spots\\autofixer_spots_poi.questphase",
+        "why": "Autofixer spots"
+      },
+      {
+        "depot_path": "base\\open_world\\metro\\night_city_metro_nge.questphase",
+        "why": "NCART metro main"
+      },
+      {
+        "depot_path": "base\\open_world\\scenes\\ue_cats\\wst_ue_cats.questphase",
+        "why": "Cats (2.2)"
+      },
+      {
+        "depot_path": "base\\open_world\\delamain_taxi\\phases\\delamain_taxi.questphase",
+        "why": "Delamain taxi"
+      },
+      {
+        "depot_path": "base\\open_world\\autodrive\\autodrive.questphase",
+        "why": "Autodrive"
+      },
+      {
+        "depot_path": "base\\open_world\\vendors\\glamdocs.questphase",
+        "why": "Glamdocs (2.3)"
+      },
+      {
+        "depot_path": "base\\gameplay\\gui\\world\\internet\\internet_content.questphase",
+        "why": "ncity.pub pages (mod UI depends on it)"
+      },
+      {
+        "depot_path": "base\\quest\\default_dialogs.questphase",
+        "why": "Ambient NPC dialogue"
+      },
+      {
+        "depot_path": "base\\quest\\holocalls\\holocall_initializers.questphase",
+        "why": "Phone/holocall init"
+      },
+      {
+        "depot_path": "base\\quest\\character_entries.questphase",
+        "why": "Codex character entries"
+      },
+      {
+        "depot_path": "base\\quest\\cyberpunk2077_metajournal.questphase",
+        "why": "Meta journal"
+      },
+      {
+        "depot_path": "base\\quest\\glossary_entries.questphase",
+        "why": "Glossary"
+      },
+      {
+        "depot_path": "base\\quest\\hiding_av_loops.questphase",
+        "why": "AV loops"
+      },
+      {
+        "depot_path": "base\\quest\\loading_screens.questphase",
+        "why": "Loading screens"
+      },
+      {
+        "depot_path": "base\\quest\\locations_entries.questphase",
+        "why": "Locations entries"
+      },
+      {
+        "depot_path": "base\\quest\\minor_quests\\mq000\\mq000.questphase",
+        "why": "V's H10 apartment prefabs (#mq000_pr_apartment, #pr_v_room_stash, #vs_apartment_arch_*), apartment interactions (bed/shower/stash/wardrobe/mirror/PC), and dlc6_apart (4 purchasable apartments); wired directly instead of via persistent_content so it runs without q000_done > 0"
+      },
+      {
+        "depot_path": "base\\gameplay\\air_traffic\\phases\\air_traffic.questphase",
+        "why": "Ambient Night City flying AV traffic (extracted cleanly from persistent_content)"
+      },
+      {
+        "depot_path": "base\\open_world\\scenes\\dancefloors\\dancefloors.questphase",
+        "why": "Night City club dancefloors (wired directly without persistent_content's q001_left_v_apartment gate)"
+      },
+      {
+        "depot_path": "base\\open_world\\scenes\\mirrors\\mirror_interactions_control.questphase",
+        "why": "Mirror interactions across Night City (extracted cleanly from persistent_content)"
+      }
     ],
     "kept_inline_phases": [
-      {"owc_node_id": 7, "why": "lch/kab/nid prolog roadblocks, pause-gated on watson_prolog_lock > 0 (inert while unlocked)"},
-      {"owc_node_id": 8, "why": "NCPD PreventionSystem init: 36 trigger-area pause conditions + 36 questEventManagerNodeDefinition (managerName=PreventionSystem)"},
-      {"owc_node_id": 139, "why": "Metro communities: 6 sub-phases pulling the 12 ultimate_edition_metro_community questphases"},
-      {"owc_node_id": 142, "why": "District interactive-object managers (doors/data terms). Kept unmodified from vanilla: its ForceDisabled branch is gated on watson_prolog_lock > 0 so it never runs in clean-slate, leaving district data terms in their default enabled state without any cross-graph handle wiring."},
-      {"owc_node_id": 156, "why": "ue_metro ride wiring: night_city_metro_nge + ue_metro_main gated on ue_metro_ride_started"}
+      {
+        "owc_node_id": 7,
+        "why": "lch/kab/nid prolog roadblocks, pause-gated on watson_prolog_lock > 0 (inert while unlocked)"
+      },
+      {
+        "owc_node_id": 8,
+        "why": "NCPD PreventionSystem init: 36 trigger-area pause conditions + 36 questEventManagerNodeDefinition (managerName=PreventionSystem)"
+      },
+      {
+        "owc_node_id": 139,
+        "why": "Metro communities: 6 sub-phases pulling the 12 ultimate_edition_metro_community questphases"
+      },
+      {
+        "owc_node_id": 142,
+        "why": "District interactive-object managers (doors/data terms). Kept unmodified from vanilla: its ForceDisabled branch is gated on watson_prolog_lock > 0 so it never runs in clean-slate, leaving district data terms in their default enabled state without any cross-graph handle wiring."
+      },
+      {
+        "owc_node_id": 156,
+        "why": "ue_metro ride wiring: night_city_metro_nge + ue_metro_main gated on ue_metro_ride_started"
+      }
     ],
     "inline_phase_depot_refs": [
       "base\\open_world\\phases\\prolog_roadblocks\\lch_prolog_roadblocks.questphase",
@@ -145,7 +402,10 @@
       "base\\open_world\\passenger\\phases\\thepassenger.questphase"
     ],
     "omitted_inline_phases": [
-      {"owc_node_id": 32, "why": "q000_done-gated q112 blockade resets (story content; unreachable in clean-slate anyway)"}
+      {
+        "owc_node_id": 32,
+        "why": "q000_done-gated q112 blockade resets (story content; unreachable in clean-slate anyway)"
+      }
     ],
     "never_included": [
       "base\\quest\\persistent_content.questphase (pulls q001_wilson Dying Night job, q001_fast_travel_unlock which ForceDisables #q001_lch_data_term_10 outside V's H10 apartment, q001 tutorials/story follow-ups, and gates mq000 behind q000_done > 0; its 4 clean non-story sub-phases are wired directly instead)",

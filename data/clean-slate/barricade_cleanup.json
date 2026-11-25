@@ -1,0 +1,117 @@
+{
+  "spec_version": 1,
+  "description": "Always-on Watson lockdown cleanup for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\barricade_cleanup.questphase and wired directly off the ascendancy.questphase fact fan-out (NOT behind na_dev_venue_probe). Reproduces the watson_prolog_lock == 0 cleanup branches of lch/kab/nid_prolog_roadblocks plus q001_ride_to_mb node 230, which a clean-slate boot never reaches because open_world_content node 7 is pause-gated on watson_prolog_lock > 0. See docs/research/watson-lockdown-props.md section 3.1. Every action is idempotent: hiding an already-hidden variant or deactivating an already-inactive spawner is a no-op.",
+  "phase_resource": "mod\\neon_ascendancy\\barricade_cleanup.questphase",
+  "entry_socket": "In1",
+  "keep_alive_pause": {
+    "fact": "na_barricade_cleanup_shutdown",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Never set; keeps the phase alive so nothing is released and the cleanup stays applied for the whole save."
+  },
+  "variant_toggles": [
+    {
+      "prefab": "#wejt_03_devices",
+      "states": {"q001_bridge_blockade": 0},
+      "why": "Verbatim vanilla q001_ride_to_mb node 230 (minus its q001_aft_blockade_scene pause): hide the story bridge blockade baked into 17 exterior sectors. This variant is enabledByDefault: 1, so it renders unless hidden."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/little_china_openworld_prefab3SE7WFY/#lch_prolog_roadblocks/lch_prolog_roadblocks_env_prefab2GUBPEA/lch_prolog_roadblocks_architecture_prefabXPXGK6Y",
+      "states": {"prolog_blockades": 0},
+      "why": "LCH cleanup branch: hide the large concrete barricade geometry."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/little_china_openworld_prefab3SE7WFY/#lch_prolog_roadblocks/lch_prolog_roadblocks_devices_prefab2ULRIOY",
+      "states": {"security_systems": 0},
+      "why": "LCH cleanup branch: hide the prologue checkpoint security devices."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/kabuki_openworld_prefab74SGL5A/kab_prolog_roadblocks_prefab3WPPOBQ/kab_prolog_roadblocks_devices_prefabJDN4YPY",
+      "states": {"security_systems": 0},
+      "why": "KAB cleanup branch: hide the prologue checkpoint security devices."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/northside/northside_openworld_prefabIDPOWEI/nid_prolog_roadblocks_prefabODFHNWI/nid_prolog_roadblocks_devices_prefabQUSH5AY",
+      "states": {"security_systems": 0},
+      "why": "NID cleanup branch: hide the prologue checkpoint security devices."
+    }
+  ],
+  "communities": [
+    {"spawner": "#lch_prolog_ow_roadblocks_com_A", "why": "LCH roadblock guards"},
+    {"spawner": "#lch_prolog_ow_roadblock_lower_b_com", "why": "LCH roadblock guards (lower B)"},
+    {"spawner": "#lch_prolog_ow_roadblock_upper_b_com", "why": "LCH roadblock guards (upper B)"},
+    {"spawner": "#lch_prolog_ow_roadblocks_com_C", "why": "LCH roadblock guards (C)"},
+    {"spawner": "#kab_prolog_ow_roadblocks_com_A_l", "why": "KAB roadblock guards"},
+    {"spawner": "#kab_prolog_ow_roadblocks_com_B", "why": "KAB roadblock guards (B)"},
+    {"spawner": "#nid_prolog_ow_roadblocks_com_A", "why": "NID roadblock guards"},
+    {"spawner": "#nid_prolog_ow_roadblocks_com_B", "why": "NID roadblock guards (B)"},
+    {"spawner": "#nid_prolog_ow_roadblocks_com_C", "why": "NID roadblock guards (C)"}
+  ],
+  "spawners": [
+    {"ref": "#lch_bridge_b_car_001", "why": "LCH bridge parked vehicle (the visible 'traffic jam' set)"},
+    {"ref": "#lch_bridge_b_car_002", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_003", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_004", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_005", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_006", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_007", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_008", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_009", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_010", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_011", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_012", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_013", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_014", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_015", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_bridge_b_car_016", "why": "LCH bridge parked vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_001_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_001_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_002_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_002_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_003_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_003_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_004_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_004_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_005_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_005_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_006_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_006_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_007_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_007_C", "why": "LCH roadblock vehicle"},
+    {"ref": "#lch_prolog_ow_roadblock_car_008_A", "why": "LCH roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_001_A_l", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_001_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_002_A_l", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_003_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_004_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_005_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_006_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_007_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#kab_prolog_ow_roadblock_car_008_B", "why": "KAB roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_001_A_001", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_001_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_001_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_002_A", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_002_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_002_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_003_A", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_003_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_003_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_004_A", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_004_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_004_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_005_A", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_005_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_005_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_006_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_006_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_007_B", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_007_C", "why": "NID roadblock vehicle"},
+    {"ref": "#nid_prolog_ow_roadblock_car_008_B", "why": "NID roadblock vehicle"}
+  ],
+  "probe_spawners": [
+    {"ref": "#lch_bridge_b_car_001", "label": "lch_bridge_car"},
+    {"ref": "#kab_prolog_ow_roadblock_car_001_B", "label": "kab_roadblock_car"},
+    {"ref": "#nid_prolog_ow_roadblock_car_001_A_001", "label": "nid_roadblock_car"}
+  ]
+}
