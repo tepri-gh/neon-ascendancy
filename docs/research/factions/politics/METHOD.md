@@ -48,6 +48,40 @@ worked example of depth and format.
    political actors, not territory holders. Patronage of a community that is
    not in `data/factions.json` (e.g. the Haitian diaspora) goes in prose.
 
+## 1.2 Corrections from Valentinos and 6th Street (override later sections)
+
+1. **Check rosters first.** Named NPCs are often in `data/sites/rosters.json`
+   (capitalised name suffixes such as `Rogelio_Cruz`, `sts_std_arr_11_lucius`).
+   Parse raw sectors only for the rest; only `always_loaded_1` contains
+   `worldCommunityRegistryNode`.
+2. **Presence classes, full list:** `ambient`, `world-activity` (gigs,
+   scanner hustles, NCPD SOCA, Assault in Progress, side/minor jobs),
+   `story`, `prologue`, `off-map` (alive in lore, never spawned), `mentioned`
+   (named only in shards or dialogue), `historical`. Leaders with only a
+   generic quest record (`mq008_6th_street_representative`) or only an
+   `areas.jsonl` community count as `world-activity`/`story` by their quest,
+   with `character_record_id` set to that record and tagged `[inferred]`.
+3. **Record it in JSON:** each leader gets a `presence_class` field.
+4. **Elimination:** when two high-rankers share a site and only one has a
+   named record, the generic `*_outpost_miniboss` is the other, by
+   elimination. Tag it `[inferred]`.
+5. **Read the other side.** Search other factions' member pages for
+   incidents involving this faction; faction pages alone miss conflicts
+   (Maelstrom vs Valentinos is hostile, not neutral).
+6. **Filter crowd pools before co-occurrence:** respawn pools
+   (`{04_NPC_Gang_Community_Area}`, `mq061_*`), customer crowds (Lizzie's)
+   and time-of-day set dressing.
+7. **Relations rows:** the required list plus every other
+   `data/factions.json` code with an attested relation (e.g. `kendachi`).
+8. **Patron/client, one definition:** `patron` = this faction funds,
+   supplies or protects the other (Kendachi → 6th Street weapons line);
+   `client` = this faction depends on or works for the other (Valentinos as
+   Arasaka's hired crew).
+9. **Don't import tabletop vocabulary** (e.g. Valentino "sets") absent from
+   2077 sources.
+10. **Validator:** also enforce exactly one relation per required faction and
+    a `presence_class` from the list above on every leader.
+
 ## 2. Procedure
 
 1. **Wiki first, via the API** (`action=parse&prop=wikitext&formatversion=2&redirects=1`).
@@ -148,7 +182,7 @@ A fenced ```json block at the end:
 {
   "faction_code": "<factions.json code>",
   "leaders": [{"name", "role", "character_record_id" (or null), "location_name" (or null),
-               "open_world" (bool), "source", "confidence"}],
+               "presence_class", "open_world" (bool), "source", "confidence"}],
   "internal_factions": [{"name", "leader" (or null), "goals", "members_hint", "source", "confidence"}],
   "relations": [{"faction_code", "stance", "evidence", "confidence"}]
 }
