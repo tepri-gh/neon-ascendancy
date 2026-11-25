@@ -225,6 +225,32 @@ void NcLogInfo(Red::CString msg) {
   LogInfo(msg.c_str());
 }
 
+// Build a GlobalNodeRef from an already-hashed NodeRef id.
+//
+// redscript 1.x cannot construct a NodeRef from a Uint64 (no NodeRef literal
+// syntax and no integer->NodeRef cast in the surface), so any script that needs
+// to address an authored world node must call this helper. The hash is the
+// engine's own: FNV-1a 64-bit over the authored path with '#' removed, which is
+// exactly what tools/extract-sites.py reproduces from nodeData[].globalNodeId.hash
+// and what RED4ext::NodeRef::Hash() computes for a "#name" string.
+//
+// Returning RED4ext::NodeRef here is safe: RedLib maps NodeRef to the RTTI type
+// "NodeRef" and GlobalNodeRef to "worldGlobalNodeRef", and both are 8-byte
+// trivially-copyable structs assigned directly by the RTTI return buffer.
+Red::GlobalNodeRef NcResolveNodeRefByHash(uint64_t node_ref_hash) {
+  return Red::GlobalNodeRef(node_ref_hash);
+}
+
+// Hash an authored NodeRef path with the engine's own RED4ext::NodeRef::Hash()
+// (FNV-1a 64-bit, '#' skipped, ';'-to-'/' handled). redscript has no character
+// code primitive, so it cannot compute this itself; this companion exists so a
+// script can turn an extracted "#global/path/#name" string into the Uint64 that
+// NcResolveNodeRefByHash expects.
+uint64_t NcHashNodeRefPath(Red::CString path) {
+  return RED4ext::NodeRef::Hash(path.c_str());
+}
+
+
 void NcSetSanitizerActive(bool active) {
   std::lock_guard<std::mutex> lock(g_rt.mu);
   g_rt.sanitizer_active = active;
@@ -1221,6 +1247,8 @@ Red::CString NcFormatStatusSummary() {
 RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcCoreVersion, "NeonAscendancy.Core.NcCoreVersion");
   RTTI_FUNCTION(NcLogInfo, "NeonAscendancy.Core.NcLogInfo");
+  RTTI_FUNCTION(NcResolveNodeRefByHash, "NeonAscendancy.Core.NcResolveNodeRefByHash");
+  RTTI_FUNCTION(NcHashNodeRefPath, "NeonAscendancy.Core.NcHashNodeRefPath");
   RTTI_FUNCTION(NcSetSanitizerActive, "NeonAscendancy.Core.NcSetSanitizerActive");
   RTTI_FUNCTION(NcIsSanitizerActive, "NeonAscendancy.Core.NcIsSanitizerActive");
   RTTI_FUNCTION(NcSetAscendancyStartPending, "NeonAscendancy.Core.NcSetAscendancyStartPending");
@@ -1285,7 +1313,7 @@ RTTI_DEFINE_GLOBALS({
   RTTI_FUNCTION(NcGetPauseMenuActionCode, "NeonAscendancy.Core.NcGetPauseMenuActionCode");
   RTTI_FUNCTION(NcGetPauseMenuLabel, "NeonAscendancy.Core.NcGetPauseMenuLabel");
   RTTI_FUNCTION(NcFormatStatusSummary, "NeonAscendancy.Core.NcFormatStatusSummary");
-  LogInfo("Registered 66 NeonAscendancy.Core native RTTI globals");
+  LogInfo("Registered 68 NeonAscendancy.Core native RTTI globals");
 });
 
 BOOL WINAPI DllMain(HINSTANCE hinst, DWORD reason, LPVOID) {

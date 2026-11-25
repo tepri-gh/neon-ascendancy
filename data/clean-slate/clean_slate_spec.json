@@ -9,7 +9,8 @@
     "mod\\neon_ascendancy\\ascendancy.quest",
     "mod\\neon_ascendancy\\ascendancy.questphase",
     "mod\\neon_ascendancy\\cast_and_hubs.questphase",
-    "mod\\neon_ascendancy\\spike_kab07.questphase"
+    "mod\\neon_ascendancy\\spike_kab07.questphase",
+    "mod\\neon_ascendancy\\venue_probe.questphase"
   ],
   "templates": {
     "archive": "archive/pc/content/basegame_4_gamedata.archive",

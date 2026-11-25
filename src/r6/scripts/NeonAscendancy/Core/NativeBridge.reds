@@ -5,6 +5,10 @@ public native func NcCoreVersion() -> String;
 
 public native func NcLogInfo(msg: String) -> Void;
 
+public native func NcResolveNodeRefByHash(nodeRefHash: Uint64) -> GlobalNodeRef;
+
+public native func NcHashNodeRefPath(path: String) -> Uint64;
+
 public native func NcSetSanitizerActive(active: Bool) -> Void;
 
 public native func NcIsSanitizerActive() -> Bool;

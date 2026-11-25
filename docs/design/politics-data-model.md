@@ -19,7 +19,7 @@ not code.
 | **Faction kind** | `territorial` (holds influence points), `political` (Night Corp, Government of Night City: no territory, acts on politics) or `external` (Chinese state, NUSA, NetWatch, SovOil: no territory, may field squads via spawn templates). One table for all kinds. |
 | **Archetype** | Syndicate, Corporation, Paramilitary, Tribe, Ideological Collective (plus `special` for Scavs). Sets pillar strength/weakness, the default government and which governments are allowed. |
 | **Government** | The faction's leadership model, held as a **policy** in the government slot: `autocracy` (single leader), `council`, `packs`, `collective`, `cells` (Scavs). Changeable in play. |
-| **Bloc** | An internal political faction (vassal) with a leader, lieutenants and **muscle**. Never absorbed. May hold influence points. |
+| **Bloc** | An internal political faction (vassal) with a leader, lieutenants and **manpower**. Never absorbed. May hold influence points. |
 | **Manpower** (UI: **Muscle**) | A bloc's fighting strength. Spent defending and attacking points. Regenerates through recruitment. Data and code use `manpower`; the UI says Muscle. |
 | **Demand / severity** | Every bloc's two personality parameters: how much it needs (share of influence, policies) to stay content, and how hard it escalates when unmet. MaxTac: low demand, very high severity. |
 | **Policy** | An option in a slot. Slots belong to the government or to a pillar; **each pillar can have several slots** (start with one or two, expand to three or more). Options carry data-driven modifiers. |

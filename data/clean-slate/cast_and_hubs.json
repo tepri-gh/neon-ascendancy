@@ -4,6 +4,7 @@
   "phase_resource": "mod\\neon_ascendancy\\cast_and_hubs.questphase",
   "entry_socket": "In1",
   "dev_fast_travel_spec": "data/clean-slate/dev_fast_travel_points.json",
+  "venue_spec": "data/clean-slate/venue_phases.json",
   "keep_alive_pause": {
     "fact": "na_cast_and_hubs_shutdown",
     "comparison_type": "Greater",

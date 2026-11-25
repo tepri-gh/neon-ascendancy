@@ -510,6 +510,60 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_device_manager_node(self, entries: list[dict[str, Any]]) -> tuple[str, str]:
+        """Add a questInteractiveObjectManagerNodeDefinition (questDeviceManager_NodeType).
+
+        Schema matches vanilla
+        base\\open_world\\street_stories\\watson\\kabuki\\sts_wat_kab_07\\phase\\sts_wat_kab_07_openworld.questphase
+        (node id 9) field-for-field. Each entry is:
+          {"ref": "#node_ref", "controller": "DoorControllerPS", "action": "ForcePower"}
+        The authored ref goes into `objectRef` (vanilla puts the full authored path
+        or the short '#'-ref there; `entityRef.reference` stays "0")."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        params = [
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questDeviceManager_NodeTypeParams",
+                    "actionProperties": [],
+                    "deviceAction": cname(e["action"]),
+                    "deviceControllerClass": cname(e["controller"]),
+                    "entityRef": {
+                        "$type": "gameEntityReference",
+                        "dynamicEntityUniqueName": cname("None"),
+                        "names": [],
+                        "reference": {"$type": "NodeRef", "$storage": "uint64", "$value": "0"},
+                        "sceneActorContextName": cname("None"),
+                        "slotName": cname("None"),
+                        "type": "EntityRef",
+                    },
+                    "objectRef": noderef(e["ref"]),
+                    "slotName": cname("None"),
+                },
+            }
+            for e in entries
+        ]
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questInteractiveObjectManagerNodeDefinition",
+                    "id": self.node_id(),
+                    "_sockets": [cut, inp, out],
+                    "type": {
+                        "HandleId": self.alloc(),
+                        "Data": {
+                            "$type": "questDeviceManager_NodeType",
+                            "params": params,
+                        },
+                    },
+                },
+            }
+        )
+        return inp, out
+
     def add_renumbered_inline_phase_node(
         self,
         vanilla_node: dict[str, Any],
@@ -585,11 +639,13 @@ def build_questphase(
     templates: dict[str, dict[str, Any]],
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
+    venue_spec: dict[str, Any],
 ) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
     Start -> hub -> initial + service-vendor fact managers (chained) -> fan-out to:
-      cast_and_hubs phase + kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
+      cast_and_hubs phase + kept external phases + spike gate pause -> spike phase
+      + venue gate pause -> venue probe phase + 5 copied inline phases.
     """
     qp = spec["questphase"]
     owc = templates["open_world_content_questphase"]
@@ -634,6 +690,16 @@ def build_questphase(
     g.connect(fan, sp_in)
     spike_phase_in = g.add_phase_node(spike["resource"])
     g.connect(sp_out, spike_phase_in)
+
+    # venue probe: gate pause -> venue probe phase node. Gated on the runtime
+    # dev fact so the probe stays dormant unless DevDebug sets it.
+    venue_gate = venue_spec["gate"]
+    vp_in, vp_out = g.add_pause_fact_node(
+        venue_gate["fact"], venue_gate["comparison_type"], venue_gate["value"]
+    )
+    g.connect(fan, vp_in)
+    venue_phase_in = g.add_phase_node(venue_spec["phase_resource"])
+    g.connect(vp_out, venue_phase_in)
 
     # kept external phases
     for entry in qp["kept_depot_phases"]:
@@ -1005,8 +1071,146 @@ def load_cast_spec(spec: dict[str, Any]) -> dict[str, Any]:
         return json.load(fh)
 
 
+def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
+    """Load + validate the declarative venue-access probe spec.
+
+    Asserts the owner decision that a venue phase carries prefabs, doors and
+    communities ONLY: no journal/mappin/phone/street-story/gig phases, and no
+    non-door device controllers. The refs themselves are authored from verified
+    vanilla phase extractions (docs/research/world-access.md)."""
+    venue_path = ROOT / cast_spec["venue_spec"]
+    if not venue_path.is_file():
+        raise FileNotFoundError(f"missing venue spec: {venue_path}")
+    with venue_path.open("r", encoding="utf-8") as fh:
+        venue_spec = json.load(fh)
+
+    gate = venue_spec.get("gate", {})
+    if gate.get("comparison_type") not in ("Greater", "GreaterOrEqual", "Equal", "Less", "LessOrEqual", "NotEqual"):
+        raise ValueError(f"{venue_path}: bad gate comparison_type {gate.get('comparison_type')}")
+    if not gate.get("fact"):
+        raise ValueError(f"{venue_path}: gate.fact is required")
+
+    venues = venue_spec.get("venues")
+    if not isinstance(venues, list) or not venues:
+        raise ValueError(f"{venue_path}: 'venues' must be a non-empty list")
+
+    allowed_actions = {
+        "ForcePower", "ForceUnpower", "ForceOpen", "ForceClose", "ForceCloseImmediate",
+        "ForceLock", "ForceUnlock", "ForceSeal", "ForceUnseal", "ForceEnabled",
+        "ForceDisabled", "ForceON", "ForceOFF",
+    }
+    forbidden_prefixes = tuple(venue_spec["forbidden_device_controller_prefixes"])
+    codes: set[str] = set()
+    for v in venues:
+        code = v.get("code")
+        if not code:
+            raise ValueError(f"{venue_path}: venue missing code")
+        if code in codes:
+            raise ValueError(f"{venue_path}: duplicate venue code {code}")
+        codes.add(code)
+        if not v.get("prefabs"):
+            raise ValueError(f"{venue_path}: venue {code} declares no prefabs")
+        for p in v["prefabs"]:
+            if not p.startswith("#"):
+                raise ValueError(f"{venue_path}: venue {code} bad prefab ref {p}")
+            if any(pat in p for pat in venue_spec["forbidden_phase_patterns"]):
+                raise ValueError(f"{venue_path}: venue {code} prefab looks like a quest/gig phase: {p}")
+        for d in v.get("doors", []):
+            if not d.get("ref") or not d["ref"].startswith("#"):
+                raise ValueError(f"{venue_path}: venue {code} bad door ref {d}")
+            if d.get("action") not in allowed_actions:
+                raise ValueError(f"{venue_path}: venue {code} bad door action {d.get('action')}")
+            controller = d.get("controller", "DoorControllerPS")
+            if not controller.startswith("Door"):
+                raise ValueError(f"{venue_path}: venue {code} door controller {controller} is not a door")
+            if any(controller.startswith(pfx) for pfx in forbidden_prefixes):
+                raise ValueError(f"{venue_path}: venue {code} door controller {controller} is forbidden")
+        for c in v.get("communities", []):
+            if not c.get("spawner", "").startswith("#"):
+                raise ValueError(f"{venue_path}: venue {code} bad community spawner {c}")
+            if c.get("action") not in ("Activate", "Deactivate"):
+                raise ValueError(f"{venue_path}: venue {code} bad community action {c.get('action')}")
+    return venue_spec
+
+
+def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Assemble mod\\neon_ascendancy\\venue_probe.questphase.
+
+    In1 -> hub -> per-venue chain of:
+      community activations (questCommunityTemplate_NodeType)
+      -> device manager node (door ForcePower/ForceOpen/...)
+    RootChunk.phasePrefabs owns every venue prefab. The whole phase is wired in
+    ascendancy.questphase behind `gate.fact`, so it stays dormant unless DevDebug
+    sets that fact (na_dev_venue_probe). A never-firing keep-alive pause keeps
+    the phasePrefabs instantiated for the whole session once it starts."""
+    spawn_tpl = templates["spawn_manager_node"]
+
+    g = QuestGraph(start_handle=1)
+    start_out = g.add_input_node(venue_spec["entry_socket"])
+    hub_in, hub_out = g.add_hub_node()
+    g.connect(start_out, hub_in)
+
+    for venue in venue_spec["venues"]:
+        prev = hub_out
+        for com in venue.get("communities", []):
+            inp, out = g.add_community_spawn_node(
+                spawn_tpl,
+                action=com["action"],
+                spawner_reference=com["spawner"],
+                entry_name=com.get("entry_name", "None"),
+                phase_name=com.get("phase_name", "None"),
+            )
+            g.connect(prev, inp)
+            prev = out
+        doors = venue.get("doors", [])
+        if doors:
+            entries = [
+                {
+                    "ref": d["ref"],
+                    "controller": d.get("controller", "DoorControllerPS"),
+                    "action": d["action"],
+                }
+                for d in doors
+            ]
+            inp, out = g.add_device_manager_node(entries)
+            g.connect(prev, inp)
+            prev = out
+
+    # Keep-alive pause: always false; keeps phasePrefabs and community
+    # activations alive for the whole session once the phase is entered.
+    ka = venue_spec["keep_alive_pause"]
+    ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
+    g.connect(hub_out, ka_in)
+
+    nodes = g.finalize()
+    validate_refs(nodes)
+
+    doc = wrap_resource(
+        {
+            "$type": "questQuestPhaseResource",
+            "cookingPlatform": "PLATFORM_PC",
+            "graph": {
+                "HandleId": g.alloc(),
+                "Data": {"$type": "questGraphDefinition", "nodes": nodes},
+            },
+            "inplacePhases": [],
+            "phasePrefabs": [
+                {"$type": "questQuestPrefabEntry", "prefabNodeRef": noderef(p)}
+                for venue in venue_spec["venues"]
+                for p in venue["prefabs"]
+            ],
+        }
+    )
+    dups = find_duplicate_handles(doc)
+    if dups:
+        raise ValueError(f"duplicate HandleIds in venue_probe.questphase: {dups[:5]}")
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds in venue_probe.questphase: {cross[:5]}")
+    return doc
+
+
 def load_ft_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
-    """Load + validate the declarative dev fast-travel point registry."""
     ft_path = ROOT / cast_spec["dev_fast_travel_spec"]
     if not ft_path.is_file():
         raise FileNotFoundError(f"missing dev fast travel spec: {ft_path}")
@@ -1044,6 +1248,7 @@ def build(
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
     ft_spec: dict[str, Any],
+    venue_spec: dict[str, Any],
 ) -> Path:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1062,7 +1267,7 @@ def build(
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.gamedef.json", build_gamedef(templates["gamedef"], spec))
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.quest.json", build_quest(templates["quest"], spec))
         write_resource_json(
-            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec)
+            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec, venue_spec)
         )
         write_resource_json(
             build_dir,
@@ -1070,6 +1275,9 @@ def build(
             build_cast_and_hubs(templates, cast_spec, ft_spec),
         )
         write_resource_json(build_dir, "mod/neon_ascendancy/spike_kab07.questphase.json", build_spike(templates, spec))
+        write_resource_json(
+            build_dir, "mod/neon_ascendancy/venue_probe.questphase.json", build_venue_probe(venue_spec, templates)
+        )
 
         print("Deserializing CR2W JSONs ...", flush=True)
         run_wk(wk, ["convert", "deserialize", str(build_dir)])
@@ -1103,6 +1311,7 @@ def check(
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
     ft_spec: dict[str, Any],
+    venue_spec: dict[str, Any],
 ) -> None:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1140,9 +1349,10 @@ def check(
         if not failures and len(resources) == len(spec["archive_resources"]):
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
-            _check_questphase(resources, spec, cast_spec, ok)
+            _check_questphase(resources, spec, cast_spec, venue_spec, ok)
             _check_cast_and_hubs(resources, spec, cast_spec, ft_spec, ok)
             _check_spike(resources, spec, ok)
+            _check_venue_probe(resources, spec, venue_spec, ok)
 
     if failures:
         print("\n--check FAILED:")
@@ -1325,6 +1535,7 @@ def _check_questphase(
     resources: dict[str, dict[str, Any]],
     spec: dict[str, Any],
     cast_spec: dict[str, Any],
+    venue_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
     doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
@@ -1356,8 +1567,8 @@ def _check_questphase(
         ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
-        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 2,
-           f"expected {len(qp['kept_depot_phases']) + 2} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + spike), found {len(top_phase_nodes)}")
+        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 3,
+           f"expected {len(qp['kept_depot_phases']) + 3} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + spike + venue_probe), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause
@@ -1385,7 +1596,7 @@ def _check_questphase(
         expected_refs = (
             {e["depot_path"] for e in qp["kept_depot_phases"]}
             | set(qp["inline_phase_depot_refs"])
-            | {cast_spec["phase_resource"], qp["spike"]["resource"]}
+            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"]}
         )
         missing = sorted(expected_refs - set(refs))
         ok(not missing, f"missing kept phase refs: {missing}")
@@ -1725,6 +1936,168 @@ def _check_spike(resources: dict[str, dict[str, Any]], spec: dict[str, Any], ok:
                "spike communityEntryPhaseName mismatch")
 
 
+def _check_venue_probe(
+    resources: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    venue_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Round-trip verify venue_probe.questphase and its gate in ascendancy.questphase.
+
+    Expected:
+      - phasePrefabs == every venue prefab, in spec order;
+      - one questInteractiveObjectManagerNodeDefinition per venue that has doors,
+        with exactly the spec's (ref, controller, action) triples in order;
+      - community activations match the spec exactly;
+      - no journal/mappin/phone/street-story/gig phases and no non-door devices;
+      - one keep-alive pause;
+      - ascendancy.questphase wires the venue gate pause -> venue probe phase."""
+    doc = resources[venue_spec["phase_resource"]]
+    rc = doc["Data"]["RootChunk"]
+    ok(rc.get("$type") == "questQuestPhaseResource", "venue_probe root type is not questQuestPhaseResource")
+
+    expected_prefabs = [p for venue in venue_spec["venues"] for p in venue["prefabs"]]
+    actual_prefabs = [e["prefabNodeRef"]["$value"] for e in rc.get("phasePrefabs", [])]
+    ok(actual_prefabs == expected_prefabs,
+       f"venue_probe phasePrefabs mismatch:\n  actual:   {actual_prefabs}\n  expected: {expected_prefabs}")
+
+    dups = find_duplicate_handles(doc)
+    ok(not dups, f"duplicate HandleIds in venue_probe.questphase: {dups[:10]}")
+    cross = find_cross_graph_refs(doc)
+    ok(not cross, f"cross-graph HandleRefIds in venue_probe.questphase: {cross[:10]}")
+
+    nodes = rc["graph"]["Data"]["nodes"]
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    ok(len(inputs) == 1, f"venue_probe has {len(inputs)} input nodes")
+    if inputs:
+        ok(inputs[0]["Data"]["socketName"]["$value"] == venue_spec["entry_socket"],
+           f"venue_probe input socketName != {venue_spec['entry_socket']}")
+        reachable = reachable_nodes(nodes, inputs[0])
+        unreachable = [id_of(n) for n in nodes if id_of(n) not in reachable]
+        ok(not unreachable, f"venue_probe nodes unreachable from input: {unreachable}")
+
+    # Device manager: one node per venue that declares doors; params exactly match.
+    expected_device_groups = [
+        [(d["ref"], d.get("controller", "DoorControllerPS"), d["action"]) for d in v.get("doors", [])]
+        for v in venue_spec["venues"] if v.get("doors")
+    ]
+    device_nodes = [
+        n["Data"] for n in nodes
+        if n["Data"].get("$type") == "questInteractiveObjectManagerNodeDefinition"
+    ]
+    ok(len(device_nodes) == len(expected_device_groups),
+       f"expected {len(expected_device_groups)} device manager nodes, found {len(device_nodes)}")
+    actual_groups = []
+    for d_node in device_nodes:
+        typ = d_node.get("type", {}).get("Data", {})
+        ok(typ.get("$type") == "questDeviceManager_NodeType",
+           "device manager node type is not questDeviceManager_NodeType")
+        group = []
+        for p in typ.get("params", []):
+            pd = p["Data"]
+            ok(pd.get("$type") == "questDeviceManager_NodeTypeParams",
+               "device manager param type mismatch")
+            ok((pd.get("entityRef", {}).get("reference", {}).get("$value")) == "0",
+               "device manager entityRef.reference must be 0 (objectRef carries the node ref)")
+            group.append((
+                pd.get("objectRef", {}).get("$value"),
+                pd.get("deviceControllerClass", {}).get("$value"),
+                pd.get("deviceAction", {}).get("$value"),
+            ))
+        actual_groups.append(group)
+    ok(actual_groups == expected_device_groups,
+       f"venue_probe device groups mismatch:\n  actual:   {actual_groups}\n  expected: {expected_device_groups}")
+
+    # Communities: exact multiset match.
+    actual_comms = set()
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") == "questCommunityTemplate_NodeType":
+                actual_comms.add((
+                    at.get("action"),
+                    at.get("spawnerReference", {}).get("$value"),
+                    at.get("communityEntryName", {}).get("$value"),
+                    at.get("communityEntryPhaseName", {}).get("$value"),
+                ))
+    expected_comms = {
+        (c["action"], c["spawner"], c.get("entry_name", "None"), c.get("phase_name", "None"))
+        for v in venue_spec["venues"] for c in v.get("communities", [])
+    }
+    ok(actual_comms == expected_comms,
+       f"venue_probe communities mismatch:\n  actual:   {sorted(actual_comms)}\n  expected: {sorted(expected_comms)}")
+
+    # Owner constraint: prefabs/doors/communities ONLY, never quest content.
+    all_refs = _collect_phase_refs(rc)
+    bad_refs = sorted({r for r in all_refs if any(p in r for p in venue_spec["forbidden_phase_patterns"])})
+    ok(not bad_refs, f"venue_probe declares forbidden phase refs: {bad_refs}")
+    for d_node in device_nodes:
+        for p in d_node.get("type", {}).get("Data", {}).get("params", []):
+            controller = p["Data"].get("deviceControllerClass", {}).get("$value", "")
+            ok(controller.startswith("Door"),
+               f"venue_probe device controller {controller} is not a door (owner decision)")
+
+    # Keep-alive pause present.
+    ka = venue_spec["keep_alive_pause"]
+    ka_found = False
+    for p in nodes:
+        d = p["Data"]
+        if d.get("$type") != "questPauseConditionNodeDefinition":
+            continue
+        typ = d.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+        if (typ.get("factName") == ka["fact"]
+                and typ.get("comparisonType") == ka["comparison_type"]
+                and typ.get("value") == ka["value"]):
+            ka_found = True
+    ok(ka_found, f"venue_probe missing keep-alive pause {ka['fact']} {ka['comparison_type']} {ka['value']}")
+
+    # ascendancy.questphase: gate pause -> venue probe phase node, gated on the fact.
+    qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
+    qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
+    gate = venue_spec["gate"]
+    gate_pauses = []
+    for p in qp_nodes:
+        d = p["Data"]
+        if d.get("$type") != "questPauseConditionNodeDefinition":
+            continue
+        typ = d.get("condition", {}).get("Data", {}).get("type", {}).get("Data", {})
+        if (typ.get("factName") == gate["fact"]
+                and typ.get("comparisonType") == gate["comparison_type"]
+                and typ.get("value") == gate["value"]):
+            gate_pauses.append(p)
+    ok(len(gate_pauses) == 1,
+       f"expected 1 venue gate pause ({gate['fact']} {gate['comparison_type']} {gate['value']}), "
+       f"found {len(gate_pauses)}")
+    venue_phases = [
+        p for p in qp_nodes
+        if p["Data"].get("$type") == "questPhaseNodeDefinition"
+        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == venue_spec["phase_resource"]
+    ]
+    ok(len(venue_phases) == 1, f"expected 1 venue probe phase node, found {len(venue_phases)}")
+    if gate_pauses and venue_phases:
+        edges = _graph_edges(qp_nodes)
+        gate_id = id_of(gate_pauses[0])
+        venue_id = id_of(venue_phases[0])
+        ok((gate_id, venue_id) in edges, "venue gate pause is not connected to the venue probe phase node")
+        gate_in = _socket_handle(gate_pauses[0]["Data"]["sockets"][1])
+        gate_out = _socket_handle(gate_pauses[0]["Data"]["sockets"][2])
+        ok(_count_connections(qp_doc["Data"]["RootChunk"], gate_in) == (1, 0),
+           "venue gate In must have exactly 1 incoming connection")
+        ok(_count_connections(qp_doc["Data"]["RootChunk"], gate_out) == (0, 1),
+           "venue gate Out must have exactly 1 outgoing connection")
+
+    # The dev probe fact must stay runtime-only: no archive resource may set it.
+    for rel in ("mod\\neon_ascendancy\\ascendancy.questphase", venue_spec["phase_resource"]):
+        setvars = [f for f, _ in _collect_setvar_facts(resources[rel]["Data"]["RootChunk"])]
+        ok(gate["fact"] not in setvars,
+           f"{rel} sets {gate['fact']} via questSetVar_NodeType; it must stay DevDebug-only")
+    spec_facts = {f["fact"] for f in spec["questphase"]["initial_facts"]}
+    ok(gate["fact"] not in spec_facts, f"{gate['fact']} must not be declared in initial_facts")
+
+
 # --------------------------------------------------------------------------
 # main
 # --------------------------------------------------------------------------
@@ -1744,11 +2117,12 @@ def main() -> int:
         spec = json.load(fh)
     cast_spec = load_cast_spec(spec)
     ft_spec = load_ft_spec(cast_spec)
+    venue_spec = load_venue_spec(cast_spec)
 
     if args.check:
-        check(args, spec, cast_spec, ft_spec)
+        check(args, spec, cast_spec, ft_spec, venue_spec)
     else:
-        archive = build(args, spec, cast_spec, ft_spec)
+        archive = build(args, spec, cast_spec, ft_spec, venue_spec)
         print(f"\nBuilt {archive} ({archive.stat().st_size} bytes).")
         print("Run `python3 tools/build-clean-slate.py --check` to verify the round-trip.")
     return 0
