@@ -23,12 +23,13 @@ public func NeonAscendancy_ApplyDevDebug(game: GameInstance, player: ref<GameObj
   const perkLevelsUpgraded = NeonAscendancy_DevDebugGrantPerks(game, devData);
   NeonAscendancy_DevDebugRefreshStatsBB(player);
   NeonAscendancy_DevDebugUnlockFastTravel(game, player);
+  NeonAscendancy_DevDebugEnableVenueProbe(game);
   // Level and Street Cred are read after the boost purely to prove they were
   // never modified: the boost only raises attributes and perk levels.
   const level = devData.GetProficiencyLevel(gamedataProficiencyType.Level);
   const streetCred = devData.GetProficiencyLevel(gamedataProficiencyType.StreetCred);
   NcLogInfo(
-    s"DevDebug.Apply: attributesApplied=\(attributesApplied)/5 perkLevelsUpgraded=\(perkLevelsUpgraded) level=\(level) streetCred=\(streetCred) na_dev_unlock_all_ft=1"
+    s"DevDebug.Apply: attributesApplied=\(attributesApplied)/5 perkLevelsUpgraded=\(perkLevelsUpgraded) level=\(level) streetCred=\(streetCred) na_dev_unlock_all_ft=1 na_dev_venue_probe=1"
   );
 }
 
@@ -124,5 +125,19 @@ private func NeonAscendancy_DevDebugUnlockFastTravel(game: GameInstance, player:
   if IsDefined(qs) && qs.GetFact(n"na_dev_unlock_all_ft") == 0 {
     qs.SetFact(n"na_dev_unlock_all_ft", 1);
   }
+}
+
+// Arm the venue-access probe. Setting na_dev_venue_probe lets the clean-slate
+// archive's gated venue_probe.questphase start, then schedules the bounded
+// two-pass log check. Never runs unless dev debug is enabled.
+private func NeonAscendancy_DevDebugEnableVenueProbe(game: GameInstance) -> Void {
+  let qs = GameInstance.GetQuestsSystem(game);
+  if !IsDefined(qs) {
+    return;
+  }
+  if qs.GetFact(n"na_dev_venue_probe") == 0 {
+    qs.SetFact(n"na_dev_venue_probe", 1);
+  }
+  NeonAscendancy_ScheduleVenueProbe(game);
 }
 
