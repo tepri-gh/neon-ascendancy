@@ -166,7 +166,8 @@ CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int
     (4, "Arroyo", "arr_arasaka_industrial", "Arasaka Industrial Park",           -513.2, -1552.9,   6.6, 20, "corp",  960, 80, 1),
     (4, "Arroyo", "arr_petrochem_yard",     "Petrochem Freight Yard",            -255.9, -1480.0,   7.6, 43, "corp",  900, 70, 0),
     (4, "Arroyo", "arr_kendachi_plant",     "Kendachi Foundry",                  -605.0, -1037.5,   6.7,  4, "gang",  820, 60, 0),
-    (4, "Arroyo", "arr_megabuilding_h4",    "Megabuilding H4 Plaza",             -951.7, -1502.8,  25.6,  4, "gang",  790, 55, 0),
+    # Owner 6 (Animals): hosts the Animals' Arroyo test point (Tripple Extreme Gym).
+    (4, "Arroyo", "arr_megabuilding_h4",    "Megabuilding H4 Plaza",             -951.7, -1502.8,  25.6,  6, "gang",  790, 55, 0),
     (4, "Arroyo", "arr_red_dirt_cross",     "Red Dirt Crossroads",               -884.3, -1009.7,  11.6,  4, "gang",  780, 55, 0),
 
     # --- 4. Santo Domingo: Rancho Coronado (5) ---
@@ -236,15 +237,15 @@ ACTIVE_TEST_CONTROL_CENTERS: dict[str, str] = {
     "tyger_claws": "kab_allen_street",
     "valentinos": "rey_college_street",
     "arasaka": "hil_power_plant",
-    "militech": "dtn_skyline_west",
+    "militech": "bls_solar_station",
     "kang_tao": "gle_hanford_overpass",
-    "biotechnica": "bls_biotechnica_flats",
+    "biotechnica": "dtn_central_concourse",
     "petrochem": "arr_petrochem_yard",
     "barghest": "dt_main_gate",
     "sixth_street": "arr_kendachi_plant",
     "aldecaldos": "bls_aldecaldos_camp",
     "wraiths": "bls_sunset_motel",
-    "animals": "cvi_east_overpass",
+    "animals": "arr_megabuilding_h4",
     "the_mox": "kab_creek_loop",
     "maelstrom": "nid_martin_st_docks",
     "voodoo_boys": "dt_terra_cognita",
@@ -283,6 +284,31 @@ LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
         "x": -1386.757, "y": -2463.72, "z": 85.0,
         "source": "data/sites/sites.json site 362 sts_ep1_12 (docs/research/factions/voodoo-boys.md)",
     },
+    "bls_solar_station": {
+        "display_name": "Militech Detention Center",
+        "x": -112.566, "y": -5246.731, "z": 87.16,
+        "source": "data/sites/sites.json site 343 sts_bls_ina_05 (docs/research/factions/militech.md)",
+    },
+    "arr_megabuilding_h4": {
+        "display_name": "Tripple Extreme Gym",
+        "x": -500.969, "y": -1924.883, "z": 7.987,
+        "source": "data/sites/sites.json site 378 sts_pac_wwd_05 (docs/research/factions/animals.md)",
+    },
+    "kab_creek_loop": {
+        "display_name": "Autowerks",
+        "x": -1224.176, "y": 2275.871, "z": 6.971,
+        "source": "data/sites/sites.json site 407 sts_wat_nid_01 (docs/research/factions/the-mox.md)",
+    },
+    "gle_hanford_overpass": {
+        "display_name": "Hanford Overpass",
+        "x": -1410.732, "y": -1208.607, "z": 26.723,
+        "source": "data/sites/sites.json site 60 ma_hey_gle_15 (docs/research/factions/kang-tao.md)",
+    },
+    "dtn_central_concourse": {
+        "display_name": "Biotechnica Hotel",
+        "x": -2156.769, "y": 467.99, "z": 11.511,
+        "source": "dist/extract/markers.jsonl dtn_04_mp_sm_entrance, site 353 sts_cct_dtn_04 (docs/research/factions/biotechnica.md)",
+    },
 }
 
 # One map-marker headquarters per faction (not capturable yet). Coordinates must come
@@ -319,6 +345,31 @@ FACTION_HEADQUARTERS: list[dict[str, Any]] = [
         "faction": "voodoo_boys", "display_name": "Batty's Hotel", "gamedata_subdistrict": "Coastview",
         "x": -1904.122, "y": -1899.187, "z": 59.007,
         "source": "dist/extract/markers.jsonl q110_mp_netrunners_den (docs/research/factions/voodoo-boys.md)",
+    },
+    {
+        "faction": "militech", "display_name": "Militech Offices", "gamedata_subdistrict": "CorpoPlaza",
+        "x": -1308.475, "y": -56.376, "z": 2.15,
+        "source": "data/sites/sites.json site 11 ma_cct_cpz_06 (docs/research/factions/militech.md)",
+    },
+    {
+        "faction": "animals", "display_name": "Grand Imperial Mall", "gamedata_subdistrict": "Coastview",
+        "x": -2363.001, "y": -2026.324, "z": 15.811,
+        "source": "dist/extract/markers.jsonl mq025_mp_08_ring (docs/research/factions/animals.md)",
+    },
+    {
+        "faction": "the_mox", "display_name": "Lizzie's Bar", "gamedata_subdistrict": "Kabuki",
+        "x": -1201.905, "y": 1562.259, "z": 24.274,
+        "source": "dist/extract/markers.jsonl q000_corpo_mp_lizzies_front_entrance (docs/research/factions/the-mox.md)",
+    },
+    {
+        "faction": "kang_tao", "display_name": "Kang Tao Building", "gamedata_subdistrict": "CorpoPlaza",
+        "x": -1127.822, "y": 546.952, "z": 17.89,
+        "source": "data/sites/sites.json site 20 ma_cct_cpz_16 (docs/research/factions/kang-tao.md)",
+    },
+    {
+        "faction": "biotechnica", "display_name": "Biotechnica Protein Flats", "gamedata_subdistrict": "Badlands",
+        "x": -1795.661, "y": -4323.811, "z": 74.413,
+        "source": "dist/extract/markers.jsonl bls_bls_dataterm_10, Flats fast-travel dataterm (docs/research/factions/biotechnica.md)",
     },
 ]
 

@@ -50,6 +50,26 @@
     "z": 59.007
   },
   {
+    "code": "hq_animals",
+    "display_name": "Grand Imperial Mall",
+    "faction_id": 6,
+    "gamedata_subdistrict": "Coastview",
+    "source": "dist/extract/markers.jsonl mq025_mp_08_ring (docs/research/factions/animals.md)",
+    "x": -2363.001,
+    "y": -2026.324,
+    "z": 15.811
+  },
+  {
+    "code": "hq_the_mox",
+    "display_name": "Lizzie's Bar",
+    "faction_id": 11,
+    "gamedata_subdistrict": "Kabuki",
+    "source": "dist/extract/markers.jsonl q000_corpo_mp_lizzies_front_entrance (docs/research/factions/the-mox.md)",
+    "x": -1201.905,
+    "y": 1562.259,
+    "z": 24.274
+  },
+  {
     "code": "hq_arasaka",
     "display_name": "Arasaka Tower",
     "faction_id": 20,
@@ -58,5 +78,35 @@
     "x": -1443.505,
     "y": 158.475,
     "z": 15.351
+  },
+  {
+    "code": "hq_militech",
+    "display_name": "Militech Offices",
+    "faction_id": 21,
+    "gamedata_subdistrict": "CorpoPlaza",
+    "source": "data/sites/sites.json site 11 ma_cct_cpz_06 (docs/research/factions/militech.md)",
+    "x": -1308.475,
+    "y": -56.376,
+    "z": 2.15
+  },
+  {
+    "code": "hq_kang_tao",
+    "display_name": "Kang Tao Building",
+    "faction_id": 22,
+    "gamedata_subdistrict": "CorpoPlaza",
+    "source": "data/sites/sites.json site 20 ma_cct_cpz_16 (docs/research/factions/kang-tao.md)",
+    "x": -1127.822,
+    "y": 546.952,
+    "z": 17.89
+  },
+  {
+    "code": "hq_biotechnica",
+    "display_name": "Biotechnica Protein Flats",
+    "faction_id": 23,
+    "gamedata_subdistrict": "Badlands",
+    "source": "dist/extract/markers.jsonl bls_bls_dataterm_10, Flats fast-travel dataterm (docs/research/factions/biotechnica.md)",
+    "x": -1795.661,
+    "y": -4323.811,
+    "z": 74.413
   }
 ]

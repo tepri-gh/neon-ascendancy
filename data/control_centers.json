@@ -107,14 +107,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_kab_creek_loop",
     "control_center_id": 9,
-    "display_name": "Creek Loop Warehouse",
+    "display_name": "Autowerks",
     "is_active": 1,
     "is_capital": 0,
     "landmark_id": 9,
     "sub_territory_id": 9,
-    "x": -1178.5,
-    "y": 1947.5,
-    "z": 19.8
+    "x": -1224.176,
+    "y": 2275.871,
+    "z": 6.971
   },
   {
     "capture_radius_m": 45.0,
@@ -541,9 +541,9 @@
     "is_capital": 0,
     "landmark_id": 42,
     "sub_territory_id": 42,
-    "x": -1413.6,
-    "y": -1213.1,
-    "z": 26.7
+    "x": -1410.732,
+    "y": -1208.607,
+    "z": 26.723
   },
   {
     "capture_radius_m": 45.0,
@@ -692,14 +692,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_arr_megabuilding_h4",
     "control_center_id": 54,
-    "display_name": "Megabuilding H4 Plaza",
-    "is_active": 0,
+    "display_name": "Tripple Extreme Gym",
+    "is_active": 1,
     "is_capital": 0,
     "landmark_id": 54,
     "sub_territory_id": 54,
-    "x": -951.7,
-    "y": -1502.8,
-    "z": 25.6
+    "x": -500.969,
+    "y": -1924.883,
+    "z": 7.987
   },
   {
     "capture_radius_m": 45.0,
@@ -810,7 +810,7 @@
     "code": "cc_cvi_east_overpass",
     "control_center_id": 63,
     "display_name": "Coastview East Overpass",
-    "is_active": 1,
+    "is_active": 0,
     "is_capital": 0,
     "landmark_id": 63,
     "sub_territory_id": 63,
@@ -914,7 +914,7 @@
     "code": "cc_dtn_skyline_west",
     "control_center_id": 71,
     "display_name": "Skyline & Salinas Plaza",
-    "is_active": 1,
+    "is_active": 0,
     "is_capital": 0,
     "landmark_id": 71,
     "sub_territory_id": 71,
@@ -965,14 +965,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_dtn_central_concourse",
     "control_center_id": 75,
-    "display_name": "Downtown Central Concourse",
-    "is_active": 0,
+    "display_name": "Biotechnica Hotel",
+    "is_active": 1,
     "is_capital": 0,
     "landmark_id": 75,
     "sub_territory_id": 75,
-    "x": -2147.3,
-    "y": 273.2,
-    "z": 7.5
+    "x": -2156.769,
+    "y": 467.99,
+    "z": 11.511
   },
   {
     "capture_radius_m": 45.0,
@@ -1135,7 +1135,7 @@
     "code": "cc_bls_biotechnica_flats",
     "control_center_id": 88,
     "display_name": "Biotechnica Protein Flats",
-    "is_active": 1,
+    "is_active": 0,
     "is_capital": 0,
     "landmark_id": 88,
     "sub_territory_id": 88,
@@ -1147,14 +1147,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_bls_solar_station",
     "control_center_id": 89,
-    "display_name": "Jackson Plains Solar Arrays",
-    "is_active": 0,
+    "display_name": "Militech Detention Center",
+    "is_active": 1,
     "is_capital": 0,
     "landmark_id": 89,
     "sub_territory_id": 89,
-    "x": 50.4,
-    "y": -5595.4,
-    "z": 212.8
+    "x": -112.566,
+    "y": -5246.731,
+    "z": 87.16
   },
   {
     "capture_radius_m": 45.0,
