@@ -439,8 +439,8 @@ def build_quest(template: dict[str, Any], spec: dict[str, Any]) -> dict[str, Any
 def build_questphase(templates: dict[str, dict[str, Any]], spec: dict[str, Any]) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
-    Start -> hub -> 15 fact managers (chained) -> fan-out to:
-      29 kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
+    Start -> hub -> initial fact managers (chained) -> fan-out to:
+      kept external phases + spike gate pause -> spike phase + 5 copied inline phases.
     """
     qp = spec["questphase"]
     owc = templates["open_world_content_questphase"]
@@ -1021,7 +1021,7 @@ def _check_questphase(resources: dict[str, dict[str, Any]], spec: dict[str, Any]
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
         ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 1,
-           f"expected {len(qp['kept_depot_phases']) + 1} external phase nodes (29 kept + spike), found {len(top_phase_nodes)}")
+           f"expected {len(qp['kept_depot_phases']) + 1} external phase nodes ({len(qp['kept_depot_phases'])} kept + spike), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause

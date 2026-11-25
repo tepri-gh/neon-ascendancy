@@ -83,7 +83,10 @@
       {"depot_path": "base\\quest\\hiding_av_loops.questphase", "why": "AV loops"},
       {"depot_path": "base\\quest\\loading_screens.questphase", "why": "Loading screens"},
       {"depot_path": "base\\quest\\locations_entries.questphase", "why": "Locations entries"},
-      {"depot_path": "base\\quest\\persistent_content.questphase", "why": "Pulls mq000 (H10 apartment) + dlc6_apart (4 purchasable apartments) + tutorials + air traffic; internal story-gated sub-phases stay dormant at fact 0"}
+      {"depot_path": "base\\quest\\minor_quests\\mq000\\mq000.questphase", "why": "V's H10 apartment prefabs (#mq000_pr_apartment, #pr_v_room_stash, #vs_apartment_arch_*), apartment interactions (bed/shower/stash/wardrobe/mirror/PC), and dlc6_apart (4 purchasable apartments); wired directly instead of via persistent_content so it runs without q000_done > 0"},
+      {"depot_path": "base\\gameplay\\air_traffic\\phases\\air_traffic.questphase", "why": "Ambient Night City flying AV traffic (extracted cleanly from persistent_content)"},
+      {"depot_path": "base\\open_world\\scenes\\dancefloors\\dancefloors.questphase", "why": "Night City club dancefloors (wired directly without persistent_content's q001_left_v_apartment gate)"},
+      {"depot_path": "base\\open_world\\scenes\\mirrors\\mirror_interactions_control.questphase", "why": "Mirror interactions across Night City (extracted cleanly from persistent_content)"}
     ],
     "kept_inline_phases": [
       {"owc_node_id": 7, "why": "lch/kab/nid prolog roadblocks, pause-gated on watson_prolog_lock > 0 (inert while unlocked)"},
@@ -111,6 +114,7 @@
       "base\\open_world\\community\\santo_domingo\\arroyo\\community\\ultimate_edition_metro_community\\arroyo_metro.questphase"
     ],
     "omitted_depot_phases": [
+      "base\\quest\\persistent_content.questphase",
       "base\\open_world\\fixers\\open_world_fixers.questphase",
       "base\\open_world\\street_stories\\street_stories.questphase",
       "base\\open_world\\minor_activities\\open_world_minor_activities.questphase",
@@ -121,6 +125,7 @@
       {"owc_node_id": 32, "why": "q000_done-gated q112 blockade resets (story content; unreachable in clean-slate anyway)"}
     ],
     "never_included": [
+      "base\\quest\\persistent_content.questphase (pulls q001_wilson Dying Night job, q001_fast_travel_unlock which ForceDisables #q001_lch_data_term_10 outside V's H10 apartment, q001 tutorials/story follow-ups, and gates mq000 behind q000_done > 0; its 4 clean non-story sub-phases are wired directly instead)",
       "base\\quest\\main_quests\\prologue\\prologue.questphase (q000-q005)",
       "base\\quest\\main_quests\\part1\\act_1.questphase (q101-q116)",
       "base\\quest\\main_quests\\epilogue\\epilogue.questphase",
@@ -132,9 +137,12 @@
       "the vanilla root graph node [82] (activates additional_game_elements/bugfixing/sidequests/minorquests)"
     ],
     "excluded_phase_patterns": [
+      "persistent_content",
       "main_quests",
       "side_quests",
-      "minor_quests",
+      "minorquests",
+      "q001_wilson",
+      "q001_fast_travel_unlock",
       "bugfixing",
       "epilogue",
       "final_boards",
