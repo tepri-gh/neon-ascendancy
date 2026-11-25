@@ -40,6 +40,7 @@ function Probe.help()
   print("  p.watch_calls()      -- Step 0.1: log PhoneSystem.OnTriggerCall events")
   print("  p.player_pos()       -- Step 0.2: print player world X/Y/Z & current district")
   print("  p.dump_tweak_check() -- Step 0.2/0.4: count Character & District records in runtime TweakDB")
+  print("  p.look_at()          -- log the object under the crosshair (also hotkey 'Neon: log look-at')")
 end
 
 function Probe.snapshot()
@@ -272,6 +273,65 @@ function Probe.dump_tweak_check()
   local dists = TweakDB:GetRecords("gamedataDistrict_Record")
   print(string.format("Runtime TweakDB: %d Character records, %d District records", #chars, #dists))
 end
+
+-- Look-at logger (dev-only). Bind "Neon: log look-at" in CET Bindings, look at an
+-- object and press the key. Logs to the CET console and NeonAscendancyProbe.log so
+-- the agent can identify exactly what the owner sees. Baked static meshes are not
+-- entities, so "nothing" means the target is world geometry, not a device or NPC.
+local function safe(f, ...)
+  local ok, v = pcall(f, ...)
+  if ok then return v end
+  return nil
+end
+
+local function emit(line)
+  print(line)
+  spdlog.info(line)
+end
+
+function Probe.look_at()
+  local player = Game.GetPlayer()
+  if not player then return end
+  local ppos = player:GetWorldPosition()
+  local obj = Game.GetTargetingSystem():GetLookAtObject(player, false, false)
+  if not obj then
+    emit(string.format("LOOKAT nothing (static world geometry?) player=(%.3f,%.3f,%.3f)", ppos.x, ppos.y, ppos.z))
+    return
+  end
+  local pos = obj:GetWorldPosition()
+  local id = safe(function() return obj:GetEntityID().hash end)
+  local cls = safe(function() return obj:GetClassName().value end) or "?"
+  local app = safe(function() return obj:GetCurrentAppearanceName().value end) or "?"
+  local line = string.format("LOOKAT class=%s id=%s app=%s pos=(%.3f,%.3f,%.3f) player=(%.3f,%.3f,%.3f) dist=%.2f",
+    cls, tostring(id), app, pos.x, pos.y, pos.z, ppos.x, ppos.y, ppos.z, Vector4.Distance(pos, ppos))
+  if obj:IsA("Device") then
+    local ps = safe(function() return obj:GetDevicePS() end)
+    if ps then
+      local psCls = safe(function() return ps:GetClassName().value end) or "?"
+      line = line .. string.format(" ps=%s powered=%s disabled=%s", psCls,
+        tostring(safe(function() return ps:IsPowered() end)), tostring(safe(function() return ps:IsDisabled() end)))
+      if ps:IsA("DoorControllerPS") then
+        line = line .. string.format(" open=%s locked=%s sealed=%s",
+          tostring(safe(function() return ps:IsOpen() end)), tostring(safe(function() return ps:IsLocked() end)),
+          tostring(safe(function() return ps:IsSealed() end)))
+      end
+    end
+  end
+  if obj:IsA("ScriptedPuppet") then
+    local rec = safe(function() return obj:GetRecordID() end)
+    local aff = safe(function() return obj:GetRecord():Affiliation():Type().value end)
+    line = line .. string.format(" record=%s affiliation=%s", rec and TDBID.ToStringDEBUG(rec) or "?", tostring(aff))
+  end
+  emit(line)
+end
+
+registerHotkey("NeonLookAt", "Neon: log look-at", function() Probe.look_at() end)
+registerHotkey("NeonPlayerPos", "Neon: log player position", function()
+  local player = Game.GetPlayer()
+  if not player then return end
+  local p = player:GetWorldPosition()
+  emit(string.format("PLAYERPOS (%.3f,%.3f,%.3f)", p.x, p.y, p.z))
+end)
 
 registerForEvent("onInit", function()
   print("[NeonAscendancyProbe] Ready. In console: p = GetMod(\"NeonAscendancyProbe\"); p.help()")

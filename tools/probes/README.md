@@ -29,3 +29,14 @@ Follow the 10-minute verification matrix in
 `p.snapshot()`, `p.classify()`, `p.unlock_minimal()`, `p.unlock_act2()`,
 `p.audit_quests()`, `p.suppress_quests()`, `p.audit_mappins()`,
 `p.audit_johnny()`, `p.test_johnny_off()`, `p.audit_dialog()`, `p.watch_calls()`.
+
+## Look-at logger (on-site identification)
+
+Bind **Neon: log look-at** (and optionally **Neon: log player position**) in the
+CET overlay → Bindings. Look at a door, device, NPC or object and press the key.
+The line (`LOOKAT class=… id=… app=… pos=… player=… ps=… open=/locked=/…`, plus
+`record=`/`affiliation=` for NPCs) goes to the CET console and
+`…/mods/NeonAscendancyProbe/NeonAscendancyProbe.log`. `LOOKAT nothing` means the
+target is static world geometry (a baked mesh), not an entity. After editing this
+file, reinstall with `tools/install-dev-cet.sh` or copy it to the mod's
+`init.lua`, then use CET's "Reload All Mods".
