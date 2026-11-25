@@ -22,10 +22,11 @@ public struct NeonAscendancy_VenueProbe {
 // more after a short delay), never per frame and never on a timer. It is a pure
 // observer - it never mutates world state.
 public class NeonAscendancy_VenueProbeCallback extends DelayCallback {
+  public let m_game: GameInstance;
   public let m_pass: Int32 = 1;
 
   public func Call() -> Void {
-    NeonAscendancy_RunVenueProbe(this.m_pass);
+    NeonAscendancy_RunVenueProbe(this.m_game, this.m_pass);
   }
 }
 
@@ -94,13 +95,14 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
 
 // Run the whole probe once. `pass` distinguishes the post-bootstrap pass from the
 // delayed re-check so the log shows both.
-public func NeonAscendancy_RunVenueProbe(pass: Int32) -> Void {
-  let game = GetGameInstance();
+public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Void {
   if !GameInstance.IsValid(game) {
+    NcLogInfo(s"VenueProbe: skipped pass=\(pass) (invalid GameInstance)");
     return;
   }
   let qs = GameInstance.GetQuestsSystem(game);
   if !IsDefined(qs) || qs.GetFact(n"na_dev_venue_probe") <= 0 {
+    NcLogInfo(s"VenueProbe: skipped pass=\(pass) (na_dev_venue_probe not set)");
     return;
   }
 
@@ -211,9 +213,11 @@ public func NeonAscendancy_ScheduleVenueProbe(game: GameInstance) -> Void {
     return;
   }
   let first = new NeonAscendancy_VenueProbeCallback();
+  first.m_game = game;
   first.m_pass = 1;
   ds.DelayCallback(first, 2.0, false);
   let second = new NeonAscendancy_VenueProbeCallback();
+  second.m_game = game;
   second.m_pass = 2;
   ds.DelayCallback(second, 30.0, false);
 }
