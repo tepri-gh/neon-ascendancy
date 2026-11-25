@@ -718,7 +718,9 @@ d = json.loads(raw)                                  # strict parse
 
 VOCAB = {'sex_work','gambling','drugs','arms','cyberware','braindance','protection',
          'vehicles_chop','smuggling','fixer_brokerage','security_services','manufacturing',
-         'rnd','energy','real_estate','retail','food_drink','media','agriculture'}
+         'rnd','energy','real_estate','retail','food_drink','media','agriculture',
+         'logistics','finance','hospitality','education','netrunning','information',
+         'mercenary','funeral'}
 TAGS = {'game-data','wiki','lore','inferred'}
 SUBS = {s['gamedata_subdistrict'] for s in json.load(open('data/sub_territories.json'))}
 DISTRICTS = {d2['gamedata_district'] for d2 in json.load(open('data/districts.json'))}
