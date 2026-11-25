@@ -222,3 +222,36 @@ A fenced ```json block at the end:
 finishing: strict JSON parse; every `faction_code` exists in
 `data/factions.json`; required keys present; `open_world` is a bool; every
 stance is in the vocabulary; one relation per required faction.
+
+### 6.1 Validator (run before finishing)
+
+```python
+import json, re, sys
+path = sys.argv[1]  # docs/research/factions/politics/<faction-code>.md
+blocks = re.findall(r"```json\n(.*?)```", open(path).read(), re.S)
+d = json.loads(blocks[-1])
+codes = {f["code"] for f in json.load(open("data/factions.json"))}
+STANCES = {"war", "hostile", "rival", "neutral", "trade", "ally", "patron", "client"}
+PRESENCE = {"ambient", "world-activity", "story", "prologue", "off-map", "mentioned", "historical"}
+REQUIRED = {"tyger_claws", "valentinos", "arasaka", "militech", "kang_tao", "biotechnica",
+            "petrochem", "barghest", "sixth_street", "aldecaldos", "wraiths", "animals",
+            "the_mox", "maelstrom", "voodoo_boys", "ncpd", "night_corp", "scavengers",
+            "city_council", "afterlife", "fixer_regina", "fixer_wakako", "fixer_padre",
+            "fixer_el_capitan", "fixer_dakota", "fixer_dino", "fixer_rogue", "fixer_mr_hands"}
+me = d["faction_code"]; assert me in codes
+for l in d["leaders"]:
+    assert {"name", "role", "presence_class", "open_world", "source", "confidence"} <= l.keys(), l
+    assert l["presence_class"] in PRESENCE, l
+    assert isinstance(l["open_world"], bool), l
+rel = [r["faction_code"] for r in d["relations"]]
+assert len(rel) == len(set(rel)), "duplicate relation rows"
+assert me not in rel, "self row"
+assert set(rel) <= codes, set(rel) - codes
+missing = (REQUIRED - {me}) - set(rel); assert not missing, missing
+assert all(r["stance"] in STANCES for r in d["relations"])
+print("OK", me, len(d["leaders"]), "leaders", len(d["internal_factions"]), "blocs", len(rel), "relations")
+```
+
+Leaderless and council factions: put pack or council leaders in `leaders`
+with `role` saying so, and describe the structure in §1. `Affiliation.hpp`
+enum values are not `data/factions.json` ids (Animals: enum 2, id 6).
