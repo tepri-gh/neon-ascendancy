@@ -14,6 +14,14 @@ Use these exact names in types, tables, and commits.
 - **Control Center:** The physical anchor point `(x, y, z)` inside a
   Sub-Territory (typically an affiliated gang compound, plaza, warehouse, or
   building) where faction NPCs spawn and which renders as a dot on the map.
+- **Influence Point:** *(New model, replacing Sub-Territory/Control Center;
+  see [`design/territory-data-model.md`](design/territory-data-model.md).)*
+  A place a faction holds, with one controller, a category (Hangout,
+  Outpost, Landmark, Stronghold, Business, HQ) and an integer influence.
+- **Bloc:** An internal political faction (vassal) inside a faction, with
+  its own leader.
+- **Title Holder:** The faction with the legal/political claim to an
+  Influence Point, which may differ from its controller.
 - **Spawn Point:** A ground-truth world coordinate and faction affiliation
   extracted from Cyberpunk 2077 2.5 data, linked to a Sub-Territory.
 - **Road Chunk:** *(Deferred)* A discrete spatial partition of the drivable road

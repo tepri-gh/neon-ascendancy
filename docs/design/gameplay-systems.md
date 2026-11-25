@@ -124,6 +124,19 @@ lieutenants) are to be represented. Design pending.
   Tyger Claws and corps such as Arasaka have similar structures).
 - A faction can be in **internal war** with no single leader. This must hurt
   the faction, and eventually one bloc wins and takes leadership.
+- **Blocs are vassals.** A losing bloc is not absorbed or purged. Blocs keep
+  influence over the faction even without territory and can start an
+  internal turf war. Leaders must dole out influence points to blocs to keep
+  them happy. Some political structures (archetypes) manage blocs better
+  than others.
+- **Rising in a faction:** a nobody starts as a grunt; nobody cares whom
+  they back, but backing a leader can earn favour. Missions for a leader earn
+  favour, which unlocks higher-tier (harder, more important) missions. At the
+  top the player becomes a sub-leader with their own bloc, granted one
+  control point from the most powerful bloc. If that would drop that bloc
+  below leadership control, the point comes from the second most powerful
+  bloc instead; when tied blocs matter, pick between them with an even
+  random roll.
 - **Alternate timeline:** Yorinobu Arasaka is alive. Arasaka's ship and
   Yorinobu's daughter are in the city.
 - **Deferred:** spawning faction leaders. With the campaign disabled, most
@@ -132,8 +145,12 @@ lieutenants) are to be represented. Design pending.
 ## 6. Relations
 
 - Four levels: **Allied, Friendly, Neutral, Hostile.**
-- Open concern: alliances such as Arasaka–Tyger Claws could make factions
-  too strong early.
+- **No Allied at game start:** at most Friendly. Alliances are earned in play.
+- **Anti-snowball coalitions:** factions near one that grows too fast drift
+  toward Hostile with it.
+- **Alliances carry obligations** (allies get pulled into each other's
+  wars). What an alliance concretely provides waits until the economy and
+  other pillar systems are designed.
 
 ## 7. Architecture
 
