@@ -227,14 +227,25 @@ lieutenants) are to be represented. Design pending.
 | Politics | **Influence** | Every node grants Influence each turn; blocs add a base from their history and leader. Spent on claims, coring and policies. |
 | Economy | **Eddies** | The base currency: military upkeep, keeping nodes loyal, hiring netrunners and contractors (freelancers/fixers, tied to missions), buying chips and cyberware. |
 | Espionage | **Intel** | |
-| Technology | **Research** (name TBD) | Drives a shared tech tree that decides what each faction can produce (e.g. Arasaka makes tier-5 weapons; gangs research higher tiers over time). |
-| Military | **Muscle** (`manpower`) | Divided between blocs by the nodes they control. Plus materiel: weapons, vehicles, equipment and cyberware, with capacity tied to technology. A separate Industry system for manufacturing is under discussion. |
-| Culture | none yet | Meaning beyond loyalty still to be designed. |
+| Technology | **Research** (UI: **R&D**) | Drives a shared tech tree that decides what each faction can produce (e.g. Arasaka makes tier-5 weapons; gangs research higher tiers over time). |
+| Military | **Muscle** (`manpower`) | Per bloc, regenerating from the military nodes each bloc controls; the faction's army is the sum, and the leader can draft from a bloc at a satisfaction cost. Plus **materiel** (weapons, vehicles, equipment, cyberware, drugs): stockpiled **per faction**, bought with eddies, capacity tied to technology. |
+| Culture | none (projected force) | Culture nodes push **cultural pressure** into neighbouring nodes. A node's loyalty drifts toward the strongest pressure unless its controller garrisons it, spends eddies or adopts policies. Culture also feeds recruitment (manpower regeneration) and bloc contentment. |
 
 - **Coring does not mean loyalty.** A titled node still has to be
   garrisoned and kept content through policies or eddies, or it drifts
   toward another faction.
 - One **turn** is 24 in-game hours.
+- **No production system.** Industry is not a pillar and there is no
+  materiel manufacturing simulation. Nodes with production revenue
+  (`manufacturing`, `vehicles_chop`, `cyberware`, `drugs`, `arms`) only
+  give a minor discount on the eddie cost of the matching materiel. Corps'
+  global industry is off-map; their Night City branches run on their own
+  budgets.
+- **Shared tech tree** reused by every faction, with archetype and faction
+  starting unlocks (e.g. Arasaka tier-5 weapons, Kang Tao smart weapons,
+  Biotechnica bio/drugs, Maelstrom chrome). Technology strength speeds
+  research. The tree decides the highest tier a faction can field; trade
+  and alliances can raise what it can buy.
 
 ## 9. Factions outside the territory game
 
