@@ -34,12 +34,12 @@ faction are dropped.
 
 ### `factions` (extended)
 
-New columns: `archetype` (`syndicate`, `corporation`, `paramilitary`,
-`tribe`, `ideological`, `special`), `archetype_strength`,
-`archetype_weakness`, `strength_pillar`, `weakness_pillar` (pillar enums),
-`is_territorial` (bool), `spawn_template_faction_id` (nullable; e.g.
-Petrochem → Militech), `attitude_group` (CName for runtime re-tagging via
-`AttitudeAgent.SetAttitudeGroup`, `refs/cyberpunk/orphans.swift:20451`).
+Political columns (`kind`, archetype, pillars, government,
+`spawn_template_faction_id`, `attitude_group`) are defined in
+[`politics-data-model.md`](politics-data-model.md) §2. Only factions with
+`kind = territorial` own influence points. `attitude_group` is the CName
+for runtime re-tagging via `AttitudeAgent.SetAttitudeGroup`
+(`refs/cyberpunk/orphans.swift:20451`).
 
 ### `sub_districts`
 
@@ -74,31 +74,17 @@ shared vocabulary in `docs/research/factions/METHOD.md` §7, and
 `point_a < point_b`, `distance_m`, `crosses_sub_district` (bool). Built by
 the generator (§5), undirected.
 
-### `blocs` and `leaders`
+### Blocs, leaders, relations, policies
 
-- `blocs`: `bloc_id`, `faction_id`, `display_name`, `goals`.
-- `leaders`: `leader_id`, `faction_id`, `bloc_id` (nullable), `display_name`,
-  `rank` (`leader`, `sub_leader`, `lieutenant`), `character_record_id`
-  (nullable), `presence_class`, `home_point_id` (nullable). Spawning
-  leaders is deferred; the data is seeded now.
-
-### `faction_relations`
-
-`faction_a < faction_b`, `initial_level` (`friendly`, `neutral`,
-`hostile`; `allied` is rejected at build time because there are no starting
-alliances), `kind` (nullable flavour: `patron`, `client`, `trade`, `rival`),
-`evidence`, `confidence`. Symmetric. Where the research docs disagree, the
-build fails until an override resolves the pair.
+Defined in [`politics-data-model.md`](politics-data-model.md). A point's
+`initial_bloc_id` references `blocs`.
 
 ## 3. Playthrough state (mutable)
 
 - Per point: `controller_faction_id`, `title_faction_id`, `bloc_id`,
   `strength` (garrison/defence, 0–100).
-- Per faction: `leader_id`, `leadership_state` (`stable`, `tension`,
-  `internal_war`).
-- Per bloc: `satisfaction` (and later loyalty inputs).
-- Per faction pair: `level` plus `at_war` (war is a state between Hostile
-  factions, opened by a casus belli/title claim).
+- Faction, bloc, relation, war, pact and claim state: see
+  [`politics-data-model.md`](politics-data-model.md) §3.
 - Not stored, derived: sub-district holders, faction influence totals,
   attackable sets. Cache them only if profiling demands it.
 
@@ -118,14 +104,8 @@ existing test saves reset their territory; document it in `CHANGELOG.md`.
    needs all adjacent points taken.
 4. **Title efficiency:** a point whose controller lacks title produces
    pillar output and strength at a reduced multiplier (value TBD).
-5. **Leadership state:** a bloc that holds ≥ 50% of its faction's influence
-   and has a living leader leads (`stable`). A rival bloc above a threshold
-   means `tension`. No bloc at 50%, or a dead leader with no successor,
-   means `internal_war`. Blocs are vassals: they are never absorbed.
-6. **Player sub-leader grant:** take one point from the most powerful bloc
-   unless that drops it below leadership control; otherwise take it from the
-   second most powerful bloc. Resolve ties with an even random roll from the
-   sim's seeded RNG.
+5. **Leadership, blocs, wars, peace, policies, relations and the sub-leader
+   grant:** see [`politics-data-model.md`](politics-data-model.md) §4.
 
 ## 5. Generator (`tools/build-influence-map.py`)
 

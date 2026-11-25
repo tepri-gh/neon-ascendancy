@@ -137,6 +137,32 @@ lieutenants) are to be represented. Design pending.
   below leadership control, the point comes from the second most powerful
   bloc instead; when tied blocs matter, pick between them with an even
   random roll.
+- **Bloc stakes and muscle (agreed):** blocs have their own lieutenants and
+  muscle (manpower; name TBD). A bloc loses satisfaction mainly when its own
+  points are lost or threatened, its lieutenants die, or it loses muscle,
+  especially defending another bloc's territory. Front-line blocs turn
+  dovish while safe blocs stay hawkish.
+- **Demand and severity (agreed):** every bloc has a demand (what it needs
+  to stay content) and a severity (how hard it escalates when unmet).
+  Policies can modify both. MaxTac is an NCPD bloc that can hold territory,
+  with low demand and very high severity.
+- **War support (agreed):** shown as one number, the influence-weighted
+  satisfaction of the blocs. Below a threshold the leader must sue for peace
+  or face a revolt; the winner's support caps its terms.
+- **War settlement (agreed):** war goals are claims made before declaring;
+  at peace the winner gains title to the war goals it holds; other captured
+  points revert unless the winner's support lets it keep them as untitled
+  occupations (reduced strength, upkeep, bloc drain); peace starts an
+  automatic non-aggression pact; no coring during war.
+- **Policies and government (agreed):** factions have policy slots with
+  exclusive options and trade-offs. Government is one slot: the leadership
+  model (autocracy, council, packs, collective) defaults from the archetype
+  and can change in play, e.g. the Tyger Claws becoming a dictatorship.
+  Changing it needs blocs with ≥ 50% of the faction's influence. Each pillar
+  will have several policy slots (design for three or more). Policies
+  modify other systems and bloc demand/severity.
+- **Faction kinds (agreed):** one factions table with a kind (territorial,
+  political, external).
 - **Deferred:** spawning faction leaders, garrisons for HQs and major
   points (several flagship venues are empty with the campaign disabled),
   using the faction's own records or its spawn template. Corps with no named
