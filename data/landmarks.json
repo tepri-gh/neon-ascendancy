@@ -158,15 +158,15 @@
   {
     "base_price": null,
     "code": "lm_nid_martin_st_docks",
-    "display_name": "Martin Street Depot",
+    "display_name": "Clean Cut",
     "gamedata_district": "Northside",
     "kind": "hq",
     "landmark_id": 13,
     "purchasable": 0,
     "sub_territory_id": 13,
-    "x": -1162.1,
-    "y": 2419.5,
-    "z": 6.8
+    "x": -1158.526,
+    "y": 2419.501,
+    "z": 7.109
   },
   {
     "base_price": null,
@@ -359,9 +359,9 @@
     "landmark_id": 28,
     "purchasable": 0,
     "sub_territory_id": 28,
-    "x": 572.4,
-    "y": -455.0,
-    "z": 6.5
+    "x": 570.098,
+    "y": -459.562,
+    "z": 6.8
   },
   {
     "base_price": null,
@@ -457,14 +457,14 @@
   {
     "base_price": null,
     "code": "lm_rey_college_street",
-    "display_name": "College Street Tenements",
+    "display_name": "Mercado Sonora",
     "gamedata_district": "VistaDelRey",
     "kind": "hq",
     "landmark_id": 36,
     "purchasable": 0,
     "sub_territory_id": 36,
-    "x": -813.7,
-    "y": -381.4,
+    "x": -829.646,
+    "y": -400.347,
     "z": 8.2
   },
   {
@@ -678,15 +678,15 @@
   {
     "base_price": null,
     "code": "lm_arr_kendachi_plant",
-    "display_name": "Kendachi Foundry",
+    "display_name": "Dewdrop Inn",
     "gamedata_district": "Arroyo",
     "kind": "hq",
     "landmark_id": 53,
     "purchasable": 0,
     "sub_territory_id": 53,
-    "x": -605.0,
-    "y": -1037.5,
-    "z": 6.7
+    "x": -573.481,
+    "y": -821.454,
+    "z": 8.203
   },
   {
     "base_price": null,
@@ -1211,15 +1211,15 @@
   {
     "base_price": null,
     "code": "lm_dt_terra_cognita",
-    "display_name": "Terra Cognita Ruins",
+    "display_name": "Luxor High Wellness Spa",
     "gamedata_district": "Dogtown",
     "kind": "hq",
     "landmark_id": 94,
     "purchasable": 0,
     "sub_territory_id": 94,
-    "x": -1664.4,
-    "y": -2753.0,
-    "z": 103.0
+    "x": -1386.757,
+    "y": -2463.72,
+    "z": 85.0
   },
   {
     "base_price": null,

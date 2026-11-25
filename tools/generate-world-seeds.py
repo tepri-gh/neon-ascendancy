@@ -235,19 +235,19 @@ CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int
 ACTIVE_TEST_CONTROL_CENTERS: dict[str, str] = {
     "tyger_claws": "kab_allen_street",
     "valentinos": "rey_college_street",
-    "arasaka": "awf_central_terminal",
+    "arasaka": "hil_power_plant",
     "militech": "dtn_skyline_west",
     "kang_tao": "gle_hanford_overpass",
     "biotechnica": "bls_biotechnica_flats",
     "petrochem": "arr_petrochem_yard",
     "barghest": "dt_main_gate",
-    "sixth_street": "arr_megabuilding_h4",
+    "sixth_street": "arr_kendachi_plant",
     "aldecaldos": "bls_aldecaldos_camp",
     "wraiths": "bls_sunset_motel",
     "animals": "cvi_east_overpass",
     "the_mox": "kab_creek_loop",
     "maelstrom": "nid_martin_st_docks",
-    "voodoo_boys": "cvi_south_boulevard",
+    "voodoo_boys": "dt_terra_cognita",
 }
 
 # Researched lore points that replace an active test zone's generic anchor (zone code ->
@@ -257,6 +257,31 @@ LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
         "display_name": "Ho-Oh",
         "x": -1040.161, "y": 1349.624, "z": 9.221,
         "source": "data/sites/sites.json site 397 sts_wat_kab_07 (docs/research/factions/tyger-claws.md)",
+    },
+    "nid_martin_st_docks": {
+        "display_name": "Clean Cut",
+        "x": -1158.526, "y": 2419.501, "z": 7.109,
+        "source": "data/sites/sites.json site 392 sts_wat_kab_02 (docs/research/factions/maelstrom.md)",
+    },
+    "hil_power_plant": {
+        "display_name": "Charter Hill Substation",
+        "x": 570.098, "y": -459.562, "z": 6.8,
+        "source": "data/sites/sites.json site 254 ma_wbr_hil_06 (docs/research/factions/arasaka.md)",
+    },
+    "rey_college_street": {
+        "display_name": "Mercado Sonora",
+        "x": -829.646, "y": -400.347, "z": 8.2,
+        "source": "data/sites/sites.json site 66 ma_hey_rey_06 (docs/research/factions/valentinos.md)",
+    },
+    "arr_kendachi_plant": {
+        "display_name": "Dewdrop Inn",
+        "x": -573.481, "y": -821.454, "z": 8.203,
+        "source": "data/sites/sites.json site 379 sts_std_arr_01 (docs/research/factions/sixth-street.md)",
+    },
+    "dt_terra_cognita": {
+        "display_name": "Luxor High Wellness Spa",
+        "x": -1386.757, "y": -2463.72, "z": 85.0,
+        "source": "data/sites/sites.json site 362 sts_ep1_12 (docs/research/factions/voodoo-boys.md)",
     },
 }
 
@@ -268,6 +293,32 @@ FACTION_HEADQUARTERS: list[dict[str, Any]] = [
         "faction": "tyger_claws", "display_name": "Clouds", "gamedata_subdistrict": "JapanTown",
         "x": -662.718, "y": 806.865, "z": 129.893,
         "source": "dist/extract/markers.jsonl q105_mp_dollhouse_entrance (docs/research/factions/tyger-claws.md)",
+    },
+    {
+        "faction": "maelstrom", "display_name": "Totentanz", "gamedata_subdistrict": "Northside",
+        "x": -1731.746, "y": 2218.427, "z": 91.111,
+        "source": "dist/extract/markers.jsonl sq011_mp_totentanz_entrance (docs/research/factions/maelstrom.md)",
+    },
+    {
+        "faction": "arasaka", "display_name": "Arasaka Tower", "gamedata_subdistrict": "CorpoPlaza",
+        "x": -1443.505, "y": 158.475, "z": 15.351,
+        "source": "dist/extract/markers.jsonl q115_12b_sm_tower_lobby (docs/research/factions/arasaka.md)",
+    },
+    {
+        "faction": "valentinos", "display_name": "La Catrina", "gamedata_subdistrict": "VistaDelRey",
+        "x": -1124.234, "y": -663.598, "z": 8.253,
+        "source": "data/sites/sites.json site 371 sts_hey_rey_06 (docs/research/factions/valentinos.md)",
+    },
+    {
+        "faction": "sixth_street", "display_name": "6th Street Hideout (Megabuilding H6)",
+        "gamedata_subdistrict": "Arroyo",
+        "x": -199.039, "y": -843.481, "z": 259.17,
+        "source": "data/sites/sites.json site 384 sts_std_arr_11 (docs/research/factions/sixth-street.md)",
+    },
+    {
+        "faction": "voodoo_boys", "display_name": "Batty's Hotel", "gamedata_subdistrict": "Coastview",
+        "x": -1904.122, "y": -1899.187, "z": 59.007,
+        "source": "dist/extract/markers.jsonl q110_mp_netrunners_den (docs/research/factions/voodoo-boys.md)",
     },
 ]
 

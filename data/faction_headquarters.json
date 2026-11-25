@@ -1,5 +1,15 @@
 [
   {
+    "code": "hq_maelstrom",
+    "display_name": "Totentanz",
+    "faction_id": 1,
+    "gamedata_subdistrict": "Northside",
+    "source": "dist/extract/markers.jsonl sq011_mp_totentanz_entrance (docs/research/factions/maelstrom.md)",
+    "x": -1731.746,
+    "y": 2218.427,
+    "z": 91.111
+  },
+  {
     "code": "hq_tyger_claws",
     "display_name": "Clouds",
     "faction_id": 2,
@@ -8,5 +18,45 @@
     "x": -662.718,
     "y": 806.865,
     "z": 129.893
+  },
+  {
+    "code": "hq_valentinos",
+    "display_name": "La Catrina",
+    "faction_id": 3,
+    "gamedata_subdistrict": "VistaDelRey",
+    "source": "data/sites/sites.json site 371 sts_hey_rey_06 (docs/research/factions/valentinos.md)",
+    "x": -1124.234,
+    "y": -663.598,
+    "z": 8.253
+  },
+  {
+    "code": "hq_sixth_street",
+    "display_name": "6th Street Hideout (Megabuilding H6)",
+    "faction_id": 4,
+    "gamedata_subdistrict": "Arroyo",
+    "source": "data/sites/sites.json site 384 sts_std_arr_11 (docs/research/factions/sixth-street.md)",
+    "x": -199.039,
+    "y": -843.481,
+    "z": 259.17
+  },
+  {
+    "code": "hq_voodoo_boys",
+    "display_name": "Batty's Hotel",
+    "faction_id": 5,
+    "gamedata_subdistrict": "Coastview",
+    "source": "dist/extract/markers.jsonl q110_mp_netrunners_den (docs/research/factions/voodoo-boys.md)",
+    "x": -1904.122,
+    "y": -1899.187,
+    "z": 59.007
+  },
+  {
+    "code": "hq_arasaka",
+    "display_name": "Arasaka Tower",
+    "faction_id": 20,
+    "gamedata_subdistrict": "CorpoPlaza",
+    "source": "dist/extract/markers.jsonl q115_12b_sm_tower_lobby (docs/research/factions/arasaka.md)",
+    "x": -1443.505,
+    "y": 158.475,
+    "z": 15.351
   }
 ]
