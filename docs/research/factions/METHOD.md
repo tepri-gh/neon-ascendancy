@@ -97,6 +97,56 @@ playbook. Their findings, in order of value:
     reconciles (§8) and that every JSON coordinate matches its cited record to
     3 decimals.
 
+### 1.2 Corrections from batch 2 (these override everything above)
+
+From Militech, Kang Tao, Biotechnica, Animals and The Mox:
+
+1. **Attribution precedence** (use the first that applies, and state which one):
+   placement prefab `#c_<district>/<subdistrict>/…` in raw sector JSON →
+   `sites.json` `source_path` (contains `<district>/<sub_district>/`) →
+   geocode token in the site/community code → wiki infobox `sub_district=` →
+   nearest geocoded site (≤ 150 m **and** inside the same `districts.json`
+   bbox) → `TBD`. `loc_<code>` in a prefab name is the asset's origin, not
+   its placement (`sts_pac_wwd_05` is placed in Arroyo). Hologram/vista
+   prefabs (`mq061_*`) may sit in a quest staging folder; their area node
+   decides. Never fall back to nearest sub-territory across a district bbox.
+   `sub_territory_id` is a coarse bucket and can be kilometres off.
+2. **Token map additions:** `ina`, `se5`, `bls` → Badlands; `awf` →
+   ArasakaWaterfront; `mrr`/`morro` → MorroRock.
+3. **Dedupe rosters by `community_hash`.** One community can attach to several
+   sites (Militech's outpost squad hash `550901676395883698` is on sites 342,
+   344 and 345). Count each community once.
+4. **Machines are not a garrison.** Drones, droids and androids carry the
+   faction id. Report them separately; a site with no human faction NPC is
+   `filler` at most.
+5. **Name tokens can be absent.** Corp guards may be generic
+   (`Character.sts_dtn_04_security`; `biotech` appears nowhere in
+   `rosters.json`). Use `default_faction_id` plus `rosters.faction_id`.
+6. **Rosters miss quest communities.** For enclave or quest-driven factions
+   (the Mox: 3 roster units vs 68 area entries, 46 in Lizzie's), measure
+   presence with `areas.jsonl` `faction_counts`.
+7. **Centroid snapping also hits markers:** all eleven `mq061_*_sm_*` markers
+   sit at `(-1317.810, -84.292, 0.000)`. Site anchors can be 233 m off (SoCal
+   Border Crossing).
+8. **More look-alike traps:** `sts_wat_kab_05` (brothel + clinic) looks like
+   the Mox but is Scavengers. A faction's largest garrison can sit on a rival's
+   property (Kang Tao at a SovOil station).
+9. **Holdings only.** `named` counts places the faction owns, runs or
+   garrisons as a base. Quest corridors (places it passes through or attacks)
+   go under Gaps, not `named` and not the JSON `control_points`.
+10. **Off-map business.** If a corp's manufacturing or R&D happens outside the
+    map (Kang Tao), describe it in prose only and model just the local streams.
+11. **Owned but empty landmarks** (Biotechnica Flats: no units, spawns or
+    areas) may still be the HQ. Anchor it on a real marker inside it (e.g. its
+    fast-travel dataterm), never on a centroid.
+12. **No interior at all:** pick the richest outdoor site as the test point
+    and say so.
+13. **Check every seeded holding per point.** Biotechnica's Downtown zone sits
+    on nothing; its real facility (the hotel) is inside a Militech zone.
+14. **`doors.json` has no coordinates.** Never give a door a position.
+15. **`is_interior` is wrong in both directions** (a three-floor hotel reads
+    0). Prove interiors from node names (rooms, floors, lifts, doors).
+
 ---
 
 ## 2. Data sources, ranked
