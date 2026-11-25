@@ -43,14 +43,21 @@ have a strength and a weakness pillar.
 | Maelstrom | Ideological Collective | Technology | Politics |
 | Voodoo Boys | Ideological Collective | Espionage | Politics |
 
+Scope: territory is modeled only under the factions above plus the Scavs.
+Places owned by anything else (Trauma Team, Afterlife, Orbital Air,
+Zetatech, NetWatch, the fixers, …) are dropped as influence points.
+
 Special factions:
 
-- **Night Corp:** unscoped. Model the city's political leaders and Night
-  Corp. Whether it becomes a full faction is undecided; treat it as one for
-  research.
-- **Scavs:** rebels/pirates, the unaligned faction (like rebels in Mount &
-  Blade or pirates in Stellaris). Every neutral or abandoned point is held by
-  the Scavs.
+- **Night Corp and the Government of Night City:** special political
+  factions with no territory. They influence the political simulation (how
+  is not yet designed). The game has no Night Corp affiliation, so places
+  tied to Night Corp go to NCPD.
+- **Scavs:** rebels/pirates, the unaligned swarm faction (like rebels in
+  Mount & Blade or pirates in Stellaris), constantly at war with everyone.
+  Every neutral or abandoned point is held by the Scavs. Scav points are
+  valued by their real worth like any other point; Scavs can hold large
+  places and even HQs.
 - **NCPD:** likely reframed in lore as weakened (the city is at war) so it
   becomes a real faction with limited holdings instead of being everywhere.
 
@@ -60,9 +67,10 @@ lieutenants) are to be represented. Design pending.
 ## 2. Territory: influence points and sub-districts
 
 - **Influence point:** every place a faction holds counts toward territory:
-  corners, small spawns, outposts, businesses, HQs. Each has an integer
-  influence and a category such as HQ, Business, Stronghold, Outpost or
-  Hangout (list not final).
+  corners, small spawns, outposts, businesses, HQs. Each has exactly one
+  owner (no co-owners) and an integer influence by category: Hangout 1,
+  Outpost 2, Landmark 3, Stronghold 3–4, Business 3–4, HQ 5. Dynamic events,
+  patrols and convoys are presence only, not points.
 - **Pillar resources:** only *meaningful* influence points produce pillar
   resources (cultural, economic, espionage, military, political): businesses,
   HQs, places with meaningful interiors, large community spawns, and
@@ -71,7 +79,10 @@ lieutenants) are to be represented. Design pending.
 - **Connected capture:** important points cannot be taken directly. You must
   first secure the connected influence points around them, so an HQ cannot
   be walked into, turf and gang wars play out realistically, and control does
-  not flip easily.
+  not flip easily. Rule (agreed): influence points form an adjacency graph;
+  a point is attackable only from an adjacent point you own; a Business,
+  Stronghold or HQ is attackable only once its owner holds at most half of
+  its connected points (its "guard ring"); an HQ needs its whole ring taken.
 - **Sub-district holding:** a faction holds a sub-district when it owns
   ≥ 50% of the sub-district's total influence. Otherwise the sub-district is
   contested (anarchy). A tie is contested. Neutral/abandoned points count
