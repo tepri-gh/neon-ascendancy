@@ -1,4 +1,4 @@
-# Territory Data Model — Influence Points (spec draft)
+# Territory Data Model — Territory Nodes (spec draft)
 
 Status: draft for review, 2026-11-25. Implements the territory parts of
 [`gameplay-systems.md`](gameplay-systems.md). Built from the per-faction
@@ -15,19 +15,20 @@ lives in one place.
 
 | Term | Meaning |
 | --- | --- |
-| **Influence point** | A place a faction holds: corner crew, outpost, business, HQ. The unit of capture. Exactly one controller. |
-| **Category** | `hangout` (1), `outpost` (2), `landmark` (3), `stronghold` (3–4), `business` (3–4), `hq` (5). The number is the point's influence. |
-| **Meaningful point** | Category `landmark`, `stronghold`, `business` or `hq`. Only these produce pillar resources. |
-| **Controller** | The faction physically holding a point. Drives influence, spawns and pillar output. |
+| **Node** | A place a faction holds: corner crew, outpost, business, HQ. The unit of capture. Exactly one controller. |
+| **Scale** | `hangout` (1), `outpost` (2), `landmark` (3), `stronghold` (3–4), `business` (3–4), `hq` (5). The number is the node's influence. |
+| **Type** | The node's pillar focus: `economy` (markets, businesses, shops), `technology` (ripperdocs, labs, workshops), `military` (strongholds, garrisons; also large communities with no specific purpose), `espionage` (netrunner dens, intel hubs), `culture` (venues, shrines, media, community hubs). Small Hangouts may have no type. HQs produce across several pillars. Every node produces Influence (Politics) regardless of type. |
+| **Meaningful node** | Scale `landmark`, `stronghold`, `business` or `hq`. Only these produce pillar resources beyond Influence. |
+| **Controller** | The faction physically holding a node. Drives influence, spawns and pillar output. |
 | **Title holder** | Optional. The faction with the legal/political claim. Holding without title runs at reduced efficiency. Mechanics come with the Politics pillar. |
-| **Bloc** | An internal political faction (vassal) inside a faction, with a leader. A point may be assigned to one of its controller's blocs. |
+| **Bloc** | An internal political faction (vassal) inside a faction, with a leader. A node may be assigned to one of its controller's blocs. |
 | **Sub-district** | Vanilla `gamedataDistrict` sub-district. Its holder is derived from influence (§4). |
-| **Presence** | Evidence of a faction's activity (patrols, dynamic events, quest communities) that is not a point. Used for ambient spawns and heat, never for influence. |
+| **Presence** | Evidence of a faction's activity (patrols, dynamic events, quest communities) that is not a node. Used for ambient spawns and heat, never for influence. |
 
 Territorial factions: Tyger Claws, Valentinos, Arasaka, Militech, Kang Tao,
 Biotechnica, Petrochem, Barghest, 6th Street, NCPD, Aldecaldos, Wraiths,
 Animals, The Mox, Maelstrom, Voodoo Boys, Scavs. Night Corp and the
-Government of Night City are political-only (no points). Places of any other
+Government of Night City are political-only (no nodes). Places of any other
 faction are dropped.
 
 ## 2. Static tables (`world.db`, schema v3)
@@ -37,22 +38,23 @@ faction are dropped.
 Political columns (`kind`, archetype, pillars, government,
 `spawn_template_faction_id`, `attitude_group`) are defined in
 [`politics-data-model.md`](politics-data-model.md) §2. Only factions with
-`kind = territorial` own influence points. `attitude_group` is the CName
+`kind = territorial` own nodes. `attitude_group` is the CName
 for runtime re-tagging via `AttitudeAgent.SetAttitudeGroup`
 (`refs/cyberpunk/orphans.swift:20451`).
 
 ### `sub_districts`
 
 `sub_district_id`, `gamedata_district` (enum name), `district_id`,
-`display_name`, `min_hold_influence`. Point membership comes from
+`display_name`, `min_hold_influence`. Node membership comes from
 attribution (§5), not from geometry. Map polygons are a later visual concern.
 
-### `influence_points`
+### `territory_nodes`
 
 | Column | Notes |
 | --- | --- |
-| `point_id`, `code`, `display_name` | `code` is stable across builds. |
-| `category` | Enum above; `influence` is derived from it and stored. |
+| `node_id`, `code`, `display_name` | `code` is stable across builds. |
+| `scale` | Enum above; `influence` is derived from it and stored. |
+| `node_type` | Nullable pillar focus (above). |
 | `influence` | 1–5. |
 | `sub_district_id` | Required. |
 | `x, y, z` | From a cited extract record only (site anchor, guard area, community, marker). Never a centroid. |
@@ -65,23 +67,23 @@ attribution (§5), not from geometry. Map polygons are a later visual concern.
 | `is_named` | Lore place (yield balancing) vs filler. |
 | `source`, `confidence` | Provenance (record + research doc) and tag. |
 
-Child tables: `influence_point_revenue (point_id, stream_code)` using the
+Child tables: `node_revenue (node_id, stream_code)` using the
 shared vocabulary in `docs/research/factions/METHOD.md` §7, and
-`influence_point_communities (point_id, community_hash)` for capture spawns.
+`node_communities (node_id, community_hash)` for capture spawns.
 
-### `influence_links` (adjacency)
+### `node_links` (adjacency)
 
-`point_a < point_b`, `distance_m`, `crosses_sub_district` (bool). Built by
+`node_a < node_b`, `distance_m`, `crosses_sub_district` (bool). Built by
 the generator (§5), undirected.
 
 ### Blocs, leaders, relations, policies
 
-Defined in [`politics-data-model.md`](politics-data-model.md). A point's
+Defined in [`politics-data-model.md`](politics-data-model.md). A node's
 `initial_bloc_id` references `blocs`.
 
 ## 3. Playthrough state (mutable)
 
-- Per point: `controller_faction_id`, `title_faction_id`, `bloc_id`,
+- Per node: `controller_faction_id`, `title_faction_id`, `bloc_id`,
   `strength` (garrison/defence, 0–100).
 - Faction, bloc, relation, war, pact and claim state: see
   [`politics-data-model.md`](politics-data-model.md) §3.
@@ -94,20 +96,20 @@ existing test saves reset their territory; document it in `CHANGELOG.md`.
 ## 4. Rules (pure functions, `native/lib/sim`)
 
 1. **Sub-district holder:** sum `influence` per controller over the
-   sub-district's points. The holder is the faction with ≥ 50% of the total,
+   sub-district's nodes. The holder is the faction with ≥ 50% of the total,
    provided the total ≥ `min_hold_influence`. A tie, or no faction reaching
-   50%, means contested. Scav-held points count toward the total.
-2. **Attackable:** a point is attackable by faction F only if F controls an
-   adjacent point (`influence_links`).
-3. **Guard ring:** a `business`, `stronghold` or `hq` point is attackable
-   only once its controller holds ≤ 50% of its adjacent points. An `hq`
-   needs all adjacent points taken.
-4. **Title efficiency:** a point whose controller lacks title produces
+   50%, means contested. Scav-held nodes count toward the total.
+2. **Attackable:** a node is attackable by faction F only if F controls an
+   adjacent node (`node_links`).
+3. **Guard ring:** a `business`, `stronghold` or `hq` node is attackable
+   only once its controller holds ≤ 50% of its adjacent nodes. An `hq`
+   needs all adjacent nodes taken.
+4. **Title efficiency:** a node whose controller lacks title produces
    pillar output and strength at a reduced multiplier (value TBD).
 5. **Leadership, blocs, wars, peace, policies, relations and the sub-leader
    grant:** see [`politics-data-model.md`](politics-data-model.md) §4.
 
-## 5. Generator (`tools/build-influence-map.py`)
+## 5. Generator (`tools/build-territory-map.py`)
 
 A deterministic build step, like `build-world-db.py`, that writes `data/`
 seeds. Inputs:
@@ -123,16 +125,16 @@ Steps:
 
 1. **Candidates:** every site, every research control point, every named
    marker or community the research cites.
-2. **Classify** each community area into point evidence vs presence
-   (`ma_`/`sts_`/site communities → points; `cs_`/`de_`/patrols → presence;
+2. **Classify** each community area into node evidence vs presence
+   (`ma_`/`sts_`/site communities → nodes; `cs_`/`de_`/patrols → presence;
    `q###` quest communities → identity only).
-3. **Cluster** same-faction evidence within ~75–100 m into one point.
+3. **Cluster** same-faction evidence within ~75–100 m into one node.
 4. **Attribute faction** with the METHOD §1.2 item 1 precedence and its
    pitfalls (roster dedupe by community hash, machines are not a garrison,
    look-alike traps). Assign Scavs where no territorial faction is present.
    Drop non-territorial owners.
-5. **Category and influence:** research and overrides first, then rules:
-   `hq` from research; `business`/`landmark` from named research points;
+5. **Scale, type and influence:** research and overrides first, then rules:
+   `hq` from research; `business`/`landmark` from named research nodes;
    `stronghold` for large garrisons or camps; `outpost` for guard areas or
    patrols; otherwise `hangout`. Thresholds are tunable constants in one
    place.
@@ -144,12 +146,12 @@ Steps:
 8. **Validate:**
    - every coordinate traces to a record;
    - no centroid snaps;
-   - every point has a sub-district;
+   - every node has a sub-district;
    - each district graph is connected;
    - exactly one HQ per territorial faction except Scavs;
    - no `allied` relations;
    - relation conflicts resolved.
-9. **Review artifact:** a rendered map of points, owners and holders, so the
+9. **Review artifact:** a rendered map of nodes, owners and holders, so the
    owner can check it before anything ships.
 
 ## 6. Open questions
@@ -162,14 +164,14 @@ Steps:
    `_YuccaGarage` and `_YuccaRadioTower` are locations, not sub-districts);
    Dogtown → Akebono, Brooklyn, Capitan Caliente, Cynosure, Expo
    (`Dogtown_Hideout` and `Dogtown_Worldmap_Sub` excluded). Open sub-task:
-   assigning points to them needs the district trigger areas from the
+   assigning nodes to them needs the district trigger areas from the
    extract, or the runtime `PreventionSystem.GetCurrentDistrict()` probe.
 2. **Vanilla gang lists per sub-district** (`District_Record.Gangs()`): read
    them with a one-time dev CET probe to sanity-check computed starting
    holders?
-3. **Clustering radius** and category thresholds: tune against the review
+3. **Clustering radius** and scale thresholds: tune against the review
    map.
-4. **Pillar output formula** per category and revenue stream (needs the
+4. **Pillar output formula** per scale, type and revenue stream (needs the
    economy design).
 5. **Untitled efficiency** multiplier and **bloc satisfaction** model (need
    the politics design).

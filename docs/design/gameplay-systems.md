@@ -45,7 +45,7 @@ have a strength and a weakness pillar.
 
 Scope: territory is modeled only under the factions above plus the Scavs.
 Places owned by anything else (Trauma Team, Afterlife, Orbital Air,
-Zetatech, NetWatch, the fixers, …) are dropped as influence points.
+Zetatech, NetWatch, the fixers, …) are dropped as nodes.
 
 Special factions:
 
@@ -55,8 +55,8 @@ Special factions:
   tied to Night Corp go to NCPD.
 - **Scavs:** rebels/pirates, the unaligned swarm faction (like rebels in
   Mount & Blade or pirates in Stellaris), constantly at war with everyone.
-  Every neutral or abandoned point is held by the Scavs. Scav points are
-  valued by their real worth like any other point; Scavs can hold large
+  Every neutral or abandoned node is held by the Scavs. Scav nodes are
+  valued by their real worth like any other node; Scavs can hold large
   places and even HQs.
 - **NCPD:** likely reframed in lore as weakened (the city is at war) so it
   becomes a real faction with limited holdings instead of being everywhere.
@@ -64,28 +64,28 @@ Special factions:
 Political factions *within* gangs and corps (internal cliques, successions,
 lieutenants) are to be represented. Design pending.
 
-## 2. Territory: influence points and sub-districts
+## 2. Territory: nodes and sub-districts
 
-- **Influence point:** every place a faction holds counts toward territory:
+- **Node:** every place a faction holds counts toward territory:
   corners, small spawns, outposts, businesses, HQs. Each has exactly one
-  owner (no co-owners) and an integer influence by category: Hangout 1,
+  owner (no co-owners), a type (pillar focus) and an integer influence by scale: Hangout 1,
   Outpost 2, Landmark 3, Stronghold 3–4, Business 3–4, HQ 5. Dynamic events,
-  patrols and convoys are presence only, not points.
-- **Pillar resources:** only *meaningful* influence points produce pillar
+  patrols and convoys are presence only, not nodes.
+- **Pillar resources:** only *meaningful* nodes produce pillar
   resources (cultural, economic, espionage, military, political): businesses,
   HQs, places with meaningful interiors, large community spawns, and
   meaningful lore locations (an open market, a prominent alley group). Minor
-  points add influence only.
-- **Connected capture:** important points cannot be taken directly. You must
-  first secure the connected influence points around them, so an HQ cannot
+  nodes add influence only.
+- **Connected capture:** important nodes cannot be taken directly. You must
+  first secure the connected nodes around them, so an HQ cannot
   be walked into, turf and gang wars play out realistically, and control does
-  not flip easily. Rule (agreed): influence points form an adjacency graph;
-  a point is attackable only from an adjacent point you own; a Business,
+  not flip easily. Rule (agreed): nodes form an adjacency graph;
+  a node is attackable only from an adjacent node you own; a Business,
   Stronghold or HQ is attackable only once its owner holds at most half of
-  its connected points (its "guard ring"); an HQ needs its whole ring taken.
+  its connected nodes (its "guard ring"); an HQ needs its whole ring taken.
 - **Sub-district holding:** a faction holds a sub-district when it owns
   ≥ 50% of the sub-district's total influence. Otherwise the sub-district is
-  contested (anarchy). A tie is contested. Neutral/abandoned points count
+  contested (anarchy). A tie is contested. Neutral/abandoned nodes count
   toward the total (they are Scav-held). A minimum total influence is
   required before a sub-district can be held. Holding a sub-district grants
   benefits (to be designed); sub-districts are not necessarily the whole
@@ -105,13 +105,13 @@ lieutenants) are to be represented. Design pending.
 
 ## 4. Titles, claims and coring (agreed direction)
 
-- Every influence point has one **controller** (who physically holds it:
+- Every node has one **controller** (who physically holds it:
   influence, spawns, pillar output) and an optional **title holder** (who
   has the legal/political claim). Title is a data field now; its mechanics
   come with the Politics pillar.
 - Factions spend political influence to claim ground and gain title
   ("coring", a casus belli system).
-- Factions can still fight border wars and hold points without title, at
+- Factions can still fight border wars and hold nodes without title, at
   reduced efficiency/strength. That lets them damage rivals or avoid being
   steamrolled by a faction that starts to snowball.
 - Corps should find it hard to gain territory but be strong at defending
@@ -126,20 +126,20 @@ lieutenants) are to be represented. Design pending.
   the faction, and eventually one bloc wins and takes leadership.
 - **Blocs are vassals.** A losing bloc is not absorbed or purged. Blocs keep
   influence over the faction even without territory and can start an
-  internal turf war. Leaders must dole out influence points to blocs to keep
+  internal turf war. Leaders must dole out nodes to blocs to keep
   them happy. Some political structures (archetypes) manage blocs better
   than others.
 - **Rising in a faction:** a nobody starts as a grunt; nobody cares whom
   they back, but backing a leader can earn favour. Missions for a leader earn
   favour, which unlocks higher-tier (harder, more important) missions. At the
   top the player becomes a sub-leader with their own bloc, granted one
-  control point from the most powerful bloc. If that would drop that bloc
-  below leadership control, the point comes from the second most powerful
+  node from the most powerful bloc. If that would drop that bloc
+  below leadership control, the node comes from the second most powerful
   bloc instead; when tied blocs matter, pick between them with an even
   random roll.
 - **Bloc stakes and muscle (agreed):** blocs have their own lieutenants and
   muscle (manpower; name TBD). A bloc loses satisfaction mainly when its own
-  points are lost or threatened, its lieutenants die, or it loses muscle,
+  nodes are lost or threatened, its lieutenants die, or it loses muscle,
   especially defending another bloc's territory. Front-line blocs turn
   dovish while safe blocs stay hawkish.
 - **Demand and severity (agreed):** every bloc has a demand (what it needs
@@ -151,7 +151,7 @@ lieutenants) are to be represented. Design pending.
   or face a revolt; the winner's support caps its terms.
 - **War settlement (agreed):** war goals are claims made before declaring;
   at peace the winner gains title to the war goals it holds; other captured
-  points revert unless the winner's support lets it keep them as untitled
+  nodes revert unless the winner's support lets it keep them as untitled
   occupations (reduced strength, upkeep, bloc drain); peace starts an
   automatic non-aggression pact; no coring during war.
 - **Policies and government (agreed):** factions have policy slots with
@@ -164,7 +164,7 @@ lieutenants) are to be represented. Design pending.
 - **Faction kinds (agreed):** one factions table with a kind (territorial,
   political, external).
 - **Deferred:** spawning faction leaders, garrisons for HQs and major
-  points (several flagship venues are empty with the campaign disabled),
+  nodes (several flagship venues are empty with the campaign disabled),
   using the faction's own records or its spawn template. Corps with no named
   2077 head (Kang Tao, Biotechnica, Petrochem) get original Night City
   directors; Kang Tao's answers to the Chinese state.
@@ -220,6 +220,22 @@ lieutenants) are to be represented. Design pending.
   and woke up with the chip in her head, but she is not dying. The hard part
   is making sure Johnny never references V dying.
 
+## 8b. Resources (agreed direction)
+
+| Pillar | Resource | Notes |
+| --- | --- | --- |
+| Politics | **Influence** | Every node grants Influence each turn; blocs add a base from their history and leader. Spent on claims, coring and policies. |
+| Economy | **Eddies** | The base currency: military upkeep, keeping nodes loyal, hiring netrunners and contractors (freelancers/fixers, tied to missions), buying chips and cyberware. |
+| Espionage | **Intel** | |
+| Technology | **Research** (name TBD) | Drives a shared tech tree that decides what each faction can produce (e.g. Arasaka makes tier-5 weapons; gangs research higher tiers over time). |
+| Military | **Muscle** (`manpower`) | Divided between blocs by the nodes they control. Plus materiel: weapons, vehicles, equipment and cyberware, with capacity tied to technology. A separate Industry system for manufacturing is under discussion. |
+| Culture | none yet | Meaning beyond loyalty still to be designed. |
+
+- **Coring does not mean loyalty.** A titled node still has to be
+  garrisoned and kept content through policies or eddies, or it drifts
+  toward another faction.
+- One **turn** is 24 in-game hours.
+
 ## 9. Factions outside the territory game
 
 - **Kang Tao** is a full territorial faction.
@@ -229,7 +245,7 @@ lieutenants) are to be represented. Design pending.
   they live in the factions table (with a kind/flag) or a separate table is
   under discussion.
 - Places owned by unmodeled factions (Trauma Team, Afterlife, Orbital Air,
-  Zetatech, NetWatch) are not influence points, but their locations are
+  Zetatech, NetWatch) are not nodes, but their locations are
   stored for later use as externals or factions. Fixers' locations are not
   needed. Alternate-history idea: Trauma Team folded into NCPD.
 - **Scanner labels** must show the faction an NPC belongs to (e.g. a

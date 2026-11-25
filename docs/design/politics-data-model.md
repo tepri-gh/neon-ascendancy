@@ -3,7 +3,7 @@
 Status: draft, 2026-11-25. Implements the politics parts of
 [`gameplay-systems.md`](gameplay-systems.md). Companion to
 [`territory-data-model.md`](territory-data-model.md), which owns influence
-points, sub-districts and adjacency. Built from
+nodes, sub-districts and adjacency. Built from
 [`docs/research/factions/politics/`](../research/factions/politics/).
 Nothing here is implemented yet.
 
@@ -16,17 +16,17 @@ not code.
 
 | Term | Meaning |
 | --- | --- |
-| **Faction kind** | `territorial` (holds influence points), `political` (Night Corp, Government of Night City: no territory, acts on politics) or `external` (Chinese state, NUSA, NetWatch, SovOil: no territory, may field squads via spawn templates). One table for all kinds. |
+| **Faction kind** | `territorial` (holds nodes), `political` (Night Corp, Government of Night City: no territory, acts on politics) or `external` (Chinese state, NUSA, NetWatch, SovOil: no territory, may field squads via spawn templates). One table for all kinds. |
 | **Archetype** | Syndicate, Corporation, Paramilitary, Tribe, Ideological Collective (plus `special` for Scavs). Sets pillar strength/weakness, the default government and which governments are allowed. |
 | **Government** | The faction's leadership model, held as a **policy** in the government slot: `autocracy` (single leader), `council`, `packs`, `collective`, `cells` (Scavs). Changeable in play. |
-| **Bloc** | An internal political faction (vassal) with a leader, lieutenants and **manpower**. Never absorbed. May hold influence points. |
-| **Manpower** (UI: **Muscle**) | A bloc's fighting strength. Spent defending and attacking points. Regenerates through recruitment. Data and code use `manpower`; the UI says Muscle. |
+| **Bloc** | An internal political faction (vassal) with a leader, lieutenants and **manpower**. Never absorbed. May hold nodes. |
+| **Manpower** (UI: **Muscle**) | A bloc's fighting strength. Spent defending and attacking nodes. Regenerates through recruitment. Data and code use `manpower`; the UI says Muscle. |
 | **Demand / severity** | Every bloc's two personality parameters: how much it needs (share of influence, policies) to stay content, and how hard it escalates when unmet. MaxTac: low demand, very high severity. |
 | **Policy** | An option in a slot. Slots belong to the government or to a pillar; **each pillar can have several slots** (start with one or two, expand to three or more). Options carry data-driven modifiers. |
 | **Relation** | Level `allied`/`friendly`/`neutral`/`hostile` plus a `rivalry` flag. War and pacts are separate states. |
 | **War** | A state between two factions, opened by a casus belli (claims). Has war goals and ends in a settlement. |
 | **Pact** | A non-aggression state for a duration; breakable at a political cost. |
-| **Claim** | A faction's in-progress or completed political claim (coring) on a point; completed claims give title. |
+| **Claim** | A faction's in-progress or completed political claim (coring) on a node; completed claims give title. |
 
 ## 2. Static tables (`world.db`)
 
@@ -57,7 +57,7 @@ Aldecaldos → `autocracy`), `spawn_template_faction_id` (nullable),
   −2..+2. This is how blocs like or dislike policies.
 - `leaders`: `leader_id`, `faction_id`, `bloc_id` (nullable), `display_name`,
   `rank` (`leader`, `sub_leader`, `lieutenant`), `character_record_id`
-  (nullable), `presence_class`, `home_point_id` (nullable),
+  (nullable), `presence_class`, `home_node_id` (nullable),
   `is_original` (true for mod-invented directors such as Kang Tao's).
 
 ### `faction_relations` and `initial_pacts`
@@ -81,7 +81,7 @@ Aldecaldos → `autocracy`), `spawn_template_faction_id` (nullable),
 - `policy_modifiers`: `(option_code, target, op, value)`. `op` is `add` or
   `mul`. `target` comes from one registry of modifiable quantities in
   `native/lib/sim` (e.g. `bloc.demand`, `bloc.severity`,
-  `bloc.manpower_regen`, `pillar.<pillar>.output`, `point.strength`,
+  `bloc.manpower_regen`, `pillar.<pillar>.output`, `node.strength`,
   `war.support_threshold`, `trade.hostile_penalty`). The registry is the
   single list of what can be modified; the build rejects unknown targets.
 - `faction_initial_policies`: `(faction_id, slot_code, option_code)`.
@@ -98,8 +98,8 @@ is one modifier mechanism for everything.
 | Bloc | `leader_id`, `satisfaction` (0–100), `manpower`, `escalation` (`content`, `demanding`, `refusing`, `revolt`) |
 | Relation | `level`, `rivalry` per pair |
 | Pacts | `(faction_a, faction_b, kind, start_cycle, end_cycle, origin)` (`origin`: peace, deal, initial) |
-| Wars | `war_id`, `attacker`, `defender`, `start_cycle`, `end_cycle`, `outcome`; `war_goals (war_id, point_id, claimant)` |
-| Claims | `(faction_id, point_id, progress, completed_cycle)` |
+| Wars | `war_id`, `attacker`, `defender`, `start_cycle`, `end_cycle`, `outcome`; `war_goals (war_id, node_id, claimant)` |
+| Claims | `(faction_id, node_id, progress, completed_cycle)` |
 
 Derived, not stored: war support, faction influence totals, the leadership
 model, effective modifiers.
@@ -114,12 +114,12 @@ model, effective modifiers.
      change sets `tension`.
 2. **Bloc satisfaction** moves with:
    - influence share vs effective demand;
-   - losses or threats to the bloc's own points;
+   - losses or threats to the bloc's own nodes;
    - lieutenant deaths;
    - **manpower losses**, weighted heavier when spent defending another
-     bloc's points;
+     bloc's nodes;
    - preferences for the faction's current policies;
-   - influence points the leader grants.
+   - nodes the leader grants.
 3. **Escalation ladder:** when satisfaction stays below the bloc's
    threshold, escalation steps `content → demanding → refusing → revolt`.
    - The step speed and the effects scale with `severity`.
@@ -137,7 +137,7 @@ model, effective modifiers.
    - The winner's support caps how harsh its terms can be.
 6. **Peace settlement:**
    - War goals the winner holds transfer title to the winner.
-   - Other points captured in the war revert by default.
+   - Other nodes captured in the war revert by default.
    - The winner may keep some as untitled occupations if its war support
      allows. Occupations bring reduced strength, upkeep and bloc drain, and
      the original owner keeps a ready claim.
@@ -172,7 +172,7 @@ model, effective modifiers.
 ## 6. Decided since the draft
 
 - **Political influence** is earned every turn (24 in-game hours): each
-  influence point grants a set amount, plus a base amount per bloc derived
+  node grants a set amount, plus a base amount per bloc derived
   from its historical value and its leader.
 - **Alliances** are military: allies may refuse a call to an offensive war
   but must join defensive wars. An alliance also unlocks trade in more
@@ -184,4 +184,4 @@ model, effective modifiers.
 1. **Starting policy catalogue** — **deferred** until the basics of the
    Economy, Military, Espionage, Technology and Culture systems exist. The
    slot/option/modifier architecture above stays in place for it.
-2. **Renaming influence points** (candidate: "sectors").
+2. **Renaming nodes** (candidate: "sectors").
