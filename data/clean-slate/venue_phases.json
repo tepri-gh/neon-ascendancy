@@ -44,6 +44,11 @@
       "doors": [
         {
           "ref": "#kab_07_gate_001",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#kab_07_gate_001",
           "action": "ForcePower",
           "why": "Entrance gate; vanilla _openworld unpowered+closed it"
         },
@@ -54,6 +59,11 @@
         },
         {
           "ref": "#kab_07_doors_008",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#kab_07_doors_008",
           "action": "ForcePower",
           "why": "Interior single door 008"
         },
@@ -64,6 +74,11 @@
         },
         {
           "ref": "#kab_07_doors_010",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#kab_07_doors_010",
           "action": "ForcePower",
           "why": "Interior single door 010"
         },
@@ -71,6 +86,11 @@
           "ref": "#kab_07_doors_010",
           "action": "ForceOpen",
           "why": "Interior single door 010"
+        },
+        {
+          "ref": "#kab_07_doors_016",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#kab_07_doors_016",
@@ -109,6 +129,11 @@
       "doors": [
         {
           "ref": "#konpeki_plaza_entrance_door",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#konpeki_plaza_entrance_door",
           "action": "ForcePower",
           "why": "Plaza entrance; vanilla only unlocks it, never powers"
         },
@@ -116,6 +141,11 @@
           "ref": "#konpeki_plaza_entrance_door",
           "action": "ForceOpen",
           "why": "Plaza entrance open"
+        },
+        {
+          "ref": "#q005_dvc_res_floor_booked_room_door",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#q005_dvc_res_floor_booked_room_door",
@@ -161,6 +191,11 @@
       "doors": [
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_customer",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_customer",
           "action": "ForcePower",
           "why": "Customer cabin door"
         },
@@ -171,6 +206,11 @@
         },
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
           "action": "ForcePower",
           "why": "Doll 01 cabin door"
         },
@@ -181,6 +221,11 @@
         },
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
           "action": "ForcePower",
           "why": "Doll 02 cabin door"
         },
@@ -191,13 +236,13 @@
         },
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
-          "action": "ForcePower",
-          "why": "Evelyn cabin door; vanilla ForceDisabled it"
+          "action": "ForceEnabled",
+          "why": "Re-enable the device before powering"
         },
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
-          "action": "ForceEnabled",
-          "why": "Re-enable the device before powering"
+          "action": "ForcePower",
+          "why": "Evelyn cabin door; vanilla ForceDisabled it"
         },
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
@@ -293,6 +338,11 @@
         },
         {
           "ref": "#q003_door_garage_outer",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q003_door_garage_outer",
           "action": "ForceUnlock",
           "why": "Garage outer door"
         },
@@ -300,6 +350,11 @@
           "ref": "#q003_door_garage_outer",
           "action": "ForceOpen",
           "why": "Garage outer door"
+        },
+        {
+          "ref": "#q003_door_garage_inner",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#q003_door_garage_inner",
@@ -331,9 +386,10 @@
     {
       "code": "loc_sq011_totentanz",
       "display_name": "Totentanz",
-      "why": "Three-state openworld venue (section 1.6/5.5). Declares the pre-quest state prefab explicitly; its crowd workspots live under #loc_pre_quest_totentanz, so the probe targets one there.",
+      "why": "Three-state openworld venue (section 1.6/5.5). Declares the pre-quest state prefab AND the #loc_sq011_totentanz_openworld prefab that owns the crowd community spawners; activates the crowd community and opens the club doors.",
       "prefabs": [
-        "#loc_pre_quest_totentanz"
+        "#loc_pre_quest_totentanz",
+        "#loc_sq011_totentanz_openworld"
       ],
       "doors": [
         {
@@ -358,6 +414,11 @@
         },
         {
           "ref": "#sq011_club_doors",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#sq011_club_doors",
           "action": "ForcePower",
           "why": "Club interior doors"
         },
@@ -365,6 +426,11 @@
           "ref": "#sq011_club_doors",
           "action": "ForceOpen",
           "why": "Club interior doors"
+        },
+        {
+          "ref": "#sq011_dvc_door_back_room",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#sq011_dvc_door_back_room",
@@ -427,6 +493,11 @@
       "doors": [
         {
           "ref": "#q115_dvc_embers_elevator_bottom_door",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q115_dvc_embers_elevator_bottom_door",
           "action": "ForcePower",
           "why": "Embers elevator bottom door"
         },
@@ -460,9 +531,11 @@
     {
       "code": "q303_paradise",
       "display_name": "Black Sapphire",
-      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab, opens the combat-tower main door and tunnel entrance, and swaps the baked tower-gate shutters to the open variant (as vanilla q303_06b does).",
+      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab plus the tower decoration and bottom-lobby devices prefabs that own the entrance shutters and lobby equipment (a phasePrefab variant only applies to a prefab the phase declares), opens the combat-tower main door and tunnel entrance, and swaps the baked tower-gate shutters to the open variant (as vanilla q303_06b does).",
       "prefabs": [
-        "#q303_pr_paradise_technical"
+        "#q303_pr_paradise_technical",
+        "#loc_q304_pr_combat_tower_decoration",
+        "#loc_q303_combat_tower_devices_bottom_lobby"
       ],
       "doors": [
         {
@@ -487,6 +560,11 @@
         },
         {
           "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceUnlock",
           "why": "Combat tower main door"
         },
@@ -494,6 +572,26 @@
           "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceOpen",
           "why": "Combat tower main door"
+        },
+        {
+          "ref": "#q303_dvc_tech_warehouse_gate",
+          "action": "ForceEnabled",
+          "why": "Re-enable the tech-warehouse shutter (the Barghest-logo roller door by the tower entrance) before powering it"
+        },
+        {
+          "ref": "#q303_dvc_tech_warehouse_gate",
+          "action": "ForcePower",
+          "why": "Power the tech-warehouse shutter"
+        },
+        {
+          "ref": "#q303_dvc_tech_warehouse_gate",
+          "action": "ForceUnlock",
+          "why": "Unlock it (the census showed it locked)"
+        },
+        {
+          "ref": "#q303_dvc_tech_warehouse_gate",
+          "action": "ForceOpen",
+          "why": "Open the tech-warehouse shutter"
         }
       ],
       "communities": [
@@ -507,7 +605,7 @@
       ],
       "probe_refs": {
         "workspot": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks/#q303_ws_nighthawks_customer_06",
-        "door": "#q303_dvc_ct_tunnel_entrance_door",
+        "door": "#q303_dvc_tech_warehouse_gate",
         "community": "#q303_com_paradise_technical_floor_guards",
         "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
       },
@@ -550,8 +648,18 @@
         },
         {
           "ref": "#q113_dvc_ceo_door_01",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_01",
           "action": "ForceUnlock",
           "why": "CEO floor door 01"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_02",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#q113_dvc_ceo_door_02",
@@ -560,8 +668,18 @@
         },
         {
           "ref": "#q113_dvc_ceo_door_03",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_03",
           "action": "ForceUnlock",
           "why": "CEO floor door 03"
+        },
+        {
+          "ref": "#q113_dvc_ceo_door_04",
+          "action": "ForceEnabled",
+          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
         },
         {
           "ref": "#q113_dvc_ceo_door_04",
