@@ -60,6 +60,36 @@
     "z": 15.811
   },
   {
+    "code": "hq_wraiths",
+    "display_name": "Corp-Bud Cement Factory",
+    "faction_id": 8,
+    "gamedata_subdistrict": "Badlands",
+    "source": "dist/extract/markers.jsonl sq004_mp_raffen_shiv_camp (docs/research/factions/wraiths.md)",
+    "x": 3007.724,
+    "y": -2385.058,
+    "z": 124.63
+  },
+  {
+    "code": "hq_aldecaldos",
+    "display_name": "Aldecaldo Camp",
+    "faction_id": 9,
+    "gamedata_subdistrict": "Badlands",
+    "source": "dist/extract/markers.jsonl bls_bls_dataterm_03, camp fast-travel dataterm (docs/research/factions/aldecaldos.md)",
+    "x": 3427.93,
+    "y": -360.963,
+    "z": 134.071
+  },
+  {
+    "code": "hq_barghest",
+    "display_name": "Black Sapphire",
+    "faction_id": 10,
+    "gamedata_subdistrict": "Dogtown",
+    "source": "dist/extract/areas.jsonl q303_com_tower_lobby (docs/research/factions/barghest.md)",
+    "x": -1881.135,
+    "y": -2316.233,
+    "z": 41.005
+  },
+  {
     "code": "hq_the_mox",
     "display_name": "Lizzie's Bar",
     "faction_id": 11,
@@ -108,5 +138,15 @@
     "x": -1795.661,
     "y": -4323.811,
     "z": 74.413
+  },
+  {
+    "code": "hq_petrochem",
+    "display_name": "North Sunrise Oil Fields",
+    "faction_id": 43,
+    "gamedata_subdistrict": "Badlands",
+    "source": "dist/extract/markers.jsonl bls_bls_dataterm_05, oil-field fast-travel dataterm (docs/research/factions/petrochem.md)",
+    "x": -1835.695,
+    "y": 3719.295,
+    "z": 6.742
   }
 ]

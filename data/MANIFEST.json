@@ -3,10 +3,10 @@
     "active_control_centers": 15,
     "control_centers": 96,
     "districts": 9,
-    "faction_headquarters": 11,
+    "faction_headquarters": 15,
     "factions": 38,
     "landmarks": 96,
-    "spawn_points": 1343,
+    "spawn_points": 1348,
     "sub_territories": 96
   },
   "game_version": "2.5",

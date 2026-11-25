@@ -1042,41 +1042,41 @@
   {
     "base_price": null,
     "code": "lm_bls_sunset_motel",
-    "display_name": "Sunset Motel",
+    "display_name": "New American Autoworks",
     "gamedata_district": "Badlands",
     "kind": "hq",
     "landmark_id": 81,
     "purchasable": 0,
     "sub_territory_id": 81,
-    "x": 1634.2,
-    "y": -738.7,
-    "z": 49.8
+    "x": -142.756,
+    "y": -4419.236,
+    "z": 58.87
   },
   {
     "base_price": null,
     "code": "lm_bls_rocky_ridge",
-    "display_name": "Rocky Ridge Ghost Town",
+    "display_name": "Petrochem Fuel Station (I-9)",
     "gamedata_district": "Badlands",
-    "kind": "hq",
+    "kind": "compound",
     "landmark_id": 82,
     "purchasable": 0,
     "sub_territory_id": 82,
-    "x": 2556.9,
-    "y": -23.9,
-    "z": 82.1
+    "x": 1706.187,
+    "y": -755.859,
+    "z": 49.801
   },
   {
     "base_price": null,
     "code": "lm_bls_aldecaldos_camp",
-    "display_name": "Aldecaldos Nomad Camp",
+    "display_name": "DaKota",
     "gamedata_district": "Badlands",
     "kind": "hq",
     "landmark_id": 83,
     "purchasable": 0,
     "sub_territory_id": 83,
-    "x": 3412.9,
-    "y": -360.1,
-    "z": 120.3
+    "x": 2421.772,
+    "y": -772.367,
+    "z": 66.7
   },
   {
     "base_price": null,
@@ -1172,15 +1172,15 @@
   {
     "base_price": null,
     "code": "lm_dt_main_gate",
-    "display_name": "Dogtown Checkpoint Gate",
+    "display_name": "Heavy Hearts",
     "gamedata_district": "Dogtown",
     "kind": "hq",
     "landmark_id": 91,
     "purchasable": 0,
     "sub_territory_id": 91,
-    "x": -2062.2,
-    "y": -2310.4,
-    "z": 19.0
+    "x": -1606.43,
+    "y": -2341.452,
+    "z": 43.07
   },
   {
     "base_price": null,

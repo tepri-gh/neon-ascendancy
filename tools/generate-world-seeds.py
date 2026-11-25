@@ -207,7 +207,8 @@ CURATED_ZONES: list[tuple[int, str, str, str, float, float, float, int, str, int
 
     # --- 7. Badlands (10 major named strongholds & strategic landmarks) ---
     (7, "Badlands", "bls_sunset_motel",      "Sunset Motel",                     1634.2,  -738.7,  49.8,  8, "gang",  660, 55, 0),
-    (7, "Badlands", "bls_rocky_ridge",       "Rocky Ridge Ghost Town",           2556.9,   -23.9,  82.1,  8, "gang",  680, 60, 0),
+    # Owner 43 (Petrochem): hosts Petrochem's Badlands test point (I-9 fuel station).
+    (7, "Badlands", "bls_rocky_ridge",       "Rocky Ridge Ghost Town",           2556.9,   -23.9,  82.1, 43, "corp",  680, 60, 0),
     (7, "Badlands", "bls_aldecaldos_camp",   "Aldecaldos Nomad Camp",            3412.9,  -360.1, 120.3,  9, "gang",  720, 70, 1),
     (7, "Badlands", "bls_wraith_compound",   "Wraiths Badlands Compound",        3003.6, -2394.3, 118.5,  8, "gang",  740, 80, 0),
     (7, "Badlands", "bls_militech_outpost",  "Red Peaks Militech Outpost",       3646.4,  -920.5, 120.5, 21, "corp",  780, 80, 0),
@@ -240,7 +241,7 @@ ACTIVE_TEST_CONTROL_CENTERS: dict[str, str] = {
     "militech": "bls_solar_station",
     "kang_tao": "gle_hanford_overpass",
     "biotechnica": "dtn_central_concourse",
-    "petrochem": "arr_petrochem_yard",
+    "petrochem": "bls_rocky_ridge",
     "barghest": "dt_main_gate",
     "sixth_street": "arr_kendachi_plant",
     "aldecaldos": "bls_aldecaldos_camp",
@@ -309,6 +310,26 @@ LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
         "x": -2156.769, "y": 467.99, "z": 11.511,
         "source": "dist/extract/markers.jsonl dtn_04_mp_sm_entrance, site 353 sts_cct_dtn_04 (docs/research/factions/biotechnica.md)",
     },
+    "dt_main_gate": {
+        "display_name": "Heavy Hearts",
+        "x": -1606.43, "y": -2341.452, "z": 43.07,
+        "source": "data/sites/sites.json site 358 sts_ep1_06 (docs/research/factions/barghest.md)",
+    },
+    "bls_sunset_motel": {
+        "display_name": "New American Autoworks",
+        "x": -142.756, "y": -4419.236, "z": 58.87,
+        "source": "data/sites/sites.json site 340 sts_bls_ina_02 (docs/research/factions/wraiths.md)",
+    },
+    "bls_rocky_ridge": {
+        "display_name": "Petrochem Fuel Station (I-9)",
+        "x": 1706.187, "y": -755.859, "z": 49.801,
+        "source": "dist/extract/markers.jsonl q104_mp_sunset_garage (docs/research/factions/petrochem.md)",
+    },
+    "bls_aldecaldos_camp": {
+        "display_name": "DaKota",
+        "x": 2421.772, "y": -772.367, "z": 66.7,
+        "source": "dist/extract/markers.jsonl ina_07_mp_workshop (docs/research/factions/aldecaldos.md)",
+    },
 }
 
 # One map-marker headquarters per faction (not capturable yet). Coordinates must come
@@ -370,6 +391,26 @@ FACTION_HEADQUARTERS: list[dict[str, Any]] = [
         "faction": "biotechnica", "display_name": "Biotechnica Protein Flats", "gamedata_subdistrict": "Badlands",
         "x": -1795.661, "y": -4323.811, "z": 74.413,
         "source": "dist/extract/markers.jsonl bls_bls_dataterm_10, Flats fast-travel dataterm (docs/research/factions/biotechnica.md)",
+    },
+    {
+        "faction": "barghest", "display_name": "Black Sapphire", "gamedata_subdistrict": "Dogtown",
+        "x": -1881.135, "y": -2316.233, "z": 41.005,
+        "source": "dist/extract/areas.jsonl q303_com_tower_lobby (docs/research/factions/barghest.md)",
+    },
+    {
+        "faction": "wraiths", "display_name": "Corp-Bud Cement Factory", "gamedata_subdistrict": "Badlands",
+        "x": 3007.724, "y": -2385.058, "z": 124.63,
+        "source": "dist/extract/markers.jsonl sq004_mp_raffen_shiv_camp (docs/research/factions/wraiths.md)",
+    },
+    {
+        "faction": "petrochem", "display_name": "North Sunrise Oil Fields", "gamedata_subdistrict": "Badlands",
+        "x": -1835.695, "y": 3719.295, "z": 6.742,
+        "source": "dist/extract/markers.jsonl bls_bls_dataterm_05, oil-field fast-travel dataterm (docs/research/factions/petrochem.md)",
+    },
+    {
+        "faction": "aldecaldos", "display_name": "Aldecaldo Camp", "gamedata_subdistrict": "Badlands",
+        "x": 3427.93, "y": -360.963, "z": 134.071,
+        "source": "dist/extract/markers.jsonl bls_bls_dataterm_03, camp fast-travel dataterm (docs/research/factions/aldecaldos.md)",
     },
 ]
 
