@@ -537,8 +537,9 @@ site-backed + 1 named place that is neither (Kabuki Market's site is NCPD-owned)
 ## 9. Document template
 
 Every `docs/research/factions/<faction-code>.md` must have these sections, in
-this order. `<faction-code>` is the `code` from `data/factions.json`
-(`tyger_claws`, `sixth_street`, `the_mox`, `kang_tao`, …).
+this order. `<faction-code>` is the `code` from `data/factions.json` with
+underscores replaced by hyphens (`tyger-claws`, `sixth-street`, `the-mox`,
+`kang-tao`, …). The JSON block's `faction_code` keeps the underscore form.
 
 1. **Summary** — who they are, canon base, economic model, where the weight sits.
 2. **Territory** — districts, evidence table (lore / vanilla panel / game-data
