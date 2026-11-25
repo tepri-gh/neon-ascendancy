@@ -138,3 +138,27 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `#q005_ws_dex_afterlife_01`.
 - Dogtown vendor findings and the Afterlife back-room door (auth ref
   unresolved) are recorded in `venue_phases.json` notes rather than guessed.
+- Watson lockdown cleanup (`data/clean-slate/barricade_cleanup.json` ->
+  `barricade_cleanup.questphase`, always on, not dev-gated): reproduces the
+  `watson_prolog_lock == 0` cleanup branches a clean-slate boot never reaches.
+  Hides `q001_bridge_blockade` on `#wejt_03_devices` (verbatim q001 node 230),
+  `prolog_blockades` on the LCH architecture prefab, and `security_systems` on
+  the three devices prefabs; deactivates the 9 roadblock communities and the 60
+  roadblock vehicle spawners via a new `questSpawner_NodeType` emitter
+  (`QuestGraph.add_spawner_node`, `spawnerReference` shape from
+  `lch_prolog_roadblocks.questphase`). `--check` round-trips the whole group and
+  asserts 60 spawners / 9 communities / 5 toggles. The probe logs
+  `BridgeState:` (fact + three spawner counts) so a test proves it.
+- Dogtown vendors (`data/clean-slate/dogtown_vendors.json` ->
+  `dogtown_vendors.questphase`, gated on a per-vendor fact): re-emits only the
+  Activate spawn-set + community entries of `stadium_vendors` and the
+  container-zone vendors, bypassing `ep1_vendors`' `ep1_side_content` /
+  `q302_started` gates and dropping its 43 journal/scene nodes. The 10 narrow
+  `cz_stadium_*_default_on` facts are added to `initial_facts`; they are read
+  only by `q304_stadium_vendors_controller` / `stadium_vendors`.
+- Afterlife briefing-room door: ref resolved by FNV-1a hashing
+  `exterior_-23_15_0_0` -> `#q005_dvc_afterlife_briefing_room_door`; added with
+  enable/power/unlock/open behind a proximity wait at `#q005_ws_dex_afterlife_01`.
+- Roadblock research notes: the Dogtown main checkpoint pedestrian door
+  refs were not extractable offline (prefab-template placeholders), so they are
+  recorded rather than guessed.
