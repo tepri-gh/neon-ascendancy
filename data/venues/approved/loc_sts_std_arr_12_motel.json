@@ -1,0 +1,38 @@
+{
+  "code": "sts_std_arr_12_motel",
+  "display_name": "Las Palapas Motel (Arroyo)",
+  "why": "Las Palapas is a run-down single-storey motel in Arroyo: a courtyard of trailer-house rooms off Wollesen Street, with a homeless/poor residential crowd that vanilla already populates from its kept district phase. The building, courtyard, camera and working room door are base-world content, so they stream without any quest. The only authored tenant is Pedro Aimar, the Zetatech programmer who rents the room where Desperate Measures begins; his community starts inactive and its spawner lives in the venue's quest prefab, so the room is empty in normal play. This proposal loads #arr_12_motel for Pedro and his desk spot and puts him to work at the room's computer; it keeps the DLC variant at 0 so the gig's loot and shard containers stay out, and leaves the courtyard crowd to the kept vanilla activation that already runs it.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_12_motel/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the Las Palapas courtyard on a fresh start: expect the overweight resident, the homeless pair, the poor man and woman and workers by day, kids playing, and the two prostitutes plus more homeless at night. The crowd is vanilla's kept district activation; an empty courtyard means it is not running.",
+      "Open the door to Pedro's room. It streams unpowered, so confirm the runtime door policy powers it and the room is reachable as a normal rented room, not a sealed gig door.",
+      "Confirm Pedro is sitting at the desk computer (#arr_12_ws_pedro_wait_001) and not frozen or standing at the nervous-wait spot. The catalogue has no spot map for this community; 0Spawn is the only desk spot.",
+      "Look for Desperate Measures leftovers in the courtyard and Pedro's room: no money/junk/food/drink tokens, no shard containers and no quest mappin. They sit in the venue's DLC variant range, which must stay at 0.",
+      "Check Pedro's laptop (#arr_12_dvc_pedros_comp) is powered and interactable on a fresh start; vanilla only powers it inside the gig, so it may be off."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_12_motel_prefabWLGUDYI/loc_sts_std_arr_12_motel_openworld_prefabX42OFSQ/#arr_12_motel"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_12_com_motel",
+      "entry_name": "Pedro",
+      "phase_name": "0Spawn",
+      "action": "Activate",
+      "why": "Pedro Aimar is the motel's only authored tenant: the Zetatech programmer whose rented room is where Desperate Measures starts. 0Spawn is the one phase that puts him at the room's desk computer (spot #arr_12_ws_pedro_wait_001, generic__sit_chair_table_keyboard_lean_front__work__01), i.e. a resident working at home rather than the gig's standing nervous wait (#arr_12_ws_pedro_wait_002) or the unmapped 'rotated' set. His entry is entryActiveOnStart=0 and vanilla only activates 0Spawn inside the gig phase, so without this activation the room is empty. The catalogue has no spot map for this community, hence needs_tour_check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_12_motel_door",
+    "within": 80.0,
+    "why": "The room's working door (DoorControllerPS on single_door.ent) at (-1100.82,-1532.58,26.29), about 2.4 m from Pedro's desk spot, in the venue prefab's base-range gameplay section. It is a device entity that streams with the motel and is already in the runtime door scope (FNV-1a 64 11573107179925640345), not a workspot, so the proximity wait can fire."
+  }
+}

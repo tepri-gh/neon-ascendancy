@@ -1,0 +1,71 @@
+{
+  "code": "sts_hey_gle_01",
+  "display_name": "Tucker Albach's Condo (Scoffield & Sinkyone, The Glen)",
+  "why": "Tucker Albach's condo is a private residence in The Glen (Kiroshi vice managing director, gig 'Eye for an Eye'), with a renovation crew working the lower level, her Militech security detail posted through the ground floor and the top-floor office where she sits at her desk. The building, doors, windows, scaffolding, safe and loot are world-streamed in every save, and the kept district phase hey_gle_phase already loads the pre-gig section with its four Militech renovation workers. What the clean slate never loads is the street story's own section, so the eight-person security and worker community and Tucker have no spawner at all. This proposal restores that one section and switches on the whole security community and Tucker in their vanilla initial (pre-gig) phases, so the venue reads as a guarded corpo home with a job in progress.",
+  "source": {
+    "proposal": "research/loc_sts_hey_gle_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk up to the corner of Scoffield and Sinkyone and check the front door: it should be closed but openable, with Enemy6 standing just inside on guard_stand, not aiming.",
+      "Check the ground floor and top floor for the six guards: leaning on a wall watching the crew, on the lounge couch with a beer, two in the security room (one with a tablet), one on the top floor, one at the front door. None should be alert, crouched or hostile.",
+      "Go up to the top-floor office and confirm Tucker Albach is sitting in her chair at her desk, calm, with no dialogue wheel, holocall or scene starting.",
+      "Look at the lower street level beside the scaffolding: the four Militech workers from the kept district phase should be there, spread out and working, not clumped on one spot, doubled, floating or inside geometry (their five workspots have no catalogue map).",
+      "Check the entry routes: the back techie door should still offer its Technical Ability check, the fire-escape window should open somehow, and the front door should not be sealed.",
+      "Check for leftover quest dressing: no quest decoration, no keycard or shards lying around, an ordinary locked safe, and no restricted/dangerous-area warning when you walk in.",
+      "Report where the tour lands: this site has no device position in the catalogue, so the stop is the front-door guard spot #gle_01_ws_enemy_front; say whether you arrive on the street or inside geometry."
+    ]
+  },
+  "prefabs": [
+    "#sts_hey_gle_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#gle_01_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation puts all eight people in vanilla's own pre-gig initial phases, and the slot map shows every one of them on a calm workspot: Enemy1 (security officer) leans on a wall watching the renovation (routine__stand_wall_lean_back), Enemy2 sits on the lounge couch with a beer, Enemy3 uses a tablet in the security room, Enemy4 stands guard on the top floor, Enemy5 stands in the security room, Enemy6 holds the front door on guard_stand, and the two gle_01_workers polish a wall and weld. That is the secured-renovation-site look the wiki describes, without any of the hit's combat phases. Catalogue posture is unknown only because it has no community-area map; needs_tour_check keeps it on the tour.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_01_com_tucker",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Tucker Albach is alive in this timeline and the condo is hers; her whole-community activation seats her in 0Sit, which the slot map resolves to #gle_01_ws_boss_001 generic__sit_chair__sit_around__07 on the top floor (z 18.8, the office). Her other phases (Hide, React, Talk) are the hit's beats and are excluded.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_01_prefabW3U6XOY/loc_sts_hey_gle_01_env_prefabAYONABA/deco_prefabXYIWAFI/int_prefab522KIHI",
+      "states": {
+        "deco_sts": 0
+      },
+      "why": "deco_sts is the venue's quest dressing switch: sts_hey_gle_01.questphase (the gig set-up) turns it to 1, and sts_hey_gle_01_streetstory turns it back to 0. Pinning 0 gives the undressed interior the gig's own cleanup leaves behind, so no story props appear in a save where the gig never ran."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_01_prefabW3U6XOY/#loc_sts_hey_gle_01_openworld/#sts_hey_gle_01_streetstory/sts_hey_gle_01_decoration_prefabL4BMMWY",
+      "states": {
+        "DecoShow": 0
+      },
+      "why": "DecoShow is only ever driven to 0, by the street story phase and by sts_hey_glenn, i.e. it is the 'quest decoration off' state. Since this proposal loads the streetstory section but never runs its phase, setting it explicitly keeps the section's quest decoration hidden. Untagged node, so the full $/ path is given (rule 3)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1668.416,
+      -990.08,
+      10.779
+    ],
+    "source": "spot #gle_01_ws_enemy_front (Enemy6 0Spawn, the front-door guard's guard_stand.workspot), community #gle_01_com_enemies, quest_d3952e14b8ac4730.streamingsector (data/sites/spots.json spot 3194)"
+  },
+  "proximity_wait": {
+    "ref": "#gle_01_dvc_window_001",
+    "within": 100.0,
+    "why": "The upper window on the burned-in fire-escape route, a DoorControllerPS in the always-streamed gameplay/devices section (#gle_01_window_001). It has a resolved full path, unlike the tagged front door #gle_01_dvc_main_door_001 whose path the miner could not resolve (venue_inferred), so it is the reliable device to wait on; a player walking up to the building is well inside the default radius. Never a workspot (rule 8)."
+  }
+}

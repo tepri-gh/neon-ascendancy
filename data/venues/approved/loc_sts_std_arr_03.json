@@ -1,0 +1,55 @@
+{
+  "code": "sts_std_arr_03",
+  "display_name": "Kendachi Factory, El Camino Rd (Arroyo)",
+  "why": "The El Camino Kendachi plant is a fenced industrial factory in Arroyo: a street gate and yard, a main hall with production machinery, forklifts, a security outpost and Matheus Stove's upstairs office, plus a back gate and roof/back ways in. Vanilla only populates it for El Capitan's gig 'Race to the Top', when the plant's security detail, its floor workers, an outside scaffolding/cleaning crew and a yard full of cars are switched on. This proposal keeps the single quest prefab those people need and restores the plant's normal working state: the outside crew, the five floor workers and the full security detail (guards, security droids and netrunner) in their initial at-post phases. The gig's objective computer interaction, quest shard, mappins, holocalls and 20 quest-spawned yard cars stay out.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in through the main gate and the factory door: both should be shut but openable, not sealed. Vanilla force-closes and unpowers them and no gig runs to unlock them, so the runtime door policy has to power them; check the prompt and the DoorPolicy log line.",
+      "Watch the security detail for a minute: eight human guards, four security droids and the netrunner should hold their posts and not open fire on a visitor. The catalogue has no resolved spot map for #arr_03_combat_com, so its calm posture is unverified.",
+      "Walk the factory floor and the yard: five workers should be at machines or on their patrol spots and the outside crew should be kneeling/cleaning by the scaffolding, none crouched, hiding or frozen at the spawner.",
+      "Check Matheus Stove's office and its computer: no gig objective prompt, no incriminating-data interaction and no quest shard should be reachable. The office should read as a normal manager's office.",
+      "Try the back gate and the ladder door: the Body/Technical checks should still appear and work, and neither route should be the only way in or out.",
+      "Look at the entrance security: the metal detector/security system should not attack or lock the front route. The wiki says the entrance metal detector can be hacked and turned friendly; confirm it behaves normally without the gig.",
+      "Look at the yard: does it read as a working plant or an empty slab? Vanilla's 20 quest-spawned cars do not spawn without the gig, and the single community SUV #arr_03_cars_com car_001/default is not proposed here."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_arr_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The plant's whole security detail: four security droids on their start spots, eight human security guards on patrol/courtyard posts and one netrunner for the security net, all in their initial phases (droids A, humans A_spawn). Vanilla switches this whole community on when the plant is set up and only moves enemy_001/002/005 to phase B for the alert, so A/A_spawn is the pre-alert at-post state. Rule 11a keeps the combat group first, and a private Kendachi plant should have its guards on duty. The catalogue could not resolve a community-area node for this spawner, so the calm posture and the exact workspots need the tour.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_03_non_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The factory-floor crew: four generic sts_std_arr_03_worker entries plus the named worker_005, all in their initial A_spawn phase, with A/B spots and patrol splines around the production hall. Vanilla switches the whole community on as part of the plant's setup (worker_001's B phase belongs to the fight), so this is the plant's ordinary staff, not quest-only actors. Posture is unverified because the catalogue has no community-area node for this spawner.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_std_arr_03_scaffolding_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The outside crew working the scaffolding: one WorkerMale whose phases A and B both use two relaxed workspots, kneeling to inspect the ground and standing at a window to clean it. Vanilla activates the community whole from the venue's open-world phase (and the district street-story phase), i.e. as part of the plant's normal look, not the fight."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_03_dvc_gate_01",
+    "within": 80.0,
+    "why": "The yard's street-side main gate (DoorControllerPS, #arr_03_main_gate) is the first device on the normal way in and streams with the venue from exterior_-9_-27_0_0. The venue drives no terminal or closer interior device on the approach, so the main gate is the safest anchor."
+  }
+}

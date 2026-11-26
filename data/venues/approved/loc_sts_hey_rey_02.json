@@ -1,0 +1,95 @@
+{
+  "code": "sts_hey_rey_02",
+  "display_name": "Dicky Twister",
+  "why": "Dicky Twister is the Valentino-run gay strip club on Congress St. in Vista del Rey: a ground-floor bar and stage with VIP, changing and security rooms, and a second floor with the office and server rooms. The club's own crowd (DJ, barman, male strippers, patrons, one security guard) is already activated by the kept Heywood community phase, and the kept phase also switches the interior and music on, so the club stands open in normal play. What is missing is the club's Valentino crew: the street story's gang community is inactive until its escape fight. This proposal declares the street-story section that carries the gang spawner and activates a normal-play crew from it: the named member Lena Dominguez, guards on the floor, at the stage, upstairs by the office and server rooms, and a service worker in the back, while leaving the story's chat actors, prostitutes and reinforcement wave out.",
+  "source": {
+    "proposal": "research/loc_sts_hey_rey_02/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the venue is Dicky Twister. Walk in from Congress St. and check it is the Valentino gay strip club with the stage, VIP rooms and the upstairs office and server rooms; if the building is a different unnamed club, correct the display name before approval.",
+      "Check the main and glass entrance doors open. The main door should be powered; the glass #rey_02_dvc_entrance_door is locked by the kept Heywood community phase, so note whether the door policy or a quickhack frees it, or whether the back doors are the only way in.",
+      "Check the Valentino crew is calm and on post. Expect Lena Dominguez with a tablet at the front, a guard and two gangers on the floor, two at the stage seats, two upstairs by the phone and office tablet, and the service worker at the back, all neutral with weapons holstered.",
+      "Check the club already has its crowd. The kept district phase should give the DJ, barman, male strippers, patrons and one security guard; if the club is empty, the lead agent must add the relaxed crowd entries by hand, because the whole #rey_02_com_crowd activation cannot be used (its spot pool contains a nervous workspot).",
+      "Check the club is in its open, lit interior state with music. The kept community phase sets interior 1 and the music variants, so no toggle is proposed here; if the interior is dark, closed or silent, report which variant is wrong.",
+      "Check the office and server rooms are intact but un-staged. No datapad objective, no painting safe, no security lockdown and no personal-link prompt should fire; the office door and computer should still be usable.",
+      "Check the prohibited quest people stay absent. No prostitutes or chat pairs in the club, no upstairs bed tableau, no reinforcement car and no second-wave gangers; Lena should appear once, in her phase A post, not twice."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/vista_del_rey/loc_sts_hey_rey_02_prefabUPV3O7Q/#sts_hey_rey_02_openworld/#sts_hey_rey_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_007",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Lena Dominguez is the named Valentino tied to this club in the faction research, not a generic grunt. Her phase A post is the routine stand-ground tablet spot on the front side of the club at z 7.6, so she reads as the crew chief checking the door and the books, not as the escape-scene reactivation (phase B)."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Floor guard on the generic stand-ground guard workspot at (-800.08,-79.51,7.6), just inside the ground-floor bar and stage area. This is the club's inside bouncer and the first combat body in the set (rule 11a)."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_010",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Valentino regular at the stage: phase A seats him in the chair built to watch the pole dancing at (-799.74,-98.77,8.6). A gang-run strip club with its own members watching the show is the normal-business read."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_012",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Second Valentino at the stage, on the couch workspot that watches the pole dancing at (-801.85,-99.19,8.6). Pairs with ganger_010 so the stage seats read as a table of gang regulars."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_013",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Valentino standing around on the routine stand-ground spot at (-825.25,-71.22,8.62), on the bar side of the floor. Gives the ground floor a body away from the stage and door."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_016",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Valentino smoking against the dirt wall at (-792.44,-85.78,8.67), the kind of side-wall post the club's own security would use. No alert or cover workspot."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_005",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Upstairs guard at z 11.61 on the routine stand-ground phone spot (-793.57,-71.49). The wiki puts the double server room and the office on the second floor; this is the man watching that landing while taking a call."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "ganger_006",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The crew's officer (Overture) on the office-level tablet spot at (-812.41,-72.38,12.63). He is the ranking Valentino on site while the owner is away, standing in for the gig's office guard (Saulo Capon, not placeable from this venue's spawn sets)."
+    },
+    {
+      "spawner": "#rey_02_com_enemies",
+      "entry_name": "worker_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Club worker with a tablet at (-813.56,-105.27,8.61), in the service area at the back of the building where the wiki puts the storage room and service quarters. The only non-combat body in the crew, so it comes last (rule 11a)."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rey_02_dvc_door_entrance_main",
+    "within": 80.0,
+    "why": "The club's main street entrance on Congress St. is a DoorControllerPS in the always-loaded gameplay section, the first device a visitor reaches, and vanilla itself drives it (ForceClose/ForcePower) in the street story's open-world phase. It is a device, not a workspot (rule 8), and its interior variant is already switched on by the kept community phase."
+  }
+}

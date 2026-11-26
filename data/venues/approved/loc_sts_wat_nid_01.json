@@ -1,0 +1,53 @@
+{
+  "code": "sts_wat_nid_01",
+  "display_name": "Autowerks (Longshore North)",
+  "why": "Autowerks is the Mox autoshop and warehouse on Longshore North in Northside: a workshop floor and container yard with a hall and an upstairs room, closed off by ordinary powered doors. Its normal staff of three is the base-world whole community #wat_nid_lizzies_workshop_com (one Mox woman, one worker, one delivery worker, phase 'A', kneeling at tools, leaning on walls, drinking and smoking), which the kept global community phase already activates in the clean slate through wat_nid_phase; vanilla only removes that crew when the street story starts, and it never starts here. Nothing of the gig should come back: no cyberpsycho Anna Nox, no wounded or dead Mox, no hiding BD tuner and no crate scene, so no quest prefab and no people are restored. What this proposal does restore is the normal look: it pins the exterior arch out of its baked 'lockdown' variant and hides the baked 'dead moxies' loot variant, so the shop reads as open for business rather than as a lockdown crime scene.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the Longshore North yard and confirm the workshop crew is there. Expect three bodies around (-1226, 2289): Character.lizzies_mox_female leaning/smoking, Character.LowlifeMale kneeling at a wall, Character.WorkerMale on the delivery spots (tablet, rail, crate). If the yard is empty, the kept global community phase's wat_nid_phase activation did not take.",
+      "Confirm the shop front is not in lockdown. The exterior arch (#nid_01_ext) should show no lockdown geometry or barricade across the front; the variant is enabled by default in the baked world, so a visible lockdown means the toggle did not apply.",
+      "Confirm no dead Mox body is lying at the venue. The loot prefab's dead_moxies_var should be 0 (no corpse/loot body); if one remains, the toggle ref did not resolve and the dead-moxies loot is still baked in.",
+      "Get into the workshop and up to the hall without a quest. The three quest-driven doors (#sts_wat_nid_01_door_01, #sts_wat_nid_door_02, #nid_01_hal_door) start unpowered because the phases that power them never run; report any door that stays inert so the door scope/policy can be checked.",
+      "Look at the Mox subnet access point in the warehouse (#nid_01_dead_lizzie_access_point). It is the gig's ActivatedDeviceControllerPS and vanilla ForceOFFs it, so it may look dead or non-interactive; note its state and whether a normal Mox access point or dataterm is wanted there.",
+      "Check that Anna Nox is not standing in the warehouse. Her only record is Character.sts_wat_nid_01_cyberpsycho on a paranoid patrol workspot; if a psycho appears, a quest community leaked into the clean slate.",
+      "Check the container/crate area. The blue shipping crate is base geometry with the #nid_01_hal_door device; confirm it opens as a normal powered door and holds no quest scene or Hal plot prop."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/northside/loc_sts_wat_nid_01_prefab6GLBSFY/loc_sts_wat_nid_01_env_prefabMGODIEQ/arch_prefabAWUUEEI/#nid_01_ext",
+      "states": {
+        "lockdown": 0
+      },
+      "why": "Keeps the shop front out of the gig's lockdown. The arch's lockdown variant is enabled by default in the streaming block, so a clean-slate world would show it without any phase running; both the openworld phase and the district phase set it to show 0 first and only switch it on (show 1) as Occupational Hazard escalates, which makes 0 the ordinary open-for-business state."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/northside/loc_sts_wat_nid_01_prefab6GLBSFY/loc_sts_wat_nid_01_gameplay_prefabKISNQ5Q/loc_sts_wat_nid_01_loot_prefabFHW5XII",
+      "states": {
+        "dead_moxies_var": 0
+      },
+      "why": "Hides the baked dead-Mox bodies/loot that belong to the gig's aftermath. The loot prefab's dead_moxies_var is enabled by default in the base exterior sectors, and every vanilla phase that touches it hides it (show 0), including the ungated bugfixing cleanup phase, so 0 is the no-aftermath state."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      -1225.2,
+      2289.63,
+      6.92
+    ],
+    "source": "Mean of the eight #wat_nid_ws_lizzies_workshop_worker_* AIActionSpot positions of {wat_nid_lizzies_workshop_com} (base/worlds/03_night_city/_compiled/default/exterior_-10_17_0_1.streamingsector, spots x -1240.36..-1211.87, y 2285.99..2295.43, z 6.91-6.97), i.e. the middle of the yard where the crew works; the Autowerks site anchor is (-1224.176, 2275.871, 6.971)."
+  },
+  "proximity_wait": {
+    "ref": "#sts_wat_nid_01_door_01",
+    "within": 80.0,
+    "why": "The sliding double door on the normal way in, a base-world DoorControllerPS at $/03_night_city/c_watson/northside/loc_sts_wat_nid_01_prefab6GLBSFY/loc_sts_wat_nid_01_gameplay_prefabKISNQ5Q/loc_sts_wat_nid_01_devices_prefabKD747II/double_door_sliding_g_prefabUMAQ4BY/#sts_wat_nid_01_door_01 in exterior_-20_35_0_0.streamingsector (not inside a quest variant, so the proximity wait resolves), and one of the doors vanilla powers here. 80 m covers the yard, the workshop and the upstairs hall."
+  }
+}

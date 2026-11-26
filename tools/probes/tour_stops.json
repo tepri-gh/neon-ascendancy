@@ -1705,6 +1705,76 @@
    ]
   },
   {
+   "code": "sts_cct_dtn_04",
+   "name": "Biotechnica Hotel (Republic Way, Downtown)",
+   "kind": "approved",
+   "venue": "loc_sts_cct_dtn_04",
+   "pos": [
+    -2144.18,
+    470.64,
+    9.47
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoMan",
+    "Character.CorpoWoman",
+    "Character.dtn_04_maid",
+    "Character.dtn_04_receptionist",
+    "Character.sts_dtn_04_security",
+    "Character.sts_dtn_04_security_droids",
+    "Character.sts_dtn_04_security_officer",
+    "Character.sts_dtn_04_target"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Check the lobby is open for business.",
+     "detail": "Check the lobby is open for business. Walk in from Republic Way and confirm the bar counter, reception desk and lounge seats are staffed and busy, with the bar barriers down (not the gig's barricaded look).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the hotel is guarded but calm.",
+     "detail": "Check the hotel is guarded but calm. In the lobby, the floor 19 corridor/security room/balcony and the roof, confirm the Biotechnica guards and droids are at their posts, relaxed, and not hostile or alarmed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check floor 19 and the roof are reachable.",
+     "detail": "Check floor 19 and the roof are reachable. Ride the lift to 19 and take the roof stairs; if the lift does not offer floor 19, note it - lift floor access is vanilla (floor terminals/quickhack) and this proposal does not touch it.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the resident is in her suite.",
+     "detail": "Check the resident is in her suite. In apartment 193, confirm Joanne Koch is on the braindance bench with no quest marker and does not flee or attack.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the ways in.",
+     "detail": "Check the ways in. Confirm the lobby glass door and the unlocked side door by the police cordon open, and that the opposite side door behaves as the wiki's Technical Ability door (or note which ref is which).",
+     "source": "open question"
+    },
+    {
+     "label": "Check for gig leftovers.",
+     "detail": "Check for gig leftovers. Confirm there is no AV on the roof pad, no corpse or body bag, no active crime-scene cordon inside, and no post-alarm android wave.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_cct_dtn_05_luxury_yacht",
    "name": "Gold Beach Marina party yacht (Councilwoman Cole's yacht)",
    "kind": "approved",
@@ -4052,6 +4122,151 @@
    ]
   },
   {
+   "code": "sts_hey_gle_01",
+   "name": "Tucker Albach's Condo (Scoffield & Sinkyone, The Glen)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_gle_01",
+   "pos": [
+    -1668.42,
+    -990.08,
+    10.78
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.gle_01_security",
+    "Character.gle_01_security_officer",
+    "Character.gle_01_security_shotgun",
+    "Character.gle_01_tucker",
+    "Character.gle_01_worker"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #gle_01_com_enemies (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #gle_01_com_tucker (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Walk up to the corner of Scoffield and Sinkyone and check the front door: it should be closed but openable, with Enemy6 standing just inside on gua...",
+     "detail": "Walk up to the corner of Scoffield and Sinkyone and check the front door: it should be closed but openable, with Enemy6 standing just inside on guard_stand, not aiming.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the ground floor and top floor for the six guards: leaning on a wall watching the crew, on the lounge couch with a beer, two in the security...",
+     "detail": "Check the ground floor and top floor for the six guards: leaning on a wall watching the crew, on the lounge couch with a beer, two in the security room (one with a tablet), one on the top floor, one at the front door. None should be alert, crouched or hostile.",
+     "source": "open question"
+    },
+    {
+     "label": "Go up to the top-floor office and confirm Tucker Albach is sitting in her chair at her desk, calm, with no dialogue wheel, holocall or scene starting.",
+     "detail": "Go up to the top-floor office and confirm Tucker Albach is sitting in her chair at her desk, calm, with no dialogue wheel, holocall or scene starting.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the lower street level beside the scaffolding: the four Militech workers from the kept district phase should be there, spread out and worki...",
+     "detail": "Look at the lower street level beside the scaffolding: the four Militech workers from the kept district phase should be there, spread out and working, not clumped on one spot, doubled, floating or inside geometry (their five workspots have no catalogue map).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the entry routes: the back techie door should still offer its Technical Ability check, the fire-escape window should open somehow, and the fr...",
+     "detail": "Check the entry routes: the back techie door should still offer its Technical Ability check, the fire-escape window should open somehow, and the front door should not be sealed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check for leftover quest dressing: no quest decoration, no keycard or shards lying around, an ordinary locked safe, and no restricted/dangerous-are...",
+     "detail": "Check for leftover quest dressing: no quest decoration, no keycard or shards lying around, an ordinary locked safe, and no restricted/dangerous-area warning when you walk in.",
+     "source": "open question"
+    },
+    {
+     "label": "Report where the tour lands: this site has no device position in the catalogue, so the stop is the front-door guard spot #gle_01_ws_enemy_front; sa...",
+     "detail": "Report where the tour lands: this site has no device position in the catalogue, so the stop is the front-door guard spot #gle_01_ws_enemy_front; say whether you arrive on the street or inside geometry.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_hey_gle_05",
+   "name": "Megabuilding H1 — basement lift-repair workshop (Gig: Going Up or Down?)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_gle_05",
+   "pos": [
+    -1607.23,
+    -550.56,
+    5.28
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_hey_gle_05_el_gallo"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #gle_05_combat_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: #gle_05_ws_gallo/rout.",
+     "source": "community"
+    },
+    {
+     "label": "Check the H1 basement lift: vanilla's gig phase disables floors 1 and 2 and the clean slate runs no such action, so confirm all three stops land on...",
+     "detail": "Check the H1 basement lift: vanilla's gig phase disables floors 1 and 2 and the clean slate runs no such action, so confirm all three stops land on real geometry (the workshop is floor 0 at z about 5.3).",
+     "source": "open question"
+    },
+    {
+     "label": "Walk into the basement workshop with no gig running: its door controller is unpowered and force-closed in vanilla, so confirm the runtime door poli...",
+     "detail": "Walk into the basement workshop with no gig running: its door controller is unpowered and force-closed in vanilla, so confirm the runtime door policy opens it or record what blocks it.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the workshop renders cleanly: the streetstory prefab brings El Gallo's den (bed, tools, conversation scene prefab) and may z-fight with the...",
+     "detail": "Confirm the workshop renders cleanly: the streetstory prefab brings El Gallo's den (bed, tools, conversation scene prefab) and may z-fight with the base H1 basement or leave quest-only triggers (shotgun, prevention areas) visible.",
+     "source": "open question"
+    },
+    {
+     "label": "Check El Gallo is calm and on post: he should be kneeling over tools or on his tablet in the workshop, not in the Talk stance, and the drug-inhale...",
+     "detail": "Check El Gallo is calm and on post: he should be kneeling over tools or on his tablet in the workshop, not in the Talk stance, and the drug-inhale spot is his vanilla routine.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the ground-floor courtyard crowd the kept hey_gle_phase already activates (vendors, musician, kids, homeless) is present without this entry a...",
+     "detail": "Check the ground-floor courtyard crowd the kept hey_gle_phase already activates (vendors, musician, kids, homeless) is present without this entry and not double-spawned by it.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_hey_rey_06",
    "name": "La Catrina Funeral Home",
    "kind": "approved",
@@ -5403,6 +5618,101 @@
    ]
   },
   {
+   "code": "sts_wat_lch_03_dojo",
+   "name": "Deravaja Dojo",
+   "kind": "approved",
+   "venue": "loc_sts_wat_lch_03_dojo",
+   "pos": [
+    -1897.38,
+    1246.46,
+    17.84
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wat_lch_03_owner",
+    "Character.sts_wat_lch_03_tyger_claw_handgun_basement",
+    "Character.sts_wat_lch_03_tyger_claw_melee_ground",
+    "Character.sts_wat_lch_03_tyger_claw_melee_ground_wa",
+    "Character.sts_wat_lch_03_tyger_claws_gangster2_ranged2_copperhead_ma",
+    "Character.sts_wat_lch_03_tyger_claws_gangster2_ranged2_sidewinder_ma",
+    "Character.sts_wat_lch_03_tyger_claws_martial_hmelee2_hammer_mb",
+    "Character.sts_wat_lch_03_workers"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #lch_03_com_enemies (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: Worker1/0spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Walk into the courtyard and through the double door.",
+     "detail": "Walk into the courtyard and through the double door. Confirm the runtime door policy opens the venue's double door (ForceLock/ForcePower in vanilla, no terminal or check) and the dojo is enterable without the gig.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the left-side single door.",
+     "detail": "Check the left-side single door. Confirm it still offers the Body check the wiki describes as the gig's side route, and note which single_door ref it actually is.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two roof windows.",
+     "detail": "Check the two roof windows. Confirm roof_top_window_002 opens with no check and roof_top_window_1 still offers a Technical check, so the roof route into the dojo survives.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the training floor.",
+     "detail": "Watch the training floor. Confirm TrainingTyger1 and TrainingTyger2 both appear on the synced robot-boxing spots and spar calmly; if only one appears, drop that pair.",
+     "source": "open question"
+    },
+    {
+     "label": "Look around the basement.",
+     "detail": "Look around the basement. Confirm the prefab left no quest props, no victim, no torture gear and no static Ricky down there - only Basement_guard sitting calmly.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand in the dojo as a stranger.",
+     "detail": "Stand in the dojo as a stranger. Confirm the dojo's security-area volumes (#lch_03_dvc_security_area_restriction / _dengerous) do not mark V as trespassing and turn the Tyger Claws hostile.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the owner at his desk.",
+     "detail": "Check the owner at his desk. He should sit in the office chair by the dojo computer and access point, not walk the patrolStart route, and the office should not be a restricted area.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the courtyard worker.",
+     "detail": "Watch the courtyard worker. Worker1 with the drill should read as yard maintenance from the street side, not as a broken pose inside the dojo or in the training room.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the market outside.",
+     "detail": "Check the market outside. Confirm the courtyard stalls have their vendors and clients (kept wat_lch_phase), so the dojo sits in a living market rather than a silent yard.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the dojo interior for ambient crowd.",
+     "detail": "Check the dojo interior for ambient crowd. The street story's crowd null areas (#lch_03_crowd_null_area_001/002) are not enabled by this proposal; if city crowd walks into the training room, note it for a null-area activation.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_wat_lch_06_neon_basement",
    "name": "Rovinj St. Glitter Lab (Neon Basement)",
    "kind": "approved",
@@ -5809,6 +6119,72 @@
     {
      "label": "Check the upper-floor pair: enemy_008 and enemy_009 should be standing in a calm chat, not alert or patrolling for a fight.",
      "detail": "Check the upper-floor pair: enemy_008 and enemy_009 should be standing in a calm chat, not alert or patrolling for a fight.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_01",
+   "name": "Autowerks (Longshore North)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_01",
+   "pos": [
+    -1225.2,
+    2289.63,
+    6.92
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk the Longshore North yard and confirm the workshop crew is there.",
+     "detail": "Walk the Longshore North yard and confirm the workshop crew is there. Expect three bodies around (-1226, 2289): Character.lizzies_mox_female leaning/smoking, Character.LowlifeMale kneeling at a wall, Character.WorkerMale on the delivery spots (tablet, rail, crate). If the yard is empty, the kept global community phase's wat_nid_phase activation did not take.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the shop front is not in lockdown.",
+     "detail": "Confirm the shop front is not in lockdown. The exterior arch (#nid_01_ext) should show no lockdown geometry or barricade across the front; the variant is enabled by default in the baked world, so a visible lockdown means the toggle did not apply.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no dead Mox body is lying at the venue.",
+     "detail": "Confirm no dead Mox body is lying at the venue. The loot prefab's dead_moxies_var should be 0 (no corpse/loot body); if one remains, the toggle ref did not resolve and the dead-moxies loot is still baked in.",
+     "source": "open question"
+    },
+    {
+     "label": "Get into the workshop and up to the hall without a quest.",
+     "detail": "Get into the workshop and up to the hall without a quest. The three quest-driven doors (#sts_wat_nid_01_door_01, #sts_wat_nid_door_02, #nid_01_hal_door) start unpowered because the phases that power them never run; report any door that stays inert so the door scope/policy can be checked.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the Mox subnet access point in the warehouse (#nid_01_dead_lizzie_access_point).",
+     "detail": "Look at the Mox subnet access point in the warehouse (#nid_01_dead_lizzie_access_point). It is the gig's ActivatedDeviceControllerPS and vanilla ForceOFFs it, so it may look dead or non-interactive; note its state and whether a normal Mox access point or dataterm is wanted there.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that Anna Nox is not standing in the warehouse.",
+     "detail": "Check that Anna Nox is not standing in the warehouse. Her only record is Character.sts_wat_nid_01_cyberpsycho on a paranoid patrol workspot; if a psycho appears, a quest community leaked into the clean slate.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the container/crate area.",
+     "detail": "Check the container/crate area. The blue shipping crate is base geometry with the #nid_01_hal_door device; confirm it opens as a normal powered door and holds no quest scene or Hal plot prop.",
      "source": "open question"
     }
    ]
@@ -6376,6 +6752,90 @@
    ]
   },
   {
+   "code": "sts_bls_ina_02",
+   "name": "New American Autoworks (Big Pete's Garage)",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_02",
+   "pos": [
+    -139.5,
+    -4414.6,
+    58.9
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ina_02_med_range_hard",
+    "Character.ina_02_med_range_med",
+    "Character.ina_02_melee_hard",
+    "Character.ina_02_melee_med",
+    "Character.ina_02_new_big_pete",
+    "Character.ina_02_officer",
+    "Character.ina_02_wraiths_ghost2_sniper2_achilles_ma_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #ina_02_com_big_pete (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: big_pete/spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #ina_02_com_gangers (7 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: guard_01/spawn, guard_03/spawn, guard_05/spawn, guard_06/spawn, guard_07/spawn, guard_10/spawn, guard_11/spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Check the shop's people on arrival: seven Wraiths should be at routine posts - one leaning on the wall, one patrolling the lot, a sniper on the fue...",
+     "detail": "Check the shop's people on arrival: seven Wraiths should be at routine posts - one leaning on the wall, one patrolling the lot, a sniper on the fuel-station roof, one standing in the dirt, one standing around, one kneeling over parts, one in the fuel booth - and nobody should be aiming a weapon.",
+     "source": "open question"
+    },
+    {
+     "label": "Go down to the basement and confirm Big Pete is there, typing at the terminal (z about 54.8) rather than standing around, missing, or upstairs.",
+     "detail": "Go down to the basement and confirm Big Pete is there, typing at the terminal (z about 54.8) rather than standing around, missing, or upstairs.",
+     "source": "open question"
+    },
+    {
+     "label": "Drive in from Sage Gulch Road and report whether the main gate opens.",
+     "detail": "Drive in from Sage Gulch Road and report whether the main gate opens. Vanilla only opens it from the gig's start branch, so with that branch off the runtime door policy has to power and unlock it; if the gate stays shut, there is no other way in for a vehicle.",
+     "source": "open question"
+    },
+    {
+     "label": "Visit the site at night and report whether it empties.",
+     "detail": "Visit the site at night and report whether it empties. The community registry only defines a Day time period for these Wraiths and for Big Pete, so an empty shop after dark may be vanilla-faithful rather than a bug.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the forecourt for the city-scene dressing: the goons_shooting_car variant is on by default, so a car and target props may sit there with no W...",
+     "detail": "Check the forecourt for the city-scene dressing: the goons_shooting_car variant is on by default, so a car and target props may sit there with no Wraiths at them. Confirm it reads as ordinary shop clutter, not an unplayed shootout.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the fuel-station side and the roof: confirm the two front Militech Aegis X2 turrets are present and that the missing roof turret (shown only b...",
+     "detail": "Walk the fuel-station side and the roof: confirm the two front Militech Aegis X2 turrets are present and that the missing roof turret (shown only by the gig phase) is acceptable, and whether the cameras and restricted-area security react to V.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no gig leftovers: no Dakota holocall, no gig marker on the map, no Big Pete corpse and no Wraith retaliation wave after a fight.",
+     "detail": "Confirm no gig leftovers: no Dakota holocall, no gig marker on the map, no Big Pete corpse and no Wraith retaliation wave after a fight.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q104_power_plant",
    "name": "Satwave Power Plant (Jackson Plains)",
    "kind": "approved",
@@ -6733,6 +7193,91 @@
     {
      "label": "Loading #sts_pac_wwd_05_streetstory also brings the gig's triggers, restricted-movement areas and crowdNullArea.",
      "detail": "Loading #sts_pac_wwd_05_streetstory also brings the gig's triggers, restricted-movement areas and crowdNullArea. They should be inert without the quest, but the tour should confirm no trigger fires and the interior crowd stays suppressed as intended.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_arr_03",
+   "name": "Kendachi Factory, El Camino Rd (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_03",
+   "pos": [
+    -647.67,
+    -1718.67,
+    16.46
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.WorkerMale",
+    "Character.sts_std_arr_03_enemy_security_01",
+    "Character.sts_std_arr_03_enemy_security_01_wa",
+    "Character.sts_std_arr_03_enemy_security_02",
+    "Character.sts_std_arr_03_netrunner",
+    "Character.sts_std_arr_03_security_droids",
+    "Character.sts_std_arr_03_worker",
+    "Character.sts_std_arr_03_worker_named"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #arr_03_combat_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #arr_03_non_combat_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Walk in through the main gate and the factory door: both should be shut but openable, not sealed.",
+     "detail": "Walk in through the main gate and the factory door: both should be shut but openable, not sealed. Vanilla force-closes and unpowers them and no gig runs to unlock them, so the runtime door policy has to power them; check the prompt and the DoorPolicy log line.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the security detail for a minute: eight human guards, four security droids and the netrunner should hold their posts and not open fire on a v...",
+     "detail": "Watch the security detail for a minute: eight human guards, four security droids and the netrunner should hold their posts and not open fire on a visitor. The catalogue has no resolved spot map for #arr_03_combat_com, so its calm posture is unverified.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the factory floor and the yard: five workers should be at machines or on their patrol spots and the outside crew should be kneeling/cleaning b...",
+     "detail": "Walk the factory floor and the yard: five workers should be at machines or on their patrol spots and the outside crew should be kneeling/cleaning by the scaffolding, none crouched, hiding or frozen at the spawner.",
+     "source": "open question"
+    },
+    {
+     "label": "Check Matheus Stove's office and its computer: no gig objective prompt, no incriminating-data interaction and no quest shard should be reachable.",
+     "detail": "Check Matheus Stove's office and its computer: no gig objective prompt, no incriminating-data interaction and no quest shard should be reachable. The office should read as a normal manager's office.",
+     "source": "open question"
+    },
+    {
+     "label": "Try the back gate and the ladder door: the Body/Technical checks should still appear and work, and neither route should be the only way in or out.",
+     "detail": "Try the back gate and the ladder door: the Body/Technical checks should still appear and work, and neither route should be the only way in or out.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the entrance security: the metal detector/security system should not attack or lock the front route.",
+     "detail": "Look at the entrance security: the metal detector/security system should not attack or lock the front route. The wiki says the entrance metal detector can be hacked and turned friendly; confirm it behaves normally without the gig.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the yard: does it read as a working plant or an empty slab?",
+     "detail": "Look at the yard: does it read as a working plant or an empty slab? Vanilla's 20 quest-spawned cars do not spawn without the gig, and the single community SUV #arr_03_cars_com car_001/default is not proposed here.",
      "source": "open question"
     }
    ]
@@ -7212,6 +7757,78 @@
     {
      "label": "Check the interior look.",
      "detail": "Check the interior look. Is the reception and workshop lit and powered (not dark after the core shutdown), and are the screens showing the normal state rather than the red alarm lighting?",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_hey_rey_02",
+   "name": "Dicky Twister",
+   "kind": "approved",
+   "venue": "loc_sts_hey_rey_02",
+   "pos": [
+    -800.08,
+    -79.51,
+    8.61
+   ],
+   "radius": 44.1,
+   "expected_records": [
+    "Character.sts_hey_rey_02_valentinos_grunt1_ranged1_nue_ma",
+    "Character.sts_hey_rey_02_valentinos_grunt1_ranged1_nue_wa_Lena_dominguez",
+    "Character.sts_hey_rey_02_valentinos_grunt2_ranged2_ajax_ma",
+    "Character.sts_hey_rey_02_valentinos_officer_officer_overture_ma",
+    "Character.sts_wat_nid_02_workers"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Confirm the venue is Dicky Twister.",
+     "detail": "Confirm the venue is Dicky Twister. Walk in from Congress St. and check it is the Valentino gay strip club with the stage, VIP rooms and the upstairs office and server rooms; if the building is a different unnamed club, correct the display name before approval.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the main and glass entrance doors open.",
+     "detail": "Check the main and glass entrance doors open. The main door should be powered; the glass #rey_02_dvc_entrance_door is locked by the kept Heywood community phase, so note whether the door policy or a quickhack frees it, or whether the back doors are the only way in.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the Valentino crew is calm and on post.",
+     "detail": "Check the Valentino crew is calm and on post. Expect Lena Dominguez with a tablet at the front, a guard and two gangers on the floor, two at the stage seats, two upstairs by the phone and office tablet, and the service worker at the back, all neutral with weapons holstered.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the club already has its crowd.",
+     "detail": "Check the club already has its crowd. The kept district phase should give the DJ, barman, male strippers, patrons and one security guard; if the club is empty, the lead agent must add the relaxed crowd entries by hand, because the whole #rey_02_com_crowd activation cannot be used (its spot pool contains a nervous workspot).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the club is in its open, lit interior state with music.",
+     "detail": "Check the club is in its open, lit interior state with music. The kept community phase sets interior 1 and the music variants, so no toggle is proposed here; if the interior is dark, closed or silent, report which variant is wrong.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the office and server rooms are intact but un-staged.",
+     "detail": "Check the office and server rooms are intact but un-staged. No datapad objective, no painting safe, no security lockdown and no personal-link prompt should fire; the office door and computer should still be usable.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the prohibited quest people stay absent.",
+     "detail": "Check the prohibited quest people stay absent. No prostitutes or chat pairs in the club, no upstairs bed tableau, no reinforcement car and no second-wave gangers; Lena should appear once, in her phase A post, not twice.",
      "source": "open question"
     }
    ]
@@ -8671,6 +9288,81 @@
    ]
   },
   {
+   "code": "sts_wbr_jpn_01_tygerclaw_restaurant",
+   "name": "Tyger Claws Diner (Japantown)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_01_tygerclaw_restaurant",
+   "pos": [
+    -468.34,
+    1384.45,
+    37.29
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wbr_jpn_01_tygerclaw_dual_melee",
+    "Character.sts_wbr_jpn_01_tygerclaw_handgun",
+    "Character.sts_wbr_jpn_01_tygerclaw_rifle"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk up to the diner and confirm you can get in.",
+     "detail": "Walk up to the diner and confirm you can get in. Vanilla closes and unpowers #jpn_01_restarant_doors during the gig and only the post-delivery phase unlocks it; check the front door opens from the terrace/street without a terminal or keycard, and report any DoorPolicy unlock.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the Claws.",
+     "detail": "Count the Claws. Four Tyger Claws should be on their stands - Enemy_01/03 handguns, Enemy_02 blade, Enemy_04 rifle - leaning, smoking or standing guard around the diner, with one cellphone stand inside; confirm nobody is in a combat crouch or inside the kitchen.",
+     "source": "open question"
+    },
+    {
+     "label": "Check they do not attack on sight.",
+     "detail": "Check they do not attack on sight. The wiki says the Claws only turn hostile if the delivery is antagonized; the diner should read as an occupied gang hangout and the security area must not flag combat.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the diner is not fight-staged.",
+     "detail": "Confirm the diner is not fight-staged. interior_trigger must be 0: the dining room open, furniture upright, no knocked-over tables, bodies or sealed-off area left from the shootout variant.",
+     "source": "open question"
+    },
+    {
+     "label": "Check nothing starts the gig.",
+     "detail": "Check nothing starts the gig. Walking in must not start Gig: Olive Branch, show a quest marker, or spawn Sergei's car, Alex or a delivery trigger; report any journal pop-up or marker.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the VenueProbe log on approach.",
+     "detail": "Watch the VenueProbe log on approach. The anchor is the restaurant door in the always-loaded devices prefab; confirm _prox is reached so the second activation runs.",
+     "source": "open question"
+    },
+    {
+     "label": "Judge the crowd.",
+     "detail": "Judge the crowd. Vanilla has no staff, cook or patron community here, so the diner is four armed Claws and no customers; tell the lead if that looks too empty for an open restaurant.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the venue has an in-game name.",
+     "detail": "Confirm the venue has an in-game name. The wiki calls it only the Tyger Claws' restaurant/diner; read the sign and report any proper name so the display name can be corrected.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_wbr_jpn_02_monoblade_workshop",
    "name": "Monokatana Workshop (Raymond St, Japantown)",
    "kind": "approved",
@@ -8849,6 +9541,82 @@
      "label": "Sq006 truck-ambush corner beside All Foods (sq006_truck_ambush_spot): are the two RoadBlockControllerPS barriers retracted?",
      "detail": "Sq006 truck-ambush corner beside All Foods (sq006_truck_ambush_spot): are the two RoadBlockControllerPS barriers retracted? If they are up the corner is cut off; that needs an owner device exception (neither the door policy nor the builder acts on road blocks). No ambush line or escape AV. Wave 14: nothing to restore.",
      "source": "extra"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_07",
+   "name": "Maelstrom warehouse — Industrial & Eisenhower (Northside)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_07",
+   "pos": [
+    -895.39,
+    2360.92,
+    53.07
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wat_nid_07_enemy",
+    "Character.sts_wat_nid_07_enemy_grunt_handgun",
+    "Character.sts_wat_nid_07_enemy_officer",
+    "Character.sts_wat_nid_07_enemy_strong_shotgun"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk the warehouse yard at street level and check the six Maelstrom are on post.",
+     "detail": "Walk the warehouse yard at street level and check the six Maelstrom are on post. Look for two patrolling (enemy_002 and enemy_008), one standing ground (enemy_003), one leaning at the front rail (enemy_005), one on the yard dirt spot (enemy_006) and one working a tablet (enemy_007), none clustered at the spawner or frozen mid-pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Approach the crew and check their attitude is a normal gang-den reaction.",
+     "detail": "Approach the crew and check their attitude is a normal gang-den reaction. They are Maelstrom and may go hostile when the player enters; what must not happen is a scripted gig ambush, an empty building, or bodies on the floor.",
+     "source": "open question"
+    },
+    {
+     "label": "Open the street door and walk in, then leave through the garage bay and confirm both work.",
+     "detail": "Open the street door and walk in, then leave through the garage bay and confirm both work. Both are quest-driven doors in the runtime door scope with no terminal, keycard or skill check, so they should open on plain interaction.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the roof hatch is shut.",
+     "detail": "Check the roof hatch is shut. The env variant is set to roof_window_closed=1 / roof_window_opened=0; if the hatch still shows open (or the roof hole is visible), the variant did not apply.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the door meshes are the intact set.",
+     "detail": "Check the door meshes are the intact set. With doors_before=1 the plain closed doors should be in place; if a door hangs open or broken, or two door meshes overlap in the same frame, the doors_before/doors_after toggle is inverted.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm nothing here starts the gig.",
+     "detail": "Confirm nothing here starts the gig. There should be no map pin, no Regina holocall or brief, no journal entry and no prompt to download footage from the office computer.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the office computer on the second floor and check it is a plain terminal.",
+     "detail": "Look at the office computer on the second floor and check it is a plain terminal. It is only the proximity anchor; it must not offer a personal-link disconnect or the recording.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the inside is walkable and not sealed by an invisible quest boundary.",
+     "detail": "Check the inside is walkable and not sealed by an invisible quest boundary. The sibling venue nid_02 needed its streetstory Collision_area variant set to 1; if the warehouse interior or stairs block V, that is the first thing to look for here.",
+     "source": "open question"
     }
    ]
   },
@@ -9224,6 +9992,95 @@
     {
      "label": "Read the DoorPolicy lines for #rcr_03_main_door and #rcr_03_garage_gate to confirm the doors are enabled and powered.",
      "detail": "Read the DoorPolicy lines for #rcr_03_main_door and #rcr_03_garage_gate to confirm the doors are enabled and powered.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_rcr_04",
+   "name": "6th Street propaganda garage, Oak St. (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_sts_std_rcr_04",
+   "pos": [
+    264.41,
+    -1068.5,
+    22.46
+   ],
+   "radius": 78.7,
+   "expected_records": [
+    "Character.WorkerMale",
+    "Character.rcr_04_enemy_elite_shotgun",
+    "Character.rcr_04_enemy_handgun",
+    "Character.rcr_04_enemy_handgun_wa",
+    "Character.rcr_04_enemy_rifle",
+    "Character.rcr_04_enemy_rifle_wa",
+    "Character.rcr_04_enemy_sniper"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #rcr_04_com_combat (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Count the 6th Street crew in the yard and report where they stand.",
+     "detail": "Count the 6th Street crew in the yard and report where they stand. Fifteen armed members (rifle, handgun, elite shotgun, one sniper) plus four workers should be spread over the open yard and the west garage, the sniper on the roof, not stacked at the spawn point around 256, -1090.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether the four workers are working in the yard or standing in a clump.",
+     "detail": "Check whether the four workers are working in the yard or standing in a clump. Their entries have no extracted spot nodes, so they are the most likely to bunch up.",
+     "source": "open question"
+    },
+    {
+     "label": "Note whether the crew opens fire on approach.",
+     "detail": "Note whether the crew opens fire on approach. 6th Street turf is normally hostile; if the venue is meant to be walkable, say so, because that needs an owner decision rather than a different phase.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in with no gig through the yard gate and report what it does.",
+     "detail": "Walk in with no gig through the yard gate and report what it does. Look for a DoorPolicy line for #rcr_04_dvc_gate_004 and say whether the gate is open, closed but openable, or sealed.",
+     "source": "open question"
+    },
+    {
+     "label": "Get into the server garage without the gig and report the route.",
+     "detail": "Get into the server garage without the gig and report the route. Try the interior sliding door and the freight door, and say whether any of them needs a terminal, keycard or skill check that does not exist.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the server room and report its state.",
+     "detail": "Look at the server room and report its state. The propaganda servers should be powered and lit and the access points usable; if vanilla's quest ForceOFF/ForceDisabled values have left it dark or the explosive servers visibly inert, report it.",
+     "source": "open question"
+    },
+    {
+     "label": "Report any parked 6th Street car in the yard.",
+     "detail": "Report any parked 6th Street car in the yard. #rcr_04_car is baked into the combat child, so a quest vehicle may be sitting there; note whether it looks like staging.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm there are no quest leftovers: no gig marker or mappin, no malware interaction prompt on the servers, no Johnny comment trigger, no retaliat...",
+     "detail": "Confirm there are no quest leftovers: no gig marker or mappin, no malware interaction prompt on the servers, no Johnny comment trigger, no retaliation wave spawning while you stand in the yard.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the second (proximity) activation fired.",
+     "detail": "Check that the second (proximity) activation fired. The anchor is the yard gate; if the crew only appears on the first pass or not until you are deep inside, report it so the anchor can move to #rcr_04_dvc_accesspoint_laptop.",
      "source": "open question"
     }
    ]
@@ -10103,6 +10960,11 @@
      "label": "Decide the #ina_03_crowd_com question.",
      "detail": "Decide the #ina_03_crowd_com question. bad_ina_phase activates a separate 5-Wraith crowd there whole, but the catalogue did not attach that community to this venue; if the yard still reads empty between the 14 garrison posts, add it in a follow-up venue entry.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (2413, -770, 67), about 566 m from this stop.",
+     "detail": "Go to (2413, -770, 67), about 566 m from this stop. Dakota's Inland Avenue garage (sts_bls_ina_07_workshop): is the yard staffed by the 16-person workshop crew from the kept bad_ina_phase? If it is empty, the kept phase's gating is wrong (a Badlands community-layer fix, not this venue). Does gate_02 stay shut? Wave 16: nothing to restore.",
+     "source": "extra"
     }
    ]
   },

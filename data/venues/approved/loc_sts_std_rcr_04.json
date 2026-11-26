@@ -1,0 +1,42 @@
+{
+  "code": "sts_std_rcr_04",
+  "display_name": "6th Street propaganda garage, Oak St. (Rancho Coronado)",
+  "why": "A 6th Street freight compound on Oak St. in Rancho Coronado: an open yard with a car, crate piles, forklifts and a vending machine on the east side, a smaller building with an access point and a restricted-area controller on the west, and the server garage whose machines pump out 6th Street's anti-Weldon Holt propaganda for Jefferson Peralez. Error 404 (sts_std_rcr_04, Muamar 'El Capitán' Reyes) sends V in to install malware on those servers past 6th Street guards, one of them a sniper on the roof. The compound and its devices stream in the clean slate, but the street story's quest section that holds the gang community and all 27 workspots is only instantiated by the gig phases, so the yard is empty. This proposal loads that section and switches the whole 6th Street community back on in its single Default phase: fifteen armed 6th Street members at relaxed loiter/guard spots plus four workers, i.e. the gang at work before anything happened.",
+  "source": {
+    "proposal": "research/loc_sts_std_rcr_04/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Count the 6th Street crew in the yard and report where they stand. Fifteen armed members (rifle, handgun, elite shotgun, one sniper) plus four workers should be spread over the open yard and the west garage, the sniper on the roof, not stacked at the spawn point around 256, -1090.",
+      "Check whether the four workers are working in the yard or standing in a clump. Their entries have no extracted spot nodes, so they are the most likely to bunch up.",
+      "Note whether the crew opens fire on approach. 6th Street turf is normally hostile; if the venue is meant to be walkable, say so, because that needs an owner decision rather than a different phase.",
+      "Walk in with no gig through the yard gate and report what it does. Look for a DoorPolicy line for #rcr_04_dvc_gate_004 and say whether the gate is open, closed but openable, or sealed.",
+      "Get into the server garage without the gig and report the route. Try the interior sliding door and the freight door, and say whether any of them needs a terminal, keycard or skill check that does not exist.",
+      "Look at the server room and report its state. The propaganda servers should be powered and lit and the access points usable; if vanilla's quest ForceOFF/ForceDisabled values have left it dark or the explosive servers visibly inert, report it.",
+      "Report any parked 6th Street car in the yard. #rcr_04_car is baked into the combat child, so a quest vehicle may be sitting there; note whether it looks like staging.",
+      "Confirm there are no quest leftovers: no gig marker or mappin, no malware interaction prompt on the servers, no Johnny comment trigger, no retaliation wave spawning while you stand in the yard.",
+      "Check that the second (proximity) activation fired. The anchor is the yard gate; if the crew only appears on the first pass or not until you are deep inside, report it so the anchor can move to #rcr_04_dvc_accesspoint_laptop."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/rancho_coronado/loc_sts_std_rcr_04_prefab4HHSSFQ/#sts_std_rcr_04_openworld/#loc_sts_std_rcr_04_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rcr_04_com_combat",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The compound's only crowd and the reason the venue reads as 6th Street territory: fifteen armed 6th Street members (rifle, handgun and elite-shotgun records, plus one sniper) and four WorkerMale entries, all in their single Default phase. Vanilla switches the whole community on with a Reactivate at the root of the umbrella phase (the street stories' ambient 'gig available' state) and switches it off in the gig's completion phase, so this is exactly the pre-gig population, not a scene. The 27 extracted spots are relaxed: routine stand/phone/tablet/pills/sit/cards/slav-squat, kneel-inspect and welder poses, two roof patrol-stand spots for the sniper at z 27.22, and the wiki describes the same picture ('filled with 6th Street members ... one on the roof above this open area'). Combat groups come first under rule 11a. Posture is unknown and the tour check is required because no compiled community area node for this community was found in the converted sectors: its entries are normally placed by the street story's use-workspot/scene nodes, so a bare whole-community activation may spread them loosely around the spawn point (256.18, -1090.40) or stack them.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rcr_04_dvc_gate_004",
+    "within": 80.0,
+    "why": "The compound's yard gate and the only door vanilla drives here (DoorControllerPS, ForceOpen in the combat phase), so it streams with the always-loaded devices prefab (its node ref sits in exterior_4_-18_0_0, not the quest sector) and the proximity wait fires from the approach even if the gate itself is still shut. A door entity, never a workspot (rule 8). It also gives the tour a second reason to look at the gate: the same entity is what the runtime door policy acts on."
+  }
+}

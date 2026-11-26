@@ -1,0 +1,54 @@
+{
+  "code": "sts_hey_gle_05",
+  "display_name": "Megabuilding H1 — basement lift-repair workshop (Gig: Going Up or Down?)",
+  "why": "This is the basement of Megabuilding H1 in the Glen: sublevels holding the building's lift-repair workshop, reached by the building lift from the ground-floor concourse above, which is already a live courtyard with vendors, a musician, kids and homeless regulars. Only the workshop itself is quest-authored, and in a world without gigs it is missing along with El Gallo (Juan Troy), the building's brilliant but drug-addicted technician. The proposal loads that one quest section and puts El Gallo back at his routine work, so H1 reads as a working megablock rather than a locked basement.",
+  "source": {
+    "proposal": "research/loc_sts_hey_gle_05/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the H1 basement lift: vanilla's gig phase disables floors 1 and 2 and the clean slate runs no such action, so confirm all three stops land on real geometry (the workshop is floor 0 at z about 5.3).",
+      "Walk into the basement workshop with no gig running: its door controller is unpowered and force-closed in vanilla, so confirm the runtime door policy opens it or record what blocks it.",
+      "Confirm the workshop renders cleanly: the streetstory prefab brings El Gallo's den (bed, tools, conversation scene prefab) and may z-fight with the base H1 basement or leave quest-only triggers (shotgun, prevention areas) visible.",
+      "Check El Gallo is calm and on post: he should be kneeling over tools or on his tablet in the workshop, not in the Talk stance, and the drug-inhale spot is his vanilla routine.",
+      "Check the ground-floor courtyard crowd the kept hey_gle_phase already activates (vendors, musician, kids, homeless) is present without this entry and not double-spawned by it."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_05_prefabOLM76BQ/#sts_hey_gle_05_openworld/#sts_hey_gle_05_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#gle_05_combat_com",
+      "entry_name": "#gle_05_ws_gallo",
+      "phase_name": "rout",
+      "action": "Activate",
+      "why": "El Gallo is H1's lift technician, so he belongs in the basement workshop in normal play. rout is his work routine: four relaxed spots (kneeling over a tool, using a tablet, standing at the dirt routine, and his syn-coke inhale). Vanilla's street-story phases activate exactly this entry and phase; Talk is the pre-gig conversation stance and Combat3 is the gig fight, so neither is used.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#sts_hey_gle_05_openworld",
+      "states": {
+        "variant_after_STS": 0
+      },
+      "why": "Keeps the post-gig variant off, so the venue stays in its pre-story, intact state. It is off by default and vanilla only turns it on from the (gated) community phase, but asserting 0 documents the intended look and survives a stale save."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_05_prefabOLM76BQ/loc_sts_hey_gle_05_lighting_prefabINYNIFI",
+      "states": {
+        "lights_on": 1,
+        "devices": 0
+      },
+      "why": "The normal lit look: lamps on, quest electrical/damage fixtures off. Both values are already the pre-gig defaults (lights_on enabled by default, devices off); vanilla sets them ungated before the fight and flips to lights off plus devices on only for the combat state, which is not used."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_05_prefabOLM76BQ/#sts_hey_gle_05_gameplay/loc_sts_hey_gle_05_devices_prefabOBLW4LY/lift_3_floors_prefabDC7WZGQ/lift_1",
+    "within": 80.0,
+    "why": "The building lift that brings the player down into the workshop basement, at (-1602.6, -555.9, 5.4) beside El Gallo's spots; it is a device entity vanilla drives here (LiftControllerPS), and every player entering the workshop passes it, so the anchored re-issue fires exactly when the basement streams."
+  }
+}

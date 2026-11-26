@@ -1,0 +1,104 @@
+{
+  "code": "sts_bls_ina_02",
+  "display_name": "New American Autoworks (Big Pete's Garage)",
+  "why": "Big Pete's garage: a walled auto workshop and fuel station on Sage Gulch Road in the Jackson Plains, guarded by Wraiths - a roof sniper on the fuel station, a booth guard, patrols and men working the lot - with Big Pete himself at a terminal in the basement. Vanilla only ever populates it from the Inland Avenue district hub and the gig's open-world phase, neither of which is kept, so the whole place is empty in the clean slate. This proposal loads the venue's own prefab and activates the seven relaxed Wraith garrison entries in their spawn phase plus Big Pete at his keyboard; the two city-scene gunmen, the shooting-car dressing and all gig branches stay out.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_02/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the shop's people on arrival: seven Wraiths should be at routine posts - one leaning on the wall, one patrolling the lot, a sniper on the fuel-station roof, one standing in the dirt, one standing around, one kneeling over parts, one in the fuel booth - and nobody should be aiming a weapon.",
+      "Go down to the basement and confirm Big Pete is there, typing at the terminal (z about 54.8) rather than standing around, missing, or upstairs.",
+      "Drive in from Sage Gulch Road and report whether the main gate opens. Vanilla only opens it from the gig's start branch, so with that branch off the runtime door policy has to power and unlock it; if the gate stays shut, there is no other way in for a vehicle.",
+      "Visit the site at night and report whether it empties. The community registry only defines a Day time period for these Wraiths and for Big Pete, so an empty shop after dark may be vanilla-faithful rather than a bug.",
+      "Check the forecourt for the city-scene dressing: the goons_shooting_car variant is on by default, so a car and target props may sit there with no Wraiths at them. Confirm it reads as ordinary shop clutter, not an unplayed shootout.",
+      "Walk the fuel-station side and the roof: confirm the two front Militech Aegis X2 turrets are present and that the missing roof turret (shown only by the gig phase) is acceptable, and whether the cameras and restricted-area security react to V.",
+      "Confirm no gig leftovers: no Dakota holocall, no gig marker on the map, no Big Pete corpse and no Wraith retaliation wave after a fight."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se5/loc_sts_bls_ina_02_prefabMB5J5UA/#loc_sts_bls_ina_02_openworld"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_02_com_big_pete",
+      "entry_name": "big_pete",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Big Pete alive and working in his own basement. The spawn phase's only spot is #ina_02_ws_big_pete_001 at z=54.77, playing generic__stand_table_lean_front_keyboard__type__01 (typing at a table/terminal), which is exactly the manager-at-his-terminal pose. Vanilla's district hub activates this entry phase ambiently; the quest instead moves him to expects, packing or tablet.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_01",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Wraith officer on the wall by the forecourt. Spawn spot #ina_02_ws_ganger_01 plays routine__stand_wall_lean_back, a lean-and-watch pose, not an alert stance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_03",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "The roof sniper. Spawn spot #ina_02_ws_ganger_03 sits at z=63.24, on top of the fuel station, on patrolling_stand; the wiki places a Wraith sniper on the fuel-station roof, and the record is a Ghost2 sniper with an Achilles.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_05",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "A walking guard. Spawn spot #ina_02_ws_ganger_05 is a patrolling_stand workspot on the lot's north side; the entry's patrol spline #ina_02_spl_ganger_05 runs the outside beat.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_06",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "A melee Wraith standing in the dirt of the lot. Spawn spot #ina_02_ws_ganger_06_a plays routine__dirt__stand_ground, an idle stand.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_07",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "A second melee Wraith standing around the workshop yard. Spawn spot #ina_02_ws_ganger_07_a plays generic__stand__stand_around__11.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_10",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "The mechanic of the crew: spawn spot #ina_02_ws_ganger_10_a plays routine__kneel_ground__inspect, kneeling over parts in the lot - the shop's normal work, not a guard stance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_02_com_gangers",
+      "entry_name": "guard_11",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "The fuel-station booth man: spawn spot #ina_02_ws_booth_guard sits at z=62.20, up in the station's booth, playing generic__stand_table_lean_front__punch_table__01 (leaning on the counter).",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -139.5,
+      -4414.6,
+      58.9
+    ],
+    "source": "centre (median) of the eight chosen people's mapped spots in base/worlds/03_night_city/_compiled/default/quest_df6acafc35cc0b4d.streamingsector via the worldCompiledCommunityAreaNode in always_loaded_0: #ina_02_ws_ganger_01 -132.96,-4434.85,58.92; _03 -119.27,-4401.03,63.24; _05 -128.24,-4389.47,58.89; _06_a -153.43,-4418.27,58.88; _07_a -153.50,-4420.19,58.89; _10_a -137.15,-4403.76,58.96; #ina_02_ws_booth_guard -141.78,-4410.90,62.20; #ina_02_ws_big_pete_001 -146.64,-4425.36,54.77; max distance 27.5 m, so the default 40 m scan radius covers them all"
+  },
+  "proximity_wait": {
+    "ref": "#ina_02_main_gate_01",
+    "within": 80.0,
+    "why": "The compound's main gate, a DoorControllerPS in the venue prefab's gate_1_001 section, on the only way in from Sage Gulch Road. It streams with the venue and is a door, not a workspot (rule 8). Vanilla's gig start branch powers and opens it; the runtime door policy owns its actual state."
+  }
+}

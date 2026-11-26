@@ -1,0 +1,48 @@
+{
+  "code": "sts_wbr_jpn_01_tygerclaw_restaurant",
+  "display_name": "Tyger Claws Diner (Japantown)",
+  "why": "This is the Tyger Claws' restaurant in Japantown where Gig: Olive Branch ends: Sergei's car is delivered to the Claws here and, in vanilla, the diner can turn into a firefight. The shell, interior, furniture, lighting and door are part of the always-loaded district sector, but the quest's openworld section - the four Claw workspots, their triggers and the interior_trigger variant - is only loaded by the gig's post-delivery phase, so in the clean slate the diner stands intact and empty. This proposal loads that section, restores the four Tyger Claws (three guard/lean-smoke stands outside the counter, one cellphone stand inside) in their relaxed 0_default phase, and sets the variant to the normal post-delivery state (interior_trigger 0). Nothing of the delivery is restored: no car, no Alex in the trunk, no Sergei, no fight trigger.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_01_tygerclaw_restaurant/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk up to the diner and confirm you can get in. Vanilla closes and unpowers #jpn_01_restarant_doors during the gig and only the post-delivery phase unlocks it; check the front door opens from the terrace/street without a terminal or keycard, and report any DoorPolicy unlock.",
+      "Count the Claws. Four Tyger Claws should be on their stands - Enemy_01/03 handguns, Enemy_02 blade, Enemy_04 rifle - leaning, smoking or standing guard around the diner, with one cellphone stand inside; confirm nobody is in a combat crouch or inside the kitchen.",
+      "Check they do not attack on sight. The wiki says the Claws only turn hostile if the delivery is antagonized; the diner should read as an occupied gang hangout and the security area must not flag combat.",
+      "Confirm the diner is not fight-staged. interior_trigger must be 0: the dining room open, furniture upright, no knocked-over tables, bodies or sealed-off area left from the shootout variant.",
+      "Check nothing starts the gig. Walking in must not start Gig: Olive Branch, show a quest marker, or spawn Sergei's car, Alex or a delivery trigger; report any journal pop-up or marker.",
+      "Watch the VenueProbe log on approach. The anchor is the restaurant door in the always-loaded devices prefab; confirm _prox is reached so the second activation runs.",
+      "Judge the crowd. Vanilla has no staff, cook or patron community here, so the diner is four armed Claws and no customers; tell the lead if that looks too empty for an open restaurant.",
+      "Confirm the venue has an in-game name. The wiki calls it only the Tyger Claws' restaurant/diner; read the sign and report any proper name so the display name can be corrected."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_restaurant_prefab5C6JH2Q/#loc_sts_wbr_jpn_01_tygerclaw_restaurant_openworld/#sts_wbr_jpn_01b_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_01_com_tyger_claws",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The diner's whole Claw crew: Enemy_01 and Enemy_03 handgunners on stand_ground guard spots, Enemy_02 a dual-melee blade on stand_ground guard, Enemy_03 also leaning on a wall smoking, Enemy_04 a rifle on the master guard spot. Their only vanilla state is 0_default (Enemy_02 also has an unused 1_inside cellphone phase), and every 0_default workspot is a stand, guard, lean or smoke - the restaurant's bouncers/hangers-on, not a fight. Vanilla switches the set on exactly this way twice: ungated by the Japantown street-story manager and again by the post-delivery openworld phase, which is the normal 'diner after the delivery' look we want."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_restaurant_prefab5C6JH2Q/loc_sts_wbr_jpn_01_tygerclaw_restaurant_gameplay_prefabTMCOFMY",
+      "states": {
+        "interior_trigger": 0
+      },
+      "why": "interior_trigger is the gig's diner-fight switch. The gated gig phase (sts_wbr_jpn_01) turns it on (1); both normal-looking phases - the ungated manager boot state and the post-delivery openworld phase - set it to 0. Setting 0 gives the intact, open-for-business diner rather than the sealed fight staging."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#jpn_01_restarant_doors",
+    "within": 80.0,
+    "why": "The restaurant's double door, a DoorControllerPS in the venue's devices prefab (#jpn_01_restarant_doors, vanilla's typo). It is driven by the gig phases, sits in the always-loaded exterior sector (not inside the interior_trigger variant), and is the first quest device a player meets walking up to the diner. A workspot would never fire (rule 8)."
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "code": "sts_cct_dtn_04",
+  "display_name": "Biotechnica Hotel (Republic Way, Downtown)",
+  "why": "The Biotechnica Hotel on Republic Way is a corporate staff hotel: a guarded lobby with a bar and reception, the 19th floor with apartments 191-194 and a security room, and a roof AV pad. Vanilla's kept downtown community phase already staffs the lobby bar and reception, but the hotel's own staff and security detachment and the two corporate bar patrons exist only while Gig: Guinea Pigs runs. This proposal loads the venue's street-story section and restores the hotel's in-house staff, guards, droids and its 19th-floor resident, so it reads as a working corporate hotel instead of a quest shell.",
+  "source": {
+    "proposal": "research/loc_sts_cct_dtn_04/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the lobby is open for business. Walk in from Republic Way and confirm the bar counter, reception desk and lounge seats are staffed and busy, with the bar barriers down (not the gig's barricaded look).",
+      "Check the hotel is guarded but calm. In the lobby, the floor 19 corridor/security room/balcony and the roof, confirm the Biotechnica guards and droids are at their posts, relaxed, and not hostile or alarmed.",
+      "Check floor 19 and the roof are reachable. Ride the lift to 19 and take the roof stairs; if the lift does not offer floor 19, note it - lift floor access is vanilla (floor terminals/quickhack) and this proposal does not touch it.",
+      "Check the resident is in her suite. In apartment 193, confirm Joanne Koch is on the braindance bench with no quest marker and does not flee or attack.",
+      "Check the ways in. Confirm the lobby glass door and the unlocked side door by the police cordon open, and that the opposite side door behaves as the wiki's Technical Ability door (or note which ref is which).",
+      "Check for gig leftovers. Confirm there is no AV on the roof pad, no corpse or body bag, no active crime-scene cordon inside, and no post-alarm android wave."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_city_center/downtown/loc_sts_cct_dtn_04_prefab3MJBEHQ/#sts_cct_dtn_04_openworld/#sts_cct_dtn_04_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The hotel's own in-house staff and security: the maid, the hotel receptionist, six Biotechnica droids and eleven Biotechnica guards/officer posted in the lobby, back room, floor 19 corridor/security room/balcony and roof. Vanilla activates this whole community in the gig's setup and combat phases but never in free roam, so the hotel is unguarded without it. Every entry's initial phase is relaxed (default, 0start, Adefault) and plays stand/tablet/inspect/guard workspots, not combat or alarm poses."
+    },
+    {
+      "spawner": "#dtn_04_com_npc",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The hotel's normal pre-gig residents and patrons: two corporate guests at the lobby bar (couch with champagne, chair on the phone) and Dr. Joanne Koch in apartment 193, absorbed in a braindance on the bench. Vanilla's gig dispatcher activates this whole community before the job takes the area over, and the main gig phase deactivates it again; it is exactly the 'before anything happened' state. All three entries are in the relaxed default phase, not the target's afraid/hide phase."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_city_center/downtown/loc_sts_cct_dtn_04_prefab3MJBEHQ/loc_sts_cct_dtn_04_env_prefabL47CADA/deco_prefabXKFEK5Y/int_prefab53NAVGI",
+      "states": {
+        "bar_barriers": 0
+      },
+      "why": "The normal open-bar look: barriers down. The kept downtown community phase already sets bar_barriers=0 at boot, but the gig raises them to 1 for its lockdown, so the venue phase declares the normal state itself; this is the intended open-for-business state, not the gig's barricaded one. The other catalogue toggle (interior_area=0 on the gameplay prefab) is the streaming default and needs no action."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -2144.181,
+      470.637,
+      9.475
+    ],
+    "source": "vanilla lobby reception trigger #dtn_04_tr_recept_scene in quest_3172ae34a552dccd.streamingsector (the #sts_cct_dtn_04_streetstory section); coordinate from data/sites/triggers.json and docs/research/factions/biotechnica.md 3.1. The roof and floor 19 sit ~80 m above this point, so the tour scan may need a separate look upstairs."
+  },
+  "proximity_wait": {
+    "ref": "#dtn_04_dvc_reception_door",
+    "within": 80.0,
+    "why": "The lobby's glass reception entrance (DoorControllerPS, glass_door_k_v2_002) on the normal way in from Republic Way; it lives in the venue's always-streamed gameplay/devices prefab, not in the gig's street-story section, so the proximity wait fires on approach. Vanilla powers it when the gig starts and closes/unpowers it when the gig ends; the runtime door policy handles it in normal play."
+  }
+}

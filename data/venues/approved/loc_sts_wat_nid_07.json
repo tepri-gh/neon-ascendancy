@@ -1,0 +1,57 @@
+{
+  "code": "sts_wat_nid_07",
+  "display_name": "Maelstrom warehouse — Industrial & Eisenhower (Northside)",
+  "why": "A two-storey Maelstrom warehouse on the corner of Industrial and Eisenhower Street in Northside, the place 'Scrolls before Swine' sends V to steal security footage from. Vanilla populates it only while the gig runs: the street-story quest section that carries the six-ganger spawner, their AI spots and the quest triggers streams from the unrun street story, so in the clean slate the shell stands empty. This proposal loads #sts_wat_nid_07_streetstory and activates the venue's whole community in its own initial phases, giving three Maelstrom outside and three inside at relaxed posts, with the roof hatch shut and the pre-gig door set shown. The office computer stays as the plain second-floor terminal it is; the gig's recording, the playback scene, Johnny and Aaron's confrontation stay out.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_07/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the warehouse yard at street level and check the six Maelstrom are on post. Look for two patrolling (enemy_002 and enemy_008), one standing ground (enemy_003), one leaning at the front rail (enemy_005), one on the yard dirt spot (enemy_006) and one working a tablet (enemy_007), none clustered at the spawner or frozen mid-pose.",
+      "Approach the crew and check their attitude is a normal gang-den reaction. They are Maelstrom and may go hostile when the player enters; what must not happen is a scripted gig ambush, an empty building, or bodies on the floor.",
+      "Open the street door and walk in, then leave through the garage bay and confirm both work. Both are quest-driven doors in the runtime door scope with no terminal, keycard or skill check, so they should open on plain interaction.",
+      "Check the roof hatch is shut. The env variant is set to roof_window_closed=1 / roof_window_opened=0; if the hatch still shows open (or the roof hole is visible), the variant did not apply.",
+      "Check the door meshes are the intact set. With doors_before=1 the plain closed doors should be in place; if a door hangs open or broken, or two door meshes overlap in the same frame, the doors_before/doors_after toggle is inverted.",
+      "Confirm nothing here starts the gig. There should be no map pin, no Regina holocall or brief, no journal entry and no prompt to download footage from the office computer.",
+      "Look at the office computer on the second floor and check it is a plain terminal. It is only the proximity anchor; it must not offer a personal-link disconnect or the recording.",
+      "Check the inside is walkable and not sealed by an invisible quest boundary. The sibling venue nid_02 needed its streetstory Collision_area variant set to 1; if the warehouse interior or stairs block V, that is the first thing to look for here."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/northside/loc_sts_wat_nid_07_prefabH6KYCKI/#loc_sts_wat_nid_07_openworld/#sts_wat_nid_07_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#nid_07_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The venue's only community: six Maelstrom (faction 1 in data/factions.json) that vanilla switches on whole while the gig runs. Entry None/phase None activates every entry in its initial phase, which is exactly the crew as vanilla poses it: enemy_002 (strong shotgun) patrols, enemy_003 (the officer) stands ground, enemy_005 (grunt) leans on the front rail (phase 'a'), and enemy_006 stands on the yard dirt, enemy_007 works a tablet and enemy_008 patrols (phase 'default') - the six bodies the wiki splits into three outside and three inside. Posture is relaxed because every spot is a routine or guard_stand workspot, not an agitated shuffle or gun-ready stance; the gig's hostility comes from its graph, which never runs here."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/northside/loc_sts_wat_nid_07_prefabH6KYCKI/loc_sts_wat_nid_07_env_prefabZM4FHMY",
+      "states": {
+        "roof_window_closed": 1,
+        "roof_window_opened": 0
+      },
+      "why": "The intact building has its roof hatch shut. Vanilla's own pre/post-gig open-world phase (aaron_openworld) sets exactly this pair, while warehouse_combat opens the hatch for the gig's rooftop way in; closing it keeps the normal look and leaves the street doors as the way in."
+    },
+    {
+      "prefab": "#loc_sts_wat_nid_07_devices",
+      "states": {
+        "doors_before": 1,
+        "doors_after": 0
+      },
+      "why": "The devices section holds two door sets: the intact 'before' set and the opened/broken 'after' set. Vanilla's open-world phase (and the district phase) shows doors_before; warehouse_combat shows doors_after for the fight. Showing doors_before restores the ordinary closed doors the player finds before the gig."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#nid_07_computer",
+    "within": 80.0,
+    "why": "The second-floor office terminal, the venue's own device and a world-streamed entity in the gameplay prefab's #loc_sts_wat_nid_07_devices section (exterior_-15_36_0_0), a few metres from the inside gangers' tablet spots. It is a computer, not a workspot, and nothing in the intact pre-gig state hides it, so the proximity wait fires as the player reaches the building. The proposal drives no action on it; it stays a plain terminal."
+  }
+}

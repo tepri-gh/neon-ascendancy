@@ -17,6 +17,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   St. workshop, the Hargreaves St. 6th Street garage, the Northside XBD
   studio, the Columbus St. block, the Offshore St Maelstrom chop shop,
   HeavenMed, the Japantown netrunner lot and Wicked Tires in the Glen.
+  Second part, which finishes the individual research queue: the H1 lift
+  workshop, the Tyger Claws diner, Tucker Albach's condo, the Deravaja
+  dojo, the Industrial & Eisenhower Maelstrom warehouse, the Kendachi
+  factory, Dicky Twister, the Biotechnica Hotel, the Oak St. 6th Street
+  compound, Autowerks, the Wollesen St motel and Big Pete's garage.
 - Research wave 15 (first part): La Catrina, the Sunshine Motel Militech
   outpost, 8ug8ear's building, the Union Railroad Station Wraith outpost,
   Gustavo's building, the Kendachi plant lot, the Lobos St tower, the

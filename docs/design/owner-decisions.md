@@ -539,3 +539,53 @@ the non-combat people. **(after tour)**
      or neutralise them (see 78)? Jake Estevez out (recommended)? No quest
      Colby on the lift (recommended)? Is the generic crew enough without
      Joaquín Davis as a named owner?
+150. **Megabuilding H1 lift workshop** (`sts_hey_gle_05`). El Gallo as H1's
+     lift technician (proposed) or an empty room? His syn-coke routine or a
+     cleaner stance? The gig's homeless squatter out (recommended)? All
+     three lift stops are live; two may lead to unbuilt space (tour).
+151. **Tyger Claws diner, Japantown** (`sts_wbr_jpn_01_tygerclaw_restaurant`).
+     The four vanilla Claws only (proposed) or an added civilian layer?
+     Neutral until provoked or a hostile den (see 78)? Its display name?
+152. **Dakota's Inland Avenue garage** (`sts_bls_ina_07_workshop`, nothing
+     to restore). No entry (proposed) or a redundant safety-net activation?
+     Let `gate_02` stay shut? Keep the antenna mechanic? A low-priority
+     territory node or scenery?
+153. **Tucker Albach's condo** (`sts_hey_gle_01`). Tucker in her office
+     (proposed) or saved for a mod mission? The eight-person Militech detail
+     or fewer for a private home? The construction truck later (needs
+     spawner support, as 31)?
+154. **Deravaja Dojo** (`sts_wat_lch_03`). Keep it a Tyger Claws venue?
+     Roh Chi-Won and Ricky out (proposed)? Add the wiki's instructor,
+     Timothee LeBeau, later? Keep the yard worker?
+155. **Maelstrom warehouse, Industrial & Eisenhower** (`sts_wat_nid_07`).
+     Keep the six-person crew (proposed)? Hostile or neutral (see 78)? The
+     intact pre-gig look (proposed) or the opened one? Roof hatch shut or
+     open? Reuse the gated homeless crowd as street population?
+156. **Kendachi factory, El Camino Rd** (`sts_std_arr_03`). The full
+     13-person security detail or trimmed? Keep or neutralise the
+     restricted-area controllers (see 78)? Yard cars later (20 quest
+     spawners, as 31)? Matheus Stove absent, or an invented director?
+157. **Dicky Twister, Vista del Rey** (`sts_hey_rey_02`). Place Señor
+     Ladrillo (no vanilla data here)? Eight Valentinos or three? Lena
+     Dominguez as the crew chief (proposed)? Keep the service worker?
+     Approve the name?
+158. **Biotechnica Hotel, Downtown** (`sts_cct_dtn_04`). Koch as the floor
+     19 resident (proposed) or an empty floor? Full in-house security or a
+     lean lobby detail? An open bar (proposed)? Floor 19 lift access (see
+     58).
+159. **6th Street freight compound, Oak St.** (`sts_std_rcr_04`). Hostile
+     yard or walkable (see 78)? Keep the four workers? The west building as
+     part of this venue or its own stop? Keep the propaganda server farm
+     running in this timeline?
+160. **Autowerks, Longshore North** (`sts_wat_nid_01`). Hal Cantos out
+     (recommended)? Anna Nox absent, or later as a non-psycho manager
+     (recommended absent)? Vanilla's three workers (recommended)?
+161. **Wollesen St motel, Arroyo** (`sts_std_arr_12_motel`). Pedro at his
+     desk (proposed) or an empty room? Let the door policy open his room, or
+     keep it private? Re-issue the courtyard crowd as a guaranteed spawn?
+162. **Big Pete's garage, Sage Gulch Road** (`sts_bls_ina_02`). A calm
+     seven-man Wraith garrison (proposed) or the whole community with its two
+     shooting gunmen? Big Pete at the terminal (proposed) or waiting? A
+     hostile restricted compound or a neutral fuel stop (see 78)? Accept
+     the missing roof turret, or extend venue support for world nodes?
+     Day-only phases (empty at night), or a mod night crew?

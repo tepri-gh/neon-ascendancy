@@ -1,0 +1,114 @@
+{
+  "code": "sts_wat_lch_03_dojo",
+  "display_name": "Deravaja Dojo",
+  "why": "Deravaja Dojo is a Tyger Claws martial arts studio in a walled courtyard off Brookland Street in Little China, the venue of Gig: Bloodsport, where the gang keeps the kidnapped coach Roh Chi-Won in the basement. In our timeline that gig never happens: the kidnap and the torture scene do not exist, so the dojo is simply open for business - owner in the office, guards on the door and floor, four Tyger Claws sparring on the training mats, a maintenance worker in the yard. This proposal loads the dojo's quest section and puts those people back on their ordinary 0spawn posts, deliberately not activating the torturer, the victim or Regina's driver.",
+  "source": {
+    "proposal": "research/loc_sts_wat_lch_03_dojo/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the courtyard and through the double door. Confirm the runtime door policy opens the venue's double door (ForceLock/ForcePower in vanilla, no terminal or check) and the dojo is enterable without the gig.",
+      "Check the left-side single door. Confirm it still offers the Body check the wiki describes as the gig's side route, and note which single_door ref it actually is.",
+      "Check the two roof windows. Confirm roof_top_window_002 opens with no check and roof_top_window_1 still offers a Technical check, so the roof route into the dojo survives.",
+      "Watch the training floor. Confirm TrainingTyger1 and TrainingTyger2 both appear on the synced robot-boxing spots and spar calmly; if only one appears, drop that pair.",
+      "Look around the basement. Confirm the prefab left no quest props, no victim, no torture gear and no static Ricky down there - only Basement_guard sitting calmly.",
+      "Stand in the dojo as a stranger. Confirm the dojo's security-area volumes (#lch_03_dvc_security_area_restriction / _dengerous) do not mark V as trespassing and turn the Tyger Claws hostile.",
+      "Check the owner at his desk. He should sit in the office chair by the dojo computer and access point, not walk the patrolStart route, and the office should not be a restricted area.",
+      "Watch the courtyard worker. Worker1 with the drill should read as yard maintenance from the street side, not as a broken pose inside the dojo or in the training room.",
+      "Check the market outside. Confirm the courtyard stalls have their vendors and clients (kept wat_lch_phase), so the dojo sits in a living market rather than a silent yard.",
+      "Check the dojo interior for ambient crowd. The street story's crowd null areas (#lch_03_crowd_null_area_001/002) are not enabled by this proposal; if city crowd walks into the training room, note it for a null-area activation."
+    ]
+  },
+  "prefabs": [
+    "#sts_wat_lch_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "Owner",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The dojo's owner at #lch_03_ws_dojo_owner_office (-1911.6, 1255.4, 18.2), sitting back in the office chair next to the dojo computer and access point. He is the owner-equivalent a visitor should find running the place; his other phase (patrolStart) has no spot map and is left alone."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "GuardOutside1",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The gang member posted at the courtyard entrance on #lch_03_ws_guard_outside_001 (-1893.6, 1261.8, 18.2), a plain routine__stand_ground: exactly the 'one guard posted at the entrance' of the wiki, in a relaxed stand instead of the braindance couch of his B phase."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "Ground_guard",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "Floor security at #lch_03_ws_enemy_ground_001 (-1879.2, 1252.2, 18.3) on routine__stand_ground__boxing: a Tyger Claws gunman watching the training floor from the mat's edge, which is what a gang dojo's security does between students."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "Ground_guard2",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The second floor guard at #lch_03_ws_guard_ground_001 (-1893.5, 1254.0, 18.2) sitting with a phone (routine__sit_chair_cellphone__talk): a gang member killing time in the foyer rather than standing to attention."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "Basement_guard",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A guard on the basement level at #lch_03_ws_enemy_basement_001 (-1886.0, 1254.0, 13.7) on routine__sit_lean_front. In our timeline the basement is a normal back room with nobody held in it; one bored guard downstairs is all that should be there."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "TrainingTyger1",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "First half of the sparring pair on the training mats, #lch_03_ws_fighter_001 (-1896.9, 1249.4, 17.8) on synced__male_average__robot_boxing. Vanilla places both halves of the pair at once, so the dojo reads as a working studio of fighters rather than an empty gym."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "TrainingTyger2",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The other half of the synced sparring pair, #lch_03_ws_fighter_002 (-1896.5, 1248.4, 17.8) on synced__male_big__robot_boxing, half a metre from TrainingTyger1. Both are needed or the synced workspot plays alone."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "TrainingTyger4",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A student working the bag alone at #lch_03_ws_fighter_007 (-1892.4, 1241.4, 17.8) on routine__stand_ground__boxing, at the far end of the training floor. Solo workspot, no partner needed."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "TrainingTyger6",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The fourth trainee at #lch_03_ws_fighter_006 (-1891.2, 1249.6, 17.8) on generic__stand_ground__boxing, the spot vanilla keeps for a student shadow-boxing near the mats."
+    },
+    {
+      "spawner": "#lch_03_com_enemies",
+      "entry_name": "Worker1",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A maintenance worker in the yard (-1882.8, 1257.9, 18.2) on generic__stand_use_driller, the one non-gang civilian vanilla puts in the community. Tour check because a drill workspot is very visible: it should read as repair work in the courtyard, not as a man drilling inside the dojo.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1897.383,
+      1246.459,
+      17.843
+    ],
+    "source": "vanilla AI spot #lch_03_ws_dojo_owner_003 (routine__stand_ground, site spots id 4496) in base/worlds/03_night_city/_compiled/default/quest_553fb27d7a3783ed.streamingsector; middle of the training floor, free because Owner uses #lch_03_ws_dojo_owner_office in 0spawn"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_watson/little_china/loc_sts_wat_lch_03_dojo_prefabNYHWX4I/loc_sts_wat_lch_03_gameplay_prefab43AJ6BQ/loc_sts_wat_lch_03_devices_prefabEDBJHDQ/double_door_002_prefab56KUQCY/{double_door}_prefabTFBKWWY",
+    "within": 60.0,
+    "why": "The venue's own double door in the always-loaded gameplay prefab, on the normal way into the courtyard/dojo and driven by vanilla (ForceLock from wat_lch_phase, ForcePower from the street story), so it is a device, not a workspot, and it streams with the venue rather than living in a quest variant. 60 m covers the courtyard, training floor and basement stairs."
+  }
+}
