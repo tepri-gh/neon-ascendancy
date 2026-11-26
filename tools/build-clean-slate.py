@@ -985,14 +985,26 @@ def build_cast_and_hubs(
         )
         g.connect(hub_out, inp)
 
-    # 2. Overhaul actors (7 fixers + 10 iconic hub/faction residents; questSpawnSet_NodeType)
+    # 2. Overhaul actors (fixers + iconic hub/faction residents). Vanilla uses
+    # two different node kinds for these: a questSpawnSet (#dex: `dex` /
+    # q005_afterlife_default) and a community template (#tbug: `tbug` /
+    # q005_tbug_afterlife). `spawn_kind` selects which; default is spawn_set.
     for actor in cast_spec["overhaul_actors"]:
-        inp, _ = g.add_spawn_set_node(
-            action="Activate",
-            reference=actor["reference"],
-            entry_name=actor["entry_name"],
-            phase_name=actor["phase_name"],
-        )
+        if actor.get("spawn_kind") == "community":
+            inp, _ = g.add_community_spawn_node(
+                spawn_tpl,
+                action="Activate",
+                spawner_reference=actor["reference"],
+                entry_name=actor["entry_name"],
+                phase_name=actor["phase_name"],
+            )
+        else:
+            inp, _ = g.add_spawn_set_node(
+                action="Activate",
+                reference=actor["reference"],
+                entry_name=actor["entry_name"],
+                phase_name=actor["phase_name"],
+            )
         g.connect(hub_out, inp)
 
     # 3. Direct service-vendor phases cloned from default_dialogs.questphase
@@ -1660,6 +1672,13 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
 
     for venue in venue_spec["venues"]:
         prev = hub_out
+        dbg = venue.get("debug_fact_prefix")
+        # Breadcrumb: proves this venue branch was entered from the hub at all,
+        # independently of every other venue.
+        if dbg:
+            b_in, b_out = g.add_set_fact_node(f"{dbg}_branch", 1)
+            g.connect(prev, b_in)
+            prev = b_out
         for com in venue.get("communities", []):
             inp, out = g.add_community_spawn_node(
                 spawn_tpl,
@@ -1670,15 +1689,42 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
             )
             g.connect(prev, inp)
             prev = out
-        # Defer the venue's device actions until the player is near the venue, so
-        # they run against streamed entities. Firing them at bootstrap (while the
-        # player is still in H10) hits no entity. `proximity` is an authored
-        # workspot/door ref plus a radius; without it the actions run immediately.
+        # Device actions and variant toggles are deferred until the player is
+        # near: they are one-shot and hit no entity when the prefab is not yet
+        # streamed (firing at bootstrap from H10). Communities stay on the
+        # unconditional hub fan-out above.
         prox = venue.get("proximity_wait")
         if prox:
+            if dbg:
+                cf, co = g.add_set_fact_node(f"{dbg}_prewait", 1)
+                g.connect(prev, cf)
+                prev = co
             inp, out = g.add_proximity_pause_node(prox["ref"], float(prox["within"]))
             g.connect(prev, inp)
             prev = out
+            if dbg:
+                cf2, co2 = g.add_set_fact_node(f"{dbg}_prox", 1)
+                g.connect(prev, cf2)
+                prev = co2
+        # Variant toggles run BEFORE the device actions on purpose. A
+        # questDeviceManagerNodeDefinition whose objectRef does not resolve to a
+        # live entity (the venue is not streamed yet) does not complete, so
+        # anything chained behind it never executes. The owner's run showed
+        # exactly that: communities spawned (43) while the toggle breadcrumb
+        # stayed reached=0, because the device node ahead of it stalled. The
+        # toggle needs no entity, so it goes first.
+        for toggle in venue.get("variant_toggles", []):
+            if dbg:
+                f_in, f_out = g.add_set_fact_node(f"{dbg}_reached", 1)
+                g.connect(prev, f_in)
+                prev = f_out
+            inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
+            g.connect(prev, inp)
+            prev = out
+            if dbg:
+                f_in2, f_out2 = g.add_set_fact_node(f"{dbg}_done", 1)
+                g.connect(prev, f_in2)
+                prev = f_out2
         doors = venue.get("doors", [])
         if doors:
             entries = [
@@ -1692,22 +1738,6 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
             inp, out = g.add_device_manager_node(entries)
             g.connect(prev, inp)
             prev = out
-        for toggle in venue.get("variant_toggles", []):
-            # Debug breadcrumbs either side of the toggle: the probe logs these
-            # facts, so a run proves whether the graph ever reached the toggle and
-            # whether it returned from it. Harmless in normal play (a few facts).
-            dbg = venue.get("debug_fact_prefix")
-            if dbg:
-                f_in, f_out = g.add_set_fact_node(f"{dbg}_reached", 1)
-                g.connect(prev, f_in)
-                prev = f_out
-            inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
-            g.connect(prev, inp)
-            prev = out
-            if dbg:
-                f_in2, f_out2 = g.add_set_fact_node(f"{dbg}_done", 1)
-                g.connect(prev, f_in2)
-                prev = f_out2
 
     # Keep-alive pause: always false; keeps phasePrefabs and community
     # activations alive for the whole session once the phase is entered.
@@ -2394,6 +2424,7 @@ def _check_cast_and_hubs(
     expected_spawn_sets = {
         ("Activate", a["reference"], a["entry_name"], a["phase_name"])
         for a in cast_spec["overhaul_actors"]
+        if a.get("spawn_kind") != "community"
     }
     for v in cast_spec["service_vendors"]["direct_vendor_phases"]:
         if "spawn_set" in v:
@@ -2401,6 +2432,16 @@ def _check_cast_and_hubs(
             expected_spawn_sets.add(("Activate", ss["reference"], ss["entry_name"], ss["phase_name"]))
     ok(expected_spawn_sets <= actual_spawn_sets,
        f"cast_and_hubs missing spawn_set activations: {sorted(expected_spawn_sets - actual_spawn_sets)}")
+
+    # Actors declared with spawn_kind=community (e.g. T-Bug in vanilla q005) are
+    # emitted as community templates, not spawn sets.
+    expected_actor_comms = {
+        ("Activate", a["reference"], a["entry_name"], a["phase_name"])
+        for a in cast_spec["overhaul_actors"]
+        if a.get("spawn_kind") == "community"
+    }
+    ok(expected_actor_comms <= actual_communities,
+       f"cast_and_hubs missing community-spawned actors: {sorted(expected_actor_comms - actual_communities)}")
 
     # Verify direct vendor inline phases (expected scenes & phaseInstancePrefabs)
     inline_phases = [n["Data"] for n in nodes if n["Data"].get("$type") == "questPhaseNodeDefinition"]

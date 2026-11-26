@@ -457,6 +457,20 @@
       "entry_name": "kurtz",
       "phase_name": "q303_restaurant_host",
       "notes": "Barghest leader, alive in this mod's timeline. Spawned exactly as vanilla q303_06_paradise does on Black Sapphire floor 99: questSpawnSet reference #kurtz, entryName kurtz, phaseName q303_restaurant_host. #kurtz is the spawner entity inside #q303_pr_combat_tower; the spawner supplies Character.kurtz (Character.kurtz is Hansen; kurtz_* is his army). No scene or dialogue. Vanilla q303_casino uses the same record for the casino, so the restaurant-host phase seats him in the floor-99 club."
+    },
+    {
+      "id": "tbug",
+      "name": "T-Bug",
+      "role": "netrunner",
+      "district": "watson_little_china",
+      "faction": "independent_netrunner",
+      "character_record": "Character.c_tbug",
+      "spot_ref": "#tbug",
+      "reference": "#tbug",
+      "entry_name": "tbug",
+      "phase_name": "q005_tbug_afterlife",
+      "notes": "Netrunner, alive in this alt-timeline (no heist). Seated on the Afterlife back-room couch next to Dexter. Activated exactly as vanilla q005_01_plan does: questCommunityTemplate Activate, spawnerReference #tbug, communityEntryName tbug, communityEntryPhaseName q005_tbug_afterlife. No scene or dialogue. #q005_pr_afterlife is already declared by this layer for Dexter's workspot.",
+      "spawn_kind": "community"
     }
   ],
   "service_vendors": {

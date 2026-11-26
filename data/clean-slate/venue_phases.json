@@ -389,7 +389,8 @@
       },
       "notes": [
         "VIP lounge door #q105_dvc_dollhouse_door_vip (owner look-at id 15368942420542527538, app=doors_double_entropy_k_glass_v2, pos=(-666.1,771.0,128.3), locked=true). Sequence: AuthorizationDisable -> ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen."
-      ]
+      ],
+      "debug_fact_prefix": "na_dbg_vt_clouds"
     },
     {
       "code": "q003_meat_factory",
@@ -866,9 +867,9 @@
       ],
       "communities": [],
       "proximity_wait": {
-        "ref": "#q005_ws_dex_afterlife_01",
-        "within": 60.0,
-        "why": "Wait until the player is in the Afterlife booth area before unlocking; the door device is in the always-streamed Afterlife sector but the action should run on arrival."
+        "ref": "#q005_dvc_afterlife_briefing_room_door",
+        "within": 40.0,
+        "why": "The old anchor #q005_ws_dex_afterlife_01 lives inside the #q005_cin_01_plan cinematics sub-prefab, which is not instantiated unless that scene prefab streams, so the distance pause never resolved and no door action ran. This anchor is the door device itself: an ungated worldEntityNode at the door position (-1430.8,986.5,16.5), so it exists whenever the Afterlife devices prefab does."
       },
       "probe_refs": {
         "workspot": "",
@@ -876,7 +877,8 @@
         "community": "",
         "note": "Door ref verified by FNV-1a hashing the exterior_-23_15_0_0 sector's node refs against the owner's look-at id."
       },
-      "deferred_prefab_owner": "cast_and_hubs.questphase (#q005_pr_afterlife)"
+      "deferred_prefab_owner": "cast_and_hubs.questphase (#q005_pr_afterlife)",
+      "debug_fact_prefix": "na_dbg_vt_afterlife"
     },
     {
       "code": "q303_paradise_sneak_in",
@@ -1028,6 +1030,10 @@
     {
       "topic": "dogtown_checkpoint",
       "summary": "Vanilla ep1\\openworld\\combat_zone_gate\\combat_zone_gate.questphase declares #loc_q303_combat_zone_gate_openworld and drives the pedestrian checkpoint with DoorControllerPS ForcePower + ForceOpen (ForceUnpower/ForceClose to reseal). It is gated on ep1_side_content, q302_started, wanted_level, delamain_taxi_state, q304_block_dogtown_gate and dogtown_gate_combat_on. The pedestrian door NodeRefs are prefab-template placeholders inside loc_q303_combat_zone_gate_gameplay_prefab3JCC64Y (e.g. .../single_door_1_prefabCACGKLA/single_door_1_prefabMDLFXRQ); that prefab's sector was not extractable offline, so no unverified door ref was added, and the earlier census ids could not be hash-matched. Verified present: prefab #loc_q303_combat_zone_gate_openworld, triggers #combat_zone_gate_tr_inside / #combat_zone_gate_tr_entrance_to_cz_start / ..._to_nc_start, and the two ..._tr_entrance_foot_*_scan_close_door triggers (a proximity ref candidate). Also relevant: the combat-zone gate openworld sector is what a future pass should own so its device prefab streams; Dogtown access gate is separate from the Black Sapphire shutters."
+    },
+    {
+      "topic": "clouds_elevator_terminal",
+      "summary": "Owner look-at: ElevatorFloorTerminal id=10896172302402141982, app=elevator_terminal_appearances_entropy_c, pos=(-624.755,796.916,133.703), powered=true disabled=false. That entity is inside the #q105_pr_dollhouse quest-design prefab, which is not a standalone streamed sector, so no authored '#name' for it could be hash-matched offline. Not added, to avoid inventing a ref. When it can be resolved, the sequence that works for the Black Sapphire terminal applies: AuthorizationDisable (or the terminal's own QuickHackAuthorization path, which sets m_authorizationProperties.m_isAuthorizationModuleOn=false and unlocks connected doors) - vanilla never issues a floor-unlock action on terminals, only ForceON/ForceOFF (q304_safehouse_elevator_scanner)."
     }
   ],
   "allowed_device_controllers": [
