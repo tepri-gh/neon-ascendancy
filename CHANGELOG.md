@@ -81,6 +81,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (stadium, Heavy Hearts, Golden Pacific, Longshore market and others) and
   the checkpoint gate. Gigs, vendors, dynamic events and the Phantom Liberty
   campaign stay gated. The q302 protest at the gate is suppressed.
+- Dogtown street dynamic events run: `ep1_dynamic_events` is wired directly
+  (vanilla gates it on `ep1_active`, which also opens PL gigs). 38 of 43
+  events run; 5 wait on story facts.
 - Venue doors follow the owner's door policy: closed by default but usable
   (enabled/powered, unlocked only where there is no other way through), never
   force-opened; doors with an in-world opener (terminal, keycard, hacking,

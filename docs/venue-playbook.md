@@ -171,7 +171,10 @@ already define all four; we copy them, never invent them.
     gated on other facts. The miner and checker treat `ep1.questphase` as
     a kept root but never its `main_quests` subtree, which stays dormant
     (`q005_done` and `ep1_active` are never set). It also opens the q302
-    protest at the gate, which the gate venue suppresses.
+    protest at the gate, which the gate venue suppresses. Dynamic events,
+    vendors, world encounters, gigs and sandbox activities sit behind
+    `ep1_active` too, so it stays forbidden; `ep1_dynamic_events` is wired
+    directly as a kept phase instead (38 of 43 events run).
 
 **Content that lives elsewhere**
 

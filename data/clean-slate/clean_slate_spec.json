@@ -358,6 +358,10 @@
       {
         "depot_path": "base\\open_world\\scenes\\mirrors\\mirror_interactions_control.questphase",
         "why": "Mirror interactions across Night City (extracted cleanly from persistent_content)"
+      },
+      {
+        "depot_path": "ep1\\openworld\\dynamic_events\\ep1_dynamic_events.questphase",
+        "why": "Dogtown street dynamic events (owner 2026-11-26). Vanilla starts it from ep1_open_world behind ep1_active, which also gates PL gigs, so we wire it directly; 38 of 43 events run, 5 stay gated on q30x story facts."
       }
     ],
     "kept_inline_phases": [
