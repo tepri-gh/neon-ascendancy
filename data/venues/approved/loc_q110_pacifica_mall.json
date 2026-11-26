@@ -1,0 +1,183 @@
+{
+  "code": "q110_pacifica_mall",
+  "display_name": "Grand Imperial Mall (GIM), Coastview",
+  "why": "The Grand Imperial Mall is Pacifica's dead luxury mall, held by the Animals and used by them as a gym, garage and dormitory; behind it locals keep tinkering with the Eden Beach rollercoaster. In our timeline nothing clears the mall and nobody fights over it, so this proposal keeps the building open and populates it with relaxed Animals (hall patrol, gym users, garage crew, the boxing robot) plus the five rollercoaster regulars from Love Rollercoaster. It restores only the mall quest prefab and the rollercoaster station/ride sections, with the mall's entrance colliders and lockdown variants set to their open state.",
+  "source": {
+    "proposal": "research/loc_q110_pacifica_mall/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does loading #q110_pr_pacifica_mall also materialise quest-only props (the NetWatch van, the nest, boss-cage colliders, retractable ads)? If so they need suppressing or a variant state; the tour should check the atrium and garage for quest leftovers.",
+      "The lockdown toggle prefab ref '#pacifica_mall_complete' has no resolved path in the catalogue (venue_inferred, path null). Confirm the node exists before the builder uses it, or drop that toggle and rely on the doors.",
+      "Polarity of var_mall_entrances_colliders is inferred (cleanup sets 0, inside_mall sets 1, quest_bugfixes sets both). Verify in game that 0 leaves the entrances walkable.",
+      "The lobby and escalator shutters (#q110_main_lobby_shutter_*, #q110_escalator_shutter_*) are only ever sealed by q110 phases. If they default sealed rather than open, the atrium and upper floor are cut off and the door policy has to unseal them.",
+      "Community postures are all 'unknown' (no community-area node was converted for this venue), so every choice is verified only from raw spot workspots; all groups carry needs_tour_check.",
+      "Sasquatch: her registry defines a 'hall_chat' phase that would be ideal for a relaxed mall boss, but no vanilla spawn set activates it, so the catalogue does not permit it. Worth an owner decision if the mall should have its Animals leader present.",
+      "Do the #mq006_com_party spawn sets and their intro workspots stream only with the mq006 quest prefabs? If they need a quest sector that never loads, the rollercoaster locals will stand at their spawn origin instead of their workspots."
+    ]
+  },
+  "prefabs": [
+    "#q110_pr_pacifica_mall",
+    "#mq006_pr_rollercoaster",
+    "#mq006_pr_rollercoaster_ride"
+  ],
+  "communities": [
+    {
+      "spawner": "#q110_com_mall_hall",
+      "entry_name": "#q110_ws_hall_enemy_001",
+      "phase_name": "patrol",
+      "action": "Activate",
+      "why": "The Animals' elite bouncer walking the atrium: phase spots are routine stand, phone talk and two kneel-and-fix spots, i.e. a guard doing rounds rather than a fighter.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_hall",
+      "entry_name": "#q110_ws_hall_enemy_011",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ganger lounging in the hall: routine stand plus routine sit_couch (and a coffee spot), so a body on the sofa by the shops instead of a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_hall",
+      "entry_name": "#q110_ws_hall_enemy_010",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second hall loiterer on routine stand_ground / stand_ground_phone__talk spots; kept because the atrium is wide and one guard alone reads as empty.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_hall",
+      "entry_name": "#q110_ws_hall_enemy_015",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ganger standing over a tablet at the shop front (default spot is generic__stand_ground_tablet__use); the phase's other spot is the burger-eating lunch break, so the phase is pure idle time.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_gym",
+      "entry_name": "#q110_ws_gym_enemy_009",
+      "phase_name": "workout",
+      "action": "Activate",
+      "why": "The gym's own workout phase; its second spot is the barbell-curl workspot, so this is an Animal training, which is exactly the vanilla use of the GIM gym.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_gym",
+      "entry_name": "#q110_ws_gym_enemy_011",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Boxer in the ring: the default spot set includes q110_ws_boxing_npc_01.workspot, and this is the phase the gym phase itself activates.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_gym",
+      "entry_name": "#q110_ws_gym_enemy_013",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Gym regular parked at the gym bar (big__sit_bar__sit_around__01), giving the gym a second, calmer body without adding a fighter.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_gym_boxing_robot",
+      "entry_name": "#q110_ws_gym_boxing_robot",
+      "phase_name": "boxing",
+      "action": "Activate",
+      "why": "The gym's boxing robot left in its active 'boxing' phase (q110_ws_boxing_robot_01) instead of the inactive 'idle' phase, so the ring looks in use.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_garage",
+      "entry_name": "#q110_ws_garage_patrol_enemy_005",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Loading-bay crew: this is the 'pizza guy' record, standing around with the pizza-carry spots in the phase, so the garage reads as a lived-in service area.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_garage",
+      "entry_name": "#q110_ws_garage_enemy_003",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Garage hand standing with a bottle (generic__stand_bottle__drink) — the garage's version of a smoke break, not a combat post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_mall_garage",
+      "entry_name": "#q110_ws_cargo_enemy_03",
+      "phase_name": "chat",
+      "action": "Activate",
+      "why": "The cargo-bay talker: q110's garage-scene phase activates exactly this entry in 'chat' so two Animals stand and talk by the loading dock.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#mq006_com_party",
+      "entry_name": "jean",
+      "phase_name": "mq006_01_intro",
+      "why": "Jean kneeling at the rollercoaster control panel inspecting it — the locals' ringleader in his normal 'trying to fix the ride' pose.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq006_com_party",
+      "entry_name": "darline",
+      "phase_name": "mq006_01_intro",
+      "why": "Darline leaning on the wall by the ride; intro phase keeps the group together without starting the job.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq006_com_party",
+      "entry_name": "farah",
+      "phase_name": "mq006_01_intro",
+      "why": "Farah leaning on the ride railing, watching the track — pure hangout pose.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq006_com_party",
+      "entry_name": "anel",
+      "phase_name": "mq006_01_intro",
+      "why": "Anel sitting back with a cigarette; the seated half of the group so the platform isn't a row of standing mannequins.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq006_com_party",
+      "entry_name": "sandley",
+      "phase_name": "mq006_01_intro",
+      "why": "Sandley leaning on the wall with the others; closes out the five-person crowd the wiki describes waiting at the coaster.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#q110_pr_pacifica_mall",
+      "states": {
+        "var_mall_entrances_colliders": 0
+      },
+      "why": "0 is the state the mall's own cleanup phase leaves behind (entrances passable); q110_06_inside_mall sets 1 while V is sealed in with Sasquatch, so 0 is the normal open mall."
+    },
+    {
+      "prefab": "#pacifica_mall_complete",
+      "states": {
+        "lockdown_3rd_floor_encounter_locks": 0,
+        "lockdown_entering_plaza": 0,
+        "lockdown_first_encounter": 0,
+        "lockdown_first_encounter_locks": 0,
+        "lockdown_roof": 0,
+        "lockdown_walls": 0
+      },
+      "why": "Every lockdown_* variant is only ever set to 0, by the cleanup phase that returns the mall to its unlocked post-encounter state; leaving them 0 keeps the atrium, roof and plaza not walled off."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q110_mall_front_door",
+    "within": 80.0,
+    "why": "The mall's own main entrance door device, on the only normal way in; the player passes it before any of the atrium population streams."
+  }
+}

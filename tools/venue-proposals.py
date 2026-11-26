@@ -91,6 +91,20 @@ def layer_activations() -> dict[tuple[str, str, str], str]:
     return out
 
 
+def kept_vanilla_activations(venues_dir: Path) -> dict[tuple[str, str, str], str]:
+    """(ref, entry, phase) spawn-set and community activations kept vanilla phases make."""
+    spec = json.loads((CLEAN / "clean_slate_spec.json").read_text(encoding="utf-8"))
+    kept = {d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]}
+    out: dict[tuple[str, str, str], str] = {}
+    for line in (venues_dir / "phases.jsonl").read_text(encoding="utf-8").splitlines():
+        r = json.loads(line)
+        if r["phase"] in kept:
+            for it in (r.get("spawn_sets") or []) + (r.get("communities") or []):
+                if it.get("action") == "Activate":
+                    out[(it.get("ref"), it.get("entry"), it.get("phase"))] = r["phase"]
+    return out
+
+
 def kept_vanilla_prefabs(venues_dir: Path) -> dict[str, str]:
     spec = json.loads((CLEAN / "clean_slate_spec.json").read_text(encoding="utf-8"))
     kept = {d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]}
@@ -138,7 +152,9 @@ def cmd_prepare(a: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- check
 
 def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[str, str],
-              acts: dict[tuple[str, str, str], str]) -> tuple[list[str], list[str]]:
+              acts: dict[tuple[str, str, str], str],
+              kept_acts: dict[tuple[str, str, str], str] | None = None) -> tuple[list[str], list[str]]:
+    kept_acts = kept_acts or {}
     errs: list[str] = []
     warns: list[str] = []
 
@@ -189,6 +205,9 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
                     warns.append(f"community {sp} {en}/{ph}: posture unknown; set needs_tour_check")
             if BAD_PHASE_WORDS.search(ph):
                 warns.append(f"community {sp} {en}/{ph}: phase name looks like a quest scene (rule 10)")
+        if (sp, en, ph) in kept_acts:
+            warns.append(f"community {sp} {en}/{ph}: kept vanilla phase {kept_acts[(sp, en, ph)]} also activates it "
+                         f"(often behind a gate); confirm on tour")
         owner = acts.get((sp, en, ph)) or acts.get((sp, "None", "None"))
         if owner:
             errs.append(f"community {sp} {en}/{ph}: already activated by {owner}")
@@ -200,6 +219,8 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
             errs.append(f"spawn set {ref} {en}/{ph}: vanilla never activates this")
         if ref in layers:
             errs.append(f"spawn set {ref}: already placed by {layers[ref]}")
+        if (ref, en, ph) in kept_acts:
+            errs.append(f"spawn set {ref} {en}/{ph}: kept vanilla phase {kept_acts[(ref, en, ph)]} already activates it")
         if BAD_PHASE_WORDS.search(ph) and "friendly" not in ph:
             warns.append(f"spawn set {ref} {en}/{ph}: phase name looks like a quest scene")
 
@@ -239,6 +260,7 @@ def cmd_check(a: argparse.Namespace) -> int:
     layers = layer_refs()
     kept = kept_vanilla_prefabs(a.venues)
     acts = layer_activations()
+    kept_acts = kept_vanilla_activations(a.venues)
     names = a.names or sorted(p.parent.name for p in (a.venues / "research").glob("*/proposal.json"))
     bad = 0
     for vn in names:
@@ -253,7 +275,7 @@ def cmd_check(a: argparse.Namespace) -> int:
             print(f"{vn}: INVALID JSON {exc}")
             bad += 1
             continue
-        errs, warns = check_one(vn, prop, cat[vn], layers, kept, acts)
+        errs, warns = check_one(vn, prop, cat[vn], layers, kept, acts, kept_acts)
         status = "FAIL" if errs else "ok"
         print(f"{vn}: {status} ({len(errs)} errors, {len(warns)} warnings)")
         for e in errs:
@@ -317,6 +339,7 @@ def to_venue_entry(vn: str, prop: dict, within: float) -> dict:
 def cmd_approve(a: argparse.Namespace) -> int:
     cat = load_catalog(a.venues)
     layers, kept, acts = layer_refs(), kept_vanilla_prefabs(a.venues), layer_activations()
+    kept_acts = kept_vanilla_activations(a.venues)
     APPROVED.mkdir(parents=True, exist_ok=True)
     bad = 0
     for vn in a.names:
@@ -325,7 +348,7 @@ def cmd_approve(a: argparse.Namespace) -> int:
             print(f"{vn}: timeline_verdict exclude; add it to data/venues/triage_overrides.json instead")
             bad += 1
             continue
-        errs, _w = check_one(vn, prop, cat[vn], layers, kept, acts)
+        errs, _w = check_one(vn, prop, cat[vn], layers, kept, acts, kept_acts)
         if errs:
             print(f"{vn}: not approved, {len(errs)} checker errors (run check)")
             bad += 1

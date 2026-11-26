@@ -8,6 +8,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- First generated venues (research wave 1, `data/venues/approved/`), all
+  behind the dev venue gate: Corp-Bud rail junction, Aldecaldos Mobile Camp,
+  Grand Imperial Mall, maglev tunnel site, Voodoo Boys' netrunners' den,
+  SoCal border crossing, Misty's/Viktor's clinic look, and the Japantown
+  parade-area market. The Space Force One crash street and the new Nomad Camp
+  are excluded from research (not in our timeline).
 - Runtime door policy (`World/DoorPolicy.reds`, dev-gated by `na_door_policy`):
   every quest-driven door that streams in is enabled and powered, and is
   unlocked or unsealed only when it would otherwise be impassable (no

@@ -1,0 +1,70 @@
+{
+  "code": "q114_tunnel_site",
+  "display_name": "Maglev Tunnel Construction Site (Badlands)",
+  "why": "A canyon in the north-east Badlands where a maglev line is being bored towards Arasaka Tower's sublevels: a construction yard with a bridge and an unfinished tunnel mouth, guarded by Militech site security and hiding an Arasaka-controlled underground facility behind a blast door. In vanilla the site is only seen as the Aldecaldos' assault route in the Panam ending (q114: We Gotta Live Together -> Forward to Death -> Belly of the Beast). This proposal restores the site as a normally staffed construction project: the WorkerMale construction crew at work on the yard, the site's Militech security drones, and the two control-room guards of the facility below, with the canyon narrowing intact, no barrage damage and no battle remnants.",
+  "source": {
+    "proposal": "research/loc_q114_tunnel_site/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does #q114_pr_02_arasaka_facility default to the intact facility, or does it also stream the AV-combat staging (crashed AV, barricades, AV landing pads)? The prefab's variant defaults decide whether the tour sees a clean site or battle leftovers.",
+      "Are the six #q114_com_construction_nc_security drones (posture unknown, no spot map) outdoors around the yard, and are the two control-room guards reachable, or is the control room behind the sealed tunnel/blast door? If the guards sit inside a sealed sublevel they may be invisible to the player.",
+      "Attitude on sight: vanilla only assigns the militech attitude group at the assault, so unprovoked they should be neutral, but Militech areas can be treated as restricted. If the drones/guards open fire on approach, the venue needs an owner decision (neutral attitude or keep only the workers).",
+      "The tunnel-mouth gate (#loc_q114_tunnel_site_devices, var_tunnel_gate_solid / var_tunnel_gate_destructible) is a baked mesh variant. Vanilla never shows solid=1, so I did not propose it; confirm the default is solid. If it defaults to destructible, a player could breach into the unloaded sublevel void.",
+      "Is the surveillance camera #q114_com_nomad_drone on the site approach (drone-scan overlook) or inside the facility? If it is indoors and unreachable, the proximity anchor will never fire and another device (there is no other at this venue) or an always-on activation is needed.",
+      "Would the tunnel droids (#q114_com_tunnel_droids) be worth restoring if the miner resolves their path for this venue? They would add maintenance activity but are missing from the catalogue.",
+      "No day/night or weather variant exists for the workers, so the crew is present at all hours."
+    ]
+  },
+  "prefabs": [
+    "#q114_pr_02_arasaka_facility"
+  ],
+  "communities": [
+    {
+      "spawner": "#loc_q114_tunnel_site_com_workers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The site's own construction crew (entries workers_inside and workers_outside, Character.WorkerMale, 19 spots). Vanilla switches the whole community on at the site before the assault and off again when the attack starts, and pins it to the neutral attitude group. Every spot is construction labour: kneeling to inspect, welder, tool fix, tablet use, stand-around. The catalogue records phase 'default', which is exactly each entry's initial phase, so the whole-community form (None/None) reproduces vanilla."
+    },
+    {
+      "spawner": "#q114_com_construction_combat_nc_control_room",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The facility control room's two standing guards (guard_ctrl_01/02, Character.q114_militech_response_sniper). Vanilla switches the whole community on in q114_construction_site as the site garrison and only then assigns the militech attitude group, so unprovoked they are ordinary on-duty guards. Their single workspot is routine__stand_ground, a relaxed stand, not an alert or combat pose. Kept first under rule 11a."
+    },
+    {
+      "spawner": "#q114_com_construction_nc_security",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The site's perimeter security: six Character.q114_militech_medium_drone entries, switched on whole by vanilla in the same construction-site phase as the control room and given the militech attitude group only at the assault, i.e. neutral site drones before it. The catalogue miner tagged the drone record as civilian and found no spot map, so posture is unknown; the count and placement (open yard vs facility) need the tour. Security is kept ahead of adding more civilians per rule 11a.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q114_tunnel_site_env",
+      "states": {
+        "narrowing_intact": 1,
+        "narrowing_destroyed": 0
+      },
+      "why": "The intact canyon narrowing is the normal-world state; vanilla's persistent_content is the phase that sets it, and clean-slate does not keep persistent_content (its pieces are wired individually), so without this toggle the venue would rely on the prefab's untouched default and would never explicitly clear the quest's destroyed state."
+    },
+    {
+      "prefab": "#q114_pr_02_arasaka_facility",
+      "states": {
+        "canyon_barrage": 0
+      },
+      "why": "No missile barrage FX on the canyon. Vanilla only raises canyon_barrage in q114_approach (the Aldecaldos' missile attack) and sets it back to 0 in q114_construction_site, so 0 is the no-attack state; the prefab is instantiated by this venue, so the toggle is meaningful and cheap."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q114_com_nomad_drone",
+    "within": 80.0,
+    "why": "A SurveillanceCameraControllerPS device inside the instantiated #q114_pr_02_arasaka_facility prefab and the only device the catalogue resolves to this venue that is neither a missile/explosion trigger nor owned by another location. Vanilla drives it from q114_briefing (the drone scan of the site), so it sits on the site approach rather than in the sealed sublevel. Its exact position (indoor facility vs outdoor overlook) needs a tour check."
+  }
+}

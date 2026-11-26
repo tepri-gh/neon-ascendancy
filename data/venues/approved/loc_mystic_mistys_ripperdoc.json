@@ -1,0 +1,82 @@
+{
+  "code": "mystic_mistys_ripperdoc",
+  "display_name": "Misty's Esoterica and Viktor's Clinic",
+  "why": "Misty's Esoterica and Chakra Harmonization is a new-age store on Urmland Street in Little China, with Viktor Vektor's ripperdoc clinic in the basement and back-alley garage that Misty rents him. Both halves are ordinary open-world vendor locations, not quest instances: the shop, the back corridor, the alley gates and the clinic are always streamed, and vanilla staffs them from the kept default_dialogs phase (Viktor) plus the cast layer (Misty). So this proposal adds no building sections and no crowd: it re-issues Viktor's clinic pose, and pins the pre-Zetatech lighting, audio, deco and entity variants with the exact state set vanilla itself applies when it puts this venue back to normal after q307.",
+  "source": {
+    "proposal": "research/loc_mystic_mistys_ripperdoc/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The baked (default) variant state of #loc_mystic_mistys_ripperdoc_gameplay is ambiguous for q001_holo_scene: q307_cleanup sets q001_holo_scene=0 with q307_entities=0, but the same phase also carries a node with q001_holo_scene=1, and q001_scenes_megabuilding sets 0. A tour should confirm no crime-scene hologram appears outside the shop with the shop idle.",
+      "#mystic_mistys_exterior_001 (neon_hide) is deliberately not touched: q307_cleanup sets neon_hide=1 while q307_03 sets 0, and it is unclear whether 1 hides the esoterica neon sign or a 2079 replacement. Setting it blind could switch off Misty's neon.",
+      "Whether re-issuing #victor_vector/ripperdoc/default duplicates his spawn. The mod already re-issues #misty/misty/default from cast_and_hubs while default_dialogs also activates it, so the pattern is proven; still, the tour should confirm exactly one Viktor and that he sits at the chair rather than standing at the counter.",
+      "The default lock/closed state of #q115_misty_door, #q115_misty_door_back, both corridor gates and #q115_dvc_ripperdoc_room_door is inferred, not observed: there is no lookat.log for this venue, and three of the refs have no resolved $/ path. The reading above ('closed but unsealed, no opener needed') comes from vanilla only ever sealing them for scenes.",
+      "Misty's roof (q115 roof prefab, the two-floor lift with floor terminals behind the building) is not reachable in free roam from any kept phase in this data, although the location wiki describes the lift and roof shards. If the roof should be visitable, that is a separate access decision, not a population one.",
+      "Optional vanilla-authentic touch: the shop cat (#q001_com_rd_cat, phase after_rd) can be restored, but only by declaring #q001_pr_misty, whose trigger volumes and Jackie/Misty scene spots would come with it."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_lightning",
+      "states": {
+        "V_Default": 1,
+        "Q307_VV": 0
+      },
+      "why": "Normal clinic/shop lighting on, the q307 Zetatech lighting rig off. This is the pair vanilla applies in q307_cleanup, the despawn phase that returns the venue to its pre-ending look."
+    },
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_env",
+      "states": {
+        "q307_zetatech": 0
+      },
+      "why": "The venue's normal environment set, i.e. Misty's shop and Viktor's clinic as they are before Zetatech converts them; q307_03 switches the takeover env on and q307_cleanup switches it off again."
+    },
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_audio",
+      "states": {
+        "q307_victor_zetatech": 0
+      },
+      "why": "Normal venue ambience; the q307 Zetatech clinic audio layer is off. Copying q307_cleanup avoids a silent or clinic-corporate soundscape."
+    },
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_interior",
+      "states": {
+        "q307_hide_misty": 0
+      },
+      "why": "Misty's interior dressing present, not the 2079 variant that hides her side of the shop. 0 is the value q307_cleanup restores."
+    },
+    {
+      "prefab": "#mystic_mistys_corridor_to_ripperdoc_deco",
+      "states": {
+        "q307_zetatech_deco": 0,
+        "q307_zetatech_deco_hide": 1
+      },
+      "why": "The corridor from Misty's back door down to the clinic keeps its ordinary dressing: the Zetatech takeover deco is off and its hide variant on, exactly the cleanup pair."
+    },
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_decoration",
+      "states": {
+        "q307_decoration_hide": 1
+      },
+      "why": "The 2079 decoration set stays hidden, so the clinic is the workshop Viktor rents rather than a corporate showroom. q307_cleanup sets the same value."
+    },
+    {
+      "prefab": "#loc_mystic_mistys_ripperdoc_gameplay",
+      "states": {
+        "q001_holo_scene": 0,
+        "q307_entities": 0
+      },
+      "why": "No NCPD hologram reconstruction on the pavement and none of the q307 ending entities in the shop; this is the pair q307_cleanup applies. Nothing else in this prefab is touched, so the shop's own interactive props stay as baked."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q001_ripperdoc_gate",
+    "within": 80.0,
+    "why": "A DoorControllerPS device on the metal fence gate where the back-alley stairs reach Viktor's clinic, i.e. on the normal way in and streamed with the exterior sector around the shop. It is a device, not a workspot (playbook rule 8), and vanilla itself drives it (ForceDisabled in q001_ripperdoc, ForceOpen in q115_02), so the ref is known to resolve."
+  }
+}

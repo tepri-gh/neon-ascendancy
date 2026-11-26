@@ -1,0 +1,202 @@
+{
+  "code": "q110_netrunners_den",
+  "display_name": "Voodoo Boys' Netrunners Den (Batty's Hotel / Coastview market)",
+  "why": "This location chunk is the Coastview market street in front of Batty's Hotel, the hotel lobby, and the utility-lift route down to the Voodoo Boys' netrunners den beneath it: Placide's office, the netrunner chairs where Brigitte and her crew work, and the ice-bath netrunning room. In vanilla nothing here exists in open-world play because every person and every furnishing piece is pushed by q110 phases (or the retired E3 open-world den phase). This proposal instantiates the open-world and quest-design prefabs that hold the market stalls, the hotel front and the den, then seeds the market with its vendor and regulars, puts the Voodoo Boys garrison at the market, stairs, parking lot and garage, and puts Placide at his desk and Brigitte in her netrunner chair inside the den.",
+  "source": {
+    "proposal": "research/loc_q110_netrunners_den/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Den-floor access is the one real risk: vanilla only grants it with AuthorizationDisable from q110_04/q110_07, and the venue data has no terminal, keycard, skill check or quickhack on the den-floor door, the utility-lift floor doors or the garage-floor door. Can the player actually get down (hack the lift floor terminal, use the market staircase, or the runtime door policy), and is the netrunning-room door reachable from the den floor without quest unlocks?",
+      "The background garrison's entry-to-spot map is unresolved: #q110_com_netrunners_den_vdb_bg has no community area node, so I inferred the relaxed poses from the seven q110_mk_netrunners_den_voodoo_boy_bg_* markers and three q110_wp_netrunners_den_voodoo_boy_parking_* spots. Confirm on the tour that the six entries land on those idle spots and not on a scene/alert pose.",
+      "Interior crew: placide_office_goon_001-003 and netrunners_den_vdb_chat_001-002 (senseless sitting/smoking in Placide's office) can only be placed through the whole-spawn-set activation #q110_com_netrunners_den_voodoo_boys None/*, whose semantics are unclear (vanilla also uses a q110_01_clear phase the entry does not define). If the tour shows the den office too empty, add that activation and check for duplicates against the four explicit guards.",
+      "Prefab side effects: #q110_pr_netrunners_den contains the q110_09c_pr_confrontation staging and trigger areas, and #q110_pr_market contains the AV-scene triggers. Neither should block movement once no q110 phase runs, but confirm there are no leftover invisible walls or quest-locked doors (#q110_mp_netrunning_room_door) in the den.",
+      "The venue also has an open-world civilian set (#q110_den_ow_com: market_customer_female_016, market_customer_male_024, market_haiti_girl_001, market_haiti_woman_004) that vanilla activates with phases B/vendor, but the catalogue gives no community_options for it, so the checker rejects those triples. If that crowd is wanted, the catalogue needs those options (or a whole-community activation); today the market relies on #q110_ow_crowds plus the market_chats spawn set.",
+      "Variant states: var_growl (Growl FM stand) and the venue lighting setup_01/setup_02 are both toggled only by event/demo phases. If the tour shows a missing broadcast stand that should be there, or E3 demo lighting, the values to try are var_growl=1 and setup_01=1/setup_02=0.",
+      "Brigitte in q110_00_voodoo_queen_chair_den lies in a netrunner chair (lie_netrunner_chair__netrun). The spot and animation say 'working', but confirm on the tour that she does not read as unconscious/coma to a player."
+    ]
+  },
+  "prefabs": [
+    "#loc_q110_netrunners_den_openworld",
+    "$/03_night_city/c_pacifica/coastview/#loc_q110_netrunners_den/loc_q110_netrunners_den_questdesign_prefabQUSTLSY/#q110_pr_market",
+    "$/03_night_city/c_pacifica/coastview/#loc_q110_netrunners_den/loc_q110_netrunners_den_questdesign_prefabQUSTLSY/#q110_pr_netrunners_den"
+  ],
+  "communities": [
+    {
+      "spawner": "#q110_com_netrunners_den_vdb_bg",
+      "entry_name": "voodoo_boys",
+      "phase_name": "q110_01_default",
+      "action": "Activate",
+      "why": "The main background Voodoo Boys group loitering around the hotel front and market. Vanilla pushes this phase the moment V arrives at the market (q110_04_market). The community has no community-area node in any converted sector, but the venue's quest sector holds seven idle markers named q110_mk_netrunners_den_voodoo_boy_bg_00N (stand-wait, wall-lean smoking, rail-lean, cigarette), so the group is a relaxed street garrison; the entry-to-marker map is unverified.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_netrunners_den_vdb_bg",
+      "entry_name": "voodoo_boys_stairs",
+      "phase_name": "q110_01_default",
+      "action": "Activate",
+      "why": "The Voodoo Boys pair on the market stairway, vanilla's q110_01_default garrison phase. Idle stand-around spots in the same marker cluster; same unresolved entry-to-spot map.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_netrunners_den_vdb_bg",
+      "entry_name": "voodoo_boys_parking_01",
+      "phase_name": "q110_01_default",
+      "action": "Activate",
+      "why": "Parking-lot guard pair. Vanilla activates this entry in q110_04_market with phaseName None, which resolves to the entry's only phase, q110_01_default. The parking spots are wall-lean and chair-sit workspots (relaxed), but the community-area node was not resolved.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_netrunners_den_vdb_bg",
+      "entry_name": "voodoo_boys_parking_02",
+      "phase_name": "q110_01_default",
+      "action": "Activate",
+      "why": "Second parking-lot guard group, vanilla's q110_01_default phase; sits/smokes at the parking spots near the garage route into the den.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_com_netrunners_den_vdb_bg",
+      "entry_name": "voodoo_boys_parking_03",
+      "phase_name": "q110_01_default",
+      "action": "Activate",
+      "why": "Third parking-lot guard group, vanilla's q110_01_default phase; the third parking spot is a seated sit-around workspot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q110_ow_crowds",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole open-world crowd community for the market/hotel street, inside #loc_q110_netrunners_den_openworld. Vanilla switches it on whole from the retired E3 den phase, gated on the q110_ow_den_spawn fact; the community registry lists no explicit entries for it (crowd-type community), so its density and look are a tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "entrance_vdb",
+      "phase_name": "q110_default",
+      "why": "Voodoo Boys guard at the market entrance on a rifle guard workspot, vanilla's market default phase. Armed but standing watch, not in combat."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "food_chat_man_01",
+      "phase_name": "q110_default",
+      "why": "Voodoo Boy leaning on the market bar counter chatting about food; the relaxed half of the garrison."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "food_chat_man_02",
+      "phase_name": "q110_default",
+      "why": "Second Voodoo Boy at the market bar counter, leaning front; the pair reads as a normal conversation at the food stall."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "vdb_stairs_2",
+      "phase_name": "q110_default",
+      "why": "Female Voodoo Boy on the market stairs, rifle stand-around; the visible guard on the route up to the hotel/den stairs."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "welcoming_vendor",
+      "phase_name": "q110_default",
+      "why": "The market's Creole vendor at his stall counter (Character.q110_creole_male), the venue's one shopkeeper; vanilla places him in the market default phase."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "old_man_chatting_01",
+      "phase_name": "q110_default",
+      "why": "Old Creole man sitting at the market, one half of the pair of locals chatting by the stalls."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "old_man_chatting_02",
+      "phase_name": "q110_default",
+      "why": "The standing half of the old-men pair at the market; a normal daytime regular."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "flirting_girl",
+      "phase_name": "q110_default",
+      "why": "Young woman standing at the market with a cigarette (Character.q110_placide_girlfriend); she is Placide's girlfriend in the quest but her default phase is plain street loitering."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "couch_dude_01",
+      "phase_name": "q110_default",
+      "why": "Market regular lounging on the couch nook at the edge of the market (CreoleMan); his q110_default spot is a sit-back sit-around, not the AV-scene reaction."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "couch_dude_02",
+      "phase_name": "q110_default",
+      "why": "Second couch regular, sitting and thinking; ordinary loitering at the market seating."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_market_chats",
+      "entry_name": "couch_dude_03",
+      "phase_name": "q110_default",
+      "why": "Third couch regular, standing nearby; keeps the seating nook from being a single static sitter."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_netrunners_den_voodoo_boys",
+      "entry_name": "voodoo_boy_guard_01",
+      "phase_name": "q110_01_market",
+      "why": "Market-level Voodoo Boy guard slumped back in a chair overlooking the market; the relaxed guard pose vanilla uses before any alert."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_netrunners_den_voodoo_boys",
+      "entry_name": "voodoo_boy_guard_02",
+      "phase_name": "q110_01_market",
+      "why": "Second market-level guard, standing rifle stand-around at the market/hotel threshold."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_netrunners_den_voodoo_boys",
+      "entry_name": "voodoo_boy_guard_01_garage",
+      "phase_name": "q110_01_market",
+      "why": "Garage/parking guard at the service route into the den floor, the same q110_01_market phase vanilla uses before the quest turns hostile."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_netrunners_den_voodoo_boys",
+      "entry_name": "voodoo_boy_guard_02_garage",
+      "phase_name": "q110_01_market",
+      "why": "Second garage guard, so the parking/garage route reads as watched by a pair rather than one man."
+    },
+    {
+      "action": "Activate",
+      "reference": "#placide",
+      "entry_name": "placide",
+      "phase_name": "q110_04_placide_at_netrunners_den",
+      "why": "Placide, the den's boss, sitting at the keyboard desk in his office inside the den: vanilla's own 'at the netrunners den' phase, the state V finds him in when the quest takes her down. Alive and leading the Voodoo Boys in our timeline."
+    },
+    {
+      "action": "Activate",
+      "reference": "#voodoo_queen",
+      "entry_name": "voodoo_queen",
+      "phase_name": "q110_00_voodoo_queen_chair_den",
+      "why": "Brigitte (the Voodoo Queen) in a netrunner chair in the den, jacked in: her working state, not a story scene. The workspot is lie_netrunner_chair__netrun, so she reads as a netrunner at work rather than a body."
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q110_dvc_den_front_lift_terminal_1",
+    "within": 80.0,
+    "why": "A LiftControllerPS device in the venue's always-loaded devices prefab (loc_q110_netrunners_den_devices_prefabNB6XLPI), at the hotel-front elevator that is the normal way in from the market. It is streamed at any distance, so the proximity wait fires when the player actually reaches the venue (the crowd and the den's rooms only stream then); a workspot would never fire (rule 8), and the den-floor door is too deep inside to rely on."
+  }
+}

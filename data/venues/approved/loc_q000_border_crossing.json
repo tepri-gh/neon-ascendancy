@@ -1,0 +1,356 @@
+{
+  "code": "q000_border_crossing",
+  "display_name": "SoCal Border Crossing",
+  "why": "The SoCal Border Crossing is the walled checkpoint where the highway out of Night City crosses into the state of SoCal: a gated multi-lane inspection area with patrol cars and a security office whose public waiting room and two question rooms face the lanes. In vanilla the crossing's gameplay section is only instantiated by V's nomad prologue, and its post-prologue open-world ambience is gated on q000_done, so clean-slate leaves an empty shell. This proposal restores the checkpoint as an ordinary working day: the border patrol's gate and lane posts, the duty officer and counter guard, travellers queued in the waiting room, two secondary inspections in the question rooms, a couple waiting by a car, and the drivers of the queued vehicles.",
+  "source": {
+    "proposal": "research/loc_q000_border_crossing/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "input.json's `prefabs` omits #loc_q000_border_crossing_openworld because the miner only reads phasePrefabs, not phaseInstancePrefabs. That section holds the real ambient population (#q000_ow_com Militech guards plus drone, #q000_nomad_ow_civilians_com's 15 civilians, 8 civilian-car spawners, passenger workspots and the security system) and it is instantiated by bad_ina_phase's `q000_done >= 1` sub-phase, so clean-slate never loads it. Should the catalogue record it so a second pass can restore it, or should the venue keep this quest-prefab population instead?",
+      "Posture of #q000_nomad_com_border_patrol_guards is unknown: no community area node for it exists in the converted sectors, so entry-to-spot mapping was inferred from spot names. Confirm on tour that each chosen guard stands at a gate/lane post and that liquid `Character.q000_nomad_border_patrol_guard_reprimand` has no confrontational barks in ambient play.",
+      "The var_cameras variant is only ever set to 1 by q000_nomad.questphase, and the camera devices are only driven by q305_08. Confirm on tour whether 1 adds the visible camera set or removes it; if it is the latter, drop the toggle.",
+      "Does the checkpoint office double door open onto the staff side or the public entrance? If it is the public entrance, the runtime door policy must unlock it or the interior is unreachable."
+    ]
+  },
+  "prefabs": [
+    "#q000_nomad_pr_border_crossing"
+  ],
+  "communities": [
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_officer",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Duty officer at the checkpoint's inspection desk (spot q000_nomad_ws_border_patrol_officer, generic__sit_chair_table_lean_front__sit_around__02: seated at a table, paper-processing posture, not a scene). Vanilla's own ambient entry for the crossing.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_07",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing the inspection counter (spot ..._007, generic__stand_bar__work__01: working at the counter). q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_08",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_01",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_03",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_04",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_05",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_06",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_12",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_13",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_14",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_15",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_16",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_17",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_18",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_19",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_20",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_21",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_patrol_guard_24",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "SoCal border patrol guard standing a gate/lane guard post. q000_default is the only phase this community defines besides the q000_second_chat variant of the two inspection entries, so the pose is the guard_stand / rifle-stand workspot rather than a scene. Skipped: border_patrol_guard_inspection_001 and _002, whose spots use panam__stand_shotgun__aim__01 and bodyguard__stand_ground_pistol__alerted__01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_001_f",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: generic__sit_chair_cellphone__check__01.workspot (seated traveller checking a phone). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_002_m",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: generic__sit_chair_can__drink__01.workspot (seated traveller with a drink). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_003_m",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: generic__stand_wall_lean_left__stand_around__01.workspot (traveller leaning on the wall). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_004_f",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: generic__sit_chair_lean_back__sit_around__04.workspot (seated traveller waiting). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_005_m",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: dirt__stand_wall_lean_back__stand_around__01.workspot (waiting against the wall). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "border_waiting_room_006_m",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Traveller in the checkpoint's waiting room: generic__sit_lean_back_fries_cone__eat__01.workspot (waiting, eating). Gives the venue its queue of people waiting to be processed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "question_room_001_civi",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "One half of a routine secondary inspection in a question room: generic__sit_chair__sit_around__01.workspot (traveller seated for questioning). Seated across a table, so it reads as an interview, not a raid.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "question_room_001_guard",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "One half of a routine secondary inspection in a question room: generic__sit_chair_table_lean_front__sit_around__01.workspot (officer seated across the table). Seated across a table, so it reads as an interview, not a raid.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "question_room_002_civi",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "One half of a routine secondary inspection in a question room: generic__sit_chair__sit_around__01.workspot (second traveller being questioned). Seated across a table, so it reads as an interview, not a raid.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "question_room_002_guard",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "One half of a routine secondary inspection in a question room: generic__sit_chair_table_lean_front__sit_around__02.workspot (second officer at the table). Seated across a table, so it reads as an interview, not a raid.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "broken_car_scene_f_001",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Couple waiting beside a car in the inspection lane (generic__stand_ground__look_at_products__01.workspot); the prefab's var_car_smoke stays at its default 0, so there is no breakdown smoke and it reads as an ordinary wait.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards",
+      "entry_name": "broken_car_scene_m_001",
+      "phase_name": "q000_default",
+      "action": "Activate",
+      "why": "Couple waiting beside a car in the inspection lane (big__stand_car_hood_lean_back__stand_around__01.workspot (leaning on the car hood)); the prefab's var_car_smoke stays at its default 0, so there is no breakdown smoke and it reads as an ordinary wait.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_com_border_patrol_guards_crowd",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Background guard crowd at the crossing, activated whole exactly as vanilla does. The catalogue resolves its spots (guard_stand.workspot, dirtboy__stand_ground_rifle__guard__01) as relaxed, so this is the one group whose posture is proven."
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_before_v_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_001_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_002_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_003_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_004_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_006_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_007_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_nomad_border_car_drivers",
+      "entry_name": "#q000_nomad_ws_border_cars_bg_008_driver",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/sw2/#loc_q000_border_crossing/#loc_q000_border_crossing_gameplay/loc_q000_border_crossing_devices_prefabUA3U66Y",
+      "states": {
+        "var_cameras": 1
+      },
+      "why": "Turns on the checkpoint's surveillance-camera set, the state vanilla sets for the crossing in q000_nomad.questphase (the venue's own authored look). The camera PS actions themselves are q305 scene wiring and are left alone."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q000_nomad_dvc_border_crossing_office_doors",
+    "within": 80.0,
+    "why": "The only DoorControllerPS vanilla drives at this venue (ForceLock in q000_nomad.questphase). It is part of the always-loaded devices section on the checkpoint building, so it is streamed in before the communities are re-issued."
+  }
+}

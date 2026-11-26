@@ -1,0 +1,77 @@
+{
+  "code": "sq027_rail_junction",
+  "display_name": "Corp-Bud Railroad Station",
+  "why": "The Corp-Bud Railroad Station is a shut-down Corp-Bud loading and washing station in the Rocky Ridge Plains, where the old freight line crosses Highway 101 and the company's Ural Kombinat locomotive was left on the rails when the site closed. Vanilla only activates it during sq027: the Aldecaldos camp at the junction overnight, restart the locomotive and raid a Militech convoy at the crossing, and Militech later occupies the station to investigate. This proposal restores the normal, pre-story state: the quest-design section with the parked locomotive, the Aldecaldo camp and campfire held off, and the old fire pit cold, so the station is the accessible, empty industrial site it is in our timeline. No one is stationed here in normal play: every vanilla occupant of this venue is either the Aldecaldo crew, whose home is the mobile camp, or a combat convoy on the highway.",
+  "source": {
+    "proposal": "research/loc_sq027_rail_junction/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Which train phase actually parks it: sq027_persistent_content activates head/car_001/car_002 in 00_prequest, but head's registry initial phase is 00_junction. A tour should confirm 00_prequest shows the train standing at the closed station and does not leave it floating on the junction spline.",
+      "Does the #sq027_com_train spawner stream without #sq027_pr_locomotive? Persistent content activates the community without declaring the prefab, which suggests the spawner may live in an always-loaded sector; the prefab is declared here anyway so the train and the camp variants are guaranteed, but a tour should check there is exactly one locomotive (no duplicate from a base sector).",
+      "jumpout_colliders=0 is inferred from prep clearing it while the train stands at the junction; the authored default may already be 0. The tour should check the player can climb on and walk beside the parked cars.",
+      "The station's ground-floor door lock states are inferred from scripted ForceLock/ForceEnable/ForceOpen actions; there is no lookat.log for this venue. The tour needs the look-at logger on #sq027_dvc_door_entrance_eng, #sq027_dvc_door_entrance_solo, #sq027_dvc_access_point and the untagged interior sliding door.",
+      "The Ce_BLs_InA_Se1_04 combat event at Inland Avenue also force-opens this station's entrance doors, so the two venues share door state; if that combat event is left running in the clean slate, the doors may already be open on approach."
+    ]
+  },
+  "prefabs": [
+    "#sq027_pr_locomotive"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq027_com_train",
+      "entry_name": "head",
+      "phase_name": "00_prequest",
+      "action": "Activate",
+      "why": "Vehicle entry, not a person: the Ural Kombinat locomotive itself (the record is a vehicle because the game has no train entity, hence 'fake_train'). 00_prequest is the state sq027_persistent_content puts all three train entries in for normal play, i.e. the train standing at the closed station; 00_junction is its initial phase but is the quest's junction staging. Posture is unknown because vehicle entries have no workspots.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq027_com_train",
+      "entry_name": "car_001",
+      "phase_name": "00_prequest",
+      "action": "Activate",
+      "why": "Vehicle entry: first freight car of the parked train. 00_prequest is its registry initial phase and the phase persistent content activates outside the quest; the only other phases (01_initial, 02_ambush, 03_final) are the raid run.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq027_com_train",
+      "entry_name": "car_002",
+      "phase_name": "00_prequest",
+      "action": "Activate",
+      "why": "Vehicle entry: second freight car of the parked train, in the same persistent 00_prequest state as car_001. Together with head and car_001 it reproduces exactly what sq027_persistent_content leaves at the station when no quest is running.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#sq027_04a_camping",
+      "states": {
+        "camp": 0
+      },
+      "why": "Camp off: no tents, bedrolls or overnight gear at the junction. The camp exists only because the Aldecaldos stop here for the night on the way to the highway crossing, so the persistent-content state (camp 0) is the normal look."
+    },
+    {
+      "prefab": "#sq027_junction_campfire",
+      "states": {
+        "fire": 0,
+        "spent": 0
+      },
+      "why": "Cold, unused fire pit: fire 0 is unlit and spent 0 is not a burnt-out ring. This is the pair persistent content sets; prep turns the fire on (fire 1) for the gathering scene and the alternate pair fire 0 / spent 1 is the burnt-out state after the scene."
+    },
+    {
+      "prefab": "#sq027_pr_locomotive",
+      "states": {
+        "jumpout_colliders": 0
+      },
+      "why": "Clear the invisible jump-out colliders on the train cars. Vanilla clears them (0) in prep while the train stands at the junction, which is the same situation as our parked train; leaving them on would put invisible walls around the freight cars a player can otherwise walk up to and around. Not a visual switch, an access switch."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq027_dvc_door_entrance_eng",
+    "within": 80.0,
+    "why": "The station's powered front entrance door (DoorControllerPS), streamed with the location and sitting on the normal way in from the tracks to the control tower, so the proximity wait and the door leaf line up. It is a device, not a workspot (playbook rule 8)."
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "code": "q112_parade_area",
+  "display_name": "Japantown Parade Route (market bridge and shrine)",
+  "why": "The elevated parade route above Japantown: a market bridge of food stands and stalls, a security room, a construction site, lifts up to the route and a small shrine, all dressed for Saburo Arasaka's funeral parade in q112. This proposal restores the everyday bazaar - stall keepers, shoppers, the market crowd, the cook's grill, construction staff, a two-officer NCPD post and the shrine's miko and priest - while leaving the parade barges, billboards, blockers, frozen spectator blobs and Arasaka parade security out.",
+  "source": {
+    "proposal": "research/loc_q112_parade_area/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the kept open-world Japantown phase (wbr_jpn_phase, run by the kept global community phase) already keep the market crowd and cook alive at boot, making our re-activation redundant but harmless? Confirm on the tour that no second crowd spawns at the same spots.",
+      "Declaring #q112_pr_parade for the two shrine NPCs also instantiates the parade staging. Confirm the barge, player_blocker and background_npcs variant changes hide it cleanly and the shrine reads as an ordinary shrine, or drop the shrine pair and the prefab.",
+      "The 'avs' variant of #q112_pr_market appears with state 0 only in vanilla; confirm that 0 means parked parade AVs hidden (not shown).",
+      "The market security room is a quest infiltration room. Confirm with the door policy that its door and the #q112_01_market_security access point behave normally when the venue phase runs.",
+      "Whether Saburo is alive in this timeline is not stated in docs/design/gameplay-systems.md; either way the funeral parade cannot happen because the heist that kills him never does, but a canon answer would settle it."
+    ]
+  },
+  "prefabs": [
+    "#q112_pr_market",
+    "#q112_pr_parade"
+  ],
+  "communities": [
+    {
+      "spawner": "#q112_com_market_crowd",
+      "entry_name": "men",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Background market crowd on the bridge (53 spots: benches, stalls, vending machines, bar lean, stairs). Vanilla's open-world Japantown phase already activates men/default while the parade barges are not running; re-issue it from the venue phase so the bridge is not empty if the district phase streams late. Activate is idempotent, but the tour should confirm no double crowd.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q112_com_market_crowd",
+      "entry_name": "women",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female half of the same background market crowd (53 spots). Same vanilla open-world activation under the no-parade branch.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#wbr_jpn_cherry_blossom_ow_com",
+      "entry_name": "vendor_stand_f",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Food-stall keeper for the bridge market: 16 spots including stand_market_grill_spatula__cook and bar-rag clean. The community sits inside this venue's openworld prefab but no extracted vanilla phase ever activates it, so these stalls are unstaffed by default."
+    },
+    {
+      "spawner": "#wbr_jpn_cherry_blossom_ow_com",
+      "entry_name": "vendor_stand_m",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Second food-stall keeper, same 16 stand spots; two staffed stands plus shoppers read as an open bazaar."
+    },
+    {
+      "spawner": "#wbr_jpn_cherry_blossom_ow_com",
+      "entry_name": "client_mallrat",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Shoppers for the stalls (40 spots: look_at_products, sit_chair_can_drink, takeout barstool, stand_around). Supplies the buying side of the market without any quest NPC."
+    },
+    {
+      "spawner": "#q112_com_market_construction",
+      "entry_name": "worker_01",
+      "phase_name": "worker_01",
+      "action": "Activate",
+      "why": "Construction worker at the bridge construction site, standing with a tablet (stand_ground_tablet__use). The site is permanent geometry; the worker keeps it reading as an active site in the daytime."
+    },
+    {
+      "spawner": "#q112_com_market_construction",
+      "entry_name": "worker_02",
+      "phase_name": "worker_02",
+      "action": "Activate",
+      "why": "Second site worker, leaning on the site wall (dirt stand_wall_lean_back)."
+    },
+    {
+      "spawner": "#q112_com_market_ncpd",
+      "entry_name": "ncpd_01",
+      "phase_name": "q112_01_market_ncpd_01_01",
+      "action": "Activate",
+      "why": "NCPD officer posted at the market rail (stand_rail_lean_front__stand_around), the market's routine police presence. Vanilla spawns ncpd_01 here for the market meeting and walks it off at the end of the phase; the same relaxed, non-hostile phase should stand here normally.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q112_com_market_ncpd",
+      "entry_name": "ncpd_02",
+      "phase_name": "q112_01_market_ncpd_02_01",
+      "action": "Activate",
+      "why": "Second officer of the market post, leaning at the stand bar (stand_bar_lean_back). Same relaxed phase vanilla uses.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q112_com_parade_crowd_02",
+      "entry_name": "miko",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Shrine maiden at the route-side shrine, praying (church stand_ground__pray 02/04). Shrine staff are normal, not parade-only, and the shrine geometry is base-world; the spots live in #q112_pr_parade. Tour must confirm the shrine reads normally with the parade variants off.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q112_com_parade_crowd_02",
+      "entry_name": "priest",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Shrine priest meditating at the shrine (monk sit_ground__meditate 04). Keeps the shrine attended without any parade crowd.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#q112_pr_market",
+      "states": {
+        "avs": 0
+      },
+      "why": "Parked AVs / parade vehicles off in the market section. Both q112 phases that touch this variant set 0; 0 is the only recorded state and matches an undressed market."
+    },
+    {
+      "prefab": "#q112_pr_parade",
+      "states": {
+        "player_blocker": 0
+      },
+      "why": "Remove the parade barricade so the route (and the shrine) is walkable, as it is after the job. Vanilla sets the blocker only while the parade runs."
+    },
+    {
+      "prefab": "#q112_pr_hanakos_barge",
+      "states": {
+        "barge": 0
+      },
+      "why": "No Hanako Arasaka parade float on the route: the funeral parade does not happen in this timeline. Vanilla hides it again after the abduction."
+    },
+    {
+      "prefab": "#q112_background_npcs",
+      "states": {
+        "None": 0
+      },
+      "why": "Whole frozen parade-crowd block off (563 nodes of instanced spectators on the route). 0 is the state vanilla restores after the parade."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q112_01_market_security",
+    "within": 80.0,
+    "why": "AccessPointControllerPS in the always-loaded loc_q112_parade_area_gameplay_prefab6ZLETJA/#loc_q112_parade_area_devices, the market security terminal by the security-room entrance the player passes on the way through the market. A resolved device entity, not a workspot (rule 8)."
+  }
+}

@@ -1607,8 +1607,8 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
         if code in codes:
             raise ValueError(f"{venue_path}: duplicate venue code {code}")
         codes.add(code)
-        if not v.get("prefabs") and not v.get("doors"):
-            raise ValueError(f"{venue_path}: venue {code} declares no prefabs and no doors")
+        if not any(v.get(k) for k in ("prefabs", "doors", "communities", "spawn_sets", "variant_toggles")):
+            raise ValueError(f"{venue_path}: venue {code} declares nothing (no prefabs, doors, people or toggles)")
         if not v.get("prefabs"):
             # Door-only entry: its prefabets are owned by another phase (cast_and_hubs).
             # Declaring the same prefab in two phases duplicates it, which can break

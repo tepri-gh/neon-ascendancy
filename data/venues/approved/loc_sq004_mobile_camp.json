@@ -1,0 +1,309 @@
+{
+  "code": "sq004_mobile_camp",
+  "display_name": "Mobile Camp (Aldecaldo Camp, Rocky Ridge Plains)",
+  "why": "An Aldecaldo mobile campsite in the Wind Farms of the Rocky Ridge Plains, with tents, truck hulls, a bar area, a gate, a ripperdoc and a weapon vendor. Vanilla staffs it from base/open_world/community/badlands/inland_avenue/bad_ina_phase.questphase (default env variants plus the #bls_ina_se1_com_1s_nomad_camp crowd) and from quest prefabs used by Ghost Town, Riders on the Storm and Queen of the Highway. This proposal restores the nomads/default look, the ambient camp crowd, the permanent regulars (Saul, Mitch, Bob, Teddy, Cassidy, Carol), the gate guards and the camp's vehicles, using only phases that put people on relaxed workspots.",
+  "source": {
+    "proposal": "research/loc_sq004_mobile_camp/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Where each spawn set's spawner entity actually lives: the catalogue gives no spots for #saul/#mitch/#bob/#teddy/#cassidy/#carol. If a 'default' spawner turns out to sit outside #sq004_pr_01_camp and #sq027_pr_nomad_camp, the venue needs one more prefab (likely #q114_pr_veteran_mood_scenes_001, which the catalogue does not list as a venue quest prefab).",
+      "#bls_ina_se1_com_1s_nomad_camp is a Background community with no entries in the registry, so its whole-community activation may spawn nothing on its own; vanilla used entry None with phase 'default' there. If the camp is still empty aside from the sq004 crowd, that activation is the first thing to check on the tour.",
+      "The guards' chosen phases are the *_ws_guard_leave_* ones: relaxed rifle-guard workspots, but named 'leave', so a tour should confirm they stay put at the gate instead of walking out of the camp.",
+      "Weapon vendor and ripperdoc presence depends on inland_avenue_se1_vendors.questphase actually running its nomads=1 toggles; worth a look-at check in game.",
+      "Whether the camp's radio (#q114_nomad_camp_02_player_radio) is close enough to the entrance to fire the proximity wait when the player drives in; if not, a gate terminal or the camp stash device would be the alternative anchor."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/#loc_sq004_mobile_camp/loc_sq004_mobile_camp_questdesign_prefabLJB57YI/#sq004_pr_01_camp",
+    "$/03_night_city/se1/#loc_sq004_mobile_camp/loc_sq004_mobile_camp_questdesign_prefabLJB57YI/#sq027_pr_nomad_camp"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq027_com_guards",
+      "entry_name": "guard_01",
+      "phase_name": "sq027_05a_ws_guard_leave_01",
+      "action": "Activate",
+      "why": "Camp gate guard. This phase is relaxed, not activated by any vanilla quest, and its only workspot is dirtboy__stand_ground_rifle__guard__01, so the guard stands watch at the camp perimeter instead of walking off or aiming."
+    },
+    {
+      "spawner": "#sq027_com_guards",
+      "entry_name": "guard_02",
+      "phase_name": "sq027_05a_ws_guard_leave_02",
+      "action": "Activate",
+      "why": "Second gate guard, same relaxed rifle-guard workspot family (dirtboy__stand_ground_rifle__guard__01), unused by vanilla quests."
+    },
+    {
+      "spawner": "#sq027_com_guards",
+      "entry_name": "guard_03",
+      "phase_name": "sq027_05a_ws_guard_leave_03",
+      "action": "Activate",
+      "why": "Third gate guard, relaxed rifle-guard workspot (dirtboy__stand_ground_rifle__guard__02), unused by vanilla quests."
+    },
+    {
+      "spawner": "#bls_ina_se1_com_1s_nomad_camp",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The Inland Avenue open-world phase's own ambient camp population: bad_ina_phase activates this background community with phase 'default' while sq027_var_nomad_camp_done is 0. That phase is not in our kept list, so the venue has to re-issue the whole-community activation. Vanilla uses entry None/phase default; the catalogue exposes it as a whole community, so entry None/phase None is the correct copy.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Camp regular standing with a whisky or sitting around the bar (generic__stand_bar_whisky__drink__01, generic__sit_chair__sit_around__*). No vanilla quest activates the 'default' phase of this community; only 'combat' is used, so 'default' is the intact camp look."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female camp regular on the bar/chair workspots; same unused 'default' phase."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_male_young",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Younger nomad on the relaxed camp workspots (sit ground laptop, kneel inspect, stand at the bar), making the camp read as a family site rather than a guard post."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_female_young",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Younger nomad, relaxed camp workspots; same unused 'default' phase."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_citizen_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Camp citizen type (bar whisky / chair sit workspots) in 'default'; its 'combat' sibling is the alert variant and is avoided."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "nomad_citizen_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female camp citizen type in 'default' (bar whisky / chair sit workspots), not the alert 'combat' phase."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Loiterer sitting on a chair or leaning at a wall (generic__sit_chair__sit_around__02, master_generic__stand_wall__stand_around__01), which is the camp's everyday background activity."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Loiterer standing with arms crossed; relaxed idle filler for the truck/tent area."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine3",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Bodyguard-stand / look-at-products idle, i.e. a nomad watching over the camp's gear."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine5",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Stand-around idle (generic__stand_ground__stand_around__03) for the camp centre."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine6_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Working nomad: kneeling to inspect or using a tablet (generic__kneel_ground__inspect__01, generic__stand_ground_tablet__use__01), the camp's day-to-day maintenance look."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine7",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Leaning at a table (generic__stand_table_lean_front__stand_around__01) near the camp's mess area."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "routine8",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "At the vending machine / table (generic__stand_vending_machine__use__01), a small everyday beat at the camp."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "man_big",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The camp's big nomad on big__stand__stand_around__01 / look-at-products spots; a distinctive regular seen in the wiki's camp cast list."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "guitar",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Camp musician sitting with a guitar (generic__sit_chair_lean_back_knife__sit_around__01), matching the Aldecaldos' camp-guitar flavour (the Scooters are listed camp inhabitants)."
+    },
+    {
+      "spawner": "#sq004_com_nomads",
+      "entry_name": "scooter",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Nomad sitting on a couch with a guitar (generic__sit_couch_lean_back_guitar__play__01); the camp's second, quieter musician spot."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#saul",
+      "entry_name": "saul",
+      "phase_name": "default",
+      "why": "Saul Bright, the camp's leader and the reason the site is a functioning clan camp. 'default' is his standing camp presence (vanilla only deactivates it when a quest moves him); 'default_newcamp' belongs to the later camp we do not use.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mitch",
+      "entry_name": "Mitch",
+      "phase_name": "default",
+      "why": "Mitch Anderson, the camp's veteran mechanic (wiki: greets V at the generators in Ghost Town). 'default' is the idle camp seat.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#bob",
+      "entry_name": "Bob",
+      "phase_name": "default",
+      "why": "Bob Sagan, one of the Aldecaldos V meets around the camp's veteran corner (wiki: Riders on the Storm). 'default' is his ambient camp seat.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#teddy",
+      "entry_name": "Teddy",
+      "phase_name": "default",
+      "why": "Teddy Simos, camp regular present with Carol, Cassidy and Bob in Riders on the Storm; 'default' is his idle camp seat.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#cassidy",
+      "entry_name": "cassidy",
+      "phase_name": "default",
+      "why": "Cassidy Righter, the camp's veteran sniper/mechanic (wiki: briefs V about the Militech trucks in Queen of the Highway). 'default' is her idle camp seat.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#carol",
+      "entry_name": "carol",
+      "phase_name": "default",
+      "why": "Carol Emeka, camp regular V finds with Cassidy and Teddy when Mitch is away; 'default' is her idle camp seat.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mitch_vehicle",
+      "entry_name": "mitch_vehicle",
+      "phase_name": "default",
+      "why": "Mitch's truck parked in camp, the usual backdrop of the veterans' corner; 'default' is not used by any vanilla quest in our kept set.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#panam_vehicle",
+      "entry_name": "panam_vehicle",
+      "phase_name": "sq027_camp",
+      "why": "Panam's car parked at the camp. Panam herself is already seated by cast_and_hubs.json (#panam/panam/default), so only the vehicle is added; 'sq027_camp' is the camp parking phase, not a scene.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq004_mobile_camp",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Root switch for the whole location: 'default' is the inhabited camp. Vanilla's open-world phase sets it; that phase is not kept, so the venue must, otherwise the site can bake as the abandoned version used after the clan moves out."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_env",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Tents, truck hulls and camp structures in their inhabited arrangement rather than the barricaded combat or stripped abandoned sets."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_fx",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Camp ambience (dust, smoke, fire effects) in the default set, matching the inhabited camp."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_lighting",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Normal camp lighting (work lights, lanterns), not the combat or abandoned lighting."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_openworld",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "The open-world layer of the camp where the ambient nomad spots and markers live; 'abandoned' is the state sq004 leaves it in after the clan moves."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_devices",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Powers the camp's own devices (player radio, stash, turret posts) in the normal set, so the camp is usable and lit as a home rather than a battle site."
+    },
+    {
+      "prefab": "#loc_sq004_mobile_camp_loot",
+      "states": {
+        "default": 1,
+        "combat": 0,
+        "abandoned": 0
+      },
+      "why": "Normal camp loot containers instead of the combat/abandoned distribution; vanilla's open-world default."
+    },
+    {
+      "prefab": "#sq027_temp_construction",
+      "states": {
+        "pieces": 0,
+        "tools": 0
+      },
+      "why": "Keeps the Basilisk repair scaffolding (panzer parts, tools) out of the camp. Those pieces belong to the Queen of the Highway tank job, which never happens in our timeline; vanilla's default state is no pieces, no tools."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q114_nomad_camp_02_player_radio",
+    "within": 80.0,
+    "why": "The camp's radio is a real streamed device entity in the middle of the camp (RadioControllerPS, path .../loc_sq004_mobile_camp_devices/#nomad_camp_01_player_radio/#q114_nomad_camp_02_player_radio). Walking into the camp passes it, and vanilla itself drives it (ForceEnabled in Queen of the Highway, ForceDisabled in Inland Avenue), so it is guaranteed to stream and to have a controller. A workspot is not used (rule 8)."
+  }
+}

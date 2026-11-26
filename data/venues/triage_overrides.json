@@ -1,18 +1,80 @@
 {
   "description": "Owner decisions on venue research triage, applied by tools/mine-venues.py catalog. 'excluded' venues get no research agent. 'deferred' venues are kept for a later, dedicated pass.",
   "venues": [
-    {"venue": "loc_mikoshi_cyberspace", "decision": "excluded", "why": "Main-story ending (Mikoshi); not in our timeline."},
-    {"venue": "loc_q101_cyberspace", "decision": "excluded", "why": "Cyberspace after the heist; virtual space, and the heist does not happen in our timeline."},
-    {"venue": "loc_q110_cyberspace", "decision": "excluded", "why": "Voodoo Boys' cyberspace sequence; virtual space, not a world venue."},
-    {"venue": "loc_q114_cyberspace", "decision": "excluded", "why": "Cyberspace sequence; virtual space, not a world venue."},
-    {"venue": "loc_q201_space_station", "decision": "excluded", "why": "Arasaka ending epilogue (space station)."},
-    {"venue": "loc_q203_space_station", "decision": "excluded", "why": "Ending epilogue (space station)."},
-    {"venue": "loc_q202_border_crossing", "decision": "excluded", "why": "Aldecaldos ending epilogue at the border."},
-    {"venue": "loc_q204_music_store", "decision": "excluded", "why": "Johnny ending epilogue."},
-    {"venue": "loc_q204_rundown_apartment", "decision": "excluded", "why": "Johnny ending epilogue."},
-    {"venue": "loc_q306_mission_aftermath", "decision": "excluded", "why": "Phantom Liberty ending aftermath."},
-    {"venue": "loc_q306_reed_epilogue", "decision": "excluded", "why": "Phantom Liberty ending epilogue."},
-    {"venue": "loc_q307_fia_hospital", "decision": "excluded", "why": "Phantom Liberty ending (the cure)."},
-    {"venue": "loc_q306_spaceport", "decision": "deferred", "why": "Owner (2026-11-25): keep for later testing; it may suit something unique."}
+    {
+      "venue": "loc_mikoshi_cyberspace",
+      "decision": "excluded",
+      "why": "Main-story ending (Mikoshi); not in our timeline."
+    },
+    {
+      "venue": "loc_q101_cyberspace",
+      "decision": "excluded",
+      "why": "Cyberspace after the heist; virtual space, and the heist does not happen in our timeline."
+    },
+    {
+      "venue": "loc_q110_cyberspace",
+      "decision": "excluded",
+      "why": "Voodoo Boys' cyberspace sequence; virtual space, not a world venue."
+    },
+    {
+      "venue": "loc_q114_cyberspace",
+      "decision": "excluded",
+      "why": "Cyberspace sequence; virtual space, not a world venue."
+    },
+    {
+      "venue": "loc_q201_space_station",
+      "decision": "excluded",
+      "why": "Arasaka ending epilogue (space station)."
+    },
+    {
+      "venue": "loc_q203_space_station",
+      "decision": "excluded",
+      "why": "Ending epilogue (space station)."
+    },
+    {
+      "venue": "loc_q202_border_crossing",
+      "decision": "excluded",
+      "why": "Aldecaldos ending epilogue at the border."
+    },
+    {
+      "venue": "loc_q204_music_store",
+      "decision": "excluded",
+      "why": "Johnny ending epilogue."
+    },
+    {
+      "venue": "loc_q204_rundown_apartment",
+      "decision": "excluded",
+      "why": "Johnny ending epilogue."
+    },
+    {
+      "venue": "loc_q306_mission_aftermath",
+      "decision": "excluded",
+      "why": "Phantom Liberty ending aftermath."
+    },
+    {
+      "venue": "loc_q306_reed_epilogue",
+      "decision": "excluded",
+      "why": "Phantom Liberty ending epilogue."
+    },
+    {
+      "venue": "loc_q307_fia_hospital",
+      "decision": "excluded",
+      "why": "Phantom Liberty ending (the cure)."
+    },
+    {
+      "venue": "loc_q306_spaceport",
+      "decision": "deferred",
+      "why": "Owner (2026-11-25): keep for later testing; it may suit something unique."
+    },
+    {
+      "venue": "loc_q301_way_to_crashsite",
+      "decision": "excluded",
+      "why": "Research wave 1: the street only exists as the Space Force One crash aftermath; no shootdown in our timeline."
+    },
+    {
+      "venue": "loc_q114_nomads",
+      "decision": "excluded",
+      "why": "Research wave 1: the new Nomad Camp exists only after the Aldecaldos relocate; owner C4: the old Mobile Camp is kept."
+    }
   ]
 }
