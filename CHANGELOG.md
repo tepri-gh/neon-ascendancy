@@ -44,6 +44,13 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Clouds Tyger Claws no longer look alert. The two VIP-entrance guards used
+  vanilla's `after_woodman` phase, whose workspots are the post-interrogation
+  lockdown (nervous stance, agitated shuffle). They now use `start` (leaning,
+  waiting), and the ground-floor lift guard is added on its `start` tablet
+  spot. Woodman's lift drops the no-op `AuthorizationDisable`: floor access
+  comes from its floor terminals, and the lift offers the authorization
+  quickhack, so door policy keeps it vanilla.
 - Venue access: inside each venue phase, community activations, variant toggles,
   the proximity chain and door actions now each leave the venue's branch on their
   own edge (spawn and device nodes are leaves), so one node that never completes

@@ -332,15 +332,22 @@
           "action": "Activate",
           "spawner": "#q105_com_dollhouse_combat",
           "entry_name": "guard_vipentrance_01",
-          "phase_name": "after_woodman",
-          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
+          "phase_name": "start",
+          "why": "VIP entrance guard leaning on the wall (routine__stand_wall_lean_back). after_woodman is the post-interrogation lockdown (agitated shuffle workspot) and reads as alert."
         },
         {
           "action": "Activate",
           "spawner": "#q105_com_dollhouse_combat",
           "entry_name": "guard_vipentrance_02",
-          "phase_name": "after_woodman",
-          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
+          "phase_name": "start",
+          "why": "Tyger Claws officer waiting by the VIP bathroom (generic__stand_ground__wait). after_woodman uses an agitated katana shuffle."
+        },
+        {
+          "action": "Activate",
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_lift",
+          "phase_name": "start",
+          "why": "Ground-floor lift guard using a tablet (routine__stand_ground_tablet__use). Its after_woodman and hostile phases are agitated."
         }
       ],
       "proximity_wait": {
@@ -363,13 +370,7 @@
           "ref": "#q105_dvc_dollhouse_lift_leave",
           "controller": "LiftControllerPS",
           "action": "ForceEnabled",
-          "why": "Woodman's private lift (vanilla q105_dollhouse_woodman ForceEnabled)."
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_lift_leave",
-          "controller": "LiftControllerPS",
-          "action": "AuthorizationDisable",
-          "why": "Owner: the lift behind Woodman asks for authorization V does not have."
+          "why": "Woodman's private lift (vanilla q105_dollhouse_woodman ForceEnabled). Authorization stays vanilla: per-floor access comes from the slave ElevatorFloorTerminalControllerPS (liftController.swift GetFloorAuthorizationFromSlaves), and the lift offers the authorization quickhack, so door policy keeps it."
         }
       ]
     },
