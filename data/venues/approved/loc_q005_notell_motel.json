@@ -1,0 +1,64 @@
+{
+  "code": "q005_notell_motel",
+  "display_name": "No-Tell Motel (Kabuki)",
+  "why": "The No-Tell Motel is the Kabuki motel on Titan Street: an arched street entrance, a small lobby with vending machines and ice machines, and two floors of rented rooms off an exterior walkway. Vanilla already keeps its street crowd alive through the kept Watson Kabuki open-world community phase (homeless people, sex workers and residents on the walkway and in the alley), so this proposal opens the motel for business and restores one occupied room: Lizzy Wizzy waiting at her window as a paying guest. It leaves out the heist briefing room, the Militech assignation and Liam's corpse, none of which happen in our timeline.",
+  "source": {
+    "proposal": "research/loc_q005_notell_motel/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the runtime door policy actually open #mq019_dvc_door_lizzy_room? Vanilla only strips its authorization from the quest phase. If the device keeps an authorization module, the policy skips it and Lizzy sits locked in her room; the tour must check the door from the walkway.",
+      "Does the kept wat_kab_phase crowd actually appear at the motel at boot? The catalogue marks #wat_kab_q005_notell_motell_crowd_com None/None as ungated and the global community phase is kept, so it should; if the tour finds the walkway empty, add the whole-community activation as the cheap fix.",
+      "Do the two gate toggles (arch gate, back-alley gates) apply when the Kabuki sector is not streamed yet? Rule 5 says toggles work at boot, but this is the first venue here relying on it for an entrance; confirm the arch is visibly open on arrival.",
+      "Is the arch gate the only way in for a customer, and is the sealed #notell_back_entrance acceptable? Its ref is venue_inferred, so the door policy cannot reach it.",
+      "Is room 204's shell really present without #q005_07_finale? The room's TVs and mirror devices live in the always-loaded gameplay prefab, which suggests the shell is env; if the tour shows a void doorway or a missing room, the finale prefab has to be declared with its quest props.",
+      "Is #lizzy_wizzy's spawner node inside #mq019_pr_notell_motel or in the always-loaded location prefab? If it is elsewhere the prefab declaration is redundant but harmless.",
+      "Are the alley gates canonically shut (a private service yard) rather than open? Vanilla opens them for the heist arrival, which is what this proposal copies; flip to gates_closed 1 if the open gates expose a shortcut that should not exist."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/kabuki/#loc_q005_notell_motel/loc_q005_notell_motel_questdesign_prefab4LPWTFY/#mq019_pr_notell_motel"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#lizzy_wizzy",
+      "entry_name": "lizzy_wizzy",
+      "phase_name": "mq019_01_at_window",
+      "why": "Lizzy Wizzy is alive and working in this timeline (Violence never runs), and she is the motel's only named guest: vanilla seats her standing at the room window smoking while she waits for her visitor, which is exactly a celebrity holed up in an incognito room. No dialogue, scene or quest marker; this is the calm pre-finale placement, not the at_bed pose used over Liam's body.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#notell_motel_gate_entrance",
+      "states": {
+        "closed": 0,
+        "open": 1
+      },
+      "why": "The Titan Street arch gate onto the motel forecourt. Vanilla's own arrival state in q005_09 is open (closed 0 / open 1); it only closes again for the finale scene, so open is the motel's normal open-for-business look and the way in for a customer on foot."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/#loc_q005_notell_motel/loc_q005_notell_motel_env_prefab74PFGSY/ext_back_alley_prefabHHGLLUA",
+      "states": {
+        "gates_closed": 0,
+        "gates_open": 1
+      },
+      "why": "The service-alley gates behind the motel (dumpsters, ventilation shafts, the disposal chute). Vanilla opens them when the player arrives at the motel in q005_09 and closes them for the finale; open is the working state, and the alley is where the motel's own tramps and bins are."
+    },
+    {
+      "prefab": "#mq019_01_notell_motel",
+      "states": {
+        "var_ashtray": 0
+      },
+      "why": "The quest ashtray prop belonging to Lizzy's meeting. Vanilla's own bugfix phase hides it (show 0) for the open-world state because it is only needed while the dialogue plays; keep it hidden since no scene runs."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#mq019_dvc_door_lizzy_room",
+    "within": 80.0,
+    "why": "The rented room's own DoorControllerPS, in the always-loaded gameplay prefab: it sits at the door of the room Lizzy occupies on the second floor (her window spot is at z ~28), so the proximity wait fires on the walkway outside and re-issues her spawn once the room and its spots have streamed in."
+  }
+}

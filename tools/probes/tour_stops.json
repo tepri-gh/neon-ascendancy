@@ -1463,6 +1463,95 @@
    ]
   },
   {
+   "code": "sts_ep1_01",
+   "name": "Haven Clinic",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_01",
+   "pos": [
+    -1628.71,
+    -2508.14,
+    35.26
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_ep1_01_generic_patient_elder_ma",
+    "Character.sts_ep1_01_generic_patient_elder_wa",
+    "Character.sts_ep1_01_generic_patient_lowlife_ma",
+    "Character.sts_ep1_01_generic_patient_lowlife_wa",
+    "Character.sts_ep1_01_generic_patient_outcast_ma",
+    "Character.sts_ep1_01_generic_patient_outcast_wa",
+    "Character.sts_ep1_01_lowlife_male_big",
+    "Character.sts_ep1_01_lowlife_poor_child",
+    "Character.sts_ep1_01_medical_ma",
+    "Character.sts_ep1_01_odel",
+    "Character.sts_ep1_01_patient",
+    "Character.sts_ep1_01_target"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #sts_ep1_01_pre_state_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #sts_ep1_01_anderson_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #sts_ep1_01_odel_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "sts_ep1_01_prestate_entrance_lock: the name and the phase that owns each value point opposite ways (openworld, while the gig is playable and V can...",
+     "detail": "sts_ep1_01_prestate_entrance_lock: the name and the phase that owns each value point opposite ways (openworld, while the gig is playable and V can walk in, sets 0; cleanup restores 1). I chose 0 so the entrance is usable. The tour must confirm the front door is not boarded/blocked; if 1 turns out to be the intact pre-story lock rather than a barricade, switch to 1.",
+     "source": "open question"
+    },
+    {
+     "label": "All three chosen communities have posture unknown: no community-area node for them exists in any converted sector, so their workspots could not be...",
+     "detail": "All three chosen communities have posture unknown: no community-area node for them exists in any converted sector, so their workspots could not be read. Needs a tour check for clustering, floating or duplicated patients (pre_state_com and odel_com both place patients, and pre_state_com and the outside crowd share generic patient records).",
+     "source": "open question"
+    },
+    {
+     "label": "Anderson is placed as the street-story character (#sts_ep1_01_anderson_com, record Character.sts_ep1_01_target), not as the ripperdoc vendor.",
+     "detail": "Anderson is placed as the street-story character (#sts_ep1_01_anderson_com, record Character.sts_ep1_01_target), not as the ripperdoc vendor. If the clinic should sell cyberware, the vendors layer must activate #cz_monument_av_ripperdoc_anderson itself; the venue proposal cannot (the ref is reserved by venue_phases.json's dogtown_vendors note, which is a note, not a live activation).",
+     "source": "open question"
+    },
+    {
+     "label": "The vendor decoration variants (anderson_vendor/odell_vendor = 1, default_sts_01 = 0) copy vanilla cleanup, but without the vendor-active facts the...",
+     "detail": "The vendor decoration variants (anderson_vendor/odell_vendor = 1, default_sts_01 = 0) copy vanilla cleanup, but without the vendor-active facts the stalls may look like empty counters. If the tour shows closed/odd stalls, fall back to default_sts_01 = 1 with both vendor variants 0.",
+     "source": "open question"
+    },
+    {
+     "label": "interrior_area_patinets = 0 and interior_area = 1 are taken from vanilla cleanup; their exact visual effect is not documented in any converted sect...",
+     "detail": "interrior_area_patinets = 0 and interior_area = 1 are taken from vanilla cleanup; their exact visual effect is not documented in any converted sector, so the tour should check that the patient waiting area still reads correctly.",
+     "source": "open question"
+    },
+    {
+     "label": "Odell's annex (odel_com) is positioned as the temporary clinic across the road.",
+     "detail": "Odell's annex (odel_com) is positioned as the temporary clinic across the road. In our timeline it may read as a permanent second clinic; if the owner prefers a single-site clinic, drop odel_com and accept that Odell is not present.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_ep1_06",
    "name": "Heavy Hearts",
    "kind": "approved",
@@ -2382,6 +2471,63 @@
    ]
   },
   {
+   "code": "mq030_suit_store",
+   "name": "Jinguji — Downtown clothing store (Senate Avenue)",
+   "kind": "approved",
+   "venue": "loc_mq030_suit_store",
+   "pos": [
+    -1882.58,
+    91.29,
+    7.59
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CitizenRichFemale",
+    "Character.CitizenRichMale",
+    "Character.mq030_jinguji_bodyguard_1",
+    "Character.mq030_jinguji_bodyguard_2",
+    "Character.mq030_jinguji_bodyguard_new"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Which Interior/Interior_combat state the store is baked in: the toggle asserts the intact state, but the tour should confirm the showroom is not st...",
+     "detail": "Which Interior/Interior_combat state the store is baked in: the toggle asserts the intact state, but the tour should confirm the showroom is not still showing attack dressing (broken glass/toppled displays) after the variant runs at boot.",
+     "source": "open question"
+    },
+    {
+     "label": "Assuming interior_door_collision=0 means 'doorway passable' because it is the only value vanilla uses; confirm a player can walk from the entrance...",
+     "detail": "Assuming interior_door_collision=0 means 'doorway passable' because it is the only value vanilla uses; confirm a player can walk from the entrance into the showroom and that the variant node is streamed when the venue phase runs.",
+     "source": "open question"
+    },
+    {
+     "label": "Zane is placed by the vendor layer (cct_dtn_cloth_01_default_on).",
+     "detail": "Zane is placed by the vendor layer (cct_dtn_cloth_01_default_on). Confirm on tour that he is behind the counter inside the showroom and not only reachable via the dialogue layer.",
+     "source": "open question"
+    },
+    {
+     "label": "The catalogue device #mq030_dvc_jinguji_main_gate (path unresolved, addressed from mq030's quest graphs) is used as the anchor, but the world secto...",
+     "detail": "The catalogue device #mq030_dvc_jinguji_main_gate (path unresolved, addressed from mq030's quest graphs) is used as the anchor, but the world sectors only hold #mq030_dvc_door_jinguji; the proposal anchors on the world door. If the builder or approver requires the catalogue ref, the anchor will never resolve in the clean slate.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_cct_dtn_03",
    "name": "Empathy",
    "kind": "approved",
@@ -2736,6 +2882,74 @@
     {
      "label": "Basement/workshop walls: basement_invisible_wall and judy_workshop_invisible_wall are set to 0 (the vanilla 'in use' state).",
      "detail": "Basement/workshop walls: basement_invisible_wall and judy_workshop_invisible_wall are set to 0 (the vanilla 'in use' state). Verify no quest-only props are exposed and that the workshop geometry is fully streamed.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q005_notell_motel",
+   "name": "No-Tell Motel (Kabuki)",
+   "kind": "approved",
+   "venue": "loc_q005_notell_motel",
+   "pos": [
+    -1199.74,
+    1317.89,
+    28.06
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [
+    "#lizzy_wizzy"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Does the runtime door policy actually open #mq019_dvc_door_lizzy_room?",
+     "detail": "Does the runtime door policy actually open #mq019_dvc_door_lizzy_room? Vanilla only strips its authorization from the quest phase. If the device keeps an authorization module, the policy skips it and Lizzy sits locked in her room; the tour must check the door from the walkway.",
+     "source": "open question"
+    },
+    {
+     "label": "Does the kept wat_kab_phase crowd actually appear at the motel at boot?",
+     "detail": "Does the kept wat_kab_phase crowd actually appear at the motel at boot? The catalogue marks #wat_kab_q005_notell_motell_crowd_com None/None as ungated and the global community phase is kept, so it should; if the tour finds the walkway empty, add the whole-community activation as the cheap fix.",
+     "source": "open question"
+    },
+    {
+     "label": "Do the two gate toggles (arch gate, back-alley gates) apply when the Kabuki sector is not streamed yet?",
+     "detail": "Do the two gate toggles (arch gate, back-alley gates) apply when the Kabuki sector is not streamed yet? Rule 5 says toggles work at boot, but this is the first venue here relying on it for an entrance; confirm the arch is visibly open on arrival.",
+     "source": "open question"
+    },
+    {
+     "label": "Is the arch gate the only way in for a customer, and is the sealed #notell_back_entrance acceptable?",
+     "detail": "Is the arch gate the only way in for a customer, and is the sealed #notell_back_entrance acceptable? Its ref is venue_inferred, so the door policy cannot reach it.",
+     "source": "open question"
+    },
+    {
+     "label": "Is room 204's shell really present without #q005_07_finale?",
+     "detail": "Is room 204's shell really present without #q005_07_finale? The room's TVs and mirror devices live in the always-loaded gameplay prefab, which suggests the shell is env; if the tour shows a void doorway or a missing room, the finale prefab has to be declared with its quest props.",
+     "source": "open question"
+    },
+    {
+     "label": "Is #lizzy_wizzy's spawner node inside #mq019_pr_notell_motel or in the always-loaded location prefab?",
+     "detail": "Is #lizzy_wizzy's spawner node inside #mq019_pr_notell_motel or in the always-loaded location prefab? If it is elsewhere the prefab declaration is redundant but harmless.",
+     "source": "open question"
+    },
+    {
+     "label": "Are the alley gates canonically shut (a private service yard) rather than open?",
+     "detail": "Are the alley gates canonically shut (a private service yard) rather than open? Vanilla opens them for the heist arrival, which is what this proposal copies; flip to gates_closed 1 if the open gates expose a shortcut that should not exist.",
      "source": "open question"
     }
    ]
@@ -3358,6 +3572,74 @@
     {
      "label": "Whether #sq031_dvc_ebunike_entry_shutter and #sq031_main_gate are static (no authorization module, no controlling terminal), so the runtime door po...",
      "detail": "Whether #sq031_dvc_ebunike_entry_shutter and #sq031_main_gate are static (no authorization module, no controlling terminal), so the runtime door policy will open them; if either has a terminal the venue may need a documented way in.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q104_power_plant",
+   "name": "Satwave Power Plant (Jackson Plains)",
+   "kind": "approved",
+   "venue": "loc_q104_power_plant",
+   "pos": [
+    -198.0,
+    -2822.0,
+    25.33
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.Drone_Griffin_Base"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #q104_drones_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Interior access: the bunker door and the interior shutter are the only ways into the control station, and vanilla only opens the shutter with a que...",
+     "detail": "Interior access: the bunker door and the interior shutter are the only ways into the control station, and vanilla only opens the shutter with a quest action. The tour must confirm the door policy gets the player in and that the shutter is not left ForceSeal-ed after the quest phases never run.",
+     "source": "open question"
+    },
+    {
+     "label": "#loc_q104_power_plant_env_arch invisible_collider=1 is inferred as the normal state from the ungated bugfix phase; confirm on the tour that a playe...",
+     "detail": "#loc_q104_power_plant_env_arch invisible_collider=1 is inferred as the normal state from the ungated bugfix phase; confirm on the tour that a player on foot can still enter the control station with the collider on, and drop the toggle if it blocks the pedestrian route.",
+     "source": "open question"
+    },
+    {
+     "label": "The three ambient Griffin drones have no catalogued spot map (posture unknown in the catalogue).",
+     "detail": "The three ambient Griffin drones have no catalogued spot map (posture unknown in the catalogue). The six perimeter posts q104_ws_drone_001a/001b ... 003a/003b in the exterior sectors use routine__stand_ground, but confirm the drones actually appear on them and hover calmly rather than idling dead or alert.",
+     "source": "open question"
+    },
+    {
+     "label": "Whether the plant has any human staff in normal play.",
+     "detail": "Whether the plant has any human staff in normal play. No vanilla quest community provides workers here; the only worker spots near the plant belong to the Living City pass-combat event arr_ce_living_city_08 (seven workers plus eight enemies) in arr_ce_prefabYF4WKFA, which the kept Arroyo combat-events phase drives on its own. If the tour shows the plant empty of people, a small maintenance crew would have to be invented, which this proposal does not do.",
+     "source": "open question"
+    },
+    {
+     "label": "Turrets #q104_dvc_pp_turret_004/005 and the plant security system are only ever disabled by the quest.",
+     "detail": "Turrets #q104_dvc_pp_turret_004/005 and the plant security system are only ever disabled by the quest. Confirm their world-default state is off/neutral and that they do not fire on a visitor.",
+     "source": "open question"
+    },
+    {
+     "label": "Duplicate activation: std_arr_phase's #q104_drones_com node is gated in the miner's analysis, so it should not double the drones.",
+     "detail": "Duplicate activation: std_arr_phase's #q104_drones_com node is gated in the miner's analysis, so it should not double the drones. If the tour finds six drones instead of three, the gate analysis is wrong for this node.",
      "source": "open question"
     }
    ]

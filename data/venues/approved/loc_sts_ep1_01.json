@@ -1,0 +1,118 @@
+{
+  "code": "sts_ep1_01",
+  "display_name": "Haven Clinic",
+  "why": "Haven Clinic is a former church in Dogtown turned free clinic, run by ripperdoc Anthony Anderson with his assistant Odell Blanco; in vanilla it is the backdrop of Gig: Dogtown Saints, where Nika Yankovich's Scavengers storm it. This proposal restores the venue as an ordinary working clinic: the street-story section that holds Anderson's office, the clinic's pre-state staff and patient crowd, Anderson at work, Odell and two patients at the annex, the intact/restored fixture and lighting variants that vanilla's own cleanup phase puts back, and the front entrance as the proximity anchor.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "sts_ep1_01_prestate_entrance_lock: the name and the phase that owns each value point opposite ways (openworld, while the gig is playable and V can walk in, sets 0; cleanup restores 1). I chose 0 so the entrance is usable. The tour must confirm the front door is not boarded/blocked; if 1 turns out to be the intact pre-story lock rather than a barricade, switch to 1.",
+      "All three chosen communities have posture unknown: no community-area node for them exists in any converted sector, so their workspots could not be read. Needs a tour check for clustering, floating or duplicated patients (pre_state_com and odel_com both place patients, and pre_state_com and the outside crowd share generic patient records).",
+      "Anderson is placed as the street-story character (#sts_ep1_01_anderson_com, record Character.sts_ep1_01_target), not as the ripperdoc vendor. If the clinic should sell cyberware, the vendors layer must activate #cz_monument_av_ripperdoc_anderson itself; the venue proposal cannot (the ref is reserved by venue_phases.json's dogtown_vendors note, which is a note, not a live activation).",
+      "The vendor decoration variants (anderson_vendor/odell_vendor = 1, default_sts_01 = 0) copy vanilla cleanup, but without the vendor-active facts the stalls may look like empty counters. If the tour shows closed/odd stalls, fall back to default_sts_01 = 1 with both vendor variants 0.",
+      "interrior_area_patinets = 0 and interior_area = 1 are taken from vanilla cleanup; their exact visual effect is not documented in any converted sector, so the tour should check that the patient waiting area still reads correctly.",
+      "Odell's annex (odel_com) is positioned as the temporary clinic across the road. In our timeline it may read as a permanent second clinic; if the owner prefers a single-site clinic, drop odel_com and accept that Odell is not present."
+    ]
+  },
+  "prefabs": [
+    "#sts_ep1_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_01_pre_state_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The clinic's own staff and patients in its pre-story state: a medical assistant, two bed patients, canteen patients, a parent with a kid and a big lowlife man. Vanilla's cleanup phase turns exactly this community on to put the clinic back to normal after the gig, so it is the canonical 'working clinic' crowd.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_01_anderson_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Anthony Anderson, the clinic's ripperdoc and owner, at his post. Vanilla runs this single-entry community whole while the gig is live (phase a); it is the only spawner for his character record that another mod layer does not already claim.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_01_odel_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Odell Blanco, the clinic's co-owner and assistant (the gig's contact), plus two of his patients at the annex across the road. Vanilla activates this community whole in the venue's openworld phase and later re-activates Odell alone in his vendor phases; whole activation keeps him on site rather than leaving the clinic without its second owner.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_env_prefabMVM2MNA/loc_sts_ep1_01_architecture_prefabEWZL3TA/ext_prefabOZPVEMI",
+      "states": {
+        "sts_ep1_01_broken_windows": 0,
+        "sts_ep1_01_prestate_entrance_lock": 0
+      },
+      "why": "Intact facade with a usable entrance. Vanilla's openworld phase (gig live) sets broken_windows 0 and the entrance lock 0, and its cleanup phase repairs the windows to 0 again; broken windows only belong to the raid. The lock is left at 0 (the state in which V can walk in) because the clinic is open for business in our timeline; see open_questions."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_env_prefabMVM2MNA/loc_sts_ep1_01_decoration_prefabSLBO7XQ/ext_prefab7T6XNVQ",
+      "states": {
+        "sts_01_decoration": 0
+      },
+      "why": "No combat set-dressing (tents, barricades, scavenger camp) in front of the clinic. Only the combat phase turns this on; vanilla's cleanup turns it back off."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_env_prefabMVM2MNA/loc_sts_ep1_01_decoration_prefabSLBO7XQ/int_prefabT2THBNY",
+      "states": {
+        "default_sts_01": 0,
+        "anderson_vendor": 1,
+        "odell_vendor": 1
+      },
+      "why": "Open-for-business interior dressing: both clinics' vendor stalls visible (Anderson's ripper chair/desk, Odell's counter), the default pre-vendor set hidden. This is exactly the state vanilla's cleanup phase restores after the gig so both clinics keep running."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_lighting_prefabPBF7A7Q",
+      "states": {
+        "Default_state": 0,
+        "Anderson_lighting_variant": 1,
+        "Odel_Vendor": 1
+      },
+      "why": "Normal clinic lighting instead of the raid's broken/flickering set: the openworld phase drives Default_state 1 with Malfunction_state, while cleanup returns Default_state 0 and switches on the Anderson and Odell vendor lighting presets."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_gameplay_prefabHDOCUQA/loc_sts_ep1_01_loot_prefabPCX5ZNA",
+      "states": {
+        "sts_01": 0
+      },
+      "why": "No quest loot (Gaspar's implants and the gig's containers). Combat turns the loot set on; cleanup turns it off."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_gameplay_prefabHDOCUQA/loc_sts_ep1_01_devices_prefabBEPJ7WA",
+      "states": {
+        "sts_01_devices": 0,
+        "interior_area": 1
+      },
+      "why": "Quest-only devices (Anderson's laptop chain, the implant clue, reflectors, speakers) off, while the interior area marker stays on. Vanilla's cleanup sets exactly this pair."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_env_prefabMVM2MNA",
+      "states": {
+        "vfx": 0
+      },
+      "why": "No quest VFX (smoke/fire set dressing from the raid). Cleanup turns it off."
+    },
+    {
+      "prefab": "#sts_ep1_01_streetstory",
+      "states": {
+        "interrior_area_patinets": 0
+      },
+      "why": "The street-story prefab's patient interior area in its restored state. Vanilla turns it on only while the gig runs and sets it back to 0 in cleanup, which is the state we want for an ordinary clinic visit."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_01_prefabSGGPO6Y/loc_sts_ep1_01_env_prefabMVM2MNA/loc_sts_ep1_01_architecture_prefabEWZL3TA/ext_prefabOZPVEMI/double_door_prefabECUKGAY/{double_door}_prefabTFBKWWY",
+    "within": 80.0,
+    "why": "The clinic's front double door on Montaña de Oro Avenue, the device the player reaches on the normal way in. It is a DoorControllerPS entity that vanilla drives (cleanup ForceOpen, combat ForcePower), so it is a device, not a workspot."
+  }
+}

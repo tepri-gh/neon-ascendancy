@@ -1,0 +1,135 @@
+{
+  "code": "mq030_suit_store",
+  "display_name": "Jinguji — Downtown clothing store (Senate Avenue)",
+  "why": "Jinguji is the high-end clothing store on Senate Avenue in Downtown, City Center: one open showroom with the manager Zane Jagger behind the counter, two bouncers at the entrance and rich clients browsing, posing, appraising and waiting. The mod already keeps the downtown community phase that switches the store's crowd on and the vendor layer already places Zane, but that crowd is switched on once at boot (no proximity re-issue) and leaves the store dressed in the post-attack set: a replacement guard and after_mq030 client poses. This proposal re-activates the shop's own two original bouncers, three pre-quest clients and the walking designer after proximity, and restores the intact non-combat showroom variant so the store reads as open for business. No quest prefab is needed: the interior, the door, the spots and the gameplay variant group are world-streamed.",
+  "source": {
+    "proposal": "research/loc_mq030_suit_store/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Which Interior/Interior_combat state the store is baked in: the toggle asserts the intact state, but the tour should confirm the showroom is not still showing attack dressing (broken glass/toppled displays) after the variant runs at boot.",
+      "Assuming interior_door_collision=0 means 'doorway passable' because it is the only value vanilla uses; confirm a player can walk from the entrance into the showroom and that the variant node is streamed when the venue phase runs.",
+      "Zane is placed by the vendor layer (cct_dtn_cloth_01_default_on). Confirm on tour that he is behind the counter inside the showroom and not only reachable via the dialogue layer.",
+      "The catalogue device #mq030_dvc_jinguji_main_gate (path unresolved, addressed from mq030's quest graphs) is used as the anchor, but the world sectors only hold #mq030_dvc_door_jinguji; the proposal anchors on the world door. If the builder or approver requires the catalogue ref, the anchor will never resolve in the clean slate."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "bodyguard_new",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_posing",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_appraising",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_waiting",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_pistol_fingers",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_recording",
+      "phase_name": "after_mq030",
+      "action": "Deactivate",
+      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "bodyguard_1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "First of Jinguji's two entrance bouncers, standing casually at his post (big__stand__stand_around__01). default is the entry's pre-quest phase and the one the whole-community activation gives him; re-issuing it after proximity covers the fresh-start case where the kept downtown phase fired before the district streamed."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "bodyguard_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second entrance bouncer on the opposite side of the showroom, same relaxed stand-around workspot set; the pair is the store's visible security and rule 11a keeps combat groups ahead of the shoppers."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_appraising",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A wealthy customer examining the merchandise (look_at_products__03 / think), exactly the pre-quest browsing phase vanilla's own downtown crowd phase activates; after_mq030 is the post-attack pose set and is not used."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_posing",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A customer standing about the showroom (generic__stand_ground__stand_around__10); the pre-quest default phase, not the nervous after_mq030 couch phase the catalogue rates alert."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "client_waiting",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A customer sitting in the shop's chair waiting her turn (generic__sit_chair__sit_around__05); the normal seated customer beat, activated by vanilla's own downtown phase before the job."
+    },
+    {
+      "spawner": "#mq030_suit_store_com",
+      "entry_name": "designer_walking",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The store's designer/floor assistant walking the showroom with a tablet (stand_around / tablet__stand_around / tablet__use), the only in-store staff workspots in this community; she reads as staff rather than another shopper and is what makes the shop look worked in."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq030_suit_store_gameplay",
+      "states": {
+        "Interior": 1,
+        "Interior_combat": 0
+      },
+      "why": "The intact, open-for-business showroom. mq030 flips this group to Interior 0 / Interior_combat 1 while the cyberpsycho is inside and back to Interior 1 / Interior_combat 0 afterwards; the job never runs here, so the venue phase must assert the normal state itself or the store can stay in its attack dressing."
+    },
+    {
+      "prefab": "#loc_mq030_suit_store_gameplay",
+      "states": {
+        "interior_door_collision": 0
+      },
+      "why": "Clears the interior doorway collision so the showroom is walkable. 0 is the only value vanilla ever sets, and mq030 sets it outside any pause, so it is the normal open-shop state; the isolated entry keeps it independent of the interior state pair."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#mq030_dvc_door_jinguji",
+    "within": 80.0,
+    "why": "The storefront entrance every visitor walks through: a DoorControllerPS entity inside the world-streamed #loc_mq030_suit_store_gameplay/loc_mq030_suit_store_devices_prefab5C5PU3A group (exterior_-15_0_0_1). The catalogue's own device ref #mq030_dvc_jinguji_main_gate has no resolved path and is addressed from mq030's quest graphs, i.e. it belongs to the quest-design prefab the clean slate does not load, so it would be a bad anchor; this world door is the one that actually streams. Checker warning expected and explained in notes.md."
+  }
+}

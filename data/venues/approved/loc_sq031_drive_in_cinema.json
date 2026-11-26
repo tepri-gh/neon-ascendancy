@@ -1,0 +1,37 @@
+{
+  "code": "sq031_drive_in_cinema",
+  "display_name": "Silver Pixel Cloud (North Oak drive-in cinema)",
+  "why": "loc_sq031_drive_in_cinema is the Silver Pixel Cloud, an abandoned drive-in movie theater in North Oak: a fenced parking lot with the screen and wrecked cars, and a small ticket/projection building whose front door is a keypad door (vanilla code 0000, read off the terminals built into the door assembly) with a back entrance behind the screen. It is not a business: vanilla never places staff, patrons or an owner here, and has no community area node inside the venue's sectors, so in open-world play it is a shutter-down, nobody-home landmark. This proposal restores nothing but access: it opens the lot's baked gate variant, which vanilla only opens while its combat event uses the yard, and records the two door routes. No prefabs, communities or spawn sets are declared because every person the catalogue attaches to this venue is a story actor standing somewhere else (Afterlife, Ebunike, All Foods, Ryder's clinic) or the Relic-era Johnny, who does not exist.",
+  "source": {
+    "proposal": "research/loc_sq031_drive_in_cinema/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Gates variant default is not in the offline extracts (no streaming-block descriptor copy): 0 is what vanilla sets while the lot is in use, 1 is the combat event's post-fight cleanup, and the date quest never toggles it. The tour should confirm that gates_closed 0 shows an open, walkable entrance and does not leave floating fence ends or missing gate leaves; if 0 looks broken, leave vanilla's baked state alone, since the lot may already be walkable on foot.",
+      "Is the lot walkable in free roam at all, or do the closed gates seal it? The wiki's own note that V can visit the theater before the date and open the front door implies yes; the tour should drive up and walk to the screen and the back of the building.",
+      "The projection-booth screen and the Bushido X playback are quest-prefab geometry. Expect the booth itself (stairs, projector, chair) to be world streaming and the movie to be absent. That is acceptable for a derelict cinema, but if the room reads as an empty shell with a bare wall, say so in the tour notes before anyone considers loading #sq031_pr_bushidox.",
+      "This venue is empty on purpose: no community area node exists in its sectors, and vanilla's only occupant is the gated combat-event camp on the lot. If the owner wants a holding crew here (design says neutral/abandoned nodes are Scav-held), it needs a garrison decision plus a spawner the catalogue does not offer for this venue - not a change to this proposal.",
+      "The access code: the wiki says the code is 0000 and that V reads it off a nearby terminal, and the door prefab instance contains the two keypad terminals. Confirm on tour whether the door offers its own code/keypad interaction, or whether the code has to come from a shard/terminal elsewhere (which would still be a valid rule-12 way in).",
+      "Identity: the catalogue files this as loc_sq031_drive_in_cinema in c_westbrook/north_oaks; the wiki names the drive-in Silver Pixel Cloud in North Oak. Confirm the location banner on tour; the population conclusion does not change either way."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq031_drive_in_cinema_env",
+      "states": {
+        "gates_closed": 0
+      },
+      "why": "Open the drive-in's baked entrance gates so the lot, screen and building front are reachable on foot and by car; the gates are mesh (playbook rule 14), so only this variant moves them. 0 is the state vanilla itself puts the venue in whenever the lot is in use: the North Oak combat event sets gates_closed 0 when it starts (with its loot visible) and only sets it back to 1 in the post-fight cleanup that also hides the loot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq031_door_cinema_main",
+    "within": 80.0,
+    "why": "The cinema's front door device (DoorControllerPS) is the only interactive device the catalogue resolves inside the venue, and it is the normal way in. It is a door, not a workspot (rule 8), and its prefab instance {sq031_door_cinema_main}_prefabX37GIYQ also carries the {terminal_}1 and {terminal_}2 keypads, so the entity sits on the building front where a visitor arrives. Nothing here needs a device action (the venue's only remaining work is the boot-time variant toggle and, later, people), so the pause is nominal: it is a safe arrival point and a streaming probe."
+  }
+}

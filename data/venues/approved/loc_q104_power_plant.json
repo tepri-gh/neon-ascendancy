@@ -1,0 +1,71 @@
+{
+  "code": "q104_power_plant",
+  "display_name": "Satwave Power Plant (Jackson Plains)",
+  "why": "A microwave power plant in the southern Badlands (prefab filed under Arroyo): one collection tower, three receiver antennas, a fenced compound and a small control station/bunker with cooling terminals. In vanilla it is only visited by Lightning Breaks, so its ambient security community is gated and never starts. This proposal restores that ambient layer - three Griffin security drones on their perimeter posts - and pins the plant to its normal, un-overheated, un-alarmed look. No quest actors, no quest staging prefab and no EMP state are restored.",
+  "source": {
+    "proposal": "research/loc_q104_power_plant/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Interior access: the bunker door and the interior shutter are the only ways into the control station, and vanilla only opens the shutter with a quest action. The tour must confirm the door policy gets the player in and that the shutter is not left ForceSeal-ed after the quest phases never run.",
+      "#loc_q104_power_plant_env_arch invisible_collider=1 is inferred as the normal state from the ungated bugfix phase; confirm on the tour that a player on foot can still enter the control station with the collider on, and drop the toggle if it blocks the pedestrian route.",
+      "The three ambient Griffin drones have no catalogued spot map (posture unknown in the catalogue). The six perimeter posts q104_ws_drone_001a/001b ... 003a/003b in the exterior sectors use routine__stand_ground, but confirm the drones actually appear on them and hover calmly rather than idling dead or alert.",
+      "Whether the plant has any human staff in normal play. No vanilla quest community provides workers here; the only worker spots near the plant belong to the Living City pass-combat event arr_ce_living_city_08 (seven workers plus eight enemies) in arr_ce_prefabYF4WKFA, which the kept Arroyo combat-events phase drives on its own. If the tour shows the plant empty of people, a small maintenance crew would have to be invented, which this proposal does not do.",
+      "Turrets #q104_dvc_pp_turret_004/005 and the plant security system are only ever disabled by the quest. Confirm their world-default state is off/neutral and that they do not fire on a visitor.",
+      "Duplicate activation: std_arr_phase's #q104_drones_com node is gated in the miner's analysis, so it should not double the drones. If the tour finds six drones instead of three, the gate analysis is wrong for this node."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#q104_drones_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The plant's own ambient security: three Character.Drone_Griffin_Base drones whose only vanilla activation is the whole-community None/None node in the Arroyo open-world phase, and that node is gated, so the clean slate never runs it. Their six perimeter posts (q104_ws_drone_001a/001b, 002a/002b, 003a/003b) all use routine__stand_ground, i.e. calm patrol posts rather than the quest combat wave.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q104_power_plant_fx",
+      "states": {
+        "emp_blast": 0,
+        "plant_overheating": 0,
+        "plant_normal": 1
+      },
+      "why": "The normal, idle plant: no EMP blast and no receiver overheating, just the plant's ordinary running FX. Vanilla's own attack phase sets exactly these values when it resets the site, and the quest bugfix phase also pins emp_blast=0."
+    },
+    {
+      "prefab": "#loc_q104_power_plant_lighting",
+      "states": {
+        "V_Lights_alarmed": 0,
+        "V_Lights_normal": 1
+      },
+      "why": "Ordinary plant lighting instead of red alert lighting. The attack phase is the only phase that touches this prefab and it sets the normal state, so nothing else can leave the site alarmed."
+    },
+    {
+      "prefab": "#loc_q104_power_plant_env_arch",
+      "states": {
+        "invisible_collider": 1
+      },
+      "why": "The arch's invisible collider is the site's normal state: the q104 bugfix phase pins it to 1, and only the power-plant phase clears it to 0 so Panam can drive a car into the control station during the quest. With the quest never running, restore the solid arch. Flagged for the tour in case the collider is also what blocks the pedestrian route in."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      -198.0,
+      -2822.0,
+      25.33
+    ],
+    "source": "#q104_mp_power_plant_arrive (world map-pin marker) in quest_13d40a045f3ab463.streamingsector, 9 m from the lighting-fuse anchor at (-206.8, -2831.8, 20.2) and inside the drones' six-post perimeter."
+  },
+  "proximity_wait": {
+    "ref": "#q104_dvc_plant_lighting_fuse",
+    "within": 80.0,
+    "why": "FuseControllerPS at (-206.8, -2831.8, 20.2), on the receiver/antenna deck beside the plant arrival marker and inside the ring of the drones' six patrol posts. It belongs to the lighting prefab the plant always loads, so it streams in with the venue and the proximity re-issue happens as the player walks up to the compound."
+  }
+}

@@ -13,6 +13,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 10 (second part): Haven Clinic in Dogtown (working free
+  clinic), the Silver Pixel Cloud drive-in (shut, gates open), the No-Tell
+  Motel, the Satwave power plant (security drones) and Jinguji (pre-attack
+  staff and clients; the after-attack set deactivated as vanilla does).
 - Research wave 10 (first part): the Dark Matter lounge (door and lift
   access, quiet between events) and the NCPD police lab in the Glen (its
   researcher on shift).
