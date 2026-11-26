@@ -405,7 +405,9 @@ def to_venue_entry(vn: str, prop: dict, within: float) -> dict:
         entry["tour_stop"] = prop["tour_stop"]
     anchor = (prop.get("proximity_anchor") or {}).get("ref")
     if anchor:
-        entry["proximity_wait"] = {"ref": anchor, "within": within,
+        # A proposal may widen the radius when its only ungated device is
+        # farther away (wave 15: the Kabuki container yard's lift, 214 m).
+        entry["proximity_wait"] = {"ref": anchor, "within": float((prop.get("proximity_anchor") or {}).get("within") or within),
                                    "why": (prop.get("proximity_anchor") or {}).get("why", "")}
     return entry
 
