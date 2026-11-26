@@ -2,62 +2,6 @@
  "generated_by": "tools/venue-proposals.py tour-stops",
  "stops": [
   {
-   "code": "q000_protein_farm",
-   "name": "Dry Creek's Farm",
-   "kind": "approved",
-   "venue": "loc_q000_protein_farm",
-   "pos": [
-    -3239.35,
-    -6736.65,
-    108.4
-   ],
-   "radius": 40.0,
-   "expected_records": [],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Drive south from the SoCal Border Crossing and confirm a player can reach Dry Creek's Farm in free roam.",
-     "detail": "Drive south from the SoCal Border Crossing and confirm a player can reach Dry Creek's Farm in free roam. Vanilla seals the checkpoint and kills anyone who tries to pass; the farm's map pin (-3239, -6737) is about 1.15 km south of the checkpoint (-2836, -5663), so this may be a tour-only venue unless the border opens.",
-     "source": "open question"
-    },
-    {
-     "label": "Walk the farmyard and into the storage shack where Jackie waits in vanilla, and confirm the shed, TV and radio all stream without #q000_nomad_pr_pr...",
-     "detail": "Walk the farmyard and into the storage shack where Jackie waits in vanilla, and confirm the shed, TV and radio all stream without #q000_nomad_pr_protein_farm. The gameplay, devices and loot refs are in the always-streamed exterior_-51_-106_1_0 sector while only the camp and triggers are in quest_2aa9d17bde3f9140, so the shell should be there.",
-     "source": "open question"
-    },
-    {
-     "label": "Turn on the TV and use the radio in the shack and confirm both still interact.",
-     "detail": "Turn on the TV and use the radio in the shack and confirm both still interact. They are ordinary devices in the farm's always-loaded devices section, and q003's TV actions (which name the same #tv_1_q003) never run.",
-     "source": "open question"
-    },
-    {
-     "label": "Check that the farm is empty of prologue props: no Jackie, no old car, no iguana crate, no meeting-point trigger firing and no Arasaka chase agents.",
-     "detail": "Check that the farm is empty of prologue props: no Jackie, no old car, no iguana crate, no meeting-point trigger firing and no Arasaka chase agents. The chase agents' community lives on the AV-chase route, not at the farm.",
-     "source": "open question"
-    },
-    {
-     "label": "Open the storage-shack door in free roam with no quest running.",
-     "detail": "Open the storage-shack door in free roam with no quest running. The catalogue knows no DoorControllerPS at the farm, so the runtime door policy will not touch it and it must be an ordinary interactive door.",
-     "source": "open question"
-    }
-   ]
-  },
-  {
    "code": "q000_roadhouse_town",
    "name": "Yucca",
    "kind": "approved",
@@ -270,6 +214,11 @@
      "label": "The openworld prefab is instantiated by bad_ina_phase, a phase the clean slate does not keep, so declaring it should not break rule 2 (cast-layer p...",
      "detail": "The openworld prefab is instantiated by bad_ina_phase, a phase the clean slate does not keep, so declaring it should not break rule 2 (cast-layer precedent for instance prefabs). Confirm on tour that the venue phase instantiates it once (no double-instantiation crash) and that no other kept phase owns it.",
      "source": "open question"
+    },
+    {
+     "label": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam?",
+     "detail": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam? Research wave 11 found it intact and empty (nothing to restore, so no venue entry); its access is owner decision 48.",
+     "source": "extra"
     }
    ]
   },

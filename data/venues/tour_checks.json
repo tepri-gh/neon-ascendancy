@@ -8,6 +8,10 @@
     {
       "stop": "sq021_trailer_park",
       "text": "Drive past the Red Peaks freeway bus stop near (1340, -816): no parked ambush truck or spike strip on the shoulder. loc_sq017_ambush was excluded in research wave 11; if the props show, add a var_truck=0 / var_spike_trap=0 toggle on #sq017_pr_truck_freeway."
+    },
+    {
+      "stop": "q000_border_crossing",
+      "text": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam? Research wave 11 found it intact and empty (nothing to restore, so no venue entry); its access is owner decision 48."
     }
   ]
 }

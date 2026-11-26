@@ -286,6 +286,9 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
             warns.append(f"door exclusion {d.get('ref')}: not a device vanilla drives at this venue")
     if prop.get("doors"):
         errs.append("doors: door actions are decided by the runtime door policy; use door_exclusions/door_notes")
+    if prop.get("timeline_verdict") != "exclude" and is_empty(prop):
+        warns.append("nothing to restore: approve will skip it (the builder rejects an empty venue); the lead agent "
+                     "turns its open questions into data/venues/tour_checks.json entries")
 
     anc = (prop.get("proximity_anchor") or {}).get("ref", "")
     short_ok(anc, "anchor")
@@ -433,6 +436,10 @@ def strip_failing(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: di
     return out, dropped
 
 
+def is_empty(prop: dict) -> bool:
+    return not any(prop.get(k) for k in ("prefabs", "communities", "spawn_sets", "variant_toggles"))
+
+
 def cmd_approve(a: argparse.Namespace) -> int:
     cat = load_catalog(a.venues)
     layers, kept, acts = layer_refs(), kept_vanilla_prefabs(a.venues), layer_activations()
@@ -443,6 +450,10 @@ def cmd_approve(a: argparse.Namespace) -> int:
         prop = json.loads((a.venues / "research" / vn / "proposal.json").read_text(encoding="utf-8"))
         if prop.get("timeline_verdict") == "exclude":
             print(f"{vn}: timeline_verdict exclude; add it to data/venues/triage_overrides.json instead")
+            bad += 1
+            continue
+        if is_empty(prop):
+            print(f"{vn}: nothing to restore; not approved (add a data/venues/tour_checks.json entry for its open questions)")
             bad += 1
             continue
         dropped: list[str] = []

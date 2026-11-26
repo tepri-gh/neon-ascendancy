@@ -15,7 +15,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   PROBLEMS and UNCHECKED items.
 - Research wave 11 (first part): the Arasaka safe house (intact, empty),
   the Love Shack, Eva Cole's yacht party, the C-Team office, 7th Hell,
-  Delamain HQ and the Brainporium.
+  Delamain HQ and the Brainporium. Second part: Yucca, the Chram Denya
+  Jinja shrine, the High Peak VDB meeting ground, the landfill, a Rancho
+  Coronado coffee cart, Jackie's garage, Laguna Bend's drowned town, the
+  Revere Courier depot, the Wellsprings pump-station beach and the
+  Longshore Stacks courtyard.
 - Research wave 10 (second part): Haven Clinic in Dogtown (working free
   clinic), the Silver Pixel Cloud drive-in (shut, gates open), the No-Tell
   Motel, the Satwave power plant (security drones) and Jinguji (pre-attack
