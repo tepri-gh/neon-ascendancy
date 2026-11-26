@@ -325,6 +325,16 @@ Two local tools feed venue research. Their output is never committed;
   `exterior_-40_-38_0_0`) fails inside WolvenKit's own JSON step. None of
   the four holds community areas; they cost a few devices and spots.
 
+- **Empty venues get no entry.** A venue that is intact and empty in
+  vanilla, or already filled by kept phases, has nothing to restore. The
+  builder rejects an entry that declares nothing, so `approve` skips it and
+  `check` warns. Put its open questions into `data/venues/tour_checks.json`
+  on the nearest stop instead (lesson from Dry Creek, wave 11).
+- **Legacy community actions.** Vanilla writes some community actions as
+  `questLegacy_NodeType` (same fields as `questCommunityTemplate_NodeType`).
+  The miner reads both; any new tool that scans community actions must too
+  (lesson from 7th Hell, wave 11).
+
 ## 7. Dev tour and playtest notes
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
