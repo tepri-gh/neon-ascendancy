@@ -554,6 +554,13 @@ def stage_catalog(a: argparse.Namespace) -> None:
             for vn in row_venues:
                 add(venue(vn), kind, it, ref, None, ph, True)
 
+    # Communities that live under a venue's prefab, activated by vanilla or not.
+    registry_by_venue: dict[str, set[str]] = defaultdict(set)
+    for c in comms.values():
+        vn0 = venue_of(c.get("path"))
+        if vn0:
+            registry_by_venue[vn0].add(c["path"])
+
     def plain(o: Any) -> Any:
         if isinstance(o, set):
             return sorted(o)
@@ -582,7 +589,8 @@ def stage_catalog(a: argparse.Namespace) -> None:
         # or not: an unused relaxed phase is often the right ambient choice.
         used = {(e["path"], e["entry"], e["phase"]) for e in rec["communities"]}
         opts = []
-        for cpath in sorted({e["path"] for e in rec["communities"] if e.get("path")}):
+        owned = registry_by_venue.get(vn, set())
+        for cpath in sorted({e["path"] for e in rec["communities"] if e.get("path")} | owned):
             c = by_path.get(cpath)
             if not c:
                 continue
