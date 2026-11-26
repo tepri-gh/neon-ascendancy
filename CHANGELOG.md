@@ -8,6 +8,34 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Dev boost: `NeonAscendancy_ApplyDevDebug` grants and equips Jenkins' Tendons
+  (`Items.AdvancedJenkinsTendonsLegendary`, the only tendon record carrying
+  `HasDoubleJump`) in the `LegsCW` slot via `EquipCyberwareByTDBID`, the same
+  path a ripperdoc install uses. Idempotent (equipped leg slots are scanned by
+  record id first) and logged as `doubleJump=` on the `DevDebug.Apply` line.
+- Black Sapphire tower population (`data/clean-slate/tower_population.json` ->
+  `bsc_tower_population.questphase`, always on): lobby, floor-67 and floor-99.
+- Kurt Hansen (`Character.kurtz`) added to the cast layer as an ambient Barghest
+  leader, spawned exactly as vanilla q303_06_paradise does (`#kurtz` /
+  `kurtz` / `q303_restaurant_host`) on Black Sapphire floor 99.
+- Probe: `Dataterm[...]` lines log each Dogtown fast-travel dataterm's resolve
+  and PS `powered`/`disabled` state, and the Black Sapphire decoration node.
+- `docs.clean-slate`: `venue_phases.json` now supports `allowed_device_controllers`
+  (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
+
+### Fixed
+- Venue probe: duplicate `phasePrefabs` silently broke phase instantiation, which
+  dropped every community activation and device action to zero. Prefabs are now
+  deduplicated in `venue_probe.questphase`, and `--check` fails if a prefab is
+  declared twice or is declared by both `venue_probe` and `cast_and_hubs`.
+- Black Sapphire: the afterlife and sneak-in entries no longer re-declare
+  `#q005_pr_afterlife` / `#q303_pr_combat_tower`, which `cast_and_hubs` owns.
+- Dogtown dataterms: use the real device ref `#stadium_data_term_001`
+  (`ep1_data_term_1.ent`) instead of the prefab segment name, and force
+  enable/power it behind a proximity wait.
+- Dev boost: attributes/perk logging no longer implies the level boost.
+
+### Initial
 - Initial repository structure, redscript 1.x CLI tooling (`tools/`), modding
   documentation (`docs/modding.md`), versioning policy (`docs/versioning.md`),
   and cross-agent redscript skill (`.agents/skills/redscript/SKILL.md`).
