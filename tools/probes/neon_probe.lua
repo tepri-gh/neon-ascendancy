@@ -413,6 +413,8 @@ end)
 -- the player, dead. tools/venue-tour-report.py turns tour.log, notes.log and
 -- the native DoorPolicy lines into a per-venue anomaly list. Hotkeys:
 -- "Neon: tour start/resume", "Neon: tour skip stop", "Neon: tour stop".
+-- A stop with a checklist waits after its scan until the checklist is saved
+-- (or skipped); "Neon: checklist here" opens the nearest venue's list anytime.
 -- Console: p.tour_start("code") starts at a named stop.
 
 local tour = { stops = nil, i = 0, state = "idle", t = 0.0, settle = 20.0 }
@@ -543,8 +545,48 @@ local function tour_scan()
     player = { p.x, p.y, p.z }, radius = s.radius, npcs = npcs, missing_records = missing,
   }))
   emit(string.format("TOUR %s: %d npcs, %d expected records missing", s.code, #npcs, #missing))
-  tour_goto(tour.i + 1)
+  if s.checklist and #s.checklist > 0 then
+    -- Wait here for the owner's checklist (drawn while the CET overlay is open).
+    tour.state = "review"
+    Probe.checklist_open(s, true)
+    emit(string.format("TOUR %s: %d checks - open the CET overlay, then Next stop", s.code, #s.checklist))
+  else
+    tour_goto(tour.i + 1)
+  end
 end
+
+-- ---------------------------------------------------------------- tour checklist
+-- One window per venue: the generated checklist (tour_stops.lua `checklist`),
+-- each item marked OK or Problem. Saving logs a "checklist" line to tour.log
+-- for tools/venue-tour-report.py; unmarked items are reported as unchecked.
+
+local review = nil  -- { stop, marks = {i -> "ok"|"problem"}, from_tour }
+
+function Probe.checklist_open(stop, from_tour)
+  review = { stop = stop, marks = {}, from_tour = from_tour == true }
+end
+
+local function checklist_save()
+  if not review then
+    -- Window closed without saving: the skip hotkey still moves the tour on.
+    if tour.state == "review" then tour_goto(tour.i + 1) end
+    return
+  end
+  local s, results = review.stop, {}
+  for i, c in ipairs(s.checklist or {}) do
+    results[#results + 1] = { label = c.label, source = c.source, mark = review.marks[i] or "unchecked" }
+  end
+  local p = Game.GetPlayer():GetWorldPosition()
+  append("tour.log", json_enc({
+    event = "checklist", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code, venue = s.venue,
+    player = { p.x, p.y, p.z }, items = results,
+  }))
+  emit("CHECKLIST saved for " .. s.code)
+  local next_stop = review.from_tour and tour.state == "review"
+  review = nil
+  if next_stop then tour_goto(tour.i + 1) end
+end
+Probe.checklist_save = checklist_save
 
 function Probe.tour_start(code)
   local stops = load_stops()
@@ -564,7 +606,17 @@ end
 
 registerHotkey("NeonTourStart", "Neon: tour start/resume", function() Probe.tour_start() end)
 registerHotkey("NeonTourSkip", "Neon: tour skip stop", function()
-  if tour.state ~= "idle" then tour_goto(tour.i + 1) end
+  if tour.state == "review" then
+    checklist_save()
+  elseif tour.state ~= "idle" then
+    tour_goto(tour.i + 1)
+  end
+end)
+registerHotkey("NeonChecklist", "Neon: checklist here", function()
+  local s, d = nearest_stop(Game.GetPlayer():GetWorldPosition())
+  if not s then return end
+  Probe.checklist_open(s, false)
+  emit(string.format("CHECKLIST %s (%.0f m away) - open the CET overlay", s.code, d))
 end)
 registerHotkey("NeonTourStop", "Neon: tour stop", function() Probe.tour_stop() end)
 
@@ -613,6 +665,43 @@ registerForEvent("onDraw", function()
     end
     ImGui.SameLine()
     if ImGui.Button("Discard") then note.pending = nil end
+  end
+  ImGui.End()
+end)
+
+registerForEvent("onDraw", function()
+  if not review or not note.overlay then return end
+  local s = review.stop
+  ImGui.SetNextWindowSize(560, 520, ImGuiCond.FirstUseEver)
+  if ImGui.Begin("Neon tour checklist") then
+    ImGui.TextWrapped(string.format("%s  (%s)", s.name or s.code, s.code))
+    local done = 0
+    for i in pairs(review.marks) do done = done + 1 end
+    ImGui.Text(string.format("%d of %d marked", done, #s.checklist))
+    ImGui.Separator()
+    for i, c in ipairs(s.checklist) do
+      ImGui.PushID(i)
+      local m = review.marks[i]
+      if ImGui.RadioButton("OK", m == "ok") then review.marks[i] = "ok" end
+      ImGui.SameLine()
+      if ImGui.RadioButton("Problem", m == "problem") then review.marks[i] = "problem" end
+      ImGui.SameLine()
+      if ImGui.TreeNode(c.label) then
+        ImGui.TextWrapped(c.detail)
+        ImGui.TreePop()
+      end
+      ImGui.PopID()
+    end
+    ImGui.Separator()
+    if ImGui.Button("Add note") then
+      local p = Game.GetPlayer():GetWorldPosition()
+      note.pending = { pos = { p.x, p.y, p.z }, stop = s.code, dist = 0, time = os.date("%Y-%m-%d %H:%M:%S") }
+      note.text = ""
+    end
+    ImGui.SameLine()
+    if ImGui.Button(review.from_tour and "Save + next stop" or "Save") then checklist_save() end
+    ImGui.SameLine()
+    if ImGui.Button("Close") then review = nil end
   end
   ImGui.End()
 end)

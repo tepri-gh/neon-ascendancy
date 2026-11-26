@@ -217,6 +217,14 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
     for c in prop.get("communities") or []:
         sp, en, ph = c.get("spawner", ""), c.get("entry_name", ""), c.get("phase_name", "")
         short_ok(sp, "community")
+        if c.get("action", "Activate") == "Deactivate":
+            # Removing an entry (a post-quest crowd, an alert squad) is what
+            # rule 9 wants, so only the entry itself must exist.
+            known = (en == "None" and ph == "None" and any(ref_matches(sp, e) for e in v["communities"])) or any(
+                o["entry"] == en and o["phase"] == ph and ref_matches(sp, o) for o in opts)
+            if not known:
+                errs.append(f"community {sp} {en}/{ph}: Deactivate of an entry phase the catalogue does not know")
+            continue
         if en == "None" and ph == "None":
             hits = [e for e in v["communities"] if e.get("whole_community") and ref_matches(sp, e)]
             if not hits:
@@ -521,6 +529,42 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- tour stops
 
 TOUR_OUT = ROOT / "tools" / "probes" / "tour_stops.json"
+# Owner-facing checks that belong to no venue entry (an excluded venue's
+# leftovers, a cross-venue system). Each names the stop it is shown at.
+TOUR_CHECKS = ROOT / "data" / "venues" / "tour_checks.json"
+# Asked at every stop, before the venue's own items.
+BASE_CHECKS = [
+    ("Normal business", "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene."),
+    ("People at their posts", "The people are there and doing their routine; nobody alert, hostile or in a combat stance."),
+    ("You can get in", "Doors, gates and lifts you would expect to use work, or there is an in-world way through."),
+]
+
+
+def _check_item(text: str, source: str) -> dict[str, str]:
+    """One checklist line: a short label for the list, the full text behind it."""
+    first = re.split(r"(?<=[.?!])\s", text.strip(), maxsplit=1)[0]
+    label = first if len(first) <= 150 else first[:147].rstrip() + "..."
+    return {"label": label, "detail": text.strip(), "source": source}
+
+
+def tour_checklist(e: dict) -> list[dict[str, str]]:
+    """What the owner should look at at this venue on the tour."""
+    items = [{"label": a, "detail": b, "source": "base"} for a, b in BASE_CHECKS]
+    for t in e.get("tour_checks") or []:
+        items.append(_check_item(t, "venue"))
+    unsure: dict[str, list[str]] = {}
+    for c in e.get("communities") or []:
+        if c.get("needs_tour_check") and c.get("action", "Activate") == "Activate":
+            entry = "the whole community" if c["entry_name"] == "None" else f"{c['entry_name']}/{c['phase_name']}"
+            unsure.setdefault(c["spawner"], []).append(entry)
+    for sp, entries in unsure.items():
+        items.append({"label": f"Calm and on post: {sp} ({len(entries)} unmapped)",
+                      "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, "
+                                "not alert or in combat: " + ", ".join(entries) + ".",
+                      "source": "community"})
+    for q in (e.get("source") or {}).get("open_questions") or []:
+        items.append(_check_item(q, "open question"))
+    return items
 
 
 def _median(vals: list[float]) -> float:
@@ -578,7 +622,16 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         stops.append({"code": e["code"], "name": e.get("display_name") or e["code"], "kind": kind,
                       "venue": best, "pos": pos, "radius": round(min(max(spread + 15.0, 40.0), 120.0), 1),
                       "expected_records": sorted(records),
-                      "spawn_sets": sorted({s["reference"] for s in e.get("spawn_sets") or []})})
+                      "spawn_sets": sorted({s["reference"] for s in e.get("spawn_sets") or []}),
+                      "checklist": tour_checklist(e)})
+    extra = json.loads(TOUR_CHECKS.read_text(encoding="utf-8"))["checks"] if TOUR_CHECKS.exists() else []
+    by_code = {st["code"]: st for st in stops}
+    for x in extra:
+        st = by_code.get(x["stop"])
+        if st is None:
+            print(f"  tour check for unknown stop {x['stop']}: {x['text'][:60]}")
+            continue
+        st["checklist"].append(_check_item(x["text"], "extra"))
     stops.sort(key=lambda s: (s["pos"][0] // 1000, s["pos"][1] // 1000, s["code"]))
     TOUR_OUT.write_text(json.dumps({"generated_by": "tools/venue-proposals.py tour-stops", "stops": stops},
                                    indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

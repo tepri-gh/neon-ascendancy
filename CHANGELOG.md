@@ -8,6 +8,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Dev tour checklist: every tour stop lists what to look at (base checks,
+  unmapped groups, the venue's open research questions, extra checks from
+  `data/venues/tour_checks.json`). The tour waits at each stop until the list
+  is saved; "Neon: checklist here" opens it anywhere; the tour report flags
+  PROBLEMS and UNCHECKED items.
 - Research wave 10 (first part): the Dark Matter lounge (door and lift
   access, quiet between events) and the NCPD police lab in the Glen (its
   researcher on shift).
@@ -107,6 +112,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Venue checker: a community `Deactivate` is no longer judged as an
+  activation. Removing an alert or post-quest entry used to fail the posture
+  rule; now only the entry's existence is checked.
 - Start Dogtown's vanilla vehicle checkpoint from the Clean Slate quest on
   new games and save restore. The open-world phase runs the scans and barriers
   in both directions without the Phantom Liberty campaign.

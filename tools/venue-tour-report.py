@@ -15,6 +15,8 @@ Flags:
   DEAD         dead NPCs (bodies that should not be there)
   MISSING      expected character records that were not found
   DOORS        doors the policy still found impassable after its recheck
+  PROBLEMS     checklist items the owner marked Problem
+  UNCHECKED    checklist items left unmarked when the checklist was saved
 
 Usage:
   tools/venue-tour-report.py [--out FILE] [--since "YYYY-MM-DD HH:MM:SS"]
@@ -82,6 +84,15 @@ def main() -> int:
     for s in stops:
         latest[s["code"]] = s  # the last visit of each stop wins
 
+    checks: dict[str, dict] = {}
+    for r in read_jsonl(PROBE / "tour.log"):
+        if r.get("event") == "checklist" and r.get("time", "") >= a.since:
+            checks[r["code"]] = r  # the last saved checklist of each venue wins
+    for code, c in checks.items():
+        # A checklist saved while walking, without a tour scan of that stop.
+        latest.setdefault(code, {"code": code, "venue": c.get("venue"), "kind": "walk", "player": c["player"],
+                                 "radius": 60, "npcs": None})
+
     notes_by: dict[str, list[dict]] = defaultdict(list)
     for n in notes:
         notes_by[n.get("stop") or "?"].append(n)
@@ -90,14 +101,22 @@ def main() -> int:
              f"{len(latest)} stops toured, {len(notes)} notes, {len(doors)} door decisions logged.", ""]
     summary = []
     for code, s in sorted(latest.items()):
+        scanned = s.get("npcs") is not None
         npcs = s.get("npcs") or []
         alive = [n for n in npcs if not n.get("dead")]
         flags = []
+        items = (checks.get(code) or {}).get("items") or []
+        problems = [i for i in items if i.get("mark") == "problem"]
+        unchecked = [i for i in items if i.get("mark") == "unchecked"]
+        if problems:
+            flags.append(f"PROBLEMS {len(problems)}")
+        if unchecked:
+            flags.append(f"UNCHECKED {len(unchecked)}")
         bad = [n for n in alive if n.get("state") in BAD_STATES]
         hostile = [n for n in alive if "Hostile" in str(n.get("attitude"))]
         no_ws = [n for n in alive if not n.get("workspot")]
         dead = [n for n in npcs if n.get("dead")]
-        if not npcs:
+        if scanned and not npcs:
             flags.append("EMPTY")
         if bad:
             flags.append(f"ALERT {len(bad)}")
@@ -120,7 +139,7 @@ def main() -> int:
 
         lines += [f"## {code} ({s.get('kind')}, {s.get('venue')})", "",
                   f"Flags: {', '.join(flags) or 'none'}", "",
-                  f"- NPCs: {len(npcs)} ({len(alive)} alive). States: "
+                  (f"- NPCs: {len(npcs)} ({len(alive)} alive). States: " if scanned else "- NPCs: not scanned (checklist saved while walking)")
                   + ", ".join(f"{k} {v}" for k, v in Counter(n.get('state') for n in alive).most_common())]
         if bad:
             lines.append("- Alert/combat NPCs: " + ", ".join(sorted({f"{n['record']} ({n['state']})" for n in bad}))[:600])
@@ -131,6 +150,11 @@ def main() -> int:
         if near_doors:
             lines.append("- Door decisions: " + ", ".join(f"{k} {v}" for k, v in
                                                      Counter(d["decision"] for d in near_doors).most_common()))
+        if items:
+            lines.append(f"- Checklist: {len(items) - len(problems) - len(unchecked)} OK, {len(problems)} problem, "
+                         f"{len(unchecked)} unchecked")
+            lines += [f"  - PROBLEM: {i['label']}" for i in problems]
+            lines += [f"  - unchecked: {i['label']}" for i in unchecked]
         for n in notes_by.get(code, []):
             lines.append(f"- Note ({n.get('time')}): {n.get('text')}")
         lines.append("")

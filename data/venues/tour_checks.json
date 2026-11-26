@@ -1,0 +1,9 @@
+{
+  "description": "Owner tour checks that belong to no single venue entry. tools/venue-proposals.py tour-stops appends each one to the checklist of the named stop (a stop code from tools/probes/tour_stops.json).",
+  "checks": [
+    {
+      "stop": "q303_combat_zone_gate",
+      "text": "Drive down Monument Avenue: no Space Force One wreckage (wrecked cars, the flipped craft part, body bags). The debris (loc_q302_car_chase_sf1_debris, excluded in research wave 10) sits inside the always-streamed monument_av prefab, so its hidden default is unconfirmed."
+    }
+  ]
+}

@@ -346,12 +346,27 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   state, stance, workspot, attitude and dead flag, plus the expected records
   it did not find. Run it in a dev session (dev debug arms the venue gate and
   the door policy).
+- **Checklist** (owner request, 2026-11-26). Each stop carries a
+  `checklist`: three base checks (normal business, people at their posts,
+  you can get in), the entry's `tour_checks` lines, one "calm and on post"
+  item per spawner with `needs_tour_check` entries, and every
+  `source.open_questions` line (first sentence as the label, full text
+  behind it). `data/venues/tour_checks.json` adds checks that belong to no
+  venue entry (an excluded venue's leftovers) to a named stop. On the tour,
+  a stop with a checklist waits after its scan. Open the CET overlay, mark
+  each item OK or Problem, then "Save + next stop" (or the skip hotkey).
+  "Neon: checklist here" opens the nearest venue's list without the tour.
+  Saved lists go to `tour.log` as `checklist` lines. When a research agent's
+  open question is really a thing to look at, put it in the proposal; a
+  check the owner should repeat at a hand-built venue goes in its
+  `tour_checks`.
 - **Notes** ("Neon: playtest note"). The hotkey stamps the position and the
   nearest stop; open the CET overlay, type the note and press Save. Notes go
   to `notes.log`.
 - **Report**: `tools/venue-tour-report.py` combines `tour.log`, `notes.log`
   and the native log's `DoorPolicy:` lines (which carry door positions) into
   `~/.cache/neon-ascendancy/extracts/venues/tour-report.md`. One section per
-  stop; flags EMPTY, ALERT, HOSTILE, NO-WORKSPOT, DEAD, MISSING, DOORS, NOTES.
+  stop; flags EMPTY, ALERT, HOSTILE, NO-WORKSPOT, DEAD, MISSING, DOORS, NOTES,
+  PROBLEMS and UNCHECKED (checklist items marked Problem or left unmarked).
   Fix what it flags, record the lesson here, and subtract what the owner
   marks as wrong.
