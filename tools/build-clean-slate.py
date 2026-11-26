@@ -368,6 +368,36 @@ class QuestGraph:
         )
         return inp, out
 
+    def add_set_fact_node(self, fact: str, value: int) -> tuple[str, str]:
+        """Add a questFactsDBManagerNodeDefinition (questSetVar_NodeType).
+
+        Schema matches vanilla q303_06b_paradise_technical node 264 field-for-
+        field. Used for the venue-probe debug breadcrumbs: a fact set immediately
+        before and after a variant toggle proves whether the graph reached it."""
+        cut = self.new_socket("CutDestination", "CutDestination")
+        inp = self.new_socket("In", "Input")
+        out = self.new_socket("Out", "Output")
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questFactsDBManagerNodeDefinition",
+                    "id": self.node_id(),
+                    "type": {
+                        "HandleId": self.alloc(),
+                        "Data": {
+                            "$type": "questSetVar_NodeType",
+                            "factName": fact,
+                            "setExactValue": 0,
+                            "value": value,
+                        },
+                    },
+                    "_sockets": [cut, inp, out],
+                },
+            }
+        )
+        return inp, out
+
     def add_proximity_pause_node(
         self,
         node_ref: str,
@@ -1594,6 +1624,20 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"{venue_path}: venue {code} proximity_wait.within must be a number")
             if not 1.0 <= within <= 500.0:
                 raise ValueError(f"{venue_path}: venue {code} proximity_wait.within {within} out of range 1..500")
+            # Chicken-and-egg guard: the wait must not anchor on a node that is
+            # itself inside a variant group the venue is trying to show. Such a
+            # node does not exist until the toggle runs, so the pause never
+            # resolves and nothing after it (toggle or device actions) executes.
+            for t in v.get("variant_toggles", []):
+                if prox["ref"] in t.get("states", {}):
+                    raise ValueError(
+                        f"{venue_path}: venue {code} proximity_wait.ref {prox['ref']} is a variant "
+                        f"state of {t.get('prefab')}, not a node, so it can never resolve")
+            gated = v.get("proximity_wait_anchor_variant_gated")
+            if gated:
+                raise ValueError(
+                    f"{venue_path}: venue {code} proximity_wait.ref {prox['ref']} is inside a "
+                    f"variant group ({gated}) that only exists after the toggle; pick an ungated anchor")
     return venue_spec
 
 
@@ -1649,9 +1693,21 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
             g.connect(prev, inp)
             prev = out
         for toggle in venue.get("variant_toggles", []):
+            # Debug breadcrumbs either side of the toggle: the probe logs these
+            # facts, so a run proves whether the graph ever reached the toggle and
+            # whether it returned from it. Harmless in normal play (a few facts).
+            dbg = venue.get("debug_fact_prefix")
+            if dbg:
+                f_in, f_out = g.add_set_fact_node(f"{dbg}_reached", 1)
+                g.connect(prev, f_in)
+                prev = f_out
             inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
             g.connect(prev, inp)
             prev = out
+            if dbg:
+                f_in2, f_out2 = g.add_set_fact_node(f"{dbg}_done", 1)
+                g.connect(prev, f_in2)
+                prev = f_out2
 
     # Keep-alive pause: always false; keeps phasePrefabs and community
     # activations alive for the whole session once the phase is entered.

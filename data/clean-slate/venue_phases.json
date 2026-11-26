@@ -698,7 +698,8 @@
         "ref": "#q303_dvc_lobby_alarm",
         "within": 40.0,
         "why": "The previous wait used #q303_ws_nighthawks_customer_06, which sits at (-2424,-2660) - about 700 m from the door at (-1819,-2315) - so the 150 m distance pause never resolved and *nothing* after it ran (neither the door actions nor the variant toggle). #q303_dvc_lobby_alarm is 8 m from the main door, so a 40 m radius covers the street entrance."
-      }
+      },
+      "debug_fact_prefix": "na_dbg_vt_black_sapphire"
     },
     {
       "code": "loc_arasaka_tower",
@@ -794,7 +795,7 @@
     {
       "code": "dogtown_dataterms",
       "display_name": "Dogtown fast-travel dataterms",
-      "why": "The six EP1 fast-travel dataterms live in combat_zone_data_terminals_prefabLN6J6KI, which Dogtown exterior sectors stream only when the streaming variant combat_zone_data_terminals_active is shown (default: _deactive). Declares that prefab, swaps the variant, and force-enables/powers the verified stadium dataterm device (#stadium_data_term_001, ep1_data_term_1.ent) so it can offer fast travel. The other five dataterms did not appear as standalone node refs in any extractable sector, so only the stadium one is listed here; the probe logs it on site.",
+      "why": "The six EP1 fast-travel dataterms live in combat_zone_data_terminals_prefabLN6J6KI. Its host sector ep1/exterior_-30_-39_0_0 (and 6 others) declares combat_zone_data_terminals_active en=0 and combat_zone_data_terminals_deactive en=1, so the deactive shell renders. IMPORTANT: no vanilla questphase anywhere references this prefab - the toggle is world-streaming state, not a quest hook. #stadium_data_term_001 sits inside variant group index 1798 (the hidden active group), which is why the old proximity anchor deadlocked. The anchor is now an ungated decoration 3.6 m away. Whether a quest-phase variant toggle can flip a sector variant at all is exactly what the new debug facts test.",
       "prefabs": [
         "#combat_zone_data_terminals_prefabLN6J6KI"
       ],
@@ -830,10 +831,11 @@
         "note": "#stadium_data_term_001 is the verified authored ref inside combat_zone_data_terminals_prefabLN6J6KI/combat_zone_dataterm_04_prefabARG5WKY (ep1_data_term_1.ent at -1876.9,-2459.8,35.7). The '#combat_zone_dataterm_04' name used by dev_fast_travel_points.json is the prefab segment, not the device ref."
       },
       "proximity_wait": {
-        "ref": "#stadium_data_term_001",
+        "ref": "#decoset_streetsign_gwashington_001_prefabJBZIHZI",
         "within": 40.0,
-        "why": "Defers the dataterm device actions and the variant swap until the player is at the stadium dataterm, so they run against a streamed entity."
-      }
+        "why": "Ungated anchor 3.6 m from the dataterm. The previous anchor #stadium_data_term_001 is itself inside the hidden variant group 1798, so the distance pause could never resolve and neither the toggle nor the device actions ever ran."
+      },
+      "debug_fact_prefix": "na_dbg_vt_dataterms"
     },
     {
       "code": "loc_q103_afterlife_backroom",
