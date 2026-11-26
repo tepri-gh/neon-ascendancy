@@ -125,6 +125,11 @@
       "venue": "loc_q302_car_chase_sf1_debris",
       "decision": "excluded",
       "why": "Research wave 10: Space Force One wreckage along Monument Ave, shown only for q302's escape chase; Space Force One is never shot down in our timeline, and the street streams intact without it."
+    },
+    {
+      "venue": "loc_q115_cyberspace",
+      "decision": "excluded",
+      "why": "Wave 11 triage: cyberspace sequence (q115); virtual space, not a world venue, like the other cyberspace venues."
     }
   ]
 }
