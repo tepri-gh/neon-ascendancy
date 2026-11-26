@@ -530,11 +530,21 @@ private func NeonAscendancy_LogDataterms(game: GameInstance) -> Void {
 // the toggle at all, separating "graph never got here" (both 0) from "toggle
 // ran but did nothing" (reached=1 done=1 with the geometry unchanged).
 private func NeonAscendancy_LogVariantToggles(qs: QuestsSystem) -> Void {
-  const prefixes: array<String> = ["na_dbg_vt_black_sapphire", "na_dbg_vt_dataterms"];
+  const prefixes: array<String> = ["na_dbg_vt_clouds", "na_dbg_vt_black_sapphire", "na_dbg_vt_dataterms"];
   for pfx in prefixes {
+    // branch    proves the hub fan-out reached this venue at all;
+    // prewait   proves the branch got past the community activations;
+    // prox      proves the distance pause resolved (player was within range);
+    // reached   proves the chain reached the variant toggle;
+    // done      proves the toggle node returned.
+    const branch = qs.GetFact(StringToName(pfx + "_branch"));
+    const prewait = qs.GetFact(StringToName(pfx + "_prewait"));
+    const prox = qs.GetFact(StringToName(pfx + "_prox"));
     const reached = qs.GetFact(StringToName(pfx + "_reached"));
     const done = qs.GetFact(StringToName(pfx + "_done"));
-    NcLogInfo(s"VariantToggle[\(pfx)]: reached=\(reached) done=\(done)");
+    NcLogInfo(
+      s"VariantToggle[\(pfx)]: branch=\(branch) prewait=\(prewait) prox=\(prox) reached=\(reached) done=\(done)"
+    );
   }
 }
 
