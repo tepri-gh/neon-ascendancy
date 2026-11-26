@@ -1,0 +1,61 @@
+{
+  "code": "sts_wat_nid_06",
+  "display_name": "Maelstrom chop shop (Offshore St warehouse, Northside)",
+  "why": "A two-storey vehicle chop shop in a warehouse lot south-east of the Offshore St fast travel point in Watson/Northside: a ground-floor garage bay with a mezzanine above it, a fenced yard, street and roof guard posts, and seven door controllers (two double sliding doors, two single doors, two roller shutters and an exterior door under the entry arch). Vanilla owns the whole site through sts_wat_nid_06 (gig Lousy Kleppers, Regina Jones): the street-story prefab carries both Maelstrom communities, one five-strong crew inside the ground floor and one five-strong crew in the yard and on the roof, and the always-streamed gameplay section carries the doors and the loot set. Nothing here is kept in the clean slate, so the place is currently shell-only. This proposal loads the street-story section, switches both whole communities on in their non-hostile initial phases, sets the exterior lockdown variant to its normal open state and hides the dead-driver variant, so the shop reads as a Maelstrom chop shop at work instead of the gig's staging.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm ten Maelstrom are on post and calm: five inside (officer upstairs at the rail/dirt spot, netrunner on the upstairs couch, three on the ground floor standing, inspecting and kneeling) and five outside (street and roof patrols, one at the wall with a cigarette, one on the phone, one leaning over a car engine). None should be alert, crouched or clustered at the spawner.",
+      "Walk in and confirm the shop is enterable without console help. The doors are powered but closed; vanilla offers no access card, and the wiki says skill checks or quickhacks open them. Report what actually opens #sts_wat_nid_06_door_4 and whether the front shutters stand open.",
+      "Check the proximity anchor fires: #sts_wat_nid_06_door_4 should stream with the venue and drive the venue's _prox re-issue. If the shop only populates on load and never re-issues, switch the anchor to #nid_06_dvc_door_01.",
+      "Check the exterior reads 'open for business' with lockdown 0: shutters up, bay visible, no sealed or boarded panels. If the shop looks locked down instead, the lockdown variant group means the opposite of what I inferred and the toggle should be flipped.",
+      "Check there is no corpse: the driver_body variant should be off, and no body should lie in the yard, the van or any car. The vanilla dead-body entry is deliberately not activated.",
+      "Check the yard for leftover gig cars. #nid_06_car_01..004 are spawners in the loaded street-story section but are not in the catalogue's spawn sets, so the proposal cannot switch them; if the Malorian van or hood-open cars appear with the databank objective scan, they may need a later pass to hide."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/northside/loc_sts_wat_nid_06_prefabHJEDW2Y/#loc_sts_wat_nid_06_openworld/#sts_wat_nid_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_wat_nid_06_enemies_inside_ground_floor",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation, the same shape vanilla uses in the gig's shutdown branch: entry None / phase None switches on all five entries in their initial phases - the officer at the upstairs chat spot (routine__dirt__stand_ground, z 13.2), the big gunner standing arms-crossed on the ground floor, two grunts on routine__dirt__stand_ground and routine__kneel_ground__inspect, and the netrunner sitting on the upstairs couch (routine__sit_couch, z 13.1). Every one of those workspots is routine business, so the crew reads as a gang detail working in the shop rather than a combat scene. Combat group first under rule 11a (a netrunner leads the group); there are no civilians at this venue."
+    },
+    {
+      "spawner": "#sts_wat_nid_06_enemies_outside",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The yard and roof detail: five entries in their only phase start - two guard_stand posts and four patrolling_stand points on the street side and the roof (z 17.2), a cigarette at the wall, a phone call, and one leaning over a car's front engine (the q000 'lean front engine, check' workspot). Vanilla activates this whole community when the gig starts and again in its shutdown branch, so it is the shop's standing guard, not a spawned assault. The engine-lean spot is the one the catalogue rates 'scene'; the workspot itself is a mechanic inspecting an engine, which suits a chop shop, but it is set needs_tour_check so the tour confirms it looks like work and not the gig's staging.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_wat_nid_06_ext",
+      "states": {
+        "lockdown": 0
+      },
+      "why": "The shop's open-for-business exterior state. Vanilla's approach branch sets lockdown 0 and in the same node powers every door and energises both shutters; the gig's shutdown branch sets lockdown 1 and closes and unpowers everything. Normal play should keep the approach state, so the bay stands open and nothing reads as sealed."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/northside/loc_sts_wat_nid_06_prefabHJEDW2Y/loc_sts_wat_nid_06_gameplay_prefabAWNDY5A/loc_sts_wat_nid_06_loot_prefab7V4PCVA",
+      "states": {
+        "driver_body": 0
+      },
+      "why": "Hides the dead driver. Vanilla shows a corpse entry (wat_nid_dead_body_001/start) in the approach branch and hides the driver_body variant of the loot set in the shutdown branch, i.e. the body belongs to the gig's story and is cleared afterwards. Normal play should have no body in the shop or in the van, so the post-gig state is the one to keep."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sts_wat_nid_06_door_4",
+    "within": 80.0,
+    "why": "A DoorControllerPS the street story itself names, in the venue's gameplay/devices section (same streaming block as the people). Vanilla ForcePowers it the moment the player approaches the shop and ForceCloses/ForceUnpowers it in the gig's shutdown branch, so it is a real device on the normal route in and is guaranteed to be streamed with the venue. It is a door, not a workspot (rule 8). #nid_06_dvc_door_01 is the fallback if the anchor does not resolve in game."
+  }
+}

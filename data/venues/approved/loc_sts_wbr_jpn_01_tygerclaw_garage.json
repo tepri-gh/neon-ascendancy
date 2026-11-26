@@ -1,0 +1,44 @@
+{
+  "code": "sts_wbr_jpn_01_tygerclaw_garage",
+  "display_name": "Garage on Redwood St.",
+  "why": "A car workshop on Redwood St. in Japantown, used by the solo Sergei Karasinsky as the lock-up where he stores the car he means to give the Tyger Claws in the gig 'Olive Branch'. Vanilla only instantiates the workshop section while that gig runs, so in normal play the interior is missing and its gate is unpowered shut. This proposal restores the workshop section, the garage keeper standing outside it, and the normal open-world variant state, leaving out the kidnapping props (gift car with Alex in the trunk) and the quest-only aftermath.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_01_tygerclaw_garage/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand on Redwood St. outside the garage: does the workshop frontage read as a normal car shop, with its interior loaded behind the gate rather than a sealed wall?",
+      "Walk up to #jpn_01_dvc_sergei_gate and try to open it: does the runtime door policy power and unlock the gate so the workshop can be entered, and does the inner door behave the same way?",
+      "Look at Sergei by the gate: is he standing calmly at his arms-crossed spot (no quest marker, no dialogue, no hostility), and is the workshop bay empty where the gift car used to be?",
+      "Drive a car at the workshop forecourt: does the car_forbidden_area variant keep the car out, and does that look right for a working garage?"
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_garage_prefabTKDSS5A/#loc_sts_wbr_jpn_01_tygerclaw_garage_openworld/#sts_wbr_jpn_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_01_com_sergei",
+      "entry_name": "sergei",
+      "phase_name": "0_default",
+      "action": "Activate",
+      "why": "Sergei Karasinsky is the solo who keeps this lock-up and unlocks it for the gig; in our timeline he is alive and the gig never happens, so he stands at his own waiting spot outside the gate, arms crossed, calm. The spot is a plain stand-around workspot, not a quest scene."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_garage_prefabTKDSS5A/loc_sts_wbr_jpn_01_tygerclaw_garage_gameplay_prefabIFUI3XY/loc_sts_wbr_jpn_01_tygerclaw_garage_devices_prefabSDTWW2Y",
+      "states": {
+        "car_forbidden_area": 1
+      },
+      "why": "This is the only state vanilla's own open-world phase sets for this workshop, so it is the normal in-world look: the shop forecourt stays a car-forbidden area instead of a drive-through. Setting it at boot matches vanilla and keeps traffic cars out of the restored bay, which has no quest car in it."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#jpn_01_dvc_sergei_gate",
+    "within": 60.0,
+    "why": "The garage's own roll-up gate device, on the only way into the workshop and always streamed with the location prefab; the proximity wait needs a device, not Sergei's workspot."
+  }
+}

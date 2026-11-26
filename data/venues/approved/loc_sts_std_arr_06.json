@@ -1,0 +1,55 @@
+{
+  "code": "sts_std_arr_06",
+  "display_name": "Sixth Street Garage — Hargreaves St., Arroyo",
+  "why": "A fenced Sixth Street warehouse and auto garage on Hargreaves St. in Arroyo, with a roller main gate, a roof door, a two-floor car lift, a wheel balancer and a yard full of cargo crates. In vanilla it is the den where the 6ers who jumped Karl Ginsky hole up with his Kang Tao shard, and the yard behind it is where Kang Tao later confronts Karl. This proposal loads the open-world quest prefab that carries the gang's spawner and activates the seven Sixth Street entries in their only phase, A_spawn, so the garage reads as a manned Sixth Street stash house before anything happened: guards at their posts, no blood, no shard, no Kang Tao and no Karl. The building shell and its devices are world-streamed and stay as they are.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the main gate opens. Walk up to the Hargreaves St. roller gate and confirm the runtime door policy powers and unseals it so the garage is enterable; the look-at log prints locked/sealed/skillCheck/quickhack for it.",
+      "Check the seven Sixth Street gangers are calm at their posts. They should stand or patrol around the garage and yard, not shelter behind cover, not be alert, and not be frozen at the spawner; the catalogue rates this phase unknown because no community-area node resolved for #arr_06_com.",
+      "Check the garage shows no aftermath. There should be no blood decals, no bodies, no shard case and no credit-shard stash left from the gig.",
+      "Check no Kang Tao and no Karl Ginsky appear here. Karl's car and the Kang Tao rangers belong to the confrontation that never happens; any of them standing in the yard is a failure.",
+      "Check the roof door. It should be closed but openable (or at least not the only route), since vanilla only unlocks it during the gig's leaving stage.",
+      "Check the yard still has its cover crates and the car lift. The gang's A_spawn spots are inside the garage and yard; confirm the people are not stacked on the lift platform or inside the crates."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_arr_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_06_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The garage's whole Sixth Street crew in the one phase the community defines: vanilla's gameplay phase activates the community as a whole (entry None / phase None), which spawns all seven entries in their initial phase A_spawn — two hooligans, a shotgun menace, two patrol rifles, a veteran and the named Jeff. That is the den's guard roster, not a quest-only appearance; the gig's hostility comes from the quest graph (restrict-movement and combat nodes), not from the phase. Keep the whole set at boot; the catalogue has no community-area node for this spawner, so posture is unknown and the tour must confirm the spots read as calm posts.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_std_arr_06_loot",
+      "states": {
+        "blood": 0
+      },
+      "why": "Vanilla's open-world phase switches the loot prefab's 'blood' variant on unconditionally at start, i.e. the venue always shows the aftermath decals of the mugging/fight. In our timeline nothing happened at this address, so the garage should be clean; clearing the variant keeps the ordinary crates and weapon cases without blood."
+    },
+    {
+      "prefab": "#sts_std_arr_06_streetstory",
+      "states": {
+        "car_forbidden_area": 0,
+        "car_forbidden_area_002": 0
+      },
+      "why": "Vanilla's open-world phase raises the two car-exclusion variants around the venue so the street stays clear for the gig's staging (the meeting with Karl). Normal open-world Hargreaves St. has traffic, so both exclusions stay off."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_06_main_gate",
+    "within": 40.0,
+    "why": "The venue's own roller gate (DoorControllerPS) in the gameplay prefab's devices section — a world device that streams with the location, not a workspot. It is the normal way in from Hargreaves St., so reaching it is exactly the moment the venue has streamed and the people need re-issuing. The other quest-driven device is the roof door; the gate is the better anchor because a player arrives at it."
+  }
+}

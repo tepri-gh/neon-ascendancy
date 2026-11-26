@@ -4982,6 +4982,90 @@
    ]
   },
   {
+   "code": "sts_wat_kab_03_stolen_meds",
+   "name": "Columbus St. housing block (Backs Against the Wall)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_03_stolen_meds",
+   "pos": [
+    -1194.39,
+    1128.74,
+    21.5
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.StoopKing",
+    "Character.sts_wat_kab_03_solo"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #kab_03_com_ar (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm the alley reads normal, not a gig setup: the kept street crowd plus two StoopKing neighbours standing around, nobody in a confrontation, no...",
+     "detail": "Confirm the alley reads normal, not a gig setup: the kept street crowd plus two StoopKing neighbours standing around, nobody in a confrontation, no Johnny, no quest markers.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the solo's attitude in the upstairs room: he should hold the relaxed rifle guard stance from #kab_03_ws_solo_001, not aim, not chase and not...",
+     "detail": "Check the solo's attitude in the upstairs room: he should hold the relaxed rifle guard stance from #kab_03_ws_solo_001, not aim, not chase and not go hostile when the player walks in. If he does, drop the solo entry and keep only the two neighbours.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the upstairs room is dressed and reachable: the streetstory prefab should add the ruined-apartment set (rubble, the collapsed-ceiling route),...",
+     "detail": "Check the upstairs room is dressed and reachable: the streetstory prefab should add the ruined-apartment set (rubble, the collapsed-ceiling route), not a bare shell and not the post-fight state.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from Columbus St.",
+     "detail": "Walk in from Columbus St. and report the route: the block entrance is not a quest door, vanilla's #kab_03_tr_entrance_window points at a window route and the wiki says up through the collapsed ceiling. Report what actually gets you in.",
+     "source": "open question"
+    },
+    {
+     "label": "Open the kitchen door (#sts_wat_kab_03_kitchen_doors) and the tech door to the solo's room (#kab_03_door_solo) from both sides and report whether e...",
+     "detail": "Open the kitchen door (#sts_wat_kab_03_kitchen_doors) and the tech door to the solo's room (#kab_03_door_solo) from both sides and report whether either needs a hack or a skill check; the prestate lock never runs.",
+     "source": "open question"
+    },
+    {
+     "label": "Check nothing quest-specific is visible in the flat: no laptop, no drugs, no meds crate and no revolver token (laptop_variant 0, drugs_variant 0, f...",
+     "detail": "Check nothing quest-specific is visible in the flat: no laptop, no drugs, no meds crate and no revolver token (laptop_variant 0, drugs_variant 0, final_loot untouched).",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the #kab_03_com_ar people actually spawn: all three spots live inside the streetstory prefab, so if the dressing is there but the people ar...",
+     "detail": "Confirm the #kab_03_com_ar people actually spawn: all three spots live inside the streetstory prefab, so if the dressing is there but the people are not, the prefab/activation order is wrong.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the alley: the kept #wat_kab_03_community already fills it with seven people; if nine in one alley looks crowded, drop the two neighbours and...",
+     "detail": "Count the alley: the kept #wat_kab_03_community already fills it with seven people; if nine in one alley looks crowded, drop the two neighbours and keep the interior only.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether walking into the flat triggers #kab_03_dangerous_area (permanent combat or alarm); it should be inert in normal play.",
+     "detail": "Check whether walking into the flat triggers #kab_03_dangerous_area (permanent combat or alarm); it should be inert in normal play.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_wat_kab_07",
    "name": "Ho-Oh Casino (Kabuki)",
    "kind": "hand-built",
@@ -5869,6 +5953,222 @@
     {
      "label": "Should one or two motel rooms be furnished for a lived-in look?",
      "detail": "Should one or two motel rooms be furnished for a lived-in look? The only furnishing prefab here is #sq031_pr_motel, which is a quest scene set and was excluded; nothing vanilla provides a non-quest room interior.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_04_netrunner_hideout",
+   "name": "Dirty Biz XBD studio (Maelstrom-guarded netrunner hideout, Northside)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_04_netrunner_hideout",
+   "pos": [
+    -1818.66,
+    2649.61,
+    14.86
+   ],
+   "radius": 59.8,
+   "expected_records": [
+    "Character.sts_wat_nid_04_enemy_maelstrom_fast_sniper2_grad_ma",
+    "Character.sts_wat_nid_04_enemy_rifle_ma",
+    "Character.sts_wat_nid_04_enemy_security_officer_machete_ma",
+    "Character.sts_wat_nid_04_enemy_shotgun_ma",
+    "Character.sts_wat_nid_04_fredrik",
+    "Character.sts_wat_nid_04_gottfrid"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Studio door: walk to the glass studio door and confirm it opens.",
+     "detail": "Studio door: walk to the glass studio door and confirm it opens. It is #nid_04_dvc_studio_door; no vanilla phase drives it, so it should be a plain passable door, but it is outside DoorScope and the runtime door policy cannot fix it.",
+     "source": "open question"
+    },
+    {
+     "label": "Street entrance: confirm the building's ground-floor entrance is passable.",
+     "detail": "Street entrance: confirm the building's ground-floor entrance is passable. The devices prefab holds a double door and a single_door_1, but neither has an authored ref in any extract, so I could not report them as door notes.",
+     "source": "open question"
+    },
+    {
+     "label": "Shutter and window look: check the studio from the street and from inside.",
+     "detail": "Shutter and window look: check the studio from the street and from inside. The proposal asserts lockdown=0 / lockdown_window=0 (shutters up, normal window); if the windows still read as boarded or sealed, the lockdown variant groups mean the opposite of what I inferred and the two toggles should be flipped.",
+     "source": "open question"
+    },
+    {
+     "label": "Guard posts: confirm all nine Maelstrom stand at their routine spots (ground-floor pair, upper-floor post and the Grad sniper at z~15 per the spot...",
+     "detail": "Guard posts: confirm all nine Maelstrom stand at their routine spots (ground-floor pair, upper-floor post and the Grad sniper at z~15 per the spot coords) and none spawns inside geometry or up in the studio with the tuners.",
+     "source": "open question"
+    },
+    {
+     "label": "Tuners: confirm Fredrik and Gottfrid are lying in the BD chairs, jacked in, not standing (conscious) or kneeling (cower).",
+     "detail": "Tuners: confirm Fredrik and Gottfrid are lying in the BD chairs, jacked in, not standing (conscious) or kneeling (cower). Their chairs are #nid_04_ws_fredrik_bd and #nid_04_ws_gottfrid_bd.",
+     "source": "open question"
+    },
+    {
+     "label": "Security set: confirm the cameras and security areas from #loc_sts_wat_nid_04_netrunner_hideout_devices are present and neutral (no DANGEROUS/RESTR...",
+     "detail": "Security set: confirm the cameras and security areas from #loc_sts_wat_nid_04_netrunner_hideout_devices are present and neutral (no DANGEROUS/RESTRICTED lockdown, no instant combat) with security_variant=1.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_05",
+   "name": "HeavenMed clinic (Daniels St., Northside)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_05",
+   "pos": [
+    -1491.95,
+    2918.93,
+    11.23
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.nid_05_maelstrom_handgun_ma",
+    "Character.nid_05_maelstrom_officer",
+    "Character.nid_05_maelstrom_othmar_brasi",
+    "Character.nid_05_maelstrom_rifle_man",
+    "Character.nid_05_maelstrom_server_room_wa",
+    "Character.nid_05_maelstrom_shotgun_man",
+    "Character.nid_05_maelstrom_wrench_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #nid_05_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the ten Maelstrom are on their idle posts inside the clinic (guard at the front, repair in the garage, scavenging, server-room tech, two talk...",
+     "detail": "Check the ten Maelstrom are on their idle posts inside the clinic (guard at the front, repair in the garage, scavenging, server-room tech, two talking upstairs, Othmar Brasi at the computer) and nobody is alert, crouched or bunched at the spawner.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from Daniels St and confirm the main door and the glass storefront door open normally, with no lockdown: both are automatic powered doors t...",
+     "detail": "Walk in from Daniels St and confirm the main door and the glass storefront door open normally, with no lockdown: both are automatic powered doors that vanilla leaves unpowered until the story starts.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the outer double glass door (#sts_wat_nid_05_outside_door) that no quest phase drives.",
+     "detail": "Look at the outer double glass door (#sts_wat_nid_05_outside_door) that no quest phase drives. If it is a powered automatic door it is outside the door policy's scope and may sit shut; report it either way.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the three shopfront shutters (shutter_window_w150_002/_005/_006) are raised, so the front of the clinic does not read as boarded up.",
+     "detail": "Check the three shopfront shutters (shutter_window_w150_002/_005/_006) are raised, so the front of the clinic does not read as boarded up.",
+     "source": "open question"
+    },
+    {
+     "label": "Enter the clinic and check whether the security-area controllers (#nid_05_security_area_dengerous_001/_002, #nid_05_security_area_restricted_002) t...",
+     "detail": "Enter the clinic and check whether the security-area controllers (#nid_05_security_area_dengerous_001/_002, #nid_05_security_area_restricted_002) trip a restricted-area warning, and whether that reads right for a gang clinic.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two parked Maelstrom cars (Chevalier Thrax and Thorton Galena) in the garage/yard look like the crew's rides, and confirm the upstairs se...",
+     "detail": "Check the two parked Maelstrom cars (Chevalier Thrax and Thorton Galena) in the garage/yard look like the crew's rides, and confirm the upstairs server room is reachable on foot with no quest-only barrier.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_06",
+   "name": "Maelstrom chop shop (Offshore St warehouse, Northside)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_06",
+   "pos": [
+    -1341.46,
+    2767.66,
+    7.21
+   ],
+   "radius": 60.5,
+   "expected_records": [
+    "Character.sts_wat_nid_06_enemy_gunner_big",
+    "Character.sts_wat_nid_06_enemy_ma",
+    "Character.sts_wat_nid_06_enemy_officer",
+    "Character.sts_wat_nid_06_enemy_shotgunner",
+    "Character.sts_wat_nid_06_enemy_wa",
+    "Character.sts_wat_nid_06_maelstrom_fast_sniper2_grad_ma",
+    "Character.sts_wat_nid_06_maelstrom_netrunner_netrunner2_lexington_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #sts_wat_nid_06_enemies_outside (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm ten Maelstrom are on post and calm: five inside (officer upstairs at the rail/dirt spot, netrunner on the upstairs couch, three on the grou...",
+     "detail": "Confirm ten Maelstrom are on post and calm: five inside (officer upstairs at the rail/dirt spot, netrunner on the upstairs couch, three on the ground floor standing, inspecting and kneeling) and five outside (street and roof patrols, one at the wall with a cigarette, one on the phone, one leaning over a car engine). None should be alert, crouched or clustered at the spawner.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in and confirm the shop is enterable without console help.",
+     "detail": "Walk in and confirm the shop is enterable without console help. The doors are powered but closed; vanilla offers no access card, and the wiki says skill checks or quickhacks open them. Report what actually opens #sts_wat_nid_06_door_4 and whether the front shutters stand open.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the proximity anchor fires: #sts_wat_nid_06_door_4 should stream with the venue and drive the venue's _prox re-issue.",
+     "detail": "Check the proximity anchor fires: #sts_wat_nid_06_door_4 should stream with the venue and drive the venue's _prox re-issue. If the shop only populates on load and never re-issues, switch the anchor to #nid_06_dvc_door_01.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the exterior reads 'open for business' with lockdown 0: shutters up, bay visible, no sealed or boarded panels.",
+     "detail": "Check the exterior reads 'open for business' with lockdown 0: shutters up, bay visible, no sealed or boarded panels. If the shop looks locked down instead, the lockdown variant group means the opposite of what I inferred and the toggle should be flipped.",
+     "source": "open question"
+    },
+    {
+     "label": "Check there is no corpse: the driver_body variant should be off, and no body should lie in the yard, the van or any car.",
+     "detail": "Check there is no corpse: the driver_body variant should be off, and no body should lie in the yard, the van or any car. The vanilla dead-body entry is deliberately not activated.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the yard for leftover gig cars.",
+     "detail": "Check the yard for leftover gig cars. #nid_06_car_01..004 are spawners in the loaded street-story section but are not in the catalogue's spawn sets, so the proposal cannot switch them; if the Malorian van or hood-open cars appear with the databank objective scan, they may need a later pass to hide.",
      "source": "open question"
     }
    ]
@@ -7140,6 +7440,11 @@
      "label": "Confirm the hideout's computers are live.",
      "detail": "Confirm the hideout's computers are live. The blueprints computer and the netrunner terminal should be powered and interactive, not in the gig's unpowered sabotage state.",
      "source": "open question"
+    },
+    {
+     "label": "Megabuilding H6 lift (loc_megabuilding_h6): can the lift select floor 19 without the gig?",
+     "detail": "Megabuilding H6 lift (loc_megabuilding_h6): can the lift select floor 19 without the gig? If not, the approved 6th Street hideout (sts_std_arr_11) is unreachable; that is owner decision 58 (lift floor access). Is the H6 lobby lively from the ambient crowd and vendors? Wave 16: nothing to restore.",
+     "source": "extra"
     }
    ]
   },
@@ -7944,6 +8249,59 @@
    ]
   },
   {
+   "code": "sts_wbr_jpn_01_tygerclaw_garage",
+   "name": "Garage on Redwood St.",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_01_tygerclaw_garage",
+   "pos": [
+    -565.01,
+    691.06,
+    34.42
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wbr_jpn_01_sergei"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Stand on Redwood St.",
+     "detail": "Stand on Redwood St. outside the garage: does the workshop frontage read as a normal car shop, with its interior loaded behind the gate rather than a sealed wall?",
+     "source": "open question"
+    },
+    {
+     "label": "Walk up to #jpn_01_dvc_sergei_gate and try to open it: does the runtime door policy power and unlock the gate so the workshop can be entered, and d...",
+     "detail": "Walk up to #jpn_01_dvc_sergei_gate and try to open it: does the runtime door policy power and unlock the gate so the workshop can be entered, and does the inner door behave the same way?",
+     "source": "open question"
+    },
+    {
+     "label": "Look at Sergei by the gate: is he standing calmly at his arms-crossed spot (no quest marker, no dialogue, no hostility), and is the workshop bay em...",
+     "detail": "Look at Sergei by the gate: is he standing calmly at his arms-crossed spot (no quest marker, no dialogue, no hostility), and is the workshop bay empty where the gift car used to be?",
+     "source": "open question"
+    },
+    {
+     "label": "Drive a car at the workshop forecourt: does the car_forbidden_area variant keep the car out, and does that look right for a working garage?",
+     "detail": "Drive a car at the workshop forecourt: does the car_forbidden_area variant keep the car out, and does that look right for a working garage?",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_wbr_jpn_05_burned_store",
    "name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
    "kind": "approved",
@@ -8386,6 +8744,70 @@
     {
      "label": "Confirm nothing starts the gig.",
      "detail": "Confirm nothing starts the gig. The prefab also carries the street-story manager's trigger and map-pin plumbing; walking in must not start We Have Your Wife or spawn a quest marker.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_jpn_09_netrunner_parking_lot",
+   "name": "Netrunner Parking Lot (Japantown)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_09_netrunner_parking_lot",
+   "pos": [
+    -376.71,
+    1441.03,
+    35.76
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wbr_jpn_09_netrunner",
+    "Character.sts_wbr_jpn_09_walt_ozark"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the lot from the street and confirm the netrunner scene is alive.",
+     "detail": "Walk into the lot from the street and confirm the netrunner scene is alive. The netrunner should be leaning on the wall smoking and Walt Ozark sitting on the chair by the parked Chevalier Thrax, both calm and on their spots.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the lot has no quest actors or leftovers.",
+     "detail": "Confirm the lot has no quest actors or leftovers. No Militech soldiers, no Chevalier Emperor blocking the lot, no chase car, no map pin and no chase trigger - and walking in must not start sts_wbr_jpn_09.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the proximity wait fires.",
+     "detail": "Check the proximity wait fires. The venue has no device of its own, so the anchor is the gun-shop screen 76 m east with a 90 m radius; approach the lot and confirm _prox is reached before the people are re-issued.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the three former ambush spots and confirm they are ordinary street.",
+     "detail": "Walk the three former ambush spots and confirm they are ordinary street. The rooftop spot north of the lot, the street west of it and the street east of it should have no Militech fireteam standing around a car.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the lot geometry streams in correctly.",
+     "detail": "Confirm the lot geometry streams in correctly. The section is loaded only by this venue phase; check the lot floor, the chairs and wall by the truck and the netrunner spots are present with no holes or missing building geometry.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the truck up close.",
+     "detail": "Look at the truck up close. It should read as a parked prop with no get-in prompt or quest interaction tied to the unfired gig.",
      "source": "open question"
     }
    ]

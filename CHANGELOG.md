@@ -13,6 +13,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 16 (first part): Warbler Lake waste facility, the Redwood
+  St. workshop, the Hargreaves St. 6th Street garage, the Northside XBD
+  studio, the Columbus St. block, the Offshore St Maelstrom chop shop,
+  HeavenMed, the Japantown netrunner lot and Wicked Tires in the Glen.
 - Research wave 15 (first part): La Catrina, the Sunshine Motel Militech
   outpost, 8ug8ear's building, the Union Railroad Station Wraith outpost,
   Gustavo's building, the Kendachi plant lot, the Lobos St tower, the

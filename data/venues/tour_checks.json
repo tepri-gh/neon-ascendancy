@@ -100,6 +100,10 @@
     {
       "stop": "sts_bls_ina_08",
       "text": "From this Wraith camp, visit the 2071 minefield in Biotechnica Flats (sts_bls_ina_07): are the old mine props inert or live? Walk in carefully. No smuggler rig, corpse or drone patrol. Wave 15: nothing to restore."
+    },
+    {
+      "stop": "sts_std_arr_11",
+      "text": "Megabuilding H6 lift (loc_megabuilding_h6): can the lift select floor 19 without the gig? If not, the approved 6th Street hideout (sts_std_arr_11) is unreachable; that is owner decision 58 (lift floor access). Is the H6 lobby lively from the ambient crowd and vendors? Wave 16: nothing to restore."
     }
   ]
 }

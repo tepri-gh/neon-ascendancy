@@ -1,0 +1,39 @@
+{
+  "code": "sts_wat_nid_05",
+  "display_name": "HeavenMed clinic (Daniels St., Northside)",
+  "why": "HeavenMed is a two-floor ripperdoc clinic on Daniels St in Northside: a ground-floor reception/garage and an upstairs makeshift operating room, offices, lockers and server room. The building shell, doors, shutters, access points and security areas are already world-streamed; only the quest prefab that carries the clinic's own Maelstrom community and its AI spots is quest-only. This proposal loads #sts_wat_nid_05_steetstory and switches on #nid_05_com whole, which puts the ten vanilla Maelstrom (including Othmar Brasi at the computer) on their idle spots and parks the crew's two cars in the garage. No variant toggles are needed and nothing is boarded up.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_05/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the ten Maelstrom are on their idle posts inside the clinic (guard at the front, repair in the garage, scavenging, server-room tech, two talking upstairs, Othmar Brasi at the computer) and nobody is alert, crouched or bunched at the spawner.",
+      "Walk in from Daniels St and confirm the main door and the glass storefront door open normally, with no lockdown: both are automatic powered doors that vanilla leaves unpowered until the story starts.",
+      "Look at the outer double glass door (#sts_wat_nid_05_outside_door) that no quest phase drives. If it is a powered automatic door it is outside the door policy's scope and may sit shut; report it either way.",
+      "Check the three shopfront shutters (shutter_window_w150_002/_005/_006) are raised, so the front of the clinic does not read as boarded up.",
+      "Enter the clinic and check whether the security-area controllers (#nid_05_security_area_dengerous_001/_002, #nid_05_security_area_restricted_002) trip a restricted-area warning, and whether that reads right for a gang clinic.",
+      "Check the two parked Maelstrom cars (Chevalier Thrax and Thorton Galena) in the garage/yard look like the crew's rides, and confirm the upstairs server room is reachable on foot with no quest-only barrier."
+    ]
+  },
+  "prefabs": [
+    "#sts_wat_nid_05_steetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Vanilla switches this community on whole when the job's combat section starts (entry None, phase None), so the same switch is the clean, evidence-backed way to populate the clinic. Every entry's initial phase is an idle routine: Enemy1 a guard stand at the front, Enemy2 repairing the garage, Enemy3 patrolling with a tablet, Enemy4 scavenging drugs, Enemy5 checking the server room, Enemy6/Enemy7 talking upstairs, Enemy8 standing by the back, Enemy9 (Othmar Brasi) at a computer, Enemy10 leaning on a wall, plus car_01 (Chevalier Thrax) and car_02 (Thorton Galena) parked as the crew's rides. That is a Maelstrom clinic at work, not a quest scene: no spot uses an alert, agitated or cover workspot.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sts_wat_nid_05_main_door",
+    "within": 60.0,
+    "why": "The clinic's main entrance door on Daniels St, a DoorControllerPS in the world-streamed exterior_-24_45_0_0 sector (so it resolves without the quest prefab and is outside every variant), 5-35 m from the crew's spots. A device, not a workspot, and the natural arrival point of the tour."
+  }
+}

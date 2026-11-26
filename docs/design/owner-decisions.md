@@ -499,3 +499,43 @@ the non-combat people. **(after tour)**
      11-person crew (proposed), trimmed, or empty? A neutral shop, or a
      restricted hostile site (see 78)? The quest SUV on the lift off
      (proposed)? Park the nomad truck as ambient?
+
+## 11. Wave 16 (final research wave)
+
+140. **Warbler Lake waste facility** (`sts_bls_ina_11`). Keep or drop the
+     broken sparring bot? All five guards and two cars, or fewer? Open the
+     two office interiors, or keep them shut?
+141. **Redwood St. car workshop** (`sts_wbr_jpn_01_tygerclaw_garage`). Sergei
+     as garage keeper (recommended) or an empty lock-up? Guard-free rather
+     than borrowing the restaurant's Claw squad? Car-forbidden area on
+     (recommended)? Park Sergei's Colby there?
+142. **6th Street garage, Hargreaves St.** (`sts_std_arr_06`). A live den
+     (proposed) or empty? Karl Ginsky out (recommended)? Hostility (see 78)?
+     Clear the blood (proposed) or keep vanilla's decals? Leave the
+     `before_DLC` variants at their defaults?
+143. **Northside XBD studio** (`sts_wat_nid_04`). Nine posted guards only
+     (recommended), or also the three-car reinforcement wave? Tuners at
+     work (recommended)? Studio open (recommended) or sealed?
+144. **Columbus St. block** (`sts_wat_kab_03`). Corporal William Hare as the
+     block's armed squatter (proposed) or an empty flat? Stolen meds out
+     (recommended)? Leave the tech door hackable (recommended)?
+145. **Megabuilding H6** (`loc_megabuilding_h6`, nothing to restore). Lobby
+     left to the ambient crowd and vendors (recommended)? Keep the 6th
+     Street hideout venue as the only owner of floor 19 (recommended)? Lift
+     to floor 19: see 58.
+146. **Maelstrom chop shop, Offshore St** (`sts_wat_nid_06`; the lead agent
+     renamed it from "Wicked Tires", which is the Glen garage, 149). All
+     ten, or the five inside only? Hostile or neutral (see 78)? Park
+     stripped cars there later?
+147. **HeavenMed, Daniels St.** (`sts_wat_nid_05`). Whole community
+     (recommended) or nine entries? Keep the two crew cars (recommended)?
+     Vanilla security and hostility (recommended) or a neutral reception?
+     Othmar Brasi as he is (recommended)?
+148. **Japantown netrunner parking lot** (`sts_wbr_jpn_09`). Keep the
+     netrunner, Walt Ozark and the truck (proposed) or an empty lot? The
+     Militech ambush teams out (proposed)? A netrunner-hire hook later?
+149. **Wicked Tires, the Glen** (`sts_hey_gle_06`). The full eight-person
+     crew (proposed) or a trimmed day crew? Keep the baked security areas,
+     or neutralise them (see 78)? Jake Estevez out (recommended)? No quest
+     Colby on the lift (recommended)? Is the generic crew enough without
+     Joaquín Davis as a named owner?

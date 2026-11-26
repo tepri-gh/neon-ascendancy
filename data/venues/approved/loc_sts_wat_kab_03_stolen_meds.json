@@ -1,0 +1,65 @@
+{
+  "code": "sts_wat_kab_03_stolen_meds",
+  "display_name": "Columbus St. housing block (Backs Against the Wall)",
+  "why": "A derelict Kabuki housing block: a street-level alley and stoop where neighbours, homeless people and passers-by hang around (already filled by the kept wat_kab_phase crowd), a collapsed-ceiling flat above it, and a single armed squatter, Corporal William Hare, in the upstairs back room. This proposal loads the street story's openworld section (the only quest prefab the venue declares) so the flat and its AI spots exist, switches on the whole #kab_03_com_ar community in the relaxed default phases vanilla itself runs while the gig is live, and pins the quest laptop and drug dressing off. The stolen meds, the loot/revolver token, Hare's suicide and the Johnny scene stay out.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_03_stolen_meds/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the alley reads normal, not a gig setup: the kept street crowd plus two StoopKing neighbours standing around, nobody in a confrontation, no Johnny, no quest markers.",
+      "Check the solo's attitude in the upstairs room: he should hold the relaxed rifle guard stance from #kab_03_ws_solo_001, not aim, not chase and not go hostile when the player walks in. If he does, drop the solo entry and keep only the two neighbours.",
+      "Check the upstairs room is dressed and reachable: the streetstory prefab should add the ruined-apartment set (rubble, the collapsed-ceiling route), not a bare shell and not the post-fight state.",
+      "Walk in from Columbus St. and report the route: the block entrance is not a quest door, vanilla's #kab_03_tr_entrance_window points at a window route and the wiki says up through the collapsed ceiling. Report what actually gets you in.",
+      "Open the kitchen door (#sts_wat_kab_03_kitchen_doors) and the tech door to the solo's room (#kab_03_door_solo) from both sides and report whether either needs a hack or a skill check; the prestate lock never runs.",
+      "Check nothing quest-specific is visible in the flat: no laptop, no drugs, no meds crate and no revolver token (laptop_variant 0, drugs_variant 0, final_loot untouched).",
+      "Confirm the #kab_03_com_ar people actually spawn: all three spots live inside the streetstory prefab, so if the dressing is there but the people are not, the prefab/activation order is wrong.",
+      "Count the alley: the kept #wat_kab_03_community already fills it with seven people; if nine in one alley looks crowded, drop the two neighbours and keep the interior only.",
+      "Check whether walking into the flat triggers #kab_03_dangerous_area (permanent combat or alarm); it should be inert in normal play."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_03_stolen_meds_prefabTJEH3AI/loc_sts_wat_kab_03_stolen_meds_openworld_prefab645JSRI/#sts_wat_kab_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#kab_03_com_ar",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation, exactly the shape vanilla uses while the gig is live: sts_wat_kab_03_openworld activates entry None / phase None, which switches on the two StoopKing neighbours on the street pair (#kab_03_ws_scene_001/002, standing/waiting in the alley) and Character.sts_wat_kab_03_solo upstairs on #kab_03_ws_solo_001 in the rifle guard stance - all three initial phases are 'default', all catalogue postures relaxed. The solo is the squatting veteran Corporal William Hare from the wiki; vanilla's own pre-gig state has him in the flat, so keeping him is the 'before anything happened' look rather than the gig's scene. The patrol (alert) and suicide phases are not used. needs_tour_check because his guard stance carries a rifle and the attitude must be eyeballed in game.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_03_stolen_meds_prefabTJEH3AI/loc_sts_wat_kab_03_stolen_meds_gameplay_prefabNNPEIAY/loc_sts_wat_kab_03_stolen_meds_devices_prefabJABBN4I",
+      "states": {
+        "sts_wat_kab_03_laptop_variant": 0
+      },
+      "why": "The quest laptop hidden. Vanilla shows it (1) when the open-world gig section starts and hides it (0) both on teardown and in its bugfixing cleanup phase; 0 is the no-quest-laptop state, which is what a squatted flat without the gig should show. The devices prefab is world-streamed (the kitchen door lives in it), so this variant can be visible without any quest phase."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_03_stolen_meds_prefabTJEH3AI/loc_sts_wat_kab_03_stolen_meds_openworld_prefab645JSRI/#sts_wat_kab_03_streetstory",
+      "states": {
+        "sts_wat_kab_03_drugs_variant": 0
+      },
+      "why": "The drugs dressing in the openworld section hidden. Vanilla never shows this variant: both the teardown branch and the bugfixing cleanup set it to 0, so 0 is the ordinary flat look and 1 would be the stolen-drugs set dressing. Pinned off so no meds are on display in our timeline."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1194.39,
+      1128.74,
+      21.5
+    ],
+    "source": "mean of worldAISpotNode #kab_03_ws_scene_001 (-1194.95, 1129.08, 21.5) and #kab_03_ws_scene_002 (-1193.83, 1128.4, 21.49) in base/worlds/03_night_city/_compiled/default/quest_01f9d7e5b9b81091.streamingsector; the street-level pair outside the block, 12 m below the solo's guard spot (-1188.21, 1122.19, 33.46)"
+  },
+  "proximity_wait": {
+    "ref": "#sts_wat_kab_03_kitchen_doors",
+    "within": 80.0,
+    "why": "The only device this venue's own phase drives with a resolved full $/ path (base/sts_wat_kab_03_prestate_control). It is a DoorControllerPS on the upper floor, on the normal way through the flat, and it lives in the world-streamed devices prefab (tagged in exterior_-19_17_0_0.streamingsector), so it streams with the people. Device, not workspot (rule 8)."
+  }
+}

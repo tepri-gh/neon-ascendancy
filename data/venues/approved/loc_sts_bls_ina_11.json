@@ -1,0 +1,89 @@
+{
+  "code": "sts_bls_ina_11",
+  "display_name": "Warbler Lake Hazardous Waste Facility (Junk Vendor scrapyard)",
+  "why": "A fenced hazardous-waste scrapyard on Anderson St. in the Municipal Landfill: a guarded main gate, one garage/warehouse, two office buildings, a kiosk shop window, a car lift, vending machines and piles of wrecked cars. Vanilla only shows it through Gig: Sparring Partner, where its open-world phase stages the venue while the gig is merely offered. This proposal restores that standing tableau - the owner's five-man security detail with their two cars, three technicians working the car and the shed, and the broken sparring bot dormant in the yard - with no ambush, no roadblock, no quest shards and no combat.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_11/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the five guards idle on post rather than standing alert. The catalogue has no community area node for this venue (posture unknown); every spot in the quest sector is a routine or guard stand-around pose, so the tour should confirm they are relaxed and spread over the gate, yard and car.",
+      "Check the three technicians are working around the car and the shed. Their 0spawn spots are tablet use, tool fixing, device fixing and shelf searching; if any stands frozen or alert, the phase mapping needs a look.",
+      "Check the broken sparring bot reads as dormant junk, not a corpse. Its sleep spot is a kneel-and-inspect pose, but confirm it is not lying in the dead/delivered pose.",
+      "Check the fence gate is open and the yard is enterable by car through the guarded main entrance and on foot through the south-east fence opening. The gate toggle is boot-time, and the wiki layout says both routes exist.",
+      "Check the Junk Vendor is present and interactable behind an open shop window. The kept Inland Avenue vendors phase spawns #bls_ina_se1_junkshop_01/default, but vanilla closes the five kiosk blinders for the gig and nothing reopens them.",
+      "Check the proximity anchor #ina_11_warehouse_door streams and the proximity wait fires on approach. It is the garage door on the main yard and is ungated in the catalogue, but it has no recorded position.",
+      "Check during_sts=0 leaves the normal yard intact - doors, vending machines, car lift and shutters present, no roadblock and no gig shards. If the toggle empties the devices section instead, the boot default may already be 0 and the toggle can be dropped.",
+      "Check the two security-area behaviours do not alarm the guards. The security areas are connected to #ina_11_com_guards and #ina_11_com_techies and are quest-gated; with no gig they should stay inert."
+    ]
+  },
+  "prefabs": [
+    "#loc_sts_bls_ina_11_logic"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_11_com_guards",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The owner's standing security detail, exactly as vanilla switches it on when the gig is merely available: every entry in its initial 0spawn phase - officer, guard_front (rifle), guard_back (sniper), the two reinf_* riflemen and the two cars (Villefort Cortes, Archer Hella). The venue's own spot map is missing, but every spot in the quest sector is a casual routine/guard pose (officer patrol spots: smoke, kneel-inspect, wall lean, stand, tablet use; patrol_back: dirt stand, stand, drug take; reinf: stand-around shotgun and smoke), so this reads as hired men lounging around a scrapyard, not an alert squad. The gig's real combat staging is in the gpl phase, so the whole-community default state is the right one.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_11_com_techies",
+      "entry_name": "techie_car_01",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The yard's first technician, as vanilla activates him when the gig is available (phase None keeps the initial 0spawn phase). His 0spawn spots are the techie car spots and the shed: stand looking over products, lean on the wall smoking, tablet use, kneel with a tool fixing something - a scrapyard mechanic at work, not the gig's car-scene rearrangement (by_trunk/off_car).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_11_com_techies",
+      "entry_name": "techie_car_02",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The second technician, likewise in his initial 0spawn phase as vanilla activates him when the gig is available. His spots are tablet use, kneel with a tablet and fixing a device - routine repair work around the car and yard.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_11_com_techies",
+      "entry_name": "techie_shed",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A second technician_1 instance posted in the work shed (his only phase is 0spawn), searching a shelf and inspecting parts - the venue's parts-store worker. This is the van driver who smokes in the gig scene's staging; in the ambient state he is simply in the shed.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_11_com_robot",
+      "entry_name": "robot",
+      "phase_name": "sleep",
+      "action": "Activate",
+      "why": "The broken next-gen sparring bot that was dumped at the scrapyard: vanilla switches it on in its sleep phase in the gig-available branch, and its sleep spot is a kneel-and-inspect pose, so it reads as dormant junk rather than a body. It is the venue's most distinctive prop and belongs here before the gig starts (Dakota's brief already places it at the scrapyard). Its delivered phase (lie dead) is the post-gig pose and is not used.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/se1/loc_sts_bls_ina_11_prefabLY7IQUY/loc_sts_bls_ina_11_env_prefab6CBNXJQ/loc_sts_bls_ina_11_env_decoration_prefabOXVKQBY/external_prefab27QBZFQ",
+      "states": {
+        "fence_gate_closed": 0,
+        "fence_gate_open": 1
+      },
+      "why": "The yard's fence gate. Vanilla's open-world branch sets exactly this open state (closed 0, open 1), and the wiki describes the scrapyard as enterable by car through the guarded main entrance; the closed variant would wall the venue off even though nothing in our timeline closes it."
+    },
+    {
+      "prefab": "$/03_night_city/se1/loc_sts_bls_ina_11_prefabLY7IQUY/loc_sts_bls_ina_11_gameplay_prefabWF6YGVQ/loc_sts_bls_ina_11_devices_prefab5C57ONQ",
+      "states": {
+        "during_sts": 0
+      },
+      "why": "The devices section's during-story state is the gig's armed dressing: vanilla raises it to 1 in the street story and the bugfixing phase, and the open-world branch drops it back to 0. 0 is the normal yard - it also keeps the gig's roadblock and #ina_11_dvc_shard* quest devices out of the scene."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#ina_11_warehouse_door",
+    "within": 80.0,
+    "why": "A real device entity in the venue's devices section (single_door_003_prefabWK7NPTY, DoorControllerPS), ungated in the catalogue and driven by sts_bls_ina_11_ow (ForceClose + ForcePower), so it is present and powered in the normal yard. It is the single car garage door on the main yard, beside the guards' and technicians' spots. It is a door, not a workspot."
+  }
+}

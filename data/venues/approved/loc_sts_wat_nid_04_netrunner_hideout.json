@@ -1,0 +1,61 @@
+{
+  "code": "sts_wat_nid_04_netrunner_hideout",
+  "display_name": "Dirty Biz XBD studio (Maelstrom-guarded netrunner hideout, Northside)",
+  "why": "This is the anonymous industrial building off Shipyard Way (Watson, Northside) where XBD tuners Gottfrid and Fredrik Persson cut braindances in a small studio on the upper floor while a Maelstrom squad holds the floors below. Vanilla owns the whole site through sts_wat_nid_04 (gig Dirty Biz): the street-story prefab carries the studio set, the two BD-chair workspots and the nine-man Maelstrom community, and the always-streamed gameplay section carries the studio door, shutters, cameras and security areas. Nothing in those phases is clean-slate-kept, so the place is currently shell-only. This proposal restores the prefab and both communities in their non-hostile working phases, and switches the baked lockdown variants to the open, security-on state the studio has while it is in use.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_04_netrunner_hideout/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Studio door: walk to the glass studio door and confirm it opens. It is #nid_04_dvc_studio_door; no vanilla phase drives it, so it should be a plain passable door, but it is outside DoorScope and the runtime door policy cannot fix it.",
+      "Street entrance: confirm the building's ground-floor entrance is passable. The devices prefab holds a double door and a single_door_1, but neither has an authored ref in any extract, so I could not report them as door notes.",
+      "Shutter and window look: check the studio from the street and from inside. The proposal asserts lockdown=0 / lockdown_window=0 (shutters up, normal window); if the windows still read as boarded or sealed, the lockdown variant groups mean the opposite of what I inferred and the two toggles should be flipped.",
+      "Guard posts: confirm all nine Maelstrom stand at their routine spots (ground-floor pair, upper-floor post and the Grad sniper at z~15 per the spot coords) and none spawns inside geometry or up in the studio with the tuners.",
+      "Tuners: confirm Fredrik and Gottfrid are lying in the BD chairs, jacked in, not standing (conscious) or kneeling (cower). Their chairs are #nid_04_ws_fredrik_bd and #nid_04_ws_gottfrid_bd.",
+      "Security set: confirm the cameras and security areas from #loc_sts_wat_nid_04_netrunner_hideout_devices are present and neutral (no DANGEROUS/RESTRICTED lockdown, no instant combat) with security_variant=1."
+    ]
+  },
+  "prefabs": [
+    "#sts_wat_nid_04_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#nid_04_com_gaf",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The studio's two XBD tuners, Fredrik and Gottfrid Persson. Their initial phase is bd, which places each of them lying in a netrunner chair (#nid_04_ws_fredrik_bd / #nid_04_ws_gottfrid_bd, workspot generic__lie_netrunner_chair__netrun__01) - exactly what an operating XBD studio looks like. The other phases are quest reactions: conscious (stand up when confronted), cower (kneel) and pack (no spots, flee)."
+    },
+    {
+      "spawner": "#nid_04_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The Maelstrom detail that holds the building for the tuners: nine entries (rifle, shotgun, machete security officer, one fast sniper with a Grad) whose only phase is default, on routine workspots - stand ground, phone call, tablet use, wall lean and two patrol stands. That is a posted guard detail, not a combat scene, so it keeps the venue occupied without a firefight. Combat groups come before civilians per rule 11a, and civilians are still included because they are the venue's reason to exist."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_wat_nid_04_netrunner_hideout_devices",
+      "states": {
+        "lockdown": 0,
+        "security_variant": 1
+      },
+      "why": "The state vanilla shows once the studio is live: shutters up (lockdown off) and the security set on. The venue's own prestate phase only ever pairs lockdown=0 with security_variant=1, and the ungated boot state it writes is the closed variant (lockdown=1, security=0). Restoring 0/1 makes the den read as an operating, guarded studio instead of a sealed room. This is the devices prefab in the always-streamed gameplay section, so the toggle works at boot (rule 5)."
+    },
+    {
+      "prefab": "#nid_04_ext",
+      "states": {
+        "lockdown_window": 0
+      },
+      "why": "Keeps the exterior window in its normal (non-lockdown) state. Vanilla writes lockdown_window=0 in every ungated path (openworld, prestate boot, district phase) and only sets 1 inside the gated lockdown move, so 0 is the day-to-day look and is safe to assert explicitly at boot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#nid_04_dvc_studio_door",
+    "within": 100.0,
+    "why": "The studio's own glass door device (single_door_glass, authored name) inside the venue's always-streamed #loc_sts_wat_nid_04_netrunner_hideout_devices prefab - the only door or terminal at this venue with an authored ref. It is the natural arrival point: the studio, the two BD chairs and the upper-floor guard posts are all within ~60 m of it. This ref is not in input.json devices because no vanilla phase drives it, so the checker warns; the sector extract proves it exists as a device entity."
+  }
+}

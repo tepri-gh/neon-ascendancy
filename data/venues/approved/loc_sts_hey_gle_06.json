@@ -1,0 +1,55 @@
+{
+  "code": "sts_hey_gle_06",
+  "display_name": "Wicked Tires Autoshop (McBride St., the Glen)",
+  "why": "Wicked Tires Autoshop is a Sixth Street-run garage in the Glen: a front door, two garage doors, a back entrance, two car lifts, and an office upstairs with the shop's computer. Vanilla's Life's Work gig is the only thing that populates it: its street-story quest section holds the #gle_06_community spawner with the shop crew's workspots, so with no gig the garage stands empty. This proposal loads that one quest section, activates the whole crew (mechanics, gate and back patrols, two backups) in their ambient initial phases, and clears the quest's vehicle-forbidden area and post-gig device variant so the shop reads as a normal working garage.",
+  "source": {
+    "proposal": "research/loc_sts_hey_gle_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the crew is calm and on post. Walk the forecourt, the bay and the office stairs: eight Sixth Street members should be working, guarding or smoking at the back; report anyone alert, hostile, stacked on one spot or missing, because the catalogue has no spot map for this community.",
+      "Check whether the shop is a restricted area. Step in unarmed of intent: if V gets a trespass warning or the crew turns hostile, note where it starts, because the always-streamed device prefab carries baked #gle_06_dvc_sec_area_dangerous and #gle_06_dvc_sec_area_restricted volumes.",
+      "Get in on foot and with a car. The bay door #gle_06_dvc_gate is ForceClosed and ForceUnpowered on the venue's cleanup branch; confirm the runtime door policy powered it and that the inner #gle_06_dvc_gate_end is passable to the back.",
+      "Check the garage dressing. With post_sts_variant=0 the bay should show the working shop (car lift, welding gear, coffee machine, radio); if it reads as stripped or empty, flip the variant to 1 and report which look is right.",
+      "Check the street in front of the shop. McBride St should keep ordinary traffic and parked cars around the forecourt; if it is dead quiet, the gle_06_veh_forb area is still up.",
+      "Look for quest leftovers: no Colby belonging to Jake, no upload prompt on the office computer, no Padre or Jake holocall, no map pin, and nobody waiting under the stairs in the delivery scene.",
+      "Check the pavement crowd. The street-story prefab carries #gle_06_crowd_null and #gle_06_crowd_null_garage volumes; confirm pedestrians still walk McBride St past the shop rather than the block emptying out."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_06_prefabEE3BWTA/loc_sts_hey_gle_06_openworld_prefabMS2XP4I/#sts_hey_gle_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#gle_06_community",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The shop's whole Sixth Street crew: eight entries in their initial phases (gle_06_entrance and gle_06_patrol_front on 0default/0def, plus gle_06_back_patrol, gle_06_up, gle_06_way_up, gle_06_worker, reinforcement_a and reinforcement_b on 0default). Vanilla's gameplay phase activates this community whole (None/None), which puts every entry in its initial phase, so this is exactly the shop population the gig turns on, not an invention; the open-world phase only deactivates it. The spot names in the quest sector are the garage's ambient set - kneeling with a welder or tablet, patrolling stands at the entrance and back, spraying graffiti upstairs, smoking and drinking at the back - so the crew should read as mechanics and lookouts at work rather than a firefight. The catalogue has no community-area node for this id, so no spot map, hence posture unknown and the tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#sts_hey_gle_06_streetstory",
+      "states": {
+        "gle_06_veh_forb": 0
+      },
+      "why": "gle_06_veh_forb=1 shows the quest's vehicle-forbidden area (#gle_06_veh_forb_area, a traffic blocker on the shop's forecourt) that the open-world phase raises while the gig is live; 0 is the branch that clears it. No gig runs in our timeline, so McBride Street in front of the shop must keep its ordinary traffic and parked cars."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_06_prefabEE3BWTA/loc_sts_hey_gle_06_gameplay_prefabKTOWW5Y/loc_sts_hey_gle_06_devices_prefabECBNLIY",
+      "states": {
+        "post_sts_variant": 0
+      },
+      "why": "The devices prefab's post_sts_variant=1 is the post-gig cleanup the open-world phase writes when it strips the quest state; 0 is the shop's ordinary working configuration (car lift, welding gear, coffee machine, fridge, radio, rear gates). With the gig never run, the garage should stand in its working state rather than the after-the-story one."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#gle_06_dvc_gate",
+    "within": 80.0,
+    "why": "The bay's garage door is the venue's own DoorControllerPS entity on McBride Street (the gig ForceOpens it to drive the car out), it streams with the location's device prefab, and the chosen workspots all lie in and around the same building inside the default 80 m radius. Rule 8: a device entity, not a workspot."
+  }
+}
