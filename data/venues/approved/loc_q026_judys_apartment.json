@@ -1,0 +1,51 @@
+{
+  "code": "q026_judys_apartment",
+  "display_name": "Judy's Apartment (Charter Street, Kabuki)",
+  "why": "Judy Alvarez's flat on the third floor of a residential building just off Charter Street in Kabuki, reached through the building's street intercom. Vanilla only dresses it for sq026 (Evelyn's suicide, the Clouds planning meeting) and q105 (Evelyn's braindance review), and the building's four neighbours live in the open-world Kabuki community phase that the clean slate does not keep. This proposal restores the neighbours in the building's shared spaces and otherwise leaves the flat as vanilla keeps it: Judy's normal, lived-in home, shut behind its locked door, with no quest dressing, no Evelyn, no planning-meeting props and no suicide state.",
+  "source": {
+    "proposal": "research/loc_q026_judys_apartment/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The checker's kept-phase closure reaches wat_kab_phase through the kept open_world_global_commuinity_phase, so vanilla's own graph may already activate #wat_kab_q026_judys_apartment. This venue re-issues the same whole-community state (Totentanz precedent) as a boot+proximity guarantee; the tour must confirm the four neighbours appear once, not twice, and stay relaxed.",
+      "Is the flat door actually closed+locked in the open world before the flat unlocks, or only quest-locked? The tour needs the look-at logger on #sq026_dvc_judys_door_apartment and #sq026_dvc_judys_door_main_front; the door_exclusion guarantees the policy leaves the flat door alone either way.",
+      "The community spawner sits in #loc_sq026_judys_apartment_openworld, which this venue does not declare as a prefab (it is not one of the venue's quest prefabs). Does the whole-community activation alone make all four neighbours appear, and where exactly do their workspots sit (stairwell, landing, street, roof)?",
+      "Are #sq026_dvc_judys_window_work, _window_living or _window_couch a second way into the flat from the roof? Vanilla force-closes/disables the work and living windows in sq026_setup_judys and re-enables them in sq026_judys; their normal pre-quest state is unverified, and the two window doors are excluded to keep them vanilla.",
+      "cast_and_hubs places Judy at #ws_judy_default inside this flat, and the flat door stays locked, so players cannot meet her until the companion/unlockable-apartment pass decides how the flat opens. Confirm that is the intended temporary state.",
+      "Is #ws_judys_van_default really Judy's normal parking spot outside the building? If the tour confirms it, the #judy_vehicle van/default activation can be added later for a lived-in touch."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#wat_kab_q026_judys_apartment",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation: wat_kab_phase switches on all four entries in their initial `default` phase - the homeless man, Judy's child neighbour and the two tenants (LightCrowd_kabuki_ma/wa) - on the building's stairs, wall and ground workspots (sleeping, leaning, checking phones, kids playing). The clean slate's kept graph reaches wat_kab_phase through open_world_global_commuinity_phase, so the neighbours may already spawn; this boot+proximity activation re-issues the same whole-community state the way the hand-built Totentanz venue re-issues #com_totentanz, and the tour confirms it does not double-spawn. Judy is not part of this community; the cast layer already seats her.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#sq026_dvc_judys_door_apartment",
+      "why": "Judy's flat is a private residence and vanilla keeps it locked outside sq026/q105: the only way in is the street intercom plus Judy's own authorization, which no kept phase provides. The runtime door policy must not enable, power or unlock it; opening the flat to the player should be an explicit companion/unlockable-apartment decision later, not a side effect."
+    },
+    {
+      "ref": "#sq026_dvc_judys_window_work",
+      "why": "The work-room window is a second opening into the same private flat (DoorControllerPS plus WindowBlindersControllerPS). Leave it exactly vanilla so the door policy neither powers nor opens it, keeping the flat shut from every side."
+    },
+    {
+      "ref": "#sq026_dvc_judys_window_living",
+      "why": "The living-room window is the other outside opening of the flat (DoorControllerPS plus WindowBlindersControllerPS, the one sq026_setup_judys force-closes and disables). Leave it exactly vanilla so the flat stays shut."
+    }
+  ],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq026_dvc_judys_door_apartment",
+    "within": 80.0,
+    "why": "The flat's entrance door (DoorControllerPS), streamed with the building and standing on the normal way in from the landing the neighbours use; it is a device, not a workspot (rule 8), and it keeps the proximity wait tied to the same door the door policy must leave shut."
+  }
+}

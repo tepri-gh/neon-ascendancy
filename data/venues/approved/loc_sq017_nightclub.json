@@ -1,0 +1,142 @@
+{
+  "code": "sq017_nightclub",
+  "display_name": "Riot",
+  "why": "Riot is Little China's main music club: a two-floor bar and dancefloor, a third-floor VIP lounge, a security room and backstage accessed from the garage. The kept Watson Little China open-world community phase still runs Riot's dancefloor crowd, staff and Animals door crew, but every other part of the venue is quest-only: the VIP lounge, the club security posts, the backstage crew and the third-floor regulars only exist while Violence or I Don't Wanna Hear It drive them. This proposal instantiates the two quest prefabs and restores the named bouncer, the friendly club security, the VIP-lounge occupancy (including Liam) and the house stage crew, with the house lighting variant.",
+  "source": {
+    "proposal": "research/loc_sq017_nightclub/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the kept Watson Little China community phase actually populate Riot in game? It activates #nightclub_com and #wat_lch_nightclub_bouncers directly from the sub-phase input, but if the district gate does not fire, those two whole-community activations must be added.",
+      "Are #riot_barman and #riot_bouncer spawners inside #sq017_pr_nightclub, #mq019_pr_night_club, or the always-loaded openworld prefab? Both candidate prefabs are declared; the tour must confirm the spawner resolves and that declaring both does not produce a duplicate/invalid prefab (rule 2).",
+      "Is the pachinko lift (security room / garage <-> street) usable without sq017_quest_bugfixes setting floor 0 active? If not, the back route is dead and the main entrance is the only way in.",
+      "Is #sq017_riot_vip_lift_door_1 unsealed by default, or does only the sq017 ForceUnseal make the VIP lift usable?",
+      "Does an Employee Badge exist anywhere in the clean-slate world? If not, the staff-only and backstage doors have no keycard and depend entirely on the runtime door policy.",
+      "Do the three backstage concert-crew entries read as house staff at work, or as leftovers of a concert that is not happening? Drop them if the tour looks staged."
+    ]
+  },
+  "prefabs": [
+    "#sq017_pr_nightclub",
+    "#mq019_pr_night_club"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq017_com_club_security",
+      "entry_name": "sq017_club_guard4",
+      "phase_name": "sq017_club_guard4_start",
+      "action": "Activate",
+      "why": "Friendly club security guard at his idle start post; supply the interior/VIP floor presence the bouncers alone do not cover."
+    },
+    {
+      "spawner": "#sq017_com_club_security",
+      "entry_name": "sq017_club_guard6",
+      "phase_name": "sq017_club_guard6_start",
+      "action": "Activate",
+      "why": "Second friendly club security guard on his idle start post; keeps the security room / stair route manned without using the quest's 'stealth path' phase."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "staff_01",
+      "phase_name": "opened",
+      "action": "Activate",
+      "why": "Club staff member working the upstairs bar tablet; the vanilla 'club open' state for this entry, not the 'closed' door post."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "girl_01",
+      "phase_name": "opened",
+      "action": "Activate",
+      "why": "Bar patron in the club-open phase, standing and smoking at the upstairs bar."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "girl_02",
+      "phase_name": "opened",
+      "action": "Activate",
+      "why": "Bar patron in the club-open phase, standing at the bar."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "girl_03",
+      "phase_name": "opened",
+      "action": "Activate",
+      "why": "Bar patron in the club-open phase, seated at the barstool."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "liam",
+      "phase_name": "vip_lounge",
+      "action": "Activate",
+      "why": "Liam Northom, Lizzy Wizzy's manager, is alive in this timeline (the Violence job never runs) and is a known VIP-lounge regular; seated in the VIP lounge, no scene or dialogue."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "security_01",
+      "phase_name": "vip_lounge",
+      "action": "Activate",
+      "why": "VIP-lounge security guard on the guard workspot; keeps the third floor staffed with the club's own security."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "security_02",
+      "phase_name": "vip_lounge",
+      "action": "Activate",
+      "why": "Second VIP-lounge security guard on the guard workspot; paired with security_01 at the VIP entrance."
+    },
+    {
+      "spawner": "#mq019_com_night_club",
+      "entry_name": "technician",
+      "phase_name": "vip_lounge",
+      "action": "Activate",
+      "why": "House technician seated in the VIP lounge, the club's own AV/stage staff at rest."
+    },
+    {
+      "spawner": "#sq017_com_concert_crew",
+      "entry_name": "lightning_guy",
+      "phase_name": "sq017_backstage",
+      "action": "Activate",
+      "why": "House lighting technician working backstage in the venue's normal (non-concert) state."
+    },
+    {
+      "spawner": "#sq017_com_concert_crew",
+      "entry_name": "makeup_girl1",
+      "phase_name": "sq017_backstage",
+      "action": "Activate",
+      "why": "Backstage make-up artist at rest between sets; the dressing rooms are staffed even without the Us Cracks show."
+    },
+    {
+      "spawner": "#sq017_com_concert_crew",
+      "entry_name": "makeup_girl2",
+      "phase_name": "sq017_backstage",
+      "action": "Activate",
+      "why": "Second backstage make-up artist on a smoking/standing workspot; keeps the artist preparation rooms alive."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#riot_bouncer",
+      "entry_name": "riot_bouncer",
+      "phase_name": "mq019_club_opened",
+      "why": "The named front-door bouncer in the club-open phase (the bouncer the wiki calls Jermaine Norton); the whole-community Animals crew covers the door, this adds the named greeter.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq017_nightclub_lighting",
+      "states": {
+        "Stage_lighting_variant_1": 1,
+        "Stage_lighting_variant_2": 0,
+        "var_impulse": 0
+      },
+      "why": "House/stage lighting in its normal state: variant_1 on, the sq017 concert variant_2 off, and the Phantom Liberty impulse concert off, matching the post-quest/fail-cleanup lighting rather than a show night."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq017_dvc_door_nightclub_main_entrance",
+    "within": 80.0,
+    "why": "The club's main entrance door is the device every visitor passes and that vanilla drives (ForceLock/ForceUnlock, ForceEnabled, AuthorizationEnable, ForceUnseal)."
+  }
+}

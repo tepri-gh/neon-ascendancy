@@ -304,9 +304,12 @@ def _is_node(o: dict) -> bool:
     return t.startswith("quest") and t.endswith("NodeDefinition") and "sockets" in o and "id" in o
 
 
-def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> bool:
-    """True when the node's fact condition can never pass in the clean slate:
-    it requires a fact we never set (forbidden facts stay 0) and has no OR."""
+def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...], settable: set[str] | None = None) -> bool:
+    """True when the node's fact condition can never pass in the clean slate.
+
+    A required fact (> 0, >= 1, == 1+) that is forbidden, or (when `settable`
+    is given) that nothing in the clean slate can set, keeps its default 0.
+    Conditions with an OR are treated as passable."""
     cond = node.get("condition")
     if not cond:
         return False
@@ -317,7 +320,8 @@ def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> bool:
         if o.get("$type") != "questVarComparison_ConditionType":
             continue
         name = str(val(o.get("factName")))
-        if name not in forbidden and not name.startswith(prefixes):
+        never = name in forbidden or name.startswith(prefixes) or (settable is not None and name not in settable)
+        if not never:
             continue
         cmp_, value = o.get("comparisonType"), o.get("value", 0)
         if (cmp_ == "Greater" and value >= 0) or (cmp_ in ("GreaterOrEqual", "Equal") and value >= 1):
@@ -325,7 +329,8 @@ def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> bool:
     return False
 
 
-def _reachable_nodes(d: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> tuple[dict[int, dict], set[int], dict[int, int | None]]:
+def _reachable_nodes(d: dict, forbidden: set[str], prefixes: tuple[str, ...],
+                     settable: set[str] | None = None) -> tuple[dict[int, dict], set[int], dict[int, int | None]]:
     """Map every graph node to whether the clean slate can reach it.
 
     Nodes connect through shared socket handles (WolvenKit HandleId /
@@ -390,7 +395,7 @@ def _reachable_nodes(d: dict, forbidden: set[str], prefixes: tuple[str, ...]) ->
             reach.add(nid)
             changed = True
             n = nodes[nid]
-            blocked = _blocks(n, forbidden, prefixes)
+            blocked = _blocks(n, forbidden, prefixes, settable)
             if blocked and n["$type"] == "questPauseConditionNodeDefinition":
                 continue
             for out_name, dst in edges.get(nid, []):
@@ -401,9 +406,10 @@ def _reachable_nodes(d: dict, forbidden: set[str], prefixes: tuple[str, ...]) ->
     return nodes, reach, container
 
 
-def _phase_items(path: Path, rel: str, forbidden: set[str], prefixes: tuple[str, ...]) -> dict:
+def _phase_items(path: Path, rel: str, forbidden: set[str], prefixes: tuple[str, ...],
+                 settable: set[str] | None = None) -> dict:
     d = json.loads(path.read_text(encoding="utf-8"))
-    nodes, reach, _cont = _reachable_nodes(d, forbidden, prefixes)
+    nodes, reach, _cont = _reachable_nodes(d, forbidden, prefixes, settable)
     items: dict[str, list] = defaultdict(list)
 
     def visit(o: Any, node: int | None) -> None:
@@ -438,6 +444,8 @@ def _phase_items(path: Path, rel: str, forbidden: set[str], prefixes: tuple[str,
                     ref = val(e.get("prefabNodeRef")) if isinstance(e, dict) else None
                     if ref:
                         items["gated_instance_prefabs" if gated else "instance_prefabs"].append(ref)
+            elif t == "questSetVar_NodeType" and not gated:
+                items["sets_facts"].append(str(val(o.get("factName"))))
             elif t == "questTogglePrefabVariant_NodeType":
                 for p in o.get("params") or []:
                     p = val(p)
@@ -464,19 +472,58 @@ def clean_slate_forbidden() -> tuple[set[str], tuple[str, ...]]:
     return facts, tuple(spec.get("forbidden_fact_prefixes") or [])
 
 
+def _kept_closure(rows: list[dict]) -> set[str]:
+    root = Path(__file__).resolve().parent.parent / "data" / "clean-slate"
+    spec = json.loads((root / "clean_slate_spec.json").read_text(encoding="utf-8"))["questphase"]
+    children = {r["phase"]: r.get("open_child_phases") or [] for r in rows}
+    todo = [d["depot_path"].replace("\\", "/") for d in spec["kept_depot_phases"]]
+    todo += [p.replace("\\", "/") for p in spec.get("inline_phase_depot_refs") or []]
+    kept: set[str] = set()
+    while todo:
+        ph = todo.pop()
+        if ph not in kept:
+            kept.add(ph)
+            todo += children.get(ph, [])
+    return kept
+
+
+def _settable_facts(rows: list[dict]) -> set[str]:
+    """Facts something in the clean slate can set: our initial facts, facts
+    the game's and this mod's scripts set by name, and facts reachable fact
+    nodes in kept phases set."""
+    root = Path(__file__).resolve().parent.parent
+    spec = json.loads((root / "data" / "clean-slate" / "clean_slate_spec.json").read_text(encoding="utf-8"))["questphase"]
+    facts = {f["fact"] for f in spec.get("initial_facts") or []}
+    pat = re.compile(r'SetFact(?:Value)?\(n"([A-Za-z0-9_]+)"')
+    for d in (root / "refs" / "cyberpunk", root / "src"):
+        for f in list(d.rglob("*.swift")) + list(d.rglob("*.reds")):
+            facts |= set(pat.findall(f.read_text(encoding="utf-8", errors="ignore")))
+    kept = _kept_closure(rows)
+    for r in rows:
+        if r["phase"] in kept:
+            facts |= set(r.get("sets_facts") or [])
+    return facts
+
+
 def stage_phases(a: argparse.Namespace) -> None:
-    rows = []
+    """Two passes: the first finds which facts the clean slate can set; the
+    second gates every item on conditions that need any other fact."""
     forbidden, prefixes = clean_slate_forbidden()
-    for p in sorted(a.phases.rglob("*.questphase.json")):
-        rel = "/".join(p.relative_to(a.phases).parts[1:])[: -len(".json")]
-        try:
-            rows.append(_phase_items(p, rel, forbidden, prefixes))
-        except (json.JSONDecodeError, KeyError) as exc:
-            rows.append({"phase": rel, "error": str(exc)})
+    files = sorted(a.phases.rglob("*.questphase.json"))
+    settable: set[str] | None = None
+    for _pass in range(2):
+        rows = []
+        for p in files:
+            rel = "/".join(p.relative_to(a.phases).parts[1:])[: -len(".json")]
+            try:
+                rows.append(_phase_items(p, rel, forbidden, prefixes, settable))
+            except (json.JSONDecodeError, KeyError) as exc:
+                rows.append({"phase": rel, "error": str(exc)})
+        settable = _settable_facts(rows) - forbidden
     a.out.mkdir(parents=True, exist_ok=True)
     write_jsonl(a.out / "phases.jsonl", rows)
     n = sum(1 for r in rows if any(r.get(k) for k in ("communities", "spawn_sets", "devices", "toggles", "prefabs")))
-    print(f"phases: {len(rows)} read, {n} touch venues")
+    print(f"phases: {len(rows)} read, {n} touch venues, {len(settable)} settable facts")
 
 
 # ---------------------------------------------------------------- catalog

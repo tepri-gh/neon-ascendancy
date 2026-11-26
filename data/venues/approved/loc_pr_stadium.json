@@ -1,0 +1,311 @@
+{
+  "code": "pr_stadium",
+  "display_name": "EBM Petrochem Stadium (Dogtown black market and Barghest base)",
+  "why": "EBM Petrochem Stadium in Dogtown: a defunct Nighthawks arena whose concourse is the West Coast's largest black market, run and guarded by Kurt Hansen's Barghest, with the shot-down cargo aerozep rotting in the old arena and Hansen Armory's workshop in the back. The clean slate loads none of the EP1 stadium phases, so the concourse streams in empty. This proposal re-activates the vanilla ambient population directly - Barghest militia at their posts, the exterior gate detail, vendor guards and nurses, the market stall crowd, the cage staff and a spread of gang and corporate buyers - and flips the market's normal-look variants (instance groups, entrance hall, lighting, intact lab, working gate, crowd and vendor music) at boot. No quest prefab is needed: all of it lives in the always-loaded openworld stadium sections.",
+  "source": {
+    "proposal": "research/loc_pr_stadium/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does a quest-phase variant toggle actually flip these openworld sector variants at boot? dogtown_dataterms is still testing exactly that; every toggle here is the same kind of streaming-sector variant.",
+      "lights_emp_hide on #stadium_lighting: is 1 the normal lit state (as q304_09_cleanup implies) or the post-EMP dim state? Not proposed; check on the tour.",
+      "gate_repair_enviro on #loc_q301_pr_stadium_black_market_env: 1 in q301_stadium_setup, 0 in q301_stadium - is the repair dressing the pre-story look of the market gate?",
+      "If the vendor shutters (#ep1_stadium_vendor_shutter_001/002) stream in closed, the weapon and clothing stalls stay shuttered even though their vendors are spawned by dogtown_vendors; needs a look-at check and possibly a spec note there.",
+      "Militia entries all sit in phase 'a', but the day/evening/night names suggest the vanilla whole-community spawn relies on time-of-day filtering; nine hand-picked entries should simply stand at their spots, but confirm no two share a spot."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#cz_stadium_netrunner_vendor_guard_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Sammy Taylor's netrunner stall keeps its two Barghest netrunner guards at the stall front; rule 11a puts netrunners first because they are the only netrunner group at the venue. Whole-community activation switches on all 2 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#cz_stadium_exterior_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Barghest's outdoor detail on the stadium apron: rifle and shotgun soldiers, an exoskeleton, three Minotaur walkers and Hansen's own Kaukaz trucks. This is the visible gate garrison outside the main entrance, not a quest ambush. Whole-community activation switches on all 23 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#cz_stadium_medic_vendor_guard_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Two Barghest guards posted at Saki Seo's meds stall, as vanilla spawns them next to the vendor. Whole-community activation switches on all 2 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_lobby_kurt_militia_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Barghest rifleman standing watch in the entrance lobby under the Charge! statue."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_lobby_kurt_militia_static_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Second lobby guard, arms crossed at her post."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_main_corridor_kurt_militia_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Rifleman holding the black-market main corridor by the stalls."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_main_corridor_kurt_militia_patrol_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Barghest patrol walking the market corridor (patrolling_stand workspot)."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_kurt_militia_guard_doors_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Guard posted on the market doors, leaning on the wall with his rifle."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "night_main_corridor_kurt_militia_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Night-shift corridor guard with a shotgun at port arms."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_entrance_corridor_kurt_militia_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Riflewoman on the entrance corridor that leads from the gate into the market."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "evening_lobby_kurt_militia_afterwork_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Off-duty Barghest soldier eating takeout in the lobby, still in uniform - the garrison's normal downtime."
+    },
+    {
+      "spawner": "#pac_cz_stadium_kurt_militia_combat_com",
+      "entry_name": "day_main_corridor_kurt_milita_after_work_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Off-duty soldier sitting on the corridor floor with a laptop between shifts."
+    },
+    {
+      "spawner": "#cz_stadium_ripperdoc_vendor_nurse_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The two clinic nurses at Eron Acedo's ripperdoc bay; vanilla keeps them beside the ripperdoc chair. Whole-community activation switches on all 2 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#pac_cz_stadium_fluff_vendors_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The market's own stall crowd: 54 non-interactive food, junk, clothing and repair vendors plus their kids and a guitar/meat stall helper, spread through the lobby, entrance corridor, main corridor and the crashed-aerozep aisle. The catalogue tags them 'combat' because their records are ep1_combat_zone_service_*; they are stall staff, not fighters, and their workspots are all stand/sit/cook/repair routines. Whole-community activation switches on all 54 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#pac_cz_stadium_cage_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The ten civilian staff who work the fenced cage/storage area behind the market concourse (hazmat workers, lowlifes on a break, phone checks) - the venue's back-of-house labour. Whole-community activation switches on all 10 of its entries in their initial phase 'a'."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "day_lobby_tyger_claws_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Tyger Claw buyer leaning on the lobby wall, in the market for chrome."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "day_main_corridor_maelstrom_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Maelstrom customer drinking a can by the stalls."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "day_main_corridor_sixth_street_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "6th Street gun buyer checking her phone outside a stall."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "day_main_corridor_voodoo_boys_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Voodoo Boy squatting with a cigarette in the market aisle."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "evening_lobby_valentinos_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Valentino client at the lobby bar, waiting on a deal."
+    },
+    {
+      "spawner": "#pac_cz_stadium_gang_com",
+      "entry_name": "evening_main_corridor_merc_static_ma_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Freelance merc sitting on a crate reading a tablet between jobs."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "day_main_corridor_corpo_vip",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Corporate buyer on the phone, the off-the-books clientele the wiki describes."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "evening_main_corridor_arasaka_corpo_static_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Arasaka suit browsing a stall's product shelf - no corpo jurisdiction in here."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "evening_main_corridor_corpo_static_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Corporate woman at the bar, after-work buyer."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "main_corridor_guitar_vendor",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Busker playing guitar in the concourse (Character.cz_stadium_guitarist) - market ambience."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "main_corridor_handpan_vendor",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Handpan player sitting on the concourse floor."
+    },
+    {
+      "spawner": "#pac_cz_stadium_main_corridor_com",
+      "entry_name": "night_main_corridor_golden_dynamic_wa_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Golden Pacific local looking over the goods on a night stall."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA",
+      "states": {
+        "interior_area_visible": 1
+      },
+      "why": "Render the stadium interior from the apron, the state the ambient stadium phase sets on arrival."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA/combat_zone_openworld_community_prefabMRGBF5I",
+      "states": {
+        "music_vendors": 1,
+        "delivery_crates": 1,
+        "vehicles_showcase": 1
+      },
+      "why": "The market's street musicians, the delivery-crate stacks at the stalls and the vehicle showcase on the concourse floor - all set to 1 by the ambient phase while the player is inside."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA/combat_zone_openworld_community_prefabMRGBF5I/stadium_instances_lobby_prefabBJJO5LI",
+      "states": {
+        "lobby": 1
+      },
+      "why": "Turn the lobby instance group on so the lobby workspots our militia and shoppers use exist."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA/combat_zone_openworld_community_prefabMRGBF5I/stadium_instances_main_corridor_prefabH2OLHPI",
+      "states": {
+        "main_corridor": 1
+      },
+      "why": "Turn the market main-corridor instance group on; the corridor stalls and community spots live in it."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA/combat_zone_openworld_community_prefabMRGBF5I/stadium_instances_entrance_corridor_prefabSVU5YLI",
+      "states": {
+        "entrance_corridor": 1
+      },
+      "why": "Turn the entrance-corridor instance group on for the gate-to-market crowd and the entrance guards."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/#loc_pr_stadium/stadium_openworld_prefabHOOYQBA/combat_zone_openworld_community_prefabMRGBF5I/stadium_instances_crashed_av_prefabCTVQWMA",
+      "states": {
+        "crashed_av": 1
+      },
+      "why": "Show the aerozep wreck filling the old arena. It was shot down years before our timeline, so it is the venue's permanent look, not a story event."
+    },
+    {
+      "prefab": "#loc_pr_stadium_audio",
+      "states": {
+        "crowd_02": 1,
+        "stadium_market_music_default": 1
+      },
+      "why": "Market crowd and vendor-music ambience; the ambient phase sets crowd_02=1 inside and q304_09_cleanup restores stadium_market_music_default=1."
+    },
+    {
+      "prefab": "#stadium_entrance_hall_deco",
+      "states": {
+        "normal_state": 1,
+        "alarm_state": 0
+      },
+      "why": "Main entrance hall in its normal, non-alarm dressing; q304_09_cleanup (the restore phase) sets exactly this pair."
+    },
+    {
+      "prefab": "#loc_q304_stadium_black_market_lighting",
+      "states": {
+        "normal": 1,
+        "escape_path": 0
+      },
+      "why": "Normal market lighting instead of the escape-route lighting; q304_09_cleanup restores this pair."
+    },
+    {
+      "prefab": "#loc_q304_stadium_black_market_lab_arch",
+      "states": {
+        "var_before_explosion": 1,
+        "var_after_explosion": 0
+      },
+      "why": "Hansen's armory lab intact (no explosion ever happens in our timeline); the cleanup phase sets the before-explosion state."
+    },
+    {
+      "prefab": "#loc_q304_stadium_black_market_lab_deco",
+      "states": {
+        "var_before_explosion": 1,
+        "var_after_explosion": 0
+      },
+      "why": "Matching interior dressing for the intact lab (same pair the cleanup phase sets)."
+    },
+    {
+      "prefab": "#q304_stadium_black_market_devices",
+      "states": {
+        "var_pz_market_gate_working": 1,
+        "var_pz_market_gate_broken": 0
+      },
+      "why": "The market gate in its working state rather than the broken one the escape leaves behind."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q304_dvc_market_entrance_gate",
+    "within": 80.0,
+    "why": "DoorControllerPS on the market entrance gate at the top of the concourse, the first quest-driven device a visitor meets on the normal way in; vanilla enables and opens it in q301_stadium."
+  }
+}

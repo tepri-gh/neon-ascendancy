@@ -1,0 +1,192 @@
+{
+  "code": "q303_hill_park_spa",
+  "display_name": "Eventide Resort & Spa — Slider's Hideout (Dogtown, Luxor Heights)",
+  "why": "The Eventide Resort & Spa is an unfinished 2065 brutalist resort skeleton on the Luxor Heights hill in Dogtown, which the Voodoo Boys use as a base and whose basement holds Slider's netrunning den. Vanilla only ever shows it as a combat zone populated by the Hill Park Scrappers in the explicit post-quest state (dead-Slider lighting, torn curtains, after-quest loot and a sealed interior). This proposal restores the pre-quest occupation instead: Slider in his wheelchair in the basement, Voodoo Boys netrunners working the server room and the gate, guards on the floors and roof, and the hangers-on around the entrance, with the server room and devices in their default state. No Reed, no FIA operation, no scene actors, no after-quest loot.",
+  "source": {
+    "proposal": "research/loc_q303_hill_park_spa/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Is #baron really Slider? The workspot under his spawn point is q303__slider__sit_wheelchair_lean_back__sit_around__01 and the scene is named voodoo_baron, which is strong, but the spawner's character record is not in the extract; confirm on tour that the seated NPC is Slider and not a scene double.",
+      "Does the slider_alive lighting variant exist and is it the correct alive look? No phase in these five files ever sets slider_alive, monitors_on or var_curtains_default to 1 — they are the inverse of the ambient after-state, which forces the dead/torn/off variants. That inversion is the argument, not a vanilla activation; the fallback is all-zero lighting.",
+      "The community area nodes for all four Voodoo Boys communities are missing from the converted sectors, so the catalogue has posture unknown for every entry; I resolved the spots by name from quest_cf1b582e9fca55c7 (routine/patrolling workspots, no gun-ready poses) but the entry-to-spot binding needs a tour check.",
+      "Do the toggle refs (#loc_q303_hill_park_lighting, _fx, _deco_server_room, _devices, _loot) resolve from this venue phase? They live under the location prefab tree (loc_q303_hill_park_spa_prefabZEWHEAA), which is streamed by the combat-zone block; if they do not bind, the builder may need to declare the location prefab as the q303_paradise venue did.",
+      "Which exact door the wiki's code 230598 opens is inferred (the staircase exterior door next to #q303_dvc_vb_door_terminal); the code itself is world data, not in the phase JSON.",
+      "Whether the whole-community activation of #q303_com_voodoo_boys should use phase 'spawn' rather than None/None: None/None starts every entry in its only phase (spawn), so it should be equivalent, but the game's own activation passes 'spawn' explicitly."
+    ]
+  },
+  "prefabs": [
+    "#q303_pr_voodoo_boys"
+  ],
+  "communities": [
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_netrunner_wa_01",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Netrunner at work on the upper floor. Vanilla activates this entry in before_baron (the calm pre-scene state) and the matching spot plays a tablet workspot. Rule 11a: netrunners first.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_08",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "The gate netrunner. Initial phase is before_baron; the 'by_gate' phase is the combat approach, so the calm initial phase is the right one.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_wa_03",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Second netrunner of the detail; before_baron is its initial phase. The later server_work/break_room phases belong to the combat sub-phase and are left out.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_01",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Lobby guard. Workspots for this detail are stand-around / patrolling_stand, not alert poses.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_02",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Downstairs patrol. before_baron is the initial phase; before_trap and the alerted patrol phases are left out.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_03",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Rifle guard on the floors; calm initial phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_05",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Shotgun guard at the lower door; calm initial phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_ma_07",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Second shotgun guard; has its own friendly-phase spot (guard_stand, rail lean) proving a standing post rather than a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_guards",
+      "entry_name": "q303_voodoo_boy_guard_wa_02",
+      "phase_name": "before_baron",
+      "action": "Activate",
+      "why": "Rifle guard covering the entrance; calm initial phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys_rooftop_guards",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole community (5 entries, 4 guards + 1 netrunner) in its initial spawn phase, exactly as vanilla activates it. Their roof spots are smoking, sitting on a ledge, urinating, taking drugs and patrolling_stand: sentries passing time, not fighting.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q303_com_voodoo_boys",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole community (5 civilians) in its initial spawn phase: the hangers-on around the entrance, on the benches and the side walls. Vanilla activates it with phase 'spawn'; entry None with phase None also starts every entry in that initial phase (rule 9a), and their only phase is spawn.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#baron",
+      "entry_name": "baron",
+      "phase_name": "q303_03_voodoo_boys",
+      "why": "Slider himself, seated and jacked in in the basement den. The matching workspot is literally q303__slider__sit_wheelchair_lean_back__sit_around__01 at the bottom of the shaft, and vanilla reactivates this spawn set whenever the quest is not showing its own scene. He only dies if The Damned runs, which never happens here, so he is the venue's owner.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q303_hill_park_lighting",
+      "states": {
+        "slider_alive": 1,
+        "slider_dead": 0,
+        "slider_dead_flicker": 0,
+        "slider_glitching": 0,
+        "slider_blackwall": 0,
+        "server_awake": 0,
+        "server_idle": 0,
+        "server_dead": 0,
+        "server_stage1": 0,
+        "server_stage_2": 0,
+        "server_stage_3": 0,
+        "server_stage_4": 0
+      },
+      "why": "The ambient open-world phase forces the dead-Slider look (slider_dead 1); the calm pre-quest state is the quest's own reset to all-zero lighting. We clear the dead/glitch/blackwall/stage looks and select slider_alive, since Slider is alive in the chair."
+    },
+    {
+      "prefab": "#loc_q303_hill_park_spa_fx",
+      "states": {
+        "after_q303": 0,
+        "server_dead_fx": 0,
+        "server_idle_fx": 0,
+        "server_slider_dead_fx": 0,
+        "rooftop_vents_active_fx": 0,
+        "rooftop_vents_inactive_fx": 1
+      },
+      "why": "Intact FX: no after-quest post-processing, no dead-server or dead-Slider FX; the roof vents are in their inactive state, as the quest sets them before the server sequence."
+    },
+    {
+      "prefab": "#loc_q303_hill_park_spa_deco_server_room",
+      "states": {
+        "var_after_q303": 0,
+        "var_curtains_default": 1,
+        "var_curtains_on_ground": 0,
+        "monitors_on": 1,
+        "monitors_off": 0
+      },
+      "why": "Untouched server room: curtains still hanging instead of torn to the floor, monitors lit. The ambient phase tears the curtains down and turns the monitors off."
+    },
+    {
+      "prefab": "#loc_q303_hill_park_spa_devices",
+      "states": {
+        "var_defualt_devices": 1,
+        "var_after_q303": 0,
+        "var_trap_blocker": 0,
+        "var_trap_shooting_blocker": 0
+      },
+      "why": "Default device set instead of the after-quest set, and both trap blockers retracted (the trap is a quest ambush device, not part of the calm den)."
+    },
+    {
+      "prefab": "#loc_q303_hill_park_spa_loot",
+      "states": {
+        "var_default_loot": 1,
+        "var_after_q303": 0,
+        "var_after_q303_keycard": 0,
+        "var_after_q303_phase_a": 0,
+        "var_after_q303_phase_b": 0,
+        "var_after_q303_phase_c": 0
+      },
+      "why": "The den's normal loot instead of the post-raid loot piles, and no after-quest keycard (Baron's iconic gun and the q303 shards stay out of the world)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q303_dvc_vb_main_entry_door",
+    "within": 80.0,
+    "why": "The main entrance door on the normal way in (q303 ForceLocks it, the ambient phase ForceUnlocks it). It is a quest-driven DoorControllerPS entity, not a workspot, and a 80 m radius from it covers the lobby, the floors and the basement stairs."
+  }
+}

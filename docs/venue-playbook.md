@@ -57,8 +57,11 @@ already define all four; we copy them, never invent them.
    only the people. Which vanilla loads are live in the clean slate is decided
    by `tools/mine-venues.py` gate analysis: traversal from a phase's inputs
    stops at pause nodes, and at a condition node's True branch, whose fact
-   condition needs a fact the clean slate never sets (`q000_done`, the
-   `_default_on` facts). Note that a phase node's `phaseInstancePrefabs`
+   condition needs a fact the clean slate never sets: forbidden facts, and
+   any fact nothing can set (not an initial fact, not set by game or mod
+   scripts by name, not set by a reachable fact node in a kept phase). Erring
+   towards "gated" is the safe direction: it costs at most a redundant
+   activation, while wrongly "open" leaves a venue empty. Note that a phase node's `phaseInstancePrefabs`
    load when the node itself is reached. A `q000_done` pause *inside* the
    node gates only its contents: the border crossing's open-world section
    loads, while its guards inside wait on `q000_done`.

@@ -1,0 +1,318 @@
+{
+  "code": "q004_lizzys_nightclub",
+  "display_name": "Lizzie's Bar",
+  "why": "Lizzie's Bar is the Mox's braindance club and strip club on Kennedy & Sutter in Kabuki, and the gang's headquarters: a bar and dancefloor with a stage and DJ booth, upstairs BD booths and lounge, Judy's basement BD editing workshop and Susie Q's office. The club's open-world section is already instantiated by the kept Kabuki community phase (kept transitively through open_world_global_commuinity_phase), but every default crowd activation in lizzies_default sits behind q000_done, which the clean slate never sets, and the phase's default branch ForceCloses and ForceLocks the entrance. This proposal takes no prefab (the kept phase owns it) and restores the full default crowd, door security, reception, DJ and Mox floor staff, plus the outside queue, minus the twelve entries the cast layer already activates.",
+  "source": {
+    "proposal": "research/loc_q004_lizzys_nightclub/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Prefab ownership: the kept Kabuki club phase owns and declares #loc_q004_lizzys_nightclub_openworld, including the nested #pr_lizzies_default and {pr_lizzies_outside} sections it contains (sector ref paths). Confirm on the tour that those children are present without a venue-owned prefab; if the kept phase turns out not to run its default branch, this venue will need an owner-level fix rather than a second declaration.",
+      "bar_closed_sign polarity: 0 is chosen as 'sign hidden / open' from the variant name and the 6 PM-6 AM hours, but nothing in the data states which value draws the sign. First cosmetic thing to check on the tour.",
+      "All 37 activations are re-issued over kept vanilla activations that sit behind the q000_done / lizzies_bar_waitresses_off gates (the checker warns on each). Confirm that re-activating them after proximity is enough and does not double bodies when a gate unexpectedly opens.",
+      "Owner: Susie Q is only available as #q105_com_lizzies lizzy_boss (start/end) under the #q105_pr_lizzies quest prefab, which brings q105 scene triggers and props. She is therefore absent; adding her is an owner/cast-layer decision, not a venue-prefab one.",
+      "Bartender: Mateo Thiago is restored by cast_and_hubs vendor fact wat_kab_foodshop_02_default_on rather than by a spawn set; confirm he actually stands behind the bar and is not left at a quest position.",
+      "Street crowd suppression: vanilla's club phase enables #tr_lizzies_nocrowd to suppress generic pedestrians around the club. Our phase does not, so the frontage may mix generic citizens with the outside queue; check whether the interior stays clean.",
+      "Dancers: there is no usable ambient dancer community (#q004_com_nightclub_dancers has no registry record). The Mox entries include nightclub sexy_dance workspots, so the stage may read as covered; check visually.",
+      "Basement/workshop walls: basement_invisible_wall and judy_workshop_invisible_wall are set to 0 (the vanilla 'in use' state). Verify no quest-only props are exposed and that the workshop geometry is fully streamed."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "bouncer_quest_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Street-door bouncer (Character.lizzies_bouncer) standing with a baseball bat at the entrance. The only combat-role body in the ambient set, so it is listed first (playbook rule 11a); its default phase is the idle bat stand-around, not the q004/q105 quest poses."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "bouncer_quest_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second Mox at the door, leaning on the wall by the entrance with a cigarette; the other half of the street-door pair."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "bouncer_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox bouncer on the mezzanine/stairs overlooking the dancefloor, on the dirtgirl baseball-bat stand-around spots."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_reception",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox receptionist at the entrance desk just inside the door (master stand-ground spot at -1192.7, 1562.4)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_dj",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox DJ in the booth above the dancefloor (bar ground dj workspot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox women working/regulars on the floor and mezzanine: smoke, lean on rails, sit at tables, and the nightclub sexy_dance spot on the stage."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox men on the floor: drink at a chair, dance, lean on the rails, and the nightclub sexy_dance spot."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_female_synced",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox woman in the paired wall-lean flirt animation with a patron."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "mox_gimp",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mox host reclining on the upstairs couch with a tablet."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_6th_bd",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "6th Street patron in the club (chair/tablet or BD-booth bench spot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_6th",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "6th Street patron in the club (chair/tablet or BD-booth bench spot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_high_chubby",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Standing patron having a cigarette in the upstairs lounge."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_middle_chubby",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Standing patron having a cigarette in the upstairs lounge."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_middle_synced",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Patron woman in the paired 'taking care of a drunk friend' / embrace animations."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_valentinos_bd",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Valentinos patron in the club (bar chair check-phone, BD-booth bench, or listening to the music)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_female_valentinos",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Valentinos patron in the club (bar chair check-phone, BD-booth bench, or listening to the music)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_male_6th_bd",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "6th Street patron in the club (chair/tablet or BD-booth bench spot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_male_high_fat",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated heavier-set patron smoking at a chair, or standing with a cigarette."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_male_middle_fat",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated heavier-set patron smoking at a chair, or standing with a cigarette."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "customer_male_middle_synced",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Patron man in the paired 'taking care of a drunk friend' / wall-lean flirt / embrace animations."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_6th_01_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "6th Street patron in the club (chair/tablet or BD-booth bench spot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_6th_02_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "6th Street patron in the club (chair/tablet or BD-booth bench spot)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_01_m_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_01_m_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_02_f_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_02_m_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_03_f_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_03_m_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_04_m_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_04_m_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_club_05_m_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Incidental club patron filling a single idle spot (chair, couch, bar lean, TV, or smoke) so the floor is not sparse."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_valentinos_01_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Valentinos patron in the club (bar chair check-phone, BD-booth bench, or listening to the music)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_default",
+      "entry_name": "ic_valentinos_01_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Valentinos patron in the club (bar chair check-phone, BD-booth bench, or listening to the music)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_outside",
+      "entry_name": "lizzies_out_civ_female",
+      "phase_name": "lizzies_outside",
+      "action": "Activate",
+      "why": "Civilian woman in the queue/frontage outside, sitting or drinking by the wall."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_outside",
+      "entry_name": "lizzies_out_civ_male",
+      "phase_name": "lizzies_outside",
+      "action": "Activate",
+      "why": "Civilian man outside on the phone or smoking by the rail."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_outside",
+      "entry_name": "lizzies_out_mox_f",
+      "phase_name": "lizzies_outside",
+      "action": "Activate",
+      "why": "Mox woman working the door queue outside (curb sit / wall lean)."
+    },
+    {
+      "spawner": "#wat_kab_com_lizzies_outside",
+      "entry_name": "lizzies_out_mox_m",
+      "phase_name": "lizzies_outside",
+      "action": "Activate",
+      "why": "Mox man outside the entrance (stretch, drink, wall lean, Slavic squat)."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q004_lizzys_nightclub_gameplay",
+      "states": {
+        "bar_closed_sign": 0
+      },
+      "why": "Hide the 'closed' sign so the club reads as open for business. Vanilla toggles this variant in the club phase and in lizzies_location; 0 is the open state (sign hidden), 1 shows the closed sign. Polarity is inferred from the toggle name and the 6 PM-6 AM opening hours, so it is the one switch to eyeball on the tour."
+    },
+    {
+      "prefab": "#loc_q004_lizzys_nightclub_gameplay",
+      "states": {
+        "basement_invisible_wall": 0
+      },
+      "why": "Remove the invisible wall to the basement so Judy's BD workshop level is reachable. Vanilla sets 0 in q004 and in q105_setup_lizzy, i.e. whenever the basement is meant to be in use."
+    },
+    {
+      "prefab": "#loc_q004_lizzys_nightclub_gameplay",
+      "states": {
+        "judy_workshop_invisible_wall": 0
+      },
+      "why": "Remove the invisible wall across Judy's basement workshop so the room is a normal accessible room. Vanilla sets 0 in q004_nightclub while the workshop is in use; 1 is the blocked state. judy_monitors is deliberately not touched (its 0/1 meaning is ambiguous)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#q000_corpo_dvc_lizzies_roof_door",
+      "why": "The q000 Corpo-lifepath roof-escape door. In our timeline nobody escapes across Lizzie's roof, so the door must stay exactly vanilla (locked) rather than be unlocked by the runtime door policy. Its node path is unresolved in the extract, but the ref is authored and the door-scope exclusion works on the ref; Q000 is not run anyway."
+    }
+  ],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q105_lizzies_door_entrance",
+    "within": 80.0,
+    "why": "The club's one normal way in, a DoorControllerPS entity whose full path resolved in the always-streamed location sector. Rule 8 asks for a device, not a workspot; the player must reach this door before the venue's communities are re-issued."
+  }
+}

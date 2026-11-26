@@ -1,0 +1,241 @@
+{
+  "code": "q105_jigjig_street",
+  "display_name": "Jig-Jig Street",
+  "why": "Jig-Jig Street is Night City's red-light marketplace in Japantown: a narrow lane of sex shops, braindance and peep-show frontages, a street bar, cheap food stands and drug dealers, with Wakako's pachinko parlor and Fingers' clinic at its ends. Vanilla's ambient population for the lane lives in q105_jigjig_persistent, a quest phase that never runs in our timeline, so the strip reads empty. This proposal restores that crowd (22 entries: joytoys, XBD/drug dealers, shop and bar staff, clients, the Tyger Claws pimp and his muscle, and the two advertising holograms) plus four pedestrians from the open-world Japan Town crowd that owns the same street. Wakako Okada and Fingers are already placed by cast_and_hubs.json and their interiors are other venues, so no named NPCs are added here.",
+  "source": {
+    "proposal": "research/loc_q105_jigjig_street/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No DoorControllerPS is resolved to this venue: the sex shop, braindance shop, street bar and pachinko parlor doors are ordinary open-world doors that no quest phase drives, so the runtime door policy will not see them. Confirm on tour that every shopfront still opens (auto-slide or quickhack) without any quest state; if one is sealed, it needs a hand-added door entry by ref (none exists in the catalogue).",
+      "The wiki gives an elevator at the end of the market up to Poplar Street (near Megabuilding H8's entrance). It is not in this venue's device list, so confirm it works normally in the clean slate; if it needs a floor authorization it belongs to a lift venue, not here.",
+      "Tyger Claws control the street per the wiki, but the only gang entries (gang_m_01/02, gang_pimp_m) are tagged civilian and have no armed/hostile phase we may use. Confirm on tour that two smokers plus the pimp read as street muscle; if the venue should have armed guards, there is no vanilla community here to source them from and it becomes a design decision.",
+      "gang_pimp_m/shouting: the phase name is a q105 beat even though its only spot is a cigarette-smoke workspot. Confirm he idles at (-645, 808) rather than playing a harass animation.",
+      "var_collision=0 on #q105_pr_jigjig is assumed to be the walkable state (vanilla sets it in finding_studio while V walks the street). Confirm the alley/shopfront collision shell is open and that no quest scene wall appears.",
+      "var_mws_joker=0: the streaming block was not extracted, so the prefab's stored default is unknown. 0 is the post-scene value mws_jim leaves behind; confirm the Joker minor-story prop/ad is absent.",
+      "var_package=1 on #loc_q105_jigjig_street_devices (set by the q105 bugfix and finding_studio phases) may be a normally-visible prop. Left out because its semantics and default are unknown; check the lane for a missing package prop and add the toggle only if one is obviously absent.",
+      "#q105_pr_jigjig may also carry q105 scene dressing (peep-show window rig, BD gear) beyond the community spawner. Confirm the shopfronts look like shops and not like a staged scene; if a specific prop intrudes, the fix is a variant toggle on that prefab (only var_collision exists today).",
+      "The four #wbr_jpn_jig_jig_com entries are a partial activation of a whole community vanilla drives from wbr_jpn_phase, and the whole-community catalogue posture is alert (because of the night_* entries). If the japan_town batch venue later activates that whole community, these four become redundant but not duplicated; drop them then to keep the budget.",
+      "q105_jigjig_persistent is a timed/deactivate-heavy pass (entries are switched on and off in waves). We activate a static subset at boot and again on proximity, so the lane is always in one fixed state instead of rotating; confirm the chosen spots do not overlap two NPCs at one counter (the sex-shop/BD-shop cluster at x≈-664..-667 is the tightest).",
+      "Holograms (holo_01/02) are Character.q105_jigjig_hologram: confirm they render as advertisement holograms and not as quest-only markers when spawned without q105, and that a second activation at proximity does not stack duplicates."
+    ]
+  },
+  "prefabs": [
+    "#q105_pr_jigjig"
+  ],
+  "communities": [
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "street_dealer_m_unicorn",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "The street's drug dealer, leaning on a wall (dirt wall-lean workspot) at x≈-621. Vanilla's persistent pass switches him on as part of the street's normal look; the wiki describes suspect dealers selling exotic and illegal wares on this lane."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "offer_f",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Female street dealer leaning on the opposite wall; the XBD-dealer role the Disasterpiece objectives send V to talk to on this street, in its idle (not offering) pose."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "offer_m",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Male joytoy leaning against a wall smoking, working the lane. Posture is proven ambient: vanilla activates this exact entry/phase in the persistent pass."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "street_prostitute_f_01",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Window/stage dancer at the pole (nightclub pole-dance workspot) facing the lane at x≈-628 — the peep-show frontage that makes Jig-Jig Street read as a red-light strip."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "scan_f_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Joytoy leaning on the wall smoking near the middle of the lane. 'start' is the idle pose (the alternate scan beat is a different entry/phase and is not used)."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "scan_m_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second wall-side joytoy, sitting on the ground smoking at the alley bend (x≈-636, z 18.3) — street-level presence away from the shop counters."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "peep_client_f_01",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Corpo customer standing at the peep-show frontage (x≈-632, y≈876). Directly matches the wiki's 'popular with corpos who like to get their game on'."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "peep_client_m_01",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Second window customer, filming on his phone (cellphone record workspot) beside peep_client_f_01 — the tourist-at-the-window pair the street is known for."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "peep_prostitute_m_01",
+      "phase_name": "street",
+      "action": "Activate",
+      "why": "Male joytoy working the peep-show window, arms crossed, standing with the two customers — completes that frontage as a working stall rather than two men staring at nothing."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "jigjig_sex_shop",
+      "phase_name": "shop",
+      "action": "Activate",
+      "why": "The sex-shop attendant at the counter (bar lean, x≈-666, y≈846) — staff, not a quest actor. Disasterpiece sends V into this shop to find the XBD dealer, so it is a shop that must be open and staffed."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "shop_vendor_m",
+      "phase_name": "shop",
+      "action": "Activate",
+      "why": "Asian vendor standing his post by the shop counter (guard/stand workspot) at x≈-646, y≈862 — the second commercial frontage on the lane."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "wbr_jpn_jig_bar_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The street bar's bartender, cleaning a glass behind the counter (x≈-622, y≈878). Staffed bar is the anchor for the lane's nightlife end and is part of vanilla's persistent pass."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "shop_client_m_01",
+      "phase_name": "bar",
+      "action": "Activate",
+      "why": "Patron on the bar couch watching the pole stage (x≈-625, y≈881) — a paying customer in the club/bar, the pose vanilla itself switches on in the persistent pass."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "shop_client_m_02",
+      "phase_name": "braindance",
+      "action": "Activate",
+      "why": "Second patron in a braindance couch seat (x≈-649, y≈864). Chose 'braindance' over 'bar' because shop_client_m_02/bar is catalogue posture 'scene' (the q105 couch scene) and must not be used."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "braindance_client_m_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "BD-shop customer standing at the counter area (x≈-613, y≈810). Generic client record; vanilla's persistent pass activates this exact entry/phase, so it is ambient and not the quest scan target."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_m_01",
+      "phase_name": "smoking",
+      "action": "Activate",
+      "why": "Tyger Claws muscle on the lane, smoking at the curb (x≈-631, y≈810). Use 'smoking', not the 'shouting' phase: both are the same NPC, but smoking is the idle pose and shouting is the q105 confrontation beat."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_m_02",
+      "phase_name": "smoking",
+      "action": "Activate",
+      "why": "Second gangster smoking beside gang_m_01 (x≈-615, y≈817), giving the strip the two-man Tyger Claws presence the wiki attributes to it without any hostile pose."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_pimp_m",
+      "phase_name": "shouting",
+      "action": "Activate",
+      "why": "The pimp watching over his joytoys, standing with a cigarette at x≈-645, y≈808. 'shouting' is the only phase the community defines; the catalogue maps it to a plain cigarette-smoke workspot (relaxed), but the phase name is a q105 beat, so confirm on tour that he idles rather than plays a harass scene.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_prostitute_f_01",
+      "phase_name": "smoking",
+      "action": "Activate",
+      "why": "Joytoy from the pimp's stable, smoking against the low wall off the alley (x≈-635, y≈831). Smoking rather than eating so she is part of the lane's outdoor group."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_prostitute_f_02",
+      "phase_name": "eating",
+      "action": "Activate",
+      "why": "Second joytoy taking a takeout break by the bar frontage (x≈-613, y≈859) — the cheap-food-and-street-work mix the wiki describes, on a different spot from her partner."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "gang_prostitute_m_01",
+      "phase_name": "listening",
+      "action": "Activate",
+      "why": "Male joytoy waiting by the pimp's corner (standing wait workspot) at x≈-646, y≈806. 'listening' is the only phase; the catalogue maps it to a stand-and-wait spot, not an alert one."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "holo_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Advertising hologram of a joytoy inviting customers in (sexy-invite workspot, x≈-630, y≈867) — the lane's signature neon advertising, activated by vanilla's persistent pass."
+    },
+    {
+      "spawner": "#q105_com_jigjig",
+      "entry_name": "holo_02",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second advertising hologram at the shop end of the lane (x≈-657, y≈845); pairs with holo_01 to light both ends of the strip."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_jig_com",
+      "entry_name": "morning_corpo_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Corpo pedestrian from the open-world Japan Town crowd that owns this street. Vanilla switches the whole community on from wbr_jpn_phase, which the clean slate does not run, so the lane's passers-by are absent; this entry restores one. The catalogue posture is relaxed (sit on stairs, smoke, drink workspots)."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_jig_com",
+      "entry_name": "morning_corpo_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Male counterpart of the same crowd (drink, smoke, phone workspots); the pair reads as a couple of corpos slumming it on the strip."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_jig_com",
+      "entry_name": "morning_party_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Nightlife woman from the same street crowd — clubwear pedestrian, i.e. the clientele the joytoys and shops actually work for."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_jig_com",
+      "entry_name": "morning_party_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Lowlife pedestrian at the same spot list; keeps the open-world four varied by record (corpo, party, lowlife) rather than four identical silhouettes."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#q105_pr_jigjig",
+      "states": {
+        "var_collision": 0
+      },
+      "why": "Opens the quest collision shell that q105 installs around the lane's shopfronts and alley. Vanilla sets 0 while V is actually walking the street looking for the studio (finding_studio); 1 is the staged/blocked state. Because we instantiate the prefab ourselves, we must set the walkable state explicitly or the lane behind the shops can be sealed off."
+    },
+    {
+      "prefab": "$/03_night_city/c_westbrook/japan_town/loc_q105_jigjig_street_prefabQTZEYAQ/loc_q105_jigjig_street_gameplay_prefabYFPIBSI",
+      "states": {
+        "var_mws_joker": 0
+      },
+      "why": "Normal (non-quest) state of the street's gameplay prefab. mws_jim's Joker story switches var_mws_joker=1 for its scene and back to 0; that phase never runs here, so pin 0 so the street is not left holding the minor-story prop/state. Full $/ path because the node is untagged (playbook rule 3)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q105_dvc_jigjig_computer_01",
+    "within": 80.0,
+    "why": "A public terminal on the lane (ComputerControllerPS, full path …/loc_q105_jigjig_street_gameplay_prefabYFPIBSI/#loc_q105_jigjig_street_devices/#q105_dvc_jigjig_computer_01), the same terminal Disasterpiece uses to look up the Pleasures of NC domain. It streams with the street, so the proximity re-issue fires when V actually arrives; a door or terminal, not a workspot (playbook rule 8)."
+  }
+}

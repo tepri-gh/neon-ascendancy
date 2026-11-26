@@ -1,0 +1,116 @@
+{
+  "code": "megabuilding_a",
+  "display_name": "Megabuilding H10 (V's home building)",
+  "why": "Megabuilding H10 in Little China is V's home megablock: a ground-floor lobby and market, floor 07 services (2nd Amendment gun shop and shooting range, Coach Fred's gym and fighting ring, Barry Lewis' flat) and floor 08 apartments including V's. The mod already keeps V's apartment (mq000), the district vendor wiring (little_china_vendors) and the ambient vendor dialog layer (default_dialogs), so Wilson, Viktor, Coach Fred and Misty already stand in their shops. What is missing is the building's population: the lobby residents, the vending-machine and phone-call regulars, the two kids on the wall, Barry in his flat and a couple of customers in 2nd Amendment.",
+  "source": {
+    "proposal": "research/loc_megabuilding_a/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Catalogue gap, blocks the main fix: #megabuilding_com_001 (id 13483497367760522212) is the H10 apartment-floor crowd with ~80 entries (gym, tenants, floor vendors, homeless, stoop kids) but has no resolved community area path, so mine-venues emitted no community_options for it and the checker rejects every entry. Resolving its area node (or letting whole-community activation through for a registered spawner) would let a follow-up restore the real crowd.",
+      "Is the shooting-range door #q001_dvc_wilson_range_door sealed in a build without persistent_content? If yes, the range and the contestants' rail spot are unreachable until the runtime door policy unseals it.",
+      "Do the q001 lobby residents' spots sit on the public side of #q001_door_mb_v_floor, and are they visible with the gate in its baked state? Their workspots are relaxed, but the phase name gate_closed ties them to a gate state we do not drive.",
+      "Variant semantics are inferred from usage: player_blocker and wilson_door_blocker are treated as '1 = blocker shown'. Both are set to 0 here because those are the only values vanilla uses for the normal/open state.",
+      "Loading #q001_pr_megabuilding also loads the fistfight tutorial sub-prefab; confirm no other quest-only props (gate scene markers, tutorial blockers beyond player_blocker) look wrong in the lobby.",
+      "Consider whether wat_lch_phase should simply be kept instead of per-venue crowds: it activates #megabuilding_com_001 whole plus the floor-01 market community, which is the cheapest way to repopulate every megabuilding interior at once."
+    ]
+  },
+  "prefabs": [
+    "#q001_pr_megabuilding",
+    "#mq010_pr_01_barry_flat",
+    "#mq011_pr_wilson"
+  ],
+  "communities": [
+    {
+      "spawner": "#q001_com_residents_gate",
+      "entry_name": "resident1",
+      "phase_name": "gate_closed",
+      "action": "Activate",
+      "why": "Lobby regular waiting at the security gate; workspot routine__stand_ground_device__fix reads as someone using/fixing the entry panel. gate_closed is the phase vanilla uses when the building gate is shut, which is the normal state outside The Ride.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q001_com_residents_gate",
+      "entry_name": "resident2",
+      "phase_name": "gate_closed",
+      "action": "Activate",
+      "why": "Second lobby resident standing around the gate beside the first; generic__stand_ground__stand_around__02 workspot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q001_com_vending_machine",
+      "entry_name": "fat_man",
+      "phase_name": "vending",
+      "action": "Activate",
+      "why": "Regular leaning on the floor-01 vending machine; vanilla q001 uses this exact relaxed phase (generic__stand_vending_machine_lean_front__hit__01)."
+    },
+    {
+      "spawner": "#q001_com_vendor_phone",
+      "entry_name": "vendor",
+      "phase_name": "phone",
+      "action": "Activate",
+      "why": "Market vendor on a phone call in the floor-01 stalls; vanilla q001 activates exactly this phase (generic__stand_ground__phone_talk__01)."
+    },
+    {
+      "spawner": "#q001_com_dirtboy_girl",
+      "entry_name": "dirtboy",
+      "phase_name": "talk",
+      "action": "Activate",
+      "why": "Stoop kid leaning on the wall, the phase's normal stance; the mq010_* phases are the Barry aftermath and are deliberately not used."
+    },
+    {
+      "spawner": "#q001_com_dirtboy_girl",
+      "entry_name": "dirtgirl",
+      "phase_name": "talk",
+      "action": "Activate",
+      "why": "Second stoop kid leaning on the same wall with a cigarette; relaxed ambient stance."
+    },
+    {
+      "spawner": "#mq010_com_barry",
+      "entry_name": "barry",
+      "phase_name": "sit_inside",
+      "action": "Activate",
+      "why": "Barry Lewis at home in flat 0613, sitting in a chair. His depression and refusal to answer the door predate the game's story, so this is the normal pre-heist state; by_door and cyberpsycho are the mq010 scene/lockdown phases and are not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq011_com_contestants",
+      "entry_name": "contestant_01",
+      "phase_name": "idle",
+      "action": "Activate",
+      "why": "A customer leaning on the shooting-range rail in Wilson's open shop; idle is the relaxed phase (the default phase is the contest line-up and two of the five default spots are scene poses).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq011_com_contestants",
+      "entry_name": "contestant_03",
+      "phase_name": "idle",
+      "action": "Activate",
+      "why": "Second customer checking a phone in the shop; idle is the relaxed, non-contest stance.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/loc_megabuilding_a_prefab4KCU2IQ/loc_megabuilding_a_questdesign_prefabT5LKYXQ/#q001_pr_megabuilding/q001_02a_fistfight_tutorial_prefabKJQ244Q",
+      "states": {
+        "player_blocker": 0
+      },
+      "why": "Hides the tutorial's invisible player blocker so Coach Fred's ring and gym stay walkable in the open world; the tutorial shows it (1) for the bout and hides it (0) afterwards, so 0 is the normal look."
+    },
+    {
+      "prefab": "#mq011_pr_wilson",
+      "states": {
+        "wilson_door_blocker": 0
+      },
+      "why": "Clears the shop's invisible door blocker so 2nd Amendment is enterable; the only state vanilla ever sets is 0, from the mq011 bugfix phase that the clean slate omits."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q001_door_mb_v_floor",
+    "within": 80.0,
+    "why": "The floor-01 security gate at the lobby entrance is a DoorControllerPS that vanilla drives (q001_ride_to_mb) and that every player passes on the way in; the anchored re-issue covers the lobby regulars and the floor-07 flat and shop."
+  }
+}

@@ -13,7 +13,11 @@
       "The market_f/market_m entries are catalogue-tagged mixed:relaxed+scene because their workspot set includes a chair-sit/eat spot; confirm on tour that none of them freezes into a scene pose."
     ]
   },
-  "prefabs": [],
+  "prefabs": [
+    "#pr_joss_default",
+    "#sq021_pr_trailerpark",
+    "#sq029_pr_trailer_park"
+  ],
   "communities": [
     {
       "spawner": "#loc_sq021_trailer_park_com",
@@ -90,7 +94,6 @@
   ],
   "doors": [],
   "door_exclusions": [],
-  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
   "proximity_wait": {
     "ref": "#sq029_dvc_radio_cooking",
     "within": 80.0,

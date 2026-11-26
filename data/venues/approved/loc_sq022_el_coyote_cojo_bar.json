@@ -1,0 +1,144 @@
+{
+  "code": "sq022_el_coyote_cojo_bar",
+  "display_name": "El Coyote Cojo",
+  "why": "El Coyote Cojo is the Valentino bar in The Glen, Heywood: Pepe Najarro behind the counter, Mama Welles at her table, the second-floor fixer booth, a billiard table and a stage. It is already kept alive by the cast layer, which activates the whole #sq022_el_coyote_bar_com patron community and places Mama Welles, and by the kept default_dialogs Pepe vendor, so this proposal adds only the roles the hub crowd lacks: the bar's own waitress, its leaning bouncer, two Valentino regulars, and Kirk Sawyer with his bodyguard Big Joe in the upstairs booth. It also pins the intact pre-ofrenda dressing that vanilla itself applies before Jackie's funeral (house music, arcade audio, plain billiard table, no altar, no helmets), because the venue's quest phases never run in our timeline.",
+  "source": {
+    "proposal": "research/loc_sq022_el_coyote_cojo_bar/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does #q000_kid_pr_coyote_cojo carry the community area node for #q000_kid_com_bar_crowd, so the five cherry-picked entries actually occupy the waitress/bouncer/valentino/big-joe spots? The catalogue resolves 0 workspots for that community, so the tour must confirm each entry appears at its named spot and not bunched at the bar.",
+      "Does instantiating #q000_kid_pr_coyote_cojo drag Streetkid scene content into normal play (Padre's car in q000_kid_01c_car_prefab outside, q000_kid_tr_movement_tutorial_area, q000_tr_robbery, q000_tr_mappin_trigger_kirk_01/02, q000_tr_kid_bar_exit)? They should be inert without the quest, but if a car, map pin or tutorial popup appears, drop the prefab and the crowd entries with it.",
+      "Is Kirk's booth reachable with only collider_kirk_booth=0, or does #q000_kid_01b_meet_your_fixer need Q000_var_open_gate=1 / q000_var_closed_gate=0 as well? q000 sets closed_gate=1 for the scene and open_gate=1 when V returns later, so the semantics of 'gate' are unverified; the tour should walk up the stairs.",
+      "Which closing state is baked into #sq018_pr_ofrenda_after, #loc_sq022_el_coyote_cojo_bar_devices and #loc_sq022_el_coyote_cojo_bar_gameplay? The toggles above assume the world cooks the pre-story state and merely re-assert it; if the cooked default is the post-ofrenda state, the altar console (var_table_console, var_offerings) and the seated var_victor/var_gang/var_mama props may need explicit 0 too — check the bar for an altar, a console table and seated mourners.",
+      "Does placing Kirk give him fixer dialogue or a quest prompt that expects mq017 state? He is a live fixer here, so a short ambient line is fine, but a broken 'meet Kirk' journal hook would not be.",
+      "The proximity anchor is the entrance door, which q000 itself ForceLocks in the scene: the tour should approach from the street and confirm the door is passable and the wait fires, and that no baked ForceLock survives."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/glen/loc_sq022_el_coyote_cojo_bar_prefabKDIAKFA/loc_sq022_el_coyote_cojo_bar_questdesign_prefabRNA3BGI/#q000_kid_pr_coyote_cojo"
+  ],
+  "communities": [
+    {
+      "spawner": "#q000_kid_com_bar_crowd",
+      "entry_name": "bouncer",
+      "phase_name": "q000_kid_bar",
+      "action": "Activate",
+      "why": "The bar's door security: one bouncer leaning at his spot (#q000_kid_ws_bouncer_leaning) when the bar is open. Combat role first per rule 11a; vanilla activates this same entry with the whole crowd in The Streetkid, and the workspot is an idle lean, not a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_bar_crowd",
+      "entry_name": "big_joe",
+      "phase_name": "q000_kid_bar",
+      "action": "Activate",
+      "why": "Kirk Sawyer's bodyguard standing beside the fixer's booth (#q000_kid_ws_big_joe_standing); a bodyguard on his feet is the venue's second security face and pairs with the Kirk spawn set. Same entry vanilla activates in The Streetkid's bar crowd.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_bar_crowd",
+      "entry_name": "waitress",
+      "phase_name": "q000_kid_bar",
+      "action": "Activate",
+      "why": "The one staff role the hub crowd does not contain (the hub is all patrons). Vanilla activates this exact entry itself in the same phase, and the venue carries six dedicated waitress spots (#q000_kid_ws_waitress_01..06) that only she uses.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_bar_crowd",
+      "entry_name": "crowd_valentino_male_01",
+      "phase_name": "q000_kid_bar",
+      "action": "Activate",
+      "why": "A Valentino regular at the bar's Valentino table spot (#q000_kid_ws_crowd_valentino_male_01). The hub crowd is generic corpo/slacker/stoop civilians, so without this the Glen's Valentino bar has no Valentinos in it.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_bar_crowd",
+      "entry_name": "crowd_valentino_male_02",
+      "phase_name": "q000_kid_bar",
+      "action": "Activate",
+      "why": "Second Valentino regular so the table reads as a pair rather than one man alone; uses the paired spot #q000_kid_ws_crowd_valentino_male_02.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#fixer_kirk",
+      "entry_name": "fixer_kirk",
+      "phase_name": "q000_kid_bar",
+      "why": "Kirk Sawyer, the small-time fixer who runs his business from El Coyote Cojo's second floor, seated at his booth chair (#q000_kid_ws_fixer_kirk_sitting). He is alive in our timeline (the mq017 ambush never happens) and the wiki's own objective is 'Find Kirk on the second floor'.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#sq018_pr_ofrenda_after",
+      "states": {
+        "var_before": 1,
+        "var_funeral": 0,
+        "var_offrenda_quest_only": 0,
+        "var_set_up": 0,
+        "var_table": 1,
+        "var_unused_cleanup": 0
+      },
+      "why": "Exactly the state vector q000_kid_01_coyote applies to put the bar in its pre-story, pre-ofrenda arrangement: plain table in place, altar never set up, no funeral variant, no quest-only dressing."
+    },
+    {
+      "prefab": "#loc_sq022_el_coyote_cojo_bar_devices",
+      "states": {
+        "var_altar_after_SQ018": 0
+      },
+      "why": "Keeps the post-ofrenda altar/console out of the bar: the same 0 q000_kid_01_coyote sets when it prepares the venue for normal business, and the opposite of the 1 the sq018 and ep1 bugfix phases leave behind."
+    },
+    {
+      "prefab": "#sq018_pr_el_coyote_billiard_table_deco",
+      "states": {
+        "var_default": 1,
+        "var_funeral": 0
+      },
+      "why": "The ordinary billiard table, not the draped ofrenda table. sq018_03_funeral swaps to var_funeral=1 for the ceremony and back to var_default=1 afterwards, so this is vanilla's own normal state."
+    },
+    {
+      "prefab": "#loc_sq022_el_coyote_cojo_bar_audio_music",
+      "states": {
+        "default": 1,
+        "sq018": 0
+      },
+      "why": "House music on. The funeral mutes it (sq018=1, default=0) and its cleanup restores exactly this pair, so the bar should not sound like a wake."
+    },
+    {
+      "prefab": "#loc_sq022_el_coyote_cojo_bar_audio",
+      "states": {
+        "arcade_machines": 1
+      },
+      "why": "Arcade machines audible, i.e. switched on; sq018_03_funeral silences them (0) for the ceremony and restores 1 after."
+    },
+    {
+      "prefab": "#loc_sq022_el_coyote_cojo_bar_env",
+      "states": {
+        "var_motorcycle_helmets": 0
+      },
+      "why": "No riders' helmets lined up as ofrenda offerings; sq018_01_mama_welles sets 0 for the ordinary bar and sq018_03_funeral turns the row on for the ceremony."
+    },
+    {
+      "prefab": "#loc_sq022_el_coyote_cojo_bar_gameplay",
+      "states": {
+        "q000_var_bar_collider": 0
+      },
+      "why": "Removes the Streetkid scene's invisible bar collider. q000_kid_01_coyote sets 0 both when it stages the bar and when it cleans up, so 0 is never a scene block and keeps the counter area walkable."
+    },
+    {
+      "prefab": "#q000_kid_pr_coyote_cojo",
+      "states": {
+        "collider_kirk_booth": 0
+      },
+      "why": "Drops the invisible booth barrier so the fixer's second-floor booth stays walkable: q000_kid_01_coyote raises it (1) for its scene and clears it (0) on cleanup, and our phases never run."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q000_kid_entrance_door",
+    "within": 80.0,
+    "why": "The bar's main street entrance, a DoorControllerPS on the normal way in from the Glen sidewalk (double_door_simple_1). Vanilla itself drives it (ForceLock/ForceUnlock in the Streetkid scene, ForceDisable/ForceEnable in the holocall prep), so the ref is known to resolve and the entity streams with the venue. A device, not a workspot (rule 8)."
+  }
+}

@@ -8,6 +8,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 2 venues (dev venue gate): Lizzie's (switches, crowd), the
+  Dogtown stadium (Barghest posts, market crowd, normal look), El Coyote
+  Cojo, Judy's apartment (neighbours; flat kept locked), Riot, the Hill Park
+  spa Voodoo Boys den with Slider alive, Jig-Jig Street, Megabuilding H10, and
+  the Red Peaks trailer park (Joss and her kids). Border crossing pass 2 adds
+  the Militech post.
 - First generated venues (research wave 1, `data/venues/approved/`), all
   behind the dev venue gate: Corp-Bud rail junction, Aldecaldos Mobile Camp,
   Grand Imperial Mall, maglev tunnel site, Voodoo Boys' netrunners' den,
