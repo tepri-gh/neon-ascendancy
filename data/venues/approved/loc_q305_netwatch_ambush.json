@@ -1,0 +1,197 @@
+{
+  "code": "q305_netwatch_ambush",
+  "display_name": "Abandoned Hotel (West Wind Estate, Pacifica)",
+  "why": "The venue is the abandoned hotel in West Wind Estate that q305 'Black Steel In The Hour of Chaos' uses as the 6th Street ambush position: a gutted multi-floor building with catwalks, scaffolding and a roof overlooking the skybridge where the MaxTac convoy is meant to pass. The building exists in our timeline, but the ambush, the holo-convoy briefing, the mines and turrets, MaxTac and Reed never do. This proposal restores the questdesign section that carries the 6th Street crew's spawner and workspots, activates a crew-sized part of that crew in their quiet 'start' state as the gangers squatting the derelict, and toggles every ambush prop (mines, turrets, loot, storm, blackout, blockers, entrance signs) back to its normal off state. The hologram convoy, the boom van, the MaxTac squad, Reed and the cutscene section are left out.",
+  "source": {
+    "proposal": "research/loc_q305_netwatch_ambush/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No community-area/spot map was resolved for this venue: every entry has spots 0 and posture unknown. The dev tour must confirm that the chosen crew actually spawn on the q305_ws_6th_street_* and q305_ws_pre_ambush_* workspots, and that the 'start' workspots read as idle/stand rather than as a stakeout pose (rule 9).",
+      "Is this the Hotel Pistis Sophia? The wiki names the q305 hotel only as 'an abandoned hotel overlooking a skybridge' in West Wind Estate, and Hotel Pistis Sophia is the derelict there; the catalogue coordinates were not cross-checked against a map position.",
+      "Does 6th Street hold this hotel in our timeline? The crew is the venue's own vanilla population, so it is the least-invented occupancy, but the gang is based in Santo Domingo and only comes here for Reed's ambush. If the owner prefers a local Pacifica population, the scavs are the lore-appropriate alternative (West Wind Estate database entry: scavengers are a common sight), but their spawner is tied to the chase.",
+      "The catalogue declares no door controller at this venue, so no door_notes could be written. The hotel has door map pins (#q305_mp_hotel_door_bot/top, #q305_tr_hotel_door_bot/top, #q305_tr_outsidehotel_door_bot) but they are not device entities. The tour must check that the entrance and the stair/catwalk route are passable under the runtime policy.",
+      "Variant defaults were not verified against all.streamingblock (it is not in this extract set); the toggles set every quest state explicitly, but the decoration pair (signs off/on) is the one to eyeball on tour for an over-lit or missing entrance sign.",
+      "Several community entries the crew 'should' include were left dormant; if the tour finds the building sparse, add 6th_male3-9 and 6th_female3-4 in the same start phase rather than a new group."
+    ]
+  },
+  "prefabs": [
+    "#q305_ambush"
+  ],
+  "communities": [
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "gunner",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "The 6th Street gunner/leader (the only dedicated q305_gunner record in the crew, with his own q305_ws_pre_ambush_gunner_start spot); vanilla keeps him in the crew's start phase at the hotel, so in a world without the ambush he is simply the gang boss holding the derelict.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "captain",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "The crew captain, with his own pre-ambush workspot; vanilla activates him for the pre-ambush meeting and keeps him through the ambush, so he stays as the second-in-command of the squat.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "boz",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Boz, the crew's third named figure (dedicated pre-ambush workspot); vanilla activates him for the meeting and the ambush.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_old_firend1",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "One of the crew's old 6th Street hands (the demolition man), with a dedicated pre-ambush workspot; a natural resident of a gang-held derelict.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_old_firend2",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second old 6th Street hand, with his own pre-ambush workspot; same quiet start state as the rest of the crew.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_old_firend3",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Third old 6th Street hand, with her own pre-ambush workspot; part of the same meeting group vanilla keeps at the hotel.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_female1",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "A 6th Street soldier of the hotel crew; vanilla activates her with the meeting block and she has a q305_ws_6th_street_female_001 spot in the building.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_female2",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second female soldier of the crew (q305_ws_6th_street_female_002); vanilla activates her for the same pre-ambush gathering.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_male1",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "A soldier of the crew with a dedicated interior workspot; vanilla activates him with the whole meeting block.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_male2",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second soldier of the crew with a dedicated interior workspot; part of the group vanilla assembles in the hotel.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_male10",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Roof look-out: the venue has a q305_spl_roof_patrol_male10 patrol spline, and vanilla defines him in the crew's start phase, which is exactly the low-key presence a gang-held derelict should show.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q305_com_6th_street_pre_ambush",
+      "entry_name": "6th_male12",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second roof look-out (q305_spl_roof_patrol_male_12 spline); a generic 6th Street record from q103, so he is not tied to the ambush story.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q305_netwatch_ambush_lighting",
+      "states": {
+        "q305_lights_blackout": 0,
+        "after_explosion": 0,
+        "chase_rain": 0,
+        "ambush_start": 0,
+        "ambush_start_cloud_trigger": 0,
+        "ambush_maxtac_fight_trigger": 0,
+        "fail_trigger": 0
+      },
+      "why": "The quest drives this set to a power-cut blackout, an explosion/rain look and ambush trigger volumes. All zero is the hotel's normal powered, non-storm interior and no ambush triggers."
+    },
+    {
+      "prefab": "#loc_q305_netwatch_ambush_decoration",
+      "states": {
+        "q305_hotel_entrance_signs_off": 1,
+        "q305_hotel_entrance_signs_on": 0
+      },
+      "why": "Vanilla switches the hotel entrance signs on for the storm-time ambush (signs_on 1 / off 0). The derelict hotel's normal look is the dark/unlit entrance sign set, so the pair is inverted."
+    },
+    {
+      "prefab": "#loc_q305_netwatch_ambush_navmesh",
+      "states": {
+        "var_q305_ambush_player_blockers": 0
+      },
+      "why": "q305_03 raises the invisible player blockers that keep V inside the ambush arena; zero leaves the building freely walkable in normal play."
+    },
+    {
+      "prefab": "#loc_q305_netwatch_ambush_blockout",
+      "states": {
+        "sign_after_explosion": 0
+      },
+      "why": "The blockout sign variant belongs to the chase aftermath; zero keeps the normal pre-explosion blockout."
+    },
+    {
+      "prefab": "#q305_mines_placement",
+      "states": {
+        "default": 0,
+        "alternative": 0,
+        "default_old": 0,
+        "alternative_old": 0
+      },
+      "why": "All four mine layouts off: in normal play the street outside the hotel is not mined. Vanilla only ever enables one layout during the ambush."
+    },
+    {
+      "prefab": "#q305_turret_position",
+      "states": {
+        "default": 0,
+        "alternative": 0,
+        "both_placement": 0
+      },
+      "why": "No turret placement in normal play; vanilla only raises them for the ambush after V reviews the plan."
+    },
+    {
+      "prefab": "#loc_q305_netwatch_ambush_loot",
+      "states": {
+        "var_loot": 0
+      },
+      "why": "The quest loot set (weapon caches laid out for the ambush) is off, so the hotel is not stocked with quest loot."
+    },
+    {
+      "prefab": "#loc_q305_netwatch_ambush_fx_storm",
+      "states": {
+        "q305_NetwatchAmbushThunderstormFX": 0,
+        "storm_dissapear": 1
+      },
+      "why": "The scripted thunderstorm is an ambush/chase effect. Storm off and the storm-dissipate variant on keeps the hotel under ordinary dynamic weather instead of a permanent quest storm."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q305_dvc_ambush_security_area_01",
+    "within": 80.0,
+    "why": "The only device at this venue with a resolved position (-2746.9, -2477.3, 16.1), a SecurityAreaControllerPS in the venue's device section that vanilla force-enables for the ambush; it sits on the hotel's ambush floor and is a device entity, not a workspot (rule 8)."
+  }
+}

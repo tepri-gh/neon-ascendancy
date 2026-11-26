@@ -8,6 +8,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 5: the derelict West Wind Estate hotel, Gloria's house
+  (Gloria and Mariah), the Militech Detention Center, the Dogtown checkpoint
+  gate garrison, Cherry Blossom Market (Karim, the ramen cook, Ozob), The
+  Moth (Alex and Margarita), Fingers' clinic frontage, the Rosebud club and
+  the Electric Corporation Scav base. The q301 crash landing is excluded.
 - Research wave 4: the Digimmortal tech expo (scav-held), Marianne's garage
   (Aldecaldo mechanic), the Militech expo spider-tank arena (Barghest guards,
   the Chimera on standby), Fourth Wall Studios, the Hillpark basketball court

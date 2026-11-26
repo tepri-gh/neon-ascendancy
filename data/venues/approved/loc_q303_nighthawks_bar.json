@@ -1,0 +1,94 @@
+{
+  "code": "q303_nighthawks_bar",
+  "display_name": "The Moth",
+  "why": "The Moth (in-game prefab name: loc_q303_nighthawks_bar) is a small Dogtown bar in Longshore Stacks, with a bar counter, lounge and pachinko machines on the ground floor and Alex's NUSA safehouse above and behind it. In vanilla the bar only opens and fills through q303/q304/q306: the venue's own ambient ep1 community phase leaves it closed (bar_open 0), shuttered, locked and empty, and only q303 swaps in the bar crowd. This proposal restores the normal open-for-business state: the whole 28-entry vanilla bar crowd, Alex behind the bar as owner/bartender, the robot bartender Margarita, and the open-business lighting/deco variants.",
+  "source": {
+    "proposal": "research/loc_q303_nighthawks_bar/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Margarita (Character.q303_droid) has no spot map: no community area node was found, so `spots: 0` and posture unknown. The chosen phase is the bar-scene one (q303_02_nighthawks) because it is the only phase that puts her in the open bar; the tour must confirm she appears behind the counter (not at a quest mark or duplicated with Alex) and is neutral. If she is scene-only, drop her and leave Alex as sole staff.",
+      "Window shutters: q303/q303_05 force all seven #q303_dvc_nighthawks_window_shutters* closed, and the ambient venue phase force-closes them too. The proposal has no device-action slot and the door policy never force-opens, so the bar may look shuttered from the street even with bar_open=1. Decide whether a venue device leaf should force-open the seven shutters (evidence: q303.questphase ForceOpen on all seven) or whether the closed windows are acceptable.",
+      "Alex's bar workspot: #alex phase q303_02_nighthawks_01_bar is named for the bar and is used for her first scene, but the spawner's exact workspot was not resolved offline. Confirm on the tour that she stands behind the counter serving (not seated patron-side) and that the q304_03_alex_heart_to_heart epilogue phases are not the better normal-occupancy spot.",
+      "Prefab need: #q303_pr_nighthawks is declared because the #alex and #q303_com_nighthawks_droid spawners sit under it in the catalogued community paths. If the Alex spawner turns out to live in the world-streamed location prefab, the declaration is redundant (harmless, no other owner in the clean slate) and could be dropped.",
+      "Entrance door default: with the ep1 venue community phase and q303 never running, the front door should be a normal unlocked automatic door. If the runtime door policy finds it non-static and locked, it will not unlock it and the venue is unreachable; check this first on the tour.",
+      "Safehouse access: the flat above the bar is reachable through #q303_04_safehouse_door_01 and the #q304_dvc_hideout_elevator, whose floor terminal the story sets OFF. Nothing places anyone upstairs, so an empty flat is expected; confirm the lift still reaches floor 1 without the quest."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks"
+  ],
+  "communities": [
+    {
+      "spawner": "#q303_nighthawks_crowd_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The bar's vanilla open-world crowd: 28 entries, all in phase `default`, all sitting at the bar counter, barstools and tables, drinking, smoking, checking phones and playing the pachinko machines. Vanilla switches the whole community on whenever the bar is open (q303's persistent phase and both post-quest cleanups), and off only for the scripted q303 bar scene. The catalogue classes these as combat because the records are the Dogtown `ep1_combat_zone_citizen_*` pool, not because they fight; every workspot is a relaxed bar animation."
+    },
+    {
+      "spawner": "#q303_com_nighthawks_droid",
+      "entry_name": "q303_droid",
+      "phase_name": "q303_02_nighthawks",
+      "action": "Activate",
+      "why": "Margarita, the Moth's robot bartender (Character.q303_droid), the second half of the bar's staff besides Alex. q303_02_nighthawks is the only phase that places her in the bar during the open/bar scene; `default` is deliberately switched off and `q303_05_safehouse` belongs to the closed-bar safehouse scene. No spot map exists for this entry, so the tour must confirm she stands behind the bar and is neutral rather than mid-scene.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#alex",
+      "entry_name": "alex",
+      "phase_name": "q303_02_nighthawks_01_bar",
+      "why": "Alex (Alena Xenakis) is the Moth's owner and bartender under the alias Daphne, and the bar is her cover and workplace. q303_02_nighthawks_01_bar is her bar-side placement while the venue is open for business; vanilla uses it for the first bar scene. Her other phases are the after-hours heart-to-heart (q304_03_alex_heart_to_heart) and the q306 epilogue, both story scenes, so the bar phase is the normal-occupancy choice."
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q303_nighthawks_bar_lighting",
+      "states": {
+        "bar_open": 1,
+        "window_lights": 1,
+        "back": 1,
+        "entrance_lounge": 1,
+        "main_room": 1,
+        "upstairs_office": 1,
+        "scene_alex_intro": 0,
+        "scene_q304_heart_to_heart": 0,
+        "scene_sickness_attack": 0,
+        "q306_epilogue": 0
+      },
+      "why": "Open-for-business lighting: bar_open=1 is exactly what vanilla sets when the bar is trading, window_lights=1 is the normal night window glow, and the four room light groups (bar floor, entrance lounge, back room, safehouse office) are the ones q304_02 briefing switches on. All four scene looks (Alex intro, heart-to-heart, Relic sickness attack, q306 epilogue) are forced off so no story lighting state is staged. The closed-bar state vanilla's ambient venue phase sets (bar_open=0) is deliberately overridden."
+    },
+    {
+      "prefab": "#loc_q303_nighthawks_bar_int_deco_newbar",
+      "states": {
+        "var_deco_ow": 1,
+        "var_deco_q303_scene_001": 0,
+        "var_regular_jukebox": 1,
+        "hide_during_306": 0
+      },
+      "why": "The normal open-world bar decoration set (var_deco_ow) instead of the bare q303 intro-scene layout, with the regular jukebox shown rather than Alex's heart-to-heart add-on, and the bar not hidden for the q306 epilogue. vanilla uses exactly this combination once the intro scene ends and again after the heart-to-heart."
+    },
+    {
+      "prefab": "#loc_q303_alexs_safehouse_int_deco",
+      "states": {
+        "var_safehouse_clean": 1,
+        "var_safehouse_dirty": 0
+      },
+      "why": "Alex's flat above the bar is a lived-in home, not the post-sickness wreck q303_05 leaves behind. q303.questphase, the phase that establishes the normal pre-story safehouse, sets exactly this pair; the q303/q304 variant switch, the briefing billboards and the dirty FX are left at their defaults because they belong to story scenes."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#q303_dvc_safehouse_secret_door",
+      "why": "The hidden door to the NUSA operations room behind the safehouse. Vanilla only ever opens it by script (q304_01/q304_02/q304_04e ForceEnabled/ForceUnlock/ForceOpen, then ForceDisabled/ForceCloseImmediate again), and its boards and monitors are the removed story's briefing material. Keep it exactly vanilla so the hidden room stays unreachable in normal open-world play."
+    }
+  ],
+  "proximity_wait": {
+    "ref": "#q303_nighthawks_bar_entrance",
+    "within": 80.0,
+    "why": "A DoorControllerPS entity at the bar's one normal way in, tagged and path-resolved in the location's gameplay prefab, so it streams with the venue. Rule 8 wants a device, not a workspot; the player must reach this door before the crowd and Alex are re-issued."
+  }
+}

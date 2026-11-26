@@ -1,0 +1,60 @@
+{
+  "code": "q303_combat_zone_gate",
+  "display_name": "Dogtown Gate Checkpoint (Combat Zone Border)",
+  "why": "A fortified road checkpoint on the Dogtown wall at the Combat Zone border: vehicle barriers, pedestrian turnstiles, scanners, cameras and turret posts, permanently manned by BARGHEST's Prevention Unit, with a small staff-and-gym area beside it on the Night City side. Vanilla only loads and populates it from a fact-gated openworld phase, so in the clean slate the checkpoint stands empty. This proposal loads the gate's openworld quest section, switches on its two ambient communities (the Prevention Unit garrison and the checkpoint civilians) and pins the two variant states that give the calm, non-combat, no-protest look.",
+  "source": {
+    "proposal": "research/loc_q303_combat_zone_gate/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The guard community (#combat_zone_gate_com) has no spot map, so its phase a posture is unknown: do the 21 guards, Minotaurs, sniper droids and HMG stand calmly on post, or in an alert/weapon-ready pose? needs_tour_check.",
+      "Which of Dogtown's two gates this is: the wiki describes the western gate as BARGHEST Prevention Unit with turrets and scanners (matching these records), but the prefab sits beside the EBM stadium, so the northern main gate is possible. The display name stays neutral until a map/position check.",
+      "Do the guard spots sit inside the interior_area section? If they do, interior_area may have to be 1 for them to be visible; it is left at the vanilla default 0 here.",
+      "Can the player actually cross the checkpoint in the clean slate? The pedestrian single doors and the vehicle gate_maelstrom barriers are script-opened by the gated openworld phase, so this depends on the runtime door policy unsealing them; tour both directions.",
+      "The location prefab also carries an on_off_switch variant ($/03_night_city/c_pacifica/#switch_cz_on_off, default 0) that may control the Combat Zone's own barrier power. No quest toggle declares it in this venue's data, so it is left vanilla and unchecked."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/loc_q303_combat_zone_gate_prefabT6SV24Y/#loc_q303_combat_zone_gate_openworld"
+  ],
+  "communities": [
+    {
+      "spawner": "#combat_zone_gate_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The checkpoint garrison: 16 rifle/SMG/shotgun Prevention Unit guards (one on an HMG), 9 pistol-armed guards, two Minotaur mechs and three sniper droids, all in their initial phase a. Vanilla's own openworld gate phase activates this whole community exactly this way, and the wiki says both Dogtown gates are heavily secured by Barghest. Phase a is the entries' initial state and no phase or quest names it hostile; the catalogue found no spot map for this community, so the tour must confirm the guards stand on post rather than in a combat stance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#combat_zone_gate_civilians_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The checkpoint's lived-in layer: three technicians working tablets at a table and on the ground, plus four workers/workout NPCs on rail, ground and gym workspots (lean, smoke, drink, lift, box). Every workspot is a common routine/gym spot, so the group looks like staff on a break and off-duty guards working out beside the gate. Vanilla's openworld gate phase activates this community whole, with no quest condition."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/loc_q303_combat_zone_gate_prefabT6SV24Y/loc_q303_combat_zone_gate_gameplay_prefab3JCC64Y/loc_q303_combat_zone_gate_devices_prefab6FSK6RA",
+      "states": {
+        "during_combat": 0
+      },
+      "why": "during_combat 1 is the gate's combat look (turrets live, roadblocks deployed, shields up); vanilla flips it back to 0 on the gate's 'combat goes off' branch. Pinning 0 at boot guarantees the calm checkpoint even if a saved/world state left it raised, since our phase never runs the combat manager."
+    },
+    {
+      "prefab": "#loc_pr_q303_combat_zone_gate_audio",
+      "states": {
+        "q302_protest_audio": 0
+      },
+      "why": "q302_protest_audio 1 is the protest PA that only plays for the q302 gate protest, a story scene that does not happen in our timeline. 0 is the quiet checkpoint."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#combat_zone_gate_dvc_security_system",
+    "within": 80.0,
+    "why": "The checkpoint's own SecuritySystemControllerPS at (-2060.9,-2318.6,21.0) is the centred device between the guard and civilian spots, and vanilla drives it in this gate's phase. A device, not a workspot."
+  }
+}

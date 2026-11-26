@@ -1,0 +1,122 @@
+{
+  "code": "q112_market_area",
+  "display_name": "Cherry Blossom Market (Japantown market area)",
+  "why": "Cherry Blossom Market is the glass-roofed Japantown market: rows of stalls, a grill/wok food row, Karim's vinyls, a tech-repair stall, and the Ramen Joint built where the Rainbow Cadenza once stood. The ambient market crowd and the parade-market cook already run in the clean slate (kept wbr_jpn_phase activates #q112_com_market_crowd men/women and #q112_com_market_cook ungated), so this proposal restores only the quest-side people: the four market stall vendors and the tech-stall vendor from sq012, two idle Tyger Claws postings, Stefan the BD seller, Karim, the street busker, the Ramen Joint cook and Ozob waiting at his pickup spot. No variant toggle is proposed: both toggled variants are quest end states, so vanilla's world default is the normal look.",
+  "source": {
+    "proposal": "research/loc_q112_market_area/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Karim may be doubled: cast_and_hubs.json already sets wbr_jpn_junk_01_default_on and wbr_jpn_junk_02_default_on, so a Japantown junk-shop vendor scene may already put a body at his stall. The tour must confirm there is exactly one Karim.",
+      "The cooked default of the #loc_q112_market_area_env 'monks' variant is not readable offline (no streaming block in the extract), so no toggle is proposed; the tour should confirm the market's monk props look like vanilla's pre-quest state.",
+      "#mq035_ozob_door has no recorded way-in (no terminal, keycard, quickhack or skill check), so it depends on the runtime door policy to be passable; its exact position is not in the extracts, only its node ref.",
+      "The four sq012 temp-vendor spots sit close to the ambient fluff-vendor spots of the live market crowd; the tour should confirm they read as separate stalls rather than a cluster.",
+      "The game names this location's ramen shop 'Yagami Market' in the Dream On page but the prefab is inside loc_q112_market_area; the venue is treated as Cherry Blossom Market because the ramen joint, Karim's vinyls and Stefan's corner all match that page."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#sq012_pr_market",
+    "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#mq036_pr_stefans_alley",
+    "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#mq023_pr_bootleg",
+    "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#sq006_prefab_ramen_shop",
+    "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#mq035_pr_pickup"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq036_com_stefan",
+      "entry_name": "stefan",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Stefan at work as the market's BD seller, arms crossed at his corner (generic__stand_ground_arms_crossed). This is the calm pre-quest phase mq036_01_hook activates; crying/scavs_done/spared are aftermath poses and bd_player is the wall-lean he takes when V buys the BD."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "temp_vendor_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "One of the four front-of-market stall vendors V and River question in I Fought the Law, standing at his stall on the phone (generic__stand_ground__phone_use). Vendors at work, not a quest scene."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "temp_vendor_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second market stall vendor, standing a wide idle pose at her stall (big__stand_ground__stand_around). Vanilla activates her for the market interview; keeping her on gives the front row of stalls staff."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "temp_vendor_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Third stall vendor, advertising his goods (generic__stand_ground__advertise) at the east end of the market row."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "temp_vendor_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Fourth stall vendor, advertising (generic__stand_ground__advertise) beside the third; together they keep the market front row staffed."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "vendor",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The market's own tech/junk stall keeper, leaning on his table fixing something (generic__stand_table_lean_front_tool__fix) at (-677.73,915.89), next to Karim's vinyl stall. Vanilla never activates this entry (activated:false), so it is a relaxed ambient phase; the tour should confirm he is not doubled with the already-enabled Japantown junk-shop vendor.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "tyger_claw_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "First Tyger Claws posting watching the market, idle in the guard stance (generic__stand_ground__guard). Tyger Claws run Japantown and guard its stalls; vanilla's face_off phase is the threat pose (stand_around_07) and after is post-fight, so default is the right ambient phase."
+    },
+    {
+      "spawner": "#sq012_com_market",
+      "entry_name": "tyger_claw_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second Tyger Claws posting, standing around idly (generic__stand_ground__stand_around__05). Pairs with tyger_claw_01 at the alley mouth above the market; the face_off phase is the drugged/threaten stance."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#mq023_bootleg_karim",
+      "entry_name": "karim",
+      "phase_name": "01_street",
+      "why": "Karim Noel at his vinyl stall, leaning on the counter (player__stand_bar_lean_front) at (-670.33,913.58). He is one of the market's documented vendors and the stall exists in normal play; the phase is the street/idle phase the quest uses before V talks to him.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq023_bootleg_performer",
+      "entry_name": "performer",
+      "phase_name": "01_street",
+      "why": "The street busker playing guitar on a chair at the market edge (-678.01,893.21). A live musician is exactly the kind of ambient life the market should have, and the pose is a sit-and-play workspot, not a scene."
+    },
+    {
+      "action": "Activate",
+      "reference": "#sq006_ramen_shop",
+      "entry_name": "ramen_cook",
+      "phase_name": "talking_to_eliz",
+      "why": "The Ramen Joint cook behind the counter taking orders on a tablet (generic__stand_tablet__take_order) at (-650.93,924.76). The Ramen Joint is a permanent vendor, so a cook behind the counter is the normal look; the phase is the counter-service pose, not a cutscene.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#ozob",
+      "entry_name": "ozob",
+      "phase_name": "mq035_default",
+      "why": "Ozob Bozo waiting at his pickup spot by the market, standing idle (stand_around) at (-709.83,908.48). He is alive in our timeline and this is his only vanilla placement; the phase is the pre-pickup idle, not a combat or drive phase."
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#mq035_ozob_door",
+    "within": 80.0,
+    "why": "A DoorControllerPS world entity in the market's always-streamed gameplay/devices section ($/.../loc_q112_market_area_gameplay_prefabSM634LQ/loc_q112_market_area_devices_prefab4B5QVTI/#mq035_ozob_door), beside Ozob's pickup pitch in the middle of the venue. It is a device, not a workspot, and exists without any quest phase, so a distance pause on it resolves as soon as the market streams. At the default 80 m radius it covers the ramen joint (-650) through Ozob's corner (-710)."
+  }
+}

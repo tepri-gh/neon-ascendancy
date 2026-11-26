@@ -1,0 +1,148 @@
+{
+  "code": "q105_braindance_studio",
+  "display_name": "Electric Corporation Power Plant (Scavenger XBD studio)",
+  "why": "This is the walled, abandoned Electric Corporation power plant in the Charter Hill/Arroyo border area that the Scavengers use as an XBD production base: vehicle gate and yard, a large warehouse on the ground floor, and the studio, cage-fight arena, ripperdoc and forge levels below. Vanilla only loads the interior's quest-design section, its scavenger crews and its relaxed door states while Disasterpiece runs. This proposal restores the working base in normal play: the interior section, the gate and warehouse crew, the BD studios and arena on level -1, and the ripperdoc/studio crew on level -2, all on their vanilla relaxed setup posts, with normal lighting and no quest door block.",
+  "source": {
+    "proposal": "research/loc_q105_braindance_studio/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Floor mapping is inferred from the spots: z about 7.3 = ground-floor warehouse/yard, z about -5.7 = level -1 (studios 1/2, arena), z about -16.7 = level -2 (studio 3, ripperdoc, arena 3). The wiki's layout has Ground/-1/-2 plus a -3 forge; confirm the chosen entries land on those levels and not in a sealed or braindance-only copy of the studio.",
+      "Whether #q105_pr_braindance alone gives the full walkable interior: it is the only catalogue prefab that owns the interior areas and workspots, but it ships nested quest sub-prefabs (triggers, splines, lookats, the Evelyn/Judy sections). Confirm no quest-only prop (Evelyn's chair/blood, braindance overlay) is visible with the prefab loaded and the quest absent, and that the envelope (walls, floors, stairs, lift) comes from the always-loaded env/gameplay prefabs.",
+      "Access is the biggest risk: every door on the route (yard gate, main door, netrunner door, window 007, cage-fight door, transition door) is only ever force-enabled/opened/unlocked by quest phases, and there is no terminal, keycard, skill check or quickhack in the data. The runtime door policy is the only opener; the tour must prove V can get from the street to level -2 without Disasterpiece, and if a door refuses, whether it is the sealed single_door_010 type or the static unlock test.",
+      "level -1 and level -2 circulation is not fully known: the wiki lists three sub-levels plus a forge, the data has an internal lift (common_lift_2_floors) and a transition door. Confirm the stairs/lift route without the quest's ForceTeleportToFloor/transition actions.",
+      "var_body_censorship=1 is read as the normal censored body variant because q105_braindance_floor_02 sets it while V walks the real studio; if 1 actually hides bodies that should be present in a working XBD den, flip it to 0 on tour. The variant's visual effect is not documented in the catalogue.",
+      "The whole level-2 community spawns ten people at once (netrunner, miniboss, rifler, five f02_reinforcement workers, ripperdoc, studio 3 gunner). That is the vanilla switch, but if it is too heavy for the spawn budget, the trim order per rule 11a is: keep arena_3_gunner_01 (netrunner) and studio_3_gunner_01 first; the f02 reinforcement workers and ripperdoc_melee_01 are the marginal ones.",
+      "arena_1_gunner_01 and arena_3_miniboss_01 share the elite2_shotgun_tactician record, so the base has two identical-looking lieutenants on different floors; confirm that reads as a crew with two bosses rather than a duplicate spawn.",
+      "The fixer/owner of the XBD operation is not in the data: no named scavenger leader, spawn set or vendor exists for this studio. The elite tacticians are the closest stand-in; if the design wants a named owner, it needs a new cast-layer character.",
+      "The catalogue marks floor-2 entries activated: false (only the whole-community switch is used by vanilla), and the whole-community record's entriesInitialState is setup for all ten. Confirm the whole-community activation really puts them in setup and not in a combat stance on a fresh world."
+    ]
+  },
+  "prefabs": [
+    "#q105_pr_braindance"
+  ],
+  "communities": [
+    {
+      "spawner": "#q105_com_braindance_combat_floor_0",
+      "entry_name": "rifler_exterior_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Gate guard standing around at the street-side gate cluster (generic__stand_ground__stand_around__02, x 66 / y -507). Vanilla's encounter bugfix pass activates exactly this setup phase to restore the pre-fight posts, and the workspot is a plain stand-around, so the pose is the relaxed pre-combat one."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_0",
+      "entry_name": "shotgunner_exterior_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Second gate guard, leaning on the yard wall and smoking (dirt__stand_wall_lean_back_cigarette__smoke__01, x 66 / y -508). A completely idle pose from vanilla's own encounter-reset phase; the gate reads as a staffed scav checkpoint."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_0",
+      "entry_name": "melee_exterior_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Third yard hand, working on a piece of equipment in the yard (routine__stand_ground_device__fix, x 88 / y -507). Reads as base maintenance rather than a guard post, which suits an operating scav site."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_0",
+      "entry_name": "shotgunner_exterior_02",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "The crew netrunner, seated in a chair on the upper level (z 11) directly beside the floor-0 computer device bd_00_computer_01 (68.81/-485.39/12.1). Netrunners are the first population priority; a jacked-in operator is exactly what an XBD studio's security needs."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_0",
+      "entry_name": "rifler_interior_02",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Warehouse patrol on the interior mezzanine/catwalk (patrolling_stand, z 13.3), so the big ground-floor room is not empty between the gate and the stairs down."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "studio_1_gunner_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Studio 1 worker checking a tablet (routine__stand_ground_tablet__use, level -1). This is the BD-production crew at work, not a combat pose."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "studio_1_melee_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Studio 1 editor seated at a desk keyboard (office chair_table_keyboard work workspot, level -1) - the editing bench where the XBDs are cut."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "studio_2_gunner_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Studio 2 worker searching a shelf (routine__stand_shelf_lean_front_shelf__search, level -1) - pulling stock/parts for the studio."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "studio_2_melee_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Second studio 2 worker kneeling to inspect something on the floor (routine__kneel_ground__inspect, level -1); a working pose that keeps the second studio occupied without a scene."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "arena_1_gunner_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Elite scavenger standing in the cage-fight arena pit (routine__stand_ground, level -1) as the pit boss/overseer - the closest thing this crew has to an on-site owner."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "arena_1_shotgunner_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Second netrunner, sitting back on a bench on the braindance workspot (routine__sit_bench_lean_back__braindance) in the arena area, next to the level-1 access points - a scav watching or recording a BD. Netrunners get population priority."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "arena_2_gunner_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Spectator leaning on the wall on the arena's lower rim (generic__stand_wall_lean_back__stand_around__01, z -7.7). Reads as one of the crew watching the cage, which is how the arena is used when no fight is staged."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_1",
+      "entry_name": "arena_2_melee_01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Second arena spectator, sitting back in a chair with a cigarette (generic__sit_chair_lean_back_cigarette__smoke__01, z -7.7) beside the first; together they make the cage read as used."
+    },
+    {
+      "spawner": "#q105_com_braindance_combat_floor_2",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole level-2 crew in its vanilla initial state: arena_3_gunner_01 (netrunner), arena_3_miniboss_01, arena_3_rifler_01, f02_reinforcement_01..05, ripperdoc_melee_01 and studio_3_gunner_01, all in setup. Vanilla switches this community on whole in q105_setup_braindance_combat_floor_2 and every entry's setup spot is a relaxed routine pose (couch braindance, desk keyboard, ground scavenging, guard stand, shelf search, tablet), so this is the crew at work on the level that holds the studio 3 and the ripperdoc."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q105_braindance_studio_lighting",
+      "states": {
+        "braindance_blackmarket": 0
+      },
+      "why": "Normal studio lighting. The quest switches braindance_blackmarket=1 for the black-market braindance view and back to 0 afterwards; 0 is the ordinary, undoctored look of the base."
+    },
+    {
+      "prefab": "#loc_pr_q105_braindance_studio_devices",
+      "states": {
+        "var_door_block": 0,
+        "var_body_censorship": 1
+      },
+      "why": "Normal, intact base: var_door_block=0 is the unblocked state that q105_braindance_floor_02 sets when V walks the real studio (the bugfix phase's var_door_block=1 is a stuck-door repair), and var_body_censorship=1 is the censored body variant the same phase sets for the studio interior."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q105_dvc_bd_00_gate_exterior",
+    "within": 80.0,
+    "why": "The vehicle gate on the yard wall at the street entrance (DoorControllerPS, from input.json devices), the device the venue's own setup phase force-enables and opens, and a point every spot on all three levels is within about 80 m of. It is a door entity, not a workspot (playbook rule 8)."
+  }
+}

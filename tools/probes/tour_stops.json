@@ -94,6 +94,84 @@
    "spawn_sets": []
   },
   {
+   "code": "q303_combat_zone_gate",
+   "name": "Dogtown Gate Checkpoint (Combat Zone Border)",
+   "kind": "approved",
+   "venue": "loc_q303_combat_zone_gate",
+   "pos": [
+    -2062.46,
+    -2283.95,
+    18.69
+   ],
+   "radius": 65.7,
+   "expected_records": [
+    "Character.WorkerSpecialistMale",
+    "Character.WorkoutFemale",
+    "Character.WorkoutMale",
+    "Character.ep1_combat_zone_citizen_stacks_worker_ma",
+    "Character.prevention_dogtown_HMG_mb",
+    "Character.prevention_dogtown_droid_ma",
+    "Character.prevention_dogtown_martial_hmelee3_fists_mb_elite",
+    "Character.prevention_dogtown_rifle_ma",
+    "Character.prevention_dogtown_rifle_wa",
+    "Character.prevention_dogtown_saratoga_ma",
+    "Character.prevention_dogtown_saratoga_wa",
+    "Character.prevention_dogtown_shotgun_ma",
+    "Character.prevnetion_dogtown_base_minotaur"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q303_nighthawks_bar",
+   "name": "The Moth",
+   "kind": "approved",
+   "venue": "loc_q303_nighthawks_bar",
+   "pos": [
+    -2422.51,
+    -2664.02,
+    27.98
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ep1_combat_zone_citizen_obese_mf",
+    "Character.ep1_combat_zone_citizen_outcast_ma",
+    "Character.ep1_combat_zone_citizen_stacks_child",
+    "Character.ep1_combat_zone_citizen_stacks_elder_ma",
+    "Character.ep1_combat_zone_citizen_stacks_lowlife_ma",
+    "Character.ep1_combat_zone_citizen_stacks_ma",
+    "Character.ep1_combat_zone_citizen_stacks_mb",
+    "Character.ep1_combat_zone_citizen_stacks_wa",
+    "Character.ep1_combat_zone_citizen_stacks_worker_ma",
+    "Character.ep1_combat_zone_citizen_stacks_worker_wa",
+    "Character.ep1_combat_zone_service_sexworker_poor_ma",
+    "Character.ep1_combat_zone_service_sexworker_poor_wa",
+    "Character.q303_droid"
+   ],
+   "spawn_sets": [
+    "#alex"
+   ]
+  },
+  {
+   "code": "q305_netwatch_ambush",
+   "name": "Abandoned Hotel (West Wind Estate, Pacifica)",
+   "kind": "approved",
+   "venue": "loc_q305_netwatch_ambush",
+   "pos": [
+    -2746.88,
+    -2477.31,
+    16.14
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q103_6th_street",
+    "Character.q305_6th_st_demolition_man",
+    "Character.q305_6th_street_ma",
+    "Character.q305_6th_street_wa",
+    "Character.q305_gunner"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q110_pacifica_mall",
    "name": "Grand Imperial Mall (GIM), Coastview",
    "kind": "approved",
@@ -814,6 +892,34 @@
    ]
   },
   {
+   "code": "q105_fingers_appartment",
+   "name": "Fingers' Clinic, Jig-Jig Street",
+   "kind": "approved",
+   "venue": "loc_q105_fingers_appartment",
+   "pos": [
+    -577.23,
+    801.99,
+    20.96
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ChildPoor",
+    "Character.FreakFemale",
+    "Character.FreakMale",
+    "Character.ProstituteFemale",
+    "Character.ProstituteMale",
+    "Character.q105_jigjig_goon_01",
+    "Character.q105_jigjig_goon_02",
+    "Character.q105_jigjig_goon_03",
+    "Character.q105_jigjig_pimp",
+    "Character.q105_jigjig_prostitue_queue_01",
+    "Character.q105_jigjig_prostitue_queue_02",
+    "Character.q105_jigjig_prostitue_queue_03",
+    "Character.q105_jigjig_prostitue_queue_04"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q105_jigjig_street",
    "name": "Jig-Jig Street",
    "kind": "approved",
@@ -847,6 +953,31 @@
     "Character.wbr_jpn_jig_bar_01"
    ],
    "spawn_sets": []
+  },
+  {
+   "code": "q112_market_area",
+   "name": "Cherry Blossom Market (Japantown market area)",
+   "kind": "approved",
+   "venue": "loc_q112_market_area",
+   "pos": [
+    -686.35,
+    938.92,
+    11.46
+   ],
+   "radius": 40.6,
+   "expected_records": [
+    "Character.VendorFemale",
+    "Character.VendorMale",
+    "Character.mq036_stefan",
+    "Character.sq012_market_vendor",
+    "Character.sq012_tyger_claw"
+   ],
+   "spawn_sets": [
+    "#mq023_bootleg_karim",
+    "#mq023_bootleg_performer",
+    "#ozob",
+    "#sq006_ramen_shop"
+   ]
   },
   {
    "code": "q112_parade_area",
@@ -925,6 +1056,51 @@
     "Character.q003_maelstrom_rifle_01",
     "Character.q003_maelstrom_rifle_02",
     "Character.q003_maelstrom_rifle_03"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q105_braindance_studio",
+   "name": "Electric Corporation Power Plant (Scavenger XBD studio)",
+   "kind": "approved",
+   "venue": "loc_q105_braindance_studio",
+   "pos": [
+    61.98,
+    -492.63,
+    -7.69
+   ],
+   "radius": 64.8,
+   "expected_records": [
+    "Character.q105_bds_officer_scavenger_grunt3_netrunner2_nova_ma_rare",
+    "Character.q105_bds_scavenger_butcher3_hmelee2_machete_mb_rare",
+    "Character.q105_bds_scavenger_elite2_shotgun_tactician_ma",
+    "Character.q105_bds_scavenger_fast2_fmelee2rare_knife_ma_rare",
+    "Character.q105_bds_scavenger_grunt1_melee1_pipewrench_ma",
+    "Character.q105_bds_scavenger_grunt1_ranged1_pulsar_ma",
+    "Character.q105_bds_scavenger_grunt1_ranged1_slaughtomatic_wa",
+    "Character.q105_bds_scavenger_grunt2_ranged2_copperhead_wa",
+    "Character.q105_bds_scavenger_grunt3_netrunner2_nova_ma_rare",
+    "Character.q105_bds_scavenger_strong3_gunner2_defender_mb_rare"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "rosebud",
+   "name": "Red Queen's Race (Charter Hill basement club)",
+   "kind": "approved",
+   "venue": "loc_rosebud",
+   "pos": [
+    680.4,
+    -469.84,
+    -1.34
+   ],
+   "radius": 53.0,
+   "expected_records": [
+    "Character.sq012_animal_beta",
+    "Character.sq012_animal_bouncer_short_range",
+    "Character.sq012_animal_officer",
+    "Character.sq012_animal_officer_beta_female",
+    "Character.sq012_animal_shotgun_beta"
    ],
    "spawn_sets": []
   },

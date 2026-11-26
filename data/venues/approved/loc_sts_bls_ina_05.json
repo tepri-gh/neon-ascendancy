@@ -1,0 +1,46 @@
+{
+  "code": "sts_bls_ina_05",
+  "display_name": "Militech Detention Center",
+  "why": "loc_sts_bls_ina_05 is Militech's immigrant detention center on Coachwhip Ln. in the Jackson Plains, at the Night City-SoCal border: a walled compound with a main gate, a parking gate, a security system and a guard yard, used by Gig: Goodbye, Night City. Vanilla instantiates its street-story prefab only from the gig's own phases, so the clean slate leaves the compound with no garrison. This proposal restores the two vanilla whole-community activations that make it a working facility: the Militech garrison (rangers, an officer, snipers, security troopers, two Wyvern drones and two technicians on tablet, cigarette, patrol and repair spots) and the group of detained refugees in the yard. Bruce Welby, Archibald Crane, the extraction car, the alarm response and the gig's reinforcements are left out.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_05/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Posture is partly unresolved: the catalogue has no community area node for either spawner (spots 0), so the entry-to-spot map is missing. Guard A_spawn poses read relaxed from the workspot names, but guard_005/guard_008/guard_012 have no spot in the extracted sector; and the refugee pool contains a 'dead' and a q110 'hurt' workspot, so the tour must confirm A_spawn does not seat a corpse or wounded civilian. If it does, drop #ina_05_refugees_com.",
+      "The catalogue's wiki pages (Belly of the Beast, Forward to Death, We Gotta Live Together) are a false match via the shared q114_nomad_community phase; the real pages for this venue are Militech Detention Center and Gig: Goodbye, Night City in the same local corpus.",
+      "Does #sts_bls_ina_05_streetstory alone make the compound read as intact? If the detention block geometry lives in the excluded #sts_bls_ina_101_streetstory, part of the interior may look bare; that prefab carries another gig's force and a named prisoner, so it was not declared.",
+      "The anchor #ina_05_main_gate lives in loc_sts_bls_ina_05_gameplay_prefabKYKES7A. If that section is not streamed without a quest, the proximity wait never fires and the venue relies on its boot activation only; the tour should watch for the second activation.",
+      "Refs for #ina_05_gate_parking, #ina_05_gates*, #ina_05_parking_door and #ina_05_reinforcements_001_com are unresolved paths in the catalogue (venue_inferred), so their positions and existence are unverified."
+    ]
+  },
+  "prefabs": [
+    "#sts_bls_ina_05_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_05_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The compound's whole garrison, activated exactly as vanilla does it: rangers, officer, elite shotgunner, three snipers, Saratoga security troopers, a grenadier, two Wyvern drones and two technicians, all in their initial A_spawn phase. Their A_spawn spots are ordinary duty poses (standing with a tablet, smoking, standing around, routine stand, kneel-and-fix, drone scan), not the alert/agitated spots the later B/C response phases use; guard_003's alerted shuffle is only in phase C, which we do not activate. guard_005, guard_008 and guard_012 have no spot in the extracted sector, so the exact pose of three entries is a tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_05_refugees_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The detainees held at the center: two refugee women, one refugee man and a child, in their only phase A_spawn. They are the facility's normal population, not the gig's target (Bruce) — vanilla itself activates this crowd while the gig's open-world phase runs, and the journal describes the center as a holding place for border crossers. Their spot pool mixes harmless yard poses (sitting, scavenging, smoking, a child playing with cans, a couple comforting someone) with a dead and a hurt workspot that belong to some A_spawn entry, so the tour must confirm no corpse/hurt pose is used before this entry stays.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#ina_05_main_gate",
+    "within": 80.0,
+    "why": "The compound's main gate (DoorControllerPS) is the one resolved door device vanilla drives at this venue and the gate every visitor passes. It sits in the location's devices section, which streams with the base location, so it is a device entity available before the communities are re-issued after the proximity wait."
+  }
+}

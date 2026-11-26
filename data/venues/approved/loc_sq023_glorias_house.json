@@ -1,0 +1,45 @@
+{
+  "code": "sq023_glorias_house",
+  "display_name": "Gloria El-Ahmar's House",
+  "why": "The El-Ahmar house is a small one-storey family home on the Rancho Coronado side of Santo Domingo, with a porch, a front room and a kitchen, home to Gloria El-Ahmar and her family. Vanilla loads it almost only for the Sinnerman follow-up (Joshua Stephenson's visit), which also switches on its three shard pickups and force-locks the front door. This proposal restores the house as a home: Gloria and Mariah present at their own porch/yard workspots and the house shards visible, with the front door left to the runtime door policy.",
+  "source": {
+    "proposal": "research/loc_sq023_glorias_house/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Vanilla never Activate's #sq023_com_glorias_house, only Deactivates it; whole-set Activate should put gloria at gloria_start and mariah at albums, but confirm both appear and that neither stands in an odd spot (their workspots are generic stand-ground wait poses at the porch).",
+      "Whether the three house shards (var_sq023_gh_shards=1) are wanted permanently: they are the family's lore pickups but vanilla shows them only during the visit scene.",
+      "Zuleikha lives here per the wiki but has no spawn entry; decide whether the cast layer should add her separately.",
+      "The front door's cooked lock/authorization state is unknown (device props were not extracted); the door policy is the assumed way in."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/rancho_coronado/#loc_sq023_glorias_house/loc_sq023_glorias_house_questdesign_prefabLP5CW4I/#sq023_pr_gloria_house"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#sq023_com_glorias_house",
+      "entry_name": "None",
+      "phase_name": "None",
+      "why": "The house community has exactly two entries, gloria (Character.sq023_gloria) and mariah (Character.sq023_mariah), i.e. the residents and nobody else. Activating the whole set puts them at their initial phases, gloria_start and albums, which are generic stand-ground wait workspots on the porch/yard a metre apart - a relaxed, idle pair at home, not a quest pose. Vanilla only ever deactivates this set (once for the visit scene, once when the group drives to the restaurant), so the activation is ours and needs a tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq023_glorias_house_gameplay",
+      "states": {
+        "var_sq023_gh_shards": 1
+      },
+      "why": "Shows the house's three data shards (#sq023_gh_shard_01..03), which the house phase switches on so the family's records are readable while V is at the door. Hidden is the variant default, so without this the home reads as stripped; 1 is vanilla's own house state and the only value the phase ever sets."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq023_gh_front_door",
+    "within": 80.0,
+    "why": "The house's own front-door device, the only device vanilla drives at this venue: a DoorControllerPS at the front entrance that the house phase force-closes and force-locks, so it is exactly the entity that streams in when a player walks up to the house."
+  }
+}

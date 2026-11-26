@@ -1,0 +1,86 @@
+{
+  "code": "rosebud",
+  "display_name": "Red Queen's Race (Charter Hill basement club)",
+  "why": "Behind a shipping container in a Charter Hill warehouse, a two-floor lift drops into the Red Queen's Race: a basement club with a bar, dance floor, private rooms and a second-floor office, run and guarded by Animals in vanilla. With the campaign off, all of its quest phases drop out and the club stands empty. This proposal streams the quest sector that holds the club's AI spots, then wakes the six club entries in their relaxed default/back_up phases plus a warehouse doorman and the club's boss at the entrance rail, so the club reads as an operating Animals-run venue rather than a quest scene.",
+  "source": {
+    "proposal": "research/loc_rosebud/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does declaring #sq012_pr_rqr actually stream the quest sector with the club's AI spots in the clean slate? The proposal depends on it: all eight entries' spot gids live in sectors/quest_d1b1251f97c1f56a, whose refs are #sq012_pr_rqr children. The tour must show the expected records on the club floor, not zero-spot spawns.",
+      "Can the player reach the club without the quest? #sq012_rqr_exit_container starts locked/sealed until sq012 ForceUnlocks/Unseals it, and the lift's floor-0 authorization state was not extracted. The runtime door policy should handle the container, but the lift floor terminals need a tour check (rule 13).",
+      "Is #sq012_sealed_door an intentional blocker or a quest shortcut? It is a world door with no quest device action, so DoorScope never touches it; if it sits on the normal route it must be reclassified.",
+      "The club's trashed-aftermath dressing (if any is baked into loc_rosebud_club_prefabXXDS5MA) cannot be switched: the venue has no damaged/intact variant in its toggle list. If the interior reads as smashed on tour, the venue needs a dressing pass rather than a toggle.",
+      "Vanilla supplies no civilian club crowd here, so the venue's population is the six Animal entries plus two warehouse posts; the owner may want fewer guards or an added civilian community if the club should read as a public venue."
+    ]
+  },
+  "prefabs": [
+    "#sq012_pr_rqr"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Club-floor member standing near the dance floor at (665.86,-474.96,-5.37). Idle stand_ground pose; vanilla only ever reaches this entry through the quest's combat-setup branch, so the default phase is the ambient one."
+    },
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Armed club guard leaning on a wall with a phone at (683.68,-479.52,-5.34); the one club entry vanilla itself puts in its default phase, so it is the strongest evidence that the club is meant to be staffed."
+    },
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_3",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female Animal officer on a phone call in the club at (694.27,-469.84,-1.34), idling rather than guarding a door - a staff/management presence that fits an open club."
+    },
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_4",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Member sitting in a chair cleaning a gun at (680.4,-466.11,-5.34) - a seated, non-alert workspot (routine__sit_chair_gun__clean, not the _nervous_ variants), which is what an off-duty guard in a club looks like."
+    },
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_backup_02",
+      "phase_name": "back_up",
+      "action": "Activate",
+      "why": "Backup member standing on the club's upper level at (678.78,-463.58,-1.19); vanilla activates this entry in back_up, and the spot is a plain stand_ground."
+    },
+    {
+      "spawner": "#sq012_com_rqr_club_ug",
+      "entry_name": "6th_street_club_backup_03",
+      "phase_name": "back_up",
+      "action": "Activate",
+      "why": "Second backup member standing in the club at (689.1,-469.07,-5.35); vanilla activates this entry in back_up, so it is a normal club-floor body."
+    },
+    {
+      "spawner": "#sq012_com_rqr",
+      "entry_name": "6th_street_2",
+      "phase_name": "sq012_gate",
+      "action": "Activate",
+      "why": "The Animal officer at the warehouse entrance gate (665.99,-487.86,10.55), standing still. This is exactly the gate greeter the wiki describes at the club entrance; vanilla uses this entry in its gate phase, and sq012_gate is a stand-around phase, not a combat one."
+    },
+    {
+      "spawner": "#sq012_com_rqr",
+      "entry_name": "6th_street_boss",
+      "phase_name": "sq012_gate",
+      "action": "Activate",
+      "why": "The Animal boss (the venue's owner/head of security) leaning on the warehouse rail above the yard at (675.32,-507.51,9.85). Her other phase is the quest stealth/interrogation scene; sq012_gate is the idle lean pose, so this keeps her present as management without the interrogation."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq012_dev_lift_rqr",
+    "within": 80.0,
+    "why": "The two-floor container lift is the only way between the warehouse yard and the club floor and every route to the club passes it, so the proximity wait arms exactly when the player is at the venue. It is a LiftControllerPS device entity from the venue's device list, not a workspot (rule 8), and it streams in the club interior sector (interior_1_-1_-1_4)."
+  }
+}

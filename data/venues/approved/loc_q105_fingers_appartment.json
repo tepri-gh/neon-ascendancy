@@ -1,0 +1,95 @@
+{
+  "code": "q105_fingers_appartment",
+  "display_name": "Fingers' Clinic, Jig-Jig Street",
+  "why": "Fingers' clinic sits behind an unmarked door on Jig-Jig Street: a stairwell up from the pavement, a waiting room where joytoys queue for cut-rate chrome, the exam room with its netrunner chair, and Fingers' office behind it. Vanilla fills it only from q105 setup/persistent phases, so the clean slate has the rooms and the doors but nobody in them. This proposal restores the queue and the pimp at the clinic door, Fingers' three thugs on the stairs, and the Jig-Jig frontage crowd outside, and declares the quest-design section that owns their spawners and workspots. Fingers himself is not duplicated: cast_and_hubs.json already activates #fingers/fingers/vendor_default through its directly-wired ripperdoc vendor phase.",
+  "source": {
+    "proposal": "research/loc_q105_fingers_appartment/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Lock/seal states at rest are not in the phase data (only Force*/Authorization actions are). Most important: #q105_dvc_fingers_door_office has no terminal, keycard, quickhack or skill check anywhere, and in vanilla only quest dialogue opens it. Confirm on tour that the runtime door policy unseals it, otherwise Fingers' office and the ripperdoc vendor stay unreachable.",
+      "Fingers' own spawner (#fingers) is not resolved to a prefab in the catalogue. cast_and_hubs.json assumes it outside the q105 quest-design section; the tour must confirm he actually appears in the exam room/office once #q105_pr_fingers and the vendor phase are live, and that he is not standing in the patient chair.",
+      "#q105_pr_fingers also holds q105 scene machinery (blood-punch markups, interrogation workspots, timelapse triggers, judy/johnny spline nodes). They should be inert without their phases, but check the office for blood decals or a knocked-out Fingers pose that would contradict 'before anything happened'.",
+      "The prefab's stored variant defaults are not in the extract (the streaming block was not part of this venue's inputs), and the catalogue declares no toggle for #q105_pr_fingers. If the section streams in a staged/blocked state, one variant will have to be added - none is guessable from the files here.",
+      "queue_03's only spot is a double bed in the waiting room. Confirm it reads as a patient waiting between appointments rather than a staged scene; if it looks wrong, drop queue_03 and keep three in the queue.",
+      "The people span two levels (thugs and frontage at z~20.2-20.9, queue and pimp at z~24.9). If the front-door anchor fires before the clinic floor streams, the upstairs re-issue will miss; the fallback is to anchor on #q105_dvc_fingers_door_clinic instead.",
+      "Density is a judgement call: 4 queued joytoys + pimp + 3 thugs + 6 frontage NPCs. If the waiting room is cramped, queue_04 and then queue_03 are the first to drop; if the stairs read as a gang hangout rather than a guarded entrance, goon_03 is the first to drop."
+    ]
+  },
+  "prefabs": [
+    "#q105_pr_fingers"
+  ],
+  "communities": [
+    {
+      "spawner": "#wbr_jpn_jig_fingers_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The Jig-Jig frontage in front of the clinic: a child playing on the ground, a male and a female freak, the pimp smoking on the clinic stairs, and a joytoy couple waiting at the corner. Vanilla switches the whole community on for the duration of q105 (entry/phase None) and every entry's initial phase is `default`, all on relaxed workspots (wall lean, bench drink, ground sleep, chair, stairs smoke). The neighbouring Jig-Jig Street research explicitly left this community to this venue."
+    },
+    {
+      "spawner": "#q105_com_fingers",
+      "entry_name": "goon_upstairs",
+      "phase_name": "continue",
+      "action": "Activate",
+      "why": "Fingers' pimp/bouncer, leaning on the waiting-room wall beside the clinic door (generic__stand_wall_lean_back, spot -572.85, 801.33, 24.9). `continue` is the phase vanilla's own pre-quest setup uses; `confront` is the argument beat and `after_fight` the post-beating state, so both are dropped."
+    },
+    {
+      "spawner": "#q105_com_fingers",
+      "entry_name": "queue_01",
+      "phase_name": "window",
+      "action": "Activate",
+      "why": "First joytoy of the queue, leaning on the clinic window rail and smoking (generic__stand_rail_lean_front_cigarette__smoke, spot -582.11, 800.79, 24.98). `window` is the phase vanilla's setup activates and q105 re-issues; it is the queue's look-at-the-street pose, not a scene."
+    },
+    {
+      "spawner": "#q105_com_fingers",
+      "entry_name": "queue_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Joytoy sitting on a waiting-room chair (generic__sit_chair__sit_around__03, spot -577.4, 801.99, 24.89), the state vanilla's setup puts the queue in while V walks in."
+    },
+    {
+      "spawner": "#q105_com_fingers",
+      "entry_name": "queue_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Joytoy lying on the clinic's waiting bed between appointments (generic__lie_double_bed__lie_around__01, spot -578.39, 797.89, 24.9). The only non-default phase for this entry does not exist, so `default` is the whole choice."
+    },
+    {
+      "spawner": "#q105_com_fingers",
+      "entry_name": "queue_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Fourth joytoy of the queue, sitting on the other waiting-room chair (generic__sit_chair__sit_around__01, spot -577.23, 798.4, 24.94)."
+    },
+    {
+      "spawner": "#q105_com_fingers_combat",
+      "entry_name": "goon_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "One of Fingers' three thugs on the clinic stairs, sitting on the rail (generic__sit_stairs_lean_back__sit_around, spot -581.77, 802.74, 20.3). `start` is the relaxed pre-quest pose vanilla's setup activates; `attack` and `outside` are the fight and the post-fight escape and are dropped. Catalogue tags the record civilian from its name; it is armed muscle, so it ranks above the queue under rule 11a."
+    },
+    {
+      "spawner": "#q105_com_fingers_combat",
+      "entry_name": "goon_02",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second thug, standing around at the foot of the stairs (generic__stand_ground__stand_around__02, spot -579.95, 802.01, 20.9). Same setup-phase choice as goon_01; `non_hostile` is the quest's truce state, not the pre-quest look."
+    },
+    {
+      "spawner": "#q105_com_fingers_combat",
+      "entry_name": "goon_03",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Third thug, eating takeout on the stairs (generic__sit_chair_asian_takeout__eat, spot -581.75, 804.1, 20.21) - the most obviously off-duty of the three and the reason the group reads as standing guard rather than waiting for a fight."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q105_dvc_fingers_door_front",
+    "within": 80.0,
+    "why": "The clinic's street door at the foot of the stairs (DoorControllerPS, full path in input.json devices: $/03_night_city/c_westbrook/japan_town/#loc_q105_fingers_appartment/loc_q105_fingers_appartment_gameplay_prefabW2XC33A/#loc_q105_fingers_appartment_devices/{q105_pr_dvc_fingers_door_front}_prefabPIDP6XA/#q105_dvc_fingers_door_front). It is a device entity, not a workspot (rule 8), vanilla drives it from q105_fingers (ForceEnabled), and it streams in exactly where V arrives, so the proximity re-issue fires before the two floors (street z~20.5, clinic z~24.9) are needed."
+  }
+}
