@@ -1,0 +1,65 @@
+{
+  "code": "sts_hey_rey_09",
+  "display_name": "8ug8ear's Apartment Building (Salinas St.)",
+  "why": "A small Japantown apartment block on Salinas St. where the netrunner 8ug8ear lives and works, with a basement landing used by the building's poorer residents. In vanilla it is only ever populated by the gig 'Getting Warmer...', which activates it as a Tyger Claw-occupied combat scene. This proposal restores the building's normal life: 8ug8ear at her netrunner chair and the basement residents, without the gang takeover, the violence victim, or Wakako's extraction transport.",
+  "source": {
+    "proposal": "research/loc_sts_hey_rey_09/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand on Salinas St. at the building entrance and check the street door opens. It should be powered and usable without the gig, by whatever the runtime door policy leaves enabled.",
+      "Enter 8ug8ear's apartment and check she is seated in the netrunner chair. She should be in the default netrun pose, not lying incapacitated on the floor.",
+      "Scan the building for Tyger Claws. No sts_hey_rey_09_sec, sts_hey_rey_09_mb, sts_hey_rey_09_officer or sts_hey_rey_09_katana NPCs should be present, and no reinforcement vehicles should arrive.",
+      "Check the basement landing has the two women, the sleeping junkie and the child. The roof should have no street-violence victim (the excluded rey_09_youngster).",
+      "Check the curb outside for a Wakako van and driver. None should be waiting, since the extraction transport is excluded."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_sts_hey_rey_09_prefab7T4E4TA/#sts_hey_rey_09_openworld/#loc_sts_hey_rey_09_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rey_09_com",
+      "entry_name": "rey_09_target",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "8ug8ear at home in her own apartment: the default phase's only spot is the netrunner chair (generic__lie_netrunner_chair__netrun__01), so she is seated and jacked in, not the incapacitated in_room/throwed states from the gig. In our timeline the Tyger Claws never came for her."
+    },
+    {
+      "spawner": "#rey_09_com",
+      "entry_name": "rey_09_basement_left",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A resident standing on the basement landing using her phone; ambient building life that vanilla's whole-community activation includes."
+    },
+    {
+      "spawner": "#rey_09_com",
+      "entry_name": "rey_09_basement_right",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A second resident sitting on the basement stairs; normal landing life in this poor block."
+    },
+    {
+      "spawner": "#rey_09_com",
+      "entry_name": "rey_09_junkie_sleep",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A junkie asleep on the basement landing; the homeless lie-sleep workspot is an ambient pose, not a story state."
+    },
+    {
+      "spawner": "#rey_09_com",
+      "entry_name": "rey_09_kid",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A child playing with cans beside the basement landing; normal neighbourhood texture."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rey_09_dvc_target_pc",
+    "within": 80.0,
+    "why": "8ug8ear's apartment computer, a ComputerControllerPS 2 m from her chair and the nearest named device to the venue's spots; it is driven by the vanilla openworld setup (ForceON), not a workspot (rule 8)."
+  }
+}

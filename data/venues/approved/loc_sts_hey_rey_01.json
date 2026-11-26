@@ -1,0 +1,59 @@
+{
+  "code": "sts_hey_rey_01",
+  "display_name": "Gustavo Orta's Apartment",
+  "why": "Gustavo Orta's apartment on Petrel St. in Vista del Rey is a Valentino household: an upper-terrace flat with Gustavo and his henchmen, ordinary neighbours on the street outside, and three more of his people loitering in the lower alley by the lift. Vanilla only populates it for Padre's contract, and the only Marta that exists is a comatose body on a corpse workspot. This proposal restores the venue as a lived-in residence: Gustavo in his chair, the six-man apartment crew relaxed inside, the three ground-floor Valentinos below and the four street civilians outside, all from the venue's single street-story prefab.",
+  "source": {
+    "proposal": "research/loc_sts_hey_rey_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm Gustavo is sitting in his office chair and stays calm. Check phase B at his z=51.37 spot: no dialogue starts and he does not turn hostile when you walk in.",
+      "Confirm the six apartment Valentinos are relaxed and on post. They should lean at the table or wall, use tablets, take pills or sit, with weapons holstered and no alert state.",
+      "Check the lower alley for the three ground-floor Valentinos. They should be at the graffiti wall, leaning and drinking at z about 7.4, roughly 40 m below the apartment-door anchor.",
+      "Open the apartment's main door without the gig. Ring the intercom (it should not start a call), then quickhack the keypad or use the 17 Body prompt; confirm the door policy does not leave it sealed.",
+      "Ride the lift from the lower alley to the apartment floor without the gig. If the floor is not selectable, check the catwalk and balcony route through the shutter as the fallback.",
+      "Look into the bedroom and confirm Marta is absent. The bed should be empty, with no corpse, body bag or drop crate left from the gig."
+    ]
+  },
+  "prefabs": [
+    "#sts_hey_rey_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rey_01_civilian_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Four ordinary neighbours on the terrace outside the building: homeless man searching a bin / sitting with a bottle, two tenants on phones, leaning and squatting, and a worker kneeling with a tablet. Vanilla activates the whole community, which lands every entry in its relaxed default phase."
+    },
+    {
+      "spawner": "#rey_01_gustavo_com",
+      "entry_name": "gustavo",
+      "phase_name": "B",
+      "action": "Activate",
+      "why": "Gustavo at home, sitting in his office chair at z=51.37. Vanilla uses phase B when V reaches the flat, and it is the calm, pre-dialogue pose; he is alive and a Valentino resident because the contract on him never exists in our timeline."
+    },
+    {
+      "spawner": "#rey_01_apartment_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Gustavo's six Valentino henchmen inside the flat. Whole-community activation uses each entry's initial phase (enemy_001/003/004/005/006 A_spawn, enemy_002 B), all relaxed: table lean, wall lean, phone, tablet, pills, chair. They read as household security, not a combat scene, and combat groups come first under rule 11a. The miner tags these records civilian; they are Valentino riflemen, an officer and a range guard."
+    },
+    {
+      "spawner": "#rey_01_groud_floor_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Three Valentinos in the lower alley by the lift, at z about 7.4: graffiti spraying, wall lean, drinking from a can. Vanilla's prestate control activates this whole community as the venue's baseline before the gig, so it belongs to the normal look. Records are the same Valentino ground gang as the gig guards."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rey_01_dvc_main_door",
+    "within": 80.0,
+    "why": "The apartment's main door is the venue's normal way in from Petrel St., at the apartment terrace level where the street civilians and the flat's crew are, so it streams with the venue and fires as the player arrives. It is a DoorControllerPS entity vanilla drives here, not a workspot."
+  }
+}

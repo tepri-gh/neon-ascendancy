@@ -1,0 +1,53 @@
+{
+  "code": "sts_wbr_hil_06",
+  "display_name": "Acorn Towers Parking Lot",
+  "why": "A fenced, booth-controlled parking lot under Acorn Towers on Crockett St, used by a 6th Street crew as a stash and chop-shop yard. In vanilla it is the Family Heirloom gig site and only the street-story phases fill it, so with gigs disabled the lot is an empty, powered-down shell. This proposal instantiates the street-story prefab and switches on its own ambient population: twelve 6th Street gangers and eleven of their parked cars in the default hangout state, plus Wyatt Alken smoking against the wall, with the lot's quest security system kept hidden.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_hil_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the Acorn Towers lot through the gates and sliding doors without the gig. Check the lot is reachable on foot and in a car and the runtime door policy opens what it must.",
+      "Stand in the parking bays. Check the twelve 6th Street gangers and eleven parked 6th Street cars are present at their spots and calm, not crouched, armed or hostile.",
+      "Find Wyatt Alken. Check he leans on the wall smoking at the talk spot instead of standing in a quest pose or hunting the player.",
+      "Cross the lot's security and restricted-area triggers. Check entering does not trip an alarm or turn the gang hostile with the security system hidden.",
+      "Open the booth and back rooms. Check the bootleg container, shard, car keys and Johnny's shoes are absent rather than left as orphaned quest props.",
+      "Look at the main access-point terminal by the gate. Check whether it opens the gate; if it does, the gate should stay as vanilla and the door policy should leave it alone."
+    ]
+  },
+  "prefabs": [
+    "#sts_wbr_hil_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#hil_06_com_001",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The lot's ambient 6th Street crew and their vehicles: eleven 6th Street cars in their bays plus twelve gangers on tablet, tool, welding, drug, graffiti, phone and card-table spots. Vanilla only ever reactivates this whole community after the gig; every entry's initial phase is default and every resolved spot is an idle workspot, so it is the calm, pre-gig look for a gang-held parking lot. Combat group kept first under population priority."
+    },
+    {
+      "spawner": "#hil_06_com",
+      "entry_name": "boss",
+      "phase_name": "talk",
+      "action": "Activate",
+      "why": "Wyatt Alken, the 6th Street boss who holds the lot, leaning on the wall for a smoke. The talk phase is the calm, resolved-spot version; the other boss phases are the car/keys/write quest beats or have no spots, and the quest encounters themselves never run."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/charter_hill/loc_sts_wbr_hil_06_prefabX6XF3BA/#loc_sts_wbr_hil_06_gameplay/loc_sts_wbr_hil_06_devices_prefabNB27R4I",
+      "states": {
+        "sec_sys": 0
+      },
+      "why": "The lot's security-system variant. The street-story open-world and bugfix phases hide it (show 0); only the combat gameplay phase shows it (show 1). A normal, open-for-business lot should not have the quest security system armed, so keep it hidden at boot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#hil_06_dvc_gate_001",
+    "within": 80.0,
+    "why": "The lot gate on the normal way in: a DoorControllerPS device streamed with the venue's devices prefab, so the post-proximity re-issue fires as the player reaches the lot. A door, not a workspot."
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "code": "sts_hey_rey_06",
+  "display_name": "La Catrina Funeral Home",
+  "why": "La Catrina is the Valentino-controlled funeral home at Phalarope and Plover in Vista del Rey: a public lobby with a reception desk, a chapel, a guarded employee-only morgue in the basement and a garage/backdoor on Phalarope. In vanilla the only open-world crowd is gated behind the finished Jeopardy gig, so in the clean slate the building stands empty. This proposal restores the venue's own post-gig ambient crowd (-rey_06_crowd_com: the receptionist, two after-work visitors and one Valentino guard) and leaves the gig's staged funeral, ambush squad and hacked hologram out. The street-story prefab is already instantiated by a kept vanilla phase, so only the people need activating.",
+  "source": {
+    "proposal": "research/loc_sts_hey_rey_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the lobby and confirm the receptionist, two after-work visitors and one Valentino guard are present at their posts. Check that only one receptionist appears (the quest crowd's receptionist must not be activated too).",
+      "Confirm the lobby employee-only morgue door is powered and usable. It is the proposal's proximity anchor; the door policy should log a DoorPolicy decision for it.",
+      "Check the Plover Street main entrance opens normally. It is not a quest device, so nothing in this proposal touches it; if it is shut, it needs a separate world-door look.",
+      "Walk down into the morgue and confirm it is empty of quest bodies, the operating-table props and Jim Greyer's shard.",
+      "Visit at night and confirm the funeral home still looks staffed. Our activation ignores the vanilla post-gig time windows, so the lobby crowd stays on duty around the clock."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#rey_06_crowd_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "La Catrina's own open-world crowd: the funeral home receptionist (Character.sts_hey_rey_06_receptionist) on the reception chair, a CorpoManAfterWork and CorpoWomanAfterWork as visitors on pray/sit/stand/think spots, and one Valentino grunt (Character.rey_valentinos_grunt2_ranged2_nue_ma) on the guard/stand-around spots. Vanilla activates the whole community from the Vista del Rey community phase after the Jeopardy gig (fact rey_06_com_ready), so it is the authored 'business as usual' population, not a quest scene; no activation in the clean slate sets that fact, so the venue stays empty. Roles follow rule 11a: the group carries the only ambient combatant and is kept whole rather than splitting the guard out."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#rey_06_private_door",
+    "within": 80.0,
+    "why": "The employee-only morgue door off the lobby, a DoorControllerPS that streams with the venue and sits at the crowd's own level next to the reception/guard spots; the front entrance is not a quest device, so this is the nearest driven door on the player's way through the public area (rule 8: a device, not a workspot)."
+  }
+}

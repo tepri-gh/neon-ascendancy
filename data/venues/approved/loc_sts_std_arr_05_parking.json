@@ -1,0 +1,46 @@
+{
+  "code": "sts_std_arr_05_parking",
+  "display_name": "Kendachi factory parking lot (Rancho Coronado)",
+  "why": "This is the Kendachi plant's parking lot and garage in Rancho Coronado: a fenced yard with a raised walkway, yard gates, a building with a main door, a security outpost and a rooftop window. Vanilla only puts people here for the Breaking News gig, when Ted Fox waits in his car outside while V sneaks in and plants a tracker on the Kendachi transport. This proposal keeps the one quest prefab the venue needs and activates the factory's own eight-strong security detail in its only on-post phase (A), leaving Ted Fox, his car and the alerted phase (B) out. Doors and the transport's presence are left to the runtime door policy and a tour check.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_05_parking/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the eight Kendachi guards are on post and look calm, not clustered at the spawner or frozen. Every phase-A spot is an idle pose (coffee, cigarette, phone, rail lean, device fix, tablet, patrol), but the catalogue has no community-area node for this community, so its posture is unverified.",
+      "Walk into the lot unarmed and see how the guards react. A security_area_restricted controller sits at (-284.35, -1725.0, 7.44); if they open fire on sight, the venue is a restricted yard, not the calm factory lot this proposal assumes.",
+      "Check the front door and both yard gates open. Vanilla leaves them closed and unpowered; the runtime door policy should power them, and a quickhack or the security keycard should get you inside.",
+      "Check the Kendachi transport is parked in its spot and behaves like a normal vehicle (enter, drive away).",
+      "Look at the parking lot: is there more than the one parked Columbus? If it reads empty, vanilla's six fluff-car spawners need an activation this proposal cannot express."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_arr_05_parking_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_05_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The factory's whole security detail (eight Independent security guards) in its initial phase A. Every phase-A spot is an idle on-post pose: fixing a device, leaning on a rail, standing around, drinking coffee, using a tablet, smoking, a standing patrol, checking a phone. Vanilla activates the same community whole from the bugfixing and openworld phases; phase B is only guard_001/002's combat reposition and is not used. This is the combat-role group the population rule puts first.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_05_com",
+      "entry_name": "truck",
+      "phase_name": "garage",
+      "action": "Activate",
+      "why": "The Kendachi transport parked in its own marked spot in the yard (-298.89, -1744.6), so the lot reads as a factory with its vehicle present rather than a bare slab. Vanilla activates this entry from the same openworld phase that sets the venue up; no gig runs here, so it is just factory property.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_05_main_door",
+    "within": 80.0,
+    "why": "The factory building's front door, on the normal way in from the yard: a DoorControllerPS the openworld phase already drives (ForceClose/ForcePower/ForceUnpower), so it streams with the venue and is a device, not a workspot. The venue drives no terminal or gate closer to the guards' spots, and its device positions are unset in the catalogue, so the main entrance is the safest anchor."
+  }
+}

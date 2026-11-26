@@ -1,0 +1,119 @@
+{
+  "code": "sts_bla_ina_04",
+  "display_name": "Sunshine Motel (Militech Outpost)",
+  "why": "The Sunshine Motel in Rocky Ridge (Badlands), a defunct motel on Interstate 9 that Militech has walled, gated and turned into a forward base: a fenced yard with a guard booth, outside guard posts, an office block, a garage bay where the P9D/2.161 mobile-radar van is being tested, and a crew of Militech troopers, technicians and androids. Vanilla only populates it while Gig: Radar Love runs, and then only as a target. This proposal loads the outpost's own quest section and puts its crew back on post in their relaxed idle phases: the officer, an enforcer, a ranger, an upper-walkway sentry, three technicians, the garage techie, a brawler sparring with an android, and the two Militech vehicles parked by the garage.",
+  "source": {
+    "proposal": "research/loc_sts_bla_ina_04/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Watch the boxing pair in the garage bay. The brawler and the android should both spawn on the synced robot-boxing workspots and spar calmly; if only one appears the synced spot failed and the pair should be dropped.",
+      "Count the calm crew: twelve entries on post, nobody in a combat stance. The three agitated patrol entries (droid, droid_up, guard_05) are deliberately not activated.",
+      "Walk up to the guard booth and check the way in. The motel front sliding door is closed and unpowered in vanilla with no terminal, keycard or skill check wired to it, so confirm the door policy opens it or it is quickhackable.",
+      "Check the garage window shutter #ina_04_dvc_shutters. Vanilla forces it open as the gig's secondary route; confirm whether a quickhack still opens it or the window route is lost, and that the garage door covers the loss.",
+      "Look at the two parked vehicles. The radar van and the Emperor should sit parked without objective markers or quest locks, and the van should be the P9D/2.161 prototype the technician is working on.",
+      "Check the outpost's turrets and cameras (#ina_04_dvc_turret_01, #ina_04_dvc_turret_02, #ina_04_dvc_turret_004, #ina_04_dvc_camera_004). No restored phase drives them, so confirm they stay passive while you walk the yard and do not start a combat event.",
+      "Enter the yard and watch the Militech crew's attitude. The always-loaded gameplay devices prefab carries a #ina_04_dvc_security_area_restricted volume, so confirm whether walking in counts as trespass and turns the outpost hostile; if it does, the crew cannot be met calmly.",
+      "Check the upper walkway sentry. guard_08 stands about 13 m above the yard on the motel's upper level; confirm he is on a real walkway with a standing patrol pose and not floating or stuck against a rail."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/loc_sts_bla_ina_04_prefab4S72U5Q/#loc_sts_bla_ina_04_openworld"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_01",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The outpost's Militech officer, the man in charge. Vanilla only ever puts him in quest beats (after, phone, scene) during the gig; 0spawn is the same officer's ordinary post at #ina_04_ws_officer_idle, a plain routine stand in the courtyard (3649, -919). He is the base's owner-equivalent and the first person a visitor should meet."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_03",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A shotgun-armed Militech enforcer at a routine stand in the yard (3620, -928), the muscle of a checkpoint that is expecting nomads. Relaxed workspot, so he stands his post rather than looking for a fight."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "novice1",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The young ranger on the outside guard line at the south-west corner (3612, -931), on generic__stand_ground__guard__01. He fills the outside posts that vanilla covers with #ina_04_spl_outside_guard_01 and #ina_04_ws_outside_guard_01_*."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_08",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The sentry on the motel's upper walkway (3665, -926, z 133, about 13 m above the yard) on patrolling\\guard_stand, the standing patrol pose rather than the agitated shuffle. A walled base with a roof and water tank needs one pair of eyes up there."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "fighter",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The big off-duty brawler in the garage bay, on the synced__male_big__robot_boxing workspot that pairs with the android's synced__male_average__robot_boxing spot 1 m away. Vanilla built the pair as a sparring match (#ina_04_ws_crowd_fighter, #ina_04_ws_crowd_fighter_big); it is the outpost's own entertainment and needs no quest."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "droid_fighter",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The sparring android on the other half of the synced robot-boxing pair. Both entries are needed for the synced workspot to play; without it the brawler stands alone in an empty ring."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "techie_garage",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The garage technician working the radar van, on generic__stand_ground_tablet__use__01 at (3646, -934) next to the van spot. He is why the prototype is there: somebody has to keep P9D/2.161 running."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_02",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A technician at a routine stand by the office end of the motel (3649, -910), where the officer's computer and a tech laptop sit. His other catalogue phase, resting, has no spot map; 0spawn is the one with a real workspot, so the base gets a working technician instead of a man mid-animation."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_07",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The second technician, on a tablet at the outside posts (3616, -921), the sort of body the #ina_04_ws_orders_techie_patrol_0x spots exist for: a crew chief checking work orders."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "guard_04",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A trooper off his post in the yard (3612, -929), on generic__stand_ground__look_at_products / arms-crossed stand. Two workspots, both idle loiter poses: he reads as one of the crew killing time in the yard."
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "antenna_car",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The P9D/2.161 mobile radar van itself, parked at its own spot in the garage bay (3648, -937). It is the reason the outpost exists, so the venue reads wrong without it. Tour check because a vehicle entry has no posture of its own and this record is also the gig's objective vehicle: confirm it sits parked with no objective marker and no quest lock.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_04_com_outpost_crew",
+      "entry_name": "chase_car_01",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "A Militech Chevalier Emperor parked in the yard (3628, -939) beside the van: the outpost's own transport, the same car vanilla sends after V in the escape chase. Tour check that it is a plain parked car and does not belong to the chase segment.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#ina_04_dvc_guard_booth_computer",
+    "within": 80.0,
+    "why": "The guard booth on the south-west side of the yard at (3617, -909), where vanilla keeps #ina_04_ws_booth_guard_inside and the outside guard posts (novice1, guard_07, guard_04) cluster twelve to twenty metres away; a visitor walking the yard passes it. A device vanilla drives here (ForceUnpower in the openworld phase), not a workspot."
+  }
+}

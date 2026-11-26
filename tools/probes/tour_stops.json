@@ -3182,6 +3182,74 @@
    ]
   },
   {
+   "code": "sts_hey_gle_03",
+   "name": "Gaston Slayton's Apartment (Lobos St, floor 17)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_gle_03",
+   "pos": [
+    -1445.92,
+    -1044.64,
+    77.55
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.SlackerFemaleDE",
+    "Character.SlackerMaleDE",
+    "Character.WorkerMaleDE",
+    "Character.sts_hey_gle_03_sec_med",
+    "Character.sts_hey_gle_03_sec_short",
+    "Character.sts_hey_gle_03_sec_shotgun"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #gle_03_comm (12 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: security/0default, security7/default, security_vehicle/0default, security3/0default, sec_top/0default, security_roof_02/default, sec_av/0default, worker_roof/A, worker_roof_02/A, ma_rec_001/default, ma_rec_002/default, wa_rec_001/default.",
+     "source": "community"
+    },
+    {
+     "label": "Send the lobby lift to floor 17 in a clean save.",
+     "detail": "Send the lobby lift to floor 17 in a clean save. Vanilla only powers the lift when the gig hands over elevator access, and no floor terminal or lift controller for this tower appears in the venue's device data, so if floor 17 is not offered the apartment has no way in and needs its floor authorization fixed (playbook rule 13).",
+     "source": "open question"
+    },
+    {
+     "label": "Stand in the ground-floor lobby and check the people: security holds the entrance, security7 walks his patrol, the Emperor is parked outside, and m...",
+     "detail": "Stand in the ground-floor lobby and check the people: security holds the entrance, security7 walks his patrol, the Emperor is parked outside, and ma_rec_001/002 plus wa_rec_001 sit calmly; none of them should aim at you or crouch.",
+     "source": "open question"
+    },
+    {
+     "label": "Ride to floor 17 and look at the apartment door: security3 and sec_top should stand on the landing with rifles held but not raised, and the front d...",
+     "detail": "Ride to floor 17 and look at the apartment door: security3 and sec_top should stand on the landing with rifles held but not raised, and the front door should still ask for its Technical check.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the roof and AV pad: two workers should be working, security_roof_02 should stand by the pad, and the Zetatech AV should sit on the pad wit...",
+     "detail": "Look at the roof and AV pad: two workers should be working, security_roof_02 should stand by the pad, and the Zetatech AV should sit on the pad without hovering, clipping the roof or blocking the stair exit.",
+     "source": "open question"
+    },
+    {
+     "label": "Check apartment 1702 is intact before the gig: no NCPD crime scene, no chalk outlines or bodies, no after_sts clutter, and the balcony route still...",
+     "detail": "Check apartment 1702 is intact before the gig: no NCPD crime scene, no chalk outlines or bodies, no after_sts clutter, and the balcony route still reachable from the roof fire exit.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_hey_gle_04",
    "name": "El Pinche Pollo",
    "kind": "approved",
@@ -3748,6 +3816,67 @@
      "label": "Go to (-1674, -208, 15), about 306 m from this stop.",
      "detail": "Go to (-1674, -208, 15), about 306 m from this stop. Reconciliation Park, the Glen (sq006_park_meeting): busy on an ordinary day; no waiting Jefferson, Johnny marker, balcony watcher or meeting-corner staging. Wave 14: nothing to restore, so no venue entry.",
      "source": "extra"
+    }
+   ]
+  },
+  {
+   "code": "sts_hey_rey_06",
+   "name": "La Catrina Funeral Home",
+   "kind": "approved",
+   "venue": "loc_sts_hey_rey_06",
+   "pos": [
+    -1120.05,
+    -654.52,
+    8.27
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoManAfterWork",
+    "Character.CorpoWomanAfterWork",
+    "Character.rey_valentinos_grunt2_ranged2_nue_ma",
+    "Character.sts_hey_rey_06_receptionist"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the lobby and confirm the receptionist, two after-work visitors and one Valentino guard are present at their posts.",
+     "detail": "Walk into the lobby and confirm the receptionist, two after-work visitors and one Valentino guard are present at their posts. Check that only one receptionist appears (the quest crowd's receptionist must not be activated too).",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the lobby employee-only morgue door is powered and usable.",
+     "detail": "Confirm the lobby employee-only morgue door is powered and usable. It is the proposal's proximity anchor; the door policy should log a DoorPolicy decision for it.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the Plover Street main entrance opens normally.",
+     "detail": "Check the Plover Street main entrance opens normally. It is not a quest device, so nothing in this proposal touches it; if it is shut, it needs a separate world-door look.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk down into the morgue and confirm it is empty of quest bodies, the operating-table props and Jim Greyer's shard.",
+     "detail": "Walk down into the morgue and confirm it is empty of quest bodies, the operating-table props and Jim Greyer's shard.",
+     "source": "open question"
+    },
+    {
+     "label": "Visit at night and confirm the funeral home still looks staffed.",
+     "detail": "Visit at night and confirm the funeral home still looks staffed. Our activation ignores the vanilla post-gig time windows, so the lobby crowd stays on duty around the clock.",
+     "source": "open question"
     }
    ]
   },
@@ -7237,6 +7366,78 @@
    ]
   },
   {
+   "code": "sts_hey_rey_01",
+   "name": "Gustavo Orta's Apartment",
+   "kind": "approved",
+   "venue": "loc_sts_hey_rey_01",
+   "pos": [
+    -976.85,
+    85.86,
+    48.35
+   ],
+   "radius": 44.3,
+   "expected_records": [
+    "Character.HomelessMan",
+    "Character.TenantMale",
+    "Character.TenantWoman",
+    "Character.WorkerMale",
+    "Character.sts_hey_rey_01_gustavo",
+    "Character.sts_hey_rey_01_officer",
+    "Character.sts_hey_rey_01_valentions_apartment_range",
+    "Character.sts_hey_rey_01_valentions_apartment_range_wa",
+    "Character.sts_hey_rey_01_valentions_apartment_rifleman",
+    "Character.sts_hey_rey_01_valentions_ground"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Confirm Gustavo is sitting in his office chair and stays calm.",
+     "detail": "Confirm Gustavo is sitting in his office chair and stays calm. Check phase B at his z=51.37 spot: no dialogue starts and he does not turn hostile when you walk in.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the six apartment Valentinos are relaxed and on post.",
+     "detail": "Confirm the six apartment Valentinos are relaxed and on post. They should lean at the table or wall, use tablets, take pills or sit, with weapons holstered and no alert state.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the lower alley for the three ground-floor Valentinos.",
+     "detail": "Check the lower alley for the three ground-floor Valentinos. They should be at the graffiti wall, leaning and drinking at z about 7.4, roughly 40 m below the apartment-door anchor.",
+     "source": "open question"
+    },
+    {
+     "label": "Open the apartment's main door without the gig.",
+     "detail": "Open the apartment's main door without the gig. Ring the intercom (it should not start a call), then quickhack the keypad or use the 17 Body prompt; confirm the door policy does not leave it sealed.",
+     "source": "open question"
+    },
+    {
+     "label": "Ride the lift from the lower alley to the apartment floor without the gig.",
+     "detail": "Ride the lift from the lower alley to the apartment floor without the gig. If the floor is not selectable, check the catwalk and balcony route through the shutter as the fallback.",
+     "source": "open question"
+    },
+    {
+     "label": "Look into the bedroom and confirm Marta is absent.",
+     "detail": "Look into the bedroom and confirm Marta is absent. The bed should be empty, with no corpse, body bag or drop crate left from the gig.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_wbr_jpn_05_burned_store",
    "name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
    "kind": "approved",
@@ -7535,6 +7736,145 @@
     {
      "label": "The billboards can only be switched to the launched 'Passion' campaign, not to a neutral ad; if the baked default is the teaser campaign, the venue...",
      "detail": "The billboards can only be switched to the launched 'Passion' campaign, not to a neutral ad; if the baked default is the teaser campaign, the venue will carry quest marketing that cannot be removed with the available variants.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_hey_rey_09",
+   "name": "8ug8ear's Apartment Building (Salinas St.)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_rey_09",
+   "pos": [
+    -553.13,
+    1299.85,
+    37.27
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ChildPoorDE",
+    "Character.JunkieMaleDE",
+    "Character.MorningCrowdWoman",
+    "Character.sts_hey_rey_09_tobias"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Stand on Salinas St.",
+     "detail": "Stand on Salinas St. at the building entrance and check the street door opens. It should be powered and usable without the gig, by whatever the runtime door policy leaves enabled.",
+     "source": "open question"
+    },
+    {
+     "label": "Enter 8ug8ear's apartment and check she is seated in the netrunner chair.",
+     "detail": "Enter 8ug8ear's apartment and check she is seated in the netrunner chair. She should be in the default netrun pose, not lying incapacitated on the floor.",
+     "source": "open question"
+    },
+    {
+     "label": "Scan the building for Tyger Claws.",
+     "detail": "Scan the building for Tyger Claws. No sts_hey_rey_09_sec, sts_hey_rey_09_mb, sts_hey_rey_09_officer or sts_hey_rey_09_katana NPCs should be present, and no reinforcement vehicles should arrive.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the basement landing has the two women, the sleeping junkie and the child.",
+     "detail": "Check the basement landing has the two women, the sleeping junkie and the child. The roof should have no street-violence victim (the excluded rey_09_youngster).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the curb outside for a Wakako van and driver.",
+     "detail": "Check the curb outside for a Wakako van and driver. None should be waiting, since the extraction transport is excluded.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_jpn_02_monoblade_workshop",
+   "name": "Monokatana Workshop (Raymond St, Japantown)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_02_monoblade_workshop",
+   "pos": [
+    -255.66,
+    1636.59,
+    41.17
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.jpn_02_basement",
+    "Character.jpn_02_ground_exo",
+    "Character.jpn_02_ground_rifle",
+    "Character.jpn_02_officer",
+    "Character.jpn_02_worker",
+    "Character.jpn_02_worker_f"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk in from Raymond Street and confirm the gate route works.",
+     "detail": "Walk in from Raymond Street and confirm the gate route works. Vanilla closes and unpowers the main gate, the inner single door, doors 003/005 and the window; check that a player can reach the workshop floor and the basement stair without a terminal or keycard, and report any door the runtime policy had to open.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the ground-floor Tyger Claws when you walk in.",
+     "detail": "Watch the ground-floor Tyger Claws when you walk in. In vanilla a first-conversation beat (fact jpn_02_first_ground_chat_end) precedes the fight, and no scene runs here, so the officer, two rifle guards and four exo heavies should stand at their smoke/lean/guard/patrol spots; confirm they do not open fire on sight and do not stand in a combat stance.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the people on the floor.",
+     "detail": "Count the people on the floor. Seven ground entries plus two gate sentries outside plus four basement hands should be visible; if the ground floor looks crowded, tell the lead to drop the two exo heavies whose spots sit far from the shop floor.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the basement.",
+     "detail": "Look at the basement. Two hands at the tablet/inspect benches, the welder at the z=41 workshop spot, the patrol walking the storage floor, and nobody tied up, crouched or screaming; confirm the cell door is shut and empty.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the upper walkway guard.",
+     "detail": "Check the upper walkway guard. Enemy11 spawns at z=47.35 on a patrolling_stand spot above the yard; confirm he is standing on the walkway and not floating or stuck in geometry.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the interior is complete and free of quest props.",
+     "detail": "Confirm the interior is complete and free of quest props. The declared prefab is vanilla's openworld section for the gig, so look for a hostage chair, ties, interrogation props or a closed-off cell that should not be in a working shop.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the VenueProbe log on approach.",
+     "detail": "Watch the VenueProbe log on approach. The anchor is the main gate door entity as a full $/ path; confirm _prox is reached, since the gate is the first thing the player meets and the rest of the venue deps on it.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm nothing starts the gig.",
+     "detail": "Confirm nothing starts the gig. The prefab also carries the street-story manager's trigger and map-pin plumbing; walking in must not start We Have Your Wife or spawn a quest marker.",
      "source": "open question"
     }
    ]
@@ -8023,6 +8363,72 @@
      "label": "Go to (694, -639, 10), about 170 m from this stop.",
      "detail": "Go to (694, -639, 10), about 170 m from this stop. Container Freight Station bay (Panam's q103 meeting point): it reads as an ordinary freight bay, with no Panam, car or meeting dressing. Wave 12: nothing to restore, so no venue entry.",
      "source": "extra"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_hil_06",
+   "name": "Acorn Towers Parking Lot",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_hil_06",
+   "pos": [
+    440.03,
+    -441.54,
+    2.58
+   ],
+   "radius": 46.6,
+   "expected_records": [
+    "Character.sts_wbr_hil_06_6th_street_ganger",
+    "Character.sts_wbr_hil_06_6th_street_ganger_wa",
+    "Character.sts_wbr_hil_06_6th_street_marksman_ma",
+    "Character.sts_wbr_hil_06_wyatt_alken"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the Acorn Towers lot through the gates and sliding doors without the gig.",
+     "detail": "Walk into the Acorn Towers lot through the gates and sliding doors without the gig. Check the lot is reachable on foot and in a car and the runtime door policy opens what it must.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand in the parking bays.",
+     "detail": "Stand in the parking bays. Check the twelve 6th Street gangers and eleven parked 6th Street cars are present at their spots and calm, not crouched, armed or hostile.",
+     "source": "open question"
+    },
+    {
+     "label": "Find Wyatt Alken.",
+     "detail": "Find Wyatt Alken. Check he leans on the wall smoking at the talk spot instead of standing in a quest pose or hunting the player.",
+     "source": "open question"
+    },
+    {
+     "label": "Cross the lot's security and restricted-area triggers.",
+     "detail": "Cross the lot's security and restricted-area triggers. Check entering does not trip an alarm or turn the gang hostile with the security system hidden.",
+     "source": "open question"
+    },
+    {
+     "label": "Open the booth and back rooms.",
+     "detail": "Open the booth and back rooms. Check the bootleg container, shard, car keys and Johnny's shoes are absent rather than left as orphaned quest props.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the main access-point terminal by the gate.",
+     "detail": "Look at the main access-point terminal by the gate. Check whether it opens the gate; if it does, the gate should stay as vanilla and the door policy should leave it alone.",
+     "source": "open question"
     }
    ]
   },
@@ -8616,6 +9022,75 @@
    ]
   },
   {
+   "code": "sts_bls_ina_03",
+   "name": "Union Railroad Station (Wraiths outpost)",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_03",
+   "pos": [
+    1891.29,
+    -549.57,
+    54.79
+   ],
+   "radius": 87.3,
+   "expected_records": [
+    "Character.ina_03_med_range_hard",
+    "Character.ina_03_med_range_med",
+    "Character.ina_03_wraiths_ghost2_sniper2_achilles_ma_rare",
+    "Character.ina_03_wraiths_grunt2_melee2_crowbar_ma",
+    "Character.ina_03_wraiths_operator3_shotgun2_crusher_ma_rare",
+    "Character.ina_03_wraiths_strong_gunner3_hmg_mb_elite",
+    "Character.ina_03_wraiths_warrior3_shotgun3_palica_ma_elite"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #ina_03_comm (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: guard_01/0default.",
+     "source": "community"
+    },
+    {
+     "label": "Walk into the station from the road without the gig and check every door on the way.",
+     "detail": "Walk into the station from the road without the gig and check every door on the way. The gig route enters the main building and uses the ground-floor computer, so the doors should be passable; if a location door is sealed with no quest running, report which one, because the venue has no quest door actions for the runtime door policy to act on.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the Wraiths on the grounds and inside the station.",
+     "detail": "Count the Wraiths on the grounds and inside the station. Expect 14 at their posts (gate, yard, tower, roof, upper floor, interior); if they cluster at one spot or stand in cover, the individual 0default activations are not resolving and the whole-community form (blocked by the catalogue's alert posture) may be needed.",
+     "source": "open question"
+    },
+    {
+     "label": "Look up at the roof and tower.",
+     "detail": "Look up at the roof and tower. guard_02 sits around z 70.8 and guard_06 around z 66.8; confirm the roof is reachable on foot and that a locked lift door is not the only way up there.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the station's security.",
+     "detail": "Check the station's security. Gate turrets and cameras are vanilla location devices and the proposal deliberately drives no device actions; confirm they are live and not left dead by a missing quest.",
+     "source": "open question"
+    },
+    {
+     "label": "Decide the #ina_03_crowd_com question.",
+     "detail": "Decide the #ina_03_crowd_com question. bad_ina_phase activates a separate 5-Wraith crowd there whole, but the catalogue did not attach that community to this venue; if the yard still reads empty between the 14 garrison posts, add it in a follow-up venue entry.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q103_mine_ambush",
    "name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
    "kind": "approved",
@@ -8963,6 +9438,91 @@
     {
      "label": "Whether the camp's radio (#q114_nomad_camp_02_player_radio) is close enough to the entrance to fire the proximity wait when the player drives in; i...",
      "detail": "Whether the camp's radio (#q114_nomad_camp_02_player_radio) is close enough to the entrance to fire the proximity wait when the player drives in; if not, a gate terminal or the camp stash device would be the alternative anchor.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_bla_ina_04",
+   "name": "Sunshine Motel (Militech Outpost)",
+   "kind": "approved",
+   "venue": "loc_sts_bla_ina_04",
+   "pos": [
+    3628.57,
+    -929.77,
+    120.62
+   ],
+   "radius": 52.4,
+   "expected_records": [
+    "Character.ina_04_bad_technician",
+    "Character.ina_04_long_hard",
+    "Character.ina_04_med_hard",
+    "Character.ina_04_militech_android_android2_ajax_ma",
+    "Character.ina_04_militech_enforcer2_shotgun2_tactician_mah_rare",
+    "Character.ina_04_militech_officer",
+    "Character.ina_04_militech_ranger2_ranged2_ajax_ma",
+    "Character.ina_04_militech_strongarms_hmelee3_fists_mb_elite"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #ina_04_com_outpost_crew (2 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: antenna_car/0spawn, chase_car_01/0spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Watch the boxing pair in the garage bay.",
+     "detail": "Watch the boxing pair in the garage bay. The brawler and the android should both spawn on the synced robot-boxing workspots and spar calmly; if only one appears the synced spot failed and the pair should be dropped.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the calm crew: twelve entries on post, nobody in a combat stance.",
+     "detail": "Count the calm crew: twelve entries on post, nobody in a combat stance. The three agitated patrol entries (droid, droid_up, guard_05) are deliberately not activated.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk up to the guard booth and check the way in.",
+     "detail": "Walk up to the guard booth and check the way in. The motel front sliding door is closed and unpowered in vanilla with no terminal, keycard or skill check wired to it, so confirm the door policy opens it or it is quickhackable.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the garage window shutter #ina_04_dvc_shutters.",
+     "detail": "Check the garage window shutter #ina_04_dvc_shutters. Vanilla forces it open as the gig's secondary route; confirm whether a quickhack still opens it or the window route is lost, and that the garage door covers the loss.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the two parked vehicles.",
+     "detail": "Look at the two parked vehicles. The radar van and the Emperor should sit parked without objective markers or quest locks, and the van should be the P9D/2.161 prototype the technician is working on.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the outpost's turrets and cameras (#ina_04_dvc_turret_01, #ina_04_dvc_turret_02, #ina_04_dvc_turret_004, #ina_04_dvc_camera_004).",
+     "detail": "Check the outpost's turrets and cameras (#ina_04_dvc_turret_01, #ina_04_dvc_turret_02, #ina_04_dvc_turret_004, #ina_04_dvc_camera_004). No restored phase drives them, so confirm they stay passive while you walk the yard and do not start a combat event.",
+     "source": "open question"
+    },
+    {
+     "label": "Enter the yard and watch the Militech crew's attitude.",
+     "detail": "Enter the yard and watch the Militech crew's attitude. The always-loaded gameplay devices prefab carries a #ina_04_dvc_security_area_restricted volume, so confirm whether walking in counts as trespass and turns the outpost hostile; if it does, the crew cannot be met calmly.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the upper walkway sentry.",
+     "detail": "Check the upper walkway sentry. guard_08 stands about 13 m above the yard on the motel's upper level; confirm he is on a real walkway with a standing patrol pose and not floating or stuck against a rail.",
      "source": "open question"
     }
    ]

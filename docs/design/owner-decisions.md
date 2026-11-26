@@ -416,3 +416,40 @@ the non-combat people. **(after tour)**
      restore). Leave the upstairs clinic as the ripper's empty flat until
      `hvdr_03` is researched, or add `ripperdoc/start` there? Name it for
      the diner and clinic rather than the cut quest's "killer's apartment"?
+
+## 10. Wave 15
+
+120. **La Catrina funeral home** (`sts_hey_rey_06`). Ambient crowd only
+     (recommended) or a permanent wake? An empty morgue (recommended) or
+     two Valentino morticians? Staffed around the clock (recommended) or
+     time-gated?
+121. **Sunshine Motel, Militech outpost** (`sts_bla_ina_04`). Restore the
+     fight's reinforcement staging (recommended no)? Keep the radar van and
+     Emperor parked (recommended yes)? Leave the always-loaded restricted
+     area live for now (see 78)? Confirm it reads as an occupied Militech
+     base, not a derelict motel?
+122. **8ug8ear's building** (`sts_hey_rey_09`). 8ug8ear present in normal
+     play (recommended)? Wakako's driver and van out (recommended)? The
+     Tyger Claw raid crew out (recommended) or reused as building security?
+123. **Union Railroad Station, Wraith outpost** (`sts_bls_ina_03`). All 14
+     guards, or about 8 (guards and snipers first)? The two-Wraith
+     reinforcement car as a standing picket (recommended no)? Add the
+     five-Wraith ambient crowd if the yard reads thin?
+124. **Gustavo's building, Petrel St.** (`sts_hey_rey_01`). Marta out, or an
+     alive or coma pose? The apartment crew at six or two? Keep the lower
+     alley trio? Gustavo ambient, or saved for missions? Lift floor access
+     (see 58).
+125. **Kendachi plant lot** (`sts_std_arr_05_parking`). Ted Fox out
+     (proposed)? Keep or drop the quest's transport? Vanilla restricted-area
+     behaviour, or a freely walkable lot? Activate the six parked-car
+     spawners if the yard reads empty (same gap as 31)?
+126. **Lobos St tower, Gaston Slayton** (`sts_hey_gle_03`). How much private
+     security (reduced recommended)? Keep the parked Zetatech AV? Add Gaston
+     through a new cast entry? Restore his guitar, shrine and collection as
+     dressing? Floor 17 lift access (see 58).
+127. **Monokatana workshop, Raymond St.** (`sts_wbr_jpn_02`). Drop the gig's
+     torturer (proposed) or seat him? Drop the hostage? A hostile-looking
+     hideout or a calm staff (see 78)? All 13 or a trimmed ground crew?
+128. **Acorn Towers lot** (`sts_wbr_hil_06`). Keep the full 12-ganger,
+     11-car crew, or trim it? Dan out, or at his meeting spot? Leave the
+     bar vendor to the casino venue? Security hidden (proposed) or shown?

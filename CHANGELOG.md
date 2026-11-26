@@ -13,6 +13,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 15 (first part): La Catrina, the Sunshine Motel Militech
+  outpost, 8ug8ear's building, the Union Railroad Station Wraith outpost,
+  Gustavo's building, the Kendachi plant lot, the Lobos St tower, the
+  monokatana workshop and the Acorn Towers lot.
 - Research wave 14 (first part): Aaron's Northside flat, the Los Osos
   motel and the Benko St bus depot; six intact venues became tour checks.
   Second part: the Dewdrop Inn, the Longshore Stacks container yard, the

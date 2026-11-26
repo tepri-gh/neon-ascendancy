@@ -1,0 +1,142 @@
+{
+  "code": "sts_hey_gle_03",
+  "display_name": "Gaston Slayton's Apartment (Lobos St, floor 17)",
+  "why": "The Lobos Street apartment tower in The Glen where Samurai collector Gaston Slayton keeps apartment 1702, his shrine room and Kerry Eurodyne's guitar (gig Psychofan). Vanilla only dresses the building and spawns its private security, roof crew and lobby idlers inside the gig phases, so in the clean slate the tower is empty above the street. This proposal restores the streetstory section (which owns every one of those spawners), the calm pre-gig guard posts on the ground floor, floor 17 and the roof, the two roof workers, three lobby idlers and the parked AV, and pins the interior to its intact pre-gig variant.",
+  "source": {
+    "proposal": "research/loc_sts_hey_gle_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Send the lobby lift to floor 17 in a clean save. Vanilla only powers the lift when the gig hands over elevator access, and no floor terminal or lift controller for this tower appears in the venue's device data, so if floor 17 is not offered the apartment has no way in and needs its floor authorization fixed (playbook rule 13).",
+      "Stand in the ground-floor lobby and check the people: security holds the entrance, security7 walks his patrol, the Emperor is parked outside, and ma_rec_001/002 plus wa_rec_001 sit calmly; none of them should aim at you or crouch.",
+      "Ride to floor 17 and look at the apartment door: security3 and sec_top should stand on the landing with rifles held but not raised, and the front door should still ask for its Technical check.",
+      "Look at the roof and AV pad: two workers should be working, security_roof_02 should stand by the pad, and the Zetatech AV should sit on the pad without hovering, clipping the roof or blocking the stair exit.",
+      "Check apartment 1702 is intact before the gig: no NCPD crime scene, no chalk outlines or bodies, no after_sts clutter, and the balcony route still reachable from the roof fire exit."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_03_prefabZAP7KDA/#loc_sts_hey_gle_03_openworld/#loc_sts_hey_gle_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "security",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Guard posted at the tower's street entrance, standing with a rifle: the secured-building look the fixer describes and the calm version of vanilla's ground-floor post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "security7",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The shotgun guard walks a normal patrol beat at the entrance instead of standing still; vanilla uses the same entry and phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "security_vehicle",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "A parked Emperor by the entrance is the building's security car; vanilla activates it with the same entry and phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "security3",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Guard on the 17th-floor lift lobby, outside apartment 1702: the post vanilla uses before the player gets in.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "sec_top",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Second guard holding the 17th-floor landing beside security3, so the collection floor looks watched rather than abandoned.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "security_roof_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Roof guard standing by the AV pad, the calm counterpart of vanilla's roof patrol; keeps the roof from being an unguarded back door.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "sec_av",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "The Zetatech security AV parked on the roof pad instead of flying in at the balcony (1in), which is the gig's approach beat. A landed corpo AV fits the building and its security.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "worker_roof",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Roof maintenance worker kneeling over a tablet; phase A is his working pose, phase B is the gig's scared version.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "worker_roof_02",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Second roof worker repairing something at the pad; phase A works, phase B is the scared pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "ma_rec_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Lobby loiterer smoking in a chair at street level: the residents-and-hangers-on life the lobby crowd misses when it is only the reception desk.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "ma_rec_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second lobby loiterer, on a chair talking on a phone, next to ma_rec_001.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_03_comm",
+      "entry_name": "wa_rec_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Third lobby idler from the same opening beat; her only spot (#gle_03_ws_crowd_receptionist) has no workspot resource resolved, so the tour has to confirm where she lands.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_03_prefabZAP7KDA/loc_sts_hey_gle_03_env_prefab5RACUWA/deco_prefabXKLKEAY/int_prefab52OGMQI",
+      "states": {
+        "after_sts": 0
+      },
+      "why": "after_sts is the post-gig interior (trashed, post-crime-scene) and is enabledByDefault 0; pinning it off keeps the intact pre-gig apartment even if some other phase leaves the variant on."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1445.925,
+      -1044.636,
+      77.554
+    ],
+    "source": "spot #gle_03_ws_security_005 (17th-floor lift lobby beside apartment 1702), community #gle_03_comm, quest_ab2a83c1fde559e8.streamingsector (data/sites/spots.json spot 3221)"
+  },
+  "proximity_wait": {
+    "ref": "#sts_gle_03_elevator_entrance",
+    "within": 80.0,
+    "why": "Door device at the street-level lift, on the normal way in and the first thing a visitor streams in at the tower; the lift is also the only route to floor 17, so its streaming marks arrival better than a workspot."
+  }
+}

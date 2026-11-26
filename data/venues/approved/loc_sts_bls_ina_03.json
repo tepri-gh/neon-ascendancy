@@ -1,0 +1,129 @@
+{
+  "code": "sts_bls_ina_03",
+  "display_name": "Union Railroad Station (Wraiths outpost)",
+  "why": "The Union Railroad Station on Inland Avenue is a fenced, turret-guarded Wraith outpost in an abandoned rail station: a main building with an upper floor and rooftop antenna, a junk yard, a freight yard and a guarded gateway. In vanilla the station is only manned while the gig 'Flying Drugs' runs, so the clean slate leaves it empty. This proposal loads the station's quest/combat section and activates the 14-Wraith garrison in their default routine posts - gate, yard, tower, roof, upper floor and interior - while leaving the gig's scenes, reinforcements, loot and device actions out.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the station from the road without the gig and check every door on the way. The gig route enters the main building and uses the ground-floor computer, so the doors should be passable; if a location door is sealed with no quest running, report which one, because the venue has no quest door actions for the runtime door policy to act on.",
+      "Count the Wraiths on the grounds and inside the station. Expect 14 at their posts (gate, yard, tower, roof, upper floor, interior); if they cluster at one spot or stand in cover, the individual 0default activations are not resolving and the whole-community form (blocked by the catalogue's alert posture) may be needed.",
+      "Look up at the roof and tower. guard_02 sits around z 70.8 and guard_06 around z 66.8; confirm the roof is reachable on foot and that a locked lift door is not the only way up there.",
+      "Check the station's security. Gate turrets and cameras are vanilla location devices and the proposal deliberately drives no device actions; confirm they are live and not left dead by a missing quest.",
+      "Decide the #ina_03_crowd_com question. bad_ina_phase activates a separate 5-Wraith crowd there whole, but the catalogue did not attach that community to this venue; if the yard still reads empty between the 14 garrison posts, add it in a follow-up venue entry."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/loc_sts_bls_ina_03_prefabVGMB2MQ/loc_sts_bls_ina_03_openworld_prefabSTW4G7I/#sts_bls_ina_03_logic"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_01",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Gate guard. Vanilla's initial phase for him is #ina_03_ws_main_gate_guard_01_by_car, whose spots never resolved and whose edits depend on the gig; 0default puts him at his routine kneel-and-inspect spot by the gateway (1897.5, -546.2), which is the calm version of the same post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_02",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Sniper on the roof (z 70.8) at a routine stand-ground spot, the highest post of the outpost; keeps the roof overwatch manned without any quest alert phase."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_03",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Elite gunner leaning on the yard table (1891.3, -549.9) in the 0default crowd, not the 'scene' or 'weld' specials: the everyday yard post."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_04",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Walking patrol on the north side of the yard (1894.5, -539.9). The record name is generic so the catalogue tags him civilian, but at this outpost it is a Wraith garrison archetype."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_05",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Grunt sitting at the drug table (1870.1, -547.1) on a routine sniff-drugs workspot, the outpost's downtime look; his other workspots are combat cover."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_06",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Tower guard standing at the window post (1878.9, -552.5, z 66.8), the overwatch above the yard; 0default keeps him at the tower rather than the gig's 'window' special."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_08",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Second sniper sitting inside the upper floor (1869.7, -545.5, z 61.0), the interior post the wiki describes as Wraiths inside the main building."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_10",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Operator on the phone by the back of the yard (1852.0, -556.0); the 0default talk-on-phone spot is his everyday post, while the gig's 'fixing' kneel only exists when the turret is being repaired."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_11",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Guard standing on the far west track side (1819.5, -541.0), the outer patrol post that makes the compound read as guarded from the railway."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_12",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "East yard guard standing on the dirt (1924.5, -568.5), filling the cargo side of the compound."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_13",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Guard leaning on the east wall (1941.6, -547.2), the pair with guard_14 that watches the freight yard."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_14",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Guard standing around the freight yard beside guard_13 (1940.2, -549.6), a relaxed stand-around workspot."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_15",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Heavy machine-gunner standing in the south yard (1904.7, -578.0), the outpost's heavy weapon post facing the approach."
+    },
+    {
+      "spawner": "#ina_03_comm",
+      "entry_name": "guard_16",
+      "phase_name": "0default",
+      "action": "Activate",
+      "why": "Patrolling guard in the middle of the compound (1884.4, -565.2), the only walker between the gate and the south yard."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/se1/loc_sts_bls_ina_03_prefabVGMB2MQ/#loc_sts_bls_ina_03_gameplay/loc_sts_bls_ina_03_devices_prefabDD2Z3YA/#ina_03_dvc_laptop",
+    "within": 80.0,
+    "why": "The ground-floor computer the gig hacks (ComputerControllerPS), 5.8 m from the garrison spots inside the devices section, so it streams with the people. A device, not a workspot (rule 8)."
+  }
+}

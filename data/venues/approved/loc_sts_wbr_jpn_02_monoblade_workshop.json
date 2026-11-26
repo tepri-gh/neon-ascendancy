@@ -1,0 +1,75 @@
+{
+  "code": "sts_wbr_jpn_02_monoblade_workshop",
+  "display_name": "Monokatana Workshop (Raymond St, Japantown)",
+  "why": "The Monokatana Workshop (internal name monoblade) is a walled Tyger Claws workshop and hideout on Raymond Street in Japantown: a workshop floor with a small lobby at street level and a basement used for storage and as a holding cell. In vanilla its interior only streams while the street story sts_wbr_jpn_02 (Gig: We Have Your Wife) runs, and the gig's closing beat deactivates every spawner, so in normal play the shop is empty. This proposal loads the venue's one quest prefab and restores the ground-floor Tyger Claws crew (officer, rifle guards, exo heavies), the two sentries outside the main gate and the basement work crew (two fitters, a welder, one patrol) in their relaxed work, smoke and patrol phases. The tied hostage, the torturer and the post-gig combat event are left out.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_02_monoblade_workshop/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Raymond Street and confirm the gate route works. Vanilla closes and unpowers the main gate, the inner single door, doors 003/005 and the window; check that a player can reach the workshop floor and the basement stair without a terminal or keycard, and report any door the runtime policy had to open.",
+      "Watch the ground-floor Tyger Claws when you walk in. In vanilla a first-conversation beat (fact jpn_02_first_ground_chat_end) precedes the fight, and no scene runs here, so the officer, two rifle guards and four exo heavies should stand at their smoke/lean/guard/patrol spots; confirm they do not open fire on sight and do not stand in a combat stance.",
+      "Count the people on the floor. Seven ground entries plus two gate sentries outside plus four basement hands should be visible; if the ground floor looks crowded, tell the lead to drop the two exo heavies whose spots sit far from the shop floor.",
+      "Look at the basement. Two hands at the tablet/inspect benches, the welder at the z=41 workshop spot, the patrol walking the storage floor, and nobody tied up, crouched or screaming; confirm the cell door is shut and empty.",
+      "Check the upper walkway guard. Enemy11 spawns at z=47.35 on a patrolling_stand spot above the yard; confirm he is standing on the walkway and not floating or stuck in geometry.",
+      "Confirm the interior is complete and free of quest props. The declared prefab is vanilla's openworld section for the gig, so look for a hostage chair, ties, interrogation props or a closed-off cell that should not be in a working shop.",
+      "Watch the VenueProbe log on approach. The anchor is the main gate door entity as a full $/ path; confirm _prox is reached, since the gate is the first thing the player meets and the rest of the venue deps on it.",
+      "Confirm nothing starts the gig. The prefab also carries the street-story manager's trigger and map-pin plumbing; walking in must not start We Have Your Wife or spawn a quest marker."
+    ]
+  },
+  "prefabs": [
+    "#sts_wbr_jpn_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_02_com_enemies_ground",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The ground-floor Tyger Claws crew: Enemy3 officer on a chair smoke, Enemy1 and Enemy2 rifle guards leaning on a wall and smoking, Enemy4/9/10/11 exo heavies on guard and patrol spots on the floor, yard and upper walkway. Vanilla switches the whole set on with entry None/phase None exactly this way at the start of the fight, and every entry's initial phase resolves to a smoke, lean, guard or patrol workspot. Their fight phase B, which the same phase activates later, is not used."
+    },
+    {
+      "spawner": "#jpn_02_com_enemies_basement",
+      "entry_name": "Enemy4",
+      "phase_name": "0Work",
+      "action": "Activate",
+      "why": "A female workshop hand working at the tablet bench in the basement (workspot generic__stand_ground_tablet__use). The whole basement set is activated by the vanilla fight phase; this entry is its 0Work state, i.e. the shop working, not the fight."
+    },
+    {
+      "spawner": "#jpn_02_com_enemies_basement",
+      "entry_name": "Enemy5",
+      "phase_name": "0Work",
+      "action": "Activate",
+      "why": "The second female hand, kneeling to inspect parts at the basement bench (workspot generic__kneel_ground__inspect). Part of the same 0Work basement shift."
+    },
+    {
+      "spawner": "#jpn_02_com_enemies_basement",
+      "entry_name": "Enemy6",
+      "phase_name": "0Work",
+      "action": "Activate",
+      "why": "The workshop's welder on the ground floor (spot z=41.19, workspot construction_site generic__kneel_welder__use) - the single clearest sign that this is a working monokatana shop rather than a prison."
+    },
+    {
+      "spawner": "#jpn_02_com_enemies_basement",
+      "entry_name": "Enemy7",
+      "phase_name": "0Patrol1",
+      "action": "Activate",
+      "why": "The basement watchman walking his beat (workspot patrolling_stand) - the shop's security in the storage floor. 0Patrol1 is his initial phase; Alarm, Attack, Distract and Talk are the gig's fight states and are not used."
+    },
+    {
+      "spawner": "#jpn_02_com_reinforcements_001",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The two Tyger Claws rifle sentries posted on the pavement in front of the main gate (stand_around spots at y=1616/1620, outside the workshop proper). Vanilla activates this pair whole when the gig escalates; their only phase, 0Spawn, is a relaxed stand-around, so they read as the workshop's street guard."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_02_monoblade_workshop_prefabLB72HTY/loc_sts_wbr_jpn_02_monoblade_workshop_gameplay_prefabKPMC3MA/loc_sts_wbr_jpn_02_monoblade_workshop_devices_prefab3CHG5ZI/#jpn_02_dvc_main_gate_001/door1",
+    "within": 80.0,
+    "why": "The workshop's street-level main gate, a DoorControllerPS the street story and the combat event both drive, and the first quest entity a player meets walking in from Raymond Street. It sits in the venue's devices prefab with the gate itself, so the proximity wait fires on arrival instead of waiting for interior geometry; a workspot would never fire (rule 8). Written as the full $/ path because door1 is not an authored name."
+  }
+}
