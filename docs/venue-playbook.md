@@ -342,6 +342,12 @@ Two local tools feed venue research. Their output is never committed;
   so 150 quest-driven doors (Jacked and Coke's front door, the q112 safe
   house entrances, the H6 lift) never reached the door scope (wave 12).
 
+- **Name collisions drag in other venues' cast.** q003 tags generic TV
+  prefabs `#tv_1_q003`, so any venue with the same TV prefab inherits All
+  Foods' spawn sets (DumDum, Jackie, Royce) as `venue_inferred`. Treat those
+  as noise: check every `venue_inferred` spawn set's own quest before
+  keeping it (waves 11-13: Cytech, the Kenmore Diner, Dry Creek).
+
 ## 7. Dev tour and playtest notes
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with

@@ -1,0 +1,69 @@
+{
+  "code": "mq032_maelstrom_warehouse",
+  "display_name": "Abandoned Warehouse — Northside docks (Maelstrom stash)",
+  "why": "The abandoned warehouse in the Northside docks is the Maelstrom stash where Sacrum Profanum stages the captured monk's brother: a fenced, container-ringed yard with a covered hall, a gate access point, security cameras and a restricted-area controller. The job itself never happens in our timeline, so nobody is abducted; the venue should simply read as a working Maelstrom den. This proposal loads #mq032_pr_sacrum (the quest prefab that carries the gang's spawner and its nine named AI spots) and activates the five vanilla Maelstrom entries in their only phase, 'default': cigarettes, a bottle, dancing, patrolling and standing about. No variant toggles are needed and the building shell is world-streamed.",
+  "source": {
+    "proposal": "research/loc_mq032_maelstrom_warehouse/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check that the five Maelstrom are inside the yard on their idle spots (cigarette, dancing, drinking, standing, patrolling) and not clustered at the spawner or frozen mid-pose. The catalogue rates this community posture unknown because its community-area node is in always_loaded_0 while its spots are in the quest sector; I resolved the mapping by hand.",
+      "Walk in through the front gate and confirm the stash is enterable, then check the south grate gives the Technical Ability prompt and slides open. The hatch is a world entity, not a quest door, so the runtime door policy will not touch it.",
+      "Confirm loading #mq032_pr_sacrum adds only spawners, spots and trigger areas: no captive monk, no Johnny, no rescue props, and no job objective should appear when the prefab loads.",
+      "Check the crew's attitude on approach. They are Maelstrom and may turn hostile when the player enters the yard; confirm that reads as a normal gang stash and not as the job's combat scene (an empty, silent yard would be the failure)."
+    ]
+  },
+  "prefabs": [
+    "#mq032_pr_sacrum"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq032_com_maelstrom",
+      "entry_name": "maelstrom_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The warehouse's own Maelstrom crew, not a quest-only appearance: the community area node assigns this entry a vanilla cigarette-smoke spot in the yard. vanilla activates the same entry/phase from the combat phase; the phase itself is an idle spot set (the hostility in the job comes from the quest graph, not the phase), so activating it outside the job gives a ganger leaning and smoking at the stash.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq032_com_maelstrom",
+      "entry_name": "maelstrom_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second of the stash crew; its mapped spot plays the homeless dance-freak animation beside the yard, i.e. a ganger goofing off at the den, not a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq032_com_maelstrom",
+      "entry_name": "maelstrom_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Third crew member; its mapped spot is a bottle-drink stance by the hall, the sort of idle beat that makes the stash look lived in.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq032_com_maelstrom",
+      "entry_name": "maelstrom_08",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Fourth crew member; its mapped spot is a plain dirt stand-around in the yard, a second body on watch by the containers.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq032_com_maelstrom",
+      "entry_name": "maelstrom_12",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Fifth crew member, the one who walks a patrol line (patrolling_stand) along the container side of the yard; together with the other four this is the full vanilla set the combat phase uses, so no extra or invented ganger is added.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_watson/northside/loc_mq032_maelstrom_warehouse_prefabUQQHPKQ/loc_mq032_maelstrom_warehouse_gameplay_prefab3U5UCJY/#mq032_dvc_accss_point",
+    "within": 80.0,
+    "why": "The gate network access point, 9.6 m from the crew's spots: an authored worldDeviceNode in the gameplay prefab (exterior_-34_44_0_0) that streams with the venue and is a device, not a workspot, so the proximity wait can fire. The catalogue's own device entries are unusable (ref 0, path null, venue_inferred): they are the SecurityAreaControllerPS actions mq032_02_maelstrom fires inside the unloaded quest graph."
+  }
+}

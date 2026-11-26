@@ -355,6 +355,88 @@
    ]
   },
   {
+   "code": "mq303_linas_mansion",
+   "name": "Lina Malina's Residence (Dogtown)",
+   "kind": "approved",
+   "venue": "loc_mq303_linas_mansion",
+   "pos": [
+    -2214.39,
+    -2641.61,
+    34.49
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.mq303_scav_1",
+    "Character.mq303_scav_2",
+    "Character.mq303_scav_4",
+    "Character.mq303_scav_5",
+    "Character.mq303_scav_6"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq303_com_gangers (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #mq303_com_ganger_veh (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: car/start.",
+     "source": "community"
+    },
+    {
+     "label": "Approach the residence from the street and confirm the five scavengers are outside, calm, in loitering poses and do not attack on sight.",
+     "detail": "Approach the residence from the street and confirm the five scavengers are outside, calm, in loitering poses and do not attack on sight.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm all five are present and none is stuck in the phase-'change' pose used by scavenger_5 and scavenger_6 (sitting or smoking on the ledge).",
+     "detail": "Confirm all five are present and none is stuck in the phase-'change' pose used by scavenger_5 and scavenger_6 (sitting or smoking on the ledge).",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in through the front door under the runtime door policy; if it stays dead, note whether the window (Technical 20 / quickhack) or the roof hatc...",
+     "detail": "Walk in through the front door under the runtime door policy; if it stays dead, note whether the window (Technical 20 / quickhack) or the roof hatch still gives a way in.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the upper flat reads as a home: sofa, Lina's chair, computer and terrace intact, with no shoot set, body or police tape.",
+     "detail": "Check the upper flat reads as a home: sofa, Lina's chair, computer and terrace intact, with no shoot set, body or police tape.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the wide shutter and the roof hatch keep sensible states and do not seal the drive or the flat.",
+     "detail": "Check the wide shutter and the roof hatch keep sensible states and do not seal the drive or the flat.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the parked Archer Hella sits in the drive and does not block the entrance.",
+     "detail": "Check the parked Archer Hella sits in the drive and does not block the entrance.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no schedule display or other quest prop is visible on Lina's computer (var_schedule 0).",
+     "detail": "Confirm no schedule display or other quest prop is visible on Lina's computer (var_schedule 0).",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q301_crashsite_way_up",
    "name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
    "kind": "approved",
@@ -1336,6 +1418,64 @@
     {
      "label": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest'...",
      "detail": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest's ForceDisabled action.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q306_meeting_spot",
+   "name": "Downtown back-alley meeting spot (City Center, Songbird's pickup)",
+   "kind": "approved",
+   "venue": "loc_q306_meeting_spot",
+   "pos": [
+    -2325.47,
+    300.19,
+    12.13
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q306_hobo"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Check the alley has its sleeper.",
+     "detail": "Check the alley has its sleeper. Walk into the back alley off the City Center street and confirm one homeless man sits on the ground smoking by the dumpster at about (-2325, 300, 12); report if the alley is empty or if he is lying stretched out like a body.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the alley has no meeting-scene leftovers.",
+     "detail": "Check the alley has no meeting-scene leftovers. There should be no stolen spy van parked in the alley, no Songbird trash pile, no activity-log shard on the ground, and no tracer or objective markers.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the alley is open on foot.",
+     "detail": "Check the alley is open on foot. Walk in from the street side and confirm no gate, shutter, door or invisible barrier stops you; the venue drives no door, so access must be plain walking.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the neighbouring street is alive.",
+     "detail": "Check the neighbouring street is alive. Vanilla switches the whole #ce_cct_dtn_113_com crowd off for the meeting scene, which suggests it is normally on; confirm the nearby building and street crowd is present and the alley does not feel cut off.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the anchor fires.",
+     "detail": "Check the anchor fires. Approach the alley past the ce_cct_dtn_10 access point and confirm the venue's _prox breadcrumb flips in red4ext/logs/neonascendancy-*.log.",
      "source": "open question"
     }
    ]
@@ -4195,6 +4335,86 @@
    ]
   },
   {
+   "code": "sts_wat_kab_101_slums",
+   "name": "Rooftop Slums near Allen St. (Kabuki)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_101_slums",
+   "pos": [
+    -1101.97,
+    1452.54,
+    16.36
+   ],
+   "radius": 57.7,
+   "expected_records": [
+    "Character.HomelessMan",
+    "Character.HomelessManBackpack",
+    "Character.JunkieFemale",
+    "Character.JunkieMale",
+    "Character.StoopKing",
+    "Character.sts_wat_kab_101_enemy_scav_handgun",
+    "Character.sts_wat_kab_101_enemy_scav_hmg",
+    "Character.sts_wat_kab_101_enemy_scav_melee1_tireiron",
+    "Character.sts_wat_kab_101_enemy_scav_officer_shotgun2",
+    "Character.sts_wat_kab_101_enemy_scav_shotgun",
+    "Character.sts_wat_kab_101_enemy_scav_smg",
+    "Character.sts_wat_kab_101_enemy_scav_smg_wa",
+    "Character.sts_wat_kab_101_enemy_scav_sniper"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Confirm the roof is populated: about eight Scavengers squatting, leaning, sitting on the couch and standing guard, plus five homeless residents sle...",
+     "detail": "Confirm the roof is populated: about eight Scavengers squatting, leaning, sitting on the couch and standing guard, plus five homeless residents sleeping, smoking and drinking among the huts.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether the five residents were already on the roof before this venue phase ran; the kept Kabuki district phase activates the same community...",
+     "detail": "Check whether the five residents were already on the roof before this venue phase ran; the kept Kabuki district phase activates the same community at district boot, so this stops being a redundant activation only if streaming missed them.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the three residents whose catalogue spot is the same point (-1106.35, 1453.05, 16.36) — HomelessMan, JunkieFemale, JunkieMale — are standing...",
+     "detail": "Check the three residents whose catalogue spot is the same point (-1106.35, 1453.05, 16.36) — HomelessMan, JunkieFemale, JunkieMale — are standing or sitting apart, not stacked on one spot.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk up from Allen St.",
+     "detail": "Walk up from Allen St. to the roof: this venue has no doors, so confirm the ladder/stairs route works without the gig and that nothing blocks the way.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether the Scavenger crew turns hostile the moment you step onto the restricted part of the roof; that is vanilla gang behaviour, so judge w...",
+     "detail": "Check whether the Scavenger crew turns hostile the moment you step onto the restricted part of the roof; that is vanilla gang behaviour, so judge whether the venue should read that way.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the TV chosen as the proximity anchor is on the roof and not inside a locked hut, so the second activation pass fires when you arrive.",
+     "detail": "Confirm the TV chosen as the proximity anchor is on the roof and not inside a locked hut, so the second activation pass fires when you arrive.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the roof reads as inhabited rather than as an aftermath: no bodies, no loot crates opened, no quest markers.",
+     "detail": "Check the roof reads as inhabited rather than as an aftermath: no bodies, no loot crates opened, no quest markers.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "loc_sq011_totentanz",
    "name": "Totentanz",
    "kind": "hand-built",
@@ -4222,6 +4442,66 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
+    }
+   ]
+  },
+  {
+   "code": "mq032_maelstrom_warehouse",
+   "name": "Abandoned Warehouse — Northside docks (Maelstrom stash)",
+   "kind": "approved",
+   "venue": "loc_mq032_maelstrom_warehouse",
+   "pos": [
+    -1920.99,
+    2765.42,
+    7.42
+   ],
+   "radius": 120.0,
+   "expected_records": [
+    "Character.mq032_maelstrom_medium_range_medium",
+    "Character.mq032_maelstrom_medium_range_w_easy",
+    "Character.mq032_maelstrom_techie_medium"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq032_com_maelstrom (5 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: maelstrom_01/default, maelstrom_02/default, maelstrom_03/default, maelstrom_08/default, maelstrom_12/default.",
+     "source": "community"
+    },
+    {
+     "label": "Check that the five Maelstrom are inside the yard on their idle spots (cigarette, dancing, drinking, standing, patrolling) and not clustered at the...",
+     "detail": "Check that the five Maelstrom are inside the yard on their idle spots (cigarette, dancing, drinking, standing, patrolling) and not clustered at the spawner or frozen mid-pose. The catalogue rates this community posture unknown because its community-area node is in always_loaded_0 while its spots are in the quest sector; I resolved the mapping by hand.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in through the front gate and confirm the stash is enterable, then check the south grate gives the Technical Ability prompt and slides open.",
+     "detail": "Walk in through the front gate and confirm the stash is enterable, then check the south grate gives the Technical Ability prompt and slides open. The hatch is a world entity, not a quest door, so the runtime door policy will not touch it.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm loading #mq032_pr_sacrum adds only spawners, spots and trigger areas: no captive monk, no Johnny, no rescue props, and no job objective sho...",
+     "detail": "Confirm loading #mq032_pr_sacrum adds only spawners, spots and trigger areas: no captive monk, no Johnny, no rescue props, and no job objective should appear when the prefab loads.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crew's attitude on approach.",
+     "detail": "Check the crew's attitude on approach. They are Maelstrom and may turn hostile when the player enters the yard; confirm that reads as a normal gang stash and not as the job's combat scene (an empty, silent yard would be the failure).",
+     "source": "open question"
     }
    ]
   },
@@ -4326,6 +4606,70 @@
     {
      "label": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is no...",
      "detail": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is not documented; confirm it is the club ambience/party layer and not a quest-only mix.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_kab_05_client_signal",
+   "name": "Eisenhower St. scav den and Charles Bucks' clinic (Kabuki)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_05_client_signal",
+   "pos": [
+    -1108.79,
+    2145.43,
+    13.33
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wat_kab_05_enemy_ganger_keycard",
+    "Character.sts_wat_kab_05_enemy_ganger_officer",
+    "Character.sts_wat_kab_05_enemy_ganger_shotgun_tier2",
+    "Character.sts_wat_kab_05_enemy_melee",
+    "Character.sts_wat_kab_05_enemy_short_range_m",
+    "Character.sts_wat_kab_05_prostitute_bd",
+    "Character.sts_wat_kab_05_prostitute_bd_male"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Confirm the basement is undressed: no body on the table, no laptop, no databank shard and no blood, just an ordinary scavenger basement.",
+     "detail": "Confirm the basement is undressed: no body on the table, no laptop, no databank shard and no blood, just an ordinary scavenger basement.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the front windows read as open and occupied (window_shutters=0), not sealed; 1 is vanilla's gig pre-entry state.",
+     "detail": "Confirm the front windows read as open and occupied (window_shutters=0), not sealed; 1 is vanilla's gig pre-entry state.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Charles Bucks stands at his clinic counter above the back stairs and his ripperdoc vendor panel opens; the kept kabuki_vendors phase places...",
+     "detail": "Confirm Charles Bucks stands at his clinic counter above the back stairs and his ripperdoc vendor panel opens; the kept kabuki_vendors phase places him, and the clean slate never sets the shop's Interior variant.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from Eisenhower St.",
+     "detail": "Walk in from Eisenhower St. and out through the clinic: the front door, the side door and the ripperdoc door should all be usable without a keycard.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the upper-floor pair: enemy_008 and enemy_009 should be standing in a calm chat, not alert or patrolling for a fight.",
+     "detail": "Check the upper-floor pair: enemy_008 and enemy_009 should be standing in a calm chat, not alert or patrolling for a fight.",
      "source": "open question"
     }
    ]
@@ -4816,6 +5160,11 @@
      "label": "The proximity anchor is a TVControllerPS because it is the only device the catalogue resolves here; the #tv_1_q003 device actions in the catalogue...",
      "detail": "The proximity anchor is a TVControllerPS because it is the only device the catalogue resolves here; the #tv_1_q003 device actions in the catalogue are All Foods name collisions, so the anchor is a plain restaurant TV and its distance/streaming should be checked on the tour.",
      "source": "open question"
+    },
+    {
+     "label": "Drive the landfill approach road near (277, -2354), about 568 m from this stop, at night: does it read as normally lit with the chase-only landfill...",
+     "detail": "Drive the landfill approach road near (277, -2354), about 568 m from this stop, at night: does it read as normally lit with the chase-only landfill_road_light variant off, and is there no heist-chase or billboard-crash debris? Wave 13 (loc_q101_landfill_road): nothing to restore.",
+     "source": "extra"
     }
    ]
   },
@@ -5024,6 +5373,62 @@
     {
      "label": "Loading #sts_pac_wwd_05_streetstory also brings the gig's triggers, restricted-movement areas and crowdNullArea.",
      "detail": "Loading #sts_pac_wwd_05_streetstory also brings the gig's triggers, restricted-movement areas and crowdNullArea. They should be inert without the quest, but the tour should confirm no trigger fires and the interior crowd stays suppressed as intended.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_arr_12_diner",
+   "name": "Kenmore Diner (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_12_diner",
+   "pos": [
+    -986.33,
+    -1157.61,
+    11.76
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.LowlifeMale",
+    "Character.LowlifeWoman",
+    "Character.ServiceDiningMale",
+    "Character.ServiceDiningWoman"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the Kenmore Diner from the viaduct side and confirm the interior is open, lit and furnished (counter, booths, kitchen) with no sealed or...",
+     "detail": "Walk into the Kenmore Diner from the viaduct side and confirm the interior is open, lit and furnished (counter, booths, kitchen) with no sealed or blocked entrance.",
+     "source": "open question"
+    },
+    {
+     "label": "Count who is inside the diner at midday and again at night: expect the two waitresses plus seated customers; if the counter is empty, the backgroun...",
+     "detail": "Count who is inside the diner at midday and again at night: expect the two waitresses plus seated customers; if the counter is empty, the background crowd is not spawning on a fresh start and the two boot/proximity activations need checking.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the diner's street corner for leftover gig dressing: no orange Zetatech traffic barriers, no floating loot tokens, no Zetatech guards and n...",
+     "detail": "Look at the diner's street corner for leftover gig dressing: no orange Zetatech traffic barriers, no floating loot tokens, no Zetatech guards and no transport waiting at the intersection.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's T...",
+     "detail": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's TV nodes).",
      "source": "open question"
     }
    ]
@@ -5501,6 +5906,94 @@
     {
      "label": "Confirm the hideout's computers are live.",
      "detail": "Confirm the hideout's computers are live. The blueprints computer and the netrunner terminal should be powered and interactive, not in the gig's unpowered sabotage state.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_hil_07",
+   "name": "Tyger Claws Casino (Charter Hill)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_hil_07",
+   "pos": [
+    -65.34,
+    -282.32,
+    -1.47
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CreoleMan",
+    "Character.FattyMale",
+    "Character.LowlifeMale",
+    "Character.LowlifeWoman",
+    "Character.NightlifeMale",
+    "Character.SexworkerFemale",
+    "Character.SlackerFemale",
+    "Character.SlackerMale",
+    "Character.WorkerMale",
+    "Character.hil_07_netrunner",
+    "Character.hil_07_security_01",
+    "Character.hil_07_security_new_01",
+    "Character.hil_07_security_new_02",
+    "Character.sts_wat_kab_07_croupiers"
+   ],
+   "spawn_sets": [
+    "#wbr_hil_foodshop_02"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #hil_07_com_enemies (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #hil_07_com_civs (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Walk up to the culvert entrance on Longshore South and open the door without the gig.",
+     "detail": "Walk up to the culvert entrance on Longshore South and open the door without the gig. Check the casino can be entered in normal play and that the bouncer stands his post instead of attacking.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand in the gaming hall.",
+     "detail": "Stand in the gaming hall. Check the four roulette tables have croupiers and that patrons sit at bars, arcades and tables without crouching, drawing weapons or fleeing.",
+     "source": "open question"
+    },
+    {
+     "label": "Go up the guarded stairwell to the top-floor office and netrunner room.",
+     "detail": "Go up the guarded stairwell to the top-floor office and netrunner room. Check the Tyger netrunner sits at the netrunner chair and the guards hold posts rather than hunting.",
+     "source": "open question"
+    },
+    {
+     "label": "Cross the unpaid security checkpoint by the entrance without paying anyone.",
+     "detail": "Cross the unpaid security checkpoint by the entrance without paying anyone. Check the casino's unpaid security area does not trip an alarm or turn the whole venue hostile.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the bar counter.",
+     "detail": "Look at the bar counter. Check a bartender is behind it and can serve drinks; if the counter is empty, the foodshop_02 spawn set is not the bar vendor after all.",
+     "source": "open question"
+    },
+    {
+     "label": "Listen inside the gaming hall.",
+     "detail": "Listen inside the gaming hall. Check the casino music plays (audio variant default_music on) rather than the room being silent.",
      "source": "open question"
     }
    ]
@@ -6196,6 +6689,123 @@
     {
      "label": "Chang's jpn_05_A chair pose is a netrunner-chair netrun animation, i.e.",
      "detail": "Chang's jpn_05_A chair pose is a netrunner-chair netrun animation, i.e. working, not the gig's unresponsive slump. Confirm he does not spawn with the gig's aphasia/disabled state or a 'wake up' scene without the quest.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_jpn_12",
+   "name": "Japantown Apartments (Holly & Floyd St) — Leah Gladen's building",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_12",
+   "pos": [
+    -780.95,
+    986.68,
+    12.21
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.FattyMale",
+    "Character.TenantWoman",
+    "Character.lch_civilianguard_service_worker_melee1_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk the ground-floor lobby and the floor-2 landing and check the two residents and the service worker are on post, not inside Leah's flat.",
+     "detail": "Walk the ground-floor lobby and the floor-2 landing and check the two residents and the service worker are on post, not inside Leah's flat.",
+     "source": "open question"
+    },
+    {
+     "label": "Try the front door from Holly & Floyd and check the keypad code 2137 still opens it (and that the door policy has not sealed it).",
+     "detail": "Try the front door from Holly & Floyd and check the keypad code 2137 still opens it (and that the door policy has not sealed it).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the secret room: the vending machine/fridge and its shutter should be in their normal state, with no body, blood or loot, and the kitchen but...",
+     "detail": "Check the secret room: the vending machine/fridge and its shutter should be in their normal state, with no body, blood or loot, and the kitchen button should still open the room.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the quest layer's triggers (#jpn_12_tr_*) stay inert — no holocall, no Silverhand line, no enemy movement — when only the prefab is loaded.",
+     "detail": "Confirm the quest layer's triggers (#jpn_12_tr_*) stay inert — no holocall, no Silverhand line, no enemy movement — when only the prefab is loaded.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_jpn_12b",
+   "name": "Wired Head (Japantown)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_12b",
+   "pos": [
+    -374.41,
+    476.16,
+    17.6
+   ],
+   "radius": 54.8,
+   "expected_records": [
+    "Character.sts_wbr_jpn_12_tyger_claws_gangster1_ranged1_nue_wa",
+    "Character.sts_wbr_jpn_12_tyger_claws_gangster2_ranged2_copperhead_ma",
+    "Character.sts_wbr_jpn_12_tyger_claws_gangster2_ranged2_shingen_ma",
+    "Character.sts_wbr_jpn_12_tyger_claws_officergangster_officer_nue_ma",
+    "Character.sts_wbr_jpn_12_tygerclaw_gangster3_netrunner_nue_wa_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk in from Crescent and Broad and confirm the club is open for business through the glass double doors, with no gig marker and no locked entrance.",
+     "detail": "Walk in from Crescent and Broad and confirm the club is open for business through the glass double doors, with no gig marker and no locked entrance.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the crowd inside: about ten Tyger Claws should be sitting and standing at the bar couches, the vending machine, the tablet counter and the ba...",
+     "detail": "Count the crowd inside: about ten Tyger Claws should be sitting and standing at the bar couches, the vending machine, the tablet counter and the balcony rail, all relaxed, with the netrunner at a tablet.",
+     "source": "open question"
+    },
+    {
+     "label": "Look up at the mezzanine: the ganger on the rail should be standing on the upper level (about 30 m up), not floating or clipped into the balcony.",
+     "detail": "Look up at the mezzanine: the ganger on the rail should be standing on the upper level (about 30 m up), not floating or clipped into the balcony.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the back room behind the shutter: no body, no shard and no CorpCracker should be visible or reachable there, and the shutter may stay vanilla.",
+     "detail": "Check the back room behind the shutter: no body, no shard and no CorpCracker should be visible or reachable there, and the shutter may stay vanilla.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the wall TVs in the bar: they should be powered and interactive, since the q003 phases that disable their interaction never run.",
+     "detail": "Check the wall TVs in the bar: they should be powered and interactive, since the q003 phases that disable their interaction never run.",
      "source": "open question"
     }
    ]

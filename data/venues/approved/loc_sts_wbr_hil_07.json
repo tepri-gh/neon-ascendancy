@@ -1,0 +1,72 @@
+{
+  "code": "sts_wbr_hil_07",
+  "display_name": "Tyger Claws Casino (Charter Hill)",
+  "why": "A small illegal Tyger Claws casino in the sewers under the Charter Hill waterfront on Longshore South: a guarded culvert entrance, a gaming hall with a bar and four roulette tables, a guarded stairwell and a top-floor office with the Tyger netrunner. In vanilla the venue is a Wakako gig site (Tyger and Vulture) and only its street-story phases fill it, so with gigs disabled it is an empty shell. This proposal instantiates the venue's street-story prefab and switches on its own pre-gig crowd: the Tyger bouncer, guards and netrunner, plus patrons, croupiers, waitresses, the cleaner and the bar vendor, with the casino music variant on.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_hil_07/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk up to the culvert entrance on Longshore South and open the door without the gig. Check the casino can be entered in normal play and that the bouncer stands his post instead of attacking.",
+      "Stand in the gaming hall. Check the four roulette tables have croupiers and that patrons sit at bars, arcades and tables without crouching, drawing weapons or fleeing.",
+      "Go up the guarded stairwell to the top-floor office and netrunner room. Check the Tyger netrunner sits at the netrunner chair and the guards hold posts rather than hunting.",
+      "Cross the unpaid security checkpoint by the entrance without paying anyone. Check the casino's unpaid security area does not trip an alarm or turn the whole venue hostile.",
+      "Look at the bar counter. Check a bartender is behind it and can serve drinks; if the counter is empty, the foodshop_02 spawn set is not the bar vendor after all.",
+      "Listen inside the gaming hall. Check the casino music plays (audio variant default_music on) rather than the room being silent."
+    ]
+  },
+  "prefabs": [
+    "#sts_wbr_hil_07_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#hil_07_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The casino's own Tyger crew: the bouncer on the culvert door, guards through the entry passage and gaming hall, a guard taking a drink at the bar, and a Tyger netrunner on the netrunner chair in the top-floor office. Vanilla's street-story open-world phase activates the whole community in its initial phase A, and every spot that phase owns is a calm one (guard_stand, rail lean, tablet use, bar drink, netrunner chair); the crouch/scared bartender and 'enemy_after' spots belong to other states. Kept first under population priority.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#hil_07_com_civs",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The casino's patrons and floor staff: barstool drinkers, arcade players, a smoking corner, the roulette croupier, waitresses taking orders, a cleaner mopping, a worker, prostitutes and a pair of smokers. Vanilla's street-story phases activate the whole community in initial phase A; its spots are all sitting, drinking, smoking, playing, mopping or order-taking workspots, so the phase reads as normal business.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#wbr_hil_foodshop_02",
+      "entry_name": "wbr_hil_foodshop_02",
+      "phase_name": "None",
+      "why": "The casino's bar vendor. The foodshop_02 prefab is nested inside the venue prefab and holds the bartender workspots (#hil_07_ws_bartender_clean_001/002; the separate combat one is the crouched state), and the casino gameplay phase adds the foodshop_02 service-point marker. Vanilla's street-story phases activate this spawner so the bar is staffed; the catalogue lists it at hil_01/hil_06 too because they share the aggregator phase. Vendor UI without a default-dialog fact is unconfirmed.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/charter_hill/loc_sts_wbr_hil_07_prefabPQKIO3I/loc_sts_wbr_hil_07_audio_prefabXP7AARI",
+      "states": {
+        "default_music": 1
+      },
+      "why": "The venue's audio prefab. The district community phase toggles default_music on and off around its events; setting it to 1 at boot keeps the casino's own music playing in normal play."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -65.344,
+      -282.317,
+      -1.472
+    ],
+    "source": "data/sites/sites.json site 417 anchor (code sts_wbr_hil_07) bbox centre of the venue's spots; sector base/worlds/03_night_city/_compiled/default/quest_3c581324570fae71.streamingsector (questPrefabNodeRef #sts_wbr_hil_07_streetstory)"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/charter_hill/loc_sts_wbr_hil_07_prefabPQKIO3I/loc_sts_wbr_hil_07_gameplay_prefabTGT23IA/loc_sts_wbr_hil_07_devices_prefabSCKNUTY/#hil_07_dvc_door_casino/single_door_1_prefabMDLFXRQ",
+    "within": 80.0,
+    "why": "The culvert entrance door on the normal way in, owned by the venue's street-story phases and streamed with the exterior cell, so it fires the post-proximity re-issue as the player reaches the casino. A door device, not a workspot."
+  }
+}

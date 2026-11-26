@@ -1,0 +1,47 @@
+{
+  "code": "sts_wat_kab_101_slums",
+  "display_name": "Rooftop Slums near Allen St. (Kabuki)",
+  "why": "A cramped rooftop shantytown of scrap huts, arcade cabinets, vending machines and laundry lines above Allen St. in Kabuki. Vanilla populates it only from the street-story phases: the combat phase switches on an eight-strong Scavenger crew, and the openworld phase replaces the residents with a 'during the gig' group. The clean slate keeps the Kabuki district community phase, which already switches the five homeless residents on, so today the roof has the residents but not the Scavengers, whose spawner lives in a quest prefab nothing loads. This proposal restores the scav crew at its squat/lean/guard spots and re-issues the residents after proximity, i.e. the roof as a living scav-held slum before anything happened.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_101_slums/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the roof is populated: about eight Scavengers squatting, leaning, sitting on the couch and standing guard, plus five homeless residents sleeping, smoking and drinking among the huts.",
+      "Check whether the five residents were already on the roof before this venue phase ran; the kept Kabuki district phase activates the same community at district boot, so this stops being a redundant activation only if streaming missed them.",
+      "Check the three residents whose catalogue spot is the same point (-1106.35, 1453.05, 16.36) — HomelessMan, JunkieFemale, JunkieMale — are standing or sitting apart, not stacked on one spot.",
+      "Walk up from Allen St. to the roof: this venue has no doors, so confirm the ladder/stairs route works without the gig and that nothing blocks the way.",
+      "Check whether the Scavenger crew turns hostile the moment you step onto the restricted part of the roof; that is vanilla gang behaviour, so judge whether the venue should read that way.",
+      "Confirm the TV chosen as the proximity anchor is on the roof and not inside a locked hut, so the second activation pass fires when you arrive.",
+      "Check the roof reads as inhabited rather than as an aftermath: no bodies, no loot crates opened, no quest markers."
+    ]
+  },
+  "prefabs": [
+    "#sts_wat_kab_101_streetstory",
+    "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_101_slums_prefabTADN6HA/loc_sts_wat_kab_101_slums_openworld_prefabKO7CBMA/#sts_wat_kab_101_streetstory/sts_wat_kab_101_combat_prefabGVTDOOA"
+  ],
+  "communities": [
+    {
+      "spawner": "#kab_101_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Vanilla's own whole-community activation from the combat phase puts all eight Scavengers on the roof in their single 'default' phase: an SMG, handgun, shotgun, HMG, sniper, tire-iron melee and an officer, at squat/lean/couch/stand-guard spots. That is the crew that holds the restricted part of the slums, so it reads as the site's squatters and guards rather than as a quest firefight, and it satisfies the combat-first population rule (there is no netrunner here)."
+    },
+    {
+      "spawner": "#wat_kab_101_residential_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The five people who actually live on the roof. Vanilla activates this whole community when the gig is completed, after the during-gig variant has hidden them. StoopKing sleeps, HomelessManBackpack sits and smokes, HomelessMan/JunkieFemale/JunkieMale share the relaxed civilian spots (ground sit, chair smoke, drink from a can, laptop, wall lean). The kept Kabuki district community phase already issues this same whole-community Activate in the clean slate, so the residents may already be there; the venue re-issues it at boot and after proximity because exterior sectors stream by distance and a district-boot activation can miss them (rule 6). Civilians come after the combat crew per the population rule."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_101_slums_prefabTADN6HA/loc_sts_wat_kab_101_slums_env_prefabF34JIJQ/tv_1_prefab3YQ24OA/#tv_1_q003",
+    "within": 80.0,
+    "why": "The venue has no door, terminal or lift that vanilla drives here, so the only device entities the catalogue offers are the two TVs in the slum's env prefab. This one streams with the roof and sits among the huts, well inside the 80 m proximity radius, which is all the second activation pass needs. Full path because the short tag '#tv_1_q003' names two different TV nodes."
+  }
+}

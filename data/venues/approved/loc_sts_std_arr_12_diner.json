@@ -1,0 +1,70 @@
+{
+  "code": "sts_std_arr_12_diner",
+  "display_name": "Kenmore Diner (Arroyo)",
+  "why": "The Kenmore Diner is the roadside diner under the Arroyo viaduct where Desperate Measures has V wait for the Zetatech transport. The building is base-world content: the kept open-world community phase already instantiates #arr_12_diner, so the interior, counter, booths and kitchen stream in without a quest. Its people are an ambient background crowd (two waitresses, day and night customer seats) that starts active in vanilla; this proposal re-issues those six entries so a fresh start inside the diner is staffed and seated. Nothing from the gig is restored: no road blocks, no guards, no loot, and the DLC prefab variant stays at its default 0.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_12_diner/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the Kenmore Diner from the viaduct side and confirm the interior is open, lit and furnished (counter, booths, kitchen) with no sealed or blocked entrance.",
+      "Count who is inside the diner at midday and again at night: expect the two waitresses plus seated customers; if the counter is empty, the background crowd is not spawning on a fresh start and the two boot/proximity activations need checking.",
+      "Look at the diner's street corner for leftover gig dressing: no orange Zetatech traffic barriers, no floating loot tokens, no Zetatech guards and no transport waiting at the intersection.",
+      "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's TV nodes)."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "waitress_fa",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female waitress on shift. default is the entry's only phase and its vanilla initial phase (entryActiveOnStart=1); her spots play diner 'stand_tablet taking_order' and 'stand mop cleaning_floor', i.e. serving and cleaning, never a combat or scene pose."
+    },
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "waitress_ma",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Male server behind the counter. default is his only phase and vanilla initial phase; his spots are 'stand_glass clean' at the bar and 'kneel_ground_tablet use', i.e. routine service work."
+    },
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "diner_customer_f_day",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Daytime diner customer. default is the entry's only phase and vanilla initial phase; spot plays barstool/chair idles (eat takeout, drink, check phone) at the counter and booths."
+    },
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "diner_customer_m_day",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second daytime diner customer; same seat set as diner_customer_f_day and the same relaxed dining workspots. Vanilla starts the entry active in default."
+    },
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "diner_customer_f_night",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Night-shift diner customer at the barstools; his three spots play sit_barstool sleep, check_phone and drink_vodka, i.e. a late patron. Vanilla starts the entry active in default."
+    },
+    {
+      "spawner": "#arr_12_dinner_crowd_com",
+      "entry_name": "diner_customer_m_night",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second night-shift customer; same three barstool spots as diner_customer_f_night and the same relaxed night workspots. Vanilla starts the entry active in default."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#arr_12_dvc_diner_camera",
+    "within": 80.0,
+    "why": "The diner's surveillance camera is the only device the catalogue resolves inside this venue (path $/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_12_diner_prefabUU7T6KQ/loc_sts_std_arr_12_viaduct_devices_prefabFGOTLPQ/#arr_12_dvc_diner_camera), and it is a real device entity streamed with the diner's device prefab in the sector's base node range, so it is a valid non-workspot anchor."
+  }
+}

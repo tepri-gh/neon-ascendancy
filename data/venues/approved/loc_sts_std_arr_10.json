@@ -1,0 +1,46 @@
+{
+  "code": "sts_std_arr_10",
+  "display_name": "Cytech Factory",
+  "why": "The Cytech Factory is a quest-only industrial interior in Arroyo, used by Muamar Reyes' gig 'Severance Package' (break in, reach the server room, steal ex-engineer Rihanna Kumar's research). In vanilla it is empty until the gig starts and the street-story prefab loads. This proposal loads the street-story prefab and switches on the factory's own population - Cytech private security at their posts, line workers at machines, and four utility droids - in their relaxed initial phases.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_10/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in through the main door on Olivia St. and confirm the factory interior loads and the door opens.",
+      "Confirm the Cytech security guards are calm at their posts (patrolling, leaning, smoking), not crouched or sheltering.",
+      "Confirm the three workers and four droids are visible at the machines on the ground floor and second floor.",
+      "Check whether the private security turns hostile when you walk in; note it in the checklist if they do.",
+      "Visit the factory at night and confirm the staff still spawn (all their community spots are authored with the Day time period)."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_arr_10_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_10_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The factory's own crowd: ten Cytech private-security guards plus three line workers, exactly as vanilla switches them on at gig start. The whole-community activation uses each entry's initial phase (A_spawn or A), whose spots are patrol, stand-around, lean-and-smoke, barstool-sleep and work-table workspots - relaxed posts, not alert. The catalogue has posture unknown only because its spot map was missing; the spot nodes are in the venue sectors and were resolved by hand.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_10_workers_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Four utility droids on the factory floor, vanilla's whole-community activation in phase A. Their spots are stand-and-use-tablet workspots among the machinery; harmless and appropriate for a plant that is not under attack.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_10_main_door",
+    "within": 80.0,
+    "why": "The factory's front door on the normal route in, and the first device the player passes; a DoorControllerPS, not a workspot. The venue declares no anchor candidates of its own and the main door is the natural arrival point (the #arr_10_tr_enter and #arr_10_tr_start triggers sit just outside at approx. -706,-1387)."
+  }
+}

@@ -256,3 +256,58 @@ the non-combat people. **(after tour)**
     (recommended)? Keep the trapped door, turret, cameras and mines as
     atmosphere if inert? If the front door is locked, a door-action
     exception, or the roof ladder as the only way in?
+
+## 8. Wave 13
+
+78. **Hostile garrisons (cross-venue, replaces asking venue by venue).**
+    Vanilla often makes a venue's guards neutral only inside a quest phase
+    we do not run, so they may attack on sight: Cytech, C-Team, the casino,
+    Rosebud, the paint factory, Militech's tunnel site, Arasaka Estate,
+    Lina's scavs and the Maelstrom warehouse among them. Build a small
+    attitude layer that sets venue garrisons neutral until provoked (faction
+    hostility stays a sim decision), or trim each hostile venue to its
+    non-combat people? **(after tour)**
+79. **Leah Gladen** (`sts_wbr_jpn_12`, `sts_wbr_jpn_12b`). Alive in our
+    timeline, but vanilla only has her corpse. Hand-author her alive in her
+    Japantown flat (recommended), or leave the flat empty?
+80. **Japantown Apartments** (`sts_wbr_jpn_12`). The gig's bespoke guard as
+    building security (recommended no)? Keep the service worker
+    (recommended yes)? The hidden stash shutter openable as vanilla
+    (recommended)?
+81. **Wired Head** (`sts_wbr_jpn_12b`). All ten Claws (recommended) or
+    fewer? Add the two reinforcement gunmen (recommended no)?
+82. **Eisenhower St. block** (`sts_wat_kab_05`). Keep the joytoy and BD
+    civilians, or Scavengers only? Basement reachable or sealed? A standing
+    Scavenger crew, or let the territory layer own the den?
+83. **Kabuki rooftop slums** (`sts_wat_kab_101`). Scavs and residents
+    (recommended), or one group? Were the residents already driven out?
+    Hand-place Jae-Hyun (no vanilla data)?
+84. **Lina's home** (`mq303_linas_mansion`). Add Lina (vanilla never places
+    her there, so it needs a hand-made placement) or leave the flat to her
+    crew? All five scavs, a light guard, or none? Schedule variant 0
+    (proposed) or 1? Keep the parked Archer Hella?
+85. **City Center back alley** (`q306_meeting_spot`). The one sleeper
+    (proposed) or an empty alley? Songbird's spy van never here
+    (recommended), or her fixed spot?
+86. **The Hammer, 2077, continued** (`q108_back_alley`, excluded). Reuse this
+    alley too (recommended)? Any trace of the 2013 abduction (recommended
+    no)? Where does Lyle Thompson belong in 2077?
+87. **Soulkiller room** (`q101_soulkiller_room`, excluded). Keep it excluded
+    (recommended), or repurpose it as a present-day Arasaka Soulkiller lab?
+    Saburo's 2077 home is the tower's executive level, not this set.
+88. **Cytech factory** (`sts_std_arr_10`). Ten guards (recommended), fewer if
+    hostile (see 78)? A working plant (recommended)? Rihanna Kumar absent
+    (recommended)?
+89. **Tyger Claws casino** (`sts_wbr_hil_07`). Free entry (recommended) or a
+    mod toll at the culvert (like 7th Hell's cover charge)? Keep the bar
+    vendor here (recommended)? Post-heist guards off (recommended)? Vortex
+    out (recommended) or a living netrunner stand-in?
+90. **Maelstrom warehouse** (`mq032_maelstrom_warehouse`). A live Maelstrom
+    stash (proposed) or empty? Both monks out, or a non-quest cameo? Fenrir
+    left as world loot, or removed? Maelstrom hostile or neutral (see 78)?
+91. **Kenmore Diner** (`sts_std_arr_12_diner`). Vanilla's thin crowd
+    (proposed) or extra staff? Scenery, or a mod food vendor later (vanilla
+    has no vendor node)?
+92. **Landfill road** (`q101_landfill_road`, nothing to restore). Chase-only
+    road lights off (recommended) or on permanently? Convoy or ambush
+    content later?

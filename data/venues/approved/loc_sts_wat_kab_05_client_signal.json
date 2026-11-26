@@ -1,0 +1,59 @@
+{
+  "code": "sts_wat_kab_05_client_signal",
+  "display_name": "Eisenhower St. scav den and Charles Bucks' clinic (Kabuki)",
+  "why": "A nondescript housing block on Eisenhower Street in Kabuki: the main floor is a Scavenger flop with a TV, couches and two braindance-addled joytoys, the floor above holds two more scavs and the back stairs lead up to Charles Bucks' illegal ripperdoc clinic. This proposal restores the street-story interior section, all three vanilla Scavenger communities in their relaxed initial phases, and the window shutters in the open/occupied state; Charles Bucks is already spawned by the kept kabuki_vendors phase, so only his interior needs loading. The corpse, laptop, databank and post-gig ripperdoc scenes stay out.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_05_client_signal/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the basement is undressed: no body on the table, no laptop, no databank shard and no blood, just an ordinary scavenger basement.",
+      "Confirm the front windows read as open and occupied (window_shutters=0), not sealed; 1 is vanilla's gig pre-entry state.",
+      "Confirm Charles Bucks stands at his clinic counter above the back stairs and his ripperdoc vendor panel opens; the kept kabuki_vendors phase places him, and the clean slate never sets the shop's Interior variant.",
+      "Walk in from Eisenhower St. and out through the clinic: the front door, the side door and the ripperdoc door should all be usable without a keycard.",
+      "Check the upper-floor pair: enemy_008 and enemy_009 should be standing in a calm chat, not alert or patrolling for a fight."
+    ]
+  },
+  "prefabs": [
+    "#sts_wat_kab_05_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#kab_05_com_1st_floor",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The den's own crew: four Scavengers (melee, short-range, officer, keycard holder) on the main floor in their default phase, on routine workspots (sit chair, sit couch, use tablet, vending machine, rail lean, kneel-fix). This is the hideout's staff and guards, so it comes before the civilians in the population order."
+    },
+    {
+      "spawner": "#kab_05_com_2nd_floor",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Two more Scavengers on the upper floor: a shotgun tier-2 in default and the keycard ganger in the chat phase (routine stand ground), i.e. two guards standing and talking. Both are relaxed and no quest activates them hostile; the whole-community form keeps enemy_009 in its chat initial phase."
+    },
+    {
+      "spawner": "#kab_05_com_1st_floor_prostitutes",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The two joytoy/braindance civilians the den keeps around the main floor: the woman slumped on a couch in a braindance, the man asleep on a bench. They are ambient in vanilla's own live-gig pass and are what makes the flop read as a place people live in, not a cleared room."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_wat_kab_05_client_signal_devices",
+      "states": {
+        "window_shutters": 0
+      },
+      "why": "Vanilla's live-gig gameplay pass sets the den's window shutters to 0, while the pre-entry openworld pass seals them (1, behind a gate). The occupied hideout wants the gameplay state so the front of the block looks open and lit rather than boarded up."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#kab_05_entrance_door_solo",
+    "within": 80.0,
+    "why": "The block's front entrance on Eisenhower St. and the player's normal way in; a DoorControllerPS device with a resolved full path inside the venue's own devices prefab, so it streams before the people need re-issuing."
+  }
+}

@@ -36,6 +36,10 @@
     {
       "stop": "q302_06_basketball",
       "text": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot, and no Barghest execution squad. Wave 12: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sq023_resturant",
+      "text": "Drive the landfill approach road near (277, -2354), about 568 m from this stop, at night: does it read as normally lit with the chase-only landfill_road_light variant off, and is there no heist-chase or billboard-crash debris? Wave 13 (loc_q101_landfill_road): nothing to restore."
     }
   ]
 }

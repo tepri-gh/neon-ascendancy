@@ -150,6 +150,16 @@
       "venue": "loc_mq061",
       "decision": "excluded",
       "why": "Research wave 12: not a venue but mq061's Night Corp guided-tour trail across existing landmarks, started only from Aera's shard; the landmarks stream normally."
+    },
+    {
+      "venue": "loc_q101_soulkiller_room",
+      "decision": "excluded",
+      "why": "Research wave 13: the 2023 Arasaka Tower interrogation and Soulkiller set inside Johnny's Relic memory (q101), below the rebuilt tower; the memory never plays."
+    },
+    {
+      "venue": "loc_q108_back_alley",
+      "decision": "excluded",
+      "why": "Research wave 13: q108's 2013 memory set on the se2 backlot beside The Hammer; no present-day shell. Owner 2026-11-26: The Hammer is wanted as a new 2077 venue; see docs/design/new-venues.md."
     }
   ]
 }

@@ -1,0 +1,43 @@
+{
+  "code": "sts_wbr_jpn_12",
+  "display_name": "Japantown Apartments (Holly & Floyd St) — Leah Gladen's building",
+  "why": "The Japantown Apartments building on the corner of Holly and Floyd Street is a normal residential block in Japantown: a lobby with a vending machine, lifts, and Leah Gladen's flat plus its hidden stash room on the second floor. The building, the flats and the lifts are world-streamed, but the street story's quest layer (the sector holding the lobby workspots) is not, so in the clean slate nobody stands in the lobby. This proposal loads that quest layer and activates its two residents — the fat man leaning at the vending machine and the tenant woman standing in the lobby — plus the building's service worker; the gig's break-in crew, Leah's body, the shards and the CorpCracker are left out because the murder never happens here.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_12/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the ground-floor lobby and the floor-2 landing and check the two residents and the service worker are on post, not inside Leah's flat.",
+      "Try the front door from Holly & Floyd and check the keypad code 2137 still opens it (and that the door policy has not sealed it).",
+      "Check the secret room: the vending machine/fridge and its shutter should be in their normal state, with no body, blood or loot, and the kitchen button should still open the room.",
+      "Confirm the quest layer's triggers (#jpn_12_tr_*) stay inert — no holocall, no Silverhand line, no enemy movement — when only the prefab is loaded."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_12_prefabVPQQKEI/#sts_wbr_jpn_12_openworld/#sts_wbr_jpn_12_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_wbr_jpn_12a_civilians_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The two building residents vanilla uses to make the lobby lived-in: the fat man leaning at the vending machine and the tenant woman standing around. Whole-community activation puts each in its initial phase A, both relaxed lobby workspots; phase B (sitting with a cigarette / thinking) is the gig's later re-pose and is not needed."
+    },
+    {
+      "spawner": "#jpn_12a_com_combat",
+      "entry_name": "Technician",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The building's service worker (a civilian-guard service worker record, kneeling on the floor with a tablet — routine__kneel_ground_tablet__use), so the block reads as staffed rather than only inhabited. It is the only entry of this community that is not the gig's bespoke guard; the Guard entry is left out because it belongs to the break-in crew."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_12_prefabVPQQKEI/loc_sts_wbr_jpn_12_gameplay_prefabI3CDVXA/loc_sts_wbr_jpn_12_devices_prefabSB2BL6Q/double_door_sliding_g_prefabUAF52CY/#jpn_12_dvc_entrance_door",
+    "within": 80.0,
+    "why": "The building's double sliding entrance door on Holly & Floyd, the way every visitor and resident comes in; it is a DoorControllerPS in the world-streamed devices prefab, so it streams reliably and fires the proximity re-issue of the lobby population. Full path rather than the short tag because #jpn_12_dvc_entrance_door is reused by the DLC apartment phase and short refs can recur."
+  }
+}

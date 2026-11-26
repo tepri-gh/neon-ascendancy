@@ -1,0 +1,64 @@
+{
+  "code": "mq303_linas_mansion",
+  "display_name": "Lina Malina's Residence (Dogtown)",
+  "why": "Lina Malina's residence is a terraced Dogtown mansion above a container-zone street: a wide shuttered drive, an upper terrace with her chair and computer, and a roof hatch. Vanilla only staffs it for Dazed and Confused, when her Scavenger acting crew waits outside and she comes home at dark. This proposal loads the mansion's quest-design prefab, restores the five-person crew and their parked Archer Hella in their calm start/change poses, and leaves Lina herself to an owner decision because vanilla only stages her through the job's scene.",
+  "source": {
+    "proposal": "research/loc_mq303_linas_mansion/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Approach the residence from the street and confirm the five scavengers are outside, calm, in loitering poses and do not attack on sight.",
+      "Confirm all five are present and none is stuck in the phase-'change' pose used by scavenger_5 and scavenger_6 (sitting or smoking on the ledge).",
+      "Walk in through the front door under the runtime door policy; if it stays dead, note whether the window (Technical 20 / quickhack) or the roof hatch still gives a way in.",
+      "Check the upper flat reads as a home: sofa, Lina's chair, computer and terrace intact, with no shoot set, body or police tape.",
+      "Check the wide shutter and the roof hatch keep sensible states and do not seal the drive or the flat.",
+      "Check the parked Archer Hella sits in the drive and does not block the entrance.",
+      "Confirm no schedule display or other quest prop is visible on Lina's computer (var_schedule 0)."
+    ]
+  },
+  "prefabs": [
+    "#mq303_pr_linas_mansion"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq303_com_gangers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation switches on all five scavengers in their initial phases, exactly the group vanilla spawns at the mansion's start: scavenger_1/2/4 in start, scavenger_5/6 in change. Their spots are all loitering poses: standing around, a big scav sitting in a chair, sitting on a ledge, sitting on the ledge smoking, standing on a phone, standing with a cigarette. The wiki calls them a group of Scavengers who look like members of Lina's acting crew waiting outside, so they read as the star's crew rather than an attack; the catalogue tags them civilian because the records are named mq303_scav_N, but they are gangers, so I rank them combat under rule 11a. needs_tour_check because the group's attitude is unverified and two of the five use the phase-'change' spot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq303_com_ganger_veh",
+      "entry_name": "car",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "The crew's parked Archer Hella, spawned by the same mansion phase step as the crew; 'left' is the state after they drive off, so start is the car-present state. A car in the drive makes the group read as people who arrived together instead of five men loitering for no reason. Vehicles carry no posture in the catalogue, hence the tour check that it sits off the entrance.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq303_linas_mansion_devices",
+      "states": {
+        "var_schedule": 0
+      },
+      "why": "Keeps the job's schedule display out of the flat. Vanilla shows it (var_schedule 1) while the mansion phase runs so V can break in and hack Lina's schedule to add the BD shoot; with no job there is no appointment to read. 0 is the other known state and the baked default; the runtime door/device state is otherwise vanilla."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -2214.39,
+      -2641.61,
+      34.49
+    ],
+    "source": "#mq303_ws_flat_lina_appears AIActionSpot in #mq303_pr_linas_mansion, base/worlds/03_night_city/_compiled/default/ep1/quest_0ce60cb7a05033fd.streamingsector; the upper terrace where Lina appears in the job, unused by this proposal so nothing overlaps the player"
+  },
+  "proximity_wait": {
+    "ref": "#mq303_dvc_linas_door",
+    "within": 80.0,
+    "why": "The flat's single entrance door (DoorControllerPS) in #loc_mq303_linas_mansion_devices: the normal way in for a visitor, so it is the first device a player reaches. The window and roof hatch are the job's break-in routes, not the way in."
+  }
+}

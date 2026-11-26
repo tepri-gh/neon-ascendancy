@@ -1,0 +1,37 @@
+{
+  "code": "sts_wbr_jpn_12b",
+  "display_name": "Wired Head (Japantown)",
+  "why": "Wired Head is the Tyger Claws' braindance club on Crescent and Broad in Japantown: a ground-floor bar and BD lounge with couches, vending machines and a tablet counter, and a mezzanine rail above, used in vanilla as the gang's hideout. In the Greed Never Pays gig it holds Leah Gladen's body, her stolen CorpCracker and the Tyger Claws who fight V for it. This proposal restores the club as a working venue in the no-gig timeline: the quest interior section plus its ten Tyger Claws, relaxing at the bar, couches, vending machine and balcony rail with their netrunner at a tablet. No corpse, no firefight and no named quest cast are restored.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_12b/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Crescent and Broad and confirm the club is open for business through the glass double doors, with no gig marker and no locked entrance.",
+      "Count the crowd inside: about ten Tyger Claws should be sitting and standing at the bar couches, the vending machine, the tablet counter and the balcony rail, all relaxed, with the netrunner at a tablet.",
+      "Look up at the mezzanine: the ganger on the rail should be standing on the upper level (about 30 m up), not floating or clipped into the balcony.",
+      "Check the back room behind the shutter: no body, no shard and no CorpCracker should be visible or reachable there, and the shutter may stay vanilla.",
+      "Check the wall TVs in the bar: they should be powered and interactive, since the q003 phases that disable their interaction never run."
+    ]
+  },
+  "prefabs": [
+    "#sts_wbr_jpn_12b_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_12b_com_combat",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole community is Wired Head's standing Tyger Claw crew: one officer, eight gunmen and a rare netrunner, all in initial phase A on relaxed workspots (bar couch, drink can, vending machine, tablet, BD couch, balcony rail). Vanilla switches the same whole community on as the bar's occupants when the fight starts; restoring it whole in the same phase gives the club its staff, security and patrons without any combat."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#jpn_12_dvc_entrance_door_002",
+    "within": 80.0,
+    "why": "The glass double entrance door on the normal way into the club, resolved to its full $/ path in input.json devices and driven by the venue's openworld phase (ForcePower, then ForceClose/ForceUnpower). A device, not a workspot, so the proximity wait fires."
+  }
+}
