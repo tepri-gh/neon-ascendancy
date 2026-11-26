@@ -16,7 +16,7 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Research wave 14 (first part): Aaron's Northside flat, the Los Osos
   motel and the Benko St bus depot; six intact venues became tour checks.
   Second part: the Dewdrop Inn, the Longshore Stacks container yard, the
-  Horrigan home and Capitán Caliente.
+  Horrigan home and Capitán Caliente, and the Dogtown container-yard lanes.
 - Research wave 13 (first part): Wired Head, the Eisenhower St. block, the
   Kabuki rooftop slums, Lina's home, a City Center back alley, the Japantown
   Apartments, the Cytech factory, the Tyger Claws casino, the Maelstrom

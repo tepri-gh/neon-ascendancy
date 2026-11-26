@@ -360,6 +360,81 @@
    ]
   },
   {
+   "code": "conz_mq304_ce",
+   "name": "Container yard lanes below Luxor Heights (Dogtown) — mq304 city-scene ground",
+   "kind": "approved",
+   "venue": "loc_conz_mq304_ce",
+   "pos": [
+    -2081.86,
+    -2626.96,
+    24.9
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ep1_combat_zone_citizen_outcast_ma",
+    "Character.ep1_combat_zone_citizen_outcast_wa",
+    "Character.ep1_combat_zone_citizen_stacks_elder_wa",
+    "Character.ep1_combat_zone_citizen_stacks_lowlife_ma",
+    "Character.ep1_combat_zone_citizen_stacks_lowlife_wa",
+    "Character.ep1_combat_zone_citizen_stacks_mb",
+    "Character.ep1_combat_zone_service_dealer_ma",
+    "Character.ep1_combat_zone_service_sexworker_poor_wa"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq304_ce_cz_10_friendly (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the lower container lane is populated.",
+     "detail": "Check the lower container lane is populated. Walk the lane around (-2082,-2627, z 25): fifteen Dogtown locals (npc_1..npc_15 - squatters, outcasts, three dealers, one sex worker, an elder) should be sitting, squatting, drinking, smoking, taking pills or leaning on rails, with nobody floating, half-inside a container, or standing on the wrong level of the stack.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crowd survives leaving and returning.",
+     "detail": "Check the crowd survives leaving and returning. Walk 150 m away and come back: the fifteen locals should still be there after the boot and proximity activations, not despawned the way the mq304 trigger crowd despawns on exit.",
+     "source": "open question"
+    },
+    {
+     "label": "Check no firefight is restored on the container tops.",
+     "detail": "Check no firefight is restored on the container tops. Around (-2075,-2710, z 44) there should be no four Barghest riflemen and no four scavengers, no DANGEROUS security warning, and no bodies or loot where the yard's checkpoint stands.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the handcuff corner is clear.",
+     "detail": "Check the handcuff corner is clear. Around (-2023,-2640, z 37.5) there should be no two handcuffed Barghest lying on the ground, no six onlookers in guard stances, and no robbery victim/ganger pair.",
+     "source": "open question"
+    },
+    {
+     "label": "Check there is no Hansen wake dressing anywhere.",
+     "detail": "Check there is no Hansen wake dressing anywhere. The kurt_death_scenes gate decoration (mq304_decoration) must stay off; report any bunting, wreaths or memorial dressing left on the Black Sapphire gate.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the anchor actually fires.",
+     "detail": "Check the anchor actually fires. Approach the lane from the north past the sa_ep1_118 security system at (-2111,-2587): the venue's _prox breadcrumb should flip once the player is inside 80 m.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "mq303_linas_mansion",
    "name": "Lina Malina's Residence (Dogtown)",
    "kind": "approved",
@@ -6352,6 +6427,11 @@
      "label": "Check the balcony door and the back-corridor shutter: closed but passable where vanilla expects it, and not the only sealed route into a lab room.",
      "detail": "Check the balcony door and the back-corridor shutter: closed but passable where vanilla expects it, and not the only sealed route into a lab room.",
      "source": "open question"
+    },
+    {
+     "label": "Go to the Vista del Rey diner and upstairs clinic near (-870, -668, 8), about 334 m from this stop (q111_killers_apartment): is the diner busy on a...",
+     "detail": "Go to the Vista del Rey diner and upstairs clinic near (-870, -668, 8), about 334 m from this stop (q111_killers_apartment): is the diner busy on a fresh start (8-entry background crowd, owner and vendor)? Is the upstairs clinic an empty flat? Wave 14: nothing to restore. If the diner is empty, owner call: activate its crowd after a proximity wait.",
+     "source": "extra"
     }
    ]
   },
@@ -7491,6 +7571,11 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
+    },
+    {
+     "label": "Sq006 truck-ambush corner beside All Foods (sq006_truck_ambush_spot): are the two RoadBlockControllerPS barriers retracted?",
+     "detail": "Sq006 truck-ambush corner beside All Foods (sq006_truck_ambush_spot): are the two RoadBlockControllerPS barriers retracted? If they are up the corner is cut off; that needs an owner device exception (neither the door policy nor the builder acts on road blocks). No ambush line or escape AV. Wave 14: nothing to restore.",
+     "source": "extra"
     }
    ]
   },

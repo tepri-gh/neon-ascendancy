@@ -402,3 +402,17 @@ the non-combat people. **(after tour)**
      or save it for a meditation activity? Place the Zen master as an
      ambient monk in Reconciliation Park (unplaced now)? Research the se5
      cliff separately?
+117. **Sq006 truck-ambush corner** (`sq006_truck_ambush_spot`, nothing to
+     restore). An ordinary empty corner (recommended; the living-world layer
+     owns its Maelstrom spawn anchors) or a standing Maelstrom presence (use
+     the relaxed reinforcement crew, not the window shooters)? If the tour
+     finds the road blocks up, allow a road-block device exception?
+118. **Container-yard lanes, Dogtown** (`conz_mq304_ce`). The 15-person
+     lane crowd as street life (proposed), or drop it as wake staging?
+     Rebuild the scav-versus-Barghest fight as a random encounter
+     (recommended no)? Leave the two restricted security areas vanilla
+     unless the tour shows a trespass warning?
+119. **Vista del Rey diner and clinic** (`q111_killers_apartment`, nothing to
+     restore). Leave the upstairs clinic as the ripper's empty flat until
+     `hvdr_03` is researched, or add `ripperdoc/start` there? Name it for
+     the diner and clinic rather than the cut quest's "killer's apartment"?

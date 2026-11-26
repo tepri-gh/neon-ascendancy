@@ -1,0 +1,46 @@
+{
+  "code": "conz_mq304_ce",
+  "display_name": "Container yard lanes below Luxor Heights (Dogtown) — mq304 city-scene ground",
+  "why": "This catalogue venue is not a building: it is the mq304 city-scene kit placed on ordinary container-yard ground in Dogtown, below Luxor Heights, in three separate spots. cz_ce_sc_11 on a container-top yard stages a firefight between four of Kurt's soldiers and four scavengers; ma_ce_14 on a ground corner stages two handcuffed Barghest lying among six onlookers next to a robbery lore animation; and mq304_ce_cz_10 is a lower lane where fifteen locals (squatters, outcasts, dealers, a sex worker, an elder) hang around on squat, drink, smoke, pills and lean workspots. This proposal restores only that last, friendly crowd as permanent street life and leaves both violent/aftermath scenes out: the other two corners are already covered by the approved loc_q301_crashsite_way_up yard population, whose spots sit 1.1-4 m from this venue's scene spots and whose Barghest checkpoint vanilla itself clears when the fight scene runs.",
+  "source": {
+    "proposal": "research/loc_conz_mq304_ce/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the lower container lane is populated. Walk the lane around (-2082,-2627, z 25): fifteen Dogtown locals (npc_1..npc_15 - squatters, outcasts, three dealers, one sex worker, an elder) should be sitting, squatting, drinking, smoking, taking pills or leaning on rails, with nobody floating, half-inside a container, or standing on the wrong level of the stack.",
+      "Check the crowd survives leaving and returning. Walk 150 m away and come back: the fifteen locals should still be there after the boot and proximity activations, not despawned the way the mq304 trigger crowd despawns on exit.",
+      "Check no firefight is restored on the container tops. Around (-2075,-2710, z 44) there should be no four Barghest riflemen and no four scavengers, no DANGEROUS security warning, and no bodies or loot where the yard's checkpoint stands.",
+      "Check the handcuff corner is clear. Around (-2023,-2640, z 37.5) there should be no two handcuffed Barghest lying on the ground, no six onlookers in guard stances, and no robbery victim/ganger pair.",
+      "Check there is no Hansen wake dressing anywhere. The kurt_death_scenes gate decoration (mq304_decoration) must stay off; report any bunting, wreaths or memorial dressing left on the Black Sapphire gate.",
+      "Check the anchor actually fires. Approach the lane from the north past the sa_ep1_118 security system at (-2111,-2587): the venue's _prox breadcrumb should flip once the player is inside 80 m."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#mq304_ce_cz_10_friendly",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The only relaxed occupant here: fifteen civilians (npc_1..npc_15: stacks lowlifes and an elder, outcasts, three service dealers, one poor sex worker) in a lower container lane at z 22.8-28.6. Every one of the fifteen matching AI spots (cz_ce_sc_ce_10_npc_001..015) plays a street-idle workspot (slav squat, stand ground, take pills, stand rail lean with phone, drink bottle, sit ledge smoking, wall lean, homeless trash pickup), so the group reads as Dogtown regulars hanging out, not an alert post. The catalogue has no community area node for it, so the spot pairing is inferred from the 1:1 entry/spot names and needs a tour check. Whole-community Activate is what vanilla does (entry None, phase None); it switches every entry to its initial phase 'a'.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      -2081.86,
+      -2626.96,
+      24.9
+    ],
+    "source": "mean of worldAISpotNode #cz_ce_sc_ce_10_npc_001..007 in base/worlds/03_night_city/_compiled/default/ep1/exterior_-17_-21_0_1.streamingsector (lower lane cluster; npc_008..015 stand 27-38 m away at z 22.8-28.6)"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/container_zone_openworld_prefabUYHXH3Q/conteiner_zone_sandbox_activities_prefabRU24IRQ/sa_ep1_118_prefabRCJDWBI/sa_ep1_118_gameplay_prefabGQTIG4Q/sa_ep1_118_devices_prefabSN32ILQ/#sa_ep1_118_dvc_sec_sys",
+    "within": 80.0,
+    "why": "input.json has no devices and no anchor_candidates for this venue. The venue's own four devices (#cz_ce_sc_11_security_area_bar/_scav, _security_system_bar/_scav) are 86-111 m from the restored crowd, too far for the 80 m proximity re-activation, and they belong to the excluded fight scene. This is the nearest always-streamed device entity: the SecuritySystemControllerPS of the neighbouring sa_ep1_118 sandbox activity, in world sector exterior_-33_-41_0_0 (position -2110.88,-2587.12,24.04), 21-54 m from every restored spot and 49 m from the tour stop. It is used only as a distance trigger for the second activation; no device action is proposed."
+  }
+}

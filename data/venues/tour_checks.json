@@ -80,6 +80,14 @@
     {
       "stop": "megabuilding_a",
       "text": "Megabuilding H10 garage (q001_garage): do the tunnel roller shutters (#q001_shutter_mb_grg_1/_2) open? Walk in from the street and from the garage lift. No Quadra or Ride staging. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "q003_meat_factory",
+      "text": "Sq006 truck-ambush corner beside All Foods (sq006_truck_ambush_spot): are the two RoadBlockControllerPS barriers retracted? If they are up the corner is cut off; that needs an owner device exception (neither the door policy nor the builder acts on road blocks). No ambush line or escape AV. Wave 14: nothing to restore."
+    },
+    {
+      "stop": "sts_std_arr_01",
+      "text": "Go to the Vista del Rey diner and upstairs clinic near (-870, -668, 8), about 334 m from this stop (q111_killers_apartment): is the diner busy on a fresh start (8-entry background crowd, owner and vendor)? Is the upstairs clinic an empty flat? Wave 14: nothing to restore. If the diner is empty, owner call: activate its crowd after a proximity wait."
     }
   ]
 }
