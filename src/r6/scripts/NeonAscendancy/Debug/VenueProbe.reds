@@ -331,6 +331,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
   NcLogInfo(s"VenueProbe: start pass=\(pass) venues=\(ArraySize(venues))");
   NeonAscendancy_LogBridgeState(game, qs);
   NeonAscendancy_LogDataterms(game);
+  NeonAscendancy_LogVariantToggles(qs);
   for venue in venues {
     NeonAscendancy_ProbeOneVenue(game, venue);
   }
@@ -520,6 +521,20 @@ private func NeonAscendancy_LogDataterms(game: GameInstance) -> Void {
     }
     NcLogInfo(s"Dataterm[\(refs[i])]: \(state)");
     i += 1;
+  }
+}
+
+// Variant-toggle breadcrumbs. The builder emits a set-fact node immediately
+// before (na_dbg_vt_<venue>_reached) and after (na_dbg_vt_<venue>_done) each
+// questTogglePrefabVariant node. Logging them proves whether the graph reached
+// the toggle at all, separating "graph never got here" (both 0) from "toggle
+// ran but did nothing" (reached=1 done=1 with the geometry unchanged).
+private func NeonAscendancy_LogVariantToggles(qs: QuestsSystem) -> Void {
+  const prefixes: array<String> = ["na_dbg_vt_black_sapphire", "na_dbg_vt_dataterms"];
+  for pfx in prefixes {
+    const reached = qs.GetFact(StringToName(pfx + "_reached"));
+    const done = qs.GetFact(StringToName(pfx + "_done"));
+    NcLogInfo(s"VariantToggle[\(pfx)]: reached=\(reached) done=\(done)");
   }
 }
 
