@@ -8,6 +8,13 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Runtime door policy (`World/DoorPolicy.reds`, dev-gated by `na_door_policy`):
+  every quest-driven door that streams in is enabled and powered, and is
+  unlocked or unsealed only when it would otherwise be impassable (no
+  authorization, no controlling terminal, no skill check, toggle or
+  quickhack). Doors are never force-opened. Scope is generated from the venue
+  catalogue (`World/DoorScope.reds`, 899 doors). Each decision is logged as
+  `DoorPolicy:`.
 - Dev boost: `NeonAscendancy_ApplyDevDebug` grants and equips Reinforced
   Tendons (`Items.AdvancedBoostedTendonsLegendary`, the double-jump leg
   cyberware) in the `LegsCW` slot via `EquipCyberwareByTDBID`, the same

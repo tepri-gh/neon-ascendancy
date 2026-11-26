@@ -30,7 +30,7 @@ public func NeonAscendancy_ApplyDevDebug(game: GameInstance, player: ref<GameObj
   const level = devData.GetProficiencyLevel(gamedataProficiencyType.Level);
   const streetCred = devData.GetProficiencyLevel(gamedataProficiencyType.StreetCred);
   NcLogInfo(
-    s"DevDebug.Apply: attributesApplied=\(attributesApplied)/5 perkLevelsUpgraded=\(perkLevelsUpgraded) level=\(level) streetCred=\(streetCred) na_dev_unlock_all_ft=1 na_dev_venue_probe=1 doubleJump=\(doubleJump)"
+    s"DevDebug.Apply: attributesApplied=\(attributesApplied)/5 perkLevelsUpgraded=\(perkLevelsUpgraded) level=\(level) streetCred=\(streetCred) na_dev_unlock_all_ft=1 na_dev_venue_probe=1 na_door_policy=1 doubleJump=\(doubleJump)"
   );
 }
 
@@ -138,6 +138,11 @@ private func NeonAscendancy_DevDebugEnableVenueProbe(game: GameInstance) -> Void
   }
   if qs.GetFact(n"na_dev_venue_probe") == 0 {
     qs.SetFact(n"na_dev_venue_probe", 1);
+  }
+  // Runtime door policy (World/DoorPolicy.reds) ships behind the dev toggle
+  // until a tour has checked it.
+  if qs.GetFact(n"na_door_policy") == 0 {
+    qs.SetFact(n"na_door_policy", 1);
   }
   NeonAscendancy_StartVenueProbe(game);
 }
