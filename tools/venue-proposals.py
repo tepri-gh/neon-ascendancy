@@ -76,9 +76,23 @@ def layer_refs() -> dict[str, str]:
         if isinstance(p, str):
             files.append(ROOT / p)
     for f in files:
-        for r in REF.findall(f.read_text(encoding="utf-8")):
+        data = _without_prose(json.loads(f.read_text(encoding="utf-8")))
+        for r in REF.findall(json.dumps(data)):
             out.setdefault(r, f.name)
     return out
+
+
+# Free-text fields mention refs without using them (a note naming #farida
+# used to reserve her for a layer that never places her).
+PROSE_KEYS = {"why", "summary", "description", "notes", "note", "open_questions", "owner_decisions", "source"}
+
+
+def _without_prose(o: Any) -> Any:
+    if isinstance(o, dict):
+        return {k: _without_prose(v) for k, v in o.items() if k not in PROSE_KEYS}
+    if isinstance(o, list):
+        return [_without_prose(v) for v in o]
+    return o
 
 
 def layer_activations() -> dict[tuple[str, str, str], str]:
