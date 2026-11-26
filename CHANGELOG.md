@@ -16,7 +16,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Research wave 13 (first part): Wired Head, the Eisenhower St. block, the
   Kabuki rooftop slums, Lina's home, a City Center back alley, the Japantown
   Apartments, the Cytech factory, the Tyger Claws casino, the Maelstrom
-  warehouse and the Kenmore Diner.
+  warehouse and the Kenmore Diner. Second part: Cynosure Site D, the
+  Montezuma's Throne boxing ring, Memorial Park NCART station, El Pinche
+  Pollo, BuryGer and Farida's clinic.
 - Research wave 12 (first part): 6th Street's floor 19 in Megabuilding H6,
   Jacked and Coke, Motel Kabuki, the Bennett alley, Tranquil Terrace, the
   Luxor High Wellness Spa, the Coastview relay tower, Poppy Farm and the
@@ -133,6 +135,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Venue checker: refs named only in free-text notes no longer count as
+  placed by another layer (Farida was blocked by a Dogtown vendors note).
 - Cali Express (the Glen) trades: its vendor and customers were gated on
   `q004_done`; the narrow `hey_gle_foodshop_01_default_on` vendor fact is set
   instead.

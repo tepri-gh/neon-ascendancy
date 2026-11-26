@@ -1,0 +1,55 @@
+{
+  "code": "sts_cct_cpz_01",
+  "display_name": "Memorial Park NCART Station (concourse and security annex)",
+  "why": "Memorial Park Station is NCART's Corpo Plaza station: a staffed concourse with ticket/access gates, timetable boards and a huge wall screen, plus the security and control annex behind it (security desk, server room, holding room, maintenance corridors) that Gig: Serial Suicide is built inside. Vanilla switches the station staff off for the heist and leaves the doors unpowered outside it, so in normal play the annex reads as a dark, sealed level. This proposal keeps the whole station community on (station security and maintenance/platform workers in their calm default phase) and puts the two unused corpo commuters at the ticket gates, with the doors left entirely to the runtime door policy.",
+  "source": {
+    "proposal": "research/loc_sts_cct_cpz_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the concourse and count the station staff. Are four security guards and the maintenance/platform workers present at the desks, on inspection rounds and at the ticket gates? If the annex is empty, the whole-community activation did not take and the initial state is not spawning it.",
+      "Get into the annex and confirm the doors open. Check #cpz_01_door_01, #cpz_01_door_02, #cpz_01_door_03 and the shutter #cpz_01_dvc_shutters_002 from the concourse; if they stay unpowered or sealed, the policy skipped them (likely a Militech authorization module) and access needs an owner call.",
+      "Check the two corpo commuters at the ticket gates. Do #cpz_01_com crowd_001/crowd_002 appear calm at the gates, or do they stand inside the restricted security wing? Drop them if they land somewhere wrong.",
+      "Check the restricted-area markers. Walking into the security wing passes #cpz_01_dvc_security_area_restricted (and _002); confirm the trespass warning is acceptable for a working NCART security wing rather than a bug.",
+      "Check the server room. Is the main CCTV server room present and enterable, with no #sts_cpz_01_final_loot and no #cpz_01_dvc_shard pickup?",
+      "Check the holding room. Is it empty - no arrested homeless man and no corpo prisoner (the #cpz_01_com_arested scene)?",
+      "Check that no raid spawns. No Militech security, no droids, no hostile guards should appear anywhere in the annex or on the concourse."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#cct_cpz_01_default_community",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The station's whole default community: four station security guards (arr_security baton record) and the maintenance/platform workers, all in their initial 'default' phase. Vanilla's own normal state is this community active - the gig opens with a whole-community Deactivate so V can sneak through an empty station and restores it with a whole-community Activate at the end. Their named spots are calm work routines (sit-at-keyboard, kneel-and-inspect, shelf search, stand-tablet scan at the gates, wall-lean smoke, drink), so no alert or scene workspots. Activating it whole is vanilla's shape and is idempotent if the initial-state spawn already happens.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#cpz_01_com",
+      "entry_name": "crowd_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A corpo passenger in the concourse. The community sits in the station's open-world prefab next to the ticket/access gates, but vanilla leaves this entry inactive and no phase of this venue activates it, so the station's public side has nobody in it. Two commuters at the gates make the station read as open for service; the phase is the entry's only phase ('default') and has no quest content. The catalogue has no spot map for it, so posture is unknown and the tour must confirm where they stand.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#cpz_01_com",
+      "entry_name": "crowd_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The second concourse passenger, the female half of the same unused two-person crowd. Same reasoning: fills the ticket-gate side of the station while the staff work the annex; posture unknown because the catalogue has no spot map for this community.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#cpz_01_door_01",
+    "within": 80.0,
+    "why": "The glass concourse door the visitor streams in at, in the always-loaded devices prefab next to the ticket gates and security desk. Vanilla force-powers it when the gig starts, so it is a real door device; the proximity wait re-issues the station community once the concourse and the annex behind it have streamed. If the tour finds this is an interior door rather than the concourse entrance, #cpz_01_door_02 is the equivalent anchor."
+  }
+}

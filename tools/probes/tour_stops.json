@@ -96,6 +96,11 @@
      "label": "Check for prologue leftovers.",
      "detail": "Check for prologue leftovers. Walk the garage and the roadhouse lot and look for stuck quest props, an empty sheriff's-car marker, a hovering drone, a forced first-person view near the garage, or any trigger that resets the area; these come with the declared prefab and should be inert.",
      "source": "open question"
+    },
+    {
+     "label": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable?",
+     "detail": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable? Check that no quest marker or background car (Willie's) appears with the quest prefab left out. Wave 13: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -2949,6 +2954,92 @@
    ]
   },
   {
+   "code": "sts_hey_gle_04",
+   "name": "El Pinche Pollo",
+   "kind": "approved",
+   "venue": "loc_sts_hey_gle_04",
+   "pos": [
+    -1525.45,
+    -1102.76,
+    9.14
+   ],
+   "radius": 53.7,
+   "expected_records": [
+    "Character.FattyMale",
+    "Character.HomelessMan",
+    "Character.LowlifeMale",
+    "Character.LowlifeMaleBig",
+    "Character.LowlifeWoman",
+    "Character.NightlifeMale",
+    "Character.SexworkerFemale",
+    "Character.SlackerMale",
+    "Character.Waitress",
+    "Character.gle_04_bouncer",
+    "Character.gle_04_valentinos",
+    "Character.gle_04_valentinos_fast_rifleman",
+    "Character.gle_04_valentinos_fast_rifleman_wa",
+    "Character.gle_04_valentinos_wa"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #gle_04_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check whether the Valentinos treat V as a customer or open fire.",
+     "detail": "Check whether the Valentinos treat V as a customer or open fire. The whole crew is spawned in its ambient 0default/default phases; if they read as hostile on entry, the venue needs a different posture or a guarded-upstairs arrangement rather than a plain crowd.",
+     "source": "open question"
+    },
+    {
+     "label": "Look up from the bar and count the second floor: a bouncer on the stair landing, two at the pool table, the boss, the officer, two clients, a windo...",
+     "detail": "Look up from the bar and count the second floor: a bouncer on the stair landing, two at the pool table, the boss, the officer, two clients, a window watcher and two backups should be visible. Report anyone missing or stacked on one spot.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the bouncer is seated and observing on his chair at the stair landing, not standing in mid-air or in a removed chair.",
+     "detail": "Confirm the bouncer is seated and observing on his chair at the stair landing, not standing in mid-air or in a removed chair. If he is, flip the bouncer_chair variant to 0.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk up to the office and open the glass door without the gig.",
+     "detail": "Walk up to the office and open the glass door without the gig. It should be enabled, powered and openable by the door policy; report if it stays sealed or needs a terminal/keycard that does not exist.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the ground floor is busy: two waitresses working, diners at the day and night tables, patrons at the bar, the outside regulars.",
+     "detail": "Check the ground floor is busy: two waitresses working, diners at the day and night tables, patrons at the bar, the outside regulars. If the room is empty before the venue phase runs, say so; the kept Glen phase is supposed to cover it.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for quest leftovers: no evidence shard or incriminating-data interaction, no handcuffed or dead NPCs, no window standing open, no combat trigg...",
+     "detail": "Look for quest leftovers: no evidence shard or incriminating-data interaction, no handcuffed or dead NPCs, no window standing open, no combat trigger firing.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the boss reads as the restaurant's owner (Mauricio Salinas is not a named character record), and decide whether a generic Valentino leader is...",
+     "detail": "Check the boss reads as the restaurant's owner (Mauricio Salinas is not a named character record), and decide whether a generic Valentino leader is enough. The bouncer is the same: Ernesto Munoz has no named spawn set here.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "hvdr_02_batty",
    "name": "Batty's Hotel",
    "kind": "hand-built",
@@ -3236,6 +3327,87 @@
     {
      "label": "Mirror: #mirror_scene_police_lab is already loaded by the kept mirror_interactions_control phase; confirm the evidence-room mirror is present and d...",
      "detail": "Mirror: #mirror_scene_police_lab is already loaded by the kept mirror_interactions_control phase; confirm the evidence-room mirror is present and does not show the quest's mirror-area staging.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_cct_cpz_01",
+   "name": "Memorial Park NCART Station (concourse and security annex)",
+   "kind": "approved",
+   "venue": "loc_sts_cct_cpz_01",
+   "pos": [
+    -1344.79,
+    -13.88,
+    -6.77
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoMan",
+    "Character.CorpoWoman",
+    "Character.WorkerMale",
+    "Character.arr_security_grunt1_melee1_baton_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #cct_cpz_01_default_community (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #cpz_01_com (2 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: crowd_001/default, crowd_002/default.",
+     "source": "community"
+    },
+    {
+     "label": "Walk the concourse and count the station staff.",
+     "detail": "Walk the concourse and count the station staff. Are four security guards and the maintenance/platform workers present at the desks, on inspection rounds and at the ticket gates? If the annex is empty, the whole-community activation did not take and the initial state is not spawning it.",
+     "source": "open question"
+    },
+    {
+     "label": "Get into the annex and confirm the doors open.",
+     "detail": "Get into the annex and confirm the doors open. Check #cpz_01_door_01, #cpz_01_door_02, #cpz_01_door_03 and the shutter #cpz_01_dvc_shutters_002 from the concourse; if they stay unpowered or sealed, the policy skipped them (likely a Militech authorization module) and access needs an owner call.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two corpo commuters at the ticket gates.",
+     "detail": "Check the two corpo commuters at the ticket gates. Do #cpz_01_com crowd_001/crowd_002 appear calm at the gates, or do they stand inside the restricted security wing? Drop them if they land somewhere wrong.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the restricted-area markers.",
+     "detail": "Check the restricted-area markers. Walking into the security wing passes #cpz_01_dvc_security_area_restricted (and _002); confirm the trespass warning is acceptable for a working NCART security wing rather than a bug.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the server room.",
+     "detail": "Check the server room. Is the main CCTV server room present and enterable, with no #sts_cpz_01_final_loot and no #cpz_01_dvc_shard pickup?",
+     "source": "open question"
+    },
+    {
+     "label": "Check the holding room.",
+     "detail": "Check the holding room. Is it empty - no arrested homeless man and no corpo prisoner (the #cpz_01_com_arested scene)?",
+     "source": "open question"
+    },
+    {
+     "label": "Check that no raid spawns.",
+     "detail": "Check that no raid spawns. No Militech security, no droids, no hostile guards should appear anywhere in the annex or on the concourse.",
      "source": "open question"
     }
    ]
@@ -5429,6 +5601,89 @@
     {
      "label": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's T...",
      "detail": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's TV nodes).",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "mq022_ezekiel",
+   "name": "BuryGer diner, Arroyo (MLK & Brandon)",
+   "kind": "approved",
+   "venue": "loc_mq022_ezekiel",
+   "pos": [
+    -542.98,
+    -737.38,
+    7.82
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.mq022_crowd_man"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq022_com_diner (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: barman/0spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm the diner is not double-booked.",
+     "detail": "Confirm the diner is not double-booked. An Arroyo background community (#std_arr_buryger_diner_com, its client_001..010 seats and a kneeling worker) shares the same chairs as these patrons; if two people sit in one seat, tell the lead to drop the whole-community activation and keep only the barman.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand at the counter and count the staff.",
+     "detail": "Stand at the counter and count the staff. There should be exactly one bartender from the barman/0spawn entry; if the diner also has its own store vendor behind the bar, keep only one of them.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in off MLK & Brandon and confirm the entrance opens.",
+     "detail": "Walk in off MLK & Brandon and confirm the entrance opens. No quest phase drives a door at the diner, so it is ordinary world geometry; if the storefront stays shut, this venue needs a door policy exception.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the back alley.",
+     "detail": "Look at the back alley. With mq022_gang_escaped pinned to 0 the gangers' escape route and the mq022_dvc_diner_gangers_security_* restricted area should be inert: no gangers loitering and the back way shut.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the storefront deco.",
+     "detail": "Look at the storefront deco. The pinned loc_mq022_dinner_v2_deco_v1_external=1 is vanilla's post-Clampdown state and should read as an ordinary open diner with no briefing booth or holo wait marker; if it adds quest dressing, drop the toggle.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the VenueProbe log while approaching.",
+     "detail": "Watch the VenueProbe log while approaching. The anchor is the diner's own interior TV as a full $/ path; confirm _prox is reached, because the #tv_1_q003 tag alone matches hundreds of TVs city-wide.",
+     "source": "open question"
+    },
+    {
+     "label": "Enter the diner and confirm no job starts.",
+     "detail": "Enter the diner and confirm no job starts. The loaded prefab also carries the Ezekiel start trigger and a restricted-area trigger; entering must not launch the side job or trip a restricted zone.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the furniture is not duplicated.",
+     "detail": "Check the furniture is not duplicated. The quest sector holds only workspots, spawners and triggers, so loading #mq022_pr_diner should not double the stools or TVs; if it does, the prefab overlaps the world deco.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the six patrons are calm and seated.",
+     "detail": "Confirm the six patrons are calm and seated. Their 0spawn workspots are barstool/chair/wall-lean drink, smoke and sleep poses; nobody should be standing afraid or in a combat stance.",
      "source": "open question"
     }
    ]

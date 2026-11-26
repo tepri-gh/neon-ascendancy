@@ -1,0 +1,57 @@
+{
+  "code": "sts_hey_gle_04",
+  "display_name": "El Pinche Pollo",
+  "why": "El Pinche Pollo is a Valentinos restaurant on the backstreets of the Glen: a ground-floor bar, kitchen and tables, and a gang-only second floor with a pool lounge, supply closet and office, guarded by bouncers (one is Ernesto Munoz). The clean slate's kept Glen community phase already switches on the ground-floor crowd (waitresses, diners, bar patrons), but the twelve-strong Valentino crew that makes the second floor a gang hangout is activated only by the street-story phase, whose quest prefabs nothing in the clean slate instantiates. This proposal loads the venue's two quest sections, restores the whole gang community in its ambient 0default/default phases, re-issues the civilian crowd after proximity, and sets the bouncer chair and quest-prop variants to the intact pre-gig look.",
+  "source": {
+    "proposal": "research/loc_sts_hey_gle_04/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check whether the Valentinos treat V as a customer or open fire. The whole crew is spawned in its ambient 0default/default phases; if they read as hostile on entry, the venue needs a different posture or a guarded-upstairs arrangement rather than a plain crowd.",
+      "Look up from the bar and count the second floor: a bouncer on the stair landing, two at the pool table, the boss, the officer, two clients, a window watcher and two backups should be visible. Report anyone missing or stacked on one spot.",
+      "Confirm the bouncer is seated and observing on his chair at the stair landing, not standing in mid-air or in a removed chair. If he is, flip the bouncer_chair variant to 0.",
+      "Walk up to the office and open the glass door without the gig. It should be enabled, powered and openable by the door policy; report if it stays sealed or needs a terminal/keycard that does not exist.",
+      "Check the ground floor is busy: two waitresses working, diners at the day and night tables, patrons at the bar, the outside regulars. If the room is empty before the venue phase runs, say so; the kept Glen phase is supposed to cover it.",
+      "Look for quest leftovers: no evidence shard or incriminating-data interaction, no handcuffed or dead NPCs, no window standing open, no combat trigger firing.",
+      "Check the boss reads as the restaurant's owner (Mauricio Salinas is not a named character record), and decide whether a generic Valentino leader is enough. The bouncer is the same: Ernesto Munoz has no named spawn set here."
+    ]
+  },
+  "prefabs": [
+    "#sts_hey_gle_04_streetstory",
+    "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_04_prefabS6EIEQQ/loc_sts_hey_gle_04_openworld_prefabOL6SROI/#sts_hey_gle_04_streetstory/loc_sts_hey_gle_04_combat_prefabSS2NPYA"
+  ],
+  "communities": [
+    {
+      "spawner": "#gle_04_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The Valentinos' own crew: twelve entries in their initial 0default/default phases, covering the bouncer on the stair landing, two pool players, the boss, the officer, two clients, the window watcher and two backups. Whole-community activation is vanilla's own base-phase action, not an invention. Their workspots are ambient (sit-chair observe, barstool drunk, chair drink, rail lean, cigarette, phone, arms crossed), so this should read as a gang lounge rather than a firefight; the catalogue has no spot map for this community, hence the tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#gle_04_com_npc",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The ground-floor restaurant crowd: two waitresses (bar rag, tablet orders, mop), diners at five day tables and three night tables, barstools, the prostitutes and the homeless man outside, and the graffiti kid. The kept Glen community phase already activates this whole community at district boot; I keep it deliberately because that is a one-shot boot activation and a player walking in fresh can miss it (playbook rule 6). The checker's 'already activates' warning is expected and harmless."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_04_prefabS6EIEQQ/loc_sts_hey_gle_04_gameplay_prefab4I7WCHY/loc_sts_hey_gle_04_devices_prefabYBAEF3Q",
+      "states": {
+        "bouncer_chair": 1,
+        "props": 0
+      },
+      "why": "bouncer_chair=1 keeps the chair at the stair landing, matching the bouncer's sit-chair-observe workspot and the gig-available phase that shows it; bouncer_chair=0 is the gig-completion cleanup, where the chair is removed. props=0 is that same completion cleanup and hides the quest props, giving the intact pre-gig restaurant look. If the bouncer reads as standing or floating on tour, flip bouncer_chair to 0."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#gle_04_office_doors",
+    "within": 80.0,
+    "why": "The glass office door is the venue's own quest-driven door on the second floor, streams with the location, and sits well inside the 80 m proximity radius whether the player arrives at the front or the side of the restaurant. Rule 8: a device entity, not a workspot."
+  }
+}

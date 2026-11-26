@@ -40,6 +40,10 @@
     {
       "stop": "sq023_resturant",
       "text": "Drive the landfill approach road near (277, -2354), about 568 m from this stop, at night: does it read as normally lit with the chase-only landfill_road_light variant off, and is there no heist-chase or billboard-crash debris? Wave 13 (loc_q101_landfill_road): nothing to restore."
+    },
+    {
+      "stop": "q000_roadhouse_town",
+      "text": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable? Check that no quest marker or background car (Willie's) appears with the quest prefab left out. Wave 13: nothing to restore, so no venue entry."
     }
   ]
 }

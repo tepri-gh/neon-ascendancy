@@ -1,0 +1,182 @@
+{
+  "code": "mq306_boxing_ring",
+  "display_name": "Boxing Ring by Montezuma's Throne (Dogtown)",
+  "why": "A small open-air boxing ring in the Eden Plaza / Montezuma's Throne corner of Dogtown, ringed by stacked housing and a background crowd of outcasts, workers, kids and gym jocks. Vanilla's mq306 adds the ring's own cast on top: a referee, twelve spectator spots, two kids, and a pair of boxers in the ring - all only while the quest runs its fight and Angie's meeting. In our timeline nobody stages that job, so this proposal restores the venue's normal look: an evening bout in the ring (boxer_01 and boxer_02 at the two boxing workspots), the referee at the ring apron and the full spectator crowd at the ring's cheer spots, with the quest's VR-fight and ring-securing variants switched off.",
+  "source": {
+    "proposal": "research/loc_mq306_boxing_ring/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check that the ring shows a calm local bout. boxer_01 and boxer_02 should box each other at the two ring workspots, the referee should stand at the ring apron and the crowd should cheer or watch - nobody hostile, crouched or on a combat spot.",
+      "Check that the 12 adult and 2 child spectators land on the ring-side spots. No community area node exists for #mq306_com_spectators, so entry-to-spot assignment is inferred from the spot names; note anyone standing in the wrong place or in a duplicate spot.",
+      "Check whether the two Barghest spectators (spectator_male_02, spectator_male_04) stay calm. They use kurtz grunt records; if they read as guards rather than fans, drop those two entries.",
+      "Check that the proximity re-issue fires at the ring. The anchor is the neighbouring open-world security area (61 m, no device exists at the ring itself); if the ring only populates on the first load, report whether a closer device (the access points about 45 m away) is needed.",
+      "Check the ring variants. Confirm the ring has no VR overlay with mq306_vr_fight=0 and no security fence with the decoration states at 0, and whether ring_collision=0 lets you walk into the boxers (if it does, try 1)."
+    ]
+  },
+  "prefabs": [
+    "#mq306_pr_intro"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "referee",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "The ring's referee in his match phase; his spot is a plain stand at the ring apron (stand_around__03), not a combat pose. No community area node exists for this spawner, so the entry-to-spot assignment is inferred from the spot names.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_boxer",
+      "entry_name": "boxer_01",
+      "phase_name": "04b_meeting",
+      "action": "Activate",
+      "why": "One of the two boxers vanilla puts in the ring. His only phase is 04b_meeting and his spot is a genuine boxing workspot inside the ring (boxing__01), so he reads as a fighter working the bout rather than as a talker: the referee, the crowd's cheer spots and the other boxer all point at a match.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_boxer",
+      "entry_name": "boxer_02",
+      "phase_name": "04b_meeting",
+      "action": "Activate",
+      "why": "The second boxer of the pair, one metre from boxer_01 at the neighbouring boxing workspot, so the two of them box each other in the ring instead of leaving one empty corner.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_child_01",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "A local kid watching the fight from the ring side; his spot is the child cheer workspot. The catalogue tags the record 'combat' only because the record name contains the district name 'combat_zone'; the entry is a child spectator.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_child_02",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Second kid at the ring side, on the other child cheer spot. Same district-name role quirk as spectator_child_01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_female_01",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Ring-side spectator of the mq306 crowd; the boxing-ring phase spots are the watching/cheering set, while her 'after fight' spots (lean, smoke, sit on the ground) belong to the aftermath and are not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_female_02",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Second female ring-side spectator of the crowd, same watching workspots.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_01",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "A big gym jock from the plaza's sport crowd, watching the bout from the ring side.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_02",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "An off-duty Barghest gun (kurtz grunt record) watching the fight. Vanilla placed him in this same crowd for the intro, so a Dogtown ring with armed locals is the venue's own look; the pose is a cheer/watch spot, not a combat spot. Rule 11a also puts combat records ahead of civilians when an area is capped.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_03",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Second big gym jock in the ring-side crowd.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_04",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Second off-duty Barghest gun in the crowd; same reasoning as spectator_male_02 - Dogtown locals with hardware at a street fight, watching from a cheer/watch spot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_05",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "One of the plain local spectators; his boxing-ring spot is one of the twelve watching poses (cheer, think, film on a phone, coffee, fries).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_06",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Plain local spectator of the crowd, watching from the ring side.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_07",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Plain local spectator; one of his boxing-ring poses films the fight on a phone, which fits a street bout.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_08",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Plain local spectator of the crowd, watching from the ring side.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_09",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Plain local spectator of the crowd, watching from the ring side.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_spectators",
+      "entry_name": "spectator_male_10",
+      "phase_name": "boxing ring",
+      "action": "Activate",
+      "why": "Last of the ten male spectators; with him the crowd is 12 adults plus 2 kids for the 12 adult and 2 child ring-side spots.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#mq306_pr_intro",
+      "states": {
+        "mq306_vr_fight": 0
+      },
+      "why": "mq306_vr_fight=1 is the backdrop the Angie meeting uses while she talks V around; the intro's real fight - the ring's own match - runs with 0, and the quest returns to 0 afterwards. Keep the normal ring, not the conversation's staged overlay."
+    },
+    {
+      "prefab": "#loc_mq306_boxing_ring_decoration",
+      "states": {
+        "mq306_ring_collision": 0,
+        "mq306_securing_ring": 0
+      },
+      "why": "The intro clears both states when the fight is over (ring walkable, no securing fence), which is the venue's everyday look between and around bouts; only the quest's staged fight raises them."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/monument_av_openworld_prefabNFBKBNQ/monument_av_community_prefabXYN3XFY/#cz_mav_maelstorm_01_dvc_sec_area",
+    "within": 80.0,
+    "why": "The ring drives no device of its own: its quest prefab holds only triggers, splines, workspots and prevention areas, and the five devices in input.json are Digimmortal's (mq306_pr_base, about 870 m away at high_peak), attached to this venue by phase inference only. The nearest real device in an always-streamed open-world sector is this monument-av combat-zone security area, 61 m from the ring centre (entity id 11206153359983598246, ref hash verified), in the same open-world community prefab as the ring's ambient crowd, so an 80 m proximity wait fires at the ring. Flagged in open_questions."
+  }
+}

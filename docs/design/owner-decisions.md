@@ -311,3 +311,30 @@ the non-combat people. **(after tour)**
 92. **Landfill road** (`q101_landfill_road`, nothing to restore). Chase-only
     road lights off (recommended) or on permanently? Convoy or ambush
     content later?
+93. **Cynosure Site D** (`mq305_wanted_lab`). A dormant, sealed site
+    (proposed) or a re-occupied Militech post (needs new cast)? Leave its
+    turrets, mines and cameras live? Can the squat lift reach the lab (see
+    58)? Replay Evan McRay's video logs?
+94. **Boxing ring by Montezuma's Throne** (`mq306_boxing_ring`). A live bout
+    with a full crowd (recommended) or an empty ring? Add Aaron Waines by
+    hand (vanilla never places him there)? Angie and her two Animals stay
+    out (recommended)?
+95. **Memorial Park NCART station** (`sts_cct_cpz_01`). The security wing
+    enterable with a trespass warning (recommended)? Activate the two unused
+    corpo passengers (recommended yes)? Does the concourse belong to this
+    venue or to the metro venue?
+96. **El Pinche Pollo** (`sts_hey_gle_04`). The office inert (proposed) or
+    staged with the gig's evidence? Generic boss and bouncer, or name them
+    Mauricio Salinas and Ernesto Muñoz? A neutral hangout downstairs only,
+    or a hostile restricted upstairs (see 78)?
+97. **BuryGer** (`mq022_ezekiel`). Robbers out (recommended)? King's
+    Clampdown briefing booth out (recommended)? The quest's own barman
+    (recommended)?
+98. **Farida's clinic** (`q303_macs_clinic`). The lead agent added Farida at
+    work (her only vanilla phase is `faceplate_meeting`). Keep her? Should
+    she sell cyberware (needs the vendor layer)? Kurt's AV over Dogtown off
+    (default) or forced on? A research pass for Anderson's Monument Ave
+    ripperdoc point of interest?
+99. **Yucca radio tower** (`q000_radio_tower`, nothing to restore).
+    Unmanned (proposed) or a maintenance presence? Restore the quest prefab
+    and Willie's car? Pin q000's air-traffic vista?

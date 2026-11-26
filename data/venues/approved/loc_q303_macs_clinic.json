@@ -1,0 +1,38 @@
+{
+  "code": "q303_macs_clinic",
+  "display_name": "Farida's Clinic",
+  "why": "Farida's Clinic is the small ripperdoc shop in an underpass in Golden Pacific, Dogtown, run by Farida Nazeri for BARGHEST soldiers and private clients. The shop itself - shell, interior, lights, monitors, ripper chair, sign and the front door with its two intercoms - is part of the always-loaded loc_q303_macs_clinic location prefab, so it already exists in the normal world. Its only missing person is Farida: vanilla spawns her from #farida, farida/faceplate_meeting in the monument_av vendor phase, which the clean slate never runs. Her ref is reserved by the dogtown_vendors note in venue_phases.json, so this proposal restores nothing and raises releasing her as an owner decision instead of duplicating another layer.",
+  "source": {
+    "proposal": "research/loc_q303_macs_clinic/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the clinic is intact and enterable in normal play. The location prefab streams the interior area, desk and chair lights, monitors and the sign mesh; confirm the shop reads as a working clinic and not a bare or sealed room.",
+      "Try the intercom and the front door. Two intercoms (#q303_dvc_farida_door_intercom and {terminal_}1) are wired to the entrance, but vanilla only ever ForceOpens the door from the vendor phase; confirm the door opens without a quest.",
+      "Check the inner clinic door reaches the ripper chair. No phase in input.json drives #q303_dvc_door_clinic, so confirm it is not sealed.",
+      "Check the shop sign is visible. #q304_farida_shop_sign is shown by q304_05b_shard's show-world node, so it may be hidden by default; if the clinic has no sign, the venue entry needs a hand-added show-world node (outside this research schema).",
+      "If the owner releases #farida (see owner_decisions), check Farida stands at her counter. Her spot is #farida_default_ws_chair inside #q303_pr_ripperdoc (ripperdoc__stand_ground_arms_crossed__talk__01); confirm she is present, on post and not in the surgery pose."
+    ]
+  },
+  "prefabs": [
+    "#q303_pr_ripperdoc"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#farida",
+      "entry_name": "farida",
+      "phase_name": "faceplate_meeting",
+      "why": "Lead agent: Farida at work in her Monument Ave clinic. faceplate_meeting is the only phase vanilla places her in; the tour must confirm it reads as her at work, not a quest scene.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q303_dvc_door_clinic_entrance",
+    "within": 80.0,
+    "why": "The clinic's entrance door under the underpass, the device a player reaches on the normal way in. It is a DoorControllerPS entity in the always-loaded loc_q303_macs_clinic gameplay prefab and vanilla drives it (monument_av_vendors ForceEnable/ForceOpen; q304_05b_shard ForceClose/ForceDisable)."
+  }
+}

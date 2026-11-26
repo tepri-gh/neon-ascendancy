@@ -1,0 +1,64 @@
+{
+  "code": "mq022_ezekiel",
+  "display_name": "BuryGer diner, Arroyo (MLK & Brandon)",
+  "why": "BuryGer is a small burger diner at MLK & Brandon in Arroyo, Santo Domingo, run by its diner owner and used by two jobs: Ezekiel Saw the Wheel (mq022), where three gangers try to rob the place, and Clampdown (mq062), where King briefs V. The building, interior (bar counter, beer taps, three TVs) and ten ambient patron seats are ordinary world streaming, but the diner's people come only from mq022's quest prefab: six relaxed patrons and the bartender. This proposal loads that one prefab, switches on the whole diner crowd plus its barman, and pins the two diner variants to their normal states so the place reads as open for business. The robbers, the panic poses, King's briefing booth and the q003 spawn sets the miner attached here (they belong to the All Foods factory) are left out.",
+  "source": {
+    "proposal": "research/loc_mq022_ezekiel/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the diner is not double-booked. An Arroyo background community (#std_arr_buryger_diner_com, its client_001..010 seats and a kneeling worker) shares the same chairs as these patrons; if two people sit in one seat, tell the lead to drop the whole-community activation and keep only the barman.",
+      "Stand at the counter and count the staff. There should be exactly one bartender from the barman/0spawn entry; if the diner also has its own store vendor behind the bar, keep only one of them.",
+      "Walk in off MLK & Brandon and confirm the entrance opens. No quest phase drives a door at the diner, so it is ordinary world geometry; if the storefront stays shut, this venue needs a door policy exception.",
+      "Look at the back alley. With mq022_gang_escaped pinned to 0 the gangers' escape route and the mq022_dvc_diner_gangers_security_* restricted area should be inert: no gangers loitering and the back way shut.",
+      "Look at the storefront deco. The pinned loc_mq022_dinner_v2_deco_v1_external=1 is vanilla's post-Clampdown state and should read as an ordinary open diner with no briefing booth or holo wait marker; if it adds quest dressing, drop the toggle.",
+      "Watch the VenueProbe log while approaching. The anchor is the diner's own interior TV as a full $/ path; confirm _prox is reached, because the #tv_1_q003 tag alone matches hundreds of TVs city-wide.",
+      "Enter the diner and confirm no job starts. The loaded prefab also carries the Ezekiel start trigger and a restricted-area trigger; entering must not launch the side job or trip a restricted zone.",
+      "Check the furniture is not duplicated. The quest sector holds only workspots, spawners and triggers, so loading #mq022_pr_diner should not double the stools or TVs; if it does, the prefab overlaps the world deco.",
+      "Confirm the six patrons are calm and seated. Their 0spawn workspots are barstool/chair/wall-lean drink, smoke and sleep poses; nobody should be standing afraid or in a combat stance."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_mq022_ezekiel_prefabEJN4Z5I/loc_mq022_ezekiel_questdesign_prefabWE22GZY/#mq022_pr_diner"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq022_com_diner",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The diner's six regulars (bar_02..bar_06, bar_08, record mq022_crowd_man). Vanilla switches the whole community on in mq022_beginning; every entry's initial phase is 0spawn, whose workspots are barstools, chairs and a wall lean with drink, smoke and sleep animations, so this is the relaxed diner crowd rather than a scene."
+    },
+    {
+      "spawner": "#mq022_com_diner",
+      "entry_name": "barman",
+      "phase_name": "0spawn",
+      "action": "Activate",
+      "why": "The diner owner/bartender behind the counter, with his own spot #mq022_ws_diner_barman in the prefab. Vanilla activates this exact entry phase in mq022_beginning, but the catalogue could not resolve his character record or posture, so the tour must look at him.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/arroyo/loc_mq022_ezekiel_prefabEJN4Z5I/loc_mq022_ezekiel_env_prefabCRW2S6I/dinner_v2_deco_v1_prefabVO7PHOQ/dinner_v2_deco_v1_external_prefabVMAWK5I",
+      "states": {
+        "loc_mq022_dinner_v2_deco_v1_external": 1
+      },
+      "why": "Vanilla sets this exterior deco variant to 1 in mq062_cleanup, i.e. after King's briefing is over and the diner is back to normal. Our timeline never runs Clampdown, so pin the normal (post-briefing) state instead of the waiting/briefing dressing."
+    },
+    {
+      "prefab": "#loc_mq022_ezekiel_devices",
+      "states": {
+        "mq022_gang_escaped": 0
+      },
+      "why": "The diner's gameplay variant group. Vanilla raises mq022_gang_escaped during the robbery and resets it to 0 afterwards; with no robbery the gangers never escape, so 0 is the normal state (no open escape route, no armed-security area behind the counter)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_santo_domingo/arroyo/loc_mq022_ezekiel_prefabEJN4Z5I/loc_mq022_ezekiel_env_prefabCRW2S6I/dinner_v2_deco_v1_prefabVO7PHOQ/dinner_v2_deco_v1_internal_prefabHFEUTTI/tv_1_001_prefabDYSXCPI/#tv_1_q003",
+    "within": 80.0,
+    "why": "One of the diner's three interior TVs, a real TVControllerPS entity in the world-streamed env prefab at the diner's coordinates (about 5 m from the barstools), so the proximity wait fires as the player walks in rather than depending on quest-streamed geometry. Written as the full $/ path because #tv_1_q003 is a generic tag shared by hundreds of TVs city-wide."
+  }
+}
