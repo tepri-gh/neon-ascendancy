@@ -231,8 +231,11 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
     for s in prop.get("spawn_sets") or []:
         ref, en, ph = s.get("reference", ""), s.get("entry_name", ""), s.get("phase_name", "")
         short_ok(ref, "spawn set")
-        if not any(ref_matches(ref, x) and x.get("entry") == en and x.get("phase") == ph for x in v["spawn_sets"]):
-            errs.append(f"spawn set {ref} {en}/{ph}: vanilla never activates this")
+        same = [x for x in v["spawn_sets"] if ref_matches(ref, x) and x.get("entry") == en and x.get("phase") == ph]
+        if not same:
+            errs.append(f"spawn set {ref} {en}/{ph}: vanilla never uses this")
+        elif not any(x.get("action") == "Activate" for x in same) and not s.get("needs_tour_check"):
+            warns.append(f"spawn set {ref} {en}/{ph}: vanilla only deactivates it; set needs_tour_check")
         if ref in layers:
             errs.append(f"spawn set {ref}: already placed by {layers[ref]}")
         if (ref, en, ph) in kept_acts:
