@@ -335,6 +335,13 @@ Two local tools feed venue research. Their output is never committed;
   The miner reads both; any new tool that scans community actions must too
   (lesson from 7th Hell, wave 11).
 
+- **Tag aliases in sector refs.** A sector `nodeRefs` entry can read
+  `<path>;#tag`. The node's id is FNV-1a 64 of `<path>` alone, `#` removed
+  (checked against `globalNodeId`, 324 of 324 refs in one sector), and
+  `#tag` is its name. The miner used to index only paths ending in `#tag`,
+  so 150 quest-driven doors (Jacked and Coke's front door, the q112 safe
+  house entrances, the H6 lift) never reached the door scope (wave 12).
+
 ## 7. Dev tour and playtest notes
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with

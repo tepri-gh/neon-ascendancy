@@ -619,10 +619,17 @@ def stage_catalog(a: argparse.Namespace) -> None:
             elif k == "device":
                 devices_pos.append((r["gid"], r["pos"], r.get("debug") or ""))
             elif k == "ref":
-                hash_path[r["hash"]] = r["path"]
-                last = r["path"].rsplit("/", 1)[-1]
-                if last.startswith("#"):
-                    ref_paths[last].append(r["path"])
+                # A sector nodeRef may carry a tag alias: "<path>;#tag". The
+                # node's id is the hash of <path> alone (verified against
+                # globalNodeId: 324/324 refs in exterior_-15_-4_0_0), and
+                # "#tag" names it. Without this, doors such as
+                # #rey_08_front_door never resolved to a path.
+                path, _, alias = r["path"].partition(";")
+                hash_path[str(fnv1a64(path))] = path
+                last = path.rsplit("/", 1)[-1]
+                for tag in {last, alias}:
+                    if tag.startswith("#") and path not in ref_paths[tag]:
+                        ref_paths[tag].append(path)
             elif k == "area":
                 c = comms.setdefault(r["cid"], {"id": r["cid"], "entries": []})
                 for key, ids in r["spots"].items():

@@ -124,6 +124,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Venue miner: sector refs written as `<path>;#tag` now resolve, so 150
+  more quest-driven doors (e.g. Jacked and Coke's front door, the q112 safe
+  house entrances) are in the runtime door policy's scope (875 -> 1020).
 - Venue miner: community actions written as the older `questLegacy_NodeType`
   (99 vanilla phases) were ignored, so 394 activations were invisible to the
   checker, e.g. the downtown phase that already fills 7th Hell. The checker
