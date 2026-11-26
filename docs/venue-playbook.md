@@ -277,6 +277,9 @@ Two local tools feed venue research. Their output is never committed;
   - `venue_inferred: true` on items whose ref is not yet resolved to a path
     and was attached to the venues its phase touches. Treat those as
     unverified until the `sectors` stage has run;
+  - `anchor_candidates`: up to five named devices within 150 m of the venue's
+    spots, nearest first, as full paths, for venues vanilla drives no
+    device at. The builder accepts `$/` anchors;
   - `tier`: `individual` (one research agent each: an authored location used
     by a main job, side job, minor job or gig, with people, devices or
     sections to restore) or `batch` (open-world areas, hustles, apartments,

@@ -1660,8 +1660,8 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                     raise ValueError(f"{venue_path}: venue {code} variant {name} show must be 0 or 1")
         if "proximity_wait" in v:
             prox = v["proximity_wait"]
-            if not prox.get("ref", "").startswith("#"):
-                raise ValueError(f"{venue_path}: venue {code} proximity_wait.ref must be an authored '#name' ref")
+            if not prox.get("ref", "").startswith(("#", "$/")):
+                raise ValueError(f"{venue_path}: venue {code} proximity_wait.ref must be a '#name' or full '$/' ref")
             _check_short_ref(venue_path, code, "proximity_wait.ref", prox["ref"])
             try:
                 within = float(prox.get("within"))

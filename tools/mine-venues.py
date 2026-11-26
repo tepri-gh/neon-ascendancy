@@ -587,6 +587,8 @@ def tier_of(v: dict) -> str:
 def stage_catalog(a: argparse.Namespace) -> None:
     comms: dict[str, dict] = json.loads((a.out / "communities.json").read_text(encoding="utf-8"))
     spots: dict[str, dict] = {}
+    devices_pos: list[tuple[str, list[float], str]] = []  # (gid, pos, debug)
+    hash_path: dict[str, str] = {}
     ref_paths: dict[str, list[str]] = defaultdict(list)  # short '#name' -> full paths
     unconverted: list[str] = []
     for bp in sorted((a.out / "sectors").glob("batch_*.jsonl")):
@@ -594,7 +596,10 @@ def stage_catalog(a: argparse.Namespace) -> None:
             k = r["kind"]
             if k == "spot":
                 spots[r["gid"]] = r
+            elif k == "device":
+                devices_pos.append((r["gid"], r["pos"], r.get("debug") or ""))
             elif k == "ref":
+                hash_path[r["hash"]] = r["path"]
                 last = r["path"].rsplit("/", 1)[-1]
                 if last.startswith("#"):
                     ref_paths[last].append(r["path"])
@@ -794,6 +799,19 @@ def stage_catalog(a: argparse.Namespace) -> None:
                                  "posture": "alert" if "alert" in pos else pos[0] if len(pos) == 1 else "mixed:" + "+".join(pos),
                                  "workspots": ws})
         rec["community_options"] = opts
+        # Anchor candidates: named devices nearest the venue's own spots, for
+        # venues vanilla drives no device at (rule 8 needs a device anchor).
+        pts = [e["spot_pos"] for e in rec["communities"] if e.get("spot_pos")]
+        if pts:
+            cands = []
+            for gid, pos, dbg in devices_pos:
+                path = hash_path.get(gid)
+                if not path:
+                    continue
+                d = min(((pos[0] - p[0]) ** 2 + (pos[1] - p[1]) ** 2 + (pos[2] - p[2]) ** 2) ** 0.5 for p in pts)
+                if d <= 150.0:
+                    cands.append({"path": path, "dist": round(d, 1), "debug": dbg})
+            rec["anchor_candidates"] = sorted(cands, key=lambda c: c["dist"])[:5]
         rec["counts"] = {k: len(rec[k]) for k in ("prefabs", "communities", "spawn_sets", "devices", "toggles", "quests")}
         rec["quest_families"] = sorted({quest_family(q) for q in rec["quests"]})
         rec["tier"] = tier_of(rec)

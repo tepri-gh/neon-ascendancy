@@ -263,7 +263,7 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
         errs.append("proximity_anchor missing")
     elif "_ws_" in anc or anc.startswith("#ws_"):
         errs.append(f"proximity anchor {anc} looks like a workspot (rule 8)")
-    elif not any(ref_matches(anc, x) for x in devs):
+    elif not any(ref_matches(anc, x) for x in devs) and not any(anc == c["path"] for c in v.get("anchor_candidates") or []):
         warns.append(f"proximity anchor {anc}: not a device vanilla drives here; confirm it is a device")
 
     return errs, warns
