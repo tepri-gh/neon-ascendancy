@@ -110,6 +110,11 @@
       "venue": "loc_q202_staging_camp",
       "decision": "excluded",
       "why": "Research wave 8: the temporary Aldecaldo staging camp belongs to the Star ending. The Solar Arrays site already streams in its ordinary state."
+    },
+    {
+      "venue": "loc_q305_songbird_metro_chase",
+      "decision": "excluded",
+      "why": "Research wave 9: the metro chase route to Cynosure requires the story's truck crash and breach. The tunnel and street already stream in their intact state."
     }
   ]
 }
