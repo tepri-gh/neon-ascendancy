@@ -1,0 +1,51 @@
+{
+  "code": "mq059_freedom",
+  "display_name": "Rayfield Contractor Site — Bullard & Sequoia (Rancho Coronado)",
+  "why": "A fenced roadworks/construction site in Rancho Coronado where a Rayfield engineer is updating Yorinobu Arasaka's Caliburn \"Mordred\" out of sight. In vanilla the whole population is quest-spawned by Freedom (mq059); this proposal loads the quest's people layer, switches the site to its working variant (foreman's workbench, laptop, tablet, spotlights and site security system) and activates the site community: six private-security guards, the engineer and two parked sedans. The dam crash pile, the Mordred car and the NPD response stay off, so the venue reads as a guarded contractor site in normal business, not as the job's aftermath.",
+  "source": {
+    "proposal": "research/loc_mq059_freedom/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the six private security on post: they should stand, smoke or patrol calmly around the workbench, never crouch into cover or aim, and the two Emperor sedans should sit level in the lot.",
+      "Check the engineer at the workbench: she should stand at the tablet working at about (524.3,-1402.7,20.3), not float where the table should be.",
+      "Check the site's restricted area: walk into the fenced work zone and see whether the guards treat V as a trespasser and open fire; if they attack on sight, decide whether that is the intended guarded-site behaviour or whether the security area needs a venue exception.",
+      "Check the anchor: the venue proximity breadcrumb should flip at the workbench laptop (#mq059_laptop); if it never does, the mq059_variant_loc_2 toggle or the laptop entity did not stream and only the boot activation ran.",
+      "Check the site dressing: scaffolding, crates, broken blockade and the lit workbench should be present, with no wrecked cars, corpses, tyre tracks or Rayfield Caliburn anywhere.",
+      "Check the dam end of the venue: the crash corner should stay bare road with no 6th Street group or wreck props."
+    ]
+  },
+  "prefabs": [
+    "#mq059_freedom"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq059_community_loc_2",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole site detail in its only phase loc_2, exactly as vanilla mq059_loc2 switches it on: loc2_merc_1..6 (private security), loc2_rayflied_engineer (the Rayfield engineer) and the two Emperor sedans. The resolved spots are idle posts, not a combat line: merc_1 smokes, merc_2 stands guard, four are plain standing markers, and the engineer works a tablet at the foreman's table. That is the staffed contractor site the wiki describes (\"heavily guarded by private security\") without the job's fight.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq059_freedom_openworld",
+      "states": {
+        "mq059_variant_loc_1": 0,
+        "mq059_variant_loc_2": 1,
+        "mq059_variant_loc_3": 0,
+        "mq059_variant_key": 0,
+        "Mq059_crowd_remover": 0
+      },
+      "why": "The working-site look. mq059_variant_loc_2 is the site's own dressing (the foreman's workbench with #mq059_laptop, #mq059_tablet and monitors, the work lights, and the #mq059_security_area/system the staffed site uses); with it off the engineer works at a table that does not exist and the only usable proximity anchor is gone. loc_1 (dam crash wreck, corpses, tyre tracks), loc_3 (Mordred chase) and key (the skeleton-key pickup) stay off, and crowd_remover stays 0 so the surrounding crowd is not stripped. setup asserts exactly the all-zero base, loc2 raises loc_2, cleanup raises crowd_remover."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#mq059_laptop",
+    "within": 80.0,
+    "why": "The site laptop on the foreman's workbench at about (522.6,-1401.5,20.9), one to eight metres from the engineer and the guards' posts, and the only device vanilla drives at this venue with a resolved world path. It streams with mq059_variant_loc_2, which this proposal pins on, so the boot and post-proximity activations both land at the spot where the people are."
+  }
+}

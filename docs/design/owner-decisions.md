@@ -232,3 +232,27 @@ the non-combat people. **(after tour)**
 71. **Gutierrez penthouse** (`sts_wbr_hil_01`). Owners absent (no vanilla
     data) or add them? Alarm, turrets and gates armed or calmed? The
     penthouse floor open to all, or resident-only (see 58)?
+72. **Hillpark campfire and plaza** (`mq304_ce_1`, `hip_mq304_ce`, nothing
+    to restore). Kurt's four soldiers as a standalone patrol, or his car
+    parked there (both recommended no)? A standing Barghest post on the
+    plaza? Force the plaza's security area safe if it reacts?
+73. **Cali Express** (`q004_braindance_store`). Its vendor was gated on
+    `q004_done`; the lead agent added `hey_gle_foodshop_01_default_on` to
+    the vendor facts so it trades normally. Keep it a normal shop with the
+    robbery as backstory (recommended)?
+74. **Bullard & Sequoia site** (`mq059_freedom`). Staffed (proposed) or
+    empty? Working look (proposed) or bare? Yorinobu's Mordred parked there
+    (recommended no)? Accept the restricted-area security, or ask for an
+    exception? Two 6th Street gangers at the dam corner?
+75. **Clement St. house** (`sts_bls_ina_09`, nothing to restore). Empty
+    derelict (recommended) or a scav squat? Basement sealed (recommended)
+    or opened?
+76. **Psychiatric center** (`sts_std_rcr_02`). Jasmine Dixon sedated in
+    cell 7 (proposed) or left out? All ten orderlies or the seven core
+    guards? Vanilla security areas (the restricted wing turns hostile) or
+    a calmer setup? Trim the ten patients and staff?
+77. **Old WNS station** (`sts_wat_nid_12`). The lead agent added Max Jones
+    in his default chair (vanilla's own activation). Keep him there
+    (recommended)? Keep the trapped door, turret, cameras and mines as
+    atmosphere if inert? If the front door is locked, a door-action
+    exception, or the roof ladder as the only way in?

@@ -219,6 +219,11 @@
      "label": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam?",
      "detail": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam? Research wave 11 found it intact and empty (nothing to restore, so no venue entry); its access is owner decision 48.",
      "source": "extra"
+    },
+    {
+     "label": "Go to (-2920, -4724, 68), about 913 m from this stop.",
+     "detail": "Go to (-2920, -4724, 68), about 913 m from this stop. Abandoned house on Clement St. (sts_bls_ina_09): an intact, empty derelict with no gig props (prisoner, turrets, mines). Is the basement door sealed (its keycard only spawns with the gig)? Wave 12: nothing to restore.",
+     "source": "extra"
     }
    ]
   },
@@ -1738,6 +1743,16 @@
      "label": "#loc_q302_06_court_ow_com is catalogued mixed:relaxed+scene because one spot reuses the sq017 'sit ground cute' workspot; needs a look to be sure n...",
      "detail": "#loc_q302_06_court_ow_com is catalogued mixed:relaxed+scene because one spot reuses the sq017 'sit ground cute' workspot; needs a look to be sure nobody freezes in a scene pose.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (-1808, -2713, 72), about 39 m from this stop.",
+     "detail": "Go to (-1808, -2713, 72), about 39 m from this stop. Hillpark lower plaza (hip_mq304_ce): walking onto the public plaza gives no trespass warning and spawns no Barghest. Its security area #hip_ce_sc_15_security_area is RESTRICTED and ON; if it reacts, owner call: force it SAFE. Wave 12: nothing to restore.",
+     "source": "extra"
+    },
+    {
+     "label": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot,...",
+     "detail": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot, and no Barghest execution squad. Wave 12: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -4460,6 +4475,72 @@
    ]
   },
   {
+   "code": "sts_wat_nid_12",
+   "name": "Old WNS Station",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_12",
+   "pos": [
+    -1836.34,
+    2261.2,
+    22.24
+   ],
+   "radius": 120.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #nid_12_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: max_jones/default.",
+     "source": "community"
+    },
+    {
+     "label": "Check Max Jones is at the Old WNS Station.",
+     "detail": "Check Max Jones is at the Old WNS Station. He should be sitting in the chair in the upstairs studio (workspot #nid_12_ws_max_jones, z ~22.2), which is where the Northside district phase, sts_wat_nid_12_ow and sts_wat_nid_12_bugfixing all place max_jones/default; if the studio is empty, the catalogue gap in the owner decisions is the only reason this proposal could not put him there.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in through the front double door at ground level.",
+     "detail": "Walk in through the front double door at ground level. Vanilla never drives #nid_12_entry_door and the runtime policy only covers quest-driven doors, so confirm the door is unlocked and the ground floor (first/second/third rooms, z ~18.2) is reachable.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the interior door block #nid_12_dvc_door_block.",
+     "detail": "Check the interior door block #nid_12_dvc_door_block. The district and open-world phases close it, the street story opens and unlocks it, and it has no resolved device path, so confirm it does not seal off the entrance hall, the generator/panel rooms or Max's upstairs studio.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the shortcut door #nid_12_dvc_shortcut_door.",
+     "detail": "Check the shortcut door #nid_12_dvc_shortcut_door. Vanilla opens and unlocks it during the gig and closes and unpowers it in the open-world state; with no gig running, confirm whether it is passable and that no room is cut off behind it.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the station's security.",
+     "detail": "Look at the station's security. The gig arms a turret, cameras, #nid_12_sec_sys and six explosive mines around the trapped entrance door; with no street story running, confirm entering and walking the rooms does not trigger a turret or a mine.",
+     "source": "open question"
+    },
+    {
+     "label": "Take the roof way in.",
+     "detail": "Take the roof way in. The ladder and #nid_12_tr_solo_entrance (z ~23.2) are the gig's stealth entry; confirm the ladder still reaches the roof and upper floor, so the station has a second way in if the front door is shut.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "wat_kab_gun_trainer_01",
    "name": "Straight Shooters (Kabuki weapon vendor and shooting range)",
    "kind": "approved",
@@ -6409,6 +6490,108 @@
     {
      "label": "The catalogue reports the whole community's posture as relaxed, aggregated from workspots; the nine individual entries were not all spot-checked.",
      "detail": "The catalogue reports the whole community's posture as relaxed, aggregated from workspots; the nine individual entries were not all spot-checked. Confirm on the tour that nobody is frozen in a scene pose or sitting inside furniture.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_rcr_02",
+   "name": "Night City Center for Psychiatric Health (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_sts_std_rcr_02",
+   "pos": [
+    690.58,
+    -1441.77,
+    28.6
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoMan",
+    "Character.MorningCrowdMan",
+    "Character.MorningCrowdWoman",
+    "Character.rcr_02_doctor",
+    "Character.rcr_02_doctor_wheelchair",
+    "Character.rcr_02_enemy_security",
+    "Character.rcr_02_enemy_security_keycard",
+    "Character.rcr_02_enemy_security_officer",
+    "Character.rcr_02_jason_dixon",
+    "Character.rcr_02_reception"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #rcr_02_com_enemies (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #rcr_02_com_static_reinforcement (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #rcr_02_com (10 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: doctor_001/default, doctor_002/default, doctor_003/default, lobby_guest_01/01_default, patient_002/01default, patient_003/01default, patient_004/01_default, patient_005/01_default, patient_006/01_default, patient_007/default.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #rcr_02_com_dixon (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm the lobby is calm when you walk in.",
+     "detail": "Confirm the lobby is calm when you walk in. The ward's security should be seated/leaning at their break posts and the receptionist at her counter, not attacking; if they engage on sight the lobby is inside a hostile security area and the venue needs only the receptionist plus a couple of guards instead of the whole community.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that patients and doctors are actually in the ward on arrival.",
+     "detail": "Check that patients and doctors are actually in the ward on arrival. Their spots live in the location's ward sectors, while the receptionist, Dixon and doctor_003 depend on #sts_std_rcr_02_streetstory being instantiated; if some of them are missing, say which group so the prefab or the spot ownership can be fixed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check Dixon in her cell.",
+     "detail": "Check Dixon in her cell. She should sit depressed in cell 7 through the window; then try her cell door and report whether the runtime door policy can open it, since no quest device action ever drove #rcr_02_door_room7.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the interior_area variant polarity.",
+     "detail": "Check the interior_area variant polarity. It is proposed as 1 (interior marker: no jumping, no time skip); if the ward floor reads as sealed, dark or doubled, the polarity is wrong and should be 0.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the second floor and the roof.",
+     "detail": "Walk the second floor and the roof. The lift is left vanilla, so it needs its own floor terminals; the roof door should be powered and usable, and the upper level should have the three break-room guards.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the couple standing outside the building.",
+     "detail": "Check the couple standing outside the building. They are active by default and one spot is a crying lore pose; if they read as a staged scene rather than a waiting pair, ask for a Deactivate.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the guard with the keycard (enemy_005).",
+     "detail": "Look at the guard with the keycard (enemy_005). The gig's 'take the guard's keys' objective never runs, so confirm the doc keycard is simply carried and does not drop into the world as a quest item.",
+     "source": "open question"
+    },
+    {
+     "label": "Check how the three reinforcement guards read.",
+     "detail": "Check how the three reinforcement guards read. If they cluster in one room like a spawn wave rather than as off-shift staff, the community can be dropped without touching the rest of the ward.",
      "source": "open question"
     }
    ]

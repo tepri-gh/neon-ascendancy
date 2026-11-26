@@ -24,6 +24,18 @@
     {
       "stop": "sq031_ruinedship",
       "text": "Go to the shore at (-2479, 3515, 4), about 1026 m from this stop: no wrecked or burning Seamurai, debris or lift. The Boat Drinks beach (loc_sq028_beach) was excluded in wave 12; the yacht is intact in our timeline."
+    },
+    {
+      "stop": "q302_06_basketball",
+      "text": "Go to (-1808, -2713, 72), about 39 m from this stop. Hillpark lower plaza (hip_mq304_ce): walking onto the public plaza gives no trespass warning and spawns no Barghest. Its security area #hip_ce_sc_15_security_area is RESTRICTED and ON; if it reacts, owner call: force it SAFE. Wave 12: nothing to restore."
+    },
+    {
+      "stop": "q000_border_crossing",
+      "text": "Go to (-2920, -4724, 68), about 913 m from this stop. Abandoned house on Clement St. (sts_bls_ina_09): an intact, empty derelict with no gig props (prisoner, turrets, mines). Is the basement door sealed (its keycard only spawns with the gig)? Wave 12: nothing to restore."
+    },
+    {
+      "stop": "q302_06_basketball",
+      "text": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot, and no Barghest execution squad. Wave 12: nothing to restore, so no venue entry."
     }
   ]
 }

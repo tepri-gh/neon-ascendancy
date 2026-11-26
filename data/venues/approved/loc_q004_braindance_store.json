@@ -1,0 +1,38 @@
+{
+  "code": "q004_braindance_store",
+  "display_name": "Cali Express (The Glen, Scoffield Street)",
+  "why": "Cali Express is the small convenience store in The Glen where The Information's calibration braindance was recorded: the store shell, its interior, the street door and its lighting variants stream with the world, while the robbery cast, the braindance boundary and the scan clues belong to q004's tutorial phase. In our timeline the shop is simply open and intact. The proposal pins the normal shop lighting, leaves the robbery cast and braindance set off, and flags that the Food Vendor and the interior variant may need the vendor layer because glen_vendors gates them behind q004_done.",
+  "source": {
+    "proposal": "research/loc_q004_braindance_store/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand inside Cali Express and confirm it is open for business. The interior should be fitted (counter, shelves, register) and lit normally rather than in the blue braindance look.",
+      "Confirm the Food Vendor is at the counter and has a working shop panel. glen_vendors only reactivates #hey_gle_foodshop_01 and its customers community behind q004_done, so if the shop is unstaffed the fix is a vendor-layer entry, not this venue.",
+      "Walk in through the street door and report whether #q004_door_store_main is locked or sealed. It is the only door vanilla drives here and the runtime door policy should leave it usable.",
+      "Check the shop is not left in robbery or braindance dressing. No clerk/clients/pedestrians from the cast, no thugs, no van outside, no blood decal, cash or pistol clue visible on the floor.",
+      "Confirm the shop interior is not hollowed out. glen_vendors toggles interior=1 on the foodshop's gameplay prefab behind the same q004 gate; if the store looks stripped, report it for the vendor layer."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q004_braindance_store_lighting",
+      "states": {
+        "store_default": 1,
+        "store_braindance": 0,
+        "store_thirdperson": 0
+      },
+      "why": "The normal open-for-business look. q004_bd_tut_store sets exactly this when the shop is not in the calibration braindance; the braindance look (store_braindance=1) and the third-person variant belong to the BD sequence that never runs. Asserting it at boot makes the interior a lit shop rather than a BD set even if the baked default is the braindance look."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q004_door_store_main",
+    "within": 80.0,
+    "why": "The shop's street door, an authored DoorControllerPS in the location's always-streamed devices prefab (exterior_-27_-20_0_0). It is the only device vanilla drives at this venue, and a door entity, not a workspot (rule 8)."
+  }
+}

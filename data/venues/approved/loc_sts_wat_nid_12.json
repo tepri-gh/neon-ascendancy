@@ -1,0 +1,39 @@
+{
+  "code": "sts_wat_nid_12",
+  "display_name": "Old WNS Station",
+  "why": "The Old WNS Station is the abandoned World News Service broadcasting studio on Drake and Pershing in Northside, a two-storey shell of ground-floor production rooms and an upstairs studio/office where Max Jones hides out. Vanilla keeps the building itself streaming (its env prefab carries the shell, doors, ladder, turret, cameras, mines and loot) but drops every street-story phase, so in the clean slate the studio is intact and empty. This proposal restores nothing because the one person who belongs here, Max Jones, cannot yet be expressed: his community template's entries are only read under Regina's Kabuki hub, so the station's spawner #nid_12_com gets no community_options and the checker rejects max_jones/default. The venue is left exactly as it streams, with its doors and its gig-rigged security reported below for the tour.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_12/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check Max Jones is at the Old WNS Station. He should be sitting in the chair in the upstairs studio (workspot #nid_12_ws_max_jones, z ~22.2), which is where the Northside district phase, sts_wat_nid_12_ow and sts_wat_nid_12_bugfixing all place max_jones/default; if the studio is empty, the catalogue gap in the owner decisions is the only reason this proposal could not put him there.",
+      "Walk in through the front double door at ground level. Vanilla never drives #nid_12_entry_door and the runtime policy only covers quest-driven doors, so confirm the door is unlocked and the ground floor (first/second/third rooms, z ~18.2) is reachable.",
+      "Check the interior door block #nid_12_dvc_door_block. The district and open-world phases close it, the street story opens and unlocks it, and it has no resolved device path, so confirm it does not seal off the entrance hall, the generator/panel rooms or Max's upstairs studio.",
+      "Check the shortcut door #nid_12_dvc_shortcut_door. Vanilla opens and unlocks it during the gig and closes and unpowers it in the open-world state; with no gig running, confirm whether it is passable and that no room is cut off behind it.",
+      "Look at the station's security. The gig arms a turret, cameras, #nid_12_sec_sys and six explosive mines around the trapped entrance door; with no street story running, confirm entering and walking the rooms does not trigger a turret or a mine.",
+      "Take the roof way in. The ladder and #nid_12_tr_solo_entrance (z ~23.2) are the gig's stealth entry; confirm the ladder still reaches the roof and upper floor, so the station has a second way in if the front door is shut."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/northside/{loc_sts_wat_nid_}12_prefabAEWIIUA/#sts_wat_nid_12_openworld/#sts_wat_nid_12_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#nid_12_com",
+      "entry_name": "max_jones",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Lead agent: Max Jones hiding out in the Old WNS station, in his default chair. Vanilla's own sts_wat_nid_12_ow phase activates exactly max_jones/default ungated; that phase is not kept, and the catalogue could not resolve the spawner's registry, so his posture is unconfirmed.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#nid_12_dvc_shortcut_door",
+    "within": 80.0,
+    "why": "The only nid_12 door whose full $/ path is resolved (single_door_1_002_prefabUXXPRSI inside the always-streamed sts_wat_nid_12_devices prefab), and vanilla drives it from both sts_wat_nid_12_gameplay and the district phase, so it is an interior door of this station and not a workspot. With no people placeable yet the anchor is only a placeholder for the follow-up that adds Max, when the proximity wait must fire as the player reaches the upstairs studio."
+  }
+}

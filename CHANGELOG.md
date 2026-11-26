@@ -16,7 +16,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Research wave 12 (first part): 6th Street's floor 19 in Megabuilding H6,
   Jacked and Coke, Motel Kabuki, the Bennett alley, Tranquil Terrace, the
   Luxor High Wellness Spa, the Coastview relay tower, Poppy Farm and the
-  Gutierrez penthouse.
+  Gutierrez penthouse. Second part: Cali Express, the Bullard & Sequoia
+  construction site, the psychiatric center and the Old WNS station.
 - Research wave 11 (first part): the Arasaka safe house (intact, empty),
   the Love Shack, Eva Cole's yacht party, the C-Team office, 7th Hell,
   Delamain HQ and the Brainporium. Second part: Yucca, the Chram Denya
@@ -128,6 +129,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Cali Express (the Glen) trades: its vendor and customers were gated on
+  `q004_done`; the narrow `hey_gle_foodshop_01_default_on` vendor fact is set
+  instead.
+- Venue checker: an entry phase vanilla itself activates at the venue is
+  accepted (with a required tour check) when the catalogue could not resolve
+  the spawner's postures, e.g. Max Jones at the Old WNS station.
 - Venue miner: sector refs written as `<path>;#tag` now resolve, so 150
   more quest-driven doors (e.g. Jacked and Coke's front door, the q112 safe
   house entrances) are in the runtime door policy's scope (875 -> 1020).

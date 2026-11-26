@@ -1,0 +1,145 @@
+{
+  "code": "sts_std_rcr_02",
+  "display_name": "Night City Center for Psychiatric Health (Rancho Coronado)",
+  "why": "The venue is the Night City Center for Psychiatric Health (signed 'Center for Behavioral Health') on Sequoia Street in Rancho Coronado: a two-floor ward with a street-level intake lobby and reception desk, patient rooms, a restricted/safe-space wing of cells, a lift, and a roof. Vanilla only ever loads it for Gig: Cuckoo's Nest, which activates the ward's whole staff/patient/security communities and the quest prefab that holds the reception desk, Dixon's cell spot and the doctor-on-call spot. This proposal restores the ward as a working clinic: receptionist and security on post, doctors on a break, patients in beds and common areas, and Sergeant Jasmine Dixon sedated in her cell, while leaving out the rescue, the guard fight, the keycard objective and the fixer's waiting car.",
+  "source": {
+    "proposal": "research/loc_sts_std_rcr_02/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the lobby is calm when you walk in. The ward's security should be seated/leaning at their break posts and the receptionist at her counter, not attacking; if they engage on sight the lobby is inside a hostile security area and the venue needs only the receptionist plus a couple of guards instead of the whole community.",
+      "Check that patients and doctors are actually in the ward on arrival. Their spots live in the location's ward sectors, while the receptionist, Dixon and doctor_003 depend on #sts_std_rcr_02_streetstory being instantiated; if some of them are missing, say which group so the prefab or the spot ownership can be fixed.",
+      "Check Dixon in her cell. She should sit depressed in cell 7 through the window; then try her cell door and report whether the runtime door policy can open it, since no quest device action ever drove #rcr_02_door_room7.",
+      "Check the interior_area variant polarity. It is proposed as 1 (interior marker: no jumping, no time skip); if the ward floor reads as sealed, dark or doubled, the polarity is wrong and should be 0.",
+      "Walk the second floor and the roof. The lift is left vanilla, so it needs its own floor terminals; the roof door should be powered and usable, and the upper level should have the three break-room guards.",
+      "Check the couple standing outside the building. They are active by default and one spot is a crying lore pose; if they read as a staged scene rather than a waiting pair, ask for a Deactivate.",
+      "Look at the guard with the keycard (enemy_005). The gig's 'take the guard's keys' objective never runs, so confirm the doc keycard is simply carried and does not drop into the world as a quest item.",
+      "Check how the three reinforcement guards read. If they cluster in one room like a spawn wave rather than as off-shift staff, the community can be dropped without touching the rest of the ward."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_rcr_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rcr_02_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The ward's own security staff plus the front desk: seven Militech-equipped orderlies (enemy_002/003/004/005/007/008/009) and the receptionist. Vanilla activates this whole community, entries in their initial phases (01default/default), the moment the job starts, so this is exactly the ward's vanilla line-up before anyone shoots. Their spots are break posts, not a firing line: enemy_002 kneels with a tablet, enemy_003 sits back in a chair smoking, enemy_004 stands bodyguard with hands behind, enemy_005 stands and waits, enemy_008 and the break-room guards sit; the receptionist leans on the counter. Rule 11a keeps the fighting group first. Attitude is left vanilla: the lobby is the neutral 'reception' security area, so the tour must confirm they do not engage on sight.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com_static_reinforcement",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Three more ward guards whose only spots are a break room: one stretching, one sitting, one sitting and reading a tablet. Vanilla calls them up mid-fight as reinforcements, but in a quiet ward they read as the off-shift orderlies on their break, which is exactly the staffing a 24/7 safe-space ward would have on the second floor. Same community, same relaxed spot poses.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "doctor_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ward doctor on a cigarette break at the front of the building; the default phase is the only one this entry defines and the spot is a standing smoke pose, not a combat post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "doctor_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second ward doctor, standing with a coffee; the ward's staff need one or two visible doctors and this is a plain break pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "doctor_003",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The on-call doctor at the reception/wheelchair prefab. Vanilla's initial phase for this entry is 'after' (the post-rescue state, the doctor slumped in a wheelchair), so phase 'default' is used instead: it is the same entry's standing spot in the same prefab, which keeps the ward's third doctor on shift without borrowing the aftermath pose. Note the record itself is the wheelchair doctor, so check how he reads standing.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "lobby_guest_01",
+      "phase_name": "01_default",
+      "action": "Activate",
+      "why": "A visitor in the intake lobby waiting on a chair, checking his phone: the ward's front of house needs a waiting relative and this is the only guest entry the venue defines.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_002",
+      "phase_name": "01default",
+      "action": "Activate",
+      "why": "Patient lying covered in bed: the ward's baseline patient state.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_003",
+      "phase_name": "01default",
+      "action": "Activate",
+      "why": "Patient standing in a paranoid idle in the common area; a neutral, non-hostile patient pose that sells the ward's atmosphere.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_004",
+      "phase_name": "01_default",
+      "action": "Activate",
+      "why": "Patient wired into a netrunner-style chair (braindance/therapy rig) lying back: the clinic's treatment-room patient, no quest logic attached.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_005",
+      "phase_name": "01_default",
+      "action": "Activate",
+      "why": "Patient sitting on the floor biting his nails: an anxious inpatient in the common room.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_006",
+      "phase_name": "01_default",
+      "action": "Activate",
+      "why": "Patient sitting cross-legged meditating: 'safe space' therapy in progress.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com",
+      "entry_name": "patient_007",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Patient sitting back in a chair praying: a quiet common-room patient, and her spot is in the ward sector that streams with the location.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_02_com_dixon",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Sergeant Jasmine Dixon, the ward's only named patient, sitting depressed on the chair in her cell. She exists in this timeline and her detention predates any story event; the job (her rescue) never runs, so the pre-rescue state is the normal state. Whole-community activation reproduces vanilla's own entry (dixon/01, initial phase 01) exactly.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_srd_rcr_02_gameplay",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "The ward is an interior: this variant is the worldInteriorAreaNode 'interiorArea' (NoJump, NoTimeSkip, vehicles forbidden, treat-as-interior) that vanilla switches on for the inside part of the job and off at cleanup. On is the normal reading for a hospital patients walk around in. It is not geometry (the ward shell and interior stream with the location), so the polarity is a comfort/behaviour choice, not a door."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rdr_02_dvc_door_shack_02",
+    "within": 80.0,
+    "why": "The lobby's critical-path door (DoorControllerPS) at the front of the ward, in the always-loaded devices prefab. Vanilla force-disables then powers it as the way in, so it streams with the interior the chosen people occupy; the proximity wait fires at the front door and re-issues the communities once the ward and its spots are loaded."
+  }
+}
