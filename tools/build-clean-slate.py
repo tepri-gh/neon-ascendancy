@@ -1585,6 +1585,13 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
     venues = venue_spec.get("venues")
     if not isinstance(venues, list) or not venues:
         raise ValueError(f"{venue_path}: 'venues' must be a non-empty list")
+    # Approved research proposals (tools/venue-proposals.py approve) are venue
+    # entries in this same schema, one file each; validated like hand-built ones.
+    approved_dir = ROOT / venue_spec.get("approved_venues_dir", "data/venues/approved")
+    if approved_dir.is_dir():
+        for ap in sorted(approved_dir.glob("*.json")):
+            with ap.open("r", encoding="utf-8") as fh:
+                venues.append(json.load(fh))
 
     allowed_actions = {
         "ForcePower", "ForceUnpower", "ForceOpen", "ForceClose", "ForceCloseImmediate",
@@ -1611,7 +1618,7 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                     f"{venue_path}: venue {code} has no prefabs; set deferred_prefab_owner "
                     f"naming the phase that declares them")
         for p in v["prefabs"]:
-            if not p.startswith("#"):
+            if not p.startswith(("#", "$/")):
                 raise ValueError(f"{venue_path}: venue {code} bad prefab ref {p}")
             _check_short_ref(venue_path, code, "prefab", p)
             if any(pat in p for pat in venue_spec["forbidden_phase_patterns"]):

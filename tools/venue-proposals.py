@@ -11,6 +11,8 @@ proposal.json for one catalogue venue. This tool keeps that loop honest:
                      every proposal under research/.
   wave N             print the next N untried individual-tier venues, skipping
                      ones with a research folder or a hand-built venue entry
+  approve VENUE...   turn checked proposals into venue entries under
+                     data/venues/approved/ (the builder loads them)
   door-scope         regenerate src/.../World/DoorScope.reds, the quest-driven
                      doors the runtime door policy may act on
 
@@ -266,6 +268,66 @@ def cmd_wave(a: argparse.Namespace) -> int:
     return 0
 
 
+# ---------------------------------------------------------------- approve
+
+APPROVED = ROOT / "data" / "venues" / "approved"
+
+
+def to_venue_entry(vn: str, prop: dict, within: float) -> dict:
+    """A checked proposal as a venue_phases.json venue entry (builder schema)."""
+    code = vn[4:] if vn.startswith("loc_") else vn
+    entry: dict[str, Any] = {
+        "code": code,
+        "display_name": prop.get("display_name") or vn,
+        "why": prop.get("summary", ""),
+        "source": {"proposal": f"research/{vn}/proposal.json", "confidence": prop.get("confidence"),
+                   "open_questions": prop.get("open_questions") or []},
+        "prefabs": [p["ref"] for p in prop.get("prefabs") or []],
+        "communities": [{"spawner": c["spawner"], "entry_name": c["entry_name"], "phase_name": c["phase_name"],
+                         "action": c.get("action", "Activate"), "why": c.get("why", ""),
+                         **({"needs_tour_check": True} if c.get("needs_tour_check") else {})}
+                        for c in prop.get("communities") or []],
+        "spawn_sets": [{"action": s.get("action", "Activate"), "reference": s["reference"],
+                        "entry_name": s["entry_name"], "phase_name": s["phase_name"], "why": s.get("why", ""),
+                        **({"needs_tour_check": True} if s.get("needs_tour_check") else {})}
+                       for s in prop.get("spawn_sets") or []],
+        "variant_toggles": [{"prefab": t["prefab"], "states": t["states"], "why": t.get("why", "")}
+                            for t in prop.get("variant_toggles") or []],
+        "doors": [],
+        "door_exclusions": prop.get("door_exclusions") or [],
+    }
+    if not entry["prefabs"]:
+        entry["deferred_prefab_owner"] = "world streaming (the chosen people need no quest prefab)"
+    anchor = (prop.get("proximity_anchor") or {}).get("ref")
+    if anchor:
+        entry["proximity_wait"] = {"ref": anchor, "within": within,
+                                   "why": (prop.get("proximity_anchor") or {}).get("why", "")}
+    return entry
+
+
+def cmd_approve(a: argparse.Namespace) -> int:
+    cat = load_catalog(a.venues)
+    layers, kept, acts = layer_refs(), kept_vanilla_prefabs(a.venues), layer_activations()
+    APPROVED.mkdir(parents=True, exist_ok=True)
+    bad = 0
+    for vn in a.names:
+        prop = json.loads((a.venues / "research" / vn / "proposal.json").read_text(encoding="utf-8"))
+        if prop.get("timeline_verdict") == "exclude":
+            print(f"{vn}: timeline_verdict exclude; add it to data/venues/triage_overrides.json instead")
+            bad += 1
+            continue
+        errs, _w = check_one(vn, prop, cat[vn], layers, kept, acts)
+        if errs:
+            print(f"{vn}: not approved, {len(errs)} checker errors (run check)")
+            bad += 1
+            continue
+        out = APPROVED / f"{vn}.json"
+        out.write_text(json.dumps(to_venue_entry(vn, prop, a.within), indent=2, ensure_ascii=False) + "\n",
+                       encoding="utf-8")
+        print(f"{vn}: approved -> {out.relative_to(ROOT)}")
+    return 1 if bad else 0
+
+
 # ---------------------------------------------------------------- door scope
 
 SCOPE_OUT = ROOT / "src" / "r6" / "scripts" / "NeonAscendancy" / "World" / "DoorScope.reds"
@@ -286,6 +348,9 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
     lead somewhere real; set-dressing doors often open onto nothing."""
     cat = load_catalog(a.venues)
     excluded: dict[str, str] = {}
+    for ap in sorted(APPROVED.glob("*.json")):
+        for d in json.loads(ap.read_text(encoding="utf-8")).get("door_exclusions") or []:
+            excluded[d.get("ref", "")] = ap.stem
     for pp in sorted((a.venues / "research").glob("*/proposal.json")):
         try:
             prop = json.loads(pp.read_text(encoding="utf-8"))
@@ -335,8 +400,10 @@ def main() -> int:
     p = sub.add_parser("check"); p.add_argument("names", nargs="*")
     p = sub.add_parser("wave"); p.add_argument("n", type=int)
     sub.add_parser("door-scope")
+    p = sub.add_parser("approve"); p.add_argument("names", nargs="+")
+    p.add_argument("--within", type=float, default=80.0, help="proximity wait radius in metres")
     a = ap.parse_args()
-    return {"prepare": cmd_prepare, "check": cmd_check, "wave": cmd_wave, "door-scope": cmd_door_scope}[a.cmd](a)
+    return {"prepare": cmd_prepare, "check": cmd_check, "wave": cmd_wave, "door-scope": cmd_door_scope, "approve": cmd_approve}[a.cmd](a)
 
 
 if __name__ == "__main__":

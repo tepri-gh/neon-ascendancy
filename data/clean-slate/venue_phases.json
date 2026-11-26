@@ -971,5 +971,6 @@
     "ElevatorFloorTerminalControllerPS",
     "DataTermControllerPS"
   ],
+  "approved_venues_dir": "data/venues/approved",
   "door_policy": "Owner policy (2026-11-25): venue doors are closed by default but usable - enabled/powered (and unlocked only where there is otherwise no way through); never force-opened. Doors with an in-world way to open them (terminal, keycard in the world, hacking, Technical or Body check) are left exactly as vanilla. Exception: the Black Sapphire sneak-in route replays the opening steps needed to traverse it."
 }
