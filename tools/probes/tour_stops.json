@@ -757,6 +757,22 @@
    "spawn_sets": []
   },
   {
+   "code": "sq021_police_lab",
+   "name": "NCPD Lab (The Glen)",
+   "kind": "approved",
+   "venue": "loc_sq021_police_lab",
+   "pos": [
+    -1527.74,
+    -575.12,
+    7.89
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sq021_dr_mitsuko"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "arasaka_tower",
    "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
    "kind": "approved",
@@ -1475,6 +1491,22 @@
     "Character.q112_infiltration_construction_site_worker",
     "Character.q112_shinto_female",
     "Character.q112_shinto_male"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "sq017_pachinko_lounge",
+   "name": "Dark Matter",
+   "kind": "approved",
+   "venue": "loc_sq017_pachinko_lounge",
+   "pos": [
+    -347.38,
+    220.67,
+    27.59
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sq017_pachinko_doorman"
    ],
    "spawn_sets": []
   },

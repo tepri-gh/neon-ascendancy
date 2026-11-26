@@ -1,0 +1,63 @@
+{
+  "code": "sq017_pachinko_lounge",
+  "display_name": "Dark Matter",
+  "why": "Dark Matter is an exclusive Japantown nightclub reached by a two-floor lift from the street entrance, with the pachinko parlor below and the bar/lounge and terrace above. Vanilla only populates it for the Us Cracks premiere: every community, including the street doorman, is activated by sq017 and then deactivated by its cleanup, so in the clean slate the venue exists but has no staff. This proposal restores the sq017 quest prefab that owns the venue's AI spots, the street doorman/bouncer on his relaxed guard stand, and the normal non-event music and 'no show' variant state; the premiere's press party and fan mob are left out because that event never happens.",
+  "source": {
+    "proposal": "research/loc_sq017_pachinko_lounge/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The lounge has no non-event club-open crowd: its only occupancy data is the Us Cracks premiere. Vanilla's cleanup empties the room and the wiki's post-gig joytoys are a separate system, so this proposal deliberately leaves it quiet. Should a later pass reuse the relaxed sq017_party / after_concert guests as generic regulars, or is an empty private-event lounge correct for the timeline?",
+      "Confirm in game that the street floor terminal calls the lounge floor: the authored PS is interactive with a skill check and quickhacks enabled, but the quest normally stages lift floors 0/1 and this has not been played.",
+      "Confirm the doorman appears on the street AIActionSpot and holds the guard stand (his workspot), rather than standing at the collision edge of the lift door.",
+      "The #sq017_com_premiere_mob community has no area/spot mapping in the catalogue (posture unknown), so its entries cannot be judged or used without a tour check."
+    ]
+  },
+  "prefabs": [
+    "#sq017_pr_pachinko"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq017_com_pachinko_folks",
+      "entry_name": "sq017_pachinko_doorman",
+      "phase_name": "sq017_pachinko_doorman_start",
+      "action": "Activate",
+      "why": "The street doorman/bouncer at the pachinko-parlor lift entrance. He is the one venue person who exists outside the premiere set-pieces: the wiki has him blocking the elevator in normal play, and his start phase is a relaxed guard stand-around, not a quest pose. Vanilla's cleanup deactivates the whole community, leaving the venue unstaffed in the clean slate."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq017_pachinko_lounge_gameplay",
+      "states": {
+        "sq017_screen": 0,
+        "crowd": 0,
+        "crowd_after": 0,
+        "sq017_camera": 0
+      },
+      "why": "The room's non-event look: no Us Cracks video screen, no concert/crowd dressing and no show camera rig. sq017_camera is enabled by default in the streaming block, so it must be switched off explicitly; the other three are pinned off so no later pass can leave the lounge looking like a show night."
+    },
+    {
+      "prefab": "#loc_sq017_pachinko_lounge_music",
+      "states": {
+        "default_music": 1,
+        "sq017_music": 0
+      },
+      "why": "House music instead of the sq017 show track. The streaming block has sq017_music on and default_music off by default, so both states need setting; this is exactly the post-quest cleanup state."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -347.38,
+      220.67,
+      27.59
+    ],
+    "source": "base/worlds/03_night_city/_compiled/default/quest_3c9aacfbabb69e4f.streamingsector (the Quest sector loaded by #sq017_pr_pachinko), AIActionSpot #sq017_pr_pachinko/#sq017_ws_pachinko_doorman_start at the street lift entrance; it is the doorman's authored post and 1.7 m from the #sq017_mp_pachinko_entrance marker. The lounge is 161 m above this stop, a separate level."
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/japan_town/wejt_06/wejt_06_a_env_prefabBIW7GOQ/wejt_06_a_subdistrict_prefabDUSR7KA/wejt_06_a_architecture_prefabIRSKIMY/loc_sq017_pachinko_lounge_prefabGY5OPRA/#loc_sq017_pachinko_lounge_gameplay/#loc_sq017_pachinko_lounge_devices/#lift_2_floors_street/lift_terminal_1",
+    "within": 80.0,
+    "why": "The street lift floor terminal beside the doorman: an interactive ElevatorFloorTerminalControllerPS 1.8 m from his spot and the device every visitor uses to call the lounge floor. Rule 8 wants a device, not a workspot."
+  }
+}

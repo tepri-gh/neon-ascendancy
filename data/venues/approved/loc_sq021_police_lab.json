@@ -1,0 +1,76 @@
+{
+  "code": "sq021_police_lab",
+  "display_name": "NCPD Lab (The Glen)",
+  "why": "The NCPD Lab is a subcontracted NCPD research facility in the Glen, Heywood, used in The Hunt to research neuroscience and cyberpsychosis. Its building, doors and devices are ordinary world streaming; its only community entry is the on-duty researcher (entry mitsuko, record Character.sq021_dr_mitsuko, apparently Yawen Packard). This proposal restores the ordinary lab by activating her relaxed default phase and turning the investigation and prevention-system variants off, while leaving the quest's forced door states, River/Sobchak spawn sets and the break-in staging out.",
+  "source": {
+    "proposal": "research/loc_sq021_police_lab/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Identity: the community entry is named mitsuko and its record is Character.sq021_dr_mitsuko, but its default spot is #ws_yawen_default under #pr_yawen_packard_default and the wiki names Yawen Packard as the lab researcher. Confirm on tour that this is Yawen (not a second doctor) and that the record/appearance are consistent.",
+      "Default spot dependency: mitsuko/default's only spot lives in #pr_yawen_packard_default, which the kept default_dialogs phase instantiates only on a branch gated by yawen_packard_default_on < 1 (a fact nothing reachable sets in the clean slate). If the researcher does not spawn there, use mitsuko/sq021_waits (its spot #sq021_ws_mitsuko_waits is inside #sq021_pr_lab) or confirm the tertiary character prefab streams independently. This is the biggest risk.",
+      "Variant defaults: sq021_var_investigation=0 and sq021_var_prevention_system2=0 are inferred from the quest's normal branches. If the prefab's authored default is already 0 the toggles are no-ops; if the lab still shows case files, an alarm grid or other investigation dressing, the variant mapping needs revisiting.",
+      "Main door: vanilla force-locks/seals it only during the quest. Confirm the ordinary staff entrance is powered and authorized, and that the Technical Ability door (left alley), the Body door (right) and the container-over-wall route all still work. If the runtime policy unlocks a static main door, that is acceptable; if it seals it, do not add actions without an in-world way through.",
+      "Normal occupancy: the only ambient community at the lab is the researcher; the catalogue has no security, technician or receptionist group for this venue. The lab is therefore quiet by design (the wiki says it is empty at night). Do not invent guards; confirm whether Yawen is the only intended occupant.",
+      "Children's room: confirm it is an ordinary lab/evidence room and not a staged crime scene. The quest opens it to search the file cabinets for Anthony Harris's file; those files and the search poses are quest content and should not be re-staged.",
+      "TVs and q003 actions: the #tv_1_q003 refs resolve to TV nodes under the lab device prefab by name collision, but the q003 phases are All Foods. Confirm no q003 TV interaction or camera-feed state appears at the lab.",
+      "Mirror: #mirror_scene_police_lab is already loaded by the kept mirror_interactions_control phase; confirm the evidence-room mirror is present and does not show the quest's mirror-area staging."
+    ]
+  },
+  "prefabs": [
+    "#sq021_pr_lab"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq021_com_doctor_mitsuko",
+      "entry_name": "mitsuko",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The lab's ordinary on-duty researcher. default is the only relaxed, plain stand-around phase, and vanilla's only community nodes for this entry are Deactivates in sq021_hook and sq021_ride: the quest empties the lab for the break-in, so activating default reverses that staging and puts the researcher back at her normal post. The catalogue's mitsuko/default spot resolves to #ws_yawen_default under #pr_yawen_packard_default, so the entry appears to be Yawen Packard (the wiki's lab researcher) despite the record name sq021_dr_mitsuko; the spot dependency and the name/record mismatch need the tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq021_police_lab_devices",
+      "states": {
+        "sq021_var_investigation": 0
+      },
+      "why": "The lab's device prefab has an investigation variant that vanilla shows only during The Hunt's lab search (show=1). The ordinary lab is the 0 state, without the quest's case-file/evidence dressing."
+    },
+    {
+      "prefab": "#sq021_pr_lab",
+      "states": {
+        "sq021_var_investigation": 0
+      },
+      "why": "Same investigation state on the quest-design layer. The prefab carries the researcher's community and the lab workspots; 0 keeps its quest-search dressings hidden so the ordinary lab reads as a working facility."
+    },
+    {
+      "prefab": "#sq021_pr_lab",
+      "states": {
+        "sq021_var_prevention_system2": 0
+      },
+      "why": "Vanilla sets the prevention system to 0 at the lab start and to 1 only when wanted_level>=1, so 0 is the normal, non-lockdown state for an unbothered lab."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#sq021_dvc_lab_back_window",
+      "why": "The quest's ladder/window break-in route (ForceOpen + ForceUnlock + ForceDisabled in sq021_hook and the bugfix phase). It is not a normal entrance and should not become one through the runtime door policy; leave it shut/disabled."
+    }
+  ],
+  "tour_stop": {
+    "position": [
+      -1527.74,
+      -575.12,
+      7.89
+    ],
+    "source": "mitsuko/default spot 864350996639603143 (#ws_yawen_default, generic__stand_ground__stand_around__11) under #pr_yawen_packard_default, in base/worlds/03_night_city/_compiled/default/quest_3471da0747f369af.streamingsector; 2.8 m from #sq021_ws_lab_river_and_mitsuko at z~7.85 inside the lab"
+  },
+  "proximity_wait": {
+    "ref": "#sq021_dvc_lab_main_door_k",
+    "within": 80.0,
+    "why": "The lab's main entrance door leaf, a DoorControllerPS with a resolved path in the always-loaded gameplay prefab. The quest drives this exact leaf (ForceClose/ForceLock/ForceSeal), so it streams with the venue and sits on the normal path in; it is a device, not a workspot (rule 8). The boot pass activates the researcher and the proximity re-issue fires when V reaches the lab entrance and the interior/devices have streamed."
+  }
+}
