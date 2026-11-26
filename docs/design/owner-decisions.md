@@ -469,3 +469,33 @@ the non-combat people. **(after tour)**
      (recommended no)? GPS trackers and restricted-area markers off
      (recommended)? Name it "Kabuki Docks Container Yard" or "Kabuki Cargo
      Yard"?
+133. **Rovinj St. glitter kitchen** (`sts_wat_lch_06`). The full Tyger crew
+     and cars (proposed), cooks only, or empty? Keep the junkie? Hostile or
+     neutral (see 78)? The plain street-entrance door is outside the door
+     scope; force it if it is shut?
+134. **2071 minefield** (`sts_bls_ina_07`, nothing to restore). Guarded by
+     nobody (recommended), the gig's three drones, or a new smuggler camp?
+     A mod mission site later? A territory node despite restoring nothing?
+135. **Highway 101 Wraith camp** (`sts_bls_ina_08`). Trevor's death as
+     backstory (proposed) or his car and body? Accept the 1.48 km anchor,
+     or allow a camp-side trigger for venues with no device? Day-only
+     vanilla phases, or add a night arrangement? Nine Wraiths, or more cars
+     and guards? Scenery or an occupiable Wraith node?
+136. **Data Inc., Wellsprings** (`sts_hey_spr_06`). Rebeca Price as the live
+     manager (proposed) or a clerk-only shop? Keep the three calm Animals as
+     staff? Keep the Valentino complaining customer? If the front door is
+     locked (its auth module counts as an in-world way), force-unlock it, or
+     accept the back routes?
+137. **Wang's Clinic** (`sts_wat_kab_06`, nothing to restore). The lead
+     agent set `kana_yakin_default_on` so the kept vendor layer staffs Roger
+     Wang (as for Cali Express). Wang as a named cast entry (recommended
+     no)? Any Animals presence (recommended no)? The world-streamed final
+     loot and security markers?
+138. **H11 server room** (`sts_wat_lch_01`). Allow a venue to power the H11
+     lift if it is not callable (see 58)? All five crew including Tatsuya
+     Takei and Yuri Shaku (recommended)? The slacker look, or everyone in
+     default? Disable the restricted area, or a hostile hideout (see 78)?
+139. **Valentinos auto shop, Russell St.** (`sts_hey_spr_03`). The full
+     11-person crew (proposed), trimmed, or empty? A neutral shop, or a
+     restricted hostile site (see 78)? The quest SUV on the lift off
+     (proposed)? Park the nomad truck as ambient?

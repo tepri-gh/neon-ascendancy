@@ -18,7 +18,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   Gustavo's building, the Kendachi plant lot, the Lobos St tower, the
   monokatana workshop and the Acorn Towers lot. Then Tirempire Auto Shop,
   the Kabuki basement ripperdoc lab, the Mallagra St. house and the Kabuki
-  docks container yard (re-anchored on an ungated lift).
+  docks container yard (re-anchored on an ungated lift). Last: the Rovinj
+  St. glitter kitchen, the Highway 101 Wraith camp, Data Inc., the H11
+  server room and the Valentinos auto shop.
 - Research wave 14 (first part): Aaron's Northside flat, the Los Osos
   motel and the Benko St bus depot; six intact venues became tour checks.
   Second part: the Dewdrop Inn, the Longshore Stacks container yard, the
@@ -145,6 +147,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Wang's Clinic (Kabuki) is staffed: `kana_yakin_default_on` is set so the
+  kept Kabuki vendor layer places Roger Wang (it was set only by a gig phase).
 - Venue approve: a proposal's `proximity_anchor.within` now sets the wait
   radius (it was always the `--within` default of 80 m).
 - Venue checker: refs named only in free-text notes no longer count as

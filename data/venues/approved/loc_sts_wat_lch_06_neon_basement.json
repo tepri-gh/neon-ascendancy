@@ -1,0 +1,151 @@
+{
+  "code": "sts_wat_lch_06_neon_basement",
+  "display_name": "Rovinj St. Glitter Lab (Neon Basement)",
+  "why": "The Heisenberg Principle's venue is a Tyger Claws glitter lab in the basement of a Rovinj St. building in Little China: a ground-floor entrance and garage/stair head above, two lab floors below, a lit drug kitchen with a computer terminal, freezers, grills, lights and security cameras. The gig never runs in our timeline, so the lab is not sabotaged and the crew is not a combat wave: the proposal loads the street-story prefab that carries the community spawner and its AI spots, then activates the eleven vanilla Default entries of #lch_06_com_combat (Joe Kaneshiro and Yusaku Ogata cooking, Tyger handgunners, a melee guard, two SMG guards, a rifle guard, the officer and the two parked Tyger cars) plus the junkie outside in his relaxed 'after' phase. Nothing quest-specific is added: no sabotage laptop, no destructible lab cylinders, no reinforcements and no dark emergency-lighting state.",
+  "source": {
+    "proposal": "research/loc_sts_wat_lch_06_neon_basement/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Rovinj St. without the gig and confirm a street entrance works: check the ordinary single door and then the side door into the basement, since the side door is a quest door the gig closes and unpowers.",
+      "Check that the nine Tyger Claws are at their posts on the ground floor and both lab floors (Joe at the tablet, Yusaku below, the officer upstairs, guards on drink/tablet/pills/inspect spots) and not clustered at the spawner or frozen in a T-pose.",
+      "Check the lab lighting: main-room neon on, main lab lights on, emergency lights dim, and no sabotage laptop on the desk. If the room is dark, the normal-state variant toggles did not take.",
+      "Check the two Tyger cars sit in the garage bay and do not block the pedestrian route; the catalogue maps them to a sit workspot, so their placement is the least certain part.",
+      "Check the crew's attitude on approach: they are Tyger Claws and may be hostile; confirm that reads as a normal guarded drug lab and not as the gig's combat wave."
+    ]
+  },
+  "prefabs": [
+    "#loc_sts_wat_lch_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_above",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "Joe Kaneshiro, the glitter-lab operator named in the faction research, at the only spot vanilla gives him: a kneel-and-use-tablet pose on the upper floor. The gig's Default phase is the pre-combat state, so he reads as the cook working the lab, not a quest scene.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_above_enemy_002",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "The upstairs guard in the Default set, leaning back against a wall with a can: an ordinary gang lookout at the entrance floor rather than the combat phase's phone-call patrol.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_001",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "A melee guard on the first basement floor, standing at a plain stand-ground spot. Vanilla's Default set for the lab, not the 'after' search set.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_002",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "A handgun guard in the first basement room on the pills-take spot, a small idle drug-use beat that fits the lab's product without being a hostile pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_003",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "Yusaku Ogata, the second glitter-lab operator in the faction research, standing on the lower lab floor on a dirt stand-ground spot: the cook at his station.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_004",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "SMG guard on the lowest lab floor, alternating a kneel-inspect and a stand-around; the spot is at the lab end of the route, so the kitchen has cover at both ends.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_005",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "Second SMG guard on the lowest floor, using a tablet at a stand spot: a posted guard doing paperwork in the lab rather than a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_enemy_006",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "The rifle guard on the lowest floor, also on a tablet stand spot; the long-gun pair at the back of the lab is the crew's serious security without a patrol.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "#lch_06_ws_below_officer",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "The female Tyger officer on the upper floor at a stand spot: the crew's supervisor, matching the guarded-lab read. Her 'after' phase is inactive in vanilla and is not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "car_01",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "The crew's Tyger Archer Quartz in the Default set, parked at the garage level; it makes the hideout read as a crew that drove in and stays, instead of nine people with no transport. Vehicles get a tour check because the catalogue only maps them to a sit spot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#lch_06_com_combat",
+      "entry_name": "car_02",
+      "phase_name": "Default",
+      "action": "Activate",
+      "why": "The second Tyger car in the same Default set, a Quadra Turbo parked deeper in the garage; two vehicles fill the garage bay the gig uses for the reinforcement drive-in.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_wat_lch_06_junkie",
+      "entry_name": "junkie",
+      "phase_name": "after",
+      "action": "Activate",
+      "why": "The one junkie the venue owns, in his relaxed 'after' phase: inhaling on the street corner ~20 m from the entrance. The 'start' phase is the nervous conversation pose at the door, so the proposal uses only 'after'.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/loc_sts_wat_lch_06_neon_basement_prefabYMSWWOQ/loc_sts_wat_lch_06_neon_basement_env_prefabK7VWZQY/deco_prefabDIGXEZA/int_prefabQTR6FNI/building_a_prefabKFNGXKI",
+      "states": {
+        "neon_lamps_main_room": 1,
+        "neon_lamps_main_room_off": 0
+      },
+      "why": "The world-streamed interior's own default is the intact, lamp-lit main room (enabledByDefault 1/0 in all four interior sector descriptors). This toggle re-asserts that normal look instead of the gig's neon-off state, which the ow phase sets when the lab goes dark."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/loc_sts_wat_lch_06_neon_basement_prefabYMSWWOQ/loc_sts_wat_lch_06_neon_basement_lighting_prefabCTDC4EQ",
+      "states": {
+        "lights_main_lab": 1,
+        "emergency_lgts_bright": 0,
+        "emergency_lgts_dim": 1
+      },
+      "why": "Normal lab lighting: main lab lights on, emergency lighting dim rather than the gig's bright emergency wash. The streaming block already enables lights_main_lab and emergency_lgts_dim by default; this re-asserts them so the kitchen reads as open for production."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/loc_sts_wat_lch_06_neon_basement_prefabYMSWWOQ/loc_sts_wat_lch_06_gameplay_prefabLM4U3CY/loc_sts_wat_lch_06_devices_prefabDCXVI7Q",
+      "states": {
+        "sabotage_pc": 0
+      },
+      "why": "The sabotage laptop is a quest-only prop added by the gig's ow phase; its variant is off by default, so keeping it off means the lab has its ordinary computers but no mission laptop with the sabotage evidence."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_watson/little_china/loc_sts_wat_lch_06_neon_basement_prefabYMSWWOQ/loc_sts_wat_lch_06_gameplay_prefabLM4U3CY/loc_sts_wat_lch_06_devices_prefabDCXVI7Q/#lch_06_dvc_pc_start",
+    "within": 80.0,
+    "why": "A ComputerControllerPS terminal in the venue's own world-streamed devices prefab, 4.5 m from the nearest catalogue spot (input.json anchor_candidates), so the proximity wait fires once the player is inside the building. The sabotage laptop is not usable as an anchor because it only exists with the quest variant."
+  }
+}

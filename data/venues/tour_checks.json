@@ -88,6 +88,18 @@
     {
       "stop": "sts_std_arr_01",
       "text": "Go to the Vista del Rey diner and upstairs clinic near (-870, -668, 8), about 334 m from this stop (q111_killers_apartment): is the diner busy on a fresh start (8-entry background crowd, owner and vendor)? Is the upstairs clinic an empty flat? Wave 14: nothing to restore. If the diner is empty, owner call: activate its crowd after a proximity wait."
+    },
+    {
+      "stop": "q026_judys_apartment",
+      "text": "Go to (-954, 1778, 23), about 118 m from this stop. Wang's Clinic, Kabuki (sts_wat_kab_06): is Roger Wang behind the counter? The lead agent set kana_yakin_default_on so kabuki_vendors staffs it. Doors usable? No Animals takeover or final loot. Wave 15: nothing to restore."
+    },
+    {
+      "stop": "sts_bls_ina_08",
+      "text": "Highway 101 Wraith camp on a FRESH start: are the nine Wraiths there? The camp has no device; its anchor is 1.48 km away, so only the boot activation runs near the camp. Vanilla's phases are Day-only, so also check at night."
+    },
+    {
+      "stop": "sts_bls_ina_08",
+      "text": "From this Wraith camp, visit the 2071 minefield in Biotechnica Flats (sts_bls_ina_07): are the old mine props inert or live? Walk in carefully. No smuggler rig, corpse or drone patrol. Wave 15: nothing to restore."
     }
   ]
 }

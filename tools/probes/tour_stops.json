@@ -1510,6 +1510,80 @@
    ]
   },
   {
+   "code": "sts_hey_spr_06",
+   "name": "Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_spr_06",
+   "pos": [
+    -2256.38,
+    -404.12,
+    1.41
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_hey_spr_06_animals",
+    "Character.sts_hey_spr_06_animals_ranged",
+    "Character.sts_hey_spr_06_officer",
+    "Character.sts_hey_spr_06_rebeca_price",
+    "Character.sts_hey_spr_06_valentinos"
+   ],
+   "spawn_sets": [
+    "#hey_spr_junkshop_01"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #spr_06_animals_com (3 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: enemy_002/A_spawn, enemy_003/A_spawn, enemy_004/A_spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #spr_06_valentino_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: valentino_001/A_spawn.",
+     "source": "community"
+    },
+    {
+     "label": "Walk up to the storefront on Berkeley Ave and check the double glass door opens.",
+     "detail": "Walk up to the storefront on Berkeley Ave and check the double glass door opens. The kept Wellsprings open-world phase force-locks it, and the runtime door policy treats its ESL_NONE auth module as an in-world way, so this is the likeliest place the venue fails; if it stays shut, note it and use the rear service door or the alley gate.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the shop floor is staffed: the junk-shop clerk behind the counter, the Animals officer sitting with a can near the front, a second Animal bet...",
+     "detail": "Check the shop floor is staffed: the junk-shop clerk behind the counter, the Animals officer sitting with a can near the front, a second Animal between the aisles and the Valentino customer at the counter.",
+     "source": "open question"
+    },
+    {
+     "label": "Go downstairs and confirm Rebeca is at her terminal with the Animals guard a couple of metres away, both calm and on post rather than escorting or...",
+     "detail": "Go downstairs and confirm Rebeca is at her terminal with the Animals guard a couple of metres away, both calm and on post rather than escorting or aiming.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the store reads as open for business, not as a gig scene: no mission markers, no body, no shards on the floor, and the back room and basement...",
+     "detail": "Check the store reads as open for business, not as a gig scene: no mission markers, no body, no shards on the floor, and the back room and basement both reachable.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the Valentino customer's nervous stand reads as an annoyed customer arguing at the counter, not as someone about to fight.",
+     "detail": "Confirm the Valentino customer's nervous stand reads as an annoyed customer arguing at the counter, not as someone about to fight.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "mq304_bennett_meeting",
    "name": "Bennett's meeting alley (Downtown back court)",
    "kind": "approved",
@@ -1795,6 +1869,95 @@
      "label": "Whether the upper floor / room behind the counter stays reachable without the questdesign prefab and its anders_blocker variant.",
      "detail": "Whether the upper floor / room behind the counter stays reachable without the questdesign prefab and its anders_blocker variant.",
      "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_bls_ina_08",
+   "name": "Wraith Camp (Highway 101)",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_08",
+   "pos": [
+    -1406.1,
+    -3635.3,
+    55.2
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_bls_ina_08_wraith_med_med_m",
+    "Character.sts_bls_ina_08_wraith_med_med_w",
+    "Character.sts_bls_ina_08_wraith_melee_grunt_hard_m",
+    "Character.sts_bls_ina_08_wraith_melee_med_w_drugged",
+    "Character.sts_bls_ina_08_wraith_nova_wa",
+    "Character.sts_bls_ina_08_wraith_shotgun_ma",
+    "Character.sts_bls_ina_08_wraith_sniper_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #ina_08_com_wraiths (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the camp's population on arrival: nine Wraiths should be at their posts, calm and not alert.",
+     "detail": "Check the camp's population on arrival: nine Wraiths should be at their posts, calm and not alert. They are activated in the 0spawn phase, whose workspots are eating, cooking, drinking, taking drugs, roof patrol and sleeping, so they should read as a gang at rest.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no quest dressing is visible in the camp: no Trevor Brass corpse, no dead courier, no blood, no escape pickup and no nomad car.",
+     "detail": "Confirm no quest dressing is visible in the camp: no Trevor Brass corpse, no dead courier, no blood, no escape pickup and no nomad car. #ina_08_com_cars, #ina_08_com_guide and #ina_08_com_nomads are deliberately not activated.",
+     "source": "open question"
+    },
+    {
+     "label": "Arrive on a brand-new save and report whether the Wraiths are there.",
+     "detail": "Arrive on a brand-new save and report whether the Wraiths are there. The camp owns no device, so the proximity wait anchors 1.48 km away on #ina_02_main_gate_02; boot activation plus the venue prefab should carry it, but a fresh start is where it could fail.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from Highway 101 and report any gate, fence or barrier that blocks the camp.",
+     "detail": "Walk in from Highway 101 and report any gate, fence or barrier that blocks the camp. Vanilla drives no door here, so the runtime door policy has nothing to act on and the way in should be open.",
+     "source": "open question"
+    },
+    {
+     "label": "Visit the camp at night and report whether it empties.",
+     "detail": "Visit the camp at night and report whether it empties. The registry only defines Day time periods for the Wraiths (Morning and Evening for the two sleeping ones), so an empty camp after dark may be vanilla-faithful rather than a bug.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that no loot or clue props from the quest variants appear: no body bags, no lootable Wraith corpses and no scan trail.",
+     "detail": "Check that no loot or clue props from the quest variants appear: no body bags, no lootable Wraith corpses and no scan trail. Both variants are pinned to 0, matching the cooked default.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the roof sniper is on the roof and not stranded or floating above the camp.",
+     "detail": "Confirm the roof sniper is on the roof and not stranded or floating above the camp. #ina_08_ws_wraith_06_roof_001 sits at z=63 on the camp roof while the others are at z=55.",
+     "source": "open question"
+    },
+    {
+     "label": "Highway 101 Wraith camp on a FRESH start: are the nine Wraiths there?",
+     "detail": "Highway 101 Wraith camp on a FRESH start: are the nine Wraiths there? The camp has no device; its anchor is 1.48 km away, so only the boot activation runs near the camp. Vanilla's phases are Day-only, so also check at night.",
+     "source": "extra"
+    },
+    {
+     "label": "From this Wraith camp, visit the 2071 minefield in Biotechnica Flats (sts_bls_ina_07): are the old mine props inert or live?",
+     "detail": "From this Wraith camp, visit the 2071 minefield in Biotechnica Flats (sts_bls_ina_07): are the old mine props inert or live? Walk in carefully. No smuggler rig, corpse or drone patrol. Wave 15: nothing to restore.",
+     "source": "extra"
     }
    ]
   },
@@ -5086,6 +5249,151 @@
    ]
   },
   {
+   "code": "sts_wat_lch_01_server_room",
+   "name": "Megabuilding H11 Server Room",
+   "kind": "approved",
+   "venue": "loc_sts_wat_lch_01_server_room",
+   "pos": [
+    -1397.85,
+    1969.43,
+    -25.02
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wat_lch_01_Tatsuya_Takei",
+    "Character.sts_wat_lch_01_Yuri_Shaku",
+    "Character.sts_wat_lch_01_tygerclaw_smg"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #lch_01_community (5 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: TygerClaw2/graffiti, TygerClaw3/sleep, TygerClaw4/watch, TygerClaw5/default, TygerClaw6/0default.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm the floor and its workspots exist without our own prefab: the street-story section should already load from the kept Little China community...",
+     "detail": "Confirm the floor and its workspots exist without our own prefab: the street-story section should already load from the kept Little China community phase, so check the main room, stairwell and server room are physically there before the crew is judged.",
+     "source": "open question"
+    },
+    {
+     "label": "Ride the H11 lift to the server-room floor and confirm it is powered, callable and stops at the floor without the gig's scripted ForcePower; report...",
+     "detail": "Ride the H11 lift to the server-room floor and confirm it is powered, callable and stops at the floor without the gig's scripted ForcePower; report whether the floor terminals are enough.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in as a stranger and confirm the five Tyger Claws stay calm: the floor has a Tyger Claws guard/restricted area (#sts_wat_lch_01_rma_001), so c...",
+     "detail": "Walk in as a stranger and confirm the five Tyger Claws stay calm: the floor has a Tyger Claws guard/restricted area (#sts_wat_lch_01_rma_001), so check it does not flag trespass or start combat on sight.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crew is on post and relaxed: one spraying graffiti, one asleep in a chair or netrunner chair, one patrolling, one leaning, one at the net...",
+     "detail": "Check the crew is on post and relaxed: one spraying graffiti, one asleep in a chair or netrunner chair, one patrolling, one leaning, one at the netrunner chair; nobody alert or sheltering.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the way in and report which route works: the stairwell glass door, the Body double door into the inner server room, and the Technical Ability...",
+     "detail": "Walk the way in and report which route works: the stairwell glass door, the Body double door into the inner server room, and the Technical Ability vent above the rafters.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the floor looks intact and unransacked: no halon gas or scene leftovers, no quest graffiti decal frozen mid-spray, no camera lockdown, no u...",
+     "detail": "Confirm the floor looks intact and unransacked: no halon gas or scene leftovers, no quest graffiti decal frozen mid-spray, no camera lockdown, no upload prompt or disconnected computer.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_lch_06_neon_basement",
+   "name": "Rovinj St. Glitter Lab (Neon Basement)",
+   "kind": "approved",
+   "venue": "loc_sts_wat_lch_06_neon_basement",
+   "pos": [
+    -1742.74,
+    1526.41,
+    13.7
+   ],
+   "radius": 44.1,
+   "expected_records": [
+    "Character.JunkieMaleDE",
+    "Character.lch_06_tyger_generic1_smg1",
+    "Character.lch_06_tyger_handgun",
+    "Character.lch_06_tyger_joe_kaneshiro",
+    "Character.lch_06_tyger_melee",
+    "Character.lch_06_tyger_officer_female",
+    "Character.lch_06_tyger_rifle",
+    "Character.lch_06_tyger_yusaku_ogata"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #lch_06_com_combat (11 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: #lch_06_ws_above/Default, #lch_06_ws_above_enemy_002/Default, #lch_06_ws_below_enemy_001/Default, #lch_06_ws_below_enemy_002/Default, #lch_06_ws_below_enemy_003/Default, #lch_06_ws_below_enemy_004/Default, #lch_06_ws_below_enemy_005/Default, #lch_06_ws_below_enemy_006/Default, #lch_06_ws_below_officer/Default, car_01/Default, car_02/Default.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #sts_wat_lch_06_junkie (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: junkie/after.",
+     "source": "community"
+    },
+    {
+     "label": "Walk in from Rovinj St.",
+     "detail": "Walk in from Rovinj St. without the gig and confirm a street entrance works: check the ordinary single door and then the side door into the basement, since the side door is a quest door the gig closes and unpowers.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the nine Tyger Claws are at their posts on the ground floor and both lab floors (Joe at the tablet, Yusaku below, the officer upstairs,...",
+     "detail": "Check that the nine Tyger Claws are at their posts on the ground floor and both lab floors (Joe at the tablet, Yusaku below, the officer upstairs, guards on drink/tablet/pills/inspect spots) and not clustered at the spawner or frozen in a T-pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the lab lighting: main-room neon on, main lab lights on, emergency lights dim, and no sabotage laptop on the desk.",
+     "detail": "Check the lab lighting: main-room neon on, main lab lights on, emergency lights dim, and no sabotage laptop on the desk. If the room is dark, the normal-state variant toggles did not take.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two Tyger cars sit in the garage bay and do not block the pedestrian route; the catalogue maps them to a sit workspot, so their placement...",
+     "detail": "Check the two Tyger cars sit in the garage bay and do not block the pedestrian route; the catalogue maps them to a sit workspot, so their placement is the least certain part.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crew's attitude on approach: they are Tyger Claws and may be hostile; confirm that reads as a normal guarded drug lab and not as the gig'...",
+     "detail": "Check the crew's attitude on approach: they are Tyger Claws and may be hostile; confirm that reads as a normal guarded drug lab and not as the gig's combat wave.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "loc_sq011_totentanz",
    "name": "Totentanz",
    "kind": "hand-built",
@@ -7875,6 +8183,11 @@
      "label": "Is #ws_judys_van_default really Judy's normal parking spot outside the building?",
      "detail": "Is #ws_judys_van_default really Judy's normal parking spot outside the building? If the tour confirms it, the #judy_vehicle van/default activation can be added later for a lived-in touch.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (-954, 1778, 23), about 118 m from this stop.",
+     "detail": "Go to (-954, 1778, 23), about 118 m from this stop. Wang's Clinic, Kabuki (sts_wat_kab_06): is Roger Wang behind the counter? The lead agent set kana_yakin_default_on so kabuki_vendors staffs it. Doors usable? No Animals takeover or final loot. Wave 15: nothing to restore.",
+     "source": "extra"
     }
    ]
   },

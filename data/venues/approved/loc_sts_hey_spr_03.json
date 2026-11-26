@@ -1,0 +1,48 @@
+{
+  "code": "sts_hey_spr_03",
+  "display_name": "Valentinos Auto Shop (Russell St., Wellsprings)",
+  "why": "The Valentinos Auto Shop on Russell St in Wellsprings is a fenced vehicle bay, workshop and parts yard that the Valentinos use as a chop shop. The vanilla gig 'The Lord Giveth and Taketh Away' is the only thing that populates it: its street-story quest section holds the #spr_03_com spawner and the eleven routine workspots where the crew works, so with no gig the shop stands empty. This proposal loads that one quest section, activates the whole crew in their ambient initial phase A, and leaves the gig's stolen SUV toggled off, restoring a normal working gang shop instead of the gig's staging.",
+  "source": {
+    "proposal": "research/loc_sts_hey_spr_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in and see whether the crew ignores V or opens fire. The location prefab contains a baked security area named #spr_03_sec_area_dangerous inside the shop; if the Valentinos attack on sight, record whether the area (not the community phase) is the cause, because that changes the venue from a walk-in shop to a restricted gang site.",
+      "Count the shop crew and their posts. Eleven Valentinos should be working the bay, yard and lot (phone talk, kneeling with tools, welding, tablets, leaning, spray paint, standing around); report anyone missing, stacked on one spot or standing in mid-air.",
+      "Get in without the gig on foot. Approach the Russell St bay gate and the pedestrian doors; the runtime door policy should enable, power and unlock them where there is no terminal or auth. Report any door that stays sealed or needs a keycard that does not exist.",
+      "Check the workshop for the stolen Militech SUV. With garage_car=0 the bay should show only the shop's own stripped car (#spr_03_car_picked_apart) and ordinary shop clutter, no quest SUV.",
+      "Check nobody from the delivery scene is present. There should be no nomad, no Galena and no nomad truck outside; if one appears, the quest section is staging content it should not.",
+      "Check the rooftop and vent routes. The two skylights and the vent hatch were opened by the gig; report whether they are open, sealed or hackable, because they are the fallback if the street doors fail.",
+      "Confirm the street stays calm: no quest SMS, map pin, holocall, combat trigger, crowd-null effect on the pavement or police-prevention effect firing while walking the block."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_03_prefabMX4ZWDY/#sts_hey_spr_03_openworld/#sts_hey_spr_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#spr_03_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The shop's whole Valentinos crew: eleven entries (ganger_001..010 and ganger_013) in their initial phase A. Vanilla's gameplay phase activates this community whole (None/None), which puts every entry in A; the open-world phase only deactivates it, so this is exactly the shop population the gig turns on, not an invention. Phase A's resolved workspots are the shop's ambient routine set (phone talk, stand-ground think, kneeling with tools, welding, tablet use, wall lean, graffiti, stand around), so the crew reads as mechanics and lookouts at work rather than a firefight. The catalogue has no spot map for the community (posture unknown) and the role is combat because the records are Valentino gunmen and knife hands, hence the tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_03_prefabMX4ZWDY/sts_hey_spr_03_gameplay_prefabM4VWPFQ/sts_hey_spr_03_devices_prefabJBNVV3I",
+      "states": {
+        "garage_car": 0
+      },
+      "why": "garage_car=1 stages the gig's stolen Militech SUV in the workshop so V can find and drive it; 0 is the open-world/cleanup state with no quest car. No vanilla gig runs in our timeline, so the shop must not hold the SUV; 0 is also the state the open-world phase writes."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_03_prefabMX4ZWDY/sts_hey_spr_03_env_prefabRCBNSKA/arch_prefabCGOY22A/int_garage_prefabIBDYKRY/gate_1_t_1_prefabAZHRZVI/door1",
+    "within": 80.0,
+    "why": "The vehicle-bay gate is the shop's own street-facing DoorControllerPS entity and streams with the location prefab, not with the quest section; the eleven phase-A workspots all lie in and around the same bay, inside the 80 m proximity radius. Rule 8: a device entity, not a workspot."
+  }
+}

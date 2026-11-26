@@ -1,0 +1,64 @@
+{
+  "code": "sts_bls_ina_08",
+  "display_name": "Wraith Camp (Highway 101)",
+  "why": "A Wraith camp strung along Highway 101 in the Biotechnica Flats: shacks around a cooking fire and a bathtub, a roof lookout, and a garage yard where the Wraiths keep and strip cars. Vanilla fills it only for Trevor's Last Ride (sts_bls_ina_08), so outside that gig the whole garrison stays inactive. This proposal activates the camp's own Wraith community in its ambient 0spawn arrangement, and pins the quest's corpse and clue variants off.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_08/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the camp's population on arrival: nine Wraiths should be at their posts, calm and not alert. They are activated in the 0spawn phase, whose workspots are eating, cooking, drinking, taking drugs, roof patrol and sleeping, so they should read as a gang at rest.",
+      "Confirm no quest dressing is visible in the camp: no Trevor Brass corpse, no dead courier, no blood, no escape pickup and no nomad car. #ina_08_com_cars, #ina_08_com_guide and #ina_08_com_nomads are deliberately not activated.",
+      "Arrive on a brand-new save and report whether the Wraiths are there. The camp owns no device, so the proximity wait anchors 1.48 km away on #ina_02_main_gate_02; boot activation plus the venue prefab should carry it, but a fresh start is where it could fail.",
+      "Walk in from Highway 101 and report any gate, fence or barrier that blocks the camp. Vanilla drives no door here, so the runtime door policy has nothing to act on and the way in should be open.",
+      "Visit the camp at night and report whether it empties. The registry only defines Day time periods for the Wraiths (Morning and Evening for the two sleeping ones), so an empty camp after dark may be vanilla-faithful rather than a bug.",
+      "Check that no loot or clue props from the quest variants appear: no body bags, no lootable Wraith corpses and no scan trail. Both variants are pinned to 0, matching the cooked default.",
+      "Confirm the roof sniper is on the roof and not stranded or floating above the camp. #ina_08_ws_wraith_06_roof_001 sits at z=63 on the camp roof while the others are at z=55."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se5/loc_sts_bls_ina_08_prefab2YDTVIQ/#sts_bls_ina_08_logic"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_08_com_wraiths",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation puts all nine Wraiths into their initial 0spawn phase: the officer taking drugs, one Wraith eating takeout, one inspecting a car, one leaning on a wall drinking, one standing around, the sniper patrolling the roof, one asleep on the ground, the drugged woman in a chair and one more on the dirt. That is the camp's normal resting arrangement, not a quest scene; all workspots are routine/sit/eat/drink/sleep/patrol, none alert or combat.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/se5/loc_sts_bls_ina_08_prefab2YDTVIQ/loc_sts_bls_ina_08_gameplay_prefabQ44IDSQ/loc_sts_bls_ina_08_loot_prefabM6HCJJA",
+      "states": {
+        "bodies": 0,
+        "body": 0
+      },
+      "why": "Guard, not restoration. The gameplay phase shows this loot prefab's bodies state to put loot on the Wraith corpses and the openworld phase keeps its body state off; a normal, pre-gig camp has neither, so both are pinned off. The cooked default is already off (enabledByDefault=0), this entry keeps it off at boot."
+    },
+    {
+      "prefab": "$/03_night_city/se5/loc_sts_bls_ina_08_prefab2YDTVIQ/loc_sts_bls_ina_08_gameplay_prefabQ44IDSQ/loc_sts_bls_ina_08_devices_prefabGBSYVIQ",
+      "states": {
+        "clues": 0
+      },
+      "why": "The quest's clue devices (the scan trail that leads to Trevor's body) only belong to the gig. Pinned off so the camp has no quest clue dressing; the cooked default is already off."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1406.1,
+      -3635.3,
+      55.2
+    ],
+    "source": "median of the nine #ina_08_com_wraiths 0spawn workspots in base/worlds/03_night_city/_compiled/default/quest_ff69658867bddb06.streamingsector (spot rows in data/sites/spots.json site 346): #ina_08_ws_wraith_01 -1389.7,-3630.6,55.2; #ina_08_ws_wraith_05_spn -1423.2,-3639.1,55.3; #ina_08_ws_wraith_06_roof_001 -1418.8,-3635.3,63.3; max distance 37.5 m"
+  },
+  "proximity_wait": {
+    "ref": "#ina_02_main_gate_02",
+    "within": 80.0,
+    "why": "The camp has no device of its own: data/sites sites.json gives site 346 device_count 0, has_doors 0 and has_security_devices 0, and no anchor_candidates were produced. The closest quest-driven device in the catalogue is this Inland Avenue main gate at -142.8,-4419.2,58.9, still 1.48 km south of the camp, so the post-proximity re-issue is effectively a second boot pass. The venue's boot activation and its declared prefab carry the population; the distant wait is a known gap (see open_questions)."
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "code": "sts_hey_spr_06",
+  "display_name": "Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise)",
+  "why": "Data Inc. is the Wellsprings electronics shop where Hot Merchandise sends V after Rebeca Price: a two-level storefront on Berkeley Ave, an Animals crew posing as legitimate employees on the shop floor, a back room with the stolen Militech stock, and a basement where Rebeca runs the store from a terminal with one Animal watching her. In vanilla the shop only opens for the gig, and the kept Wellsprings open-world phase leaves the storefront locked and the rear route disabled. This proposal loads #sts_hey_spr_06_streetstory (the quest prefab holding the spawners, every AI spot and the junk-shop counter) and switches the shop back on for business: the junk-shop clerk behind the counter, three calm Animals employees, a Valentino customer complaining at the counter, and Rebeca at her basement computer.",
+  "source": {
+    "proposal": "research/loc_sts_hey_spr_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk up to the storefront on Berkeley Ave and check the double glass door opens. The kept Wellsprings open-world phase force-locks it, and the runtime door policy treats its ESL_NONE auth module as an in-world way, so this is the likeliest place the venue fails; if it stays shut, note it and use the rear service door or the alley gate.",
+      "Check the shop floor is staffed: the junk-shop clerk behind the counter, the Animals officer sitting with a can near the front, a second Animal between the aisles and the Valentino customer at the counter.",
+      "Go downstairs and confirm Rebeca is at her terminal with the Animals guard a couple of metres away, both calm and on post rather than escorting or aiming.",
+      "Check the store reads as open for business, not as a gig scene: no mission markers, no body, no shards on the floor, and the back room and basement both reachable.",
+      "Confirm the Valentino customer's nervous stand reads as an annoyed customer arguing at the counter, not as someone about to fight."
+    ]
+  },
+  "prefabs": [
+    "#sts_hey_spr_06_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#spr_06_animals_com",
+      "entry_name": "enemy_002",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "The Animals officer fronting the store: A_spawn is the entry's initial phase and its spot is a big chair by the front of the shop floor with a drink-can idle, i.e. a man sitting where he can watch the door, which is how the wiki describes the gang running the place as legitimate staff.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_06_animals_com",
+      "entry_name": "enemy_003",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Second Animals employee working the floor: phase A_spawn's spot is a drug-take stand between the aisles at (-2264.41, -403.35), and its sibling spot is a kneel-and-search of the shelves, so the shop floor has someone visibly doing nothing in particular.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_06_animals_com",
+      "entry_name": "enemy_004",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "The guard the gig always puts next to Rebeca: every A_spawn spot for this entry is in the basement at z 1.37-1.41, a tablet-use and a phone-call idle two to four metres from her terminal, so the blackmail is visibly watched with no combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_06_valentino_com",
+      "entry_name": "valentino_001",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "The customer the wiki describes putting aside his complaints: phase A_spawn (the entry's initial phase) places him at a nervous stand right in front of the counter at (-2261.71, -396.41). Phase B, which vanilla activates after the shop scene, is only a cigarette by his parked bike 130 m down the street, so A_spawn is the one that belongs inside the store; the nervous workspot is why the posture is left unknown.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_06_nolan_com",
+      "entry_name": "rebeca",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Rebeca Price is alive in our timeline and still runs Data Inc.; A_spawn is her only phase and its spot is a tablet-use stand in the basement at (-2256.38, -404.12), a metre from #spr_06_dvc_nolan_computer, i.e. the manager at her terminal — the same post the gig finds her at, but working instead of waiting to be killed."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#hey_spr_junkshop_01",
+      "entry_name": "hey_spr_junkshop_01",
+      "phase_name": "default",
+      "why": "The shop's own clerk (Character.hey_spr_junk_01) is the one piece of normal business the clean slate is missing: the kept wellsprings_vendors phase activates the district's clothing, food, gun, medic and ripperdoc shops but not this one, while the venue's gameplay phase activates this spawn set. Its two spots are plain routine__stand_ground behind the counter at (-2259.53, -394.19) and (-2257.35, -392.36)."
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_06_prefabKRTYCWI/sts_hey_spr_06_gameplay_prefabQYRBSVI/sts_hey_spr_06_devices_prefabNCQVMEI/#spr_06_dvc_nolan_computer",
+    "within": 80.0,
+    "why": "The basement terminal Rebeca works at (worldDeviceNode at -2256.29, -405.17, 2.38 in the always-streamed exterior_-36_-7_0_0 sector), 1.4 m from her spot and inside the same streaming block as the shop floor: a real device entity the venue cannot exist without, so the proximity wait fires as the store streams in. Not a workspot."
+  }
+}
