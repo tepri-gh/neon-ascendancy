@@ -22,7 +22,7 @@
       "states": {
         "var_clues": 0
       },
-      "why": "The underwater tour's scannable memory clues belong to the dive. Vanilla switches var_clues=1 on only for the exploration section and switches it back to 0 on its own exit branch, so 0 is the resting, undisturbed-ruins state. Pinning it guarantees no quest clue markers (the photo, hockey stick, umbrella, doll, car and the cross necklace) are left showing in a place no quest will ever visit."
+      "why": "The underwater tour's scannable memory clues belong to the dive. The prefab's baked variants are all enabledByDefault=0 in the exterior streaming descriptors, so 0 is already the normal, undisturbed-ruins state; vanilla only switches var_clues=1 on for the exploration and back to 0 on its exit branch. Re-asserting 0 at boot guarantees no quest clue markers (the photo, hockey stick, umbrella, doll, car and the cross necklace) can be left showing by a save in which the dive ran."
     },
     {
       "prefab": "#loc_sq030_underwater_house_devices",
@@ -40,7 +40,7 @@
         "var_glowstick_11": 0,
         "var_glowsticks": 0
       },
-      "why": "The glowsticks mark Judy's dive route and are lit only for the lake-test calibration; vanilla's exit branch turns every one of them off again. The ruins were 'almost completely undisturbed' by 2077, so the normal look is dark drowned ruins with no glowing route markers. This is exactly the state vanilla's own cleanup block sets."
+      "why": "The glowsticks mark Judy's dive route and are lit only for the lake-test calibration. Like var_clues they are baked enabledByDefault=0 in the exterior streaming descriptors and vanilla's exit branch turns every one off again, so the normal look is dark drowned ruins with no glowing route markers; the boot pin re-asserts that state on any save."
     }
   ],
   "doors": [],
