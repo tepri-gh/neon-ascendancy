@@ -531,6 +531,11 @@
         "why": "Enables the Cali Express vendor and its customers in glen_vendors (nodes 22/23) without q004_done; research wave 12 (loc_q004_braindance_store)"
       },
       {
+        "fact": "kana_yakin_default_on",
+        "value": 1,
+        "why": "Enables Roger Wang at Wang's Clinic (kabuki_vendors node 41/42 and wat_kab_phase's medstore crowd); the fact is set only by sts_wat_kab_06_prestate_control, a gig phase the clean slate does not keep. Research wave 15 (loc_sts_wat_kab_06_medical_store)"
+      },
+      {
         "fact": "bls_ina_se5_gunsmith_01_default_on",
         "value": 1,
         "why": "Enables Badlands SE5 gunsmith in default_dialogs 7/19 without q005_done"

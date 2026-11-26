@@ -310,6 +310,7 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     qs.SetFact(n"nix_default_on", 1);
     qs.SetFact(n"wat_kab_foodshop_02_default_on", 1);
     qs.SetFact(n"hey_gle_foodshop_01_default_on", 1);
+    qs.SetFact(n"kana_yakin_default_on", 1);
     qs.SetFact(n"bls_ina_se5_gunsmith_01_default_on", 1);
     qs.SetFact(n"bls_ina_se1_foodshop_01_default_on", 1);
     qs.SetFact(n"cct_dtn_cloth_01_default_on", 1);
