@@ -18,16 +18,31 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Kurt Hansen (`Character.kurtz`) added to the cast layer as an ambient Barghest
   leader, spawned exactly as vanilla q303_06_paradise does (`#kurtz` /
   `kurtz` / `q303_restaurant_host`) on Black Sapphire floor 99.
+- T-Bug (`Character.c_tbug`) added to the cast layer on the Afterlife back-room
+  couch beside Dexter, activated exactly as vanilla q005_01_plan does
+  (community template `#tbug` / `tbug` / `q005_tbug_afterlife`). The cast builder
+  now supports `spawn_kind: "community"` as well as spawn sets.
 - Probe: `Dataterm[...]` lines log each Dogtown fast-travel dataterm's resolve
   and PS `powered`/`disabled` state, and the Black Sapphire decoration node.
-- Probe: `VariantToggle[...]` lines log the `na_dbg_vt_<venue>_reached` /
-  `_done` facts the builder now emits immediately before and after every
-  `questTogglePrefabVariant` node, so a run proves whether the graph reached the
-  toggle at all.
+- Probe: `VariantToggle[...]` lines log the `na_dbg_vt_<venue>_branch` /
+  `_prewait` / `_prox` / `_reached` / `_done` facts the builder emits around each
+  venue branch and its `questTogglePrefabVariant` node, so a run shows exactly
+  where a branch stalls.
 - `docs.clean-slate`: `venue_phases.json` now supports `allowed_device_controllers`
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Fixed
+- Venue probe: a `questDeviceManagerNodeDefinition` whose objectRef does not
+  resolve to a live entity does not complete, so everything chained behind it
+  never ran. That is why the variant toggles reported `reached=0` even while
+  communities spawned. Variant toggles now run *before* the device actions, and
+  each venue branch emits `na_dbg_vt_<venue>_branch` / `_prewait` / `_prox` /
+  `_reached` / `_done` facts the probe logs, so the stall point is visible.
+- Venue probe: the Afterlife door waited on `#q005_ws_dex_afterlife_01`, which
+  lives inside the `#q005_cin_01_plan` cinematics sub-prefab and is not
+  instantiated unless that scene streams, so the pause never resolved. The
+  anchor is now `#q005_dvc_afterlife_briefing_room_door` itself (an ungated
+  `worldEntityNode` at the door).
 - Venue probe: the Dogtown dataterm proximity anchor was `#stadium_data_term_001`
   itself, which sits *inside* variant group 1798 (the hidden
   `combat_zone_data_terminals_active` group). The distance pause could therefore
