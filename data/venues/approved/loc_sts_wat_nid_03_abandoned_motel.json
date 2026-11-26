@@ -1,0 +1,37 @@
+{
+  "code": "sts_wat_nid_03_abandoned_motel",
+  "display_name": "Abandoned Motel on Martin Street",
+  "why": "A two-storey, long-abandoned motel on Martin Street in the Northside Industrial District: ground-level parking lot, an exterior walkway at first-floor level, boarded/broken shutters and a defunct reception. Vanilla always populates its lot and walkways with a squatter community (homeless people, lowlifes, a pimp and prostitutes, kids, a pair of parked beat-up cars and a night car set) and only switches that crowd off when V enters the Flight of the Cheetah trigger to meet Hwangbo in room 1237. This proposal restores exactly that ambient state: the whole #nid_03_crowd_com community active, all gig actors and gig props left out. No building section is needed because the motel shell and every crowd spot live in the always-streamed exterior sectors, not in a quest prefab.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_03_abandoned_motel/proposal.json",
+    "confidence": "high",
+    "open_questions": [
+      "The crowd entries 'pimp' and 'prostitutes' have no per-entry spot map in the catalogue (posture unknown, zero workspots); confirm on the tour that they spawn in or around the lot and do not idle in the road.",
+      "Vanilla switches the crowd off when the player enters #nid_03_tr_init_001 (the gig trigger) and re-enables it outside. The gig phase never runs in the clean slate, but confirm nothing else (district streaming, another kept phase) deactivates #nid_03_crowd_com after our activation.",
+      "All motel doors are ForceClose + ForceUnpower and the venue drives no terminal or keycard, so the runtime door policy must make the building walkable; specifically check the main door, a ground-floor room door and room 1237's door (its ForcePower is gated behind the gig fact sts_wat_nid_tier_1).",
+      "#sts_wat_nid_03_abandoned_motel_door_001 has no resolved path (venue_inferred) and may be the same physical door as #sq031_dvc_motel_main_door under another name; the door policy only reaches resolved $/ paths.",
+      "Should one or two motel rooms be furnished for a lived-in look? The only furnishing prefab here is #sq031_pr_motel, which is a quest scene set and was excluded; nothing vanilla provides a non-quest room interior."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#nid_03_crowd_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation is literally what vanilla does in the open-world branch: five seconds after the street-story phase starts it activates #nid_03_crowd_com with entry/phase None and disables the crowd null area, i.e. the squatters, lowlifes, sex workers, kids and parked cars are the motel's normal occupants. Every entry's initial phase is relaxed (default, or A for the two 'taking care of a drunk friend' synced pairs); the entries sit on the ground lot (z~18.2) and the first-floor walkway (z~22.2) in exterior sector -12_17.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq031_dvc_motel_main_door",
+    "within": 80.0,
+    "why": "The motel's main entrance door is a real DoorControllerPS in the venue's own devices prefab (resolved $/ path), it is driven by vanilla (ForceClose/ForceUnpower from the street story's ambient branch), and it sits on the normal way in from Martin Street, next to the lot the crowd occupies."
+  }
+}

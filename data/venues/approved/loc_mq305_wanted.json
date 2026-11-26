@@ -1,0 +1,73 @@
+{
+  "code": "mq305_wanted",
+  "display_name": "Bree Whitney's Apartment (Skyline West)",
+  "why": "A small unnamed apartment building in central Night City whose lobby and fifth-floor corridor carry quest-dressing for Bree Whitney's flat. Vanilla only loads the apartment quest prefab and the neighbours while mq305 runs, so the building is empty in the clean slate. This proposal loads the apartment prefab and switches on the five residents' relaxed 'start' phases (kids eating, janitor mopping, mechanic fixing, corpo woman on the phone) in the lobby and corridor, without the quest scene, the stranger, the NetWatch squad or the quest paper.",
+  "source": {
+    "proposal": "research/loc_mq305_wanted/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The wiki places the building in Wellsprings (Heywood), Skyline West, while the catalogue prefab is authored under #c_city_center/downtown; the tour should confirm which district the lobby and fifth-floor corridor actually stream in and that the street entrance/stair route works.",
+      "The corridor, flat shell and lift appear to come from the always-streamed location prefab, with only the community spawner and dressing in #mq305_pr_apartment - confirm on the tour that the corridor is walkable and the residents have spots before/after our prefab loads.",
+      "Whether the flat door's force-open (Body check) still works in a clean save; if not, it needs a decision on leaving the flat sealed versus letting the door policy unlock it.",
+      "Whether the lift terminal in the lobby can call the two-floor lift without the quest's unseal actions, and whether the inferred #q303_squat_lift_door_1 (no resolved path) really is this building's lift door.",
+      "Whether 'paper_coordinates' variant 0 is the normal flat look (no quest note) and not an empty variant."
+    ]
+  },
+  "prefabs": [
+    "#mq305_pr_apartment"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq305_com_apartment_hallway",
+      "entry_name": "child_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Kid standing in the lobby eating a hotdog (generic__stand_hotdog__eat__01) - the everyday look before the job."
+    },
+    {
+      "spawner": "#mq305_com_apartment_hallway",
+      "entry_name": "child_02",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Second kid eating a hotdog in the lobby, standing next to the first; relaxed, no weapon workspot."
+    },
+    {
+      "spawner": "#mq305_com_apartment_hallway",
+      "entry_name": "janitor",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Janitor mopping the fifth-floor corridor outside the flat (generic__stand_mop__cleaning_floor__01) - the building's staff at work."
+    },
+    {
+      "spawner": "#mq305_com_apartment_hallway",
+      "entry_name": "mechanic",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Tenant mechanic leaning over a repair in the lobby (generic__stand_tool__lean_forward__fix__02), a mundane pre-quest workspot."
+    },
+    {
+      "spawner": "#mq305_com_apartment_hallway",
+      "entry_name": "woman",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Corpo neighbour on a phone call in the lobby (generic__stand_ground__phone_talk__01); her 'end' phase is the worried-neighbour/knock-on-door scene, so take 'start'."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#mq305_pr_apartment",
+      "states": {
+        "paper_coordinates": 0
+      },
+      "why": "Vanilla only ever shows the 'paper_coordinates' variant (the note Mr. Hands leaves with the address) during mq305; 0 pins the normal flat with no quest paper on the wall."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#mq305_apartment_lift_door_1",
+    "within": 80.0,
+    "why": "The two-floor lift's door in the building's always-streamed gameplay prefab, on the way up to the corridor; a device entity, not a workspot, and vanilla itself drives it in the apartment phase."
+  }
+}

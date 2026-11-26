@@ -1,0 +1,55 @@
+{
+  "code": "sts_ep1_botanic_gardens",
+  "display_name": "Organitopia",
+  "why": "Restore Organitopia’s pre-gig ruin state in Terra Cognita. Keep the intact gate and remove the gig’s scorch, corpse and loot dressing. The hidden target room stays under vanilla access controls.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_botanic_gardens/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the intact shut front gate (front_gate_closed=1, front_gate_destroyed=0) leave a walkable route into the lower hall, e.g. the ruined rooftop/eastern balcony the wiki describes? If the tour finds the courtyard sealed, flip to the destroyed-garage entrance (front_gate_closed=0, front_gate_destroyed=1) - that is the state the gig's own cleanup leaves and matches the wiki's description of the normal way in.",
+      "The museum outcasts belong to the High Peak open-world prefab. The dynamic event that also uses them waits on a story fact, so check museum population on the dev tour before adding a separate High Peak activation.",
+      "The dinosaur exhibit holograms are left dark by vanilla's ambient wiring and only the gig turns them on; venue proposals have no channel for non-door device actions. Should the builder gain one so the museum's signature exhibit can be on?",
+      "The wiki says the exhibition pool connects by a tunnel to an authorization-locked room, possibly behind the excluded target doors; confirm on tour that the two door exclusions actually keep the secret stash room out of normal reach."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_ep1_botanic_gardens_devices",
+      "states": {
+        "front_gate_closed": 1,
+        "front_gate_destroyed": 0,
+        "front_gate_destroyed_fx_decals": 0,
+        "hide_before_sts": 0
+      },
+      "why": "The pre-gig ruin look: the museum's front gate stands shut and intact, with none of the gig's smashed-gate mesh, scorch decals or stage dressing. The gig phase hides the closed gate (0) and shows the destroyed gate (1) plus decals (1); its cleanup phase only removes the decals (0) and the hide_before_sts state (0), so these are the values vanilla itself treats as the clean, non-quest state."
+    },
+    {
+      "prefab": "#loc_sts_ep1_botanic_gardens_loot",
+      "states": {
+        "corpses": 0,
+        "hide_before_sts": 0
+      },
+      "why": "No gig aftermath: the corpse/loot dressing the gig switches on stays off, exactly as the cleanup phase leaves it. This is the same cleanup pair vanilla runs after the story (corpses 0, hide_before_sts 0)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#sts_ep1_08_door_to_the_target",
+      "why": "The gig's secret room door in front of the hidden room where Katya Karelina is holed up and the Money For Nothing stash is revealed. Vanilla closes it and cuts its power; it should stay exactly that way so the quest's hidden room is not an open part of the normal museum."
+    },
+    {
+      "ref": "#sts_ep1_08_door_to_the_target_interior",
+      "why": "The inner door of the same hidden target room (vanilla forces it closed, powers/unpowers it around the scene). Keep vanilla so the secret room stays sealed and unreachable outside the gig."
+    }
+  ],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sts_ep1_08_entrance_door_01",
+    "within": 80.0,
+    "why": "The museum's own entrance door (single_door_001 under #loc_sts_ep1_botanic_gardens_devices) on the normal way in; a DoorControllerPS device, so it satisfies rule 8 and streams with the venue's gameplay prefab."
+  }
+}

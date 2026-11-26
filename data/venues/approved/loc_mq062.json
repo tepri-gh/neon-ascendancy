@@ -1,0 +1,170 @@
+{
+  "code": "mq062",
+  "display_name": "Night City Prison (Arroyo) — visitor center, cell block and security cortex",
+  "why": "The NCPD's main maximum-security prison on Mission & Republic in Arroyo: a visitor entrance with intercom, scanner and security gate, a cell block on the upper floor, and the security cortex (monitoring room) that watches both. This proposal restores those three quest-only interior sections and staffs them as a working prison: gate and desk NCPD staff plus waiting visitors and a trustee in the lobby, a cell-block guard detail with the PrisonGuard record, Spencer Calder and the canonical convict Wex, and the security-cortex patrol with its surveillance officer. The escape wing (armory, panic room, yard boss fight, morgue exfil and NCPD cordon) stays quest-only and is not restored.",
+  "source": {
+    "proposal": "research/loc_mq062/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Prefab nesting: the catalogue lists the top-level sections (#mq062_hook, #mq062_stealth) and the nested rooms (hook_entrance, stealth_cells) separately, and vanilla loads top-level in mq062.questphase plus the room in the sub-phase. Both are declared here so the room's community-area nodes and its shell exist; confirm on the tour that loading parent+child together does not duplicate geometry (the builder should still see five distinct owners, which --check enforces).",
+      "Visitor entrance access: doors Door_01/02/03 are locked/unlocked only by the intercom dialogue in vanilla. If they carry an NCPD authorization module the runtime door policy will leave them locked and the venue is unreachable; check the DoorPolicy log at the intercom and decide whether the owner needs a policy exception for this entrance.",
+      "Cell-block reachability: the main lift (#mq062_Stealth_Monitoring_Device_Lift_01) is the only way from the visitor floor to the cells/cortex. Rule 13 puts floor access on the ElevatorFloorTerminalControllerPS slaves; confirm those terminals are powered and not NCPD-authorized, otherwise the populated floor is unreachable.",
+      "Unknown-posture picks: guard_01 (tech gate), guard_paperwork_01 (scanner) and mq062_stealth_cells_guard_01 (corridor) have catalogued spots but no workspots, so their stance/pose is unverified; the tour must confirm they stand normally at (-502,-655), (-498,-650) and (-514.9,-603.6).",
+      "Spencer Calder (cell-block guard01): the record is a unique proxy character filed under a guard entry, and the wiki does not name him. Confirm whether he reads as a guard or an inmate, and drop him if he looks like a misplaced quest actor.",
+      "Armory variants: both toggles touch always-loaded env armory decoration. Confirm 0 really means 'ordinary armory, no exoskeleton' for var_exoskeleton and mq062_Escape_Yard_Variant_Mecha, and that the boot-time toggle applies before the player can see the armory.",
+      "Cell doors: the quest opens cells from a control panel device that the catalogue does not list among this venue's devices. Confirm whether the control panel is an always-loaded device the player can hack/use in normal play, or whether cells should simply stay shut (a normal prison has locked cells).",
+      "Exterior/yard: mq062_cleanup activates #mq062_prison_openworld_com_area, #mq062_prison_openworld_combat_com_area and sets Arroyo_Prison_SA_var=1, so the outdoor prison layer is normally the post-quest open-world variant. Our clean slate never runs that cleanup; if the district default is the quest variant, the yard and its inmates/NCPD need a separate open-world fix outside this venue's scope."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_mq062_prefabO7XDQ2I/loc_mq062_questdesign_prefabD7JR3LY/#mq062_hook",
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_mq062_prefabO7XDQ2I/loc_mq062_questdesign_prefabD7JR3LY/#mq062_hook/#mq062_hook_entrance",
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_mq062_prefabO7XDQ2I/loc_mq062_questdesign_prefabD7JR3LY/#mq062_stealth",
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_mq062_prefabO7XDQ2I/loc_mq062_questdesign_prefabD7JR3LY/#mq062_stealth/#mq062_stealth_cells",
+    "#mq062_stealth_monitoring"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_guard_01",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Tech-gate guard at the visitor checkpoint; his spot sits on the entrance floor at (-502.5,-655.5,7.4), exactly where the quest escort passes the gate.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_guard_ambiance_02",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Rifle guard at the visitor gate on the dirtboy stand-ground rifle workspot; provides the armed presence a maximum-security entrance has."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_guard_ambiance_06",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "NCPD inspector standing arms-crossed at the front desk (generic stand-ground arms-crossed workspot) — the duty officer who processes visits."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_guard_ambiance_07",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Second desk officer on the paired arms-crossed workspot at (-494.9,-653.5,8.0), keeping the two-man reception desk staffed."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_guard_paperwork_01",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "The scanner/paperwork guard (record mq062_ncpd_guard_scan) at the hand-scanner spot (-498.0,-650.2,8.1); the visitor intake post the wiki describes as \"place your hand on the scanner\".",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_prisoner_ambiance_01",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Trustee inmate mopping the visitor hall (stand-mop cleaning workspot) at (-508.8,-666.3,7.4); a work detail is exactly the low-risk inmate presence the lobby can carry without the cell/scene interiors."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_visitor_ambiance_03",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Visitor waiting on the chair-think workspot at (-499.7,-660.4,8.0), filling the seating row of the visitor center."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_visitor_ambiance_06",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Second visitor, seated and waiting at (-508.2,-654.3,8.0); an Aldecaldos civilian is normal Arroyo foot traffic visiting an inmate."
+    },
+    {
+      "spawner": "#mq062_hook_Entrance_CommunityArea_Guards_01",
+      "entry_name": "mq062_hook_entrance_visitor_ambiance_08",
+      "phase_name": "mq062_hook_entrance_spawn",
+      "action": "Activate",
+      "why": "Third visitor in the depressed chair-sit workspot at (-500.3,-656.3,8.0); the mood fits a prison waiting room without staging a quest scene."
+    },
+    {
+      "spawner": "#mq062_Stealth_Cells_CommunityArea_NPCs",
+      "entry_name": "guard02",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Generic prison guard of the cell block, standing at (-526.6,-600.7,15.2) on a generic stand-around workspot; vanilla never activates this phase, so it is ambient custody staff rather than a quest actor."
+    },
+    {
+      "spawner": "#mq062_Stealth_Cells_CommunityArea_NPCs",
+      "entry_name": "guard01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Second cell-block body (unique Spencer Calder proxy record, filed as guard01) beside the PrisonGuard; relaxed stand-around spot. The catalogue cannot say whether he reads as staff or inmate, so the tour must look at him.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq062_Stealth_Cells_CommunityArea_NPCs",
+      "entry_name": "wex",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Wexlyn \"Wex\" Carver is a canonical convict of this prison; vanilla activates this exact relaxed stand-around entry/phase in mq062_stealth_cells, so he belongs in the cell block when Clampdown never runs."
+    },
+    {
+      "spawner": "#Mq062_Stealth_Cells_CommunityArea_Guards_01",
+      "entry_name": "mq062_stealth_cells_guard_01",
+      "phase_name": "mq062_stealth_cells_spawn",
+      "action": "Activate",
+      "why": "Cell-block corridor guard at the block entrance (-514.9,-603.6,15.2); the only dedicated guard post for the cell tier and the one the quest has to walk past.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq062_Stealth_Monitoring_CommunityArea_Patrol_01",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole three-guard patrol of the security cortex, all on the master stand-ground guard workspot; vanilla only switches it on in a gated branch, so activating it whole restores the normal monitoring-room watch detail."
+    },
+    {
+      "spawner": "#mq062_Stealth_Monitoring_CommunityArea_Surveillance_01",
+      "entry_name": "officer01",
+      "phase_name": "setup",
+      "action": "Activate",
+      "why": "Surveillance officer at the cortex desk (-526.0,-619.2,15.2) leaning on the table workspot; the shift supervisor who watches the cell-block cameras."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq062_prison_darius_centaur_prepared",
+      "states": {
+        "var_exoskeleton": 0
+      },
+      "why": "The prepared Darius Bale centaur exoskeleton is the Clampdown boss prop. Its decoration prefab is inside the always-loaded env armory, so pin the un-prepared state to keep a normal armory instead of a mech on stand-by. Values are vanilla's own state name; 0 = not prepared."
+    },
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/arroyo/loc_mq062_prefabO7XDQ2I/loc_mq062_env_prefabMY2TA3Y/loc_mq062_decoration_prefabE45NXLA/{loc_mq062_decoration_armory}_prefabIHEKSEA",
+      "states": {
+        "mq062_Escape_Yard_Variant_Mecha": 0
+      },
+      "why": "The escape phase switches the armory decoration to its mecha set-up. With no escape sequence the armory should keep the ordinary decorative variant, so pin the mecha variant off."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#mq062_Escape_FinalChoice_Device_ArmoryDoubleDoor_01",
+      "why": "Prison armory behind the final-choice set: stores V's gear, the mine and Darius Bale's exoskeleton. It has an authorization module and belongs to the escape sequence, not to normal visiting; keep it exactly vanilla."
+    },
+    {
+      "ref": "#mq062_escape_finalchoice_panic_room_door",
+      "why": "Panic/crisis-control room of the final choice (with the Reaper-chip server); sealed on purpose in vanilla. It is not a room a visitor or ordinary staff member should reach."
+    }
+  ],
+  "proximity_wait": {
+    "ref": "#mq062_Hook_Entrance_Device_Intercom_01",
+    "within": 80.0,
+    "why": "Visitor-entrance intercom at (-515.2,-676.1,8.9): a real IntercomControllerPS device on the normal way in, with a known position outside the front doors, so the boot+proximity re-issue happens as the player walks up to the prison rather than deep inside where the cells may not have streamed."
+  }
+}

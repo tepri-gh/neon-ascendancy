@@ -1,0 +1,46 @@
+{
+  "code": "sq006_jefferson_residence",
+  "display_name": "Peralezes' Apartment (Charter Hill penthouse)",
+  "why": "Restore the Peralezes’ Charter Hill penthouse quest section and place both residents on their ambient kitchen and living-room workspots. The lift and normal entrances need an in-game access check.",
+  "source": {
+    "proposal": "research/loc_sq006_jefferson_residence/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Lift access is the main risk: vanilla forces #sq006_peralez_elevator_ground on for the quest, and the runtime door policy does not touch elevators (rule 13). If the penthouse floor stays unauthorized, the flat and both Peralezes are unreachable even with every door opened. The tour must ride the lift from the lobby; if it fails the venue needs a floor-controller action the builder does not have yet.",
+      "The world-streamed non-quest devices prefab contains #sq006_ent_bullet_holes (an entity in the devices_non_quest prefab) and nothing in the extracted phase data drives it. In our timeline the hallway must not show patched bullet holes or blood. Check the corridor on tour; if the decal is visible it needs a device action outside this proposal's schema.",
+      "Declaring #sq006_pr_peralez_apartment also loads its trigger and mappin nodes (#sq006_tr_*, #sq006_mappin_enter_apartment, #sq006_mappin_signs_of_breakin). They should be inert without a quest node, but the tour must confirm no quest map pin appears and the flat is not put into a safe/lockdown area by #sq006_tr_turn_off_safe_area.",
+      "Only the ground-floor rooms (living room, kitchen) get people. The upper floor, media room, security room and roof stay empty, and no SSI guard community exists in vanilla data for the residence, so the penthouse is populated but unstaffed. Is that the intended level of life for a candidate's home?",
+      "Privacy: with no door_exclusions the runtime policy opens the lobby, the lift-lobby entrance and the interior doors, so V can walk into the Peralezes' home while they are in it. That follows design section 10 (every location accessible), but it differs from the Judy's-apartment decision to keep a companion's flat shut; the owner may prefer to exclude #sq006_dvc_peralez_front_hallway_door later.",
+      "Posture of both chosen workspots was read from the sector data (generic stand_around, sit-in-chair talk), not from a tour: confirm on site that Jefferson's phone pose is not a mid-conversation gesture loop tied to the sq006 dialogue, and that Elizabeth in the kitchen is not standing behind the counter in a spot the tour camera expects.",
+      "The catalogue's sq006 activation names community entry `daughter/phone_call` on #sq006_com_peralez_apartment, but the community registry has no `daughter` entry (only elizabeth_intercom). Treated as a vanilla phantom activation; if the tour shows a missing child NPC in the flat, that is this bug and not a slot this proposal dropped."
+    ]
+  },
+  "prefabs": [
+    "#sq006_pr_peralez_apartment"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#elizabeth_peralez",
+      "entry_name": "elizabeth_peralez",
+      "phase_name": "sq006_in_kitchen",
+      "why": "Elizabeth at home in her own kitchen, standing at the worktop (sq006__elisabeth__stand__around__02 on spot -64.15,-125.35,111.16). It is the tour's kitchen stop reused as ambient placement: the spot is in the room its name says and plays a relaxed stand-around, with no scene, no cigarette and no quest prop. `sq006_secret_room` (generic__stand_ground__wait_nervous, inside the hidden monitoring station) and `sq012_shell_shock` (sit-lean with cigarette, gated) are the two phases that would leak story state and are dropped."
+    },
+    {
+      "action": "Activate",
+      "reference": "#jefferson_peralez",
+      "entry_name": "jefferson_peralez",
+      "phase_name": "sq006_meeting",
+      "why": "Jefferson at home in the living-room armchair with his phone (sq006__jefferson__sit_chair_lean_front_phone__talk__01 on spot -96.5,-122.38,111.16) - the same chair and workspot as sq006_intro, which vanilla only Reactivates, so the plain Activate `sq006_meeting` is used. It reads as a candidate working the phones at home; `sq012_end_scene` (corpo__stand_ground_gun__idle) and the park, limo and AV-pad phases belong to story beats and other places."
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq006_dvc_peralez_front_hallway_door",
+    "within": 80.0,
+    "why": "The apartment's own entrance door (DoorControllerPS, full path in input.json devices: .../loc_sq006_jeferson_residence_gameplay_prefabM7S7AGA/loc_sq006_jefferson_residence_devices_non_quest_prefabPFWYRQQ/single_door_4_002_prefab5A6Y3ZI/#sq006_dvc_peralez_front_hallway_door). It is a device entity, not a workspot (rule 8), it streams with the building, and it is the last thing V passes before the living room and kitchen spots are in range, so the proximity re-issue fires when the penthouse sectors are actually loaded. The lobby door is the fallback if the tour shows the penthouse streaming late."
+  }
+}

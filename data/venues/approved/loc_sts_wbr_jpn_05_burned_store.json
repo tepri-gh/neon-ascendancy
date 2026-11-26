@@ -1,0 +1,60 @@
+{
+  "code": "sts_wbr_jpn_05_burned_store",
+  "display_name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
+  "why": "Ginger Panda is an operating Japantown restaurant with Chang-Hoon Nam’s netrunner den in the basement. Restore the interior and den lighting and place Chang at his working chair. The district phase supplies the restaurant crowd.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_05_burned_store/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Interior variant polarity is read from behaviour, not from a streaming block (none was extracted): bugfixing, q305 and the gated vendor state all set interior=1 for the shop/den, so 1 is taken as the occupied look. Confirm on tour that interior=1 shows an open shop and not a quest-only overlay.",
+      "The four ExplosiveTriggerDeviceControllerPS mines are only made safe by a gated ForceSafeForPlayer node. If they are armed outside the gig, the basement stairwell and tunnel are a minefield in our timeline; the proposal cannot act on devices, so this needs a venue-level decision if the tour finds it.",
+      "Door states are unresolved in the catalogue (no cooked props, positions null). The storefront glass door and the sliding door should be usable through the runtime policy; the journal door should be the vanilla Body-check door, not the q305 seal. Tour-check all three.",
+      "Chang's jpn_05_A chair pose is a netrunner-chair netrun animation, i.e. working, not the gig's unresponsive slump. Confirm he does not spawn with the gig's aphasia/disabled state or a 'wake up' scene without the quest."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_05_burned_store_prefabIRE6PIA/#loc_sts_wbr_jpn_05_burned_store_openworld/#sts_wbr_jpn_05_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_05_com_new",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole two-person sidewalk pair (LowlifeWoman x2) leaning on the wall by the shop, in their only phase A, activated exactly as vanilla does. They are ordinary passers-by on the block, and their spots sit inside the street-story section this proposal already loads, so they cost nothing."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#chang_hoon_nam",
+      "entry_name": "chang_hoon_nam",
+      "phase_name": "jpn_05_A",
+      "why": "Chang-Hoon Nam (Character.sts_wbr_jpn_05_chang_hoon_nam), the netrunner who rents the basement as his den and works Wakako Okada's jobs from it. In jpn_05_A he is in his netrunner chair playing generic__lie_netrunner_chair__netrun__01 (netrunning), which is exactly the normal working pose for the venue; the gig's unresponsive/aphasia state comes from the gig itself and is not reproduced. This is the one named occupant vanilla only spawns from the street story."
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_wbr_jpn_05_gameplay",
+      "states": {
+        "interior": 1
+      },
+      "why": "Raises the shop's gameplay interior so the basement den rooms (Chang's work area, the corridor and the devices) exist as a normal open shop instead of the closed/burned default. Vanilla never sets this in the open world: the gig's bugfix phase sets interior=1 to keep the interior present after the story, the Phantom Liberty Chang meeting sets it so his shop looks open, and the kept vendor phase sets it for his netrunner-vendor state. 1 is therefore the occupied-shop value."
+    },
+    {
+      "prefab": "#loc_sts_wbr_jpn_05_hacking_room_lights",
+      "states": {
+        "Chang_Hoon_Nan_safe": 1,
+        "Chang_Hoon_Nan_danger": 0
+      },
+      "why": "The den's normal, calm lighting: the open-world and street-story phases switch the safe lighting on and the q305 meeting explicitly clears the danger lighting; the danger variant is only raised in the gig's alerted branch (gated). With no gig, the den should be lit for work, not red-alert."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#jpn_05_dvc_computer",
+    "within": 80.0,
+    "why": "The computer in Chang's den (ComputerControllerPS, ForceON, full path under #loc_sts_wbr_jpn_05_gameplay/#loc_sts_wbr_jpn_05_devices) is the device vanilla drives right where the netrunner works and the only occupant stands, so it streams in with the den interior the toggles raise. A device, not a workspot (rule 8)."
+  }
+}

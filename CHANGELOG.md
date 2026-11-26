@@ -8,6 +8,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 7: Arasaka Estate, Ginger Panda and its netrunner den, the
+  Peralezes' penthouse, PieZ, Organitopia, Night City Prison, Bree Whitney's
+  apartment building, the Martin Street motel, the Highway 101 SovOil
+  station, and Straight Shooters in Kabuki.
 - Research wave 6: the Ebunike docks (Maelstrom crew), the prologue
   scavenger den, Ingalls Farm (switches only), the Wraiths' landfill
   outpost, Site 341 academy, the Black Box container yard and the crash-site

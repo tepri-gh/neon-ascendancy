@@ -1,0 +1,37 @@
+{
+  "code": "wat_kab_gun_trainer_01",
+  "display_name": "Straight Shooters (Kabuki weapon vendor and shooting range)",
+  "why": "Keep the Straight Shooters interior in its ordinary shop and shooting-range state. The kept Kabuki phases supply the vendor and customers.",
+  "source": {
+    "proposal": "research/loc_wat_kab_gun_trainer_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No proximity anchor device exists inside the venue, so the proposal borrows #q001_exercise_access_point (Edge Net service point, ~34 m away). Confirm on the tour that this entity streams before the shop and that the proximity wait fires; if not, the nearest alternative is #ma_wat_kab_12_access_point_001 about 96 m away.",
+      "The shop's vendor is driven by the kept kabuki_vendors gunsmith_01 sub-phase, which plays a greeting scene, waits for the player to come within range of #wat_kab_gunsmith_01, activates the spawn set, and later deactivates it beyond #wat_kab_gun_trainer_01_mp. Confirm the gunsmith appears behind the counter in the clean slate (the cafe-style vendor branches are distance-driven, not boot-driven) and that the greeting scene does not fire while the player is across the market.",
+      "interior=1 is read as 'interior dressing shown' from vanilla setting it whenever the player approaches this shop, but the variant could conceivably be a hide switch; it is the first cosmetic thing to eyeball (shelves and range visible, no hollow shell).",
+      "The shopfront sliding door has no device row and no quest driver, so its mechanism is inferred: assume it opens on approach like other market shop doors. If it is in fact shut, the runtime door policy will not help because the door is not quest-driven.",
+      "Whether the four-client community is already live from the kept open-world Kabuki phase (which activates it whole, ungated) - if so this proposal is pure insurance and the tour should see exactly four customers, not eight.",
+      "The extra client_crowd shooting-range and product spots in the same prefab are not mapped to this community in the registry entry; confirm the four entries are enough to make the shop feel occupied rather than adding a second crowd area."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/kabuki_service_points_prefabPSXPL6Q/loc_wat_kab_gun_trainer_01_prefabJFPHR7Q/loc_wat_kab_gun_trainer_01_gameplay_prefabZX5IDFI;#loc_wat_kab_gun_trainer_01_gameplay",
+      "states": {
+        "interior": 1
+      },
+      "why": "The normal open-for-business state of the shop: the interior dressing of the gameplay prefab shown. Vanilla's own gunsmith sub-phase sets exactly this (show 1) when the player comes near the counter, and mq028_02_park sets it twice more; the venue phase pins it at boot so the range and shelves are present even if that proximity branch is missed."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q001_exercise_access_point",
+    "within": 80.0,
+    "why": "The venue has no device of its own: no quest phase drives any door or terminal here, and none of the shop's prefab nodes resolve to a worldDeviceNode (the shopfront is a plain sliding-door entity and the nearest devices are street furniture). The closest suitable named device is this access point in the neighbouring Edge Net netrunner service point, about 34 m from the shop's spots on the upper roundabout walkway, streamed with the same service-point group. It is a real device entity, not a workspot (playbook rule 8), and its full $/ path resolves in exterior_-19_31_0_0.streamingsector."
+  }
+}

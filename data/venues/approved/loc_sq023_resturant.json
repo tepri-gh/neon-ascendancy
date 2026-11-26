@@ -1,0 +1,54 @@
+{
+  "code": "sq023_resturant",
+  "display_name": "PieZ (Rancho Coronado pizza restaurant)",
+  "why": "PieZ is the pizza restaurant on the 6th Street plaza in Rancho Coronado, Santo Domingo, used by 'There Is A Light That Never Goes Out' for the last-supper table scene. Its building, interior and mirror are ordinary world geometry, but the staff/front-of-house community is only switched on by the sq023 restaurant-scene branch of the district community phase, and the ambient patrons live in a quest-design prefab that only instantiates while the side job runs. This proposal restores normal business: the two vendor bartenders with their local guests, sixteen background customers seated around the room, and the non-scene variant of the restaurant device set.",
+  "source": {
+    "proposal": "research/loc_sq023_resturant/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Whole-community form vs vanilla's literal node: vanilla activates #sq023_com_restaurant_background with entry None and phase 'restaurant', while this proposal uses the brief's optional whole-community form None/None. That is equivalent only if whole activation uses entriesInitialState (every entry's initial phase is restaurant). All 16 entries also carry entryActiveOnStart 0, so the tour must confirm they really appear.",
+      "var_sq023_restaurant semantics are inferred, not read: the only vanilla action is show 0 when sq023_restaurant_scene_on clears. Whether 0 hides the staged banquet set (normal look, as assumed) or part of the ordinary furnishing is the main thing to verify in game; if 0 strips the room, drop the toggle and leave the prefab default.",
+      "How much of the long-table banquet geometry is baked into #sq023_pr_restaurant_clinic rather than governed by the variant: if the table stays visible with the variant at 0, the restaurant will read as a banquet hall and the background patrons' spots may collide with it.",
+      "The 17 background-patron spots are only ever exercised inside the quest-staged prefab; confirm they are not floating, inside furniture, or behind the bar.",
+      "PieZ's street-front entrance is not a quest-driven door in the extracted device set (only TVs resolve at this location), so there is no door note to give. Confirm the storefront is open/usable in the clean slate; if a cooked door blocks it, it needs a runtime door-policy scope entry.",
+      "The proximity anchor is a TVControllerPS because it is the only device the catalogue resolves here; the #tv_1_q003 device actions in the catalogue are All Foods name collisions, so the anchor is a plain restaurant TV and its distance/streaming should be checked on the tour."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/rancho_coronado/#loc_sq023_resturant/loc_sq023_resturant_questdesign_prefabCM3U6CQ/#sq023_pr_restaurant_clinic"
+  ],
+  "communities": [
+    {
+      "spawner": "#std_rcr_piez_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "PieZ's normal front-of-house community: two vendor bartenders (Character.VendorMale) at the bar, a CitizenAldecaldosMale and a CitizenAldecaldosFemale guest, and one decoset entry whose initial phase is 'disabled'. All entries start active with relaxed bar/table/standing workspots, so whole-community Activate puts staff and customers in the room without any quest scene. Vanilla only reaches this node through std_rcr's sq023_restaurant_scene_on > 0 branch (then deactivate, wait, reactivate when the scene is off again); that fact is never set in the clean slate, so the branch stalls and the restaurant is empty."
+    },
+    {
+      "spawner": "#sq023_com_restaurant_background",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Seventeen ambient patrons (Character.sq023_customers, _man_a, _man_b, _woman_fat) in the 'restaurant' phase, each on an ordinary chair, table, barstool, vending-machine or arcade workspot - the restaurant's background crowd, not the eight 'last_supper' clients. Their initial phase is already 'restaurant', so whole-community Activate reproduces vanilla's Activate None/restaurant from sq023_ride_to_restaurant. Tour check because this population has only ever been seen while the quest prefab stages the room.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/rancho_coronado/#loc_sq023_resturant/loc_sq023_resturant_gameplay_prefabCHZWDVQ/#loc_sq023_resturant_devices",
+      "states": {
+        "var_sq023_restaurant": 0
+      },
+      "why": "The only vanilla variant at this location is the restaurant-scene set on the device prefab. sq023_restaurant hides it (show 0) exactly when sq023_restaurant_scene_on is cleared, i.e. 0 is the state vanilla itself leaves the world in when the scene is over. Pinning 0 keeps the venue in its non-scene, open-for-business look instead of the staged table set."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_santo_domingo/rancho_coronado/#loc_sq023_resturant/loc_sq023_resturant_gameplay_prefabCHZWDVQ/#loc_sq023_resturant_devices/tv_1_prefabW7D5MMA/#tv_1_q003",
+    "within": 80.0,
+    "why": "The only device the catalogue resolves to a real entity at the restaurant is a TVControllerPS in the location's device prefab. It sits in the room the staff and patrons use, so it streams in exactly when a player walks into PieZ; the cafe's street frontage has no quest-driven door device in the extracted data."
+  }
+}

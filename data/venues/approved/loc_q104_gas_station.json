@@ -1,0 +1,51 @@
+{
+  "code": "q104_gas_station",
+  "display_name": "SovOil Fuel Station (Highway 101)",
+  "why": "Restore the Highway 101 SovOil station’s ordinary truck-stop variants. The kept Inland Avenue phase supplies its diner staff, visitors and mechanics.",
+  "source": {
+    "proposal": "research/loc_q104_gas_station/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The direction of the #loc_q104_gas_station_devices q104 variant is inferred, not proven: q104.questphase sets q104=0 before the station chapter and the dev debug setup forces q104=1. Confirm on the tour that no mines, turret props or courier dressing are visible at the peaceful station.",
+      "Whether the glass door and the sliding door really have no in-world opener (no terminal, keycard or skill check turned up in the venue's phases); the tour's look-at log and the DoorPolicy lines decide it.",
+      "The kept open-world phase bad_ina_phase already activates #loc_q104_gas_station_ow_com (both None/None and None/default, plus a Deactivate) on branches the miner marks ungated, so this venue may already be populated before our phase runs. Our re-issue is the rule-6 boot+proximity safety net; the tour should confirm the crowd is not doubled.",
+      "Whether the shutters (q104_gas_station_shutter_03/04) and the garage gates start down or open in the clean slate, since only the siege phases drive them.",
+      "Whether the upper floor / room behind the counter stays reachable without the questdesign prefab and its anders_blocker variant."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q104_gas_station_env",
+      "states": {
+        "default": 1,
+        "q104_station": 0
+      },
+      "why": "Normal, undamaged station dressing. Every non-quest path sets default=1 and q104_station=0; the quest look (q104_station=1, default=0) is what the debug shortcut into the q104 chapter turns on, so it is the occupied/damaged state we do not want."
+    },
+    {
+      "prefab": "#loc_q104_gas_station_audio",
+      "states": {
+        "q104_gas_station_nomads_arrival": 0
+      },
+      "why": "The nomad-convoy arrival soundbed belongs to the Aldecaldo reinforcements scene, which never happens here; the station should have its plain ambient audio."
+    },
+    {
+      "prefab": "#loc_q104_gas_station_devices",
+      "states": {
+        "q104": 0
+      },
+      "why": "Keep the station on its pre-quest device set so no quest-only pieces (mines, the courier door's dressing, the combat garage setup) are shown at a peaceful station. q104=0 is the state q104.questphase itself sets before the station chapter; q104=1 is what the dev debug setup (fact q104_TEST_debug_mode_on) forces for quest testing. The kept open-world phase bad_ina_phase also toggles this node, so pinning it makes the result deterministic."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "$/03_night_city/se5/loc_q104_gas_station_prefabHHXSKEQ/loc_q104_gas_station_gameplay_prefabDBGQ7JI/#loc_q104_gas_station_devices/single_door_glass_001_prefabCM4JFUI/single_door_glass_prefab4C5I4AQ",
+    "within": 80.0,
+    "why": "The glass front door of the station, the door a customer walks through into the shop/diner where the crowd's spots are; it is a DoorControllerPS in the venue's device prefab and vanilla itself drives it (ForceUnlock), so it streams in with the venue and a player standing at the entrance is within the wait radius."
+  }
+}

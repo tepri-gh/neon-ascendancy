@@ -72,6 +72,20 @@
    "spawn_sets": []
   },
   {
+   "code": "sts_ep1_botanic_gardens",
+   "name": "Organitopia",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_botanic_gardens",
+   "pos": [
+    -2213.91,
+    -3020.37,
+    112.59
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": []
+  },
+  {
    "code": "q301_crashsite_way_up",
    "name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
    "kind": "approved",
@@ -268,6 +282,25 @@
    "spawn_sets": [
     "#mq006_com_party"
    ]
+  },
+  {
+   "code": "mq305_wanted",
+   "name": "Bree Whitney's Apartment (Skyline West)",
+   "kind": "approved",
+   "venue": "loc_mq305_wanted",
+   "pos": [
+    -2331.38,
+    -180.12,
+    16.05
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ChildAverage",
+    "Character.CorpoWomanCorporat",
+    "Character.TenantMale",
+    "Character.WorkerMale"
+   ],
+   "spawn_sets": []
   },
   {
    "code": "q004_q005_arasaka_hotel",
@@ -915,6 +948,43 @@
    "spawn_sets": []
   },
   {
+   "code": "sts_wat_nid_03_abandoned_motel",
+   "name": "Abandoned Motel on Martin Street",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_03_abandoned_motel",
+   "pos": [
+    -1506.06,
+    2197.98,
+    18.2
+   ],
+   "radius": 40.2,
+   "expected_records": [
+    "Character.CitizenRichMaleDE",
+    "Character.CreoleChildDE",
+    "Character.HomelessFemale",
+    "Character.HomelessMan",
+    "Character.LowlifeMale",
+    "Character.LowlifeMaleDE",
+    "Character.LowlifeWoman",
+    "Character.ProstituteFemaleDE"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "wat_kab_gun_trainer_01",
+   "name": "Straight Shooters (Kabuki weapon vendor and shooting range)",
+   "kind": "approved",
+   "venue": "kabuki_service_points",
+   "pos": [
+    -1178.28,
+    2039.12,
+    20.09
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": []
+  },
+  {
    "code": "sq031_ruinedship",
    "name": "DV Ebunike (Ebunike Docks)",
    "kind": "approved",
@@ -958,6 +1028,36 @@
     "Character.arr_arasaka_android_android2_shingen_ma",
     "Character.arr_arasaka_ranger1_ranged2_shingen_wa",
     "Character.arr_arasaka_security1_ranged1_shingen_ma"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "mq062",
+   "name": "Night City Prison (Arroyo) — visitor center, cell block and security cortex",
+   "kind": "approved",
+   "venue": "loc_mq062",
+   "pos": [
+    -506.68,
+    -648.56,
+    11.26
+   ],
+   "radius": 68.0,
+   "expected_records": [
+    "Character.CitizenAldecaldosFemale",
+    "Character.LightCrowd_arroyo_ma",
+    "Character.arr_ncpd_inspector_ranged1_lexington_ma",
+    "Character.arr_ncpd_police_ranged2_saratoga_ma",
+    "Character.mq062_PrisonGuard",
+    "Character.mq062_Spencer_Calder",
+    "Character.mq062_Wex",
+    "Character.mq062_ncpd_guard_ma_lexington",
+    "Character.mq062_ncpd_guard_ma_saratoga",
+    "Character.mq062_ncpd_guard_mb_base",
+    "Character.mq062_ncpd_guard_scan",
+    "Character.mq062_ncpd_guard_techgate",
+    "Character.mq062_ncpd_guard_wa_baton",
+    "Character.mq062_ncpd_guard_wa_lexington",
+    "Character.mq062_yard_inmate_01"
    ],
    "spawn_sets": []
   },
@@ -1168,6 +1268,24 @@
    "spawn_sets": []
   },
   {
+   "code": "sts_wbr_jpn_05_burned_store",
+   "name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_05_burned_store",
+   "pos": [
+    -471.21,
+    588.05,
+    31.29
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.LowlifeWoman"
+   ],
+   "spawn_sets": [
+    "#chang_hoon_nam"
+   ]
+  },
+  {
    "code": "q026_judys_apartment",
    "name": "Judy's Apartment (Charter Street, Kabuki)",
    "kind": "approved",
@@ -1264,6 +1382,29 @@
     "Character.sq012_animal_officer",
     "Character.sq012_animal_officer_beta_female",
     "Character.sq012_animal_shotgun_beta"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q113_arasaka_estate",
+   "name": "Arasaka Estate (North Oak)",
+   "kind": "approved",
+   "venue": "loc_q113_arasaka_estate",
+   "pos": [
+    311.67,
+    1049.72,
+    225.93
+   ],
+   "radius": 120.0,
+   "expected_records": [
+    "Character.q113_estate_arasaka_mech",
+    "Character.q113_estate_mansion_female_guard_rifleman",
+    "Character.q113_estate_mansion_guard_ninja",
+    "Character.q113_estate_mansion_guard_officer",
+    "Character.q113_estate_mansion_guard_rifleman",
+    "Character.q113_estate_mansion_guard_shotgunner",
+    "Character.q113_estate_mansion_guard_sniper",
+    "Character.q113_estate_mansion_netrunner"
    ],
    "spawn_sets": []
   },

@@ -1,0 +1,139 @@
+{
+  "code": "q113_arasaka_estate",
+  "display_name": "Arasaka Estate (North Oak)",
+  "why": "Restore the Arasaka Estate garrison and security mech on their ordinary posts. The North Oak district phase supplies the estate workers. Keep access to the private suite under vanilla controls.",
+  "source": {
+    "proposal": "research/loc_q113_arasaka_estate/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does instantiating #q113_pr_estate also bring the nested q113_04_hanako_estate_prefabHD46LAA hideout set (its trigger areas and suite dressing) into view, and does it read as an ordinary private wing rather than an abduction scene? The prefab is required for the guard spawner, so this needs the dev tour rather than a data answer.",
+      "q113_estate_combat also issues questMiscAICommandNode RestrictMovementToArea for several guard groups. We do not replay those commands; the guards keep their community patrol/stand workspots but may wander further than in the quest. Tour should confirm they hold their posts.",
+      "The estate's vehicle gate is not in the venue's quest-driven device list; only the intercom trigger and interior single doors are known. Tour should confirm the gate is closed in free roam and how vanilla lets the player through (intercom, guard reaction, security-system quickhack), so the restricted state is genuinely vanilla and not accidental.",
+      "Guard attitude on sight is expected to be hostile to a trespasser; tour should record whether the gate sentry and patrols are alert or merely standing, so the stop does not flag ALERT/HOSTILE if the owner wants a neutral curtilage."
+    ]
+  },
+  "prefabs": [
+    "#q113_pr_estate"
+  ],
+  "communities": [
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_01",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gate sentry with a rifle on generic__stand_ground__guard__02 at the front gate (381,1149); vanilla places him as the player drives up in q113_03_drive_to_estate, i.e. the ordinary outside-the-gate post."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_02",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Shotgun guard on patrolling/guard_stand by the entrance forecourt (312,1047)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_03",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman on patrolling_stand in the courtyard patrol loop (293,1067)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_04",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman on guard_stand at the inner entrance (306,1054)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_05",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Shift officer on the security desk spots (kneel inspect / take pills / use tablet) in the guard room (313,1032)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_06",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Shotgunner working a tablet at the inner post (284,1025)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_07",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman on guard_stand on the east side of the courtyard (343,1040)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_08",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Arasaka netrunner at a tablet workspot in the estate security room (325,1022); the only netrunner at the venue, kept first under rule 11a."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_09",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Female rifle guard on guard_stand on the west patrol line (321,1067)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_10",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman on guard_stand beside guard_09 at the west post (324,1065)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_11",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman sitting on the lounge couch in the interior guard nook (276,1050)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_12",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Rifleman patrolling beside the couch nook (272,1050)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_13",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Arasaka bodyguard (guard_ninja) seated in the monk meditate workspot in the interior courtyard (302,1042)."
+    },
+    {
+      "spawner": "#q113_com_estate_guards",
+      "entry_name": "guard_14",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Sniper on the upper landing patrolling_stand at roof height (299,1048,z 234), the estate's overwatch post."
+    },
+    {
+      "spawner": "#q113_com_arasaka_estate_mech_drones",
+      "entry_name": "mech_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Standing Arasaka security mech on routine__stand_ground in the forecourt (331,1120), the estate's fixed heavy sentry. The catalogue tags the mech record 'civilian' because its name has no guard keyword; it is estate security and is placed here as such. Drone entries are left out (their only phase is combat reinforcement 'reinf', no spots)."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#q113_dvc_estate_hanako_door",
+      "why": "Double sliding door to the private suite that vanilla q113_04_estate force-unlocks and force-opens for the ending-branch Hanako rescue. Our timeline has no rescue and no hiding Hanako, so the suite must stay shut; the runtime door policy must not enable, unlock or unseal it (restricted area kept restricted by vanilla means)."
+    }
+  ],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/north_oaks/loc_q113_arasaka_estate_prefabAJP5NXA/loc_q113_arasaka_estate_gameplay_prefabO477G2Y/loc_q113_arasaka_estate_devices_prefab2CXYKFQ/#q113_dvc_arasaka_estate_access_point_001",
+    "within": 80.0,
+    "why": "A real access-point device at the estate entrance (anchor_candidates #1, 1.4 m from the gate/garden spots), in an always-streamed exterior sector (exterior_5_15_3_0), and directly on the normal way in. Not a workspot; the estate's only DoorControllerPS (#q113_dvc_estate_hanako_door) is deep inside the private suite and is excluded from the door policy, so it would make a poor proximity trigger."
+  }
+}

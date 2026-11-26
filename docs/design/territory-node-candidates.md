@@ -138,7 +138,7 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Arasaka Tower | CorpoPlaza | HQ 5 / all | Canon HQ | hand-built + additions |
 | Konpeki Plaza | ArasakaWaterfront | business 4 / economy | Iconic hotel, elite clientele | hand-built |
 | Arasaka Industrial Park | Arroyo | stronghold 4 / military | Largest supply depot | approved |
-| Arasaka Estate | NorthOaks | landmark 3 / culture | Family seat; prestige | pending |
+| Arasaka Estate | NorthOaks | landmark 3 / culture | Family seat; prestige | approved |
 | Waterfront Freight Terminal | ArasakaWaterfront | business 3 / economy | Logistics hub | — |
 | Charter Hill Substation | CharterHill | outpost 2 / technology | Current test control point | — |
 
