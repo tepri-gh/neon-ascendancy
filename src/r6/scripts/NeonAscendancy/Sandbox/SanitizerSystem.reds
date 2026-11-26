@@ -288,6 +288,10 @@ public class NeonAscendancy_SanitizerSystem extends ScriptableSystem {
     qs.SetFact(n"watson_prolog_unlock", 1);
     qs.SetFact(n"q101_enable_activities_flat", 1);
     qs.SetFact(n"q101_enable_side_content", 1);
+    // Older Clean Slate saves predate the initial fact used by the Dogtown checkpoint.
+    if IsEP1() && qs.GetFact(n"ep1_side_content") == 0 {
+      qs.SetFact(n"ep1_side_content", 1);
+    }
     // Mark Wilson's gun-shop intro/tutorial already seen so wat_lch_gunsmith_01.scene
     // opens directly as a normal gunsmith vendor without activating sq_q001_wilson ("The Gun").
     qs.SetFact(n"wilson_met", 1);

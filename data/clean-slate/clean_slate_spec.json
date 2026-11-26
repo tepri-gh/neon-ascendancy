@@ -169,7 +169,7 @@
     "allowed_prefixed_facts": [
       "ep1_side_content"
     ],
-    "allowed_prefixed_facts_why": "Owner 2026-11-26: open Dogtown's vanilla open-world layer (ep1.gamedef is auto-merged by the engine). Gate analysis: it opens the ep1 communities (~612 activations), the checkpoint gate and q301 cleanup deactivations; gigs, vendors, dynamic events and the PL campaign stay gated on other ep1_/q30x facts. The q302 protest it opens is suppressed by the combat-zone-gate venue.",
+    "allowed_prefixed_facts_why": "Dogtown open-world clearance. The vanilla checkpoint waits on this fact and is attached directly to the Clean Slate root quest via ArchiveXL. Other ep1_ facts stay forbidden to keep the Phantom Liberty campaign and gigs dormant.",
     "forbidden_fact_prefixes": [
       "q115_",
       "ep1_"
@@ -429,7 +429,7 @@
       "base\\quest\\side_quests\\sidequests.questphase",
       "base\\quest\\minor_quests\\minorquests.questphase",
       "base\\quest\\bugfixing.questphase",
-      "ep1\\quest\\main_quests\\ep1_main_quests.questphase (not wired; ep1.gamedef auto-merge keeps Dogtown city-life dormant)",
+      "ep1\\quest\\main_quests\\ep1_main_quests.questphase (Phantom Liberty campaign)",
       "the vanilla root graph node [82] (activates additional_game_elements/bugfixing/sidequests/minorquests)"
     ],
     "excluded_phase_patterns": [

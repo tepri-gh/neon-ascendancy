@@ -96,6 +96,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Start Dogtown's vanilla vehicle checkpoint from the Clean Slate quest on
+  new games and save restore. The open-world phase runs the scans and barriers
+  in both directions without the Phantom Liberty campaign.
 - Clouds Tyger Claws no longer look alert. The two VIP-entrance guards used
   vanilla's `after_woodman` phase, whose workspots are the post-interrogation
   lockdown (nervous stance, agitated shuffle). They now use `start` (leaning,

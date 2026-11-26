@@ -160,23 +160,27 @@ already define all four; we copy them, never invent them.
 
 **Phantom Liberty (Dogtown)**
 
-16a. **The engine merges `ep1.gamedef` at boot**, so Phantom Liberty's tree
-    (`ep1/quest/ep1.questphase`) runs alongside our clean slate, gated by
-    facts. The clean slate forbids every `ep1_` fact except
-    `ep1_side_content` (`allowed_prefixed_facts` in
-    `clean_slate_spec.json`). Setting it opens Dogtown's vanilla open-world
-    layer: the district communities and their combat variants, the quest
-    communities (stadium, Heavy Hearts, Golden Pacific, ...) and the
-    checkpoint gate. Gigs, vendors, dynamic events and the PL campaign stay
-    gated on other facts. The miner and checker treat `ep1.questphase` as
-    a kept root but never its `main_quests` subtree, which stays dormant
-    (`q005_done` and `ep1_active` are never set). It also opens the q302
-    protest at the gate, which the gate venue suppresses. Dynamic events,
-    vendors, world encounters, gigs and sandbox activities sit behind
-    `ep1_active` too, so it stays forbidden; `ep1_dynamic_events` is wired
-    directly as a kept phase instead (38 of 43 events run). Verified in game on
-    2026-11-26: populated streets and dynamic events, no PL story, no
-    gigs or fixer calls, no protest at the gate.
+16a. **Check which quest roots the save actually runs.** Clean Slate redirects
+    `ep1.gamedef` to its own game definition. Recent Clean Slate saves had
+    `ep1_side_content = 1` and recorded `ascendancy.quest` as a quest root,
+    with no `ep1.quest` root. The miner's assumption that the EP1 root is
+    always available needs runtime confirmation for any venue that relies on it.
+    Dogtown's street dynamic events are explicitly wired as a kept phase.
+    The 2026-11-26 playtest confirmed populated streets and dynamic events,
+    with no PL story, gigs, fixer calls or protest at the gate.
+
+16b. **The Dogtown checkpoint needs its open-world phase and clearance fact.**
+    Vanilla sets `ep1_side_content = 1` in `q302_04_squot.scene`.
+    The fact releases node 8 of `combat_zone_gate.questphase`, which starts
+    the two vehicle loops and the pedestrian loops. Clean Slate attaches that
+    phase to `ascendancy.quest` with ArchiveXL, which also starts the
+    attachment once on restore for older saves. The Clean Slate bootstrap
+    supplies the clearance fact on older saves with Phantom Liberty installed.
+    The vanilla phase owns the four vehicle barriers and the combat variant.
+    To verify in game, drive a civilian car through the western checkpoint in
+    both directions and check that the scans play and the barriers cycle.
+    The game increments `by_car_dogtown_crossed` and `by_car_night_city_crossed`
+    on the respective crossings.
 
 **Content that lives elsewhere**
 

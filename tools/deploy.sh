@@ -12,6 +12,7 @@ NATIVE_DLL="$ROOT/build/win/$MOD_NAME.dll"
 NATIVE_PDB="$ROOT/build/win/$MOD_NAME.pdb"
 WORLD_DB="$ROOT/dist/world.db"
 WORLD_ARCHIVE="$ROOT/dist/neon_ascendancy_world.archive"
+WORLD_ARCHIVE_CONFIG="$ROOT/src/archive/pc/mod/neon_ascendancy_world.archive.xl"
 NATIVE_DEST="$GAME_DIR/red4ext/plugins/$MOD_NAME"
 ARCHIVE_DEST="$GAME_DIR/archive/pc/mod/neon_ascendancy_world.archive"
 SCRIPTS_ONLY=0
@@ -89,5 +90,6 @@ fi
 if ((SCRIPTS_ONLY == 0)) && [[ -f "$WORLD_ARCHIVE" ]]; then
   mkdir -p "$(dirname "$ARCHIVE_DEST")"
   cp -f "$WORLD_ARCHIVE" "$ARCHIVE_DEST"
+  cp -f "$WORLD_ARCHIVE_CONFIG" "$ARCHIVE_DEST.xl"
   printf 'Deployed clean-slate world archive to %s\n' "$ARCHIVE_DEST"
 fi

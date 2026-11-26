@@ -114,7 +114,9 @@ tools/deploy.sh                     # deploy .reds + (when built) NeonAscendancy
 ```
 
 `tools/deploy.sh` preserves `<game>/red4ext/plugins/NeonAscendancy/playthroughs/`
-across redeploys and accepts `--scripts-only` to deploy only `.reds` files.
+across redeploys and accepts `--scripts-only` to skip the native and archive
+artifacts. It installs the Clean Slate world archive with its ArchiveXL
+`.archive.xl` sidecar, which attaches the Dogtown checkpoint.
 
 `NeonAscendancy.dll` MUST link the static MSVC runtime (`/MT`). Proton 11's
 builtin `msvcp140.dll` exports zero `__std_*` symbols required by RedLib's
