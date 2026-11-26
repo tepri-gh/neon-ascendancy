@@ -438,6 +438,7 @@ def stage_catalog(a: argparse.Namespace) -> None:
                     if qm:
                         wiki[qm.group(1)].append({"title": page["title"], "file": page["file"], "kinds": page["kinds"]})
 
+    overrides = {o["venue"]: o for o in json.loads(a.overrides.read_text(encoding="utf-8"))["venues"]}
     venues: dict[str, dict] = {}
 
     def venue(name: str) -> dict:
@@ -558,9 +559,15 @@ def stage_catalog(a: argparse.Namespace) -> None:
         rec["counts"] = {k: len(rec[k]) for k in ("prefabs", "communities", "spawn_sets", "devices", "toggles", "quests")}
         rec["quest_families"] = sorted({quest_family(q) for q in rec["quests"]})
         rec["tier"] = tier_of(rec)
+        if vn in overrides:
+            rec["tier"] = overrides[vn]["decision"]
+            rec["tier_why"] = overrides[vn]["why"]
         out.append(rec)
     (a.out / "catalog.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
-    tiers = {t: sum(1 for r in out if r["tier"] == t) for t in ("individual", "batch", "skip")}
+    missing = sorted(set(overrides) - {r["venue"] for r in out})
+    if missing:
+        raise SystemExit(f"triage overrides name unknown venues: {missing}")
+    tiers = {t: sum(1 for r in out if r["tier"] == t) for t in ("individual", "batch", "excluded", "deferred")}
     print(f"catalog: {len(out)} venues {tiers}; unresolved refs by kind {dict(unresolved)}; "
           f"inferred by phase {dict(inferred_n)}; {len(spots)} spots indexed; {len(unconverted)} sectors unconverted")
 
@@ -574,6 +581,7 @@ def main() -> int:
     ap.add_argument("--sectors", type=Path, default=DEFAULT_SECTORS)
     ap.add_argument("--phases", type=Path, default=DEFAULT_PHASES)
     ap.add_argument("--wiki", type=Path, default=DEFAULT_WIKI)
+    ap.add_argument("--overrides", type=Path, default=Path(__file__).resolve().parent.parent / "data" / "venues" / "triage_overrides.json")
     ap.add_argument("--blocks", type=Path, default=HOME / "na-prop-scratch" / "blocks")
     ap.add_argument("--wk", type=Path, default=Path(os.environ.get("WK_CLI", DEFAULT_WK)))
     ap.add_argument("--jobs", type=int, default=3)

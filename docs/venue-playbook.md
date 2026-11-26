@@ -222,17 +222,28 @@ Two local tools feed venue research. Their output is never committed;
     its posture and workspots and whether vanilla activates it. Pick ambient
     phases here (rule 9). The relaxed choice is often a phase no quest
     activates, such as Clouds' `guard_vipentrance_01/start`;
-  - `posture: unknown` means the spot map is missing. About 1,700
-    communities, mostly Phantom Liberty, sit in the 4 sectors WolvenKit
-    cannot convert, and some vanilla quests activate phases that do not
-    exist. Check those on the dev tour;
+  - `posture: unknown` means no spot map was found. About 1,700
+    communities, mostly Phantom Liberty, have no community area node in any
+    converted sector (where their spots live is still open), and some
+    vanilla quests activate phases that do not exist. Check those on the dev
+    tour;
   - `venue_inferred: true` on items whose ref is not yet resolved to a path
     and was attached to the venues its phase touches. Treat those as
     unverified until the `sectors` stage has run;
   - `tier`: `individual` (one research agent each: an authored location used
     by a main job, side job, minor job or gig, with people, devices or
     sections to restore) or `batch` (open-world areas, hustles, apartments,
-    small sites; several per agent).
+    small sites; several per agent). Owner decisions in
+    `data/venues/triage_overrides.json` replace the tier with `excluded`
+    (no research) or `deferred` (a later dedicated pass).
 
   Stages: `phases`, `communities`, `sectors` (slow: converts every sector
   holding spots, devices or community areas; resumable), `catalog`.
+
+  Four sectors refuse WolvenKit 10.0.0-beta.1 conversion. Three hold device
+  data cooked with older class names (`APChallangeContainer`,
+  `DemolitionContainer`) where the current game classes declare
+  `HackingContainer` and `EngDemoContainer`. The game tolerates the
+  mismatch; WolvenKit's strict RTTI check refuses the file. The fourth (EP1
+  `exterior_-40_-38_0_0`) fails inside WolvenKit's own JSON step. None of
+  the four holds community areas; they cost a few devices and spots.
