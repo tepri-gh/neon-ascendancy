@@ -1,0 +1,65 @@
+{
+  "code": "sts_pac_wwd_05_paint_factory",
+  "display_name": "Tripple Xtreme Epic Workout Center (Old Paint Factory)",
+  "why": "The Tripple Extreme Gym is the Animals' fight club in the old SovOil paint factory on Baptiste Street, Rancho Coronado: a boxing pit in a repurposed chemical vat, a melee weapon vendor in the back, Logan Garcia's office and an infirmary above. This proposal restores the gym's normal population - the eight Animals on the door, couches, stairs, rail and boxing workspots, Logan Garcia standing by his office, a worker mopping the floor, and Rhino seated in the ring area - plus the fight ring itself. The For My Son hit, its transport van and the Animals' bikes stay out because the gig never runs.",
+  "source": {
+    "proposal": "research/loc_sts_pac_wwd_05_paint_factory/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No community-area/spot map was resolved for this venue (all catalogue postures are unknown). The postures above are inferred from the spot nodes' names in quest_7182be2f07438572 / quest_e2e71058b0e8eb35 and their workspot files; the tour must confirm the ten entries appear and hold those poses.",
+      "Attitude: sts_pac_wwd_05.questphase sets the wwd_05_animals group to AIA_Neutral toward the player. We do not run that phase and the venue schema has no attitude control, so the Animals may default to the gang's hostile stance. If the tour flags HOSTILE, the owner needs to decide between a neutral gym and keeping only the worker/Rhino.",
+      "The entry gate's normal access is a 3800 eddie fee or a Body 13 intimidation with the bouncer, with a container/shutter route on the north side. Confirm the runtime door policy leaves the gate passable and that the two gate terminals are usable/hackable.",
+      "Doors 005/006 are only unsealed by the gig's combat branch; without it they start sealed. Confirm the runtime policy opens them and that the office/back rooms are reachable.",
+      "The melee weapon vendor is #std_arr_melee_01, already switched on by the kept arroyo_vendors phase; his workspot is the gym couch at -511.8,-1914.5. The wiki says he is only friendly after beating Rhino - in our timeline no bout happens, so confirm he is present and friendly rather than hostile.",
+      "The mq025_07 collision variant default is not visible without all.streamingblock. The proposal sets collision 0 (the only value vanilla ever uses) to keep the ring walkable; if the ring looks wrong on tour, this is the first thing to check.",
+      "Loading #sts_pac_wwd_05_streetstory also brings the gig's triggers, restricted-movement areas and crowdNullArea. They should be inert without the quest, but the tour should confirm no trigger fires and the interior crowd stays suppressed as intended."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_pac_wwd_05_paint_factory_prefabMROCNWQ/#loc_sts_pac_wwd_05_paint_factory_openworld/#sts_pac_wwd_05_streetstory",
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_pac_wwd_05_paint_factory_prefabMROCNWQ/loc_sts_pac_wwd_05_paint_factory_questdesign_prefabV7YRJHY/#mq025_pr_07_fight_club"
+  ],
+  "communities": [
+    {
+      "spawner": "#wwd_05_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation in every entry's initial phase default, which is the gym's normal non-combat state: the eight Animals sit on couches and stairs, lean on rails, box at the ring and stand guard posts, Logan Garcia stands at his office and the worker mops the floor. Vanilla switches this community on whole (Reactivate with entry/phase None) for the gig; the same call is the venue's ordinary occupancy. Rule 11a keeps this combat group ahead of adding more civilians.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq025_com_rhino",
+      "entry_name": "rhino",
+      "phase_name": "mq025_rhino_01_pre_fight",
+      "action": "Activate",
+      "why": "Rhino, the Animals' champion, is part of the gym's permanent cast and sits in the ring area between bouts. Of her five phases only the pre-fight one is an idle state; 02_fight, 03_post_fight and the two finale phases are fight/post-fight scenes at the mall.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#mq025_pr_07_fight_club",
+      "states": {
+        "collision": 0
+      },
+      "why": "The only variant this prefab exposes is the ring's collision blocker; every vanilla mq025_07 branch sets it to 0, and 0 is the walkable, no-fight state the gym should have in our timeline. No visual variant is touched."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#wwd_05_dvc_gate",
+    "within": 80.0,
+    "why": "The gym's entrance gate (DoorControllerPS with a resolved full path in the gameplay/devices prefab), on the normal way in. Its two gate terminals sit at about -476.7,-1936.6,8.2, while the gym's workspots span about -475..-520 x -1898..-1946, so the wait is well inside the default radius."
+  },
+  "tour_stop": {
+    "position": [
+      -487.25,
+      -1924.32,
+      15.93
+    ],
+    "source": "{wwd_05_ws_enemy_008_A} in quest_7182be2f07438572.streamingsector"
+  }
+}

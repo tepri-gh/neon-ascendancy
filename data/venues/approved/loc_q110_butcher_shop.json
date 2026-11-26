@@ -1,0 +1,45 @@
+{
+  "code": "q110_butcher_shop",
+  "display_name": "Rolland's Butcher Shop (Voodoo Boys front, Coastview)",
+  "why": "Restore Rolland’s Butcher Shop as a staffed Coastview storefront by loading its shop prefab and the vanilla vendor, customer and butcher spawn set. Placide’s office at the netrunners’ den remains his assigned location.",
+  "source": {
+    "proposal": "research/loc_q110_butcher_shop/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Whole-set spawn activation: #q110_com_butchers is activated with entry None/phase None, which the community registry (id 9865744478188435252) resolves to all six entries in their only phase q110_default with all their spots inside this prefab. Confirm on the tour that vendor, grandma, both butchers and both chickens actually spawn and bind to the counter, grinder, wall and cart spots, and that nothing lands on a scene marker.",
+      "Prefab side effects: #q110_pr_butcher_shop also carries the q110_02_placide triggers (behind-counter, approaching-meat-room, left-via-garage, meeting Placide), the backroom multiplayer zone and the #q110_fx_butcher_camera_blind FX node. With no q110 phase running they should be inert, but the tour should confirm no blind/whiteout screen effect, invisible walls or blocked counter remain.",
+      "Meat-room route: only cold-room door __004 is quest-driven and inside the generated DoorScope; doors __001, __002 and __003 are not quest devices and are outside the runtime policy. Confirm on the tour that the workroom -> meat room -> garage route is walkable and none of those doors is baked locked.",
+      "Street entrance: the shop's front (street) door/opening is not a quest device at all, so the runtime door policy cannot act on it. Confirm the shop is enterable from Coastview without the q110 phases, and that the counter area is not sealed by a quest barrier."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/coastview/#loc_q110_butcher_shop/loc_q110_butcher_shop_questdesign_prefabW7N63SA/#q110_pr_butcher_shop"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#q110_com_butchers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "why": "The whole shop staff set, vanilla's own opening beat of q110_03_butcher_shop: counter vendor at the bar-lean, a grandma customer at the counter, butcher_01 at the meat grinder, butcher_02 on a wall-lean smoke break, and the two cage chickens by the cart. Every entry has the single phase q110_default and all of their spots are relaxed work/stand/smoke workspots inside this prefab, so the set reads as a shop open for business. Activated whole (entry None/phase None) exactly as vanilla does.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q110_dvc_butcher_shop_cold_room_door__004",
+    "within": 80.0,
+    "why": "The shop's only quest-driven door, a DoorControllerPS in the venue's always-loaded devices prefab at the back of the workroom, on the route from the counter into the meat room and out through the garage. It streams with the location and sits inside the small shop, so the proximity wait arms when the player actually reaches the venue; a workspot would never fire (rule 8), and the camera refs are quest look-at devices rather than an entrance the player passes."
+  },
+  "tour_stop": {
+    "position": [
+      -1821.56,
+      -1972.17,
+      52.5
+    ],
+    "source": "{q110_ws_butcher_shop_grandma} in quest_434a821f6f785154.streamingsector"
+  }
+}

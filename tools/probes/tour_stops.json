@@ -604,6 +604,22 @@
    "spawn_sets": []
   },
   {
+   "code": "q110_butcher_shop",
+   "name": "Rolland's Butcher Shop (Voodoo Boys front, Coastview)",
+   "kind": "approved",
+   "venue": "loc_q110_butcher_shop",
+   "pos": [
+    -1821.56,
+    -1972.17,
+    52.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [
+    "#q110_com_butchers"
+   ]
+  },
+  {
    "code": "q110_chapel_of_the_black_madonna",
    "name": "Pacifica Serenity Bible Church (Chapel of the Black Madonna)",
    "kind": "approved",
@@ -737,6 +753,40 @@
    "radius": 40.0,
    "expected_records": [
     "Character.q113_top_atrium_rifleman"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "sts_cct_dtn_03",
+   "name": "Empathy",
+   "kind": "approved",
+   "venue": "loc_sts_cct_dtn_03",
+   "pos": [
+    -1622.13,
+    381.85,
+    8.11
+   ],
+   "radius": 45.7,
+   "expected_records": [
+    "Character.CitizenRichMale",
+    "Character.CookMale",
+    "Character.CorpoManAfterWork",
+    "Character.CorpoManBraindance",
+    "Character.CorpoWoman",
+    "Character.MunicipialMale",
+    "Character.NightlifeMale",
+    "Character.NightlifeWoman",
+    "Character.NonBinaryFemaleBodyNightlife",
+    "Character.NonBinaryMaleBodyNightlife",
+    "Character.ServiceDancerFemale",
+    "Character.SexworkerMale",
+    "Character.SlackerMale",
+    "Character.StoopKing",
+    "Character.StoopQueen",
+    "Character.VendorFemale",
+    "Character.WorkerMale",
+    "Character.YoungsterMale",
+    "Character.dtn_animals_bouncer_short_range_m_medium"
    ],
    "spawn_sets": []
   },
@@ -891,6 +941,29 @@
    "spawn_sets": [
     "#riot_bouncer"
    ]
+  },
+  {
+   "code": "sts_wat_kab_01_street_maze",
+   "name": "Kabuki Street Maze",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_01_street_maze",
+   "pos": [
+    -1170.4,
+    1755.67,
+    23.37
+   ],
+   "radius": 51.2,
+   "expected_records": [
+    "Character.CitizenRichMale",
+    "Character.CookMale",
+    "Character.HomelessMan",
+    "Character.LightCrowd_kabuki_ma",
+    "Character.LightCrowd_kabuki_wa",
+    "Character.MorningCrowdWoman",
+    "Character.NurseFemale",
+    "Character.VendorMale"
+   ],
+   "spawn_sets": []
   },
   {
    "code": "sts_wat_kab_07",
@@ -1065,6 +1138,28 @@
     "Character.arr_arasaka_android_android2_shingen_ma",
     "Character.arr_arasaka_ranger1_ranged2_shingen_wa",
     "Character.arr_arasaka_security1_ranged1_shingen_ma"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "sts_pac_wwd_05_paint_factory",
+   "name": "Tripple Xtreme Epic Workout Center (Old Paint Factory)",
+   "kind": "approved",
+   "venue": "loc_sts_pac_wwd_05_paint_factory",
+   "pos": [
+    -487.25,
+    -1924.32,
+    15.93
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.mq025_rhino",
+    "Character.sts_pac_wwd_05_worker",
+    "Character.wwd_05_enemy_handgunner",
+    "Character.wwd_05_enemy_handgunner_reprimand",
+    "Character.wwd_05_enemy_meelee",
+    "Character.wwd_05_enemy_officer",
+    "Character.wwd_05_target"
    ],
    "spawn_sets": []
   },
@@ -1519,6 +1614,40 @@
    "spawn_sets": [
     "#sq021_com_trailerpark"
    ]
+  },
+  {
+   "code": "sq021_farm",
+   "name": "Edgewood Farm (Anthony Harris's farmstead)",
+   "kind": "approved",
+   "venue": "loc_sq021_farm",
+   "pos": [
+    2399.05,
+    -1369.69,
+    62.53
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": []
+  },
+  {
+   "code": "q103_ghost_town",
+   "name": "Rocky Ridge (Wraith-held ghost town)",
+   "kind": "approved",
+   "venue": "loc_q103_ghost_town",
+   "pos": [
+    2576.32,
+    -26.87,
+    80.83
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q103_raffen_shiv_boss_alpha",
+    "Character.q103_raffen_shiv_hmg_male",
+    "Character.q103_raffen_shiv_rifle_male",
+    "Character.q103_raffen_shiv_rifle_woman",
+    "Character.q103_raffen_shiv_sniper_male"
+   ],
+   "spawn_sets": []
   },
   {
    "code": "sq027_rail_junction",

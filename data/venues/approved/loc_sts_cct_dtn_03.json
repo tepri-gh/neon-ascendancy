@@ -1,0 +1,249 @@
+{
+  "code": "sts_cct_dtn_03",
+  "display_name": "Empathy",
+  "why": "Restore the inside-the-club area at Empathy and reissue its verified ambient bouncers, staff and patrons as the venue streams in. The top floor is open in the cooked default.",
+  "source": {
+    "proposal": "research/loc_sts_cct_dtn_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The three default-state communities are already activated at boot by the kept vanilla phase base/open_world/community/city_centre/downtown/phases/cct_dtn_phase.questphase, and the gate analysis marks those activations ungated, so the extract says the club is populated in the clean slate. The risk this proposal addresses is playbook rule 6: that boot activation runs before the club interior (exterior sector -13_3_0_1 and neighbours) has streamed, which is the classic empty-venue failure. Check on the tour whether the club was empty before this phase; if it was already populated, the re-issue is redundant but harmless, and if it stays empty the problem is elsewhere (the section that owns the spawners not streaming).",
+      "interior_area polarity/need: 1 is chosen because the node is a worldInteriorAreaNode with NoJump/InDaClub and the wiki notes jumping is disabled when visiting outside quests, but the sector's enabledByDefault is 0 and vanilla sets both 0 and 1 within one phase. Cosmetic only; first thing to eyeball on the tour.",
+      "#dtn_03_crowd_com has no resolved path or entries. Confirm it is the generic pavement crowd around the club (most likely, given the crowd_off trigger and restricted guard area) and not a second club crowd that the boot activation is supposed to switch on.",
+      "The venue's owners Adam Ibrahimovic and Larry Fanghorn exist only as gig characters; this venue has no spawn set for them, so they are absent. Adding either would be a cast-layer/owner decision.",
+      "Weapons deposit: the gig ForceUnpowers the entrance scanner and uses it for the optional deposit-your-weapons objective. We leave it powered, so the ordinary scanner runs; confirm it does not block or trap the player at the door (the wiki says entering through the main door requires relinquishing weapons during the gig).",
+      "The upstairs bar (#dtn_03_ws_barman_001, z=12.1) is 'unusable' per the wiki; vanilla still posts a barman there in the default crowd. Check he is not standing behind a dead counter.",
+      "The alert/scene entries we do not re-issue are still switched on by the kept boot activation. On the tour, check that no leftover gig-scene actor (manager, prostitutes, security locker officer) appears: those belong to the unloaded #sts_cct_dtn_03_streetstory section, so the expected result is none."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_bouncers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Animals door security: whole-community activation of the single 'bouncers' entry in its 'default' phase, Character.dtn_animals_bouncer_short_range_m_medium on five guard spots (couch-with-gun relax, 2h-back bodyguard, two guard stands, master guard stand). The only ordinary combat group at the venue, so it is first (rule 11a). The gig's ten-entry attack squad #dtn_03_combat_com is deliberately not used."
+    },
+    {
+      "spawner": "#dtn_03_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Club staff: whole-community activation of #dtn_03_com. All five entries start in phase Default: the receptionist at the entrance desk (CorpoWoman, chair sit_around), the two barmen behind the ground- and first-floor bars (CorpoManAfterWork, stand_bar_can__serve), the cook at the back (CookMale, look_at_products/cigarette) and the second receptionist (SlackerMale, bar lean). No alert, scene or combat entry."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NightlifeWoman regular. 26 relaxed floor spots: barstools, chairs, couches, rails, dancing, smoking and drinking; the core ambient patron on the main floor and mezzanine."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_f_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second NightlifeWoman regular on the same floor spot set, so the room reads busy rather than one body per area."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_female_only",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "StoopQueen at the wall/makeup/drunk spots near the west side and back bar: a street-level regular drifting in from the alley."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NightlifeMale regular on the same 26-spot floor set (bar, couches, rails, dancefloor)."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_m_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "SlackerMale regular on the floor set; covers the second half of the shared spot pool."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "always_poor_male_only",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "StoopKing on the wall lean/drink spot and the couch watch-poledancing spot, i.e. a patron at the stage."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "braindance_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "CorpoManBraindance on the bench braindance spots: a client plugged into the club's BD booths on the mezzanine."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "cleaning_service_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "VendorFemale cleaning staff on the mop workspot on the main floor."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "cleaning_service_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "WorkerMale cleaning staff on the upper-floor mop spot."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "cleaning_service_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "VendorFemale cleaning staff alternating mop and a cigarette break on the ground floor."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "cleaning_service_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "WorkerMale cleaning staff on the east-side mop spot."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "disabled_for_sts",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The entry named 'disabled_for_sts' is the ordinary patron the gig switches off: NightlifeMale on bar-lean phone, cheer, rail smoke, stairs drink and a dancefloor spot. With no gig in our timeline he belongs on."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "disabled_for_sts_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The second 'disabled_for_sts' patron (NightlifeWoman): kneeling on the ground and crying on the stairs, i.e. the drunk-crying regular the gig clears out."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "floatich_rich_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "CitizenRichMale 'floating' patron roaming the bar and floor on 20 relaxed spots (whisky, barstool, phone, smoking, dancefloor)."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "floating_young_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "YoungsterMale 'floating' patron on 29 relaxed spots, filling the dancefloor, rails and smoking corners."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "hookers_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "ServiceDancerFemale on the live-striptease workspots: nightclub sexy_dance 01/02, bar lean legs-crossed, makeup, drink/eat, plus a paired comforting-crying spot. The venue's own dancer floor staff."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "hookers_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "SexworkerMale on sexy_dance 01/03, chair observe, smoke and a paired comforting-crying spot: the male dancer/host counterpart."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "synced_female_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NonBinaryFemaleBodyNightlife in the paired club animations: taking care of a drunk friend, bench flirting and wall-lean flirt. Synced spots only, so the pair reads as two patrons together."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "synced_female_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NightlifeWoman as the other half of the synced flirt / drunk-friend pairs."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "synced_male_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NonBinaryMaleBodyNightlife on the synced male spots (comforting a crying friend, flirt, embrace)."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "synced_male_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NightlifeMale on the same synced male spot set."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "toilet_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "NightlifeMale in the washroom/back corridor: drunk, drugged, smoking and wall spots (vanilla's own default crowd, not a scene actor)."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "toilet_male_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "CorpoManAfterWork on the same washroom and corridor spots."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "toilets_and_other_floating",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "CorpoManAfterWork on the sink, cheer and dance spots: the washroom-and-corridor floater."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "worker_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "MunicipialMale maintenance worker kneeling with a tool / on a tablet at the ground-floor work spot."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "worker_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "MunicipialMale maintenance worker scanning with a tablet on the first floor."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "worker_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "MunicipialMale maintenance worker with the drill on the west-side construction spot."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_03_default_state_community",
+      "entry_name": "worker_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "MunicipialMale maintenance worker on the tablet-use spot by the stage side."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_city_center/downtown/loc_sts_cct_dtn_03_prefab5B3XQQI/loc_sts_cct_dtn_03_gameplay_prefab7WF2VOI",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "The inside-the-club state. Variant 1 streams the worldInteriorAreaNode {sts_cct_dtn_03_interior_area}, which applies GameplayRestriction.InDaClub and NoJump and treatAsInterior for the club volume, so the club behaves like an interior (no street ambience in the room, no jumping) while the player is inside it. Vanilla sets 1 when V is inside and 0 on the way out; the sector's baked default is off, so the venue phase sets the ordinary state. Feel/cosmetic switch only - it affects no spawn. Full $/ path because the node name is an untagged _prefab ref."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#dtn_03_security_gate_scan",
+    "within": 80.0,
+    "why": "The weapon scanner just inside the street entrance (SecurityGateControllerPS, full path .../loc_sts_cct_dtn_03_gameplay_prefab7WF2VOI/#loc_sts_cct_dtn_03_devices/#dtn_03_security_gate_scan, worldDeviceNode at -1624.06, 399.69, 8.09 in exterior_-26_6_0_0). Every visitor passes it before the reception and the main floor, it is a device and not a door or workspot (rule 8), and it streams with the exterior sector. The venue phase does not power it off, so the entrance scan stays vanilla."
+  }
+}

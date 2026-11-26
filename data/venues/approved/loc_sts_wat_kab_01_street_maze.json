@@ -1,0 +1,117 @@
+{
+  "code": "sts_wat_kab_01_street_maze",
+  "display_name": "Kabuki Street Maze",
+  "why": "The street maze is the tight Kabuki alley block behind Lizzie's Bar: the north bar, Tom's Diner, the Kabayan bar, the games-machines bar, a med shop, the techie's stall and the flats above, all street-level at z≈23. Vanilla's ordinary crowd for it lives in #wat_kab_street_maze_com and is switched on whole by the Kabuki district community phase, which the clean slate keeps — but that is a single boot activation, which playbook rule 6 says misses venues that have not streamed in yet. This proposal re-issues the community's twelve relaxed entries at boot and again after proximity, restoring the bar staff, shopkeeper, diner cook, patrons, techie, homeless man and upstairs residents in their day/night periods. The two gigs set here (Concrete Cage Trap, Troublesome Neighbors) supply story crowds, combat groups and props that stay off; the building geometry itself is already world-streamed and needs no quest prefab.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_01_street_maze/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No in-game check was possible (research only). The conclusion that the street is populated rests on the kept Kabuki district phase wat_kab_phase activating #wat_kab_street_maze_com whole and ungated, plus its spot/community-area nodes being in the world-streamed exterior_-10_13_0_1.streamingsector. The dev tour should stand in the alley at midday and at night and confirm the bar/diner/shop staff and patrons are there.",
+      "Rule 6 is the reason this venue phase exists: the district phase's boot activation is a one-shot and may miss the alley before it streams. If the tour finds the alley already full before our phase's proximity branch, this is harmless re-activation, not doubling; if it finds it empty, our boot+proximity re-issue is the fix.",
+      "wat_kab_maze_weeders may land on the dirt drugged workspot (one of its two spots); if that reads as an overdose rather than a stoner, drop that entry and keep only the owner. Similarly the homeless man has a pee spot; if the owner prefers a cleaner street, keep him but expect the pose.",
+      "The whole-community activation by the kept district phase also switches on the alert-tagged general crowd (junkies, main characters, street men/women). That is vanilla's ordinary look but it may read nervous in game; if the owner wants the alley calmer, the clean slate would have to deactivate specific entries, which is a policy change beyond this venue.",
+      "The story variant states sts_wat_kab_01 / sts_wat_kab_107 (device prefab) and blockades (openworld prefab) are only ever set by the two gig phases, which do not run, and no kept phase touches them, so they are left at the baked pre-gig defaults. If the tour shows a gig barricade, fence gate or the wrong device layout, pin blockades=0 and both sts_* variants to 0.",
+      "The shopfront sliding doors are ordinary sliding-door entities, not quest-driven devices, so the runtime door policy will not touch them; the tour should confirm they open on approach in the usual way."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "female_tech_maze",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Night-only resident asleep in the flat above the techie's stall ({wat_kab_techie_maze_bed_female_}_002, lie-double-bed sleep, z 27.4). She is the only occupant of the upstairs window and keeps the residential floor from reading as an empty prop at night.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "kab_107_med_shop_vendor",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Day-shift med-shop vendor standing at the shop front with a drink ({wat_kab_shop_maze_vendor}, bottle-drink workspot). Staffs one of the alley's ordinary open-front businesses instead of leaving the counter empty."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "kab_107_wat_kab_gamer",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A local at the north games machines — vending-machine use or a cigarette outside ({wat_kab_games_machines_north_}_007/_008, x≈-1176). The arcade/vending corner is a normal Kabuki hangout and reads better with one customer."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "kab_107_wat_kab_maze_homeless",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The alley's homeless man, with eight authored spots — begging with a cardboard sign, using a braindance, picking trash, eating from a can or relieving himself ({wat_kab_homelesses_}01..008, x -1159..-1187). Ordinary Kabuki street life at day and night; flagged for the tour only because one possible spot is the pee workspot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "north_bar_bartender",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Bartender at the north bar, leaning at the counter or cleaning the front window ({wat_kab_bar_north_}_004/_005, y≈1790). Gives the bar an attendant during its day trade."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_kabayan_bartender",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Bartender at the Kabayan bar cleaning a glass or smoking outside ({wat_kab_kabayan_maze_}_002/_005, x≈-1183). The Kabayan is one of the alley's two food/drink counters and needs its server."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_statics_infinit",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Male patron with thirteen authored seats across the games-machines bar, Tom's Diner and the south-west street ({wat_kab_games_machines_bar_}, {wat_kab_toms_diner_}, {wat_kab_street_south_west_}), eating, drinking at the bar or smoking on the pavement. The alley's everyday customer, day and night."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_statics_infinit_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Female counterpart with the same thirteen seats and poses, so the diner/bar tables read as a mixed crowd rather than one man on his own."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_techie",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The alley's tech trader working a tablet at his stall ({wat_kab_techie_maze_}01/_002/_003, x≈-1178..-1185). An open-front electronics pitch with its owner at the counter, not an abandoned table."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_toms_bartender",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Tom's Diner's cook/server cleaning a glass behind the counter ({wat_kab_toms_diner_}_004, x≈-1166). The diner is the alley's main eatery and its counter should be manned during the day."
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_weeders",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "One of the weeders' flat residents, asleep in the chair or standing dopey in the doorway ({wat_kab_weeders_maze_}001/_003, x≈-1167). Ordinary down-at-heel Kabuki neighbours; flagged because one of the two poses is the drugged workspot and the tour should confirm it reads as a stoner, not an aftermath.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#wat_kab_street_maze_com",
+      "entry_name": "wat_kab_maze_weeders_owner",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The weeders' landlord, asleep in his chair in the same flat ({wat_kab_weeders_maze_}_002, x≈-1161). Pairs with the previous entry so the tenement has an owner rather than one squatter."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#kab_01_dvc_door_019_terminal",
+    "within": 80.0,
+    "why": "The terminal beside door 019 at the north end of the alley (TerminalControllerPS, full path …/loc_sts_wat_kab_01_street_maze_gameplay_prefabPUZS35A/loc_sts_wat_kab_01_street_maze_devices_prefabKAGJYCI/#kab_01_dvc_door_019_terminal, pos [-1179.87,1785.25,24.83]). It is a real worldDeviceNode in exterior_-19_27_0_0.streamingsector, about 4–46 m from the restored spots (the northern bar/shop cluster is closest, the southern games-machines bar farthest, inside the default 80 m radius), so it streams with the venue and the proximity re-issue fires when the player walks the alley. It is a terminal, not a workspot (rule 8)."
+  }
+}

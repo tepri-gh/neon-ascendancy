@@ -8,6 +8,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 8: Rolland’s Butcher Shop, Edgewood Farm’s entrance, Rocky
+  Ridge, Empathy, Tripple Extreme Gym, and the Kabuki alley block.
 - Research wave 7: Arasaka Estate, Ginger Panda and its netrunner den, the
   Peralezes' penthouse, PieZ, Organitopia, Night City Prison, Bree Whitney's
   apartment building, the Martin Street motel, the Highway 101 SovOil

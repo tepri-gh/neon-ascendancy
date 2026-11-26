@@ -88,10 +88,10 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Candidate | Sub-district | Scale / type | Why | Status |
 | --- | --- | --- | --- | --- |
 | Grand Imperial Mall | Coastview | HQ 5 / military | Sasquatch's base; gym and ring | approved |
-| Tripple Extreme Gym | Arroyo | business 3 / culture | Only Animals-owned freehold with a named owner | pending |
+| Tripple Extreme Gym | Arroyo | business 3 / culture | Only Animals-owned freehold with a named owner | approved |
 | Unfinished NCART Station | Coastview | stronghold 3 / military | Largest garrison; contraband stash | pending |
 | 7th Hell | Downtown | business 3 / economy | Two-floor nightclub; protection economy | pending |
-| Empathy | Downtown | business 3 / economy | BD strip club with a control room | pending |
+| Empathy | Downtown | business 3 / economy | BD strip club with a control room | approved |
 
 ## Voodoo Boys (HQ: Batty's Hotel)
 
@@ -102,7 +102,7 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Pacifica Serenity Bible Church | Coastview | landmark 3 / culture | Public face and community seat | approved |
 | Eventide Resort & Spa | Dogtown | stronghold 3 / espionage | Slider's den (alive in our timeline) | approved |
 | Luxor High Wellness Spa | Dogtown | business 3 / economy | Extortion and implant economy; 33 units | pending |
-| Rolland's Butcher Shop | Coastview | hangout 2 / economy | Placide's retail front | pending |
+| Rolland's Butcher Shop | Coastview | hangout 2 / economy | Placide's retail front | approved |
 
 ## The Mox (HQ: Lizzie's Bar)
 
@@ -121,7 +121,7 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Union Railroad Station | Badlands | outpost 2 / espionage | Drone-hijack antenna, turrets | pending |
 | New American Autoworks | Badlands | business 3 / economy | Chop shop interior (owner's example type) | pending |
 | Sequoia & Gray outpost | RanchoCoronado | outpost 2 / military | Their foothold inside the city | pending |
-| Rocky Ridge | Badlands | hangout 2 / culture | Bar + fuel-station lookout | pending |
+| Rocky Ridge | Badlands | hangout 2 / culture | Bar + fuel-station lookout | approved |
 
 ## Aldecaldos (HQ: Mobile Camp)
 

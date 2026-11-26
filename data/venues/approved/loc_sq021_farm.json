@@ -1,0 +1,39 @@
+{
+  "code": "sq021_farm",
+  "display_name": "Edgewood Farm (Anthony Harris's farmstead)",
+  "why": "Open the baked entrance to Edgewood Farm as an unattended Badlands farmstead. Leave the ordinary present-day dressing and lighting at their cooked defaults.",
+  "source": {
+    "proposal": "research/loc_sq021_farm/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Access is the main uncertainty: the open gate is an env variant (var_farm_closed_entrance=0), not a door, and the fence/gate around the farm is partly baked geometry. If the gate mesh still reads as closed or the yard is otherwise sealed, the venue is not enterable and needs an owner exception, because the runtime door policy cannot open a mesh. Tour-check the drive in from Edgewood Lane.",
+      "Are the mines and turrets hidden or off in the clean slate? They are shown/powered by sq021 phases that never run, which suggests they are absent by default, but the minefield/turret prefabs sit in the always-loaded gameplay section. If they are armed on a fresh world, the farm is a deathtest and this proposal cannot fix it through variant toggles alone; that would need a device-policy decision or an owner exclusion.",
+      "Is the farm interior walkable without #sq021_pr_farm? The always-loaded env section is expected to hold the house and barn shell, and the questdesign prefab held only triggers, splines, workspots, the BD machine, victim boxes, police/AVs and security terminals. A tour look inside the house and barn is needed to confirm no floors, stairs or doors are missing.",
+      "Anthony Harris has no spawn set, character record or community entry at the farm in the catalogue - the 'meatman' is a braindance actor, not an open-world NPC. In our timeline the owner is therefore absent and the farm is unattended. If the design wants a caretaker or the owner present, that needs a new cast decision and a hand-placed character, not a venue re-activation.",
+      "The catalogue venue name loc_sq021_farm covers the Edgewood Farm prefab; the Poppy Farm is a separate loc_sq021_farm_wrong prefab in se5. Confirm on tour with the location banner and the barn/silo layout that this is Edgewood (eastern Badlands, Rocky Ridge/Swamp Forest) and not the wrong farm.",
+      "The old fence gate (#sq021_old_fance_gate) is force-closed and locked by the shared sq021 bugfix phase but has no resolved path. It may be the trailer-park gate rather than the farm entrance; identify it before adding it to DoorScope or excluding it.",
+      "The two farmhouse doors (#sq021_house_doors_002 and #sq021_house_doors_003) may be ordinary toggles, static locks or terminal-controlled. The runtime DoorPolicy log (DoorPolicy: ...) should show the IsStatic and authorization decisions; the tour should walk in through the house and the barn.",
+      "The mined streaming blocks declare no Edgewood mines variant. Confirm on the tour whether any hazards are active before treating the yard as clear."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq021_farm_env",
+      "states": {
+        "var_farm_closed_entrance": 0
+      },
+      "why": "The cooked streaming blocks enable the closed-entrance variant by default. Use the open state from the vanilla quest startup to make the yard accessible."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq021_house_doors_002",
+    "within": 80.0,
+    "why": "The farmhouse door is a real DoorControllerPS in the always-loaded gameplay prefab ($/03_night_city/sw2/#loc_sq021_farm/loc_sq021_farm_gameplay_prefabMGCGLMY/#loc_sq021_farm_devices/{sq021_house_doors_}002_prefabSKWWQOQ/#sq021_house_doors_002), streamed with the house and driven by the sq021 bugfix phase (ForceClose/ForceLock/ForceUnlock). It is a door entity, not a workspot (rule 8). This venue re-issues no people, so the anchor is for the builder's proximity branch only."
+  }
+}

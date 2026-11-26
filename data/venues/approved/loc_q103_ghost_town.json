@@ -1,0 +1,88 @@
+{
+  "code": "q103_ghost_town",
+  "display_name": "Rocky Ridge (Wraith-held ghost town)",
+  "why": "Restore seven Wraiths on their vanilla guard posts in Rocky Ridge. Keep the town unpowered and use the cooked defaults for the power-station audio, light effects and market-stall lights.",
+  "source": {
+    "proposal": "research/loc_q103_ghost_town/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Do the seven Wraith records spawn non-hostile at their guard workspots, or do they engage the player on sight? The catalogue posture is relaxed and the workspots are guard stands, but Wraith attitude in the open world is a runtime fact. If the tour flags HOSTILE, the venue should either be left to its world state or use a non-hostile Wraith group rather than a firefight at the town entrance.",
+      "Is a seven-man guard line right for a town the wiki calls only occasionally visited by Wraiths? The seven entries are the only verified town workspots and vanilla activates all seven, but if the tour reads as an ambush checkpoint rather than a haunt, the owner can drop the two outer approaches and keep the bar/fuel-station pair.",
+      "Does loading #q103_pr_ghost_town activate quest trigger/guard areas that change town behaviour? The converted quest sector contains 17 trigger areas, 4 guard areas and 2 vehicle-forbidden areas in addition to the AI spots; without the quest they should be inert, but the tour should confirm no invisible trigger, combat restriction or alert state fires.",
+      "Is power_on 0 the right ordinary look? The town is abandoned and unpowered before V restores the substation, but the bar and fuel station may have independent lights. The tour should check that the town reads as a dark but usable Wraith haunt, not a black hole; if the bar/fuel-station lights need the grid, revisit this pin.",
+      "Is #q103_gt_poor_market_stand_small_d_01 the only market-stall light group, and is lights 0 correct? It is a decoration prefab under the town environment; if the stall has a separate always-on light, the pin is redundant rather than wrong.",
+      "The wiki lists a Meds Vendor east of the Corp-Bud Railroad Station and a Rocky Ridge bar/fuel station, but this venue's catalogue exposes no vendor or bar spawn set. I did not invent one; if the clean slate leaves those service points empty, that is a separate vendor-fact pass outside this proposal."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/loc_q103_ghost_town_prefabXSUVKRI/loc_q103_ghost_town_questdesign_prefabV4T3WBA/#q103_pr_ghost_town"
+  ],
+  "communities": [
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_1_rifleman_002",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith hmg male holding the western approach, watching the highway side of the town at the vanilla rifle-guard workspot (2571.1, -28.34, 80.89). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_1_rifleman_003",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith sniper male holding the western approach beside the HMG gunner at the vanilla rifle-guard workspot (2575.22, -26.87, 80.85). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_2_rifleman_001",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith rifle woman holding the north-east edge of the town front, near the fuel-station side at the vanilla rifle-guard workspot (2579.32, -21.56, 80.83). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_2_rifleman_002",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith rifle male holding the far north-east corner of the guard line at the vanilla rifle-guard workspot (2588.3, -18.28, 80.76). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_2_rifleman_004",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith boss alpha holding the centre of the line on the second guard workspot at the vanilla rifle-guard workspot (2583.35, -25.57, 80.77). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_3_rifleman_001",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith rifle woman holding the southern bar-side approach at the vanilla rifle-guard workspot (2576.32, -45.42, 80.8). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    },
+    {
+      "spawner": "#q103_com_raffen_shiv",
+      "entry_name": "squad_3_rifleman_002",
+      "phase_name": "arrival",
+      "action": "Activate",
+      "why": "Wraith rifle male holding the western bar-side approach at the vanilla rifle-guard workspot (2574.46, -34.57, 80.85). The arrival phase is the town guard-post phase; it is not run by any kept phase in the clean slate, so the same guard simply keeps the post instead of staging the Ghost Town ambush."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_pr_q103_ghost_town_lighting",
+      "states": {
+        "power_on": 0
+      },
+      "why": "The town grid stays off, the honest pre-quest look for an abandoned town. q103_03 sets power_on 1 when the player restores the substation, and the same phase force-powers the light fusebox; before that step the lights are off. The ref is an authored tag whose device prefab is always streamed in exterior_39_-1_1_0."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q103_dvc_light_fusebox",
+    "within": 80.0,
+    "why": "The light fusebox is a FuseControllerPS device in the always-streamed exterior_39_-1_1_0 sector at 2554.26,-38.51,80.86, 20 m west of the nearest guard and inside the town, so it exists whenever the venue streams and sits on the approach. Its FNV-1a path hash matches the sector device id, so it is a verified device entity, not a workspot (rule 8)."
+  }
+}
