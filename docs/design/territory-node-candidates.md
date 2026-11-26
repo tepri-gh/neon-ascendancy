@@ -20,16 +20,19 @@ catalogue's count of each faction's fighters per venue.
   populated in the clean slate; `pending` means not researched yet; `—`
   means no catalogue venue (open-world site only).
 
-## Conflicts with current seed data
+## Test control points
 
-- **Barghest test control point is Heavy Hearts**: Mr. Hands' club, a fixer
-  place. Replace it with the **EBM Petrochem Stadium market** (approved
-  venue, guards verified neutral in game) or **The Tunnel**.
-- **Aldecaldos test control point is DaKota**: Dakota Smith's garage, a
-  fixer place. The Aldecaldos have no other base besides the Mobile Camp
-  (their HQ); candidates below are thin, so this needs an owner call.
-- **Tyger Claws #4, Wakako's pachinko parlour**, and **Valentinos #9,
-  Padre's Glen corner**, are fixer places and drop out.
+One active control point per faction stays for testing the sim until the
+node list replaces it (`ACTIVE_TEST_CONTROL_CENTERS` and `LORE_TEST_POINTS`
+in `tools/generate-world-seeds.py`). Owner 2026-11-26: move rather than
+remove. Two sat on fixer places and moved:
+- **Barghest**: Heavy Hearts (Mr. Hands) moved to the **EBM Petrochem
+  Stadium market**.
+- **Aldecaldos**: DaKota (Dakota Smith) moved to the **Mobile Camp**, the
+  clan's only other base in the zone.
+
+**Tyger Claws #4, Wakako's pachinko parlour**, and **Valentinos #9,
+Padre's Glen corner**, are fixer places and drop out of the candidates.
 
 ## Tyger Claws (HQ: Clouds)
 

@@ -1068,15 +1068,15 @@
   {
     "base_price": null,
     "code": "lm_bls_aldecaldos_camp",
-    "display_name": "DaKota",
+    "display_name": "Aldecaldo Camp (Mobile Camp)",
     "gamedata_district": "Badlands",
     "kind": "hq",
     "landmark_id": 83,
     "purchasable": 0,
     "sub_territory_id": 83,
-    "x": 2421.772,
-    "y": -772.367,
-    "z": 66.7
+    "x": 3427.93,
+    "y": -360.963,
+    "z": 134.071
   },
   {
     "base_price": null,
@@ -1172,15 +1172,15 @@
   {
     "base_price": null,
     "code": "lm_dt_main_gate",
-    "display_name": "Heavy Hearts",
+    "display_name": "EBM Petrochem Stadium Market",
     "gamedata_district": "Dogtown",
     "kind": "hq",
     "landmark_id": 91,
     "purchasable": 0,
     "sub_territory_id": 91,
-    "x": -1606.43,
-    "y": -2341.452,
-    "z": 43.07
+    "x": -1403.125,
+    "y": -1999.162,
+    "z": 72.523
   },
   {
     "base_price": null,

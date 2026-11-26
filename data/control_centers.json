@@ -1069,14 +1069,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_bls_aldecaldos_camp",
     "control_center_id": 83,
-    "display_name": "DaKota",
+    "display_name": "Aldecaldo Camp (Mobile Camp)",
     "is_active": 1,
     "is_capital": 1,
     "landmark_id": 83,
     "sub_territory_id": 83,
-    "x": 2421.772,
-    "y": -772.367,
-    "z": 66.7
+    "x": 3427.93,
+    "y": -360.963,
+    "z": 134.071
   },
   {
     "capture_radius_m": 45.0,
@@ -1173,14 +1173,14 @@
     "capture_radius_m": 45.0,
     "code": "cc_dt_main_gate",
     "control_center_id": 91,
-    "display_name": "Heavy Hearts",
+    "display_name": "EBM Petrochem Stadium Market",
     "is_active": 1,
     "is_capital": 0,
     "landmark_id": 91,
     "sub_territory_id": 91,
-    "x": -1606.43,
-    "y": -2341.452,
-    "z": 43.07
+    "x": -1403.125,
+    "y": -1999.162,
+    "z": 72.523
   },
   {
     "capture_radius_m": 45.0,

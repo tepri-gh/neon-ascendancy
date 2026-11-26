@@ -311,9 +311,11 @@ LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
         "source": "dist/extract/markers.jsonl dtn_04_mp_sm_entrance, site 353 sts_cct_dtn_04 (docs/research/factions/biotechnica.md)",
     },
     "dt_main_gate": {
-        "display_name": "Heavy Hearts",
-        "x": -1606.43, "y": -2341.452, "z": 43.07,
-        "source": "data/sites/sites.json site 358 sts_ep1_06 (docs/research/factions/barghest.md)",
+        # Moved off Heavy Hearts (Mr. Hands' club): fixers are never nodes
+        # (owner 2026-11-26, docs/design/territory-node-candidates.md).
+        "display_name": "EBM Petrochem Stadium Market",
+        "x": -1403.125, "y": -1999.162, "z": 72.523,
+        "source": "areas.jsonl {q301_com_stadium} market (docs/research/factions/barghest.md)",
     },
     "bls_sunset_motel": {
         "display_name": "New American Autoworks",
@@ -326,9 +328,11 @@ LORE_TEST_POINTS: dict[str, dict[str, Any]] = {
         "source": "dist/extract/markers.jsonl q104_mp_sunset_garage (docs/research/factions/petrochem.md)",
     },
     "bls_aldecaldos_camp": {
-        "display_name": "DaKota",
-        "x": 2421.772, "y": -772.367, "z": 66.7,
-        "source": "dist/extract/markers.jsonl ina_07_mp_workshop (docs/research/factions/aldecaldos.md)",
+        # Moved off DaKota (Dakota Smith's garage): fixers are never nodes. The
+        # Mobile Camp is the clan's only other base in this zone.
+        "display_name": "Aldecaldo Camp (Mobile Camp)",
+        "x": 3427.93, "y": -360.963, "z": 134.071,
+        "source": "dist/extract/markers.jsonl bls_bls_dataterm_03, camp fast-travel dataterm (docs/research/factions/aldecaldos.md)",
     },
 }
 
