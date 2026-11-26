@@ -44,6 +44,38 @@
     {
       "stop": "q000_roadhouse_town",
       "text": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable? Check that no quest marker or background car (Willie's) appears with the quest prefab left out. Wave 13: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sts_std_arr_12_diner",
+      "text": "Go to (-962, -1172, 11), about 28 m from this stop. Road outside the Kenmore Diner (sts_std_arr_12_carchase): the corner reads normally busy from ambient traffic, with no chase barriers, garbage-truck block or stopped cars. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sts_cct_dtn_02_metal_club",
+      "text": "Go to (-1674, -208, 15), about 306 m from this stop. Reconciliation Park, the Glen (sq006_park_meeting): busy on an ordinary day; no waiting Jefferson, Johnny marker, balcony watcher or meeting-corner staging. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sts_ep1_01",
+      "text": "Go to (-1662, -2533, 63), about 41 m from this stop. Dream Gig bar, Dogtown (mq306_bar): staffed and busy on arrival (waitress, patrons); no Aaron corpse or lockdown. If empty, owner call: activate #mq306_com_bar after a proximity wait. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sts_std_arr_12_diner",
+      "text": "Kenmore Diner on a FRESH start: are the waitresses and customers there? The proximity anchor #arr_12_dvc_diner_camera may sit in a variant that is off by default, so only the boot activation would run; an empty diner on a fresh start means the anchor needs replacing."
+    },
+    {
+      "stop": "q104_power_plant",
+      "text": "Drive from Satwave past the q104 hill to the crash site: no leftover pin, lighting, flares, Kang Tao drones or AV debris. loc_q104_hill was excluded in wave 14."
+    },
+    {
+      "stop": "sts_cct_cpz_01",
+      "text": "Walk to the Arasaka Memorial courtyard in Corpo Plaza, next to this station (cct_cpz_commemorative_park): ordinary pedestrians and tourists, the memorial interior (ruin walkway, columbarium) walkable, no q305 Nix meeting leftovers. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "q302_06_basketball",
+      "text": "Container Zone 3's basketball court is a different Dogtown court from this stop (mq304_ce_3): kids playing, civilians and outcasts, the grill vendor; no Bennett or Jago succession bodyguards. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "sts_hey_gle_04",
+      "text": "Go to Night City Hall's conference room near (-1752, -1011, 94), about 244 m from this stop (sq012): can you get in? The hall door is outside the door scope (no quest drives it). No braindance cast or staging. Wave 14: nothing to restore, so no venue entry."
     }
   ]
 }

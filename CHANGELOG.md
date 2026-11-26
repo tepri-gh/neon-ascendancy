@@ -13,6 +13,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 14 (first part): Aaron's Northside flat, the Los Osos
+  motel and the Benko St bus depot; six intact venues became tour checks.
 - Research wave 13 (first part): Wired Head, the Eisenhower St. block, the
   Kabuki rooftop slums, Lina's home, a City Center back alley, the Japantown
   Apartments, the Cytech factory, the Tyger Claws casino, the Maelstrom

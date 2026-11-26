@@ -1898,6 +1898,11 @@
      "label": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot,...",
      "detail": "Hillpark campfire beside this basketball court (mq304_ce_1): campers at the fire and the court's people are there, nobody doubled on a shared spot, and no Barghest execution squad. Wave 12: nothing to restore, so no venue entry.",
      "source": "extra"
+    },
+    {
+     "label": "Container Zone 3's basketball court is a different Dogtown court from this stop (mq304_ce_3): kids playing, civilians and outcasts, the grill vendo...",
+     "detail": "Container Zone 3's basketball court is a different Dogtown court from this stop (mq304_ce_3): kids playing, civilians and outcasts, the grill vendor; no Bennett or Jago succession bodyguards. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -2316,6 +2321,11 @@
      "label": "Odell's annex (odel_com) is positioned as the temporary clinic across the road.",
      "detail": "Odell's annex (odel_com) is positioned as the temporary clinic across the road. In our timeline it may read as a permanent second clinic; if the owner prefers a single-site clinic, drop odel_com and accept that Odell is not present.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (-1662, -2533, 63), about 41 m from this stop.",
+     "detail": "Go to (-1662, -2533, 63), about 41 m from this stop. Dream Gig bar, Dogtown (mq306_bar): staffed and busy on arrival (waitress, patrons); no Aaron corpse or lockdown. If empty, owner call: activate #mq306_com_bar after a proximity wait. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -3036,6 +3046,11 @@
      "label": "Check the boss reads as the restaurant's owner (Mauricio Salinas is not a named character record), and decide whether a generic Valentino leader is...",
      "detail": "Check the boss reads as the restaurant's owner (Mauricio Salinas is not a named character record), and decide whether a generic Valentino leader is enough. The bouncer is the same: Ernesto Munoz has no named spawn set here.",
      "source": "open question"
+    },
+    {
+     "label": "Go to Night City Hall's conference room near (-1752, -1011, 94), about 244 m from this stop (sq012): can you get in?",
+     "detail": "Go to Night City Hall's conference room near (-1752, -1011, 94), about 244 m from this stop (sq012): can you get in? The hall door is outside the door scope (no quest drives it). No braindance cast or staging. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -3409,6 +3424,11 @@
      "label": "Check that no raid spawns.",
      "detail": "Check that no raid spawns. No Militech security, no droids, no hostile guards should appear anywhere in the annex or on the concourse.",
      "source": "open question"
+    },
+    {
+     "label": "Walk to the Arasaka Memorial courtyard in Corpo Plaza, next to this station (cct_cpz_commemorative_park): ordinary pedestrians and tourists, the me...",
+     "detail": "Walk to the Arasaka Memorial courtyard in Corpo Plaza, next to this station (cct_cpz_commemorative_park): ordinary pedestrians and tourists, the memorial interior (ruin walkway, columbarium) walkable, no q305 Nix meeting leftovers. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -3505,6 +3525,11 @@
      "label": "Check that no gig staging appears: no quest markers, no body bags or scene props, no hostile Animals.",
      "detail": "Check that no gig staging appears: no quest markers, no body bags or scene props, no hostile Animals.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (-1674, -208, 15), about 306 m from this stop.",
+     "detail": "Go to (-1674, -208, 15), about 306 m from this stop. Reconciliation Park, the Glen (sq006_park_meeting): busy on an ordinary day; no waiting Jefferson, Johnny marker, balcony watcher or meeting-corner staging. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -5257,6 +5282,11 @@
      "label": "Duplicate activation: std_arr_phase's #q104_drones_com node is gated in the miner's analysis, so it should not double the drones.",
      "detail": "Duplicate activation: std_arr_phase's #q104_drones_com node is gated in the miner's analysis, so it should not double the drones. If the tour finds six drones instead of three, the gate analysis is wrong for this node.",
      "source": "open question"
+    },
+    {
+     "label": "Drive from Satwave past the q104 hill to the crash site: no leftover pin, lighting, flares, Kang Tao drones or AV debris.",
+     "detail": "Drive from Satwave past the q104 hill to the crash site: no leftover pin, lighting, flares, Kang Tao drones or AV debris. loc_q104_hill was excluded in wave 14.",
+     "source": "extra"
     }
    ]
   },
@@ -5602,6 +5632,16 @@
      "label": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's T...",
      "detail": "Check the diner's TV and camera are powered and interactable rather than left in a quest-disabled state (q003's TV refs collide with this diner's TV nodes).",
      "source": "open question"
+    },
+    {
+     "label": "Go to (-962, -1172, 11), about 28 m from this stop.",
+     "detail": "Go to (-962, -1172, 11), about 28 m from this stop. Road outside the Kenmore Diner (sts_std_arr_12_carchase): the corner reads normally busy from ambient traffic, with no chase barriers, garbage-truck block or stopped cars. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
+    },
+    {
+     "label": "Kenmore Diner on a FRESH start: are the waitresses and customers there?",
+     "detail": "Kenmore Diner on a FRESH start: are the waitresses and customers there? The proximity anchor #arr_12_dvc_diner_camera may sit in a variant that is off by default, so only the boot activation would run; an empty diner on a fresh start means the anchor needs replacing.",
+     "source": "extra"
     }
    ]
   },
@@ -7228,6 +7268,69 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_07b",
+   "name": "Aaron McCarlson's Apartment",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_07b",
+   "pos": [
+    -614.51,
+    2624.17,
+    57.75
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_wat_nid_07_aaron"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk up to Aaron McCarlson's flat north of the Longshore North fast travel point and check the door opens.",
+     "detail": "Walk up to Aaron McCarlson's flat north of the Longshore North fast travel point and check the door opens. Vanilla seals and force-closes #nid_07_door_aaron, and the outside intercom is gig-scripted, so the runtime door policy is the only way in.",
+     "source": "open question"
+    },
+    {
+     "label": "Look inside the flat and check Aaron is there.",
+     "detail": "Look inside the flat and check Aaron is there. He should stand at his own spot in a relaxed stand-around pose, calm and alone, not missing, hostile, duplicated or left out on the street.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the flat reads as a normal residence, not a quest scene.",
+     "detail": "Check the flat reads as a normal residence, not a quest scene. There should be no Johnny Silverhand, no recording confrontation setup, no combat state, no body and no post-fight loot staging.",
+     "source": "open question"
+    },
+    {
+     "label": "Check nothing in the flat starts the unrun gig.",
+     "detail": "Check nothing in the flat starts the unrun gig. The TV carries the q003 #tv_1_q003 tag and the intercom is the gig's call button, so no prompt should offer to play the recording, call Aaron or begin \"Scrolls before Swine\".",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the flat's corridor and room and check the collision_area toggle left no invisible wall.",
+     "detail": "Walk the flat's corridor and room and check the collision_area toggle left no invisible wall. If V or Aaron is blocked or falls through the floor, flip collision_area to 1 and re-check.",
+     "source": "open question"
+    },
+    {
+     "label": "If the flat renders as a bare shell, check whether the parent openworld prefab is also required.",
+     "detail": "If the flat renders as a bare shell, check whether the parent openworld prefab is also required. This proposal loads only the nested street-story section; a missing interior would mean the parent #loc_sts_wat_nid_07b_aaron_mccarlson_apartment_openworld must be added as a second prefab.",
+     "source": "open question"
     }
    ]
   },

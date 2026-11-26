@@ -1,0 +1,117 @@
+{
+  "code": "sts_hey_spr_01",
+  "display_name": "Bus Depot on Benko St — Wellsprings (Valentino depot)",
+  "why": "The Benko St bus depot in Wellsprings is the fenced, two-storey depot where On a Tight Leash sends V after José Luis: a vehicle hall with a small cantina (bar, grill, jukebox, couches), Militech uniform racks and ammo crates, an upstairs office with José's computer, a roof patrol and a rear lot where a Chevalier Thrax is parked. Vanilla only ever fills it during the gig, and the gig never happens here, so the depot stands intact, unlocked and empty. This proposal loads #sts_hey_spr_01_streetstory (the quest prefab holding the community spawners and every AI spot) and switches on ten of the depot's own Valentinos in their initial, idle phases plus the rear-lot Thrax: a guard smoking by the hall, one checking the uniform racks, the officer cooking at the cantina grill, a man at the bar, one on the couch, one working a tablet, one looking over the shelves, a roof patrol, and José himself leaning at his upstairs table.",
+  "source": {
+    "proposal": "research/loc_sts_hey_spr_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check that the ten Valentinos stand on their spots rather than clustered at the spawner: a smoker at the south end of the hall, a woman at the uniform racks, the officer at the grill, a man on the bar stool, one on the couch, one kneeling with a tablet, one on the roof and José at the upstairs table.",
+      "Walk in from Benko St on foot and reach both the depot hall and José's upstairs office without quest help. All six depot door entities read unlocked and interactive in the sector files, so the doors should just open; confirm the baked yard gate also lets you through and that the ladder/stairs to the roof and office work.",
+      "Check the cantina is on: the bar stools, grill, jukebox and TVs are ordinary world devices here, but vanilla force-offs the screen during the gig's fight. Confirm the screen and jukebox are in a normal state at rest.",
+      "Approach the depot and confirm the crew reads as a gang stash at work (alert but not in a firefight the moment you cross the fence line). Instant hostility from Valentino territory is normal open-world behaviour, but the failure mode is an empty, silent yard."
+    ]
+  },
+  "prefabs": [
+    "#sts_hey_spr_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_012",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Door watch on the south edge of the hall: vanilla's phase a puts this entry on a cigarette-smoke stand at the end of the depot floor (its initial phase in the registry), which reads as a ganger taking a smoke break by the entrance rather than a combat pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_015",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "The guard working the stolen stock: phase a's spot is a 'look at products' stance in front of the Militech uniform racks and ammo shelves the wiki describes, i.e. a Valentino checking the gear rather than fighting over it.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_010",
+      "phase_name": "b",
+      "action": "Activate",
+      "why": "The crew's officer at the cantina grill: phase b is his initial registry phase and its spot is a market-grill cook animation at the depot's food counter, the strongest 'normal business' beat available at this venue.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_011",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A man on the cantina bar stool (phase a, the entry's initial phase): the spot is a bar lean with a cigarette, exactly the idle patron pose that makes the depot's bar read as a bar.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_004",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Off-duty body on the break-area couch: phase a's spot is a routine couch sit, the kind of beat that makes a gang stash look lived in without any quest staging.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_013",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "The inventory man: phase a's spot kneels over a tablet next to the product shelves, so the depot's stolen-gear logistics have someone visibly doing the work.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_com",
+      "entry_name": "enemy_006",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Roof overwatch, the one guard the wiki always places on the main building roof: phase a's spots are patrolling_stand at z 13.4, which is the roof/upper level, so the depot keeps a visible watch without anyone aiming.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_jose_com",
+      "entry_name": "jose",
+      "phase_name": "corpo",
+      "action": "Activate",
+      "why": "José Luis is alive in our timeline and runs this stash; phase corpo is his initial registry phase, a table-lean idle upstairs at z 13.47 next to his computer and the office shelf, i.e. the boss at his own desk rather than a quest scene.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_backup_com",
+      "entry_name": "backup_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Rear-lot guard: the backup community's phase A is its initial phase and its three spots stand around the parking bay where the Valentino Thrax is parked, so the depot's back gate is watched in normal play instead of only during the gig.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_backup_com",
+      "entry_name": "backup_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Second rear-lot guard, standing two metres from backup_001 by the parked car; two men at the back gate is what the spot cluster is built for.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#spr_01_backup_com",
+      "entry_name": "backup_car",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The Valentino Chevalier Thrax the backup rides in: it is part of the same community and parks on #spr_01_ws_backup_car in the rear lot, giving the back gate its car and making the lot read as used.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_01_prefabNMEG7PQ/sts_hey_spr_01_gameplay_prefabJUDH7UY/sts_hey_spr_01_devices_prefabJBYJEZA/screen_1_prefabZU5GHYA",
+    "within": 80.0,
+    "why": "The only device entity the catalogue lists for this venue: the cantina screen (TVControllerPS) in the always-streamed gameplay prefab, a few metres from the ground-floor spots. Vanilla only forces it off during the gig's combat phase, so at rest it is an ordinary world TV; it is a device, not a workspot, so the proximity wait can fire."
+  }
+}

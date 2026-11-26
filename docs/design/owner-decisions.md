@@ -338,3 +338,44 @@ the non-combat people. **(after tour)**
 99. **Yucca radio tower** (`q000_radio_tower`, nothing to restore).
     Unmanned (proposed) or a maintenance presence? Restore the quest prefab
     and Willie's car? Pin q000's air-traffic vista?
+
+## 9. Wave 14
+
+100. **Mayor Rhyne** (`sq012_city_hall_conference_room`). His assassination
+     is recent 2077 lore. In a "before anything happened" timeline, is
+     Rhyne alive (then he needs a cast placement) or dead as in the
+     backstory (agent's recommendation)? Holt left out (recommended)? City
+     Hall's conference room empty but accessible (recommended), or a
+     mod-built City Hall presence?
+101. **Q104 hill** (`q104_hill`, excluded). Keep excluded with the crash
+     site (recommended), or invent an original Badlands lookout?
+102. **Arasaka Memorial courtyard** (`cct_cpz_commemorative_park`, nothing
+     to restore). Nix only at the Afterlife (recommended)? Rely on the
+     open-world crowd (recommended), or add visitors and security later?
+103. **Laguna Bend school** (`sq021_school`, excluded). If a school venue is
+     wanted, use a real 2077 school such as Rancho Coronado Public High?
+     Bring this set back only as a mod-authored braindance (deferred)?
+104. **Aaron's flat, Northside** (`sts_wat_nid_07b`). Aaron at home
+     (proposed) or saved for a later NCPD storyline? Door open to anyone
+     (recommended) or sealed until a mission? The flat's valuables as
+     ordinary belongings?
+105. **Container Zone 3 court** (`mq304_ce_3`, nothing to restore). The
+     five succession bodyguards out (recommended) or a standing presence?
+     A mod encounter there later?
+106. **Road outside the Kenmore Diner** (`sts_std_arr_12_carchase`, nothing
+     to restore). Ambient traffic only (recommended), or the chase's
+     stopped cars as static dressing? Convoy or ambush use later?
+107. **Reconciliation Park** (`sq006_park_meeting`, nothing to restore). Mr.
+     Blue Eyes absent (recommended) or a balcony watcher? The Peralezes
+     absent (recommended)? The vanilla crowd and Valentinos (recommended),
+     or a mod-built crowd?
+108. **Dream Gig bar** (`mq306_bar`, nothing to restore). Leave the ambient
+     crowd (recommended; the job's eight would sit on top of it)? Force
+     Aaron's corpse variant off as insurance? Aaron stays out?
+109. **Los Osos motel** (`sts_ep1_03`). The Scav den (proposed) or empty?
+     Rinder out (recommended)? The Yasha heavy out (recommended), leaving
+     the top floor dark? Keep both parked cars?
+110. **Benko St bus depot** (`sts_hey_spr_01`). José Luis as the resident
+     lieutenant (proposed)? Ten Valentinos and a Thrax, or add the static
+     enemy detail? Valentinos hostile or neutral (see 78)? Leave the
+     quest's bus and car fleet out (proposed)?

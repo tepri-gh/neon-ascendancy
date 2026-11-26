@@ -160,6 +160,16 @@
       "venue": "loc_q108_back_alley",
       "decision": "excluded",
       "why": "Research wave 13: q108's 2013 memory set on the se2 backlot beside The Hammer; no present-day shell. Owner 2026-11-26: The Hammer is wanted as a new 2077 venue; see docs/design/new-venues.md."
+    },
+    {
+      "venue": "loc_q104_hill",
+      "decision": "excluded",
+      "why": "Research wave 14: only q104's ambush and chase staging (Panam's Warhorse, the EMP shot, the AV shoot-down); no Relic plot, so no Hellman hunt."
+    },
+    {
+      "venue": "loc_sq021_school",
+      "decision": "excluded",
+      "why": "Research wave 14: a braindance memory set of Laguna Bend Public School (2045), out of bounds; Laguna Bend was flooded in 2062."
     }
   ]
 }

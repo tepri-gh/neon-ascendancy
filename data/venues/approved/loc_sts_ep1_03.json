@@ -1,0 +1,136 @@
+{
+  "code": "sts_ep1_03",
+  "display_name": "Los Osos Motel (West Wind Estate)",
+  "why": "A defunct Los Osos motel in West Wind Estate, repurposed by Scavengers as a cyberware chop-shop and squat. This proposal loads the motel's quest prefabs and restores its ambient occupation: armed Scav guards on the first and second floors, a netrunner at her post, and the junkies and homeless who live in the ground-floor rooms and lot, with two parked cars outside. The gig's people and crime-scene dressing (Leon Rinder, the miniboss, blood and clue props, the dog tag) stay out.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the guard poses on the first and second floors. No spot map was found for these communities (the motel's EP1 exterior sector will not convert), so confirm the guards stand or patrol calmly rather than crouched behind cover, alert or in a combat stance.",
+      "Check the netrunner's post on the first floor. goon_10 should be seated or working at her station, not standing in a combat stance.",
+      "Walk in through the front double doors and the yard gate. Confirm the sliding doors open on approach and the gate or garage shutter can be opened by some in-world means.",
+      "Look at the third floor. It should be dark and empty: no Rinder, no bed or medical setup, no blood, clue props or dog tag.",
+      "Check the ground-floor rooms and lot. The junkies, homeless and two parked cars should be present and calm, with no scripted hobo-versus-vending-machine scene.",
+      "Check the lot gate and the front of the building. The entrance covers variant should stay off, so the facade looks like an ordinary squatted motel, not a fortified combat position."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/#west_wind_estate_001/loc_sts_ep1_03_prefabMLORBYQ/loc_sts_ep1_03_openworld_prefabS2JQSKA/#sts_ep1_03_streetstory",
+    "#loc_sts_ep1_03_combat"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_03_combat_first_floor_com",
+      "entry_name": "goon_10",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The den's netrunner, on the first floor at her initial post. Netrunners are the top priority group (rule 11a); phase A is the state vanilla activates on entry, before the B reposition.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_1",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The shotgun-armed Scav guard at his initial post. Phase A is the ambient guard state vanilla activates on entry; phase B is the later reposition.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_19",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Scav guard at her initial post on the upper floor.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_6",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Scav guard at his initial post; vanilla switches him to B only for the scripted two-scav scene, which does not run in the clean slate.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_7",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Knife-armed Scav guard at his initial post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_8",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Copperhead-armed Scav guard at his initial post; B is only the later scripted reposition.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_4",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Scav guard at her initial (lowercase a) post; the registry's initial phase for this entry is a, not A.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_com",
+      "entry_name": "goon_20",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Pipe-wrench Scav guard at his initial (lowercase a) post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_first_floor_com",
+      "entry_name": "goon_2",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "First-floor Scav guard at his initial post, one of the two the quest later repositions.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_first_floor_com",
+      "entry_name": "goon_3",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "First-floor Scav guard at his initial post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_first_floor_com",
+      "entry_name": "goon_5",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "First-floor Scav guard at his initial post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_combat_first_floor_com",
+      "entry_name": "goon_11",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "First-floor Scav guard covering the netrunner.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_03_friendly_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Switch on the whole friendly community, every entry in its initial phase: the junkies and homeless squatting the ground floor and lot, the drugged Scav, and the two parked cars (one broken). This is the den's non-combat life, not a quest scene.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/#west_wind_estate_001/loc_sts_ep1_03_prefabMLORBYQ/loc_sts_ep1_03_gameplay_prefabGSTXERY/loc_sts_ep1_03_devices_prefabFP4TOLY/double_door_sliding_j_001_prefabSO5CXUA/{double_door_sliding_j}_prefabCOVBNTQ",
+    "within": 80.0,
+    "why": "The double sliding entrance door at the motel front, where the player arrives from the lot; a device the quest closes and powers, not a workspot."
+  }
+}
