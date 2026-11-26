@@ -1,0 +1,68 @@
+{
+  "code": "sq023_braindance_studio",
+  "display_name": "Fourth Wall Studios (Japantown braindance studio)",
+  "why": "Fourth Wall Studios is the Japantown braindance studio run by producer Rachel Casich, used in vanilla for the Sinnerman / They Won't Go When I Go crucifixion recording. The street, gate, studio shell and most devices load in the base world; the studio's own quest-design section, its production crew and its door officer only exist while the side job runs. This proposal keeps the studio open for business in normal play: it loads the studio's quest-design section, restores the idle production crew (director, crew, actors, makeup, costumed extras) and one door guard, and clears the quest-era riot audio, protester barricade and mq303 street dressing so the venue looks like a working studio with no shoot in progress.",
+  "source": {
+    "proposal": "research/loc_sq023_braindance_studio/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Rachel Casich owns Fourth Wall Studios but has no idle spawn combination: vanilla only ever spawns her through #sq023_com_main_crew None/bd_start (with Joshua and Vasquez) or Deactivate nodes. Placing her would need a new single-entry spawn set or a cast-layer workspot; today the owner is missing from the venue.",
+      "The entry roster and character records of spawn set #sq023_com_bd_studio are not in the extracted data (only entry names from Deactivate nodes: crew, bd_director, actors, makeup01/02, soldier_one/two). The 'start' phase is inferred to be the relaxed pre-shoot state from its workspots; the tour should confirm the extras do not stand in a crucifixion tableau.",
+      "guard2 (Character.sq023_guard) is assumed to look like studio security rather than an NCPD officer; if the record is a police appearance, the gate would read as a permanent police detail and the entry should be dropped.",
+      "No access module, terminal or keycode for #sq023_dvc_bd_door appears in the quest data, so the door relies on the runtime policy's static-door unlock; the tour must confirm the player can enter without the quest.",
+      "The billboards can only be switched to the launched 'Passion' campaign, not to a neutral ad; if the baked default is the teaser campaign, the venue will carry quest marketing that cannot be removed with the available variants."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/japan_town/#loc_sq023_braindance_studio/loc_sq023_braindance_studio_questdesign_prefabRHWZTBA/#sq023_pr_bd_studio"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq023_com_bd_studio_background",
+      "entry_name": "guard2",
+      "phase_name": "guarding",
+      "action": "Activate",
+      "why": "One relaxed studio security guard on the street-side gate spot, so the entrance reads as a guarded corporate studio. The catalogue's spot map puts guard2 on base\\workspots\\common\\ground\\generic__stand_ground__guard__02.workspot at the gate (x -265, y 1110), the same cluster the quest cordon uses; the rest of the community (alert guard, the six NCPD officers) is quest cordon and is left out."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#sq023_com_bd_studio",
+      "entry_name": "None",
+      "phase_name": "start",
+      "why": "The studio's own production crew in its pre-shoot idle state: bd_director, crew, actors, makeup01/02 and the two costumed soldier extras. Vanilla activates exactly this combo before the recording; the mapped start workspots are relaxed (director leaning/smoking, crew standing around, using a tablet or looking at products, extras standing or sitting in a chair), not a scene or combat state.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq023_braindance_studio_gameplay",
+      "states": {
+        "sq023_protesters_blockade": 0
+      },
+      "why": "Removes the protester/police barricade in front of the studio that the quest leaves baked on; normal play needs the street in front of the entrance clear."
+    },
+    {
+      "prefab": "#loc_sq023_braindance_studio_audio",
+      "states": {
+        "sq023_riots": 0
+      },
+      "why": "Keeps the riot ambience off; the rioting crowd and its audio belong to the post-recording quest state and do not exist in our timeline."
+    },
+    {
+      "prefab": "$/03_night_city/c_westbrook/japan_town/#loc_sq023_braindance_studio/loc_sq023_braindance_studio_env_prefabQQVLMUI/sq023_bd_studio_ext_street_deco_prefabWZL7ZMI",
+      "states": {
+        "var_mq303": 0
+      },
+      "why": "Turns off the mq303 street dressing (the Lina & Toolina show pitch that mq303_consequences adds outside the studio). mq303 never runs in our timeline, so the pre-quest street look is var_mq303=0."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq023_dvc_bd_door",
+    "within": 80.0,
+    "why": "The studio's own double entrance door (DoorControllerPS) in the always-loaded loc_sq023_braindance_studio_devices prefab; it sits on the only way in and streams with the location, so it is a reliable proximity anchor (not a workspot)."
+  }
+}

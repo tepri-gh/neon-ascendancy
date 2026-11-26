@@ -1637,14 +1637,15 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
             if any(controller.startswith(pfx) for pfx in forbidden_prefixes):
                 raise ValueError(f"{venue_path}: venue {code} door controller {controller} is forbidden")
         for c in v.get("communities", []):
-            if not c.get("spawner", "").startswith("#"):
+            if not c.get("spawner", "").startswith(("#", "$/")):
                 raise ValueError(f"{venue_path}: venue {code} bad community spawner {c}")
+            _check_short_ref(venue_path, code, "community spawner", c["spawner"])
             if c.get("action") not in ("Activate", "Deactivate"):
                 raise ValueError(f"{venue_path}: venue {code} bad community action {c.get('action')}")
         for ss in v.get("spawn_sets", []):
             if ss.get("action") not in ("Activate", "Deactivate"):
                 raise ValueError(f"{venue_path}: venue {code} bad spawn_sets action {ss.get('action')}")
-            if not ss.get("reference", "").startswith("#") or not ss.get("entry_name") or not ss.get("phase_name"):
+            if not ss.get("reference", "").startswith(("#", "$/")) or not ss.get("entry_name") or not ss.get("phase_name"):
                 raise ValueError(f"{venue_path}: venue {code} spawn_sets needs '#reference', entry_name, phase_name")
         for t in v.get("variant_toggles", []):
             if not t.get("prefab", "").startswith(("#", "$/")):

@@ -8,6 +8,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 4: the Digimmortal tech expo (scav-held), Marianne's garage
+  (Aldecaldo mechanic), the Militech expo spider-tank arena (Barghest guards,
+  the Chimera on standby), Fourth Wall Studios, the Hillpark basketball court
+  (Voodoo Boys, outcasts) and the Rindo Hotel squat. The q104 crash site, the
+  VR training sim and The Hammer are excluded. Venue entries may name
+  untagged community spawners by full path (rule 3).
 - Pilot research merged into hand-built venues as additions (owner: add
   generously, the tour subtracts): Clouds, the Afterlife (patrons, tube
   dancers, background crowd, Emmerick, Weyland, lights and music), Totentanz

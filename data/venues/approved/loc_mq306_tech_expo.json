@@ -1,0 +1,197 @@
+{
+  "code": "mq306_tech_expo",
+  "display_name": "Digimmortal (Terra Cognita exhibition hall)",
+  "why": "Digimmortal is the main exhibition hall of the abandoned Terra Cognita technological park in Dogtown, a three-level gallery of dead corporate exhibits (CHOOH2, Militech, Satwave, Combatzone, D1G1SCAPE, Arasaka Mirai) that scavengers now pick apart for cyberware while Damir Kovac runs a ripper clinic behind the upper gallery. In our timeline nobody raids or clears it, so this proposal restores the venue as it stands in normal play: the quest's base section with the full scavenger garrison at its vanilla ambient posts (gate and lobby pair, gallery guards and snipers, a netrunner on the phone, a scavenger stripping an exhibit) and Damir and his assistant at work in the clinic. It also clears the two mine navmesh blockers and the post-combat loot variant, and leaves the turret's baked default alone.",
+  "source": {
+    "proposal": "research/loc_mq306_tech_expo/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Which variant state of mq306_securing_tech_expo_variant is the pre-quest look? The name and the phase ordering (show 1, then show 0) point to 0 = unsecured; confirm on the tour that 0 does not leave shutters or barricades in the dead-expo state.",
+      "The quest drives var_turret_entry / var_turret_exit to 0/1 for the escape; the proposal leaves the turret variants untouched so the prefab default applies. Confirm whether a turret should be visible at the entrance in normal play.",
+      "No community area node was found for #mq306_com_scavengers, so entry-to-spot assignment is inferred from spot names (mq306_ws_base_gallery_guard_06_phone, mq306_ws_base_gallery_guide_spawn, etc.). Confirm each guard stands at the expected post and not in a combat idle.",
+      "Confirm the gate terminal mq306_dvc_base_gate_terminal_front opens #mq306_dvc_base_front_gate, and that the gallery access point controls the main gallery shutter.",
+      "Damir's clinic is treated as a working ripper office open to the player. If the scavengers should keep it private, the two clinic doors become door exclusions instead."
+    ]
+  },
+  "prefabs": [
+    "#mq306_pr_base"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_01",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gate guard at the base entrance; the base_guard_01 spot is a plain stand-ground guard pose at gate level, not an alerted spot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_02",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Second gate guard; base_guard_02 leans on the rail by the entrance, a routine guard pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_01",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery level guard leaning on the wall beside the exhibits.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_02",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery guard leaning on the gallery rail overlooking the main hall.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_03",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery guard working a tablet at an exhibit console.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_04",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery guard whose spawn spots are wall lean, tablet use and kneel-and-inspect; the alerted variants of the same entry are not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_05",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Sniper posted on the upper gallery; the spawn spots are patrolling_stand, while the same entry's alerted spots use patrolling_ranged_agitated_look_around and are not chosen.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_06",
+      "phase_name": "phone",
+      "action": "Activate",
+      "why": "The garrison's netrunner, leaning on the gallery rail talking on a cellphone. Rule 11a puts the netrunner first, and `phone` is the explicit idle spot for this entry rather than its `spawn` post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_07",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Upper-gallery guard leaning on the wall at the exhibit line.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_10",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Balcony guard: one spot is a seated chair pose, the other a plain stand, both on the upper level.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_11",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery guard at a wall-lean post above the main hall.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_12",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Gallery guard seated on a chair cleaning a gun.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_13",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Second sniper on the upper gallery; spawn spots are wall lean, guard stand and rail lean. Vanilla's `leave` phase for this entry is the exit escort and is not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_gallery_guide",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "The scavenger actually at work: kneeling over parts, stripping an exhibit. This is the wiki's 'pick apart the exhibit like vultures' in one pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_lobby_03",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Lobby guard by the front desk and the bomb trigger area; its spots are wall lean, dirt stand and a patrolling stand.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_scavengers",
+      "entry_name": "guard_lobby_05",
+      "phase_name": "spawn",
+      "action": "Activate",
+      "why": "Lobby guard leaning on the rail above the entrance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_damir",
+      "entry_name": "damir",
+      "phase_name": "arrival_clinic",
+      "action": "Activate",
+      "why": "Damir Kovac at his own ripper clinic behind the upper gallery, in the clinic's idle arrival phase rather than the procedure scene. He is alive in our timeline and runs the clinic whether or not Aaron ever arrives.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#mq306_com_damir",
+      "entry_name": "assistant",
+      "phase_name": "arrival_clinic",
+      "action": "Activate",
+      "why": "Damir's clinic assistant, working a tablet at the clinic desk in the same idle phase.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq306_tech_expo_navmesh",
+      "states": {
+        "var_mine_01_navmesh_blocker": 0,
+        "var_mine_02_navmesh_blocker": 0
+      },
+      "why": "The combat phase raises both navmesh blockers only to carve the two mine traps out of the gallery navmesh. The mines themselves are force-disabled, so leaving the blockers raised would put invisible walls across the gallery; clear both so the normal venue is walkable."
+    },
+    {
+      "prefab": "#loc_mq306_tech_expo_loot",
+      "states": {
+        "var_after_combat_loot": 0
+      },
+      "why": "Hides the quest's post-combat loot cache. It is an aftermath prop for the fight that never happens in our timeline."
+    },
+    {
+      "prefab": "#mq306_pr_base",
+      "states": {
+        "mq306_securing_tech_expo_variant": 0
+      },
+      "why": "The 'securing' variant is the quest's lockdown pass over the expo, applied while the scavengers react to the intrusion and dropped again afterwards. Normal play keeps the unsecured, pre-quest look."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#mq306_dvc_base_front_gate",
+    "within": 80.0,
+    "why": "The main-hall entrance door at street level; every route into the exhibition hall passes it, so a proximity wait there fires before the lobby and gallery stream in."
+  }
+}

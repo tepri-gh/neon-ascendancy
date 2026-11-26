@@ -80,6 +80,21 @@
       "venue": "loc_q108_atlantis_club",
       "decision": "excluded",
       "why": "Research wave 3: Club Atlantis is a closed, rubble-blocked shell in 2077; its content is Johnny's 2013 memory (q108), which never runs."
+    },
+    {
+      "venue": "loc_q104_crash_site",
+      "decision": "excluded",
+      "why": "Research wave 4: aftermath of Panam downing Hellman's Kang Tao AV (q104); no Relic plot, no crash."
+    },
+    {
+      "venue": "loc_q000_tutorial",
+      "decision": "excluded",
+      "why": "Research wave 4: the Militech VR training sim (q000); virtual space, like the cyberspace venues."
+    },
+    {
+      "venue": "loc_q101_concert",
+      "decision": "excluded",
+      "why": "Research wave 4: The Hammer exists only as Johnny's Samurai-concert memory set, off-map, with no present-day shell."
     }
   ]
 }

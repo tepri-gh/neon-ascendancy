@@ -48,6 +48,52 @@
    "spawn_sets": []
   },
   {
+   "code": "mq306_tech_expo",
+   "name": "Digimmortal (Terra Cognita exhibition hall)",
+   "kind": "approved",
+   "venue": "loc_mq306_tech_expo",
+   "pos": [
+    -2378.42,
+    -3082.46,
+    129.5
+   ],
+   "radius": 57.7,
+   "expected_records": [
+    "Character.mq306_Assistant",
+    "Character.mq306_damir",
+    "Character.mq306_scavenger_elite2_shotgun_tactician_ma",
+    "Character.mq306_scavenger_elite3_sniper2_grad_ma",
+    "Character.mq306_scavenger_grunt1_melee1_pipewrench_ma",
+    "Character.mq306_scavenger_grunt1_ranged1_nova_ma",
+    "Character.mq306_scavenger_grunt2_ranged2_copperhead_ma",
+    "Character.mq306_scavenger_grunt2_ranged2_copperhead_wa",
+    "Character.mq306_scavenger_netrunner2_netrunner2_nova_wa_rare"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q302_squat",
+   "name": "Rindo Hotel",
+   "kind": "approved",
+   "venue": "loc_q302_squat",
+   "pos": [
+    -2217.76,
+    -2543.21,
+    -2.4
+   ],
+   "radius": 47.6,
+   "expected_records": [
+    "Character.HomelessFemale",
+    "Character.HomelessMan",
+    "Character.q302_homeless_ma",
+    "Character.q302_homeless_wa",
+    "Character.q302_jacob",
+    "Character.q302_james",
+    "Character.q302_sts13_mia"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q110_pacifica_mall",
    "name": "Grand Imperial Mall (GIM), Coastview",
    "kind": "approved",
@@ -155,6 +201,31 @@
     "Character.mon_kurtz_soldier1_ranged2_rifle_ma",
     "Character.mon_kurtz_soldier1_ranged2_rifle_wa",
     "Character.mon_kurtz_strongarms_hmelee3_fists_mb_elite"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q302_06_basketball",
+   "name": "Hillpark Basketball Court (Dogtown)",
+   "kind": "approved",
+   "venue": "loc_q302_06_basketball",
+   "pos": [
+    -1832.59,
+    -2742.92,
+    81.82
+   ],
+   "radius": 69.5,
+   "expected_records": [
+    "Character.ep1_combat_zone_citizen_obese_mf",
+    "Character.ep1_combat_zone_citizen_obese_waf",
+    "Character.ep1_combat_zone_citizen_outcast_ma",
+    "Character.ep1_combat_zone_citizen_outcast_wa",
+    "Character.ep1_combat_zone_citizen_stacks_child",
+    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_ma",
+    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_wa",
+    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_ma",
+    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_wa",
+    "Character.hpark_voodooboys_grunt1coat_shotgun2_palica_ma"
    ],
    "spawn_sets": []
   },
@@ -820,6 +891,24 @@
     "Character.LightCrowd_kabuki_wa"
    ],
    "spawn_sets": []
+  },
+  {
+   "code": "sq023_braindance_studio",
+   "name": "Fourth Wall Studios (Japantown braindance studio)",
+   "kind": "approved",
+   "venue": "loc_sq023_braindance_studio",
+   "pos": [
+    -265.38,
+    1110.79,
+    65.28
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sq023_guard"
+   ],
+   "spawn_sets": [
+    "#sq023_com_bd_studio"
+   ]
   },
   {
    "code": "q003_meat_factory",

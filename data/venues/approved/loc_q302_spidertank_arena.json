@@ -1,0 +1,94 @@
+{
+  "code": "q302_spidertank_arena",
+  "display_name": "Founding Our Future Expo (Spidertank Arena)",
+  "why": "The Founding Our Future Expo is the empty Militech exposition hall in Dogtown's Golden Pacific, later used by BARGHEST as a depot whose centrepiece is a Militech Chimera under covering. In vanilla the hall's questdesign section is instantiated only by q302_02_spider, so in the clean slate the hall is sealed, unlit and unpopulated. This proposal re-declares #q302_pr_spidertank, switches on the hall's maintenance drones and a small BARGHEST guard detail, restores the stored Chimera in its standby state, and flips the two variant states that vanilla leaves in their post-story form (cracked shaft floor, hidden expo lighting).",
+  "source": {
+    "proposal": "research/loc_q302_spidertank_arena/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Both communities have posture unknown: no community-area node or workspot map exists in any converted sector for #302_spidertank_drones or #q302_com_sec1_before_activ, so phase a cannot be proven relaxed. Tour: do the four guards idle at posts, and do the six patrol drones hover calmly rather than take up combat poses?",
+      "Does #chimera militech_chimera/q302_standby give the covered, dormant unit the wiki shows, or a live boss that wakes on approach? If it wakes, drop the spawn set.",
+      "Is the hall reachable from Dogtown at all? The route devices that matter (mall door #q302_dvc_mall_door_2, parking lift #q301_dvc_lift_expo_parking, arena shutter #q302_dvc_spider_arena_shutter) have no resolved $/ paths in the catalogue, so DoorScope cannot drive them. The tour must find and check the real entrance.",
+      "q302_hide_after_expo=0 comes from vanilla's q301_fail cleanup; confirm it gives lit, walkable expo lighting in the clean slate rather than a stage-only glow.",
+      "Are the four chosen guard spots inside the spidertank hall or in the expo corridor? Without a spot map the positions are inferred from the record names."
+    ]
+  },
+  "prefabs": [
+    "#q302_pr_spidertank"
+  ],
+  "communities": [
+    {
+      "spawner": "#302_spidertank_drones",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The hall's own maintenance crew: six q302_spidertank_drone patrol units and two q302_repairing_drone units, the people who keep a stored Chimera serviceable. Vanilla only switches the whole community on for the bossfight; its registry starts every entry in phase a, so activating it whole gives the depot's ambient drone presence without any quest wiring.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_sec1_before_activ",
+      "entry_name": "q302_wave1_rifle1",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "BARGHEST rifleman on the depot floor. The spawner is named 'before_activ' and phase a is the set vanilla places before the bossfight switches the waves on, so it should read as a pre-combat guard post rather than a firefight; posture has to be checked on tour because the community has no spot map.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_sec1_before_activ",
+      "entry_name": "q302_wave1_hmg1",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "BARGHEST heavy gunner holding the hall entrance. Same pre-activation phase a as the other guards; the HMG record is the depot's anchor guard.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_sec1_before_activ",
+      "entry_name": "q302_wave1_sniper1",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "BARGHEST sniper on the arena balcony, watching the stored Chimera from above. Phase a again; the balcony posts are exactly where a depot watch would stand.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_sec1_before_activ",
+      "entry_name": "q302_wave2_rifle1",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Second BARGHEST rifleman so the depot reads as a guarded shift rather than a single sentry. Phase a keeps him on the pre-fight posting.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#chimera",
+      "entry_name": "militech_chimera",
+      "phase_name": "q302_standby",
+      "why": "The reason the venue is called the spidertank arena: BARGHEST stores a Militech Chimera in the expo hall under covering. q302_standby is the dormant state vanilla sets long before the arena fight, so the unit sits inert in the hall instead of running the boss encounter.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#q302_int_spidertank_shaft",
+      "states": {
+        "var_crackedfloor": 0
+      },
+      "why": "The streaming block authors the shaft with var_crackedfloor=1 (the post-fight cracked look) and q302.questphase resets it to 0 before the story starts. We want that pre-story intact floor, otherwise the arena entrance shows the boss-fight damage."
+    },
+    {
+      "prefab": "#loc_q302_spidertank_arena_lighting",
+      "states": {
+        "q302_hide_after_expo": 0
+      },
+      "why": "The location prefab defaults to q302_hide_after_expo=1, i.e. the post-expo lighting where the hall's presentation lights are hidden. Vanilla's own q301_fail cleanup sets it to 0; with 0 the hall keeps its expo lighting and is walkable rather than a dark shell."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q302_door_to_main_spidertank_hall",
+    "within": 80.0,
+    "why": "DoorControllerPS in the venue's gameplay/devices prefab, on the normal way from the expo into the main spidertank hall: vanilla q302_02_spider unpowers it as V and Myers walk through. A device, not a workspot, and the nearest resolved device to the people we place."
+  }
+}

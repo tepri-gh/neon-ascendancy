@@ -1,0 +1,156 @@
+{
+  "code": "q302_squat",
+  "display_name": "Rindo Hotel",
+  "why": "The Rindo Hotel is the abandoned, unfinished hotel on Elizabeth Kress Street in Dogtown. Squatters have occupied different parts of it for years: a camp on the lower floors and the ruined 8th-floor rooms, one of which held a generator built from a Thorton engine. This proposal restores the ground-floor squat camp (the eight ambient homeless entries), the hideout's residents (Jacob Long, Taylor Gibbs, two more squatters and the ambient Mia) and the lit, pre-safehouse interior. Myers, Reed, BARGHEST and the Cynosure crew are left out because the crash and the chase that bring them there never happen.",
+  "source": {
+    "proposal": "research/loc_q302_squat/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No community area/spot map resolved for this venue: all 51 community options have spots 0 and posture unknown, and none list workspots. Every choice here needs the dev tour (rule 9); in particular whether the #q302_com_squot default entries seat on the loc_q302_squat_openworld_prefabUR6VS5I/#homeless_spot_001_* spots.",
+      "q302_squat_persistent_content.questphase activates six #q302_hobos entries that do not exist in the community registry (q302_hobo_f_2..f_5, q302_hobo_m_4, q302_hobo_m_5, all 'default'), and a 'peace_fix' phase that no entry defines. They look like cut content; I used only entries/phases the registry actually defines. Confirm none of them is meant to exist.",
+      "Which door is #q302_dvc_squot_door: the 8th-floor hideout door or the hotel entrance? The wiki gives two street entrances (Pacific Boulevard, Elizabeth Kress Street); the tour should check the anchor's position and that the normal way in is passable.",
+      "peace_no_fix is the only calm phase for the two talking hobos; the tour should confirm their workspots are sit/lean/talk and not a leftover of the oath standoff.",
+      "The subway route prefab #q302_pr_subway is a q302_04 phasePrefab but is not in this venue's catalogue prefab list, so it is not restored. Is the hotel reachable on foot from the Dogtown street entrances without it?",
+      "The q302_07_oath lighting set also names q302_04_squot_ground_floor_community and q302_squat's squat_lights_to_turn_on, but neither variant is registered in all.streamingblock; I left them out. If the ground-floor camp still looks unlit on tour, those stale names are the first thing to investigate."
+    ]
+  },
+  "prefabs": [
+    "#q302_pr_squot",
+    "#q302_pr_squat_persistent_content"
+  ],
+  "communities": [
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_chill",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A pair of squatters chilling in the camp; this entry has both a male and a female record and vanilla never activates it, so the camp is empty in the clean slate.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_day",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ambient camp squatter; vanilla defines the entry and phase but never activates it.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_eat",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A squatter eating at the camp; baked ambient entry, never activated by vanilla.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_eat_pee",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second camp kitchen/ablution routine for the same squat camp; baked entry, never activated by vanilla.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_handpan",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Camp musician (handpan); a deliberately non-hostile, seated/loitering ambient entry that never runs under vanilla.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_heat",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Squatter warming herself at the camp fire/barrel; the fire is part of the ground-floor camp the building has in lore.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_preach",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Camp preacher; ambient standing/talking entry, never activated by vanilla.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_squot",
+      "entry_name": "homeless_sleeping",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Squatter asleep in the camp; ambient sleeping entry, never activated by vanilla.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_jacob",
+      "entry_name": "q302_jacob",
+      "phase_name": "q302_jacob_squot_relaxed",
+      "action": "Activate",
+      "why": "Jacob Long, the squatter who lives in the 8th-floor hideout; q302's persistent-content phase already uses this relaxed squat phase when no quest is running, and the wiki lists him as an occupant of the building.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_james",
+      "entry_name": "q302_james",
+      "phase_name": "q302_james_guard_door",
+      "action": "Activate",
+      "why": "Taylor Gibbs (the second squatter, internal record q302_james; the taylor_* phases drive this entry) watching the hideout door, the ambient state the persistent-content phase uses before the quest starts.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_hobos",
+      "entry_name": "q302_hobo_f_1_talking",
+      "phase_name": "peace_no_fix",
+      "action": "Activate",
+      "why": "A resident woman talking in the hideout; peace_no_fix is the only calm, non-ambush, non-dead phase this entry defines, so it is the closest to normal occupancy.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_hobos",
+      "entry_name": "q302_hobo_m_2_talking",
+      "phase_name": "peace_no_fix",
+      "action": "Activate",
+      "why": "A resident man talking in the hideout; peace_no_fix is the only calm phase beside militia/ambush for this entry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_com_sts13",
+      "entry_name": "mia",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mia is a baked ambient street-story civilian attached to this squat's persistent-content prefab; vanilla defines her default phase but never activates it, so she adds one more neighbour without inventing anyone.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q302_squat_lighting",
+      "states": {
+        "q302_04_squot": 0,
+        "q302_04_squot_after_fixing_engine": 1,
+        "q302_after_quest": 0,
+        "q302_glowstics": 0,
+        "q302_additional_blue": 0
+      },
+      "why": "The squat's default state is the power-cut lighting from q302_04 (q302_04_squot = 1 by default). This reproduces the lit, generator-repaired, community-present state vanilla uses in q302_07_oath, with the quest's blue mood light and the after-quest/aftermath state off. The stale variant name q302_04_squot_ground_floor_community was dropped because it is not registered in all.streamingblock."
+    },
+    {
+      "prefab": "#loc_q302_squat_decoration_variants",
+      "states": {
+        "var_q302_generic_deco": 1,
+        "var_q302_pre_safehouse": 1
+      },
+      "why": "Generic squatter decoration for the pre-safehouse room, exactly the pair q302_04 applies when V first enters. It keeps the apartment a squatted ruin instead of the after-story safehouse (var_q302_post_safehouse) or the mq300 community takeover."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q302_dvc_squot_door",
+    "within": 80.0,
+    "why": "The squat/hideout door vanilla drives in q302_04 and mq300; a real DoorControllerPS with a resolved path in the building's device section, on the normal way into the populated rooms."
+  }
+}

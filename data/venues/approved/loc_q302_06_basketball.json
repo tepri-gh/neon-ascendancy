@@ -1,0 +1,87 @@
+{
+  "code": "q302_06_basketball",
+  "display_name": "Hillpark Basketball Court (Dogtown)",
+  "why": "Open-air basketball court in Hillpark, Dogtown, on the walk down from the stadium-side park: Voodoo Boys hold the court and the surrounding park, homeless and outcasts camp at the fire and on the benches beside it. Vanilla only reaches it through q302 (Reed's meeting, then the armed drive-by) and the q305 epilogue, none of which run here. This proposal restores the four ambient whole-communities that vanilla's open-world community and dynamic-event phases switch on at the court (two Voodoo Boys groups, the court outcasts, the campfire crowd) and clears the quest ambush covers and pre-scene crowd audio so the court reads as an ordinary held park.",
+  "source": {
+    "proposal": "research/loc_q302_06_basketball/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The court has no door, lift or terminal of its own. The anchor used is the High Peak campfire DE's security-area device (3 m from a court workspot, last checkable in census.jsonl). Confirm on the tour that the proximity pause resolves and the post-proximity re-issue actually fires.",
+      "All four communities have spot maps in loc_q302_06_basketball_openworld_prefab6IAZTMQ (275 spots), so they should spawn from world streaming alone; confirm the Voodoo Boys and court/campfire crowds appear without the q302 quest prefab loaded.",
+      "Whether ep1_community (which activates combat_com_001/002, court_ow_com and the campfire) is gated or kept in the clean slate changes this from a restore to a redundant re-activation; both are harmless, but the tour should say which.",
+      "The court's daytime social crowd (#loc_q302_06_community, 26 Background entries incl. a dealer and sexworkers) may already be spawned by the sector. If it is not, it is the biggest remaining gap and needs a rule that allows activating a non-quest Background community.",
+      "#loc_q302_06_court_ow_com is catalogued mixed:relaxed+scene because one spot reuses the sq017 'sit ground cute' workspot; needs a look to be sure nobody freezes in a scene pose."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#loc_q302_06_combat_com_001",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Three hpark Voodoo Boys grunts (Saratoga/ Sidewinder) hold the court. Vanilla switches the whole community on from the open-world community phase and the q302 court community phase; the workspots are relaxed (phone call, cigarette, leaning on a wall, pee, sitting on the ground), so it is a hanging-around guard group, not a fight. Combat group, kept first per rule 11a."
+    },
+    {
+      "spawner": "#loc_q302_06_combat_com_002",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The second Voodoo Boys group at the court: four grunts including a coat shotgun (Palica). Relaxed spots only (show off a gun, lean on a ledge, slav squat, bottle drink, baseball bat), i.e. the same holding pattern, not a combat setup. Combat group, kept second per rule 11a."
+    },
+    {
+      "spawner": "#loc_q302_06_court_ow_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The court's own users: a child and four outcasts sitting on the stairs and ledges, drinking coffee, smoking, sleeping on benches, a kid playing with cans. Its 15 workspots are all idle poses; the single 'scene' element is the reused sq017 sit-ground-cute spot, so the mixed tag is a workspot artefact rather than a staged scene. Tour check: confirm nobody stands in a frozen pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#loc_q302_06_campfire_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The campfire crowd beside the court (thirteen entries: children, a fat couple, outcasts, three patrol walkers): heating hands, picking trash, sleeping on a bench, crackhead lean/trance spots, a synced 'helping a drugged friend' pair. This is the High Peak campfire dynamic event's community, i.e. ordinary open-world life at the court, not a quest scene."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q302_06_basketball_env_deco_ambush",
+      "states": {
+        "q302_basketball_ambush_covers": 0
+      },
+      "why": "Normal court, not the ambush: q302_06a_ride shows the covers off while V and Reed talk, ride_barghest_ambush turns them on for the drive-by. 0 leaves the park clear of the shootout barricades."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_q302_06_basketball_prefabI47FPYI/loc_q302_06_basketball_env_prefabS4TWX4Q/loc_q302_06_basketball_env_deco_prefab5GCGYJA",
+      "states": {
+        "q302_basketball_ambush_covers": 0
+      },
+      "why": "The untagged child variant node that carries the same ambush cover group; vanilla toggles it separately from the tagged node, so it is set to 0 as well to be sure no barricade survives."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_q302_06_basketball_prefabI47FPYI/loc_q302_06_basketball_gameplay_prefabML4UYVA",
+      "states": {
+        "q302_basketball_ambush_cover_spots": 0
+      },
+      "why": "The AI cover spots that go with the ambush covers; no group placed here fights, so the normal state (0) keeps the park from reading as a firefight position."
+    },
+    {
+      "prefab": "#loc_q302_06_basketball_audio",
+      "states": {
+        "crowd_pre_scene": 0
+      },
+      "why": "The quest's pre-scene crowd ambience plays only while the q302 meeting is staged; with no staged game at the court it should stay off."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/high_peak_prefabAMBSEZY/high_peak_de_prefabGUAETVA/high_peak_de_02_prefabLBXHCIA/high_peak_de_02_gameplay_prefabWXUH4TQ/high_peak_de_02_devices_prefabE3NDRQQ/#high_peak_de_02_dvc_sec_area",
+    "within": 80.0,
+    "why": "The court is open-air with no door, lift or terminal: input.json's 22 devices all belong to the squat, the Hill Park Spa or the stadium expo (venue_inferred). The only device entity inside the venue is the High Peak campfire dynamic event's security-area controller, 3 m from a court workspot in the always-streamed Hillpark park decoration prefab, so the proximity pause resolves exactly where the people stand."
+  }
+}

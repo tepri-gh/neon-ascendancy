@@ -1,0 +1,54 @@
+{
+  "code": "sq024_mariannes_garage",
+  "display_name": "Claire's Garage",
+  "why": "Claire Russell's garage on Brandon & Wollesen in Arroyo: a roll-up workshop with a car lift, a work car and Claire's Thorton Mackinaw \"Beast\", used in vanilla only as the first Beast in Me scene and as an appearance-change mirror stop. This proposal restores the garage interior and its two ambient occupants, the Aldecaldo mechanic and the project car, and parks the Beast inside via the claire_truck variant. Claire herself stays where the cast layer already keeps her, behind the Afterlife bar.",
+  "source": {
+    "proposal": "research/loc_sq024_mariannes_garage/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Community posture is unknown: no community area node for #sq024_com_claire_garage was found in the converted sectors, so the worker's and car's spot animations are unresolved. Tour check that the mechanic idles/works in the garage and does not stand alert.",
+      "Does the static Beast at claire_truck=1 sit correctly in the garage at boot, and would a future pass that wants a drivable Beast conflict with #sq024_com_claire_truck?",
+      "The garage gate has no terminal, keycard or skill check in quest data; confirm in game whether it is quickhackable or only the door policy can open it.",
+      "Is Vehicle.v_standard2_thorton_galena_quest safe to spawn outside a quest (no objective marker or mission lock)?",
+      "Owner choice to confirm: Claire stays at the Afterlife per cast_and_hubs claire_default_on; keeping her out of the garage leaves the shop to her mechanic. Moving her here would remove or duplicate the Afterlife vendor body."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/#loc_sq024_mariannes_garage/loc_sq024_mariannes_garage_questdesign_prefab3J7NAYY/#sq024_pr_01_claire_garage"
+  ],
+  "communities": [
+    {
+      "spawner": "$/03_night_city/#c_santo_domingo/arroyo/#loc_sq024_mariannes_garage/loc_sq024_mariannes_garage_questdesign_prefab3J7NAYY/#sq024_pr_01_claire_garage/#sq024_com_claire_garage",
+      "entry_name": "worker",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Vanilla defines the garage's own mechanic with initial phase default active but no quest ever activates the community, so the shop is empty. He is the working staff the garage should always have.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "$/03_night_city/#c_santo_domingo/arroyo/#loc_sq024_mariannes_garage/loc_sq024_mariannes_garage_questdesign_prefab3J7NAYY/#sq024_pr_01_claire_garage/#sq024_com_claire_garage",
+      "entry_name": "car",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The community's second entry is a Thorton Galena on the garage's own car spot, the vehicle being worked on. It makes the workshop read as a shop rather than an empty box.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/arroyo/#loc_sq024_mariannes_garage/loc_sq024_mariannes_garage_gameplay_prefabRJCRVFQ",
+      "states": {
+        "claire_truck": 1
+      },
+      "why": "claire_truck=1 shows the static Beast inside the garage, which is the resting look whenever the truck is home; vanilla sets 1 for the garage scene and 0 only while the truck is away at the City Center race."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq024_dvc_garage_gate",
+    "within": 80.0,
+    "why": "The garage's roll-up door is the only quest-driven device at the venue, lives in the always-streamed gameplay prefab and is exactly what the player arrives at; not a workspot."
+  }
+}
