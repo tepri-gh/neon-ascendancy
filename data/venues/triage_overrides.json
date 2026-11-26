@@ -140,6 +140,16 @@
       "venue": "loc_q101_backalley",
       "decision": "excluded",
       "why": "Research wave 11: The Hammer's back alley and roof from Johnny's 2023 memory (q101), an off-map set with no present-day shell. Owner 2026-11-26: The Hammer is wanted as a new 2077 venue; see docs/design/new-venues.md."
+    },
+    {
+      "venue": "loc_sq028_beach",
+      "decision": "excluded",
+      "why": "Research wave 12: only the Boat Drinks (sq028) finale, Kerry beaching the burning Seamurai; the yacht is intact in our timeline."
+    },
+    {
+      "venue": "loc_mq061",
+      "decision": "excluded",
+      "why": "Research wave 12: not a venue but mq061's Night Corp guided-tour trail across existing landmarks, started only from Aera's shard; the landmarks stream normally."
     }
   ]
 }

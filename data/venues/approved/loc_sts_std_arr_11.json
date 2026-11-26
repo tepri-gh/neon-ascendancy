@@ -1,0 +1,46 @@
+{
+  "code": "sts_std_arr_11",
+  "display_name": "6th Street Hideout, Megabuilding H6 (19F)",
+  "why": "The 19th floor of Megabuilding H6 in Arroyo is a 6th Street hideout: a netrunner den with a chair, a lab/office where Lucius Thoran jailbreaks corpo tech, back rooms and a sniper nest, and an ordinary neighbour's apartment across the hall. In vanilla it is only populated as the hostile target of El Capitan's gig 'Hacking the Hacker', so without the gig the floor risks standing empty. This proposal loads the street-story section and brings back the hideout's own at-post community (eleven 6th Street gangers, their netrunner and Lucius Thoran) plus the Corpo neighbour on his couch; the balcony crowd is already kept by std_arr_phase.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_11/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the 19th-floor hideout is occupied and calm when you arrive. Expect eleven 6th Street gangers plus their netrunner at posts (smoking, searching shelves, at the netrunner chair) and Lucius Thoran working a tablet, none hostile.",
+      "Walk in from the 19th-floor lift lobby and check the hideout door opens without the gig. Muamar's door code never reaches V in our timeline; if the door is closed with no keypad, quickhack or skill prompt, it needs a door-scope entry or a placed code.",
+      "Ride the Megabuilding H6 lift to 19 and confirm it is reachable in normal play. Check the lift terminal and that floor 19 is selectable.",
+      "Check the neighbour across the hall is home. Character.CorpoManBraindance should be sitting on his couch in a braindance, not missing or standing idle.",
+      "Check the stealth route into the hideout still works. The wiki describes a Body/Technical Ability route through the abandoned rooms to the right; identify the door or window it uses and confirm it is passable.",
+      "Confirm the hideout's computers are live. The blueprints computer and the netrunner terminal should be powered and interactive, not in the gig's unpowered sabotage state."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_11_prefabU6AVJQA/#loc_sts_std_arr_11_openworld/#sts_std_arr_11_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The hideout's own at-post state: eleven 6th Street gangers and their netrunner at the workspots vanilla uses before the gig turns loud - smoking on a wall, searching a shelf, scavenging parts, fixing a device, sitting with a rifle, lying in the netrunner chair - plus Lucius Thoran working a tablet. Vanilla activates this community whole (entry None, phase None), so every entry returns to its initial phase. The officer enemy_012 inherits a quest chair workspot tagged scene; physically he is seated and smoking, so a tour check covers him.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_tenant_com",
+      "entry_name": "tenant",
+      "phase_name": "sit",
+      "action": "Activate",
+      "why": "The Corpo neighbour across the hall sits on his couch in a braindance. Vanilla's sts_std_arroyo activates him and the gig's openworld phase deactivates him, so without either phase running he never appears and the corridor reads as a quest arena instead of a lived-in floor."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_11_lift_door",
+    "within": 80.0,
+    "why": "The hideout's lift-lobby door on the 19th floor is the first device a player reaches and is a DoorControllerPS vanilla's openworld phase drives (ForcePower, ForceEnabled, ForceClose, ForceDisabled). A device, not a workspot (rule 8)."
+  }
+}

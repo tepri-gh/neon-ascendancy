@@ -1,0 +1,52 @@
+{
+  "code": "sts_wbr_hil_01",
+  "display_name": "Gutierrezes' Apartment (Charter Hill)",
+  "why": "A luxury rooftop penthouse on Palm Street in Charter Hill, with a lobby/food-court level below and a private security detail of guards, a robot, two Wyvern drones, cameras, turrets and an alarm. Vanilla only loads its interior and its people through the gig Until Death Do Us Part (sts_wbr_hil_01), which never runs in our timeline. This proposal instantiates the building's street-story prefab and switches on its pre-gig open-world population: four corporate regulars on the lobby level, three guards on their penthouse patrol, and the security robot and drones at their posts. The five street patrons are already switched on by the kept district community phase and are left alone.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_hil_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Ride the lobby lift to the penthouse floor. Check that the ground-floor terminal reaches the top floor without the gig's elevator authorisation; if the floor is refused, the apartment is unreachable and lift access needs a fix.",
+      "Walk into the penthouse and watch the security. Check whether the laser gates, turrets and alarm stay disarmed (or can be reset at the office computer) instead of turning the flat into a firefight.",
+      "Look at the lobby level. Check the four open-world regulars and the five always-on patrons do not overlap on the same seats or block the lift and the front door.",
+      "Look around the restored flat. Check the interior is furnished (rooms, rooftop terrace, office computer), not an empty shell; the whole interior comes from the gig prefab."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/charter_hill/loc_sts_wbr_hil_01_prefabMXY3ZIA/#sts_wbr_hil_01_openworld/#sts_wbr_hil_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#hil_01_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Four wealthy regulars on the building's lobby/food-court level (two CorpoWoman, a CitizenRichMale, a CorpoMan) sitting on couches, smoking, or reading tablets. Vanilla's own pre-gig open-world phase switches the whole community on in its initial phase A; the gig's parent only switches it off when the story takes over."
+    },
+    {
+      "spawner": "#hil_01_com_enemies",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The penthouse's three human guards (Character.sts_wbr_hil_01_enemy_security) on their phase A patrol spots on the top floor. Vanilla's pre-gig open-world phase activates the whole community in that initial phase; the kneel/scanning phase C, which the gameplay phase uses for the heist's search state, is deliberately left out.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#hil_01_com_drone",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The penthouse's own security hardware: the droid at the powered-down guard workspot and two Wyvern patrol drones on their scan spots, all on the rooftop floor. Vanilla only switches them on for the heist, so the tour must confirm they idle/scan calmly instead of hunting. With no gig, they read as the residence's permanent security at rest.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/charter_hill/loc_sts_wbr_hil_01_prefabMXY3ZIA/loc_sts_wbr_hil_01_gameplay_prefabE5PRUQQ/loc_sts_wbr_hil_01_devices_prefabTAW7YJY/lift_2_floors_prefabSI7AFCY/lift_1",
+    "within": 80.0,
+    "why": "The lobby lift (LiftControllerPS, driven by the venue's own vanilla phases) is the way from the street-level crowd up to the penthouse. It is a sure device entity in the venue's device set, so it streams with the building and fires the post-proximity re-issue."
+  }
+}

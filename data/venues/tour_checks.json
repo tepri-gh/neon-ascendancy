@@ -12,6 +12,18 @@
     {
       "stop": "q000_border_crossing",
       "text": "Try to drive about 1.2 km south of the border to Dry Creek's protein farm: is it reachable in free roam? Research wave 11 found it intact and empty (nothing to restore, so no venue entry); its access is owner decision 48."
+    },
+    {
+      "stop": "rosebud",
+      "text": "Go to (694, -639, 10), about 170 m from this stop. Container Freight Station bay (Panam's q103 meeting point): it reads as an ordinary freight bay, with no Panam, car or meeting dressing. Wave 12: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "q113_arasaka_estate",
+      "text": "Go to (175, 560, 117), about 508 m from this stop. Columbarium (q204): both mourner crowds are present on a fresh boot (#q204_columbarium_com from the kept North Oak phase; #q204_columbarium_new_com starts active). Wave 12: nothing to restore, so no venue entry. If it is empty, owner call: re-activate #q204_columbarium_com."
+    },
+    {
+      "stop": "sq031_ruinedship",
+      "text": "Go to the shore at (-2479, 3515, 4), about 1026 m from this stop: no wrecked or burning Seamurai, debris or lift. The Boat Drinks beach (loc_sq028_beach) was excluded in wave 12; the yacht is intact in our timeline."
     }
   ]
 }

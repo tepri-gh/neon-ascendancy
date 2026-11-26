@@ -1,0 +1,68 @@
+{
+  "code": "sts_wat_kab_08_cop_hotel",
+  "display_name": "Motel Kabuki",
+  "why": "Motel Kabuki is the market motel on the south-western side of Kabuki Market: a ground floor with the reception clerks' office, laundry, rented rooms behind card-reader doors and a row of arcade machines, and two upper floors of rooms over the bazaar. The market and the motel shell stream with the world, but every crowd and every door-side local is only spawned by the Woman of La Mancha street story, so the place is dead in the clean slate. This proposal restores the venue's own people: the whole Kabuki-market crowd (vendors, customers, children, homeless, joytoys, a monk, a motel client at the arcades, a cleaner), the Tyger Claws market crew, the motel's door bouncer and the food courier, and leaves out Anna Hamill, Dave Hamill, the gig's combat/trigger content and every q003 trace.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_08_cop_hotel/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the guest door opens without the gig. Walk up to #kab_08_dvc_motel_door: vanilla only ForceUnlocks it from Woman of La Mancha, so confirm you can rent a room / use the terminal and get in, or that the Technical Ability back door and the stairs/roof crossing both still work.",
+      "Check the bouncer is at the door. Vanilla never activates #kab_08_com_bouncer in any phase; confirm he spawns seated on his chair at the motel entrance (-1242.1, 1980.6, 8.1), not floating, T-posing or stuck inside the reception desk.",
+      "Check the bazaar is busy and calm. Look for the shopkeepers, the food courier at her stand, children playing, the homeless and braindance users, the monk and the joytoys, and report anyone missing or two NPCs sharing one spot.",
+      "Check the Tyger Claws read as market muscle. They should be standing or leaning at their bazaar spots with weapons down, not immediately engaging; if they spawn hostile, the crowd and the player's walk through the market is spoiled.",
+      "Check the guest floors are furnished but not dressed for the gig. Walk the second and third floor galleries: the motel client at the arcade, the cleaner and the upper balcony pair should be present, and no room should show Anna's or Dave's quest dressing, a body, a fixer car or trigger markers.",
+      "Check both entrances from the street. Arrive on foot from Kabuki Market so the proximity anchor (#kab_08_dvc_main_door) fires, and confirm the market crowd is already alive at boot before you reach it (rule 6 double activation)."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_08_cop_hotel_prefab4HVPLOY/#loc_sts_wat_kab_08_cop_hotel_openworld/#sts_wat_kab_08_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#kab_08_com_tyger_claws",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole Tyger Claws community (nine members: two SMG, three melee, an officer, a specialist, a lookout and one with a prostitute). Kabuki Market is Tyger Claws turf, so these are the venue's own market muscle, not the gig's attack: their default spots are guard stand-around, wall lean with a can, tablet use, routine stand and a phone lean. Combat groups come first under rule 11a; none of their default poses is alert or hostile."
+    },
+    {
+      "spawner": "#kab_08_com_bouncer",
+      "entry_name": "bouncer",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The motel's door man, sitting on a chair and smoking at his spot by the entrance (z 8.13, beside the reception security computer). A bouncer is exactly the staff this venue is missing, and he is the catalogue's own entry, not an invention. However no vanilla phase ever activates #kab_08_com_bouncer (it is only reachable through the gig's bouncer trigger), so the tour must confirm the spawner works and his spot is on the ground.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#kab_08_com_marketplace",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole bazaar crowd (22 entries, all phase default): two children, customers, the three elevator-entrance regulars, a pair of freaks, several homeless people (including two on braindances), a monk eating a hotdog, a motel client at the arcade machine, joytoys, two shopkeepers, an upper-balcony pair and a cleaner. This is vanilla's own whole-community activation for the venue and every workspot is an idle eat/sit/lean/play/smoke/mop pose. It is the crowd that makes Kabuki Market read as open for business.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#kab_08_com_vendors",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The food courier at her stand beside the motel (z 7.97, the #kab_08_ws_food_courier spot). Whole-community activation puts her in her initial 0_default phase, standing around the stand; vanilla only ever activates the 'break' phase (sitting on a chair with a phone), which is what she does while the gig talks to her. For an open market, the standing-at-the-stand pose is the right one."
+    },
+    {
+      "spawner": "#kab_08_com_prostitute",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The venue's own sex worker, leaning on the wall by the bazaar with a cigarette (#kab_08_ws_prostitute, z 8.03). She is one of the market locals the gig's ask-around step uses, and a permanent, harmless part of a Kabuki market scene."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#kab_08_dvc_main_door",
+    "within": 80.0,
+    "why": "The motel's main entrance DoorControllerPS in the always-streamed devices prefab: the player walks through it to reach the lobby, arcade and market crowd, so the proximity wait re-issues the bouncer, courier, prostitute and crowds once the lobby and bazaar have streamed. It is a powered door vanilla only power-cycles, so it is the normal way in; the guest door with the card readers is #kab_08_dvc_motel_door."
+  }
+}

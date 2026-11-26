@@ -1,0 +1,87 @@
+{
+  "code": "q110_surroundings",
+  "display_name": "Coastview Relay Tower (Charon Exotics tracking station)",
+  "why": "This location chunk is the stretch of Coastview coast around the Charon Exotics tracking-station relay tower used in q304 'Birds with Broken Wings': a fenced lattice transmitter on a cliff platform with solar panels, a fuse/power cabinet, transceiver access points and the coastal shacks, market stands and road dressing around its base. The tower itself is ordinary streamed world geometry and the open world already puts ambient people on it (a courier spot and two synced 'chilling' pairs on its stairs), but the six-person Voodoo Boys watch that occupies the platform only exists inside the q304 quest prefab, which never loads here. This proposal instantiates that one encounter prefab and switches its six entries on in their initial, routine phases, so the relay reads as a manned gang relay instead of an empty quest set.",
+  "source": {
+    "proposal": "research/loc_q110_surroundings/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Tower access: walk up to the relay from the coast road and confirm the fence/compound gate and the platform route are open with q304 not running. The venue data names no DoorControllerPS and no terminal, keycard or skill check on the way in, so the runtime door policy may treat the compound as plain set dressing; report if a gate is shut with no in-world opener.",
+      "Crew on post: confirm the six Voodoo Boys stand at their routine spots (one sitting cleaning a gun, one arms crossed, one kneeling over parts, one with a tablet, one on the phone) and are not stuck inside geometry. Their community-area node is missing, so which entry takes which spot is unverified.",
+      "Prefab overlap: check the platform for doubled or floating geometry. The encounter prefab is instantiated inside the world-streamed q304_trasmitter_tower_01_all prefab, so it is worth seeing in game that its spawner and spots appear once, not twice.",
+      "Relay power: vanilla only ever ForceDisables the transceiver access points and forces the transmitter_04 lights off from q304 phases, which never run here. Confirm the platform does not look dead (dark access points, error-light state) in normal play; if it does, the access point and light states are the things to look at, not the doors.",
+      "Kids: the transmitter kids (Luka's group) and the hot/cold power-restart set are staged in the Arroyo interior duplicate, which catalogue venue arroyo_sp_hubs owns. If the owner wants children hanging around this Coastview tower instead, that needs a placement decision plus mapped spots; nothing in this venue's data puts them here.",
+      "Ambient spots: the tower's world prefab already has open-world spots for a courier and two 'chilling' pairs on the stairs (sa_courier_starting_spot_003_ws, sync_stairs_hug_ws_npc_01/02, sync_ground_tablet_ws_npc_01/02), so the area may already be populated when V arrives before this proposal's crew spawns. Report if the result looks crowded or if two people share one spot."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/coastview/#loc_q110_surroundings/q304_trasmitter_tower_01_all_prefab2SIYIJY/#q304_transmiter_voodoo_boys_encounter"
+  ],
+  "communities": [
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo3",
+      "phase_name": "voodoo3",
+      "action": "Activate",
+      "why": "The netrunner of the Voodoo Boys watch, standing on the platform at one of three plain routine__stand_ground spots. Her only phase is the entry's initial phase, so vanilla always spawns her on those idle spots; the community-area node is missing, so the entry-to-spot map is guessed and must be confirmed on the tour. Priority rule 11a: the netrunner is the group worth keeping first.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo6",
+      "phase_name": "voodoo6",
+      "action": "Activate",
+      "why": "The crew's shotgun gunman, on one of three routine idle spots: standing on the phone, plain stand-ground, or the dirt stand. His initial phase is the only phase he defines, so vanilla never puts him anywhere else.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo1",
+      "phase_name": "voodoo1",
+      "action": "Activate",
+      "why": "One of the two Voodoo Boys already on post when the encounter starts: sitting on a chair cleaning a gun, the entry's initial phase. Sitting on a chair with the weapon in hand is the calm, on-post pose; vanilla later switches this entry to its voodoo1_0 standing variant, which the clean slate does not need.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo2",
+      "phase_name": "voodoo2",
+      "action": "Activate",
+      "why": "The second man already on post when the encounter starts: standing with arms crossed at a plain stand-ground spot on the platform, the entry's initial phase. A watching-not-fighting pose.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo4",
+      "phase_name": "voodoo4",
+      "action": "Activate",
+      "why": "A crew member kneeling over parts on the platform (routine__kneel_ground_parts__scavenge), i.e. tinkering with the relay hardware rather than guarding it. Initial and only phase.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q304_com_transmiter_01_voodooboys",
+      "entry_name": "q304_car_rental_voodoo5",
+      "phase_name": "voodoo5",
+      "action": "Activate",
+      "why": "A crew member kneeling with a tablet (routine__kneel_ground_tablet__use), the relay's reader/operator. Initial and only phase.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1766.08,
+      -1911.19,
+      67.75
+    ],
+    "source": "median of the 12 workspots under .../#loc_q110_surroundings/q304_trasmitter_tower_01_all_prefab2SIYIJY/#q304_transmiter_voodoo_boys_encounter/ in sector base/worlds/03_night_city/_compiled/default/ep1/quest_b0f78dd3be90d981.streamingsector (q304_ws_transmiter_01_voodooboys_1..6)"
+  },
+  "proximity_wait": {
+    "ref": "#q304_dvc_trasmitter_tower_access_point_01",
+    "within": 80.0,
+    "why": "An AccessPointControllerPS in the tower's always-streamed devices prefab (q304_trasmitter_tower_devices_prefabERNHYFQ), on the platform the crew uses, so it streams at any distance and the proximity re-activation fires when the player actually walks up the tower (rule 8: a device, not a workspot). Vanilla only ForceDisables it during q304_02b, which never runs here."
+  }
+}

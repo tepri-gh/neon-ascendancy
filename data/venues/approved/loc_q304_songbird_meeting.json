@@ -1,0 +1,89 @@
+{
+  "code": "q304_songbird_meeting",
+  "display_name": "Tranquil Terrace — Luxor Heights park and basketball court",
+  "why": "Tranquil Terrace is the public park on Luxor Heights in Dogtown: gardens and terraces over the combat zone, the Mysterium sculpture and a basketball court in the south-west, the Eventide resort to the east. In vanilla the park is only ever populated for the q304 Songbird meeting (which first clears the people away) and for the sa_ep1_37 airdrop on its lower terrace, so in normal play it stands empty. This proposal restores the two communities the venue itself defines: the homeless camp crowd that lives on the terraces and the scavenger and Voodoo Boys groups that hold the park's two security areas, and it clears the meeting AV out of the sky.",
+  "source": {
+    "proposal": "research/loc_q304_songbird_meeting/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the basketball-court terrace crowd: benches, ledge, wall leans and the football kid should all be in calm idle poses, nobody crouched behind cover, no T-poses. Vanilla never plays this crowd except after the story, so this is the first look at it.",
+      "Check the lower-terrace camp crowd: people should sleep on benches, sit on the stairs, comfort each other and play by the court, not stand in a ring or hold combat poses.",
+      "Check the two scavengers at the court: one flipping a knife and one sitting back on the couch with his gun at rest, weapons down, not in a combat stance.",
+      "Check the three Voodoo Boys on the upper terrace: standing, smoking, leaning on the wall and holding a bat, calmly at their spots and not patrolling or aiming.",
+      "Check the sky over the park: no AV should hover above the meeting point; ordinary Dogtown AV traffic may pass. This confirms the #combat_zone_air_traffic toggle.",
+      "Check the anchor: on approach the tour's _prox breadcrumb should flip. If the airdrop tank never streams, the second activation is lost but the boot activation still fills the park.",
+      "Check the camp after an airdrop: after the Tranquil Terrace airdrop ends, walk back to the lower terrace and see whether the camp crowd stayed. The airdrop phase deactivates crowd_02 when it finishes, which our one-time proximity re-issue cannot undo."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#pac_cz_q304_meeting_crowd_com_01",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole upper-terrace crowd in its default phase: eight homeless outcasts and a stacks child, all active in the initial state, all on calm spots (sleep on a bench, heat hands, sit a ledge, drink, read a tablet, kids' bed and football). This is vanilla's own 'normal park' population for the basketball-court level: q304_03_songbird_meeting deactivates it to clear the terrace for the meeting, and q304_05b_shard switches it back on afterwards. Vanilla only ever activates it from phases our clean slate does not run."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_crowd_com_02",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole lower-terrace camp crowd in its default phase: ten homeless outcasts and a stacks child on the shanty level (lie ground asleep, sit stairs crying or drinking, comfort a crying friend, wounded leg, pee, drug spots, child playing with cans). Vanilla activates it whole from inside the sa_ep1_37 airdrop activity, which lands on this terrace; the entries are the camp's residents, not event actors, so the camp should be lived-in the rest of the time. The airdrop phase deactivates them again when the drop ends, which is the only caveat (see notes)."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_gang_com_01",
+      "entry_name": "gang_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A scavenger woman on the basketball-court level, standing and showing off a knife at her own spot. The venue ships a scavenger security area and system at the court (#pac_cz_q304_meeting_gang_01_sec_area/_sec_sys), and q304_03 clears this group together with the crowd before the meeting, so they are the park's normal court-side presence. Kept ahead of the civilians' comfort by the owner's population rule."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_gang_com_01",
+      "entry_name": "gang_mb",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The scavenger butcher of the same court group, sitting back on a couch with his weapon at rest (big__sit_couch_lean_back_gun__relax). Same vanilla group and same security area as gang_f; the group's third entry gang_m is left out because its only spot plays a quest phone scene."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_gang_com_02",
+      "entry_name": "gang_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A Voodoo Boys gunwoman on the upper terrace (z ~93) beside the second security area the venue ships for them. Relaxed default phase on a stand-and-smoke spot, not a combat line. The group is the park's other resident gang per the wiki, and ep1_community/ep1_quest_community only ever reactivate it after a fight, never spawn it initially."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_gang_com_02",
+      "entry_name": "gang_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The second Voodoo Boys member of the upper-terrace post, leaning on a wall with a can. Same group, same security area, relaxed default phase."
+    },
+    {
+      "spawner": "#pac_cz_q304_meeting_gang_com_02",
+      "entry_name": "gang_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The third Voodoo Boys member, standing around with a baseball bat on the upper terrace. Completes the three-person post; all three entries of this community are relaxed and use plain stand/lean spots."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#combat_zone_air_traffic",
+      "states": {
+        "304_songbird_meeting_av": 0,
+        "kurts_av_global": 1
+      },
+      "why": "Normal sky over the terrace: no meeting AV waiting over the park, and the combat zone's ordinary AV traffic on. This is exactly the state q304_05b_shard writes when it clears the meeting away, i.e. the post-story normal. The meeting's own AV variant (and q304_02's q304_controlled_av) belong to the FIA plot that never happens."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sa_ep1_37_explosive_tank_008",
+    "within": 80.0,
+    "why": "The only device in input.json that stands at this venue: a propane tank in the sa_ep1_37 airdrop camp on the lower terrace, beside the crowd_02 spots (~5-20 m). The park has no doors, terminals or alarm devices of its own in the catalogue, and the other listed devices belong to Black Sapphire and Heavy Hearts. It is venue_inferred (no resolved path) and might stream only with the airdrop prefab; the boot activation already fills the park, so the anchor only gates the second, post-proximity re-issue."
+  }
+}

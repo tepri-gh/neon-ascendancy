@@ -229,10 +229,10 @@
    "venue": "loc_mq306_tech_expo",
    "pos": [
     -2378.42,
-    -3082.46,
-    129.5
+    -3079.39,
+    136.5
    ],
-   "radius": 57.7,
+   "radius": 56.8,
    "expected_records": [
     "Character.mq306_Assistant",
     "Character.mq306_damir",
@@ -1273,6 +1273,69 @@
    ]
   },
   {
+   "code": "mq304_bennett_meeting",
+   "name": "Bennett's meeting alley (Downtown back court)",
+   "kind": "approved",
+   "venue": "loc_mq304_bennett_meeting",
+   "pos": [
+    -2279.37,
+    487.22,
+    7.63
+   ],
+   "radius": 50.3,
+   "expected_records": [
+    "Character.mq304_bennett_driver"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq304_com_bennett_friendly (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: car_01/start.",
+     "source": "community"
+    },
+    {
+     "label": "Check the alley's ordinary clutter is visible: the arcade machine, bench, crates and dumpster, with no quest stage dressing.",
+     "detail": "Check the alley's ordinary clutter is visible: the arcade machine, bench, crates and dumpster, with no quest stage dressing. This is the arena 0 / hide 0 toggle; hide is 1 by vanilla default, so confirm the result looks like everyday street furniture rather than a quest set.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the driver: he should lean on the wall by the meeting house smoking and stay calm, not stand in a combat, cover or T-pose.",
+     "detail": "Check the driver: he should lean on the wall by the meeting house smoking and stay calm, not stand in a combat, cover or T-pose. If he looks wrong, the start phase's wall-lean workspot pairing is the first thing to re-check.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the Thrax: it should sit parked at the alley mouth about 35 m from the driver, level and clear of the lane, not floating, half-sunk or blocki...",
+     "detail": "Check the Thrax: it should sit parked at the alley mouth about 35 m from the driver, level and clear of the lane, not floating, half-sunk or blocking the only way in.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the alley from the street in both directions and confirm no invisible boundary, locked gate or blocked path stops you; the mq304 boundary vari...",
+     "detail": "Walk the alley from the street in both directions and confirm no invisible boundary, locked gate or blocked path stops you; the mq304 boundary variants live in the quest prefab we deliberately do not load.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest'...",
+     "detail": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest's ForceDisabled action.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sts_cct_dtn_05_luxury_yacht",
    "name": "Gold Beach Marina party yacht (Councilwoman Cole's yacht)",
    "kind": "approved",
@@ -1679,6 +1742,81 @@
    ]
   },
   {
+   "code": "q302_spidertank_arena",
+   "name": "Founding Our Future Expo (Spidertank Arena)",
+   "kind": "approved",
+   "venue": "loc_q302_spidertank_arena",
+   "pos": [
+    -1987.32,
+    -2512.62,
+    19.41
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q302_repairing_drone",
+    "Character.q302_spidertank_drone",
+    "Character.q302_spidertank_kurt_soldier_fast",
+    "Character.q302_spidertank_kurt_soldier_hmg",
+    "Character.q302_spidertank_kurt_soldier_ma",
+    "Character.q302_spidertank_kurt_soldier_sniper"
+   ],
+   "spawn_sets": [
+    "#chimera"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #302_spidertank_drones (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #q302_com_sec1_before_activ (4 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: q302_wave1_rifle1/a, q302_wave1_hmg1/a, q302_wave1_sniper1/a, q302_wave2_rifle1/a.",
+     "source": "community"
+    },
+    {
+     "label": "Both communities have posture unknown: no community-area node or workspot map exists in any converted sector for #302_spidertank_drones or #q302_co...",
+     "detail": "Both communities have posture unknown: no community-area node or workspot map exists in any converted sector for #302_spidertank_drones or #q302_com_sec1_before_activ, so phase a cannot be proven relaxed. Tour: do the four guards idle at posts, and do the six patrol drones hover calmly rather than take up combat poses?",
+     "source": "open question"
+    },
+    {
+     "label": "Does #chimera militech_chimera/q302_standby give the covered, dormant unit the wiki shows, or a live boss that wakes on approach?",
+     "detail": "Does #chimera militech_chimera/q302_standby give the covered, dormant unit the wiki shows, or a live boss that wakes on approach? If it wakes, drop the spawn set.",
+     "source": "open question"
+    },
+    {
+     "label": "Is the hall reachable from Dogtown at all?",
+     "detail": "Is the hall reachable from Dogtown at all? The route devices that matter (mall door #q302_dvc_mall_door_2, parking lift #q301_dvc_lift_expo_parking, arena shutter #q302_dvc_spider_arena_shutter) have no resolved $/ paths in the catalogue, so DoorScope cannot drive them. The tour must find and check the real entrance.",
+     "source": "open question"
+    },
+    {
+     "label": "q302_hide_after_expo=0 comes from vanilla's q301_fail cleanup; confirm it gives lit, walkable expo lighting in the clean slate rather than a stage-...",
+     "detail": "q302_hide_after_expo=0 comes from vanilla's q301_fail cleanup; confirm it gives lit, walkable expo lighting in the clean slate rather than a stage-only glow.",
+     "source": "open question"
+    },
+    {
+     "label": "Are the four chosen guard spots inside the spidertank hall or in the expo corridor?",
+     "detail": "Are the four chosen guard spots inside the spidertank hall or in the expo corridor? Without a spot map the positions are inferred from the record names.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q303_hill_park_spa",
    "name": "Eventide Resort & Spa — Slider's Hideout (Dogtown, Luxor Heights)",
    "kind": "approved",
@@ -1854,6 +1992,81 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
+    }
+   ]
+  },
+  {
+   "code": "q304_songbird_meeting",
+   "name": "Tranquil Terrace — Luxor Heights park and basketball court",
+   "kind": "approved",
+   "venue": "loc_q304_songbird_meeting",
+   "pos": [
+    -1728.21,
+    -2681.31,
+    77.94
+   ],
+   "radius": 66.2,
+   "expected_records": [
+    "Character.ep1_combat_zone_citizen_outcast_ma",
+    "Character.ep1_combat_zone_citizen_outcast_wa",
+    "Character.ep1_combat_zone_citizen_stacks_child",
+    "Character.hpark_scavenger_butcher3_hmelee2_machete_mb_rare",
+    "Character.hpark_scavenger_grunt2_melee2_knife_wa",
+    "Character.hpark_voodooboys_grunt1_fmelee2rare_baseball_ma_rare",
+    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_ma",
+    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_wa"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Check the basketball-court terrace crowd: benches, ledge, wall leans and the football kid should all be in calm idle poses, nobody crouched behind...",
+     "detail": "Check the basketball-court terrace crowd: benches, ledge, wall leans and the football kid should all be in calm idle poses, nobody crouched behind cover, no T-poses. Vanilla never plays this crowd except after the story, so this is the first look at it.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the lower-terrace camp crowd: people should sleep on benches, sit on the stairs, comfort each other and play by the court, not stand in a rin...",
+     "detail": "Check the lower-terrace camp crowd: people should sleep on benches, sit on the stairs, comfort each other and play by the court, not stand in a ring or hold combat poses.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two scavengers at the court: one flipping a knife and one sitting back on the couch with his gun at rest, weapons down, not in a combat s...",
+     "detail": "Check the two scavengers at the court: one flipping a knife and one sitting back on the couch with his gun at rest, weapons down, not in a combat stance.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the three Voodoo Boys on the upper terrace: standing, smoking, leaning on the wall and holding a bat, calmly at their spots and not patrollin...",
+     "detail": "Check the three Voodoo Boys on the upper terrace: standing, smoking, leaning on the wall and holding a bat, calmly at their spots and not patrolling or aiming.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the sky over the park: no AV should hover above the meeting point; ordinary Dogtown AV traffic may pass.",
+     "detail": "Check the sky over the park: no AV should hover above the meeting point; ordinary Dogtown AV traffic may pass. This confirms the #combat_zone_air_traffic toggle.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the anchor: on approach the tour's _prox breadcrumb should flip.",
+     "detail": "Check the anchor: on approach the tour's _prox breadcrumb should flip. If the airdrop tank never streams, the second activation is lost but the boot activation still fills the park.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the camp after an airdrop: after the Tranquil Terrace airdrop ends, walk back to the lower terrace and see whether the camp crowd stayed.",
+     "detail": "Check the camp after an airdrop: after the Tranquil Terrace airdrop ends, walk back to the lower terrace and see whether the camp crowd stayed. The airdrop phase deactivates crowd_02 when it finishes, which our one-time proximity re-issue cannot undo.",
+     "source": "open question"
     }
    ]
   },
@@ -2433,6 +2646,79 @@
     {
      "label": "Brigitte in q110_00_voodoo_queen_chair_den lies in a netrunner chair (lie_netrunner_chair__netrun).",
      "detail": "Brigitte in q110_00_voodoo_queen_chair_den lies in a netrunner chair (lie_netrunner_chair__netrun). The spot and animation say 'working', but confirm on the tour that she does not read as unconscious/coma to a player.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q110_surroundings",
+   "name": "Coastview Relay Tower (Charon Exotics tracking station)",
+   "kind": "approved",
+   "venue": "loc_q110_surroundings",
+   "pos": [
+    -1766.08,
+    -1911.19,
+    67.75
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q304_voodooboys_car_rental_1",
+    "Character.q304_voodooboys_car_rental_2",
+    "Character.q304_voodooboys_car_rental_3",
+    "Character.q304_voodooboys_car_rental_4",
+    "Character.q304_voodooboys_car_rental_voodooboys_grunt2coat_shotgun2_palica_wa",
+    "Character.q304_voodooboys_car_rental_voodooboys_netrunner3_netrunner3_quasar_wa_elite"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #q304_com_transmiter_01_voodooboys (6 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: q304_car_rental_voodoo3/voodoo3, q304_car_rental_voodoo6/voodoo6, q304_car_rental_voodoo1/voodoo1, q304_car_rental_voodoo2/voodoo2, q304_car_rental_voodoo4/voodoo4, q304_car_rental_voodoo5/voodoo5.",
+     "source": "community"
+    },
+    {
+     "label": "Tower access: walk up to the relay from the coast road and confirm the fence/compound gate and the platform route are open with q304 not running.",
+     "detail": "Tower access: walk up to the relay from the coast road and confirm the fence/compound gate and the platform route are open with q304 not running. The venue data names no DoorControllerPS and no terminal, keycard or skill check on the way in, so the runtime door policy may treat the compound as plain set dressing; report if a gate is shut with no in-world opener.",
+     "source": "open question"
+    },
+    {
+     "label": "Crew on post: confirm the six Voodoo Boys stand at their routine spots (one sitting cleaning a gun, one arms crossed, one kneeling over parts, one...",
+     "detail": "Crew on post: confirm the six Voodoo Boys stand at their routine spots (one sitting cleaning a gun, one arms crossed, one kneeling over parts, one with a tablet, one on the phone) and are not stuck inside geometry. Their community-area node is missing, so which entry takes which spot is unverified.",
+     "source": "open question"
+    },
+    {
+     "label": "Prefab overlap: check the platform for doubled or floating geometry.",
+     "detail": "Prefab overlap: check the platform for doubled or floating geometry. The encounter prefab is instantiated inside the world-streamed q304_trasmitter_tower_01_all prefab, so it is worth seeing in game that its spawner and spots appear once, not twice.",
+     "source": "open question"
+    },
+    {
+     "label": "Relay power: vanilla only ever ForceDisables the transceiver access points and forces the transmitter_04 lights off from q304 phases, which never r...",
+     "detail": "Relay power: vanilla only ever ForceDisables the transceiver access points and forces the transmitter_04 lights off from q304 phases, which never run here. Confirm the platform does not look dead (dark access points, error-light state) in normal play; if it does, the access point and light states are the things to look at, not the doors.",
+     "source": "open question"
+    },
+    {
+     "label": "Kids: the transmitter kids (Luka's group) and the hot/cold power-restart set are staged in the Arroyo interior duplicate, which catalogue venue arr...",
+     "detail": "Kids: the transmitter kids (Luka's group) and the hot/cold power-restart set are staged in the Arroyo interior duplicate, which catalogue venue arroyo_sp_hubs owns. If the owner wants children hanging around this Coastview tower instead, that needs a placement decision plus mapped spots; nothing in this venue's data puts them here.",
+     "source": "open question"
+    },
+    {
+     "label": "Ambient spots: the tower's world prefab already has open-world spots for a courier and two 'chilling' pairs on the stairs (sa_courier_starting_spot...",
+     "detail": "Ambient spots: the tower's world prefab already has open-world spots for a courier and two 'chilling' pairs on the stairs (sa_courier_starting_spot_003_ws, sync_stairs_hug_ws_npc_01/02, sync_ground_tablet_ws_npc_01/02), so the area may already be populated when V arrives before this proposal's crew spawns. Report if the result looks crowded or if two people share one spot.",
      "source": "open question"
     }
    ]
@@ -3799,6 +4085,101 @@
    ]
   },
   {
+   "code": "sts_wat_kab_08_cop_hotel",
+   "name": "Motel Kabuki",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_08_cop_hotel",
+   "pos": [
+    -1233.44,
+    1964.34,
+    7.98
+   ],
+   "radius": 44.1,
+   "expected_records": [
+    "Character.AsianFemale",
+    "Character.AsianMale",
+    "Character.ChildPoor",
+    "Character.FreakFemale",
+    "Character.FreakMale",
+    "Character.HomelessFemale",
+    "Character.HomelessMan",
+    "Character.LowlifeMale",
+    "Character.Monk",
+    "Character.ObeseMaleLowlife",
+    "Character.SexworkerFemale",
+    "Character.SlackerFemale",
+    "Character.SlackerMale",
+    "Character.VendorFemale",
+    "Character.VendorMale",
+    "Character.sts_wat_kab_08_bouncer",
+    "Character.sts_wat_kab_08_food_courier",
+    "Character.sts_wat_kab_08_prostitute",
+    "Character.sts_wat_kab_08_tyger_claws",
+    "Character.sts_wat_kab_08_tyger_claws_melee",
+    "Character.sts_wat_kab_08_tyger_claws_melee_special",
+    "Character.sts_wat_kab_08_tyger_claws_officer",
+    "Character.sts_wat_kab_08_tyger_claws_smg"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #kab_08_com_bouncer (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: bouncer/default.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #kab_08_com_marketplace (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the guest door opens without the gig.",
+     "detail": "Check the guest door opens without the gig. Walk up to #kab_08_dvc_motel_door: vanilla only ForceUnlocks it from Woman of La Mancha, so confirm you can rent a room / use the terminal and get in, or that the Technical Ability back door and the stairs/roof crossing both still work.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the bouncer is at the door.",
+     "detail": "Check the bouncer is at the door. Vanilla never activates #kab_08_com_bouncer in any phase; confirm he spawns seated on his chair at the motel entrance (-1242.1, 1980.6, 8.1), not floating, T-posing or stuck inside the reception desk.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the bazaar is busy and calm.",
+     "detail": "Check the bazaar is busy and calm. Look for the shopkeepers, the food courier at her stand, children playing, the homeless and braindance users, the monk and the joytoys, and report anyone missing or two NPCs sharing one spot.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the Tyger Claws read as market muscle.",
+     "detail": "Check the Tyger Claws read as market muscle. They should be standing or leaning at their bazaar spots with weapons down, not immediately engaging; if they spawn hostile, the crowd and the player's walk through the market is spoiled.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the guest floors are furnished but not dressed for the gig.",
+     "detail": "Check the guest floors are furnished but not dressed for the gig. Walk the second and third floor galleries: the motel client at the arcade, the cleaner and the upper balcony pair should be present, and no room should show Anna's or Dave's quest dressing, a body, a fixer car or trigger markers.",
+     "source": "open question"
+    },
+    {
+     "label": "Check both entrances from the street.",
+     "detail": "Check both entrances from the street. Arrive on foot from Kabuki Market so the proximity anchor (#kab_08_dvc_main_door) fires, and confirm the market crowd is already alive at boot before you reach it (rule 6 double activation).",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "loc_sq011_totentanz",
    "name": "Totentanz",
    "kind": "hand-built",
@@ -4206,6 +4587,11 @@
      "label": "Whether #sq031_dvc_ebunike_entry_shutter and #sq031_main_gate are static (no authorization module, no controlling terminal), so the runtime door po...",
      "detail": "Whether #sq031_dvc_ebunike_entry_shutter and #sq031_main_gate are static (no authorization module, no controlling terminal), so the runtime door policy will open them; if either has a terminal the venue may need a documented way in.",
      "source": "open question"
+    },
+    {
+     "label": "Go to the shore at (-2479, 3515, 4), about 1026 m from this stop: no wrecked or burning Seamurai, debris or lift.",
+     "detail": "Go to the shore at (-2479, 3515, 4), about 1026 m from this stop: no wrecked or burning Seamurai, debris or lift. The Boat Drinks beach (loc_sq028_beach) was excluded in wave 12; the yacht is intact in our timeline.",
+     "source": "extra"
     }
    ]
   },
@@ -4887,6 +5273,153 @@
     {
      "label": "Check the interior look.",
      "detail": "Check the interior look. Is the reception and workshop lit and powered (not dark after the core shutdown), and are the screens showing the normal state rather than the red alarm lighting?",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_hey_rey_08",
+   "name": "Jacked and Coke (Karubo's bar, Vista del Rey)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_rey_08",
+   "pos": [
+    -923.19,
+    -216.71,
+    7.67
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_hey_rey_08_karubo",
+    "Character.sts_hey_rey_08_officer",
+    "Character.sts_hey_rey_08_valentions_dual",
+    "Character.sts_hey_rey_08_valentions_melee_big",
+    "Character.sts_hey_rey_08_valentions_melee_ma",
+    "Character.sts_hey_rey_08_valentions_rifle",
+    "Character.sts_hey_rey_08_valentions_shotgun"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Check the front door on Pigeon & Congress opens.",
+     "detail": "Check the front door on Pigeon & Congress opens. It is #rey_08_front_door, which vanilla only powers through the gig's prestate branch that never runs; the runtime door policy may not see it because its path is unresolved. If it is sealed, note its position so it can be added to the door scope.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the bar sign shows the open state.",
+     "detail": "Check the bar sign shows the open state. LocationSign_var 1 is the value vanilla uses once the bar is open for the gig; if the sign instead shows a closed, boarded or 'for lease' variant, report it so the toggle flips to 0.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the bar is staffed and busy when you walk in.",
+     "detail": "Check the bar is staffed and busy when you walk in. Expect the Valentino bartender behind the bar and eight Valentinos on the rail, wall, barstool, music spot and tablet, all neutral and relaxed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check Karubo is alive, at his bar and calm.",
+     "detail": "Check Karubo is alive, at his bar and calm. Expect Character.sts_hey_rey_08_karubo on the routine dirt stand spot near the bar, with no contract, holocall or hostile reaction.",
+     "source": "open question"
+    },
+    {
+     "label": "Check there is no police aftermath outside.",
+     "detail": "Check there is no police aftermath outside. Expect no NCPD inspectors, no police car and no crime-scene tape or markers in front of the bar (after_sts 0).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the pavement outside still has its ambient crowd.",
+     "detail": "Check the pavement outside still has its ambient crowd. The default-on #sts_hey_rey_08_openworld_com (two Valentinos plus three patrons) should be present without this venue activating it; if the corner is empty, the lead should add the whole-community activation.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the back rooms are intact but not the way in.",
+     "detail": "Check the back rooms are intact but not the way in. The Technical Ability back door should still work, the storage rooms should hold no bodies or gig props, and the kitchen window route should read as normal bar clutter.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_arr_11",
+   "name": "6th Street Hideout, Megabuilding H6 (19F)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_11",
+   "pos": [
+    -204.26,
+    -845.31,
+    259.69
+   ],
+   "radius": 46.6,
+   "expected_records": [
+    "Character.CorpoManBraindance",
+    "Character.sts_std_arr_11_6thStreet_ganger",
+    "Character.sts_std_arr_11_6thStreet_ganger_netrunner",
+    "Character.sts_std_arr_11_lucius",
+    "Character.sts_std_arr_11_officer",
+    "Character.sts_std_arr_11_shotgunner"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #arr_11_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the 19th-floor hideout is occupied and calm when you arrive.",
+     "detail": "Check the 19th-floor hideout is occupied and calm when you arrive. Expect eleven 6th Street gangers plus their netrunner at posts (smoking, searching shelves, at the netrunner chair) and Lucius Thoran working a tablet, none hostile.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from the 19th-floor lift lobby and check the hideout door opens without the gig.",
+     "detail": "Walk in from the 19th-floor lift lobby and check the hideout door opens without the gig. Muamar's door code never reaches V in our timeline; if the door is closed with no keypad, quickhack or skill prompt, it needs a door-scope entry or a placed code.",
+     "source": "open question"
+    },
+    {
+     "label": "Ride the Megabuilding H6 lift to 19 and confirm it is reachable in normal play.",
+     "detail": "Ride the Megabuilding H6 lift to 19 and confirm it is reachable in normal play. Check the lift terminal and that floor 19 is selectable.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the neighbour across the hall is home.",
+     "detail": "Check the neighbour across the hall is home. Character.CorpoManBraindance should be sitting on his couch in a braindance, not missing or standing idle.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the stealth route into the hideout still works.",
+     "detail": "Check the stealth route into the hideout still works. The wiki describes a Body/Technical Ability route through the abandoned rooms to the right; identify the door or window it uses and confirm it is passable.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the hideout's computers are live.",
+     "detail": "Confirm the hideout's computers are live. The blueprints computer and the netrunner terminal should be powered and interactive, not in the gig's unpowered sabotage state.",
      "source": "open question"
     }
    ]
@@ -6026,6 +6559,79 @@
      "label": "Vanilla supplies no civilian club crowd here, so the venue's population is the six Animal entries plus two warehouse posts; the owner may want fewe...",
      "detail": "Vanilla supplies no civilian club crowd here, so the venue's population is the six Animal entries plus two warehouse posts; the owner may want fewer guards or an added civilian community if the club should read as a public venue.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (694, -639, 10), about 170 m from this stop.",
+     "detail": "Go to (694, -639, 10), about 170 m from this stop. Container Freight Station bay (Panam's q103 meeting point): it reads as an ordinary freight bay, with no Panam, car or meeting dressing. Wave 12: nothing to restore, so no venue entry.",
+     "source": "extra"
+    }
+   ]
+  },
+  {
+   "code": "sts_wbr_hil_01",
+   "name": "Gutierrezes' Apartment (Charter Hill)",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_hil_01",
+   "pos": [
+    4.23,
+    15.6,
+    134.84
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CitizenRichMale",
+    "Character.CorpoMan",
+    "Character.CorpoWoman",
+    "Character.sts_wbr_hil_01_droid_security",
+    "Character.sts_wbr_hil_01_drone_security",
+    "Character.sts_wbr_hil_01_enemy_security"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #hil_01_com_enemies (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #hil_01_com_drone (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Ride the lobby lift to the penthouse floor.",
+     "detail": "Ride the lobby lift to the penthouse floor. Check that the ground-floor terminal reaches the top floor without the gig's elevator authorisation; if the floor is refused, the apartment is unreachable and lift access needs a fix.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk into the penthouse and watch the security.",
+     "detail": "Walk into the penthouse and watch the security. Check whether the laser gates, turrets and alarm stay disarmed (or can be reset at the office computer) instead of turning the flat into a firefight.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the lobby level.",
+     "detail": "Look at the lobby level. Check the four open-world regulars and the five always-on patrons do not overlap on the same seats or block the lift and the front door.",
+     "source": "open question"
+    },
+    {
+     "label": "Look around the restored flat.",
+     "detail": "Look around the restored flat. Check the interior is furnished (rooms, rooftop terrace, office computer), not an empty shell; the whole interior comes from the gig prefab.",
+     "source": "open question"
     }
    ]
   },
@@ -6086,6 +6692,11 @@
      "label": "Guard attitude on sight is expected to be hostile to a trespasser; tour should record whether the gate sentry and patrols are alert or merely stand...",
      "detail": "Guard attitude on sight is expected to be hostile to a trespasser; tour should record whether the gate sentry and patrols are alert or merely standing, so the stop does not flag ALERT/HOSTILE if the owner wants a neutral curtilage.",
      "source": "open question"
+    },
+    {
+     "label": "Go to (175, 560, 117), about 508 m from this stop.",
+     "detail": "Go to (175, 560, 117), about 508 m from this stop. Columbarium (q204): both mourner crowds are present on a fresh boot (#q204_columbarium_com from the kept North Oak phase; #q204_columbarium_new_com starts active). Wave 12: nothing to restore, so no venue entry. If it is empty, owner call: re-activate #q204_columbarium_com.",
+     "source": "extra"
     }
    ]
   },

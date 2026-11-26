@@ -1,0 +1,95 @@
+{
+  "code": "sts_ep1_12",
+  "display_name": "Luxor High Wellness Spa — Voodoo Boys base (Luxor Heights, Dogtown)",
+  "why": "The Luxor High Wellness Spa is the never-opened Biotechnica ziggurat on Andrew Jackson St. in Luxor Heights, taken over as a Voodoo Boys base: Milko Alexis's group holds the north wing and the pool/droid hall, with a networked server room behind glass. The gig Treating Symptoms, its Corpo of the Month stash and the south-side criminal activity are the only vanilla reasons anyone is there, so in the clean slate the building stands empty. This proposal restores the ordinary occupation: the standing guard garrison on its reception, hall, wing, office and outside posts; Milko jacked into his netrunner chair with the undercover NetWatch agent Alan Noël at the next terminal; and the droid hall's security androids on standby, with the interior variant states set to the intact pre-story look.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_12/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in through the atrium glass doors: the spa interior should be there and intact — lobby, reception, wings, pool/droid hall and server room. The interior loads only because the kept vanilla bugfixing phase instantiates #sts_ep1_12_streetstory_quest_prefab; if the building is hollow, that prefab owner must be reworked before this venue can work.",
+      "Check the guard posts: the reception, upper reception, main hall, wing, office, changing-room and outside guards should stand or kneel at routine posts (tablet, phone, inspect), never crouch in cover or aim down sights.",
+      "Check Milko Alexis: he should be lying jacked into the netrunner chair in the final room, not standing idle, floating or T-posed, and his chair should be the one his marker names.",
+      "Check Alan Noël: he should stand at the netrunner keyboard/terminal near Milko, typing, not in a combat crouch and not sharing Milko's chair.",
+      "Check the droid hall: the security androids should read as dormant standby (guard__droid_disable, android hang-around), not all snap to hostile the moment the player enters the pool hall; if they do, cut the droids_den community.",
+      "Check the interior wall where the gig opens its emergency-exit hole: with hole_blockade 1 it should be an intact wall, and no grey blockout boxes or yellow route paint should be visible.",
+      "Check the courier's pickup and the base drone that come with the whole combat_com activation: if the pickup clips into the lobby or sits across the entrance, re-activate the guard entries one by one instead of the whole community.",
+      "Check the south wing: Ayo Zarin's group belongs to the separate Increased Criminal Activity venue (we_ep1_05) — confirm that venue covers the south side so the spa does not feel half-empty when approached from there."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_12_main_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The two named men the base exists for, in their only phase (default): Milko Alexis, the Voodoo Boys netrunner who runs the north wing, and Alan Noël, the undercover NetWatch agent riding his connection. Vanilla activates this community whole from the story phase; the spot markers in the venue's quest sector are sts_ep1_12_milko_alexis (generic__lie_netrunner_chair__netrun__01, i.e. jacked into the chair) and sts_ep1_12_alan_noel (q110__stand_netrunner_chair_keyboard__stand_around__01, standing at a keyboard). That is exactly the base's normal working state, not a scene.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The base's standing garrison in the community's only phase (default), activated whole exactly as vanilla's gameplay phase does: three netrunners (left wing down x2, right wing), nine gun guards on the reception, upper reception, main hall, left wing, office, changing room and outside posts, plus the base drone, the broken office android and the courier's parked pickup. The venue's quest-sector markers for these posts are all routine workspots (stand-ground tablet/phone, kneel inspect, stand device fix) rather than cover or aim spots, so the group reads as guards on post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_droids_den",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The pool/jacuzzi hall's security androids, including the heavy Robot R Mk.2 the Voodoo Boys keep: 22 guards plus the miniboss, in the community's only phase (default). This is the room's normal purpose — the wiki says the gang installs the implants it cannot dismantle into old combat robots and that one has proven useful. Their markers are guard__droid_disable (dormant guard stands) and generic__android__hang_around, i.e. standby, not a combat line. Priority rule 11a: this is the combat half of the base, so it comes before any civilian dressing.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_sts_ep1_12_prefabIXVVBAA/loc_sts_ep1_12_env_prefabAEZMMFA/loc_sts_ep1_12_decoration_prefabFI3KFVI/int_prefabYYHKWSA",
+      "states": {
+        "before_sts": 1,
+        "during_sts": 0,
+        "after_sts": 0,
+        "hole_blockade": 1
+      },
+      "why": "The interior decoration prefab carries the story states: the gig flips before_sts off (sts_ep1_12_phase) and the post-story world story flips after_sts on (wst_ep1_14). The intact, pre-story look is before_sts 1, during_sts 0, after_sts 0. hole_blockade 1 keeps the wall patch in place over the emergency-exit hole the gig opens; no_way_back is not named here, so it stays at its default."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_sts_ep1_12_prefabIXVVBAA/loc_sts_ep1_12_gameplay_prefabMBXAXII/loc_sts_ep1_12_devices_prefab5VP4ATI",
+      "states": {
+        "during_sts": 0
+      },
+      "why": "The devices prefab's during_sts variant is the gig's armed state (server overload / mission devices). The post-story world story holds it at 0 for the normal building, so 0 is the correct idle state for the server room and doors."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_sts_ep1_12_prefabIXVVBAA/loc_sts_ep1_12_env_prefabAEZMMFA/loc_sts_ep1_12_decoration_prefabFI3KFVI/ext_prefabYQEV6FI",
+      "states": {
+        "during_sts": 0
+      },
+      "why": "The exterior decoration's only variant is the gig dressing; the cleanup phase turns it off again for the normal exterior, so 0 keeps the approach looking like an ordinary occupied building rather than a mission set."
+    },
+    {
+      "prefab": "#loc_sts_ep1_12_blockout",
+      "states": {
+        "var_blockout": 0
+      },
+      "why": "The blockout prefab is the grey-box layout used to author the space; both the story and cleanup phases hold its var_blockout variant at 0 (hidden). Keep it hidden so the finished spa is what streams in."
+    },
+    {
+      "prefab": "#loc_sts_ep1_12_visual_guidance",
+      "states": {
+        "var_blockout": 0
+      },
+      "why": "The visual-guidance prefab paints the gig's intended route (the 'go this way' dressing); both story phases hold var_blockout at 0. Keep it off so the base is not signposted for an infiltration that never happens."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_sts_ep1_12_prefabIXVVBAA/loc_sts_ep1_12_gameplay_prefabMBXAXII/loc_sts_ep1_12_devices_prefab5VP4ATI/glass_door_k_prefab4XETOHQ/{glass_door_k}_prefabMBQENVY",
+    "within": 80.0,
+    "why": "The front glass door of the spa's atrium, the door the gig walks V through: vanilla's story phase force-opens and unlocks exactly this door (and its _001 leaf) to let V in. A real door entity in the building's always-loaded gameplay prefab, so it streams with the venue and fires the post-proximity re-activation as the player reaches the entrance."
+  }
+}

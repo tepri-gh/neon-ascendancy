@@ -13,6 +13,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 12 (first part): 6th Street's floor 19 in Megabuilding H6,
+  Jacked and Coke, Motel Kabuki, the Bennett alley, Tranquil Terrace, the
+  Luxor High Wellness Spa, the Coastview relay tower, Poppy Farm and the
+  Gutierrez penthouse.
 - Research wave 11 (first part): the Arasaka safe house (intact, empty),
   the Love Shack, Eva Cole's yacht party, the C-Team office, 7th Hell,
   Delamain HQ and the Brainporium. Second part: Yucca, the Chram Denya

@@ -182,3 +182,53 @@ the non-combat people. **(after tour)**
 57. **Longshore Stacks courtyard** (`sts_ep1_03_gunfight`). A plain chapel
     yard (proposed) or a permanent memorial for Jason Foreman? Briana Dolson
     as the Stacks' resident representative?
+
+## 7. Wave 12
+
+58. **Lift access (cross-venue).** The door policy never touches lifts
+    (playbook rule 13), so a floor that needs authorisation stays shut. It
+    matters at Dark Matter, the Peralez penthouse and the Gutierrez
+    penthouse. Extend the policy to authorise lift floors at venues, or
+    keep lifts vanilla?
+59. **Panam's freight bay** (`q103_meeting_point_panam`). Empty bay
+    (proposed) or stage Panam and her car there? Leave the yard to the
+    ambient crowd (proposed) or invent workers?
+60. **Megabuilding H6, floor 19** (`sts_std_arr_11`). A live 6th Street den
+    (proposed) or a sealed floor? Include the three-ganger reinforcement
+    wave? Lucius as the resident techie (proposed) or a generic netrunner?
+    Door policy (current) or a placed door code? Computers powered
+    (proposed) or the gig's sabotaged look?
+61. **Boat Drinks beach** (`sq028_beach`, excluded). Is the *Seamurai*
+    intact and part of the Gold Beach Marina yacht venue? Ambient people on
+    the beach later?
+62. **Columbarium** (`q204_columbarium`, nothing to restore). Arasaka
+    security, funeral staff or a vendor (all recommended no)? Re-activate
+    the crowd if the tour finds it empty?
+63. **Jacked and Coke** (`sts_hey_rey_08`). Karubo as the owner
+    (proposed)? All nine staff and regulars, or five? Padre's driver and
+    the reinforcement car stay out (proposed)?
+64. **Motel Kabuki** (`sts_wat_kab_08`). Keep the bouncer vanilla never
+    activates? Anna Hamill absent (proposed) or placed? The full 34 people,
+    or fewer civilians?
+65. **Bennett alley** (`mq304_bennett_meeting`). The driver and Thrax as an
+    everyday wait (proposed) or an empty alley? Show the clutter
+    (proposed) or vanilla's bare lane? A mod meeting or dead-drop site
+    later?
+66. **Tranquil Terrace** (`q304_songbird_meeting`). Songbird here at all
+    (proposed no)? Both gangs stay (proposed)? Keep the airdrop camp
+    populated permanently, even though vanilla despawns it?
+67. **Luxor High Wellness Spa** (`sts_ep1_12`). Milko and Alan Noël stay
+    (proposed)? All 22 androids plus the heavy, or fewer? Ayo Zarin's wing
+    stays with the `we_ep1_05` venue (proposed)? Accept the courier, drone
+    and broken android that come with the whole garrison (proposed)?
+68. **Night Corp tour trail** (`mq061`, excluded). Revive the Pacifica
+    hazmat camp or the Med Center medics (both recommended no)? Author a
+    Night Corp investor tour later?
+69. **Coastview relay tower** (`q110_surroundings`). A six-man Voodoo Boys
+    watch (proposed), the initial pair, or only ambient people? Kids stay
+    with the Arroyo venue, or a Coastview kid crowd?
+70. **Poppy Farm** (`sq021_farm_wrong`). A Wraith garrison (proposed) or
+    abandoned? All ten, or fewer? Smuggled-goods content later?
+71. **Gutierrez penthouse** (`sts_wbr_hil_01`). Owners absent (no vanilla
+    data) or add them? Alarm, turrets and gates armed or calmed? The
+    penthouse floor open to all, or resident-only (see 58)?

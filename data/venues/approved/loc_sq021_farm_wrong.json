@@ -1,0 +1,35 @@
+{
+  "code": "sq021_farm_wrong",
+  "display_name": "Poppy Farm",
+  "why": "Poppy Farm is an abandoned Biotechnica poppy farmstead on Turri Rd. in the southeastern Badlands, near the Laguna Bend Reservoir (the nearest fast-travel dataterm calls it 'Lake Farm'). By the 2070s it looks abandoned but the Wraiths use it as a stash for equipment bound for the South California border. Vanilla only spawns the farm's ten-Wraith band during The Hunt's wrong-farm branch, so in the clean slate the farmyard is empty. This proposal restores that garrison in its ambient start phase, so the farm reads as a live Wraith camp again.",
+  "source": {
+    "proposal": "research/loc_sq021_farm_wrong/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand in the Poppy Farm farmyard and confirm ten Wraiths are there and calm. Five of the ten AI spots have no workspot, so watch whether they stand idle or in a combat-ready pose; mark any that look alerted.",
+      "Walk into the barn and the farmhouse at Poppy Farm and confirm both are reachable in the clean slate. The venue has no door device in its sectors, but the vanilla wrong-farm branch has a 'find a way into the barn' objective, so check nothing is sealed.",
+      "Approach Poppy Farm along Turri Rd. and confirm the proximity re-issue fires. The anchor is the Wraiths' invisible virtual access point, so verify the community is present after arriving, not only at boot."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#sq021_com_wrong_farm_wraiths",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation turns on all ten Wraith entries in their only phase, start: standing around the farmyard, leaning on a wall and scavenging parts. That is the farm's normal occupation in our timeline (a guarded equipment stash), and vanilla only uses them for the wrong-farm fight, so nothing else would ever put them there. Combat group kept first per rule 11a.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq021_dvc_wraiths_ap",
+    "within": 80.0,
+    "why": "The only device at Poppy Farm: a worldDeviceNode named {sq021_dvc_wraiths_ap} at 862,-3621,182, about 20 m from the Wraith spots, using virtual_accesspoint.ent with a CommunityProxyPS connection to #sq021_com_wrong_farm_wraiths. It sits in the always-loaded exterior_13_-57_2_0 sector, so it is a real, streamed device at the venue (not a workspot), unlike the catalogue's sq021 devices, which are all venue_inferred doors at Joss's trailer park or Edgewood Farm."
+  }
+}
