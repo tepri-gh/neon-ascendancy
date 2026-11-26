@@ -42,6 +42,10 @@
   ],
   "doors": [],
   "door_exclusions": [],
+  "tour_stop": {
+    "position": [-1836.43, -4281.34, 74.23],
+    "source": "{loc_q104_gas_station_ws_homeless_}_002 in exterior_-15_-34_0_1.streamingsector"
+  },
   "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
   "proximity_wait": {
     "ref": "$/03_night_city/se5/loc_q104_gas_station_prefabHHXSKEQ/loc_q104_gas_station_gameplay_prefabDBGQ7JI/#loc_q104_gas_station_devices/single_door_glass_001_prefabCM4JFUI/single_door_glass_prefab4C5I4AQ",

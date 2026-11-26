@@ -46,6 +46,10 @@
   ],
   "doors": [],
   "door_exclusions": [],
+  "tour_stop": {
+    "position": [-198.26, -2042.61, 7.72],
+    "source": "#sq023_spwn_rest_v_car in exterior_-4_-32_0_0.streamingsector"
+  },
   "proximity_wait": {
     "ref": "$/03_night_city/#c_santo_domingo/rancho_coronado/#loc_sq023_resturant/loc_sq023_resturant_gameplay_prefabCHZWDVQ/#loc_sq023_resturant_devices/tv_1_prefabW7D5MMA/#tv_1_q003",
     "within": 80.0,

@@ -28,6 +28,10 @@
   ],
   "doors": [],
   "door_exclusions": [],
+  "tour_stop": {
+    "position": [-1204.21, 2041.82, 7.9],
+    "source": "{wat_kab_ws_gun_trainer_01_client}_003 in exterior_-10_15_0_1.streamingsector"
+  },
   "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
   "proximity_wait": {
     "ref": "#q001_exercise_access_point",

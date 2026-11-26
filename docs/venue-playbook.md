@@ -332,9 +332,12 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
 
 - **Stops** come from `tools/venue-proposals.py tour-stops`. It writes
   `tools/probes/tour_stops.json` and `.lua` with every hand-built and approved
-  venue: position (median of its people's spots, else its anchor device),
-  scan radius, and the character records the tour should find. Regenerate
-  after every approval wave.
+  venue with a known position, plus the scan radius and expected characters.
+  Approved entries use the catalogue key from their filename because short
+  refs can recur at unrelated venues. The generator uses the people's spots
+  or the anchor device. To use a safer arrival point or fill a missing
+  position, set `tour_stop.position` and record its vanilla node and sector in
+  `tour_stop.source`. Regenerate after every approval wave.
 - **Tour** (hotkeys "Neon: tour start/resume", "Neon: tour skip stop",
   "Neon: tour stop"; console `p.tour_start("code")`). It teleports to each
   stop, waits 20 s for streaming, then writes one JSON line per stop to

@@ -520,18 +520,20 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
     spots), a scan radius and the character records the tour should find."""
     cat = load_catalog(a.venues)
     spec = json.loads((CLEAN / "venue_phases.json").read_text(encoding="utf-8"))
-    entries = [("hand-built", v) for v in spec["venues"]]
-    entries += [("approved", json.loads(p.read_text(encoding="utf-8"))) for p in sorted(APPROVED.glob("*.json"))]
+    entries = [("hand-built", None, v) for v in spec["venues"]]
+    entries += [("approved", p.stem, json.loads(p.read_text(encoding="utf-8")))
+                for p in sorted(APPROVED.glob("*.json"))]
     stops = []
-    for kind, e in entries:
-        refs = set(REF.findall(json.dumps(e)))
-        # The catalogue venue this entry belongs to: most shared refs.
-        best, score = None, 0
-        for vn, v in cat.items():
-            items = v["prefabs"] + v["communities"] + v["spawn_sets"] + v["devices"]
-            n = sum(1 for it in items if it.get("ref") in refs or it.get("path") in refs)
-            if n > score:
-                best, score = vn, n
+    for kind, best, e in entries:
+        if best not in cat:
+            # Hand-built entries have no catalogue key. Match their refs.
+            refs = set(REF.findall(json.dumps(e)))
+            best, score = None, 0
+            for vn, v in cat.items():
+                items = v["prefabs"] + v["communities"] + v["spawn_sets"] + v["devices"]
+                n = sum(1 for it in items if it.get("ref") in refs or it.get("path") in refs)
+                if n > score:
+                    best, score = vn, n
         if not best:
             continue
         v = cat[best]
@@ -544,6 +546,9 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
                 pts.append(o["spot_pos"])
             if hit and o.get("record") and o["role"] != "vehicle":
                 records.add(o["record"])
+        tour_stop = e.get("tour_stop")
+        if tour_stop:
+            pts = [tour_stop["position"]]
         if not pts:
             pts = [c["spot_pos"] for c in v["communities"] if c.get("spot_pos")]
         if not pts:

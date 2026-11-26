@@ -36,6 +36,10 @@
     }
   ],
   "variant_toggles": [],
+  "tour_stop": {
+    "position": [-75.11, -112.74, 110.57],
+    "source": "#sq006_tr_player_arrives in quest_b8368cae8bfb3795.streamingsector"
+  },
   "doors": [],
   "door_exclusions": [],
   "proximity_wait": {

@@ -332,6 +332,20 @@
    "spawn_sets": []
   },
   {
+   "code": "q104_gas_station",
+   "name": "SovOil Fuel Station (Highway 101)",
+   "kind": "approved",
+   "venue": "loc_q104_gas_station",
+   "pos": [
+    -1836.43,
+    -4281.34,
+    74.23
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": []
+  },
+  {
    "code": "pr_stadium",
    "name": "EBM Petrochem Stadium (Dogtown black market and Barghest base)",
    "kind": "approved",
@@ -974,11 +988,11 @@
    "code": "wat_kab_gun_trainer_01",
    "name": "Straight Shooters (Kabuki weapon vendor and shooting range)",
    "kind": "approved",
-   "venue": "kabuki_service_points",
+   "venue": "loc_wat_kab_gun_trainer_01",
    "pos": [
-    -1178.28,
-    2039.12,
-    20.09
+    -1204.21,
+    2041.82,
+    7.9
    ],
    "radius": 40.0,
    "expected_records": [],
@@ -1009,6 +1023,29 @@
     "Character.sq031_maelstrom_strong_LMG",
     "Character.sq031_maelstrom_strong_shotgunner_elite",
     "Character.sq031_maelstrom_strong_shotgunner_lookout"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "sq023_resturant",
+   "name": "PieZ (Rancho Coronado pizza restaurant)",
+   "kind": "approved",
+   "venue": "loc_sq023_resturant",
+   "pos": [
+    -198.26,
+    -2042.61,
+    7.72
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.AldecaldosMale",
+    "Character.CitizenAldecaldosFemale",
+    "Character.CitizenAldecaldosMale",
+    "Character.VendorMale",
+    "Character.sq023_customers",
+    "Character.sq023_customers_man_a",
+    "Character.sq023_customers_man_b",
+    "Character.sq023_customers_woman_fat"
    ],
    "spawn_sets": []
   },
@@ -1060,6 +1097,23 @@
     "Character.mq062_yard_inmate_01"
    ],
    "spawn_sets": []
+  },
+  {
+   "code": "sq006_jefferson_residence",
+   "name": "Peralezes' Apartment (Charter Hill penthouse)",
+   "kind": "approved",
+   "venue": "loc_sq006_jefferson_residence",
+   "pos": [
+    -75.11,
+    -112.74,
+    110.57
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [
+    "#elizabeth_peralez",
+    "#jefferson_peralez"
+   ]
   },
   {
    "code": "q000_scavengers",
