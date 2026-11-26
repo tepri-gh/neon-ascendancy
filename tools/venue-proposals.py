@@ -100,6 +100,8 @@ def kept_vanilla_prefabs(venues_dir: Path) -> dict[str, str]:
         if r["phase"] in kept:
             for p in r.get("prefabs") or []:
                 out[p] = r["phase"]
+            for p in r.get("instance_prefabs") or []:
+                out.setdefault(p, "instance:" + r["phase"])
     return out
 
 
@@ -154,7 +156,14 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
             errs.append(f"prefab {ref}: not a quest prefab of this venue (use input.json 'prefabs')")
         for k, owner in kept.items():
             if ref == k or k.endswith("/" + ref) or ref.endswith("/" + k):
-                errs.append(f"prefab {ref}: already declared by kept vanilla phase {owner} (rule 2)")
+                if owner.startswith("instance:"):
+                    # A kept phase instantiates it per phase node, usually behind
+                    # a gate the clean slate never opens (q000_done); declaring it
+                    # again works then (cast layer precedent) but must be toured.
+                    warns.append(f"prefab {ref}: kept vanilla phase {owner[9:]} instantiates it on one of its "
+                                 f"phase nodes (often behind q000_done); tour-check for rule 2")
+                else:
+                    errs.append(f"prefab {ref}: already declared by kept vanilla phase {owner} (rule 2)")
         if ref in layers:
             errs.append(f"prefab {ref}: already used by {layers[ref]} (rule 2)")
 

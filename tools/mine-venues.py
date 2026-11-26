@@ -316,6 +316,14 @@ def _phase_items(path: Path, rel: str) -> dict:
             items["devices"].append({"ref": val(o.get("objectRef")), "controller": val(o.get("deviceControllerClass")),
                                      "action": val(o.get("deviceAction")),
                                      "props": {val(p["name"]): val(p.get("value")) for p in o.get("actionProperties") or []}})
+        elif t == "questPhaseNodeDefinition":
+            # A phase node instantiates these prefabs while it runs, in addition
+            # to the child phase's own phasePrefabs.
+            for e in o.get("phaseInstancePrefabs") or []:
+                e = val(e)
+                ref = val(e.get("prefabNodeRef")) if isinstance(e, dict) else None
+                if ref:
+                    items["instance_prefabs"].append(ref)
         elif t == "questTogglePrefabVariant_NodeType":
             for p in o.get("params") or []:
                 p = val(p)
@@ -469,8 +477,10 @@ def stage_catalog(a: argparse.Namespace) -> None:
                                         "communities": {}, "spawn_sets": {}, "devices": {}, "toggles": {}})
 
     def add(v: dict, kind: str, it: Any, ref: str | None, full: str | None, ph: str, inferred: bool) -> None:
-        if kind == "prefabs":
-            v["prefabs"].setdefault(full or ref, set()).add(ph)
+        if kind in ("prefabs", "instance_prefabs"):
+            e = v["prefabs"].setdefault(full or ref, {"owners": set(), "kinds": set()})
+            e["owners"].add(ph)
+            e["kinds"].add("phase" if kind == "prefabs" else "instance")
             return
         if kind == "communities":
             key = f"{full or ref}|{it['entry']}|{it['phase']}"
@@ -525,13 +535,13 @@ def stage_catalog(a: argparse.Namespace) -> None:
         quest = qm.group(1) if qm else stem
         resolved: list[tuple[str, Any, str | None, str, str]] = []
         pending: list[tuple[str, Any, str | None]] = []
-        for kind in ("prefabs", "communities", "spawn_sets", "devices", "toggles"):
+        for kind in ("prefabs", "instance_prefabs", "communities", "spawn_sets", "devices", "toggles"):
             for it in row.get(kind) or []:
                 if kind == "communities" and it.get("action") == "Deactivate":
                     continue  # switches people off; not a spawn
                 if kind == "communities" and it.get("phase") == "None" and it.get("entry") != "None":
                     continue  # entry reset without a phase; not a spawn
-                ref = it if kind == "prefabs" else it.get("ref")
+                ref = it if kind in ("prefabs", "instance_prefabs") else it.get("ref")
                 hits = [(full, venue_of(full)) for full in resolve(ref)]
                 hits = [(f, vn) for f, vn in hits if vn]
                 if hits:
@@ -577,7 +587,8 @@ def stage_catalog(a: argparse.Namespace) -> None:
             "venue": vn,
             "quests": sorted(v["quests"]),
             "phases": sorted(v["phases"]),
-            "prefabs": [{"path": p, "owners": sorted(o)} for p, o in sorted(v["prefabs"].items())],
+            "prefabs": [{"path": p, "owners": sorted(o["owners"]), "kinds": sorted(o["kinds"])}
+                        for p, o in sorted(v["prefabs"].items())],
             "communities": [plain(e) for _k, e in sorted(v["communities"].items())],
             "spawn_sets": [plain(e) for _k, e in sorted(v["spawn_sets"].items())],
             "devices": [plain(e) for _k, e in sorted(v["devices"].items())],

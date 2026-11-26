@@ -159,6 +159,12 @@ locations are listed in `AGENTS-LOCAL.md`.
 
 Extract the `.questphase` files from the base and EP1 archives, then
 `convert serialize` them to JSON. For a venue:
+- collect the prefabs it instantiates. A phase declares them in two places:
+  its own `phasePrefabs`, and `phaseInstancePrefabs` on each
+  `questPhaseNodeDefinition` in a parent graph (instantiated while that node
+  runs). Open-world sections such as `#loc_q000_border_crossing_openworld`
+  load the second way, often behind `q000_done`, which the clean slate never
+  sets. The catalogue marks each prefab's `kinds` (`phase`, `instance`);
 - collect every `questCommunityTemplate_NodeType`
   (`spawnerReference`, `communityEntryName`, `communityEntryPhaseName`,
   `action`);
