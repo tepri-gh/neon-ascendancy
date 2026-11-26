@@ -145,6 +145,16 @@ compatible without premature implementation:
   network. Store chunk traversal intervals in SQLite indexed by road chunk;
   when the player enters a road chunk during a vehicle's active time window,
   materialize the vehicle/escort in-world and hand off cleanly on exit.
+- **Street Racing System (planned):** a mod-owned street racing system to
+  replace vanilla's scripted Beast in Me races. Later, ambient AI races could
+  run on the road graph (`all.traffic_persistent` lanes, shared with the
+  Road-Chunk Vehicle Transit Ledger). Research on how vanilla handles
+  tracks, start and end points, racer AI and spawning:
+  [`research/street-racing.md`](research/street-racing.md). Not before the
+  core simulation (owner, 2026-11-26).
+- **New Venues (planned):** Club Atlantis and The Hammer as working 2077
+  venues. Vanilla only has them as memory sets. See
+  [`design/new-venues.md`](design/new-venues.md).
 - **Tier 2 Engine-Level Campaign Excision:** Optional WolvenKit + ArchiveXL
   custom New Game `.questphase` if Tier 1 runtime sanitization leaves any
   stubborn vanilla world triggers.
