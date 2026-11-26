@@ -337,7 +337,8 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   refs can recur at unrelated venues. The generator uses the people's spots
   or the anchor device. To use a safer arrival point or fill a missing
   position, set `tour_stop.position` and record its vanilla node and sector in
-  `tour_stop.source`. Regenerate after every approval wave.
+  `tour_stop.source`. Approval copies this field from the proposal into the
+  venue entry. Regenerate after every approval wave.
 - **Tour** (hotkeys "Neon: tour start/resume", "Neon: tour skip stop",
   "Neon: tour stop"; console `p.tour_start("code")`). It teleports to each
   stop, waits 20 s for streaming, then writes one JSON line per stop to

@@ -31,6 +31,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -186,6 +187,17 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
 
     if prop.get("venue") != vn:
         errs.append(f"venue field {prop.get('venue')!r} != {vn}")
+
+    if "tour_stop" in prop:
+        stop = prop["tour_stop"]
+        pos = stop.get("position") if isinstance(stop, dict) else None
+        source = stop.get("source") if isinstance(stop, dict) else None
+        if not isinstance(pos, list) or len(pos) != 3 or not all(
+            type(axis) is int or (type(axis) is float and math.isfinite(axis)) for axis in pos
+        ):
+            errs.append("tour_stop.position must contain three finite coordinates")
+        if not isinstance(source, str) or not source.strip():
+            errs.append("tour_stop.source must identify the vanilla node and sector")
 
     for p in prop.get("prefabs") or []:
         ref = p.get("ref", "")
@@ -350,6 +362,8 @@ def to_venue_entry(vn: str, prop: dict, within: float) -> dict:
     }
     if not entry["prefabs"]:
         entry["deferred_prefab_owner"] = "world streaming (the chosen people need no quest prefab)"
+    if "tour_stop" in prop:
+        entry["tour_stop"] = prop["tour_stop"]
     anchor = (prop.get("proximity_anchor") or {}).get("ref")
     if anchor:
         entry["proximity_wait"] = {"ref": anchor, "within": within,
