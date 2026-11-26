@@ -1,0 +1,77 @@
+{
+  "code": "q103_roadhouse",
+  "display_name": "Sunset Motel (Rocky Ridge roadhouse, Interstate 9)",
+  "why": "The Sunset Motel is the Badlands roadhouse on Interstate 9 where Panam takes V in Ghost Town: a bar with Noah behind the counter, rooms to rent, a parking lot, a garage and a neighbouring gun store. The location itself is open-world and already populated by the world's own roadhouse community (bikers, nomads, dwellers, mechanics and lot kids), and the cast layer already re-enables Noah's vendor. This proposal restores only the venue's own people that the clean slate loses: the 6th Street crew that uses the bar forecourt, seated in their relaxed idle workspots inside the quest bar section. Everything else is left to the open-world crowd, the door policy and the intact motel state.",
+  "source": {
+    "proposal": "research/loc_q103_roadhouse/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does instantiating #q103_pr_bar drag the q103 deal dressing into normal play (the drug package on the bar, scene markers, the 6th Street car spawner)? The workspots and community area live in that section, so it is the only way to host the crew; if a package, marker or car appears without the quest, drop the prefab and the three community entries with it.",
+      "Is Noah already standing behind the bar from the cast layer's vendor fact, and does the extra #bls_ina_se1_foodshop_01/q103_barman_start activation move or duplicate him? Both his world workspot (#bls_ina_se1_ws_foodshop_01) and the quest workspot (#q103_ws_barman_start) are at 1636,-800,53.8, so a move is invisible, but the tour must confirm exactly one barkeep.",
+      "Which states are actually cooked into #loc_q103_roadhouse_openworld and #loc_q103_roadhouse_devices? If the baked default is already garage_interior_area 0 / q112_interior 0 / q104_shutters 0, the two toggles are belt-and-braces; if the baked default is the quest state, they are the fix. The tour should look for a dressed garage, a dressed q112 room and closed room shutters.",
+      "The motel's gun store is #bls_ina_se1_gunsmith_01 (entry bls_ina_se1_gunsmith_01, phase default, spot 1678.9,-776.4 next to the lot, per the wiki's 'mobile gun store next to the lot'). It is not in this venue's spawn_sets and cast_and_hubs has no bls_ina_se1_gunsmith_01_default_on fact, unlike the SE1 foodshop and SE5 gunsmith. Is the weapon vendor therefore missing in the clean slate? If so it needs a vendor-fact or spawn-set pass outside this proposal's vocabulary.",
+      "The room behind #q103_panam_room_door may be furnished only by #q104_pr_motel (not proposed). If the unlocked room is bare, make the door a door_exclusion instead of leaving it to the policy.",
+      "Is a three-man 6th Street presence in the forecourt right for a pre-story world? The game itself uses 6th Street at this bar (Ghost Town), so it is vanilla-consistent, but 6th Street is a Santo Domingo gang and Red Peaks is Aldecaldo/Wraith country; if it reads wrong on the tour, the crew can be dropped and the world's own roadhouse crowd (19 biker/nomad/dweller entries) already fills the place."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/loc_q103_roadhouse_prefabDJ2ATWI/loc_q103_roadhouse_questdesign_prefabY6CKDUY/#q103_pr_bar"
+  ],
+  "communities": [
+    {
+      "spawner": "#q103_com_maelstrom_roadhouse",
+      "entry_name": "maelstrom1",
+      "phase_name": "q103_deal_start",
+      "action": "Activate",
+      "why": "A 6th Street member using the motel forecourt as a regular standing spot (generic__stand_ground__stand_around__03 at 1643.78,-763.85,49.95). Vanilla's own q103_deal_start phase is a relaxed, non-combat idle and no quest activates it in our timeline, so he simply stands around by the parked cars instead of staging the drug hand-off."
+    },
+    {
+      "spawner": "#q103_com_maelstrom_roadhouse",
+      "entry_name": "maelstrom3",
+      "phase_name": "q103_deal_start",
+      "action": "Activate",
+      "why": "Second 6th Street regular, leaning at the bar-side spot (generic__stand_bar_lean_back__stand_around__01 at 1643.58,-762.9,49.95). Deliberately activated in q103_deal_start rather than its catalogue initial phase #q103_sixth_examine_package, which has no resolved spot and an unknown posture."
+    },
+    {
+      "spawner": "#q103_com_maelstrom_roadhouse",
+      "entry_name": "maelstrom4",
+      "phase_name": "q103_deal_start",
+      "action": "Activate",
+      "why": "Third 6th Street regular, having a smoke at the lot edge (generic__stand_ground_cigarette__smoke__02 at 1645.1,-764.02,49.95). Three relaxed idlers are enough for the crew to read as patrons; the fourth entry is their car, which the lot does not need."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#bls_ina_se1_foodshop_01",
+      "entry_name": "bls_ina_se1_foodshop_01",
+      "phase_name": "q103_barman_start",
+      "why": "Noah, the motel's owner and barkeep, behind his counter (generic__stand_bar__work__01 at 1636.3,-799.6,53.8). The cast layer's bls_ina_se1_foodshop_01_default_on fact only unlocks his default vendor dialogue (default_dialogs 7/22); this activation pins his body at the bar workspot the venue's own quest uses, so the bar is staffed even if the vendor scene does not run. Same single-entry community, so it cannot double-spawn him.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q103_roadhouse_openworld",
+      "states": {
+        "garage_interior_area": 0,
+        "q112_interior": 0
+      },
+      "why": "Normal, un-staged motel: the garage interior is not dressed for Panam's car (sq027 sets 1; q104 and q202 set 0) and V's Search and Destroy hideout room is not dressed (q112_08_shotgun sets q112_interior 1 for its scene). Both 0 is the pre-story state vanilla itself applies, so the motel reads as an ordinary roadside business rather than a quest set."
+    },
+    {
+      "prefab": "#loc_q103_roadhouse_devices",
+      "states": {
+        "q104_shutters": 0
+      },
+      "why": "Room shutters open. q104_motel closes the motel-room shutters (1) for the Takemura interrogation and q104's top phase clears them (0) for normal play; our timeline never runs q104, so pinning 0 keeps the rooms shuttered-open and lets light and the doorway read normally."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q104_dvc_panam_garage_radio",
+    "within": 80.0,
+    "why": "The garage radio beside the motel lot is a RadioControllerPS device inside #loc_q103_roadhouse_devices, part of the location's always-streamed gameplay prefab (exterior_26_-12_0_0), so it exists whenever the venue streams and sits on the normal way in from Interstate 9. A device entity, not a workspot (rule 8)."
+  }
+}

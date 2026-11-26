@@ -1,0 +1,308 @@
+{
+  "code": "sts_ep1_06",
+  "display_name": "Heavy Hearts",
+  "why": "Heavy Hearts is the Egyptian-themed pyramid club in Dogtown's Golden Pacific: neutral ground and business salon for the district's elite, with a bar, dance floor, VIP booths, doll booths and Mr. Hands' backroom suite. Vanilla only fills it through quest-community phases (heavy_hearts.questphase and ep1_community) that the clean slate never runs, so the club stands empty. This proposal re-activates the club's own ambient community entries - staff and VIP patrons, the main-floor crowd, the entrance queue and the Barghest security detail - plus the two quest sections those spawners live in and the four variant states that make the club read as open for business.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The security entries use 'enemy_*_outside_sts' records with no spot map, so their stance is unknown: confirm on the tour that the bouncer and guards stand idle/non-hostile and do not open fire or aim, and that the netrunner stays at his post.",
+      "The #sts_ep1_06_com_civilians whole-community activation includes the two prosecutor/lawyer patrons and the doll-booth workers; check they are not frozen in a gig scene pose (prosecutor_002's initial phase is after_conversation).",
+      "The club's music/dancefloor lighting may come from #dancefloor_heavy_hearts (owned by dancefloors_ep1) or from monument_av_audio_prefabJNLTDZA's pyramid_music_default, neither of which is a toggle of this venue; confirm on the tour that the floor is lit and audible, otherwise add the missing prefab/toggle.",
+      "Mr. Hands: cast_and_hubs.json seats him on a #ws_mr_hands_default in the ne2 fixers prefab at world position ~6013/6115, while this venue also owns a #ws_mr_hands_default inside mr_hands_combat_zone_default_prefabPY55PSI at ~-1586/-2340 (his Heavy Hearts suite). If the owner wants him in the club, that is a cast-layer change, not a venue phase.",
+      "The wiki names Helen Wandoo (bartender) and Sarah Rossack (manager) but vanilla has no character records for them; they are covered only by generic waitress records.",
+      "Whether the terrace/rail and second-floor crowd entries picked here still read well once streamed; the crowd phases are single 'a' phase for all entries, so the exact room each entry lands in is only verified by the tour."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_streetstory",
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_combat"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_06_com_civilians",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The club's working staff and booth patrons in one vanilla whole-community activation: bartender (waitress/bar), fluff waitresses, technician, drug dealer and friend in the toilets, braindance and business guests in booths 3-4, doll-booth workers and VIP lounge lawyers. This is exactly what the ambient club phase switches on when no gig scene is running.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_01_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Main-floor patron: stands/leans at the bar or smokes in the crowd workspots."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_02_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Seated patron: chair with a bottle, or on the lounge couch with a drink."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_05_01",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Working girl on the floor doing the invite-steps workspot; the club's doll-booth trade is part of its normal look."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_06_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Business guest at the bar with a whisky, cheering at a chair or smoking."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_07_mb",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Heavy-set rich guest slouched in the big lounge chair or on a couch - the club's elite regulars."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_13_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Dance-floor regular: dance, drunk sway and dance-freak workspots keep the floor moving."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_14_m",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Barstool drinker at the long bar."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_15_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Patron smoking on the rail/ledge above the floor."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_16_arasaka_m",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Arasaka corporate guest celebrating with champagne in the lounge - Heavy Hearts is where the corps negotiate."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_17_corpo_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Corporate guest at a chair, drunk/cheering or checking her phone."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_18_rich_m",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Rich guest inspecting his nails in a lounge chair (deliberately idle, non-alert workspot)."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_19_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Booth patron with a glass, cheering and drinking on the couch."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_20_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Second barstool drinker/phone user at the bar."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_22_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Lounge card player: the 15-spot group around the games tables (cards, drinks, products)."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd",
+      "entry_name": "g_25_saj",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Regular sitting on the couch in the quieter back lounge."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "dynamic_female",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Guest waiting in the entrance area: smoke, phone call or thinking by the door."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "dynamic_male",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Second guest waiting at the entrance (same relaxed workspots as dynamic_female)."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "g_24_f",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Arasaka guest standing with arms crossed at the rope, waiting to be let in."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "g_24_m",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Older Arasaka guest leaning on his cane with a cigar, waiting at the entrance."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "g_24_quque_ma",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Businessman in the door queue, on his phone or standing with arms crossed."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_crowd_entrance",
+      "entry_name": "g_24_quque_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Businesswoman in the door queue, same relaxed queue workspots."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "barghest_male",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Off-duty Barghest soldier leaning at the bar, sitting on a couch or cleaning his gun - the club's uniformed clientele, built by vanilla as a 'no_reaction' ambient body."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "barghest_female",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Off-duty female Barghest soldier at the bar/couch, same relaxed no-reaction workspots."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "cops_male_001",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Off-duty NCPD officer having a whisky at the bar - Dogtown's neutral ground mixes cops, corps and gangsters."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "merc_big",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Hired muscle relaxing with his gun on the big couch."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "scav_female_002",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Tyger Claws guest drinking and dancing in headphones, checking herself in the mirror."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_combat_npcs",
+      "entry_name": "vb_male_001",
+      "phase_name": "deafult",
+      "action": "Activate",
+      "why": "Valentino guest cheering at a chair in the lounge."
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "bouncer",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The doorman at the Heavy Hearts entrance, on the normal way in; the club's security detail is part of what makes the venue read as operating.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "enemy_003",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Barghest guard posted inside the club on the ground floor.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "enemy_007",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second floor guard on the club's upper level.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "enemy_008",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The club's security netrunner (netrunners rank first per rule 11a) covering cameras and doors from the security room.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "enemy_010",
+      "phase_name": "vip_area",
+      "action": "Activate",
+      "why": "Barghest guard posted in the VIP area where the private booths and Mr. Hands' suite are.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_06_com_fake_barghest_guard",
+      "entry_name": "enemy_019",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Third floor guard, completing the standing cordon without the alarm-only 'additional' entries.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_lighting_prefabV7HVGDI",
+      "states": {
+        "heavy_heart_off": 0,
+        "heavy_heart_on": 1
+      },
+      "why": "Lights the club's heart sign; the ambient club phase switches it on for the open club and off for the gig's shut-down state."
+    },
+    {
+      "prefab": "#loc_sts_ep1_06_streetstory",
+      "states": {
+        "interior_trigger": 0
+      },
+      "why": "Keeps the street-story interior trigger off, i.e. no gig scene inside the booth area; vanilla's ambient club phase sets exactly this."
+    },
+    {
+      "prefab": "#loc_sts_ep1_06_audio",
+      "states": {
+        "loc_sts_ep1_amb_area_audio_npc_gun_parameter": 0
+      },
+      "why": "Calm club ambience: the street story raises this parameter to 1 for its gunfight and sets it back to 0, so 0 is the open-for-business value."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_env_prefabFLTIXAA/arch_prefabQHUFMAQ/int_prefabPRJ6J3A/arch_reception_prefabHZASQXA",
+      "states": {
+        "var_door_closed": 0,
+        "var_door_open": 1
+      },
+      "why": "The reception door is a baked mesh variant, not a device (playbook rule 14): the club's inner way in only exists with this toggle in the open state, which the ambient club phase and the post-gig cleanup both set."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sts_ep1_06_heavy_hearts_entrance_doors",
+    "within": 80.0,
+    "why": "The club's main double entrance doors, on the only way in and streamed with the venue; vanilla's ambient club phase enables and powers them, so they are a device that reliably streams in before the crowd needs re-issuing (rule 8)."
+  }
+}

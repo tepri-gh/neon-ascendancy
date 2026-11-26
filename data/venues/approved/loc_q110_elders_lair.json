@@ -1,0 +1,103 @@
+{
+  "code": "q110_elders_lair",
+  "display_name": "Voodoo Boys' Lair (Pacifica Serenity Bible Church basement and old maglev tunnel)",
+  "why": "Under the Pacifica Serenity Bible Church the Voodoo Boys broke into the unfinished basement and the old maglev tunnel and parked a maglev car as their netrunning centre and fallback shelter: the chair bank where the elders netrun, the chapel entrance they watch, and the crypt and tunnel corridor used for the emergency escape. Vanilla only ever loads the questdesign prefab for the q110 visit and the escape, so with the campaign off the lair is empty. This proposal declares the lair's building sections and populates them with the guard detail vanilla keeps on the chapel community and the five elders vanilla seats at the netrunner chairs, with both prefab variants set to their intact, non-escape state.",
+  "source": {
+    "proposal": "research/loc_q110_elders_lair/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Guard posture: no compiled community area node exists for #q110_com_voodoo_boys_chapel, so the workspot-to-entry binding is inferred from the q110_ws_chapel_voodoo_boys_* spots (relaxed leans/stand-arounds, plus one guard-rifle stand). Tour check needed; if any entry lands on the rifle pose, the venue still reads as a guarded lair.",
+      "The basement, gate and tunnel door entities are venue_inferred with no resolved path in the extracts, so they are outside the generated DoorScope and the runtime door policy cannot drive them. The tour must confirm the chapel basement door and the lair gate are not baked locked/sealed in the clean slate.",
+      "Brigitte (spawn set #voodoo_queen) has no non-quest lair workspot; decide with the chapel-of-the-black-madonna venue which proposal owns her so she is not placed twice.",
+      "Elder records are not in the community registry (the elders are a questSpawnSet, not a community), so their character records and exact count in the chair bank could not be confirmed; the count is fixed by the five spawn-set entries vanilla activates."
+    ]
+  },
+  "prefabs": [
+    "#q110_pr_elders_lair",
+    "#q110_pr_lair_escape"
+  ],
+  "communities": [
+    {
+      "spawner": "#q110_com_voodoo_boys_chapel",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the lair's guard detail: five Voodoo Boy soldiers whose initial phase q110_01_chapel is active=1, i.e. vanilla keeps them on permanently and only the escape deactivates them. Vanilla q110_08 activates exactly this community None/None; their workspots (sit on a car hood, cigarette, column lean, stand around) are idle guard poses, not combat scenes, but no community area node was mined so the pose binding needs a tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#q110_com_vdb_elders",
+      "entry_name": "q110_vdb_elder_1",
+      "phase_name": "q110_01_vdb_elders_maglev",
+      "why": "Elder 1 at the chair bank in the parked maglev car; q110_ws_vdb_elder_1_maglev is a stand-at-the-netrunner-chair-keyboard pose, and q110_08 seats all five elders here while the player is in the lair."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_vdb_elders",
+      "entry_name": "q110_vdb_elder_2",
+      "phase_name": "q110_01_vdb_elders_maglev",
+      "why": "Elder 2 at the seat row of the data fortress; q110_ws_vdb_elder_2_maglev is a stand-at-the-netrunner-chair-keyboard pose."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_vdb_elders",
+      "entry_name": "q110_vdb_elder_3",
+      "phase_name": "q110_01_vdb_elders_maglev",
+      "why": "Elder 3 standing with arms crossed over the chair bank; an idle council pose."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_vdb_elders",
+      "entry_name": "q110_vdb_elder_4",
+      "phase_name": "q110_01_vdb_elders_maglev",
+      "why": "Elder 4 sitting in one of the netrunner chairs; an idle seated pose."
+    },
+    {
+      "action": "Activate",
+      "reference": "#q110_com_vdb_elders",
+      "entry_name": "q110_vdb_elder_5",
+      "phase_name": "q110_01_vdb_elders_maglev",
+      "why": "Elder 5 standing with a tablet by Brigitte's chair; an idle reading pose that gives the lair its working council look."
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q110_elders_lair_devices",
+      "states": {
+        "var_projectors_no_hacks": 1,
+        "var_projectors_hacks": 0
+      },
+      "why": "Intact, non-escape projector variant: the normal visit phases drive the no_hacks projector devices (and switch them off), while var_projectors_hacks=1 is only set when the escape needs hackable projectors as a distraction."
+    },
+    {
+      "prefab": "#loc_q110_elders_lair_gameplay",
+      "states": {
+        "var_crates_blocker": 1
+      },
+      "why": "Keep the stacked-crates blocker in place, which is the state q110_08 and the q110 bugfix phase set for a normal visit; the escape alone clears it (0) so the player can squeeze through, so restoring 1 keeps the lair intact and does not block the normal route."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#q108_dvc_door_to_soulkiller",
+      "why": "Behind it is the q108 memory/cyberspace room (the 2013 Arasaka Tower and Alt/Soulkiller setup), not a physical room in our timeline; q108_06_tower only ever ForceDisables it, so leave it exactly vanilla."
+    },
+    {
+      "ref": "#q110_dvc_church_crypt_hidden_entrance",
+      "why": "The secret crypt hatch is opened only for the q110 escape; keeping it vanilla preserves the Voodoo Boys' hidden fallback shelter instead of exposing a route that only exists for the escape scene."
+    },
+    {
+      "ref": "#q110_dvc_chapel_shutters_02",
+      "why": "Escape barricade shutters that vanilla force-closes and seals while the player flees the chapel; opening them would leave the chapel front gaping, so keep them as baked."
+    }
+  ],
+  "proximity_wait": {
+    "ref": "#q110_dvc_chapel_door_to_basment",
+    "within": 80.0,
+    "why": "The chapel's basement door is the entity every route from the chapel down into the lair passes through, so the proximity wait arms exactly when the player is about to see the lair; it is a DoorControllerPS from the venue's device list, not a workspot (rule 8)."
+  }
+}

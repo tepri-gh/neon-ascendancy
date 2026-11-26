@@ -1,0 +1,87 @@
+{
+  "code": "q110_chapel_of_the_black_madonna",
+  "display_name": "Pacifica Serenity Bible Church (Chapel of the Black Madonna)",
+  "why": "The Pacifica Serenity Bible Church is a half-finished brick chapel in Coastview that the Voodoo Boys use as a meeting place and as the cover for their netrunning den in the old maglev tunnel below. In vanilla it is only ever populated by the q110 sermon scene and is locked outside it. This proposal instantiates the chapel's sermon prefab, restores the six-person congregation and the preacher at the pulpit, and switches the audio, offerings, projector and lighting to the chapel's in-service look so the nave reads as a working church.",
+  "source": {
+    "proposal": "research/loc_q110_chapel_of_the_black_madonna/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Front-door access: vanilla only ever opens the chapel by quest (AuthorizationDisable in q110_persistent_content, AuthorizationEnable in q110_10_escape), and the data names no terminal, keycard, quickhack or skill check. Confirm in game that the runtime door policy enables and unlocks the double door. The sibling #q110_dvc_chapel_door_lcd_display_001/002 devices should be looked at in case one is an interactive terminal that the phase data does not drive.",
+      "Time gating: vanilla spawns the congregation only in the 08:00-18:00 window and blocks the door during the service; this proposal activates the community permanently, so the chapel will be full at 03:00. Decide whether a fact/time gate is wanted later.",
+      "Interior deco: q110_02_sermon sets #q110_pr_chapel_deco_int to combat_with_placide=1, regular=0, while q105 uses regular=1. I propose regular=1 as the intact look; if the tour shows the service dressing missing or escape props visible, compare the two states.",
+      "Lighting: the service state is var_funeral=1. Confirm it is the everyday ceremonial lighting rather than a one-off funeral setup; if it reads as a wake, use var_funeral=0 (and var_after_funeral=0).",
+      "Chapel security is on another venue record: the five Voodoo Boy soldiers of #q110_com_voodoo_boys_chapel (phase q110_01_chapel, initial-active=1) live under #q110_pr_elders_lair, so this proposal cannot activate them. If the nave needs visible guards, the loc_q110_elders_lair proposal should switch that whole community on.",
+      "Prefab ownership: #q110_pr_sermon is also declared by q110_03_butcher_shop and instantiated by q110_persistent_content. If the loc_q110_butcher_shop research later claims the same prefab, one venue must defer to the other (playbook rule 2).",
+      "The six-person community is the only congregation definition; the 45 q110_ws_chapel_crowd_* markers under the same prefab suggest a larger crowd system that no catalogue community maps to. If the nave looks sparse, the crowd markers are the place to look for a missing spawner."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/coastview/#loc_q110_chapel_of_the_black_madonna/loc_q110_chapel_of_the_black_madonna_questdesign_prefab5FVOKWI/#q110_pr_sermon"
+  ],
+  "communities": [
+    {
+      "spawner": "#q110_com_sermon_faithfull",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The chapel congregation: six Creole locals (faithfull_female, faithfull_male, faithfull_male_big and three inside worshippers), all in their only phase q110_01_sermon, on church pray spots and stand-arounds. Vanilla activates the whole community from q110_02_sermon during the 08:00-18:00 service window; outside the quest nobody switches it on. A service in progress is the church's normal daytime use, not a quest-only state."
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#q110_com_sermon_contact",
+      "entry_name": "sermon_leader",
+      "phase_name": "q110_01_sermon",
+      "why": "The preacher at the pulpit: Character.q110_sermon_leader, whose only phase is q110_01_sermon and whose spot is generic__stand_ground_pulpit__lean__01. He is chapel staff rather than a story character, and his pulpit lean is the anchor that makes the congregation read as a service instead of idle loiterers."
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q110_chapel_of_the_black_madonna_audio",
+      "states": {
+        "loc_q110_chapel_of_the_black_madonna_audio_ceremony_crowd": 1
+      },
+      "why": "Switches on the ceremony crowd soundscape so the nave sounds occupied while the congregation and preacher are present. Vanilla sets it for the sermon and never turns it back off."
+    },
+    {
+      "prefab": "#q110_pr_chapel_deco_int",
+      "states": {
+        "braindance": 0,
+        "combat_with_placide": 0,
+        "regular": 1
+      },
+      "why": "The regular interior dressing: no braindance rig, no escape-combat layout. This is the state q105 uses when the chapel is entered as a plain building. Flagged in open_questions because the sermon phase sets combat_with_placide=1 instead; the tour should compare and, if the service dressing is missing, try combat_with_placide=1 / regular=0."
+    },
+    {
+      "prefab": "#loc_q110_chapel_of_the_black_madonna_env",
+      "states": {
+        "var_altar_offerings": 1
+      },
+      "why": "Puts the offerings on the altar, the offering state vanilla uses while a ceremony is running. Without it the altar reads as stripped and the congregation has nothing to pray at."
+    },
+    {
+      "prefab": "#loc_q110_chapel_of_the_black_madonna_fx",
+      "states": {
+        "projector_on": 1,
+        "projector_off": 0
+      },
+      "why": "Runs the chapel projector during the service, matching the sermon phase. Vanilla switches it off only when the quest leaves the chapel."
+    },
+    {
+      "prefab": "#loc_q110_chapel_of_the_black_madonna_lighting",
+      "states": {
+        "var_funeral": 1,
+        "var_after_funeral": 0
+      },
+      "why": "The dim service lighting vanilla uses while the chapel is full (q110_02_sermon sets var_funeral=1); the after-funeral clean-up state belongs to the post-service story and is left off. It only drives lighting, not funeral props, so no body or aftermath is introduced."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q110_dvc_chapel_front_door",
+    "within": 80.0,
+    "why": "The chapel's front double door, a DoorControllerPS in the always-loaded loc_q110_chapel_of_the_black_madonna_devices_prefab; it is the normal way in and streams with the venue. Using the door instead of a workspot satisfies rule 8 and fires when the player actually reaches the church."
+  }
+}

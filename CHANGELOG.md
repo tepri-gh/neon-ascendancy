@@ -8,6 +8,15 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Pilot research merged into hand-built venues as additions (owner: add
+  generously, the tour subtracts): Clouds, the Afterlife (patrons, tube
+  dancers, background crowd, Emmerick, Weyland, lights and music), Totentanz
+  (pre-quest crowd, guards, music and interior switches), and the Arasaka
+  Tower's working lobby and floor-33 office.
+- Research wave 3: the Raffen Shiv camp, the Arasaka industrial park
+  warehouse, the Elders' lair, the Chapel of the Black Madonna, the Sunset
+  Motel roadhouse, and Heavy Hearts (a Dogtown gig site, restored as an
+  ordinary club). Club Atlantis is excluded (closed in 2077).
 - Research wave 2 venues (dev venue gate): Lizzie's (switches, crowd), the
   Dogtown stadium (Barghest posts, market crowd, normal look), El Coyote
   Cojo, Judy's apartment (neighbours; flat kept locked), Riot, the Hill Park

@@ -1,0 +1,430 @@
+{
+  "code": "arasaka_tower",
+  "display_name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+  "why": "Arasaka's 620 m Night City headquarters on Corpo Plaza, in the timeline where nothing has been attacked: a public atrial lobby on floor 1 (reception, AIT security checkpoint, guard booths, elevator bank, restrooms, propaganda PA) and the floor-33 counter-intelligence suite where V worked in the corpo lifepath (open-plan bullpen, meeting room, Jenkins' office, AV garage). This proposal restores the two quest sets that own those interiors, their vanilla staff/visitor communities and the lobby's intact look, and leaves the restricted upper tower closed.",
+  "source": {
+    "proposal": "research/loc_arasaka_tower/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Floor-33 reachability: the counter-intelligence set is a detached 'fake floor'. Its own device names are q000_dvc_fake_jenkins_floor_fake_lift_terminal_00x and its sectors sit in cells interior_-45_* / -44_*, far from the lobby at interior_-21..-23, and vanilla reaches it only with LiftControllerPS/ForceTeleportToFloor (a scripted ride, not a door action). Confirm on the dev tour whether an enabled #q000_dvc_ara_tow_lift plus authorised floor terminals can actually deliver the player, or whether the owner must accept a populated-but-unreachable floor or add a ride.",
+      "Entrance: the lobby's street entrance has no device door in the extracted data (only architecture_prefabFDAU4EA and 15 corporate + 8 guard open-world crowd spawners in loc_arasaka_tower_openworld_prefab2NNNZJA). Verify in game that the front door is open in free roam and that the lobby is walkable before relying on it as the venue's front door.",
+      "Security gate: #q000_dvc_arasaka_lobby_security_gate_right is a GenericDeviceControllerPS and its catalogue path is unresolved. Verify it exists (it should be inside the q000_corpo_pr_01_security_gate sub-prefab), that it is unpowered by default, and that the venue spec can add GenericDeviceControllerPS to allowed_device_controllers so ForceON passes --check.",
+      "Lift seal: q000_corpo applies DoorControllerPS/ForceSeal to #q000_dvc_ara_tow_lift_door_001. ForceUnlock probably will not clear a seal; confirm and switch to ForceUnseal if the builder/owner allows it.",
+      "Community refs: #q000_corpo_com_arasaka_lobby has zero entries in the registry; the entries and spots live in #q000_corpo_com_arasaka_lobby_elevators (nested under #q000_corpo_pr_02_to_elevators). Vanilla's templates point at the parent area anyway. This proposal uses the nested refs that provably own the entries; if the runtime resolves entries only through the area tree, fall back to the parent ref.",
+      "Whole-community activation: #q000_corpo_com_arasaka_office_bg is activated by vanilla with empty entry/phase (all entries, initial phase) and is invisible to the catalogue. Confirm the builder supports a wildcard entry for that one item.",
+      "Mech exhibit: var_mech_exhibit is on during the prologue and off afterwards. Check on the tour that showing it permanently reads as lobby decor rather than as a left-over scene prop.",
+      "Prefab ownership: q000_corpo_02_lizzies_club also declares #q000_corpo_pr_arasaka_office, and cast_and_hubs was not read (brief). Re-check rule 2 at build time for both prefabs."
+    ],
+    "stripped": [
+      "door action #q000_dvc_arasaka_lobby_security_gate_right ForceON",
+      "door action #q000_dvc_ara_tow_lift ForceEnabled",
+      "door action #q000_dvc_ara_tow_lift_door_001 ForceUnlock"
+    ]
+  },
+  "prefabs": [
+    "#q000_corpo_pr_arasaka_lobby",
+    "#q000_corpo_pr_arasaka_office"
+  ],
+  "communities": [
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_05_reception",
+      "phase_name": "reception",
+      "action": "Activate",
+      "why": "Reception clerk behind the lobby desk; vanilla activates exactly this entry/phase in the prologue.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_security_01",
+      "phase_name": "reception",
+      "action": "Activate",
+      "why": "Second body at the reception desk (vanilla files it under a 'security' name but the record is a corporate). Vanilla activates it in the prologue.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_security_03",
+      "phase_name": "reception",
+      "action": "Activate",
+      "why": "Actual Arasaka guard at reception, standing at the reception workspot. Vanilla's guard template uses the broken 'arasaka_m_security_01_right_line/reception' (that entry only defines phase 'line'), so this existing 'reception' entry is the correct stand-in for the guard the wiki describes permanently at reception.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "lobby_security_booth_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Security booth guard, left booth.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "lobby_security_booth_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Security booth guard, right booth.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "lobby_corpo_patrol_01_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Walking lobby patrol guard. Vanilla never activates this phase (a relaxed, unactivated phase); the entry name says the role, so this is the one spot flagged for a tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_corporate_04_stocks_chat",
+      "phase_name": "stocks_chat",
+      "action": "Activate",
+      "why": "Two employees trading stock gossip by the elevators. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_08_stocks_chat",
+      "phase_name": "stocks_chat",
+      "action": "Activate",
+      "why": "Two employees trading stock gossip by the elevators. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_06_divorce_chat",
+      "phase_name": "divorce_chat",
+      "action": "Activate",
+      "why": "Two employees on the divorce rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_07_divorce_chat",
+      "phase_name": "divorce_chat",
+      "action": "Activate",
+      "why": "Two employees on the divorce rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_corporate_08_war_chat",
+      "phase_name": "war_chat",
+      "action": "Activate",
+      "why": "Two employees on the war/board rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_09_war_chat",
+      "phase_name": "war_chat",
+      "action": "Activate",
+      "why": "Two employees on the war/board rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_corporate_05_phone_chat",
+      "phase_name": "phone_chat",
+      "action": "Activate",
+      "why": "Employee on a personal call. Pair of callers; both bodies keep the atrium from feeling like a queue of statues.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_10_phone_chat",
+      "phase_name": "phone_chat",
+      "action": "Activate",
+      "why": "Employee on a personal call. Pair of callers; both bodies keep the atrium from feeling like a queue of statues.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_corporate_06_overdose_chat",
+      "phase_name": "overdose_chat",
+      "action": "Activate",
+      "why": "Two employees whispering about the overdose rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_f_corporate_07_overdose_chat",
+      "phase_name": "overdose_chat",
+      "action": "Activate",
+      "why": "Two employees whispering about the overdose rumour. Pair; vanilla activates both halves.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_16_meditate",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Employee using the lobby's quiet/meditation spot (no-reaction record, pure ambience).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_17_meditate",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second employee at the meditation spot.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_12_elevator_wait",
+      "phase_name": "wait",
+      "action": "Activate",
+      "why": "Employee waiting at the elevator bank.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "arasaka_m_corporate_13_elevator_wait",
+      "phase_name": "wait",
+      "action": "Activate",
+      "why": "Second employee waiting at the elevator bank.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "toilet_occupant_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Occupied stall in the public restroom off the lobby.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "toilet_occupant_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second occupied stall.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "propaganda_voice_lobby",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The lobby PA/announcer (invisible speaker record). The wiki describes this announcer as part of the normal lobby.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_elevators",
+      "entry_name": "propaganda_voice_lobby_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second lobby speaker/announcer position, giving the atrium its two-channel PA.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "corpo_bg_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Corporate woman in the atrium crowd (crowd record)."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "corpo_bg_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Corporate man in the atrium crowd (crowd record)."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "corpo_bg_catwalk_patroller_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Corporate patrolling the upper catwalk."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "corpo_bg_catwalk_patroller_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second catwalk patroller."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "security_gate_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Employee standing at the entrance scanner gate (corporate record, gate workspot)."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "security_gate_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Employee at the second scanner lane."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "security_gate_003",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Employee at the third scanner lane."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_lobby_crowd",
+      "entry_name": "security_gate_004",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Employee at the fourth scanner lane."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "jenkins",
+      "phase_name": "desk",
+      "action": "Activate",
+      "why": "Arthur Jenkins at his own desk (sitting workspot, relaxed). Vanilla stages him standing in the 'conference' phase for the prologue scene; 'desk' is the entry's other, never-activated phase and is the one that reads as him working. Tour check: confirm the desk workspot is where we want him and that he is not mid-holo-call.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "assistant",
+      "phase_name": "hall_waiting",
+      "action": "Activate",
+      "why": "Jenkins' assistant waiting in the antechamber with a tablet."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_05_front_desk",
+      "phase_name": "front_desk",
+      "action": "Activate",
+      "why": "Floor receptionist at the keyboard workspot."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_f_corporate_01_reception_chat",
+      "phase_name": "reception_chat",
+      "action": "Activate",
+      "why": "Pair at the floor reception."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_01_reception_chat",
+      "phase_name": "reception_chat",
+      "action": "Activate",
+      "why": "Pair at the floor reception."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_f_corporate_03_office_gossip",
+      "phase_name": "office_gossip",
+      "action": "Activate",
+      "why": "Office gossip by the desks."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_02_office_gossip",
+      "phase_name": "office_gossip",
+      "action": "Activate",
+      "why": "Office gossip by the desks."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_f_corporate_04_meeting_chat",
+      "phase_name": "meeting_chat",
+      "action": "Activate",
+      "why": "Counter-intel meeting room, one of three around the table."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_03_meeting_chat",
+      "phase_name": "meeting_chat",
+      "action": "Activate",
+      "why": "Counter-intel meeting room, second body."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_04_meeting_chat",
+      "phase_name": "meeting_chat",
+      "action": "Activate",
+      "why": "Counter-intel meeting room, third body."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_f_corporate_05_phone_chat",
+      "phase_name": "phone_chat",
+      "action": "Activate",
+      "why": "Employee on a call in the open-plan room."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_f_corporate_07_big_room",
+      "phase_name": "big_room",
+      "action": "Activate",
+      "why": "Employee at a desk in the big open-plan room."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "arasaka_m_corporate_07_big_room",
+      "phase_name": "big_room",
+      "action": "Activate",
+      "why": "Second employee in the big room."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "sampson",
+      "phase_name": "floor",
+      "action": "Activate",
+      "why": "Coworker standing on the office floor (Sampson's entry)."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "netrunner",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Floor netrunner in the netrunner chair (netrunner-den workspot)."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "hangar_security_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Guard in the counter-intel AV garage."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office",
+      "entry_name": "hangar_security_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second AV-garage guard."
+    },
+    {
+      "spawner": "#q000_corpo_com_arasaka_office_bg",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community background crowd for the open-plan counter-intel floor: 39 seated/standing corporate bodies with no-reaction records. Vanilla activates this community with an EMPTY entry name and EMPTY phase name (the catalogue drops that template type), which means 'all entries, initial phase'. The builder needs a wildcard; the phase is 'crowd'.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#q000_lobby_exposition_mech",
+      "states": {
+        "var_mech_exhibit": 1
+      },
+      "why": "The lobby's displayed mech: q000_corpo_01 shows it (var_mech_exhibit=1) for the prologue walk through the lobby, and only the wrapper turns it back off afterwards. Our world is 'before anything happened', so the prologue look is the right one; it also matches the wiki's Arasaka ACPA standing guard in the lobby."
+    },
+    {
+      "prefab": "#loc_arasaka_tower_audio",
+      "states": {
+        "lobby_crowd_and_ads": 1
+      },
+      "why": "Lobby crowd ambience and the ad/screens over the elevators, on by default and switched off only for q115's staged assault. Setting it to 1 makes the 'open for business' state explicit and guards against another phase leaving it muted."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q000_dvc_arasaka_lobby_security_gate_right",
+    "within": 80.0,
+    "why": "A device entity (the entrance scanner gate) inside #q000_corpo_pr_arasaka_lobby, i.e. exactly where a visitor first meets this venue, so the re-issue of lobby communities and the gate/lift device actions run when the player is actually at the checkpoint rather than at spawn."
+  }
+}

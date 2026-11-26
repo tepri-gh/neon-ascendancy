@@ -1,0 +1,127 @@
+{
+  "code": "q105_dollhouse_additions",
+  "display_name": "Clouds",
+  "why": "Clouds is the Tyger Claws' high-end dollhouse and nightclub on the 12th floor of Megabuilding H8 in Japantown: reception and the booth ring on the lower floor, the VIP lounge, bar and administration (locker room, security room, Woodman's office) above. This proposal restores it as a working club in the no-q105 timeline: the intact interior and devices, Woodman at his desk, the reception, staff and dolls, patrons on both floors, the bar running, hologram dancers, and relaxed Tyger Claws posts at the entrance, lift, main room, VIP door, staff area and security room.",
+  "source": {
+    "proposal": "research/loc_q105_dollhouse/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The receptionist: Clouds.wiki names Cheri Nowlin as receptionist, and vanilla addresses a character group q105_receptionist (it sets the group friendly in q105_dollhouse and neutral in the leave phase), but the catalogue has no receptionist community entry, spawn set or character record. Most likely she is a baked entity in #q105_pr_dollhouse (the reception workspot #q105_ws_dollhouse_floor_0_reception is in that prefab) and should appear when the prefab instantiates; confirm she is present and not hostile, since vanilla has to set her group attitude explicitly. If she is absent, the venue needs a small staff entry at that spot.",
+      "VIP access: #q105_dvc_dollhouse_door_vip is venue_inferred (no resolved path) and the only keycard is the quest-only VIP Token. Confirm the door's default lock/authorization and that the exterior-walkway/backroom-elevator route still works without q105; if both are quest-gated, add ForceUnlock for this one door.",
+      "Default lock states of the main, back, staff, storage and office doors: we only enable/power and leave locks vanilla. Vanilla force-locks the back door in the persistent phase but never force-locks the main entrance/inner doors, so the main path should be open; confirm on tour, and add ForceUnlock only if the main door is locked with no terminal/hack.",
+      "Lift: the club lift is left vanilla because vanilla never disables it for normal use and floor access comes from its floor terminals (rule 13). Confirm V can ride ground <-> Clouds without the quest's ForceTeleportToFloor; if the terminals are unpowered on a fresh world, the fix belongs on the terminals, not the LiftControllerPS.",
+      "var_closed=0: the state name and the fact that vanilla sets 0 when q105_01_active >= 1, then 1 on leaving, strongly suggest 0=open, but confirm the entrance sign/shutter is not reversed.",
+      "Guard start placements: most chosen guard start phases were never activated by vanilla (guard_vipentrance_01, guard_lift, commons_area_01, guard_viparea_01/02). Their catalogued spots are floor_0_guard_* / floor_1_guard_*, but the tour should confirm the posts are on the right floors and not inside sealed rooms.",
+      "cast_and_hubs was not read (forbidden by the brief). Check before wiring that it does not already own Woodman or any Clouds NPC (one prefab/one spawn-set owner).",
+      "Hologram and drone loops: ad_01/ad look like the normal advertising loops, but confirm the holograms are not stuck in a glitch state and the drone is ambient, not a quest-follow actor.",
+      "The interior's var_q105/var_sq026 variant is only ever set to var_sq026 by the sq026 path; the prefab default should be the base q105 dressing. Confirm the office/booths do not carry sq026 ambush props.",
+      "q105 story props: the devices/interior prefabs contain booth-11 blood (#q105_dollhouse_blood_02), Evelyn's jacket/locker, the schedule/calendar shards and the guards' chat/security-order props. They should be inert with the normal variant (the q105 phases that use them do not run), but the tour must confirm none of the aftermath dressing is visible in the working club; if it is, the venue needs the relevant prop/variant suppressed."
+    ],
+    "stripped": [
+      "door action #q105_dvc_dollhouse_door_main_entrance ForceEnabled",
+      "door action #q105_dvc_dollhouse_door_main_entrance ForcePower",
+      "door action #q105_dvc_dollhouse_door_main ForceEnabled",
+      "door action #q105_dvc_dollhouse_door_main ForcePower",
+      "door action #q105_dvc_dollhouse_door_back ForceEnabled",
+      "door action #q105_dvc_dollhouse_door_back ForcePower",
+      "door action #q105_dvc_dollhouse_door_stafflounge_01 ForceEnabled",
+      "door action #q105_dvc_dollhouse_door_stafflounge_01 ForcePower",
+      "prefabs: prefab #q105_pr_dollhouse: already used by venue_phases.json (rule 2)",
+      "communities: community #q105_com_dollhouse guest_hint_01/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse guest_hint_02/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse guest_leaving/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_guest_f_07/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_guest_m_05/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse business_customer/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse business_doll/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_doll_f_05/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_doll_f_06/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_doll_f_07/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_doll_m_01/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse gen_doll_m_09/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse employees_fem/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse employees_male/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse bar_barkeeper/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse bar_customer/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse vip_customer_f/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse vip_customer_m/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse dollhouse_hologram_01/ad_01: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse dollhouse_hologram_02/ad: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse drone/start: already activated by venue_phases.json:q105_dollhouse",
+      "communities: community #q105_com_dollhouse_combat guard_vipentrance_01/start: already activated by venue_phases.json:q105_dollhouse_staff",
+      "communities: community #q105_com_dollhouse_combat guard_lift/start: already activated by venue_phases.json:q105_dollhouse_staff",
+      "communities: community #q105_com_dollhouse_combat guard_viparea_03/start: already activated by venue_phases.json:q105_dollhouse_staff",
+      "communities: community #q105_com_dollhouse_combat guard_monitor_room_01/start: already activated by venue_phases.json:q105_dollhouse_staff",
+      "spawn_sets: spawn set #woodman: already placed by venue_phases.json"
+    ]
+  },
+  "prefabs": [
+    "#loc_pr_q105_dollhouse_devices"
+  ],
+  "communities": [
+    {
+      "spawner": "#q105_com_dollhouse_combat",
+      "entry_name": "commons_area_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Floor-0 main-room (commons) guard. Only the relaxed start phase exists; vanilla never activates it, so its spot needs a tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q105_com_dollhouse_combat",
+      "entry_name": "guard_viparea_01",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Floor-1 VIP patrol guard. The bar/end phases are the quest's post-interrogation positions; start is the normal patrol post.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q105_com_dollhouse_combat",
+      "entry_name": "guard_viparea_02",
+      "phase_name": "start",
+      "action": "Activate",
+      "why": "Floor-1 VIP door guard. Start is the door post; after_woodman uses an agitated patrol spot.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q105_dollhouse_lighting",
+      "states": {
+        "var_lights_safe": 1,
+        "var_lights_combat": 0
+      },
+      "why": "Normal club lighting. The reverse (safe=0, combat=1) is the red combat/lockdown lighting set by the persistent/combat branches."
+    },
+    {
+      "prefab": "#loc_pr_q105_dollhouse_interior",
+      "states": {
+        "var_decoration_normal": 1,
+        "var_decoration_destroyed": 0
+      },
+      "why": "Intact interior dressing. The destroyed variant is the post-combat state; the club should look undamaged."
+    },
+    {
+      "prefab": "#loc_pr_q105_dollhouse_devices",
+      "states": {
+        "var_closed": 0
+      },
+      "why": "Club open for business. Vanilla sets var_closed=0 when V arrives at Clouds and var_closed=1 for the closed/leave state; 0 keeps the entrance/lobby look open."
+    },
+    {
+      "prefab": "#loc_pr_q105_dollhouse_devices",
+      "states": {
+        "var_block_exit": 0
+      },
+      "why": "Clear the exit block used by the q105 leave sequence. 1 is the blocked state; 0 leaves the normal way out open."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q105_dvc_dollhouse_door_main_entrance",
+    "within": 80.0,
+    "why": "A device entity on the normal path into the club, inside #loc_pr_q105_dollhouse_devices. The boot pass activates the cast; the proximity re-issue fires when V reaches the 12th-floor entrance and the interior/devices have streamed. It is a door, not a workspot (playbook rule 8)."
+  }
+}

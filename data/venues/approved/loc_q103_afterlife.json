@@ -1,0 +1,274 @@
+{
+  "code": "q103_afterlife",
+  "display_name": "The Afterlife",
+  "why": "The Afterlife is Night City's legendary merc bar, built into a former morgue in Little China, Watson, and owned by fixer Rogue Amendiares. In vanilla it is unreachable and unpopulated outside quest scenes: its front doors are script-locked, its crowd communities are only switched on by q005/q115/q103, and its interior lights and dressing are set per quest. This proposal restores the bar as a normal open venue: the venue shell and Rogue's booth prefabs, the patron/tube/background communities, Claire and a second barman behind the bar, Rogue in her booth with Weyland beside her, Emmerick on the door and Nix in his den, the six venue doors the game itself force-enables at the end of q203, an unlocked front and back-room door, and house lights/music with the q115 heist dressing off.",
+  "source": {
+    "proposal": "research/loc_q103_afterlife/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Door default lock state is inferred, not seen: there is no lookat.log for this venue, so the front door and the back-room door are called 'locked by default' from vanilla's scripted ForceUnlock usage (q005_02_cab_ride) and from q203_cosmos force-enabling the six venue doors. A dev tour should confirm that ForceUnlock is actually needed and that ForceEnabled alone is enough for the four internal doors.",
+      "#afterlife_barman has no quest activation node in any extracted venue phase. The reference, entry name and phase q103_standing come from the community registry (spawn_set #afterlife_barman, spot 16276945532547179463 behind the bar). Tour-check that it resolves; if not, Claire alone staffs the bar.",
+      "The #afterlife_com activation is written as a whole-community activation (entry None / phase None), exactly as q115_03_afterlife does it. The registry entry lacks the bar_lockal_* / table_local_* entries that q005 also activates, so if the builder needs explicit entries, enumerate the 13 q005-phase entries listed in community_options instead.",
+      "Claire's and Nix's default spots are AI spot nodes inside #pr_claire_default / #pr_nix_default, which are declared by the kept default_dialogs phase rather than by a venue prefab. If default_dialogs is ever dropped, fall back to #sq031_pr_afterlife + sq031_barman_afterlife for Claire and #mq016_pr_afterlife + mq016_near_pc for Nix.",
+      "#lch_ncpd_com (two NCPD officers, Deactivate in wat_lch_phase) is unresolved in the registry and is not covered here. Since wat_lch_phase is dropped, those officers may stand outside the venue; a tour should check and, if present, deactivate them.",
+      "#lch_06_dvc_gate (ForceLock + ForceUnpower) and #lch_06_opening_doors (ForceLock) are Little China gates driven by the dropped wat_lch_phase. They are unresolved (no $/ path), so it is unknown whether they block the plaza approach to the Afterlife.",
+      "The q103 decoration variants (Q103_Table, q103_afterlife_deco_var) are left alone: q103_01 sets Q103_Table=0 / deco_var=1 on arrival, while the q103 root phase sets the opposite, so which is the 'no quest table' state needs a visual check. The lights/meshes/audio toggles cover the visible difference.",
+      "Panam is canonically seen in the Afterlife in Act 1; adding her is a product decision. Her #panam q103_panam_meeting_start spot is in the q103 prefab already declared here."
+    ],
+    "stripped": [
+      "door action #q103_dvc_door_afterlife_main ForceEnabled",
+      "door action #q103_dvc_door_afterlife_main ForcePower",
+      "door action #q103_dvc_door_afterlife_main ForceUnlock",
+      "door action #q005_dvc_afterlife_briefing_room_door ForceEnabled",
+      "door action #q005_dvc_afterlife_briefing_room_door ForcePower",
+      "door action #q005_dvc_afterlife_briefing_room_door ForceUnlock",
+      "door action #q103_dvc_door_afterlife_bar_double ForceEnabled",
+      "door action #q103_dvc_door_afterlife_bar_double ForcePower",
+      "door action #q103_dvc_door_afterlife_bar_left ForceEnabled",
+      "door action #q103_dvc_door_afterlife_bar_left ForcePower",
+      "door action #q103_dvc_door_afterlife_bar_right ForceEnabled",
+      "door action #q103_dvc_door_afterlife_bar_right ForcePower",
+      "door action #q103_dvc_door_afterlife_gate_wc ForceEnabled",
+      "door action #q103_dvc_door_afterlife_gate_wc ForcePower",
+      "door action #q103_dvc_door_afterlife_back_exit ForceEnabled",
+      "door action #q103_dvc_door_afterlife_back_exit ForcePower",
+      "prefabs: prefab $/03_night_city/c_watson/little_china/#loc_q103_afterlife/#loc_q103_afterlife_openworld: kept vanilla phase base/quest/main_quests/prologue/q005/afterlife/phases/q005_afterlife_phase.questphase already instantiates it in the clean slate (rule 2)",
+      "prefabs: prefab $/03_night_city/c_watson/little_china/#loc_q103_afterlife/loc_q103_afterlife_questdesign_prefabPGWI5FY/#q103_pr_afterlife: kept vanilla phase base/open_world/community/watson/little_china/wat_lch_phase.questphase already instantiates it in the clean slate (rule 2)",
+      "spawn_sets: spawn set #rogue: already placed by cast_and_hubs.json",
+      "spawn_sets: spawn set #claire claire/default: kept vanilla phase base/quest/default_dialogs.questphase already activates it",
+      "spawn_sets: spawn set #nix: already placed by cast_and_hubs.json",
+      "spawn_sets: spawn set #afterlife_barman afterlife_barman/q103_standing: vanilla never activates this"
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "cleaner",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "mercenary_03",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "mercenary_04",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "mercenary_big",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_020_01",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_020_02",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_021_01",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_021_02",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_023_01",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "ow_lch_chat_023_02",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "valentino_01",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "valentino_02",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#afterlife_com",
+      "entry_name": "valentino_03",
+      "phase_name": "q005",
+      "action": "Activate",
+      "why": "The bar's patron community: 13 entries in phase q005 with one resolved spot each (cleaner mopping, mercenaries standing/leaning/sitting, three Valentinos at a table, a corpo pair). q115_03 activates the whole community with entry None / phase None to fill the bar for a normal visit, so a whole-community activation is vanilla-proven and avoids enumerating entries. Every used workspot is an idle/lean/smoke/sit spot, and the catalogue posture is relaxed (no alert/combat/scene entries in this phase). (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_05",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_06",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_07",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_08",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_09",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_tube_dancers",
+      "entry_name": "dancer_10",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ten tube dancers on the bar's raised tubes, all in the single relaxed 'default' phase with one resolved spot each (z ~17.4-18.4, i.e. on the platforms). Vanilla only ever switched them on from the Little China open-world community phase (wat_lch_phase), which the clean-slate spec does not keep, so the venue loses them unless we re-issue the activation. (expanded from '*' to a relaxed phase)"
+    },
+    {
+      "spawner": "#q005_com_afterlife_background",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The venue's background crowd of 20 gang/merc/corpo entries, all phase q005. q005_afterlife_phase activates the whole community while the bar is open, which is the closest vanilla equivalent of 'the bar is busy'; it covers the entrance, stairs and lounge corners where #afterlife_com has no spots. It is a Background-type community with no resolved spot map, so how many bodies it actually places is unknown.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#emmerick",
+      "entry_name": "emmerick",
+      "phase_name": "q103_afterlife_entrance",
+      "why": "Emmerick Bronson, the bouncer, standing at the front door: spot (-1458.48, 1026.33, 16.79), roughly 1 m from where the q005 bodyguard-pose bouncer spot sits (-1459.11, 1026.18). Vanilla uses the q005 prefab for his bodyguard stance and the q103 prefab for his entrance pose; we take the q103 spot because the q005 prefab belongs to the Dex/T-Bug layer."
+    },
+    {
+      "action": "Activate",
+      "reference": "#weyland",
+      "entry_name": "weyland",
+      "phase_name": "q103_wayland_guard",
+      "why": "Crispin 'Squama' Weyland, Rogue's bodyguard, standing guard 4-5 m from her booth: spot (-1425.27, 1014.54, 16.91) with bodyguard__stand_ground__2h_front. Same guard stance as his q005 'guarding_rogue' spot, but authored in the q103 prefab, which we own."
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/#loc_q103_afterlife/#loc_q103_afterlife_lighting",
+      "states": {
+        "rouges_place_lights": 1,
+        "dexarea_lights": 1,
+        "tubes_light": 1,
+        "center_lights": 1,
+        "loungeA_lights": 1,
+        "loungeB_lights": 1,
+        "loungeC_lights": 1,
+        "bar_lights": 1,
+        "backroom_lights": 1,
+        "pooltable_lights": 1
+      },
+      "why": "All ten house lights on: Rogue's booth, Dex's back-room area, the tubes, centre, the three lounges, the bar, the back room and the pool table. Vanilla sets this exact set to 1 for the q115 'bar is open' sequence and the q115 bugfix phase restores it, so it is the lit, open-for-business look. Notably it lights the back room where Dex and T-Bug sit."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/#loc_q103_afterlife/#loc_q103_afterlife_env/loc_q103_afterlife_env_interior_prefabSF2KZIY/#loc_q103_afterlife_env_decoration",
+      "states": {
+        "_default_meshes": 1,
+        "_q115_meshes": 0
+      },
+      "why": "Normal interior dressing on, q115 heist dressing off. The q115 bugfix phase sets exactly this pair, which makes it the 'no heist set' baseline for the interior decoration prefab."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/little_china/#loc_q103_afterlife/#loc_q103_afterlife_audio",
+      "states": {
+        "default_music": 1,
+        "q005_custom_music": 0,
+        "q115_jazz_music": 0
+      },
+      "why": "House music on, quest-specific music off. q005_01_plan turns default_music on (custom music off) for a normal bar visit, q115 swaps in its jazz track for the heist and q203 restores default_music. The normal-open state is the house track."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q103_dvc_door_afterlife_main",
+    "within": 80.0,
+    "why": "A device entity (DoorControllerPS) at the venue's front door, where the player first arrives, streamed with the entrance sector. It is also one of the doors this phase acts on, so the proximity wait and the door leaf line up, and it avoids the workspot-anchor failure at Clouds (playbook rule 8)."
+  }
+}

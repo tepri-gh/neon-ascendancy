@@ -1,0 +1,273 @@
+{
+  "code": "sq011_totentanz",
+  "display_name": "Totentanz",
+  "why": "Totentanz is Maelstrom's club in Northside, Watson: a street-level lift, a guarded entrance, a bar, a lounge and a dancefloor. Vanilla only fills it through the sq011 side job and the Northside ambient phase, so it stands empty when those do not run. This proposal restores the intact interior, the pre-quest party crowd, the Maelstrom door crew and guard detail, the lift and entrance doors, and the normal club crowd/music variants.",
+  "source": {
+    "proposal": "research/loc_sq011_totentanz/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "DJ: the only DJ workspot in the venue (base\\workspots\\bar\\ground\\generic__stand_ground__dj__01.workspot at -1715.24, 2190.70, 88.23) belongs to #sq011_ws_tinitus_ma, with tinitus_mb/wa on cheer spots beside it. Those entries are in the quest crowd (#com_quest_totentanz, phase crowd), not the pre-quest crowd. Evidence: sectors quest_f273cd123be13fca.streamingsector refs under #loc_quest_totentanz/#sq011_ws_tinitus_*; embedded ws_loc_totentanz_quest activates them in the quest-crowd block. Confirm on the tour that tinitus_* is the club's regular DJ trio (and neutral) and not a quest-only scene; if it is scene-only, the venue needs another DJ source.",
+      "Bar staff: no bartender/barman community or workspot exists for this venue. The bar spots are patron-side only (generic__stand_bar_whisky__drink__01, sit_barstool, stand_bar_lean_*). Evidence: sectors spot list for #loc_pre_quest_totentanz; communities.json has no bartender entry for #com_pre_quest_totentanz/#com_quest_totentanz. The bar cannot be staffed from vanilla quest data — confirm whether a baked base-world vendor stands behind the bar, or accept an unattended bar.",
+      "Dancefloor and music facts: the dancefloor is run by the kept dancefloors.questphase — prefab #dancefloor_totentanz, scene base\\open_world\\scenes\\dancefloors\\dancefloor_totentanz.scene, trigger #dancefloor_tr_totentanz, fact totentanz_dancefloor_on. The scene starts only when the player is inside the trigger and no other NPC is in it. Evidence: dancefloors.questphase.json (phase id 50, pause on totentanz_dancefloor_on). Verify the dance floor animates in clean-slate; the crowd_party variant only covers ambience, not the scene.",
+      "Lift floor state: sq011_nancy hides floor 1 (HideFloor 1) and sq011_quest_bugfixes shows floors 0,1,2 (ShowFloor). This proposal only re-enables the lift and does not touch floors, assuming the prefab default shows all floors. If the tour finds a missing floor button, add ShowFloor 0/1/2.",
+      "Maelstrom neutrality: the venue has a security area node sq011_totentanz_security_area_dangerous and a security system sq011_totentanz_security_system (sectors exterior_-27_34_1_0.streamingsector device nodes). The mod's existing SAFE override should cover this; confirm the 14 #sq011_club_gangers guards and the door crew do not turn hostile. The guard spots also sit in sq011_totentanz_combat_prefabBKT425Q, so confirm that sub-prefab streams under #sq011_pr_totentanz in the default interior variant.",
+      "Prefab ownership/duplication: clean_slate_spec.json does not list wat_nid_phase or its embedded ws_loc_totentanz_quest.questphase among kept phases, so #loc_pre_quest_totentanz, #loc_quest_totentanz and #sq011_pr_totentanz are free. If the district community phase is later kept, it would declare #loc_pre_quest_totentanz/#loc_quest_totentanz again and the venue phase must drop them (rule 2). The embedded phase also reactivates pre_quest_IC_005_b; our Activate is idempotent.",
+      "Bouncer count: #totentanz_bouncer has a `default` phase and a `sq011_bouncer_elevator` phase with two distinct spots (elevator + side). Vanilla uses `default` in the open world and the quest uses sq011_bouncer_elevator. Only `default` is proposed; check on the tour whether a second bouncer at the side spot is wanted.",
+      "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is not documented; confirm it is the club ambience/party layer and not a quest-only mix."
+    ],
+    "stripped": [
+      "door action #sq011_dvc_door_sliding_totentanz_entrance ForceEnabled",
+      "door action #sq011_dvc_door_sliding_totentanz_entrance ForcePower",
+      "door action #sq011_club_doors ForceEnabled",
+      "door action #sq011_club_doors ForcePower",
+      "door action #sq011_dvc_lift_totentanz ForceEnabled",
+      "door action #sq011_dvc_lift_totentanz ForcePower",
+      "prefabs: prefab #loc_pre_quest_totentanz: kept vanilla phase base/open_world/community/watson/northside/phases/wat_nid_phase.questphase already instantiates it in the clean slate (rule 2)",
+      "prefabs: prefab #loc_quest_totentanz: kept vanilla phase base/open_world/community/watson/northside/phases/wat_nid_phase.questphase already instantiates it in the clean slate (rule 2)",
+      "communities: community #com_pre_quest_totentanz pre_quest_totentanz_crowd_f/pre_quest: posture alert (rule 9)",
+      "communities: community #sq011_club_gangers None/club_thug: no such entry phase in the catalogue",
+      "spawn_sets: spawn set #totentanz_bouncer: already placed by cast_and_hubs.json"
+    ]
+  },
+  "prefabs": [
+    "#sq011_pr_totentanz"
+  ],
+  "communities": [
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_freakfemale",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Party-crowd pool (dance, listen-to-music and cheer spots) on the pre-quest dancefloor; the club's dancers."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_gang",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Male half of the same party-crowd pool; keeps the floor mixed."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_gang_f",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Another party-crowd actor for the dancefloor."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_prostitues",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Party-crowd actor (nightlife/sex-worker record is a plain crowd body); fills the rail and dancefloor."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_stoopking",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Party-crowd actor; the pool includes cheer/dance and rail spots."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "crowd_stoopqueen",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Party-crowd actor; sixth (last) dancer in the pre-quest crowd pool."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_001_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Patron at the bar; activated in the vanilla pre-quest crowd block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_001_b",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Smoking patron on the floor; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_002_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Wall-leaning smoker; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_002_b",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Can-drinking patron; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_003_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Standing patron; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_004_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Rail smoker; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_005_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Maelstrom member on the couch; gang presence in the lounge, not a guard post."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_005_b",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Maelstrom member drinking on the couch; the only entry wat_nid_phase also activates directly."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_006_a",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Drinking patron; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_IC_006_b",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Rail smoker; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_first_floor_wa",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Barstool/music patron on the lower floor; same vanilla pre-quest block. Its male twin is excluded (alert posture)."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_security",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Maelstrom guard at ease (cleaning a gun, leaning, smoking) — the vanilla routine set, not a combat stance."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_totentanz_couch_mstrom",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Maelstrom member at the bar or dancing; makes the gang read as hosts, not only guards."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_totentanz_crowd_m",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Club-floor patron (tables, couch, drunk-friend synced spot); the pool also has drunk/puke spots, so the tour should confirm the draw."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_totentanz_fat",
+      "phase_name": "pre_quest",
+      "action": "Activate",
+      "why": "Seated smoking patron; same vanilla pre-quest block."
+    },
+    {
+      "spawner": "#com_pre_quest_totentanz",
+      "entry_name": "pre_quest_totentanz_room",
+      "phase_name": "crowd",
+      "action": "Activate",
+      "why": "Maelstrom in the back room, reading/leaning on the stairs. This entry's only phase is `crowd`, not `pre_quest`, so vanilla activates it with phase None; flagged for the tour.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq011_thugs",
+      "entry_name": "sq011_maelstrom_machete",
+      "phase_name": "sq011_dumdum",
+      "action": "Activate",
+      "why": "Door crew at the club entrance (the friendly Royce/DumDum path phase, not the trap); relaxed idle workspot, no combat stance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq011_thugs",
+      "entry_name": "sq011_maelstrom_rifle",
+      "phase_name": "sq011_dumdum",
+      "action": "Activate",
+      "why": "Second door guard, squatting for a smoke at the entrance.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq011_thugs",
+      "entry_name": "sq011_maelstrom_shotgun",
+      "phase_name": "sq011_dumdum",
+      "action": "Activate",
+      "why": "Third door guard, sitting on the entrance couch.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#com_quest_totentanz",
+      "entry_name": "sq011_tinitus_ma",
+      "phase_name": "crowd",
+      "action": "Activate",
+      "why": "The DJ: the only DJ workspot in the whole venue belongs to this entry, at the raised booth above the dancefloor. It lives in the quest-crowd community, so the identity and behaviour need a tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#com_quest_totentanz",
+      "entry_name": "sq011_tinitus_mb",
+      "phase_name": "crowd",
+      "action": "Activate",
+      "why": "Standing beside the DJ booth (cheer workspot) — DJ-booth crowd, same quest-crowd caveat.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#com_quest_totentanz",
+      "entry_name": "sq011_tinitus_wa",
+      "phase_name": "crowd",
+      "action": "Activate",
+      "why": "Third DJ-booth actor (cheer workspot); completes the booth trio.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq011_totentanz_gameplay",
+      "states": {
+        "var_interior_default": 1,
+        "var_interior_combat": 0
+      },
+      "why": "The intact, undamaged club interior. sq011_nancy sets exactly this pair; the bugfix phase switches to var_interior_combat=1 for the raid and back afterwards. The raid never happens in this timeline."
+    },
+    {
+      "prefab": "#loc_sq011_totentanz_audio",
+      "states": {
+        "music_default": 1,
+        "music_sq011": 0
+      },
+      "why": "Normal club music instead of the sq011 quest track."
+    },
+    {
+      "prefab": "#loc_sq011_totentanz_audio",
+      "states": {
+        "crowd_party": 1
+      },
+      "why": "The busy-club ambience layer; vanilla's ambient phase turns it on when the crowd arrives and off at cleanup. Our club is open for business."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq011_dvc_lift_totentanz",
+    "within": 80.0,
+    "why": "A device entity (not a workspot) sitting where every visitor arrives: the street-level lift that is the club's only way up. Vanilla drives the same lift from its ambient phase, so the anchor is streamed with the venue. It also matches the device leaf this proposal re-enables."
+  }
+}

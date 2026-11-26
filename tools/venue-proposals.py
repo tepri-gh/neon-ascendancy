@@ -350,6 +350,57 @@ def to_venue_entry(vn: str, prop: dict, within: float) -> dict:
     return entry
 
 
+def hand_built_codes() -> set[str]:
+    spec = json.loads((CLEAN / "venue_phases.json").read_text(encoding="utf-8"))
+    return {v["code"] for v in spec["venues"]}
+
+
+def strip_failing(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[str, str],
+                  acts: dict[tuple[str, str, str], str],
+                  kept_acts: dict[tuple[str, str, str], str]) -> tuple[dict, list[str]]:
+    """Drop each item the checker rejects on its own (overlaps with hand-built
+    venues or other layers, invented entries) and the door actions the runtime
+    policy now owns. Keeps every addition that passes. For merging research
+    into venues that already have a hand-built entry."""
+    out = {**prop, "doors": []}
+    dropped = [f"door action {d.get('ref')} {d.get('action')}" for d in prop.get("doors") or []]
+    # Pilot agents wrote '*' for "the whole community". Use the real
+    # whole-community form when vanilla activates it that way; otherwise
+    # expand to each entry's relaxed phase (vanilla-activated phases first).
+    comms = []
+    for c in prop.get("communities") or []:
+        if "*" not in (c.get("entry_name"), c.get("phase_name")):
+            comms.append(c)
+            continue
+        sp = c.get("spawner", "")
+        if any(e.get("whole_community") and ref_matches(sp, e) for e in v["communities"]):
+            comms.append({**c, "entry_name": "None", "phase_name": "None"})
+            continue
+        best: dict[str, dict] = {}
+        for o in v.get("community_options") or []:
+            if not ref_matches(sp, o) or o["posture"] != "relaxed":
+                continue
+            cur = best.get(o["entry"])
+            if cur is None or (o["activated"] and not cur["activated"]):
+                best[o["entry"]] = o
+        comms += [{**c, "entry_name": o["entry"], "phase_name": o["phase"],
+                   "why": (c.get("why") or "") + " (expanded from '*' to a relaxed phase)"} for o in best.values()]
+    prop = {**prop, "communities": comms}
+    base = {"venue": vn, "proximity_anchor": prop.get("proximity_anchor")}
+    for key in ("prefabs", "communities", "spawn_sets", "variant_toggles"):
+        keep = []
+        for it in prop.get(key) or []:
+            errs, _w = check_one(vn, {**base, key: [it]}, v, layers, kept, acts, kept_acts)
+            errs = [e for e in errs if not e.startswith(("proximity", "venue field"))]
+            if errs:
+                dropped.append(f"{key}: {errs[0]}")
+            else:
+                keep.append(it)
+        out[key] = keep
+    out.pop("doors")
+    return out, dropped
+
+
 def cmd_approve(a: argparse.Namespace) -> int:
     cat = load_catalog(a.venues)
     layers, kept, acts = layer_refs(), kept_vanilla_prefabs(a.venues), layer_activations()
@@ -362,15 +413,25 @@ def cmd_approve(a: argparse.Namespace) -> int:
             print(f"{vn}: timeline_verdict exclude; add it to data/venues/triage_overrides.json instead")
             bad += 1
             continue
+        dropped: list[str] = []
+        if a.strip:
+            prop, dropped = strip_failing(vn, prop, cat[vn], layers, kept, acts, kept_acts)
         errs, _w = check_one(vn, prop, cat[vn], layers, kept, acts, kept_acts)
         if errs:
             print(f"{vn}: not approved, {len(errs)} checker errors (run check)")
+            for e in errs:
+                print(f"  ERROR {e}")
             bad += 1
             continue
+        entry = to_venue_entry(vn, prop, a.within)
+        if entry["code"] in hand_built_codes():
+            # Additions to a hand-built venue run as their own phase beside it.
+            entry["code"] += "_additions"
+        if dropped:
+            entry["source"]["stripped"] = dropped
         out = APPROVED / f"{vn}.json"
-        out.write_text(json.dumps(to_venue_entry(vn, prop, a.within), indent=2, ensure_ascii=False) + "\n",
-                       encoding="utf-8")
-        print(f"{vn}: approved -> {out.relative_to(ROOT)}")
+        out.write_text(json.dumps(entry, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+        print(f"{vn}: approved -> {out.relative_to(ROOT)}" + (f" ({len(dropped)} items stripped)" if dropped else ""))
     return 1 if bad else 0
 
 
@@ -448,6 +509,8 @@ def main() -> int:
     sub.add_parser("door-scope")
     p = sub.add_parser("approve"); p.add_argument("names", nargs="+")
     p.add_argument("--within", type=float, default=80.0, help="proximity wait radius in metres")
+    p.add_argument("--strip", action="store_true",
+                   help="drop individually failing items instead of refusing (merging into hand-built venues)")
     a = ap.parse_args()
     return {"prepare": cmd_prepare, "check": cmd_check, "wave": cmd_wave, "door-scope": cmd_door_scope, "approve": cmd_approve}[a.cmd](a)
 

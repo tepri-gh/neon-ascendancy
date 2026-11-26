@@ -1,0 +1,49 @@
+{
+  "code": "q112_arasaka_industrial_park_warehouse",
+  "display_name": "Arasaka Industrial Park Warehouse (Arroyo)",
+  "why": "The Arasaka Industrial Park in Arroyo is the corpo freight yard and warehouse where the Dashi parade floats are assembled: a fenced compound of loading docks, a container yard, guard posts and a large warehouse interior. Vanilla never shows it occupied in free roam, because its ambient crowd is switched off while q112 is active and only switched back on after q112_done, so with the campaign disabled the yard stands empty. This proposal restores the one vanilla ambient population that belongs here, the whole open-world crowd community (entrance, main-area and interior guards, a guard droid and three warehouse workers), its normal lighting state, and leaves the quest infiltration prefab out entirely.",
+  "source": {
+    "proposal": "research/loc_q112_arasaka_industrial_park_warehouse/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Do the restored Arasaka guards actually behave as relaxed neutral security, or does the industrial park count as a restricted area so they engage on sight? The records (arr_arasaka_security1_ranged1_shingen_ma, arr_arasaka_ranger1_ranged2_shingen_wa, arr_arasaka_android_android2_shingen_ma) are plain Arasaka security, and vanilla only ever shows this crowd outside the job.",
+      "Do all twelve entries spawn without #q112_pr_infiltration loaded? The workspots are in the openworld prefab, but guard_interior and workers_interior sit inside the warehouse hall whose doors vanilla only opens during the infiltration, so the interior three are the ones to watch on the tour.",
+      "Is the warehouse hall actually enterable in a clean save? #q112_entry_warehouse_1 is only ever forced open by the combat phase, and no terminal, keycard, skill check or quickhack is referenced for it, so the runtime door policy carries the whole route.",
+      "Does the lighting variant 'warehouse_interior_normal' take effect without q112_abduction running? The lighting node sits under the location prefab, but vanilla only sets the variant inside the job; if the interior stays dark, this needs a boot toggle and a second look.",
+      "The sibling lookout crowd (#std_arr_q112_arasaka_industrial_park_lookout_crowd_com, also gated in std_arr_phase) is not in this venue's catalogue record; it presumably belongs to the lookout tower across the compound and needs its own venue pass."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_warehouse_crowd_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The venue's own open-world crowd, defined in the always-streamed openworld prefab (loc_q112_arasaka_industrial_park_warehouse_openworld_prefabDAASXGQ) and never activated by vanilla in a clean start: std_arr_phase only Deactivates it while q112_active >= 1 and Activates it again after q112_done >= 1, so with no main job it stays at its registry initial state (every entry phase 'default', active 0). Whole-community activation gives nine Arasaka guards (entrance, main area, patrol sequence, interior), one guard droid and three WorkerMale civilians at loading docks, main area and interior - the staffed, open-for-business look. The catalogue posture is 'unknown' (no community area node was mapped), but all 82 spot nodes under this venue's openworld prefab, whose names map to these entries (guard_ent_01, guard_main_interior, guard_main_seq, guard_seq, main, main_worker, worker_entrance_01, workers_interior), use idle routines: master_generic__stand_ground__guard__01, generic__stand_ground__guard__01/02, routine__stand_ground, routine__stand_wall_lean_back, generic__stand_ground_cigarette__smoke__0x, generic__stand_ground_tablet__use/scanning/stand_around, routine__kneel_ground__inspect - no hostile, cover or nervous shuffles anywhere, so the phase reads as relaxed. Tour check needed because the entry-to-spot map was not resolved.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q112_arasaka_industrial_park_warehouse_lighting",
+      "states": {
+        "warehouse_interior_normal": 1,
+        "warehouse_interior_alarm": 0,
+        "warehouse_exterior_alarm": 0,
+        "warehouse_ceiling_open_warning": 0,
+        "warehouse_hanako_barge": 0
+      },
+      "why": "This is exactly the block q112_abduction sets for the pre-job, normal-looking warehouse: interior normal lighting on, interior and exterior alarms off, ceiling warning off, and Hanako's parade barge lighting off (the barge itself is a quest prefab prop we do not load). The infiltration and combat phases flip the same variants to the alarm state (alarm 1, ceiling warning 1, interior_normal 0), so these values are the intact, open-for-business look rather than an invented one."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q112_dvc_corrupt_guard_gate_001",
+    "within": 80.0,
+    "why": "A DoorControllerPS entity in the always-loaded gameplay prefab, on the pedestrian way into the compound (vanilla q112_03_infiltration ForceOpen/ForceUnlock it and the corrupt guard stands at it), so it is streamed whenever the player approaches the yard."
+  }
+}

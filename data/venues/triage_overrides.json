@@ -75,6 +75,11 @@
       "venue": "loc_q114_nomads",
       "decision": "excluded",
       "why": "Research wave 1: the new Nomad Camp exists only after the Aldecaldos relocate; owner C4: the old Mobile Camp is kept."
+    },
+    {
+      "venue": "loc_q108_atlantis_club",
+      "decision": "excluded",
+      "why": "Research wave 3: Club Atlantis is a closed, rubble-blocked shell in 2077; its content is Johnny's 2013 memory (q108), which never runs."
     }
   ]
 }

@@ -31,6 +31,12 @@ Animals, The Mox, Maelstrom, Voodoo Boys, Scavs. Night Corp and the
 Government of Night City are political-only (no nodes). Places of any other
 faction are dropped.
 
+**Fixers are not nodes** (owner 2026-11-26). Fixer locations (the Afterlife,
+Wakako's parlour, Mr. Hands' club and the like) hold their own ground, and
+fixers are neutral in the lore. They stay as venues, but no faction captures
+or controls them. Candidate nodes are listed with reasoning in
+[`territory-node-candidates.md`](territory-node-candidates.md).
+
 ## 2. Static tables (`world.db`, schema v3)
 
 ### `factions` (extended)

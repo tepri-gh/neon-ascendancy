@@ -276,7 +276,9 @@ lieutenants) are to be represented. Design pending.
   through the mod's own gates (missions for a faction, personal standing).
 - **Every location accessible** to V and NPCs (doors, areas), except places
   that would not exist in this timeline (e.g. the nomad-camp tent after
-  Panam's story, Kurtz/Kutcher's home).
+  Panam's story). Owner 2026-11-26: Joss Kutcher's trailer park and Kurt
+  Hansen's places stay; both people exist in the timeline even though their
+  quests never run.
 - **Door policy:** doors are closed by default but usable (enabled and
   powered; unlocked only when there is otherwise no way through). Doors with
   an in-world way to open them (a terminal, a keycard placed in the world,

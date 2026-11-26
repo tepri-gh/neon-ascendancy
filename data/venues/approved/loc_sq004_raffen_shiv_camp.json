@@ -1,0 +1,142 @@
+{
+  "code": "sq004_raffen_shiv_camp",
+  "display_name": "Corp-Bud Cement Factory (Wraith camp)",
+  "why": "An abandoned Corp-Bud cement factory on the northern foothills of Sierra Sonora, walled in and run by the Wraiths (Raffen Shiv) as a garage, barracks and hideout: a main building over a basement, a perimeter wall with firing posts, a shanty 'favela' of lean-tos, and a yard where they keep their cars. In vanilla it is only ever seen through Riders on the Storm (drone recon, alarm, prisoner rescue, car chase, dust storm) plus a Badlands open-world combat event that drives its doors. This proposal restores the camp's standing garrison - the Wraith boss and his main-building guards, a wall guard and a sniper, two favela guards, and three of their cars in the yard - with no prisoner, no storm and no quest boundary.",
+  "source": {
+    "proposal": "research/loc_sq004_raffen_shiv_camp/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No community at this venue has a spot map (the sectors stage resolved 0 spots for all 35 entries), so every posture is a judgement. The main/favela entries are vanilla's own ungated quest-start garrison and should idle, but sq004_wall_12 is only ever used in the alarm defence - the tour must check it stands rather than crouches or looks alert.",
+      "The kept Inland Avenue se1 open-world combat event ce_bls_ina_se1_03 drives this camp's doors and hatch and spawns its own ce_medium_com gang group. Does it already put hostile Wraiths inside the compound on approach? If so, our eight gangers may double the population and the garrison should be trimmed.",
+      "Are the raffen_01 car spots in the garage yard, as the wiki's 'garage and hideout for their vehicles' implies, or on the approach road where the chase begins? If they are on the road they would look like a parked ambush rather than a motor pool.",
+      "Do the yard gates need anything to open? No terminal, keycard or skill check appears in any phase, but the runtime door policy only unlocks doors it judges impassable, so the tour should confirm the main door, garage gate and back gate all open on a plain interact.",
+      "#loc_sq004_raffen_shiv_camp_navigation's var_navigation_pipe has only one recorded state (0) and its owner, persistent_content, is not kept. If the maintenance pipe is not walkable by default, an owner decision is needed on whether to force the toggle; it is the object's only other escape route.",
+      "There are two Wraith boss records in the camp (boss_gamma on sq004_main_09, boss_alpha on sq004_favela_04 with a seated variant). I kept the main-building boss_gamma because vanilla activates it ungated; if the seated favela boss reads more like the camp's leader on the tour, the two could be swapped.",
+      "Should the alarm reserve (#sq004_com_raiders, the remaining wall/main posts) be restored after all? The camp is a remote stronghold and eight gangers plus the boss may feel thin against the wiki's 'stronghold' description, but adding them makes the wall look manned for a fight."
+    ]
+  },
+  "prefabs": [
+    "#sq004_pr_02_raffen_shiv_camp"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq004_com_main",
+      "entry_name": "sq004_main_09",
+      "phase_name": "sq004_main_01",
+      "action": "Activate",
+      "why": "The camp's leader: a Wraith boss record at the main building. Vanilla itself switches this entry on ungated (false) in the top-level sq004 phase, i.e. the camp stands him up before any alarm or fight, and keeps him on the same phase when the main-building group is activated. A boss at his own stronghold is the venue's owner.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_main",
+      "entry_name": "sq004_main_02",
+      "phase_name": "sq004_main_01",
+      "action": "Activate",
+      "why": "Main-building guard, one of the two entries vanilla activates ungated at quest start (the camp's standing garrison before the drone recon). Same phase as the boss, so he keeps the boss company inside.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_main",
+      "entry_name": "sq004_main_01",
+      "phase_name": "sq004_main_01",
+      "action": "Activate",
+      "why": "Shotgunner on the main entrance. Vanilla activates him in the main-building group on the same phase sq004_main_01 that it uses ungated for sq004_main_02/09, so the spot is a main-building position, not a chase or cutscene slot. Fills the door the boss stands behind.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_main",
+      "entry_name": "sq004_main_11",
+      "phase_name": "sq004_main_01",
+      "action": "Activate",
+      "why": "The only female beta in the main-building group, on the same phase; adds a fourth body indoors so the boss's HQ reads as a crew rather than a lone target. Same phase as the two ungated guards.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_wall",
+      "entry_name": "sq004_wall_07",
+      "phase_name": "sq004_wall_07",
+      "action": "Activate",
+      "why": "Wall/gate guard at his own post: vanilla activates sq004_wall_07 ungated at quest start together with sq004_favela_01/03 and the two main-building guards, so this is the camp's standing perimeter guard rather than the alarm garrison.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_wall",
+      "entry_name": "sq004_wall_12",
+      "phase_name": "sq004_wall_12",
+      "action": "Activate",
+      "why": "The camp's lookout: a sniper on a dedicated wall post (its own single-entry phase, which vanilla only activates in the alarm pass). A fortified Raffen camp would keep a rifle on the wall even when nothing is happening, but because vanilla only ever shows this entry in the defence, its workspot could be an alert stand - check on the tour before keeping it.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_wall",
+      "entry_name": "sq004_favela_01",
+      "phase_name": "sq004_favela_01",
+      "action": "Activate",
+      "why": "Favela (shack-row) guard, activated ungated by vanilla at quest start - part of the standing camp, not the alarm. Same phase the quest uses for four of the five favela entries, so this is the favela's ambient position set.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_wall",
+      "entry_name": "sq004_favela_03",
+      "phase_name": "sq004_favela_01",
+      "action": "Activate",
+      "why": "Second standing favela guard, the other ungated favela entry in the top-level quest phase. Two guards in the shack row make the living area look inhabited without adding another group.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_raffen_shiv_car",
+      "entry_name": "sq004_raffen_car_01",
+      "phase_name": "raffen_01",
+      "action": "Activate",
+      "why": "A Wraith car parked at the camp. The community lives inside #sq004_pr_02_raffen_shiv_camp and raffen_01 is the moment the camp's cars pull out for the chase, so these are the camp's own vehicles; the wiki describes the factory as the gang's vehicle garage. Check on the tour that the spots are the garage/yard and not the approach road.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_raffen_shiv_car",
+      "entry_name": "sq004_raffen_car_02",
+      "phase_name": "raffen_01",
+      "action": "Activate",
+      "why": "Second parked Wraith car in the yard, same phase and reasoning as car_01.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq004_com_raffen_shiv_car",
+      "entry_name": "sq004_raffen_car_03",
+      "phase_name": "raffen_01",
+      "action": "Activate",
+      "why": "Third parked Wraith car, same phase and reasoning as car_01; three vehicles fill the garage yard without turning it into a motor pool.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq004_raffen_shiv_camp_fx",
+      "states": {
+        "sandstorm": 0
+      },
+      "why": "No dust storm at the camp. Vanilla raises sandstorm=1 only for the escape (sq004_follower, while V and Saul run for the van) and clears it at the farm; 0 is the ordinary weather state. The FX section belongs to the venue and is streamed with it."
+    },
+    {
+      "prefab": "#sq004_pr_02_raffen_shiv_camp",
+      "states": {
+        "var_world_boundary": 0
+      },
+      "why": "No quest world boundary. Vanilla raises var_world_boundary=1 in sq004_follower to keep V inside the escape sequence and clears it to 0 in sq004_03_raffen_shiv_camp/quest bugfixes; 0 is the normal state in which a player can walk or drive away from the camp. The prefab is the one this venue instantiates, so the toggle is safe."
+    },
+    {
+      "prefab": "#loc_sq004_raffen_shiv_camp_devices",
+      "states": {
+        "sq004_after_drone_start": 0
+      },
+      "why": "The camp's pre-recon device state: vanilla sets sq004_after_drone_start=1 when the drone scan starts (sq004_01_community) and back to 0 in the top-level phase. Since no drone flight happens in our timeline, 0 is the state the camp should sit in."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq004_dvc_camp_door_06",
+    "within": 80.0,
+    "why": "The camp's main entrance door (DoorControllerPS under the {main_door} prefab), i.e. the first quest-driven device a player reaches on the driveway in. It is a device entity, not a workspot, and it has a tagged ref plus a resolved full path, so the builder can wait on it and the door policy already scopes it."
+  }
+}
