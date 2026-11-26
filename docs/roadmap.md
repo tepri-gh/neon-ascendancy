@@ -152,6 +152,12 @@ compatible without premature implementation:
   tracks, start and end points, racer AI and spawning:
   [`research/street-racing.md`](research/street-racing.md). Not before the
   core simulation (owner, 2026-11-26).
+- **Hustle sites (direction agreed):** vanilla's 333 NCPD scanner hustle
+  spots become Organized Crime node candidates, encounter and spawn data
+  between venues (with kills feeding gang attrition), and active crime areas
+  for an NCPD "restore order" path that never fire inside war zones. Needs
+  an in-depth design discussion. See
+  [`design/hustle-sites.md`](design/hustle-sites.md).
 - **New Venues (planned):** Club Atlantis and The Hammer as working 2077
   venues. Vanilla only has them as memory sets. See
   [`design/new-venues.md`](design/new-venues.md).
