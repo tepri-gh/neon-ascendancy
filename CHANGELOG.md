@@ -32,6 +32,22 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Fixed
+- Venue access: each venue now has its own quest phase
+  (`mod\neon_ascendancy\venue_<code>.questphase`), all fanned out from the one
+  `na_dev_venue_probe` gate. In owner runs the single shared `venue_probe` phase
+  never entered its hub at all (`branch=0` for every venue), so one failing venue
+  disabled every other one. A prefab may now be owned by one venue phase only
+  (`--check` enforces it); the sneak-in route no longer re-declares
+  `#q303_pr_paradise_technical`.
+- Venue probe: community activations now also run *after* each venue's proximity
+  wait, not only at the hub fan-out. On a fresh start the venue prefab has not
+  streamed when the phase boots, so the boot-time `Activate` hit nothing: the
+  18:20 log showed Clouds at `communitySpawned=0` for the whole session with the
+  owner standing inside. On a loaded save the prefab is already streamed, which
+  is why 18:33 read 34. The boot pass is kept (a load may never revisit the
+  venue) and the re-issue is idempotent, so a fresh start now behaves like a
+  load. `--check` asserts both passes bracket the wait and each venue leaves the
+  hub on its own edge.
 - Venue probe: a `questDeviceManagerNodeDefinition` whose objectRef does not
   resolve to a live entity does not complete, so everything chained behind it
   never ran. That is why the variant toggles reported `reached=0` even while

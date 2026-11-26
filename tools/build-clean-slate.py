@@ -914,8 +914,9 @@ def build_questphase(
         venue_gate["fact"], venue_gate["comparison_type"], venue_gate["value"]
     )
     g.connect(fan, vp_in)
-    venue_phase_in = g.add_phase_node(venue_spec["phase_resource"])
-    g.connect(vp_out, venue_phase_in)
+    for sub in venue_subspecs(venue_spec):
+        venue_phase_in = g.add_phase_node(sub["phase_resource"])
+        g.connect(vp_out, venue_phase_in)
 
     # kept external phases
     for entry in qp["kept_depot_phases"]:
@@ -1650,7 +1651,36 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(
                     f"{venue_path}: venue {code} proximity_wait.ref {prox['ref']} is inside a "
                     f"variant group ({gated}) that only exists after the toggle; pick an ungated anchor")
+        if v.get("communities") and "proximity_wait" not in v:
+            raise ValueError(
+                f"{venue_path}: venue {code} activates communities but declares no proximity_wait; "
+                f"the activation is emitted at the hub fan-out and again after the wait, and without a "
+                f"wait the boot-time activation is all that exists - it is lost on a fresh start, when "
+                f"the venue prefab has not streamed yet")
     return venue_spec
+
+
+def venue_phase_resource(venue: dict[str, Any]) -> str:
+    """Depot path of one venue's own phase resource."""
+    return f"mod\\neon_ascendancy\\venue_{venue['code']}.questphase"
+
+
+def venue_subspecs(venue_spec: dict[str, Any]) -> list[dict[str, Any]]:
+    """Split the venue spec into one single-venue spec per venue.
+
+    Each venue gets its own phase resource so a venue whose prefab or node
+    fails to instantiate cannot take every other venue down with it (owner
+    run at 18:57: the single shared venue_probe phase never entered its hub,
+    branch=0 for every venue)."""
+    return [
+        {**venue_spec, "venues": [v], "phase_resource": venue_phase_resource(v)}
+        for v in venue_spec["venues"]
+    ]
+
+
+def expected_archive_resources(spec: dict[str, Any], venue_spec: dict[str, Any]) -> list[str]:
+    """Static archive resources from the spec plus one phase per venue."""
+    return sorted(set(spec["archive_resources"]) | {venue_phase_resource(v) for v in venue_spec["venues"]})
 
 
 def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str, Any]]) -> dict[str, Any]:
@@ -1670,15 +1700,12 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
     hub_in, hub_out = g.add_hub_node()
     g.connect(start_out, hub_in)
 
-    for venue in venue_spec["venues"]:
-        prev = hub_out
-        dbg = venue.get("debug_fact_prefix")
-        # Breadcrumb: proves this venue branch was entered from the hub at all,
-        # independently of every other venue.
-        if dbg:
-            b_in, b_out = g.add_set_fact_node(f"{dbg}_branch", 1)
-            g.connect(prev, b_in)
-            prev = b_out
+    def emit_communities(venue: dict[str, Any], tail: str) -> str:
+        """Wire a venue's community activations after `tail`, returning the new tail.
+
+        Called twice per venue: once on the unconditional hub fan-out (boot) and
+        once after that venue's proximity wait, so a fresh start behaves like a
+        load instead of leaving the venue empty."""
         for com in venue.get("communities", []):
             inp, out = g.add_community_spawn_node(
                 spawn_tpl,
@@ -1687,12 +1714,29 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 entry_name=com.get("entry_name", "None"),
                 phase_name=com.get("phase_name", "None"),
             )
-            g.connect(prev, inp)
-            prev = out
+            g.connect(tail, inp)
+            tail = out
+        return tail
+
+    for venue in venue_spec["venues"]:
+        prev = hub_out
+        dbg = venue.get("debug_fact_prefix")
+
+        # Breadcrumb: proves this venue branch was entered from the hub at all,
+        # independently of every other venue.
+        if dbg:
+            b_in, b_out = g.add_set_fact_node(f"{dbg}_branch", 1)
+            g.connect(prev, b_in)
+            prev = b_out
+        # Boot-time activations, unconditional on the hub fan-out. On a fresh
+        # start the venue prefab usually has not streamed yet, so this pass can
+        # hit nothing (18:20 log: Clouds 0 spawned for the whole session with the
+        # owner standing inside). It is still emitted because on a loaded save the
+        # prefab is already streamed and the player may never return to the venue.
+        prev = emit_communities(venue, prev)
         # Device actions and variant toggles are deferred until the player is
         # near: they are one-shot and hit no entity when the prefab is not yet
-        # streamed (firing at bootstrap from H10). Communities stay on the
-        # unconditional hub fan-out above.
+        # streamed (firing at bootstrap from H10).
         prox = venue.get("proximity_wait")
         if prox:
             if dbg:
@@ -1706,6 +1750,12 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 cf2, co2 = g.add_set_fact_node(f"{dbg}_prox", 1)
                 g.connect(prev, cf2)
                 prev = co2
+            # Re-issue the same activations now that the venue has streamed. This
+            # is what makes a fresh start behave like a load instead of leaving the
+            # venue empty: at boot the prefab is absent, and by the time the player
+            # is within range it exists. Community activation is idempotent, so
+            # running it twice is harmless on a load where the boot pass landed.
+            prev = emit_communities(venue, prev)
         # Variant toggles run BEFORE the device actions on purpose. A
         # questDeviceManagerNodeDefinition whose objectRef does not resolve to a
         # live entity (the venue is not streamed yet) does not complete, so
@@ -1845,9 +1895,12 @@ def build(
             build_cast_and_hubs(templates, cast_spec, ft_spec),
         )
         write_resource_json(build_dir, "mod/neon_ascendancy/spike_kab07.questphase.json", build_spike(templates, spec))
-        write_resource_json(
-            build_dir, "mod/neon_ascendancy/venue_probe.questphase.json", build_venue_probe(venue_spec, templates)
-        )
+        for sub in venue_subspecs(venue_spec):
+            write_resource_json(
+                build_dir,
+                sub["phase_resource"].replace("\\", "/") + ".json",
+                build_venue_probe(sub, templates),
+            )
         write_resource_json(
             build_dir, "mod/neon_ascendancy/barricade_cleanup.questphase.json", build_barricade_cleanup(barricade_spec, templates)
         )
@@ -1914,21 +1967,22 @@ def check(
         run_wk(wk, ["extract", str(archive), "-o", str(tmp)])
         extracted = sorted(p.relative_to(tmp).as_posix().replace("/", "\\") for p in tmp.rglob("*") if p.is_file())
 
-        ok(extracted == sorted(spec["archive_resources"]),
+        ok(extracted == expected_archive_resources(spec, venue_spec),
            f"archive contents mismatch: {extracted}")
         ok(not any(p.lower().endswith(".json") for p in extracted),
            f"archive contains stray .json files: {[p for p in extracted if p.lower().endswith('.json')]}")
 
         run_wk(wk, ["convert", "serialize", str(tmp)])
         resources: dict[str, dict[str, Any]] = {}
-        for rel in spec["archive_resources"]:
+        all_resources = expected_archive_resources(spec, venue_spec)
+        for rel in all_resources:
             jpath = tmp / (rel.replace("\\", "/") + ".json")
             ok(jpath.is_file(), f"missing serialized resource: {rel}")
             if jpath.is_file():
                 with jpath.open("r", encoding="utf-8") as fh:
                     resources[rel] = json.load(fh)
 
-        if not failures and len(resources) == len(spec["archive_resources"]):
+        if not failures and len(resources) == len(all_resources):
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
             _check_questphase(resources, spec, cast_spec, venue_spec, barricade_spec, vendors_spec, tower_spec, ok)
@@ -2155,8 +2209,9 @@ def _check_questphase(
         ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
-        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 6,
-           f"expected {len(qp['kept_depot_phases']) + 6} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + barricade_cleanup + dogtown_vendors + bsc_tower_population + spike + venue_probe), found {len(top_phase_nodes)}")
+        n_venues = len(venue_spec["venues"])
+        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 5 + n_venues,
+           f"expected {len(qp['kept_depot_phases']) + 5 + n_venues} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + barricade_cleanup + dogtown_vendors + bsc_tower_population + spike + {n_venues} venue phases), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause
@@ -2184,7 +2239,8 @@ def _check_questphase(
         expected_refs = (
             {e["depot_path"] for e in qp["kept_depot_phases"]}
             | set(qp["inline_phase_depot_refs"])
-            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"], barricade_spec["phase_resource"], vendors_spec["phase_resource"], tower_spec["phase_resource"]}
+            | {cast_spec["phase_resource"], qp["spike"]["resource"], barricade_spec["phase_resource"], vendors_spec["phase_resource"], tower_spec["phase_resource"]}
+            | {venue_phase_resource(v) for v in venue_spec["venues"]}
         )
         missing = sorted(expected_refs - set(refs))
         ok(not missing, f"missing kept phase refs: {missing}")
@@ -2350,6 +2406,178 @@ def _check_fast_travel_registration(
     extra = sorted(actual - expected)
     ok(not missing, f"fast-travel registration missing points: {missing[:5]}")
     ok(not extra, f"fast-travel registration has unexpected points: {extra[:5]}")
+
+
+def _check_community_reissue(
+    nodes: list[dict[str, Any]],
+    venue_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Verify every venue's community activations are emitted twice, around its wait.
+
+    Expected topology, per venue that activates communities:
+      hub Out -> [branch] -> activations (boot) -> [prewait] -> distance pause
+        -> [prox] -> activations (re-issued) -> ...
+    Each venue branch leaves the hub on its own edge, so one venue whose distance
+    pause never resolves cannot block any other venue.
+
+    The boot pass stays because on a loaded save the prefab is already streamed
+    and the player may never return to that venue. The post-wait pass is what
+    makes a fresh start work: there the boot pass runs before the venue prefab
+    has streamed and activates nothing (18:20 log: Clouds 0 spawned all session
+    with the owner standing inside). Community activation is idempotent, so
+    running it twice is harmless wherever the boot pass already landed.
+    """
+    by_id = {id_of(n): n for n in nodes}
+    owner: dict[str, int] = {}
+    for cand in nodes:
+        for slot in cand["Data"].get("sockets", []):
+            h = slot.get("HandleId") or slot.get("HandleRefId")
+            if h is not None:
+                owner[str(h)] = id_of(cand)
+
+    edges: dict[int, list[int]] = {}
+    for cand in nodes:
+        out: list[int] = []
+
+        def walk(value: Any, src_id: int = id_of(cand), out: list[int] = out) -> None:
+            if isinstance(value, dict):
+                if value.get("$type") == "graphGraphConnectionDefinition":
+                    src = value.get("source", {})
+                    dst = value.get("destination", {})
+                    s = str(src.get("HandleId") or src.get("HandleRefId"))
+                    t = str(dst.get("HandleId") or dst.get("HandleRefId"))
+                    if owner.get(s) == src_id and t in owner:
+                        out.append(owner[t])
+                for v in value.values():
+                    walk(v)
+            elif isinstance(value, list):
+                for v in value:
+                    walk(v)
+
+        walk(cand["Data"].get("sockets", []))
+        edges[id_of(cand)] = out
+
+    def comm_rows(data: dict[str, Any]) -> list[tuple[str, str, str, str]]:
+        rows = []
+        for act in data.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") == "questCommunityTemplate_NodeType":
+                rows.append((
+                    at.get("action"),
+                    at.get("spawnerReference", {}).get("$value"),
+                    at.get("communityEntryName", {}).get("$value"),
+                    at.get("communityEntryPhaseName", {}).get("$value"),
+                ))
+        return rows
+
+    def is_distance_pause(data: dict[str, Any]) -> bool:
+        return data.get("condition", {}).get("Data", {}).get("$type") == "questDistanceCondition"
+
+    hubs = [n for n in nodes if n["Data"].get("$type") == "questLogicalHubNodeDefinition"]
+    ok(len(hubs) == 1, f"venue_probe has {len(hubs)} hub nodes")
+    if len(hubs) != 1:
+        return
+
+    hub_children = edges[id_of(hubs[0])]
+    ok(len(hub_children) == len(set(hub_children)),
+       "venue_probe hub has duplicate outgoing edges, so branches are not independent")
+
+    # One linear branch per hub edge. Every venue branch is a serial chain that
+    # ends when a node stops having successors (the keep-alive pause is a
+    # separate hub child and has no successors).
+    branches: list[list[int]] = []
+    for child in hub_children:
+        chain: list[int] = []
+        seen: set[int] = set()
+        cur: int | None = child
+        while cur is not None and cur not in seen:
+            seen.add(cur)
+            chain.append(cur)
+            nxt = edges.get(cur) or []
+            if len(nxt) > 1:
+                ok(False, f"venue_probe branch node {cur} has {len(nxt)} outgoing edges; "
+                          f"a venue chain must be linear")
+            cur = nxt[0] if len(nxt) == 1 else None
+        branches.append(chain)
+
+    # The proximity anchor identifies a venue's branch unambiguously (community
+    # sets can repeat between venues, anchors cannot: the loader rejects a
+    # duplicate anchor).
+    pause_anchor: dict[int, str] = {}
+    for n in nodes:
+        d = n["Data"]
+        if not is_distance_pause(d):
+            continue
+        typ = d["condition"]["Data"]["type"]["Data"]
+        ref = typ["distanceDefinition1"]["Data"]["nodeRef2"]["reference"]["$value"]
+        pause_anchor[id_of(n)] = ref
+
+    by_anchor: dict[str, list[int]] = {}
+    for chain in branches:
+        for n in chain:
+            if n in pause_anchor:
+                by_anchor.setdefault(pause_anchor[n], []).append(n)
+
+    seen_anchors: dict[str, str] = {}
+    for venue in venue_spec["venues"]:
+        code = venue["code"]
+        coms = venue.get("communities", [])
+        prox = venue.get("proximity_wait")
+        if not coms:
+            continue
+        ok(prox is not None,
+           f"{code}: activates communities but has no proximity_wait, so it only ever gets the "
+           f"boot-time pass (lost on a fresh start)")
+        if prox is None:
+            continue
+
+        anchor = prox["ref"]
+        ok(anchor not in seen_anchors,
+           f"{code}: proximity anchor {anchor} is also used by {seen_anchors.get(anchor)}; "
+           f"anchors must be unique per venue")
+        seen_anchors.setdefault(anchor, code)
+
+        pauses = by_anchor.get(anchor, [])
+        ok(len(pauses) == 1,
+           f"{code}: expected exactly 1 distance pause anchored on {anchor}, found {len(pauses)}")
+        if len(pauses) != 1:
+            continue
+        pause_id = pauses[0]
+        chain = next(c for c in branches if pause_id in c)
+
+        # Drop the debug breadcrumbs (set-fact nodes) so ordering is asserted on
+        # the meaningful nodes only.
+        meaningful = [
+            n for n in chain
+            if by_id[n]["Data"].get("$type") != "questFactsDBManagerNodeDefinition"
+        ]
+        p_i = meaningful.index(pause_id)
+        com_idx = [i for i, n in enumerate(meaningful) if comm_rows(by_id[n]["Data"])]
+        before = [i for i in com_idx if i < p_i]
+        after = [i for i in com_idx if i > p_i]
+
+        expected = [tuple(r) for r in sorted(
+            (c["action"], c["spawner"], c.get("entry_name", "None"), c.get("phase_name", "None"))
+            for c in coms
+        )]
+
+        # Boot pass: one contiguous block at the very start of the branch, so it
+        # is unconditional on the hub fan-out.
+        ok(before == list(range(0, len(coms))),
+           f"{code}: boot-time activations must be the first {len(coms)} nodes on the branch, "
+           f"found at {before}")
+        # Re-issue: one contiguous block immediately after the pause.
+        ok(after == list(range(p_i + 1, p_i + 1 + len(coms))),
+           f"{code}: re-issued activations must immediately follow the distance pause, found at {after} "
+           f"(pause at {p_i})")
+
+        if before == list(range(0, len(coms))):
+            ok(sorted(r for n in meaningful[:len(coms)] for r in comm_rows(by_id[n]["Data"])) == expected,
+               f"{code}: boot-time activations mismatch the spec")
+        if after == list(range(p_i + 1, p_i + 1 + len(coms))):
+            ok(sorted(r for n in meaningful[p_i + 1:p_i + 1 + len(coms)] for r in comm_rows(by_id[n]["Data"])) == expected,
+               f"{code}: re-issued activations mismatch the spec")
 
 
 def _check_cast_and_hubs(
@@ -2793,6 +3021,26 @@ def _check_venue_probe(
     venue_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
+    """Verify every per-venue phase, then the shared dev gate wiring."""
+    subs = venue_subspecs(venue_spec)
+    for sub in subs:
+        _check_one_venue_phase(resources, spec, sub, ok)
+    _check_venue_gate(resources, spec, venue_spec, subs, ok)
+    # No prefab may be owned by two venue phases (or by a venue and cast_and_hubs).
+    owners: dict[str, list[str]] = {}
+    for sub in subs:
+        for pf in sub["venues"][0]["prefabs"]:
+            owners.setdefault(pf, []).append(sub["venues"][0]["code"])
+    shared = {pf: codes for pf, codes in owners.items() if len(codes) > 1}
+    ok(not shared, f"prefabs declared by more than one venue phase (each prefab needs one owner): {shared}")
+
+
+def _check_one_venue_phase(
+    resources: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    venue_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
     """Round-trip verify venue_probe.questphase and its gate in ascendancy.questphase.
 
     Expected:
@@ -2939,6 +3187,8 @@ def _check_venue_probe(
     ok(actual_comms == expected_comms,
        f"venue_probe communities mismatch:\n  actual:   {sorted(actual_comms)}\n  expected: {sorted(expected_comms)}")
 
+    _check_community_reissue(nodes, venue_spec, ok)
+
     # Owner constraint: prefabs/doors/communities ONLY, never quest content.
     all_refs = _collect_phase_refs(rc)
     bad_refs = sorted({r for r in all_refs if any(p in r for p in venue_spec["forbidden_phase_patterns"])})
@@ -2991,7 +3241,21 @@ def _check_venue_probe(
                 ok(not val or val in source,
                    f"VenueProbe.reds is missing probe_refs.{key} for venue {v['code']}: {val}")
 
-    # ascendancy.questphase: gate pause -> venue probe phase node, gated on the fact.
+    # The dev probe fact must stay runtime-only: this venue phase may not set it.
+    gate = venue_spec["gate"]
+    setvars = [f for f, _ in _collect_setvar_facts(rc)]
+    ok(gate["fact"] not in setvars,
+       f"{venue_spec['phase_resource']} sets {gate['fact']} via questSetVar_NodeType; it must stay DevDebug-only")
+
+
+def _check_venue_gate(
+    resources: dict[str, dict[str, Any]],
+    spec: dict[str, Any],
+    venue_spec: dict[str, Any],
+    subs: list[dict[str, Any]],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """ascendancy.questphase: one dev gate pause -> one phase node per venue."""
     qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
     qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
     gate = venue_spec["gate"]
@@ -3008,29 +3272,32 @@ def _check_venue_probe(
     ok(len(gate_pauses) == 1,
        f"expected 1 venue gate pause ({gate['fact']} {gate['comparison_type']} {gate['value']}), "
        f"found {len(gate_pauses)}")
+    expected_paths = [sub["phase_resource"] for sub in subs]
     venue_phases = [
         p for p in qp_nodes
         if p["Data"].get("$type") == "questPhaseNodeDefinition"
-        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == venue_spec["phase_resource"]
+        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") in expected_paths
     ]
-    ok(len(venue_phases) == 1, f"expected 1 venue probe phase node, found {len(venue_phases)}")
+    found_paths = sorted(p["Data"]["phaseResource"]["DepotPath"]["$value"] for p in venue_phases)
+    ok(found_paths == sorted(expected_paths),
+       f"venue phase nodes mismatch:\n  actual:   {found_paths}\n  expected: {sorted(expected_paths)}")
     if gate_pauses and venue_phases:
         edges = _graph_edges(qp_nodes)
         gate_id = id_of(gate_pauses[0])
-        venue_id = id_of(venue_phases[0])
-        ok((gate_id, venue_id) in edges, "venue gate pause is not connected to the venue probe phase node")
+        for vp in venue_phases:
+            ok((gate_id, id_of(vp)) in edges,
+               f"venue gate pause is not connected to {vp['Data']['phaseResource']['DepotPath']['$value']}")
         gate_in = _socket_handle(gate_pauses[0]["Data"]["sockets"][1])
         gate_out = _socket_handle(gate_pauses[0]["Data"]["sockets"][2])
         ok(_count_connections(qp_doc["Data"]["RootChunk"], gate_in) == (1, 0),
            "venue gate In must have exactly 1 incoming connection")
-        ok(_count_connections(qp_doc["Data"]["RootChunk"], gate_out) == (0, 1),
-           "venue gate Out must have exactly 1 outgoing connection")
+        ok(_count_connections(qp_doc["Data"]["RootChunk"], gate_out) == (0, len(subs)),
+           f"venue gate Out must have exactly {len(subs)} outgoing connections (one per venue phase)")
 
-    # The dev probe fact must stay runtime-only: no archive resource may set it.
-    for rel in ("mod\\neon_ascendancy\\ascendancy.questphase", venue_spec["phase_resource"]):
-        setvars = [f for f, _ in _collect_setvar_facts(resources[rel]["Data"]["RootChunk"])]
-        ok(gate["fact"] not in setvars,
-           f"{rel} sets {gate['fact']} via questSetVar_NodeType; it must stay DevDebug-only")
+    # The dev probe fact must stay runtime-only: ascendancy may not set it.
+    setvars = [f for f, _ in _collect_setvar_facts(qp_doc["Data"]["RootChunk"])]
+    ok(gate["fact"] not in setvars,
+       f"ascendancy.questphase sets {gate['fact']} via questSetVar_NodeType; it must stay DevDebug-only")
     spec_facts = {f["fact"] for f in spec["questphase"]["initial_facts"]}
     ok(gate["fact"] not in spec_facts, f"{gate['fact']} must not be declared in initial_facts")
 

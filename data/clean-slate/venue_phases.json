@@ -883,9 +883,8 @@
     {
       "code": "q303_paradise_sneak_in",
       "display_name": "Black Sapphire sneak-in route (q303 technical floor to floor 99)",
-      "why": "Vanilla q303_06b_paradise_technical drives the whole infiltration path with DoorControllerPS/WindowControllerPS/LiftControllerPS/PlatformControllerPS actions on these refs. We replay only the 'make it passable' subset (enable/power/unseal/unlock/open/on, lift power and floor access), behind one proximity wait at the tunnel entrance, and deliberately do NOT replay any ForceDisabled/ForceSeal/ForceClose/ForceLock step. Refuse/laundry dress and every scene stay out. Route: tunnel entrance door -> tunnels platform -> hatches -> tech-floor lift -> sniper gate -> tech-floor lift door -> laundry door -> floor 99. #q303_pr_combat_tower is declared by cast_and_hubs (Kurt's workspot), so it is omitted here to avoid a duplicate phasePrefab.",
+      "why": "Vanilla q303_06b_paradise_technical drives the whole infiltration path with DoorControllerPS/WindowControllerPS/LiftControllerPS/PlatformControllerPS actions on these refs. We replay only the 'make it passable' subset (enable/power/unseal/unlock/open/on, lift power and floor access), behind one proximity wait at the tunnel entrance, and deliberately do NOT replay any ForceDisabled/ForceSeal/ForceClose/ForceLock step. Refuse/laundry dress and every scene stay out. Route: tunnel entrance door -> tunnels platform -> hatches -> tech-floor lift -> sniper gate -> tech-floor lift door -> laundry door -> floor 99. #q303_pr_combat_tower is declared by cast_and_hubs (Kurt's workspot) and #q303_pr_paradise_technical by the q303_paradise venue phase, so both are omitted here: each prefab has exactly one owning phase.",
       "prefabs": [
-        "#q303_pr_paradise_technical",
         "#q303_pr_paradise_technical_tunnels"
       ],
       "doors": [
