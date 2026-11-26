@@ -530,7 +530,12 @@ private func NeonAscendancy_LogDataterms(game: GameInstance) -> Void {
 // the toggle at all, separating "graph never got here" (both 0) from "toggle
 // ran but did nothing" (reached=1 done=1 with the geometry unchanged).
 private func NeonAscendancy_LogVariantToggles(qs: QuestsSystem) -> Void {
-  const prefixes: array<String> = ["na_dbg_vt_clouds", "na_dbg_vt_black_sapphire", "na_dbg_vt_dataterms"];
+  const prefixes: array<String> = [
+    "na_dbg_vt_clouds",
+    "na_dbg_vt_clouds_staff",
+    "na_dbg_vt_black_sapphire",
+    "na_dbg_vt_dataterms"
+  ];
   for pfx in prefixes {
     // branch    proves the hub fan-out reached this venue at all;
     // prewait   proves the branch got past the community activations;

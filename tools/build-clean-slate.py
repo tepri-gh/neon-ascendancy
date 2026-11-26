@@ -40,6 +40,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import os
 import shutil
 import subprocess
@@ -1546,6 +1547,22 @@ def build_tower_population(spec: dict[str, Any], templates: dict[str, dict[str, 
     return doc
 
 
+_UNTAGGED_SHORT_REF = re.compile(r"^#.*_prefab[A-Z0-9]{7}$")
+
+
+def _check_short_ref(venue_path: Path, code: str, field: str, ref: str) -> None:
+    """Reject '#name' refs that name an auto-generated (untagged) prefab node.
+
+    A '#' short ref only resolves for nodes with an authored quest name. Nodes
+    named '<something>_prefab' + 7 random characters are untagged and must be
+    addressed by their full '$/...' path; using '#' for one made the Dogtown
+    dataterm venue phase fail to start at all (owner run 19:27: branch=0)."""
+    if _UNTAGGED_SHORT_REF.match(ref):
+        raise ValueError(
+            f"{venue_path}: venue {code} {field} {ref} names an untagged prefab node; "
+            f"use its full '$/...' path (see the streaming block variant nodeRef)")
+
+
 def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
     """Load + validate the declarative venue-access probe spec.
 
@@ -1596,6 +1613,7 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
         for p in v["prefabs"]:
             if not p.startswith("#"):
                 raise ValueError(f"{venue_path}: venue {code} bad prefab ref {p}")
+            _check_short_ref(venue_path, code, "prefab", p)
             if any(pat in p for pat in venue_spec["forbidden_phase_patterns"]):
                 raise ValueError(f"{venue_path}: venue {code} prefab looks like a quest/gig phase: {p}")
         for d in v.get("doors", []):
@@ -1617,8 +1635,9 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
             if c.get("action") not in ("Activate", "Deactivate"):
                 raise ValueError(f"{venue_path}: venue {code} bad community action {c.get('action')}")
         for t in v.get("variant_toggles", []):
-            if not t.get("prefab", "").startswith("#"):
+            if not t.get("prefab", "").startswith(("#", "$/")):
                 raise ValueError(f"{venue_path}: venue {code} bad variant_toggles prefab {t}")
+            _check_short_ref(venue_path, code, "variant_toggles prefab", t["prefab"])
             if any(pat in t["prefab"] for pat in venue_spec["forbidden_phase_patterns"]):
                 raise ValueError(f"{venue_path}: venue {code} variant_toggles prefab looks like a quest/gig phase: {t['prefab']}")
             states = t.get("states")
@@ -1631,6 +1650,7 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
             prox = v["proximity_wait"]
             if not prox.get("ref", "").startswith("#"):
                 raise ValueError(f"{venue_path}: venue {code} proximity_wait.ref must be an authored '#name' ref")
+            _check_short_ref(venue_path, code, "proximity_wait.ref", prox["ref"])
             try:
                 within = float(prox.get("within"))
             except (TypeError, ValueError):
@@ -1700,82 +1720,77 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
     hub_in, hub_out = g.add_hub_node()
     g.connect(start_out, hub_in)
 
-    def emit_communities(venue: dict[str, Any], tail: str) -> str:
-        """Wire a venue's community activations after `tail`, returning the new tail.
+    def emit_communities_parallel(venue: dict[str, Any], src: str) -> None:
+        """Fan every community activation out from `src` on its own edge.
 
-        Called twice per venue: once on the unconditional hub fan-out (boot) and
-        once after that venue's proximity wait, so a fresh start behaves like a
-        load instead of leaving the venue empty."""
+        Parallel on purpose: a questSpawnManagerNodeDefinition that never
+        completes (owner run 19:27: Black Sapphire stalled at branch=1,
+        prewait=0, i.e. inside its serial community chain) must not block any
+        other activation, toggle or door action."""
         for com in venue.get("communities", []):
-            inp, out = g.add_community_spawn_node(
+            inp, _ = g.add_community_spawn_node(
                 spawn_tpl,
                 action=com["action"],
                 spawner_reference=com["spawner"],
                 entry_name=com.get("entry_name", "None"),
                 phase_name=com.get("phase_name", "None"),
             )
-            g.connect(tail, inp)
-            tail = out
-        return tail
+            g.connect(src, inp)
 
     for venue in venue_spec["venues"]:
-        prev = hub_out
         dbg = venue.get("debug_fact_prefix")
-
-        # Breadcrumb: proves this venue branch was entered from the hub at all,
-        # independently of every other venue.
+        branch = hub_out
+        # Breadcrumb: proves this venue's phase entered its hub at all.
         if dbg:
             b_in, b_out = g.add_set_fact_node(f"{dbg}_branch", 1)
-            g.connect(prev, b_in)
-            prev = b_out
-        # Boot-time activations, unconditional on the hub fan-out. On a fresh
-        # start the venue prefab usually has not streamed yet, so this pass can
-        # hit nothing (18:20 log: Clouds 0 spawned for the whole session with the
-        # owner standing inside). It is still emitted because on a loaded save the
-        # prefab is already streamed and the player may never return to the venue.
-        prev = emit_communities(venue, prev)
-        # Device actions and variant toggles are deferred until the player is
-        # near: they are one-shot and hit no entity when the prefab is not yet
-        # streamed (firing at bootstrap from H10).
-        prox = venue.get("proximity_wait")
-        if prox:
-            if dbg:
-                cf, co = g.add_set_fact_node(f"{dbg}_prewait", 1)
-                g.connect(prev, cf)
-                prev = co
-            inp, out = g.add_proximity_pause_node(prox["ref"], float(prox["within"]))
-            g.connect(prev, inp)
-            prev = out
-            if dbg:
-                cf2, co2 = g.add_set_fact_node(f"{dbg}_prox", 1)
-                g.connect(prev, cf2)
-                prev = co2
-            # Re-issue the same activations now that the venue has streamed. This
-            # is what makes a fresh start behave like a load instead of leaving the
-            # venue empty: at boot the prefab is absent, and by the time the player
-            # is within range it exists. Community activation is idempotent, so
-            # running it twice is harmless on a load where the boot pass landed.
-            prev = emit_communities(venue, prev)
-        # Variant toggles run BEFORE the device actions on purpose. A
-        # questDeviceManagerNodeDefinition whose objectRef does not resolve to a
-        # live entity (the venue is not streamed yet) does not complete, so
-        # anything chained behind it never executes. The owner's run showed
-        # exactly that: communities spawned (43) while the toggle breadcrumb
-        # stayed reached=0, because the device node ahead of it stalled. The
-        # toggle needs no entity, so it goes first.
+            g.connect(hub_out, b_in)
+            branch = b_out
+
+        # (1) Boot-time community activations, each on its own edge. On a load
+        # the prefab is already streamed; on a fresh start this pass may hit
+        # nothing, which is what the post-wait re-issue below is for.
+        emit_communities_parallel(venue, branch)
+
+        # (2) Variant toggles fire at boot on their own edge, with no proximity
+        # wait: a toggle needs no live entity (the always-on barricade cleanup
+        # toggles the bridge variants from H10 and the bridges clear).
+        toggle_tail = branch
         for toggle in venue.get("variant_toggles", []):
             if dbg:
                 f_in, f_out = g.add_set_fact_node(f"{dbg}_reached", 1)
-                g.connect(prev, f_in)
-                prev = f_out
+                g.connect(toggle_tail, f_in)
+                toggle_tail = f_out
             inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
-            g.connect(prev, inp)
-            prev = out
+            g.connect(toggle_tail, inp)
+            toggle_tail = out
             if dbg:
                 f_in2, f_out2 = g.add_set_fact_node(f"{dbg}_done", 1)
-                g.connect(prev, f_in2)
-                prev = f_out2
+                g.connect(toggle_tail, f_in2)
+                toggle_tail = f_out2
+
+        # (3) Proximity chain, its own edge: wait until the player is near the
+        # venue's anchor (a device entity), then re-issue the communities and run
+        # the door actions, each on its own edge so a door whose entity has not
+        # streamed cannot block anything else.
+        prox = venue.get("proximity_wait")
         doors = venue.get("doors", [])
+        if prox:
+            tail = branch
+            if dbg:
+                cf, co = g.add_set_fact_node(f"{dbg}_prewait", 1)
+                g.connect(tail, cf)
+                tail = co
+            inp, out = g.add_proximity_pause_node(prox["ref"], float(prox["within"]))
+            g.connect(tail, inp)
+            tail = out
+            if dbg:
+                cf2, co2 = g.add_set_fact_node(f"{dbg}_prox", 1)
+                g.connect(tail, cf2)
+                tail = co2
+            emit_communities_parallel(venue, tail)
+            door_src = tail
+        else:
+            door_src = branch
         if doors:
             entries = [
                 {
@@ -1785,9 +1800,8 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 }
                 for d in doors
             ]
-            inp, out = g.add_device_manager_node(entries)
-            g.connect(prev, inp)
-            prev = out
+            inp, _ = g.add_device_manager_node(entries)
+            g.connect(door_src, inp)
 
     # Keep-alive pause: always false; keeps phasePrefabs and community
     # activations alive for the whole session once the phase is entered.
@@ -2413,172 +2427,39 @@ def _check_community_reissue(
     venue_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
-    """Verify every venue's community activations are emitted twice, around its wait.
+    """Verify the parallel per-venue topology.
 
-    Expected topology, per venue that activates communities:
-      hub Out -> [branch] -> activations (boot) -> [prewait] -> distance pause
-        -> [prox] -> activations (re-issued) -> ...
-    Each venue branch leaves the hub on its own edge, so one venue whose distance
-    pause never resolves cannot block any other venue.
-
-    The boot pass stays because on a loaded save the prefab is already streamed
-    and the player may never return to that venue. The post-wait pass is what
-    makes a fresh start work: there the boot pass runs before the venue prefab
-    has streamed and activates nothing (18:20 log: Clouds 0 spawned all session
-    with the owner standing inside). Community activation is idempotent, so
-    running it twice is harmless wherever the boot pass already landed.
-    """
-    by_id = {id_of(n): n for n in nodes}
-    owner: dict[str, int] = {}
-    for cand in nodes:
-        for slot in cand["Data"].get("sockets", []):
-            h = slot.get("HandleId") or slot.get("HandleRefId")
-            if h is not None:
-                owner[str(h)] = id_of(cand)
-
-    edges: dict[int, list[int]] = {}
-    for cand in nodes:
-        out: list[int] = []
-
-        def walk(value: Any, src_id: int = id_of(cand), out: list[int] = out) -> None:
-            if isinstance(value, dict):
-                if value.get("$type") == "graphGraphConnectionDefinition":
-                    src = value.get("source", {})
-                    dst = value.get("destination", {})
-                    s = str(src.get("HandleId") or src.get("HandleRefId"))
-                    t = str(dst.get("HandleId") or dst.get("HandleRefId"))
-                    if owner.get(s) == src_id and t in owner:
-                        out.append(owner[t])
-                for v in value.values():
-                    walk(v)
-            elif isinstance(value, list):
-                for v in value:
-                    walk(v)
-
-        walk(cand["Data"].get("sockets", []))
-        edges[id_of(cand)] = out
-
-    def comm_rows(data: dict[str, Any]) -> list[tuple[str, str, str, str]]:
-        rows = []
-        for act in data.get("actions", []):
-            at = act.get("type", {}).get("Data", {})
-            if at.get("$type") == "questCommunityTemplate_NodeType":
-                rows.append((
-                    at.get("action"),
-                    at.get("spawnerReference", {}).get("$value"),
-                    at.get("communityEntryName", {}).get("$value"),
-                    at.get("communityEntryPhaseName", {}).get("$value"),
-                ))
-        return rows
-
-    def is_distance_pause(data: dict[str, Any]) -> bool:
-        return data.get("condition", {}).get("Data", {}).get("$type") == "questDistanceCondition"
-
-    hubs = [n for n in nodes if n["Data"].get("$type") == "questLogicalHubNodeDefinition"]
-    ok(len(hubs) == 1, f"venue_probe has {len(hubs)} hub nodes")
-    if len(hubs) != 1:
-        return
-
-    hub_children = edges[id_of(hubs[0])]
-    ok(len(hub_children) == len(set(hub_children)),
-       "venue_probe hub has duplicate outgoing edges, so branches are not independent")
-
-    # One linear branch per hub edge. Every venue branch is a serial chain that
-    # ends when a node stops having successors (the keep-alive pause is a
-    # separate hub child and has no successors).
-    branches: list[list[int]] = []
-    for child in hub_children:
-        chain: list[int] = []
-        seen: set[int] = set()
-        cur: int | None = child
-        while cur is not None and cur not in seen:
-            seen.add(cur)
-            chain.append(cur)
-            nxt = edges.get(cur) or []
-            if len(nxt) > 1:
-                ok(False, f"venue_probe branch node {cur} has {len(nxt)} outgoing edges; "
-                          f"a venue chain must be linear")
-            cur = nxt[0] if len(nxt) == 1 else None
-        branches.append(chain)
-
-    # The proximity anchor identifies a venue's branch unambiguously (community
-    # sets can repeat between venues, anchors cannot: the loader rejects a
-    # duplicate anchor).
-    pause_anchor: dict[int, str] = {}
+    Per venue phase:
+      hub -> [branch] -> each community activation (boot), each on its own edge
+                      -> variant toggles (no proximity wait)
+                      -> [prewait] -> distance pause -> [prox]
+                           -> each community activation again, own edges
+                           -> door device manager, own edge
+    Every community activation node has exactly one incoming edge and no
+    outgoing edge, so a spawn node that never completes blocks nothing; the
+    same holds for the device manager node."""
+    edges = _graph_edges(nodes)
+    out_deg: dict[int, int] = {}
+    in_deg: dict[int, int] = {}
+    for a, b in edges:
+        out_deg[a] = out_deg.get(a, 0) + 1
+        in_deg[b] = in_deg.get(b, 0) + 1
     for n in nodes:
         d = n["Data"]
-        if not is_distance_pause(d):
-            continue
-        typ = d["condition"]["Data"]["type"]["Data"]
-        ref = typ["distanceDefinition1"]["Data"]["nodeRef2"]["reference"]["$value"]
-        pause_anchor[id_of(n)] = ref
-
-    by_anchor: dict[str, list[int]] = {}
-    for chain in branches:
-        for n in chain:
-            if n in pause_anchor:
-                by_anchor.setdefault(pause_anchor[n], []).append(n)
-
-    seen_anchors: dict[str, str] = {}
+        t = d.get("$type")
+        if t in ("questSpawnManagerNodeDefinition", "questInteractiveObjectManagerNodeDefinition"):
+            nid = id_of(n)
+            ok(out_deg.get(nid, 0) == 0,
+               f"{venue_spec['phase_resource']}: {t} {nid} has outgoing edges (must be a leaf so a stall blocks nothing)")
+            ok(in_deg.get(nid, 0) == 1,
+               f"{venue_spec['phase_resource']}: {t} {nid} must have exactly one incoming edge")
     for venue in venue_spec["venues"]:
-        code = venue["code"]
-        coms = venue.get("communities", [])
-        prox = venue.get("proximity_wait")
-        if not coms:
-            continue
-        ok(prox is not None,
-           f"{code}: activates communities but has no proximity_wait, so it only ever gets the "
-           f"boot-time pass (lost on a fresh start)")
-        if prox is None:
-            continue
-
-        anchor = prox["ref"]
-        ok(anchor not in seen_anchors,
-           f"{code}: proximity anchor {anchor} is also used by {seen_anchors.get(anchor)}; "
-           f"anchors must be unique per venue")
-        seen_anchors.setdefault(anchor, code)
-
-        pauses = by_anchor.get(anchor, [])
-        ok(len(pauses) == 1,
-           f"{code}: expected exactly 1 distance pause anchored on {anchor}, found {len(pauses)}")
-        if len(pauses) != 1:
-            continue
-        pause_id = pauses[0]
-        chain = next(c for c in branches if pause_id in c)
-
-        # Drop the debug breadcrumbs (set-fact nodes) so ordering is asserted on
-        # the meaningful nodes only.
-        meaningful = [
-            n for n in chain
-            if by_id[n]["Data"].get("$type") != "questFactsDBManagerNodeDefinition"
-        ]
-        p_i = meaningful.index(pause_id)
-        com_idx = [i for i, n in enumerate(meaningful) if comm_rows(by_id[n]["Data"])]
-        before = [i for i in com_idx if i < p_i]
-        after = [i for i in com_idx if i > p_i]
-
-        expected = [tuple(r) for r in sorted(
-            (c["action"], c["spawner"], c.get("entry_name", "None"), c.get("phase_name", "None"))
-            for c in coms
-        )]
-
-        # Boot pass: one contiguous block at the very start of the branch, so it
-        # is unconditional on the hub fan-out.
-        ok(before == list(range(0, len(coms))),
-           f"{code}: boot-time activations must be the first {len(coms)} nodes on the branch, "
-           f"found at {before}")
-        # Re-issue: one contiguous block immediately after the pause.
-        ok(after == list(range(p_i + 1, p_i + 1 + len(coms))),
-           f"{code}: re-issued activations must immediately follow the distance pause, found at {after} "
-           f"(pause at {p_i})")
-
-        if before == list(range(0, len(coms))):
-            ok(sorted(r for n in meaningful[:len(coms)] for r in comm_rows(by_id[n]["Data"])) == expected,
-               f"{code}: boot-time activations mismatch the spec")
-        if after == list(range(p_i + 1, p_i + 1 + len(coms))):
-            ok(sorted(r for n in meaningful[p_i + 1:p_i + 1 + len(coms)] for r in comm_rows(by_id[n]["Data"])) == expected,
-               f"{code}: re-issued activations mismatch the spec")
-
+        n_comms = len(venue.get("communities", []))
+        spawn_nodes = [n for n in nodes if n["Data"].get("$type") == "questSpawnManagerNodeDefinition"]
+        expected = n_comms * (2 if venue.get("proximity_wait") else 1)
+        ok(len(spawn_nodes) == expected,
+           f"{venue['code']}: expected {expected} community activation nodes "
+           f"(boot + post-wait), found {len(spawn_nodes)}")
 
 def _check_cast_and_hubs(
     resources: dict[str, dict[str, Any]],

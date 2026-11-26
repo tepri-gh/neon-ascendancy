@@ -346,7 +346,32 @@
           "phase_name": "None",
           "action": "Activate",
           "why": "Clouds male staff (world-activity entry; no scene)"
-        },
+        }
+      ],
+      "probe_refs": {
+        "workspot": "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
+        "door": "#q105_dvc_dollhouse_door_vip",
+        "community": "#q105_com_dollhouse",
+        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+      },
+      "proximity_wait": {
+        "ref": "#q105_dvc_dollhouse_door_vip",
+        "within": 80.0,
+        "why": "Anchor on a device entity in #q105_pr_dollhouse (the VIP door). The previous workspot anchor #q105_ws_03c_woodman_friendly_start never satisfied the distance pause (owner run 19:27: prewait=1, prox=0 with the owner at Clouds); working anchors (Afterlife door, Black Sapphire alarm) are devices."
+      },
+      "notes": [
+        "VIP lounge door #q105_dvc_dollhouse_door_vip (owner look-at id 15368942420542527538, app=doors_double_entropy_k_glass_v2, pos=(-666.1,771.0,128.3), locked=true). Sequence: AuthorizationDisable -> ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen."
+      ],
+      "debug_fact_prefix": "na_dbg_vt_clouds"
+    },
+    {
+      "code": "q105_dollhouse_staff",
+      "display_name": "Clouds manager and Tyger Claws shop staff",
+      "why": "Hiromi (manager) and the Tyger Claws shop staff need the Woodman office sub-prefab, which #q105_pr_dollhouse does not instantiate. Kept in their own phase so that, if declaring the sub-prefab fails, the dolls and staff in the main Clouds phase are unaffected.",
+      "prefabs": [
+        "#q105_pr_03c_dollhouse_woodman"
+      ],
+      "communities": [
         {
           "spawner": "#q105_com_dollhouse",
           "entry_name": "manager",
@@ -376,21 +401,12 @@
           "why": "Tyger Claws shop guard 02 (q105_dollhouse_way activates shop_tc_02/start)"
         }
       ],
-      "probe_refs": {
-        "workspot": "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
-        "door": "#q105_dvc_dollhouse_door_vip",
-        "community": "#q105_com_dollhouse",
-        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
-      },
       "proximity_wait": {
-        "ref": "#q105_ws_03c_woodman_friendly_start",
+        "ref": "#q105_dvc_dollhouse_door_vip",
         "within": 80.0,
-        "why": "Clouds is a story interior far from H10; wait until the player is near the manager's office (verified workspot #q105_ws_03c_woodman_friendly_start, present in #q105_pr_dollhouse) before the door actions run."
+        "why": "Same device anchor as the main Clouds phase."
       },
-      "notes": [
-        "VIP lounge door #q105_dvc_dollhouse_door_vip (owner look-at id 15368942420542527538, app=doors_double_entropy_k_glass_v2, pos=(-666.1,771.0,128.3), locked=true). Sequence: AuthorizationDisable -> ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen."
-      ],
-      "debug_fact_prefix": "na_dbg_vt_clouds"
+      "debug_fact_prefix": "na_dbg_vt_clouds_staff"
     },
     {
       "code": "q003_meat_factory",
@@ -797,9 +813,7 @@
       "code": "dogtown_dataterms",
       "display_name": "Dogtown fast-travel dataterms",
       "why": "The six EP1 fast-travel dataterms live in combat_zone_data_terminals_prefabLN6J6KI. Its host sector ep1/exterior_-30_-39_0_0 (and 6 others) declares combat_zone_data_terminals_active en=0 and combat_zone_data_terminals_deactive en=1, so the deactive shell renders. IMPORTANT: no vanilla questphase anywhere references this prefab - the toggle is world-streaming state, not a quest hook. #stadium_data_term_001 sits inside variant group index 1798 (the hidden active group), which is why the old proximity anchor deadlocked. The anchor is now an ungated decoration 3.6 m away. Whether a quest-phase variant toggle can flip a sector variant at all is exactly what the new debug facts test.",
-      "prefabs": [
-        "#combat_zone_data_terminals_prefabLN6J6KI"
-      ],
+      "prefabs": [],
       "doors": [
         {
           "ref": "#stadium_data_term_001",
@@ -817,12 +831,13 @@
       "communities": [],
       "variant_toggles": [
         {
-          "prefab": "#combat_zone_data_terminals_prefabLN6J6KI",
+          "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/combat_zone_data_terminals_prefabLN6J6KI",
           "states": {
             "combat_zone_data_terminals_active": 1,
             "combat_zone_data_terminals_deactive": 0
           },
-          "why": "Show the active dataterm prefab state so the six Dogtown dataterms stream in."
+          "why": "Show the active dataterm prefab state so the six Dogtown dataterms stream in.",
+          "ref_why": "Full path from the EP1 all.streamingblock variant record (descriptors[85].variants[2].nodeRef); untagged prefab nodes must be addressed by their $/ path."
         }
       ],
       "probe_refs": {
@@ -832,11 +847,13 @@
         "note": "#stadium_data_term_001 is the verified authored ref inside combat_zone_data_terminals_prefabLN6J6KI/combat_zone_dataterm_04_prefabARG5WKY (ep1_data_term_1.ent at -1876.9,-2459.8,35.7). The '#combat_zone_dataterm_04' name used by dev_fast_travel_points.json is the prefab segment, not the device ref."
       },
       "proximity_wait": {
-        "ref": "#decoset_streetsign_gwashington_001_prefabJBZIHZI",
+        "ref": "#stadium_data_term_001",
         "within": 40.0,
-        "why": "Ungated anchor 3.6 m from the dataterm. The previous anchor #stadium_data_term_001 is itself inside the hidden variant group 1798, so the distance pause could never resolve and neither the toggle nor the device actions ever ran."
+        "why": "The toggle now fires at boot on its own edge, so the dataterm entity exists once the player is near; anchor the door actions on the dataterm itself (a device entity, like the working Afterlife anchor)."
       },
-      "debug_fact_prefix": "na_dbg_vt_dataterms"
+      "debug_fact_prefix": "na_dbg_vt_dataterms",
+      "prefabs_why": "Not declared: the dataterm prefab node is untagged, so a '#' short ref does not resolve and made this whole venue phase fail to start (owner run 19:27: branch=0). Like the barricade cleanup, the toggle needs no phasePrefab declaration.",
+      "deferred_prefab_owner": "world streaming (the variant is a streaming-sector variant toggled directly; no phase declares the prefab)"
     },
     {
       "code": "loc_q103_afterlife_backroom",

@@ -32,6 +32,15 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Fixed
+- Venue access: inside each venue phase, community activations, variant toggles,
+  the proximity chain and door actions now each leave the venue's branch on their
+  own edge (spawn and device nodes are leaves), so one node that never completes
+  blocks nothing else; variant toggles fire at boot without a proximity wait.
+  Dogtown dataterms: the variant is addressed by its full `$/…` path (untagged
+  prefab nodes do not resolve as `#` short refs) and the prefab is no longer
+  declared; the builder now rejects `#…_prefabXXXXXXX` short refs. Clouds: the
+  proximity anchor is the VIP door device, and the manager/Tyger Claws staff run
+  in their own `venue_q105_dollhouse_staff` phase with the Woodman office prefab.
 - Venue access: each venue now has its own quest phase
   (`mod\neon_ascendancy\venue_<code>.questphase`), all fanned out from the one
   `na_dev_venue_probe` gate. In owner runs the single shared `venue_probe` phase
