@@ -277,6 +277,12 @@ lieutenants) are to be represented. Design pending.
 - **Every location accessible** to V and NPCs (doors, areas), except places
   that would not exist in this timeline (e.g. the nomad-camp tent after
   Panam's story, Kurtz/Kutcher's home).
+- **Door policy:** doors are closed by default but usable (enabled and
+  powered; unlocked only when there is otherwise no way through). Doors with
+  an in-world way to open them (a terminal, a keycard placed in the world,
+  hacking, a Technical or Body check) stay exactly as vanilla. Quest
+  infiltration routes we preserve for missions (e.g. the Black Sapphire
+  sneak-in) are opened end to end.
 
 ## 11. Architecture
 

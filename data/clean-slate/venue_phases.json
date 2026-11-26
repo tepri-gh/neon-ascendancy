@@ -53,11 +53,6 @@
           "why": "Entrance gate; vanilla _openworld unpowered+closed it"
         },
         {
-          "ref": "#kab_07_gate_001",
-          "action": "ForceOpen",
-          "why": "Physical open after power (section 5.4 pairing)"
-        },
-        {
           "ref": "#kab_07_doors_008",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -65,11 +60,6 @@
         {
           "ref": "#kab_07_doors_008",
           "action": "ForcePower",
-          "why": "Interior single door 008"
-        },
-        {
-          "ref": "#kab_07_doors_008",
-          "action": "ForceOpen",
           "why": "Interior single door 008"
         },
         {
@@ -83,11 +73,6 @@
           "why": "Interior single door 010"
         },
         {
-          "ref": "#kab_07_doors_010",
-          "action": "ForceOpen",
-          "why": "Interior single door 010"
-        },
-        {
           "ref": "#kab_07_doors_016",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -95,11 +80,6 @@
         {
           "ref": "#kab_07_doors_016",
           "action": "ForcePower",
-          "why": "Interior single door 016"
-        },
-        {
-          "ref": "#kab_07_doors_016",
-          "action": "ForceOpen",
           "why": "Interior single door 016"
         }
       ],
@@ -143,11 +123,6 @@
           "why": "Plaza entrance; vanilla only unlocks it, never powers"
         },
         {
-          "ref": "#konpeki_plaza_entrance_door",
-          "action": "ForceOpen",
-          "why": "Plaza entrance open"
-        },
-        {
           "ref": "#q005_dvc_res_floor_booked_room_door",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -155,11 +130,6 @@
         {
           "ref": "#q005_dvc_res_floor_booked_room_door",
           "action": "ForcePower",
-          "why": "Residential floor booked-room door"
-        },
-        {
-          "ref": "#q005_dvc_res_floor_booked_room_door",
-          "action": "ForceOpen",
           "why": "Residential floor booked-room door"
         }
       ],
@@ -210,11 +180,6 @@
           "why": "Customer cabin door"
         },
         {
-          "ref": "#q105_dvc_dollhouse_door_cabin_customer",
-          "action": "ForceOpen",
-          "why": "Customer cabin door"
-        },
-        {
           "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -225,11 +190,6 @@
           "why": "Doll 01 cabin door"
         },
         {
-          "ref": "#q105_dvc_dollhouse_door_cabin_doll_01",
-          "action": "ForceOpen",
-          "why": "Doll 01 cabin door"
-        },
-        {
           "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -237,11 +197,6 @@
         {
           "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
           "action": "ForcePower",
-          "why": "Doll 02 cabin door"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_cabin_doll_02",
-          "action": "ForceOpen",
           "why": "Doll 02 cabin door"
         },
         {
@@ -253,31 +208,6 @@
           "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
           "action": "ForcePower",
           "why": "Evelyn cabin door; vanilla ForceDisabled it"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_cabin_evelyn",
-          "action": "ForceOpen",
-          "why": "Evelyn cabin door"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_woodman",
-          "action": "ForceEnabled",
-          "why": "Manager office door (Woodman's office): Re-enable first (q105_dollhouse_woodman disables it)"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_woodman",
-          "action": "ForcePower",
-          "why": "Manager office door (Woodman's office): Power it"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_woodman",
-          "action": "ForceUnlock",
-          "why": "Manager office door (Woodman's office): Unlock it"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_woodman",
-          "action": "ForceOpen",
-          "why": "Manager office door (Woodman's office): Open it"
         },
         {
           "ref": "#q105_dvc_dollhouse_door_woodman_glass",
@@ -293,11 +223,6 @@
           "ref": "#q105_dvc_dollhouse_door_woodman_glass",
           "action": "ForceUnlock",
           "why": "Manager office glass door: Unlock it"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_woodman_glass",
-          "action": "ForceOpen",
-          "why": "Manager office glass door: Open it"
         },
         {
           "ref": "#q105_dvc_dollhouse_door_vip",
@@ -318,11 +243,6 @@
           "ref": "#q105_dvc_dollhouse_door_vip",
           "action": "ForceUnlock",
           "why": "Unlock it"
-        },
-        {
-          "ref": "#q105_dvc_dollhouse_door_vip",
-          "action": "ForceOpen",
-          "why": "Open it"
         }
       ],
       "communities": [
@@ -362,12 +282,13 @@
       "notes": [
         "VIP lounge door #q105_dvc_dollhouse_door_vip (owner look-at id 15368942420542527538, app=doors_double_entropy_k_glass_v2, pos=(-666.1,771.0,128.3), locked=true). Sequence: AuthorizationDisable -> ForceEnabled -> ForcePower -> ForceUnlock -> ForceOpen."
       ],
-      "debug_fact_prefix": "na_dbg_vt_clouds"
+      "debug_fact_prefix": "na_dbg_vt_clouds",
+      "doors_note": "Owner policy: doors with an in-world way to open them are left alone. Woodman's front office door opens from the server-room terminal, so it is not touched; the back (glass) entrance is opened."
     },
     {
       "code": "q105_dollhouse_staff",
       "display_name": "Clouds manager and Tyger Claws shop staff",
-      "why": "Hiromi (manager) and the Tyger Claws shop staff need the Woodman office sub-prefab, which #q105_pr_dollhouse does not instantiate. Kept in their own phase so that, if declaring the sub-prefab fails, the dolls and staff in the main Clouds phase are unaffected.",
+      "why": "Woodman (spawn set) and the Tyger Claws security (#q105_com_dollhouse_combat non-hostile phases) at Clouds, plus Woodman's private lift. Own phase so a failure here cannot empty the main Clouds phase.",
       "prefabs": [
         "#q105_pr_03c_dollhouse_woodman"
       ],
@@ -380,25 +301,46 @@
           "why": "Hiromi Sato, Clouds manager. Vanilla activates him from the q105_setup_dollhouse location phase (manager/start); we activate the community entry directly with no scene wiring."
         },
         {
-          "spawner": "#q105_com_dollhouse",
-          "entry_name": "shop_owner",
-          "phase_name": "start",
           "action": "Activate",
-          "why": "Clouds shop owner (q105_dollhouse_way activates shop_owner/start)"
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_monitor_room_01",
+          "phase_name": "start",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
         },
         {
-          "spawner": "#q105_com_dollhouse",
-          "entry_name": "shop_tc_01",
-          "phase_name": "start",
           "action": "Activate",
-          "why": "Tyger Claws shop guard 01 (q105_dollhouse_way activates shop_tc_01/start)"
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_viparea_03",
+          "phase_name": "start",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
         },
         {
-          "spawner": "#q105_com_dollhouse",
-          "entry_name": "shop_tc_02",
-          "phase_name": "start",
           "action": "Activate",
-          "why": "Tyger Claws shop guard 02 (q105_dollhouse_way activates shop_tc_02/start)"
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_viparea_01",
+          "phase_name": "bar",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
+        },
+        {
+          "action": "Activate",
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_viparea_02",
+          "phase_name": "end",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
+        },
+        {
+          "action": "Activate",
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_vipentrance_01",
+          "phase_name": "after_woodman",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
+        },
+        {
+          "action": "Activate",
+          "spawner": "#q105_com_dollhouse_combat",
+          "entry_name": "guard_vipentrance_02",
+          "phase_name": "after_woodman",
+          "why": "Tyger Claws security at Clouds; non-hostile phase from q105_setup_dollhouse_combat / q105_complete"
         }
       ],
       "proximity_wait": {
@@ -406,7 +348,30 @@
         "within": 80.0,
         "why": "Same device anchor as the main Clouds phase."
       },
-      "debug_fact_prefix": "na_dbg_vt_clouds_staff"
+      "debug_fact_prefix": "na_dbg_vt_clouds_staff",
+      "spawn_sets": [
+        {
+          "action": "Activate",
+          "reference": "#woodman",
+          "entry_name": "woodman",
+          "phase_name": "q105_interrogation_friendly_start",
+          "why": "Woodman (the Clouds manager) idle behind his desk: vanilla q105_dollhouse_woodman spawn set, friendly start; no scene."
+        }
+      ],
+      "doors": [
+        {
+          "ref": "#q105_dvc_dollhouse_lift_leave",
+          "controller": "LiftControllerPS",
+          "action": "ForceEnabled",
+          "why": "Woodman's private lift (vanilla q105_dollhouse_woodman ForceEnabled)."
+        },
+        {
+          "ref": "#q105_dvc_dollhouse_lift_leave",
+          "controller": "LiftControllerPS",
+          "action": "AuthorizationDisable",
+          "why": "Owner: the lift behind Woodman asks for authorization V does not have."
+        }
+      ]
     },
     {
       "code": "q003_meat_factory",
@@ -432,11 +397,6 @@
           "why": "Gate is sealed, not just closed"
         },
         {
-          "ref": "#q003_maelstrom_gate_entry",
-          "action": "ForceOpen",
-          "why": "Gate open"
-        },
-        {
           "ref": "#q003_door_garage_outer",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -447,11 +407,6 @@
           "why": "Garage outer door"
         },
         {
-          "ref": "#q003_door_garage_outer",
-          "action": "ForceOpen",
-          "why": "Garage outer door"
-        },
-        {
           "ref": "#q003_door_garage_inner",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -459,11 +414,6 @@
         {
           "ref": "#q003_door_garage_inner",
           "action": "ForceUnlock",
-          "why": "Garage inner door"
-        },
-        {
-          "ref": "#q003_door_garage_inner",
-          "action": "ForceOpen",
           "why": "Garage inner door"
         }
       ],
@@ -513,11 +463,6 @@
           "why": "Entrance seal"
         },
         {
-          "ref": "#sq011_dvc_door_sliding_totentanz_entrance",
-          "action": "ForceOpen",
-          "why": "Entrance open"
-        },
-        {
           "ref": "#sq011_club_doors",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -528,11 +473,6 @@
           "why": "Club interior doors"
         },
         {
-          "ref": "#sq011_club_doors",
-          "action": "ForceOpen",
-          "why": "Club interior doors"
-        },
-        {
           "ref": "#sq011_dvc_door_back_room",
           "action": "ForceEnabled",
           "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
@@ -540,11 +480,6 @@
         {
           "ref": "#sq011_dvc_door_back_room",
           "action": "ForceUnlock",
-          "why": "Back room door"
-        },
-        {
-          "ref": "#sq011_dvc_door_back_room",
-          "action": "ForceOpen",
           "why": "Back room door"
         }
       ],
@@ -624,11 +559,6 @@
           "ref": "#q115_dvc_embers_elevator_bottom_door",
           "action": "ForceUnseal",
           "why": "Embers elevator bottom door is sealed"
-        },
-        {
-          "ref": "#q115_dvc_embers_elevator_bottom_door",
-          "action": "ForceOpen",
-          "why": "Embers elevator bottom door"
         }
       ],
       "communities": [
@@ -677,11 +607,6 @@
           "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceUnlock",
           "why": "Owner look-at: locked=true. Vanilla q303_07b_lobby_combat issues ForceUnlock then ForceOpen"
-        },
-        {
-          "ref": "#q303_dvc_combat_tower_main_door",
-          "action": "ForceOpen",
-          "why": "Open the glass main door (vanilla q303_07b_lobby_combat sequence)"
         }
       ],
       "communities": [
@@ -716,7 +641,8 @@
         "within": 40.0,
         "why": "The previous wait used #q303_ws_nighthawks_customer_06, which sits at (-2424,-2660) - about 700 m from the door at (-1819,-2315) - so the 150 m distance pause never resolved and *nothing* after it ran (neither the door actions nor the variant toggle). #q303_dvc_lobby_alarm is 8 m from the main door, so a 40 m radius covers the street entrance."
       },
-      "debug_fact_prefix": "na_dbg_vt_black_sapphire"
+      "debug_fact_prefix": "na_dbg_vt_black_sapphire",
+      "doors_note": "Owner: the main door should be closed by default, so it is enabled, powered and unlocked but not force-opened."
     },
     {
       "code": "loc_arasaka_tower",
@@ -736,11 +662,6 @@
           "ref": "#q113_dvc_atrium_start_lift_door",
           "action": "ForcePower",
           "why": "Atrium lift door power"
-        },
-        {
-          "ref": "#q113_dvc_atrium_start_lift_door",
-          "action": "ForceOpen",
-          "why": "Atrium lift door open"
         },
         {
           "ref": "#q113_dvc_ceo_door_01",
@@ -781,11 +702,6 @@
           "ref": "#q113_dvc_ceo_door_04",
           "action": "ForceUnlock",
           "why": "CEO floor door 04"
-        },
-        {
-          "ref": "#q113_dvc_ceo_door_04",
-          "action": "ForceOpen",
-          "why": "CEO floor door 04 open"
         }
       ],
       "communities": [
@@ -875,11 +791,6 @@
           "ref": "#q005_dvc_afterlife_briefing_room_door",
           "action": "ForceUnlock",
           "why": "Unlock it (owner: locked=true)"
-        },
-        {
-          "ref": "#q005_dvc_afterlife_briefing_room_door",
-          "action": "ForceOpen",
-          "why": "Open it"
         }
       ],
       "communities": [],
@@ -1058,5 +969,6 @@
     "PlatformControllerPS",
     "ElevatorFloorTerminalControllerPS",
     "DataTermControllerPS"
-  ]
+  ],
+  "door_policy": "Owner policy (2026-11-25): venue doors are closed by default but usable - enabled/powered (and unlocked only where there is otherwise no way through); never force-opened. Doors with an in-world way to open them (terminal, keycard in the world, hacking, Technical or Body check) are left exactly as vanilla. Exception: the Black Sapphire sneak-in route replays the opening steps needed to traverse it."
 }

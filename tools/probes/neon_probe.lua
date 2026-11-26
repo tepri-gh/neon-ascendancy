@@ -322,6 +322,12 @@ function Probe.look_at()
           tostring(safe(function() return ps:IsOpen() end)), tostring(safe(function() return ps:IsLocked() end)),
           tostring(safe(function() return ps:IsSealed() end)))
       end
+      -- In-world ways to open it (owner policy: such doors stay vanilla).
+      -- Mirrors doorController.swift:84's "no way to open" test.
+      line = line .. string.format(" skillCheck=%s quickhack=%s authValid=%s",
+        tostring(safe(function() return ps:HasAnySkillCheckActive() end)),
+        tostring(safe(function() return ps:CanCreateAnyQuickHackActions() end)),
+        tostring(safe(function() return ps:IsAuthorizationValid() end)))
     end
   end
   if obj:IsA("ScriptedPuppet") then

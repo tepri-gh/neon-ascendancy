@@ -31,6 +31,18 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - `docs.clean-slate`: `venue_phases.json` now supports `allowed_device_controllers`
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
+### Changed
+- Venue doors follow the owner's door policy: closed by default but usable
+  (enabled/powered, unlocked only where there is no other way through), never
+  force-opened; doors with an in-world opener (terminal, keycard, hacking,
+  Technical/Body check) stay vanilla. The Black Sapphire main door is now closed
+  by default; Woodman's front office door (server-room terminal) is untouched.
+- Clouds staff phase: Woodman via his vanilla spawn set (friendly start), the
+  Tyger Claws security from `#q105_com_dollhouse_combat` (non-hostile phases),
+  and Woodman's private lift enabled with its authorization disabled. Venue
+  entries can now declare `spawn_sets`.
+- Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
+
 ### Fixed
 - Venue access: inside each venue phase, community activations, variant toggles,
   the proximity chain and door actions now each leave the venue's branch on their

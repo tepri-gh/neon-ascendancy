@@ -1634,6 +1634,11 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
                 raise ValueError(f"{venue_path}: venue {code} bad community spawner {c}")
             if c.get("action") not in ("Activate", "Deactivate"):
                 raise ValueError(f"{venue_path}: venue {code} bad community action {c.get('action')}")
+        for ss in v.get("spawn_sets", []):
+            if ss.get("action") not in ("Activate", "Deactivate"):
+                raise ValueError(f"{venue_path}: venue {code} bad spawn_sets action {ss.get('action')}")
+            if not ss.get("reference", "").startswith("#") or not ss.get("entry_name") or not ss.get("phase_name"):
+                raise ValueError(f"{venue_path}: venue {code} spawn_sets needs '#reference', entry_name, phase_name")
         for t in v.get("variant_toggles", []):
             if not t.get("prefab", "").startswith(("#", "$/")):
                 raise ValueError(f"{venue_path}: venue {code} bad variant_toggles prefab {t}")
@@ -1734,6 +1739,15 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 spawner_reference=com["spawner"],
                 entry_name=com.get("entry_name", "None"),
                 phase_name=com.get("phase_name", "None"),
+            )
+            g.connect(src, inp)
+        # Spawn sets (e.g. Woodman at Clouds), same parallel, leaf-only shape.
+        for ss in venue.get("spawn_sets", []):
+            inp, _ = g.add_spawn_set_node(
+                action=ss["action"],
+                reference=ss["reference"],
+                entry_name=ss["entry_name"],
+                phase_name=ss["phase_name"],
             )
             g.connect(src, inp)
 
@@ -2454,7 +2468,7 @@ def _check_community_reissue(
             ok(in_deg.get(nid, 0) == 1,
                f"{venue_spec['phase_resource']}: {t} {nid} must have exactly one incoming edge")
     for venue in venue_spec["venues"]:
-        n_comms = len(venue.get("communities", []))
+        n_comms = len(venue.get("communities", [])) + len(venue.get("spawn_sets", []))
         spawn_nodes = [n for n in nodes if n["Data"].get("$type") == "questSpawnManagerNodeDefinition"]
         expected = n_comms * (2 if venue.get("proximity_wait") else 1)
         ok(len(spawn_nodes) == expected,
