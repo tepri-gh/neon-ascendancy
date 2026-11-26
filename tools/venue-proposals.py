@@ -246,6 +246,9 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
         if (sp, en, ph) in kept_acts:
             warns.append(f"community {sp} {en}/{ph}: kept vanilla phase {kept_acts[(sp, en, ph)]} already activates it "
                          f"in the clean slate (re-activation is harmless but redundant)")
+        elif en != "None" and (sp, "None", "None") in kept_acts:
+            warns.append(f"community {sp} {en}/{ph}: kept vanilla phase {kept_acts[(sp, 'None', 'None')]} already "
+                         f"activates the whole community; this entry only matters if {ph} is not its initial phase")
         owner = acts.get((sp, en, ph)) or acts.get((sp, "None", "None"))
         if owner:
             errs.append(f"community {sp} {en}/{ph}: already activated by {owner}")

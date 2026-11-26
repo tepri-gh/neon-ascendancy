@@ -423,7 +423,9 @@ def _phase_items(path: Path, rel: str, forbidden: set[str], prefixes: tuple[str,
                 node = id(o)
             gated = node is not None and node not in reach
             t = o.get("$type")
-            if t == "questCommunityTemplate_NodeType":
+            # questLegacy_NodeType is the older community action (same fields);
+            # 99 vanilla phases still use it, e.g. cct_dtn_phase for 7th Hell.
+            if t == "questCommunityTemplate_NodeType" or (t == "questLegacy_NodeType" and "spawnerReference" in o):
                 items["communities"].append({"ref": val(o.get("spawnerReference")), "entry": val(o.get("communityEntryName")),
                                              "phase": val(o.get("communityEntryPhaseName")), "action": o.get("action"),
                                              "gated": gated})
