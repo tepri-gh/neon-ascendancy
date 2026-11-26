@@ -191,3 +191,33 @@ Afterlife back-room door was found this way.
 7. Set `debug_fact_prefix` and add it to `VenueProbe.reds`.
 8. Build, run `--check` and `tools/verify.sh`, deploy, then read the
    breadcrumbs and the look-at log in game.
+
+## 6. Venue catalogue and walkthroughs
+
+Two local tools feed venue research. Their output is never committed;
+`AGENTS-LOCAL.md` records where it lives.
+
+- **`tools/fetch-wiki-walkthroughs.py`** downloads the Cyberpunk wiki's quest
+  and location pages (main jobs, side jobs, gigs, minor jobs, minor
+  activities, district locations, stores, vendors, apartments) as raw
+  wikitext, plus `index.json`. GameFAQs guides are from 2021 and refuse
+  automated downloads, so the wiki is the walkthrough source. Quest pages
+  carry `baseid` (e.g. `q105_02_jigjig`), which joins them to quest phases.
+- **`tools/mine-venues.py`** builds `catalog.json` from the extracted quest
+  phases, the community registry, the streaming blocks and (after the
+  `sectors` stage) every converted sector. One record per venue (top-level
+  location prefab, sibling sub-prefabs merged):
+  - owning quests and phases, and matching wiki pages;
+  - prefabs, community activations (with character record, spot count,
+    workspots and posture), spawn sets, device actions and variant toggles,
+    each with the phases that own it;
+  - `venue_inferred: true` on items whose ref is not yet resolved to a path
+    and was attached to the venues its phase touches. Treat those as
+    unverified until the `sectors` stage has run;
+  - `tier`: `individual` (one research agent each: an authored location used
+    by a main job, side job, minor job or gig, with people, devices or
+    sections to restore) or `batch` (open-world areas, hustles, apartments,
+    small sites; several per agent).
+
+  Stages: `phases`, `communities`, `sectors` (slow: converts every sector
+  holding spots, devices or community areas; resumable), `catalog`.
