@@ -20,10 +20,21 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `kurtz` / `q303_restaurant_host`) on Black Sapphire floor 99.
 - Probe: `Dataterm[...]` lines log each Dogtown fast-travel dataterm's resolve
   and PS `powered`/`disabled` state, and the Black Sapphire decoration node.
+- Probe: `VariantToggle[...]` lines log the `na_dbg_vt_<venue>_reached` /
+  `_done` facts the builder now emits immediately before and after every
+  `questTogglePrefabVariant` node, so a run proves whether the graph reached the
+  toggle at all.
 - `docs.clean-slate`: `venue_phases.json` now supports `allowed_device_controllers`
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Fixed
+- Venue probe: the Dogtown dataterm proximity anchor was `#stadium_data_term_001`
+  itself, which sits *inside* variant group 1798 (the hidden
+  `combat_zone_data_terminals_active` group). The distance pause could therefore
+  never resolve, so neither the toggle nor the device actions ever ran. The
+  anchor is now `#decoset_streetsign_gwashington_001_prefabJBZIHZI`, an ungated
+  decoration 3.6 m from the terminal; the builder now rejects an anchor that is
+  a variant state or is marked variant-gated.
 - Venue probe: duplicate `phasePrefabs` silently broke phase instantiation, which
   dropped every community activation and device action to zero. Prefabs are now
   deduplicated in `venue_probe.questphase`, and `--check` fails if a prefab is
