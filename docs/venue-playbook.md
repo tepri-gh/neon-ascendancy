@@ -177,6 +177,9 @@ already define all four; we copy them, never invent them.
     attachment once on restore for older saves. The Clean Slate bootstrap
     supplies the clearance fact on older saves with Phantom Liberty installed.
     The vanilla phase owns the four vehicle barriers and the combat variant.
+    The 2026-11-26 playtest confirmed vehicle scans in both directions.
+    ArchiveXL's runtime log confirmed the phase attached, and the playtest
+    autosave recorded one vehicle crossing into Dogtown.
     To verify in game, drive a civilian car through the western checkpoint in
     both directions and check that the scans play and the barriers cycle.
     The game increments `by_car_dogtown_crossed` and `by_car_night_city_crossed`
