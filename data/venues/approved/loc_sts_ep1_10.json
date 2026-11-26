@@ -1,0 +1,106 @@
+{
+  "code": "sts_ep1_10",
+  "display_name": "Abandoned Pacifica NCPD Precinct — Dodger's Barghest base (Coastview)",
+  "why": "loc_sts_ep1_10 is the abandoned Pacifica NCPD precinct in Coastview: a street-level lobby and reception, a ground floor, a basement lockup/cell block and a garage, occupied by Barghest soldiers led by Carl 'Dodger' Robinson. In vanilla normal play the venue is only dressed while the Phantom Liberty gig 'Waiting for Dodger' runs; its own openworld phase stages the two captive NCPD officers, the dead drug dealer, the informer, police cars and Dodger's crew. This proposal restores the base as a working hideout: Dodger himself, his two bodyguards and his car in the garage hangout, the front-desk/reception goon set, a perimeter lookout, the cell-block guard and two ground-floor guards at their posts, with the garage collision gate left in vanilla's open state. The gig's captives, corpse, informer, police cars and departing-garage convoy are left out.",
+  "source": {
+    "proposal": "research/loc_sts_ep1_10/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Every community entry here has posture unknown in the catalogue: no worldCompiledCommunityAreaNode was found in the converted sectors, so the phase-to-workspot mapping is unverified. The tour must confirm each chosen entry idles at a real mapped spot (not ALERT, not NO-WORKSPOT). Spot debug names are the evidence used instead: dodger_001/002, goon_001..005, reception_scene_goon1/002, enemy_cells_002, enemy_ground_001_c/_003_b.",
+      "The ground-floor, lockup and lookout communities are base-world groups that vanilla only ever deactivates or choreographs; it is assumed their entries are inactive until activated (entriesInitialState active=0) and that activating them outside the gig spawns them at the initial phase. Confirm on tour that all four groups actually appear.",
+      "Which spot set goon1/goon2 use in phase a: the garage scene set (wall lean/guard/bodyguard) or the reception set (stand-around/vending machine). Both prefabs are loaded so either resolves; the tour should report where they stand.",
+      "The base's 'normal' state in our timeline: the gig's premise is that Bill and Charles are already held/blackmailed by Dodger before V arrives. This proposal treats that as quest staging and leaves them out. If the owner wants the blackmail operation visible as a permanent fixture, the two officers would have to be added from their kneeling/hiding phases.",
+      "Front door identity: #sts_ep1_10_first_door (single_door_1t with a terminal) is assumed to be the Stella-key street entrance on the wiki. If the tour finds the ordinary pedestrian route is a different arch door, the door notes and anchor distance need adjusting.",
+      "collision_gargae_gates=0 is read as 'extra garage collision hidden, garage mouth passable', which is the only value vanilla ever sets. Confirm the garage is not sealed by baked mesh and that the gate device still animates.",
+      "The catalogue's three spawn sets are q003 noise (see excluded); no named NPC apart from Dodger is placed at this venue in vanilla data, so spawn_sets is deliberately empty."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/coastview/loc_sts_ep1_10_prefab4QCS4XQ/#loc_sts_ep1_10_openworld/#sts_ep_1_10_streetstory",
+    "$/03_night_city/c_pacifica/coastview/loc_sts_ep1_10_prefab4QCS4XQ/#loc_sts_ep1_10_openworld/#sts_ep_1_10_streetstory/#sts_ep1_10_dodger_garage_scene",
+    "$/03_night_city/c_pacifica/coastview/loc_sts_ep1_10_prefab4QCS4XQ/#loc_sts_ep1_10_openworld/#sts_ep_1_10_streetstory/sts_ep1_10_reception_chat_prefabPTYYCDY"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_10_dodger_com",
+      "entry_name": "dodger",
+      "phase_name": "b",
+      "action": "Activate",
+      "why": "Carl 'Dodger' Robinson, the Barghest lieutenant who runs the former precinct. b is the only phase vanilla ever puts him in and the venue's openworld setup applies it before the player arrives; his garage spots are stand-around 03 and a nervous cellphone call, i.e. the boss waiting at his base rather than a confrontational scene. He is alive in our timeline (no gig runs, so nobody kills him) and is the venue's owner.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_dodger_com",
+      "entry_name": "goon1",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "First of Dodger's two bodyguards. Phase a is the entry's initial phase and exactly what vanilla's openworld setup switches on; the goon spot set is idle guard work (wall lean, guard stance, bodyguard 2h front, stand-around), not combat or cover. He may idle at the garage or at the reception desk.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_dodger_com",
+      "entry_name": "goon2",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Second bodyguard, same phase-a idle set and same vanilla setup activation; a two-man detail around Dodger is the base's normal look. Excluded phases: b and cleanup belong to the garage confrontation and its aftermath.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_dodger_com",
+      "entry_name": "dodger_car",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Dodger's own Archer Hella parked at his base, the same phase vanilla's setup activates. It reads as the owner being home and needs no workspot; kept because a gang boss's personal car in the garage is the clearest 'he lives here' cue.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_nosy_guard_com",
+      "entry_name": "nosy_guard",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "The single perimeter lookout (the name is the quest's, 'nosy guard'). Vanilla's own openworld setup activates him with entry nosy_guard and phase None, i.e. his initial phase a; he is the outside pair of eyes every working hideout has. A combat guard is kept ahead of civilians per rule 11a.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_enemies_lockup_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the cell-block guard (one entry, enemy_lockup_01, initial phase A). Vanilla's openworld setup activates the community whole; his only mapped spot is by the vending machine at the cells, an idle jailer post. It keeps the lockup read as a guarded part of the base without staging the prisoners.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_enemies_ground_floor_com",
+      "entry_name": "enemy_ground_floor_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Ground-floor guard on a tablet at a post ({sts_ep1_10_ws_enemy_ground_001_c}, generic__stand_ground_tablet__use__04). The ground-floor group is base-world Barghest garrison, initial phase A; vanilla only moves these puppets during the gig and never activates the community itself, so the clean slate must switch them on. Two entries only, because only these have named idle spots.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_10_enemies_ground_floor_com",
+      "entry_name": "enemy_ground_floor_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Second ground-floor guard, tablet post ({sts_ep1_10_ws_enemy_ground_003_b}, generic__stand_ground_tablet__use__01). Same base-world garrison, initial phase A; a two-man floor detail covers the lobby-to-cells route without crowding the small interior.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#sts_ep1_10_dodger_garage_scene",
+      "states": {
+        "collision_gargae_gates": 0
+      },
+      "why": "Vanilla's only value for this variant: the extra garage-gate collision set is hidden, so the garage mouth stays passable and the gate device is the thing that opens and closes it. The normal intact base keeps that state; showing the collision set would seal the garage entrance behind baked mesh. Applied at boot, with no proximity wait (rule 5)."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sts_ep1_10_garage_gate",
+    "within": 80.0,
+    "why": "The garage vehicle gate: a DoorControllerPS in the base-world loc_sts_ep1_10_gameplay_prefabODQE2GQ/loc_sts_ep1_10_devices_prefabKMQNC6I group, driven by this venue's openworld and cleanup phases (ForceOpen during the gig, ForceClose+ForceLock afterwards). It is on the base's main vehicle entrance, next to Dodger's garage hangout and the goons' spots, and it streams with the building, so a proximity wait on it re-issues the people exactly where they stand."
+  }
+}
