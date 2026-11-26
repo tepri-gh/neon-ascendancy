@@ -803,6 +803,7 @@ def build_questphase(
     venue_spec: dict[str, Any],
     barricade_spec: dict[str, Any],
     vendors_spec: dict[str, Any],
+    tower_spec: dict[str, Any],
 ) -> dict[str, Any]:
     """Assemble the clean-slate hub questphase.
 
@@ -861,6 +862,11 @@ def build_questphase(
     g.connect(fan, vg_in)
     vendors_phase_in = g.add_phase_node(vendors_spec["phase_resource"])
     g.connect(vg_out, vendors_phase_in)
+
+    # Black Sapphire tower population (always on): lobby, floor-67 and floor-99
+    # communities with default/idle/guard entry phases only.
+    tower_phase_in = g.add_phase_node(tower_spec["phase_resource"])
+    g.connect(fan, tower_phase_in)
 
     # spike: gate pause -> spike phase node
     spike = qp["spike"]
@@ -1427,6 +1433,76 @@ def build_dogtown_vendors(spec: dict[str, Any], templates: dict[str, dict[str, A
     return doc
 
 
+def load_tower_population_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
+    """Load + validate the always-on Black Sapphire tower population spec."""
+    path = ROOT / cast_spec["tower_population_spec"]
+    if not path.is_file():
+        raise FileNotFoundError(f"missing tower population spec: {path}")
+    with path.open("r", encoding="utf-8") as fh:
+        spec = json.load(fh)
+    if not spec.get("phase_resource"):
+        raise ValueError(f"{path}: phase_resource is required")
+    if not spec.get("communities"):
+        raise ValueError(f"{path}: at least one community is required")
+    for c in spec["communities"]:
+        if not c.get("spawner", "").startswith("#"):
+            raise ValueError(f"{path}: bad community spawner {c}")
+        if c.get("action", "Activate") != "Activate":
+            raise ValueError(f"{path}: tower population only Activates, got {c.get('action')}")
+        if not c.get("floor"):
+            raise ValueError(f"{path}: community needs a floor label for the probe report: {c}")
+    return spec
+
+
+def build_tower_population(spec: dict[str, Any], templates: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    """Assemble mod\\neon_ascendancy\\bsc_tower_population.questphase.
+
+    In1 -> hub -> per-community Activate entries -> keep-alive pause. Only
+    location/open-world communities with default/idle/guard entry phases, so
+    nothing depends on a scene or dialogue."""
+    spawn_tpl = templates["spawn_manager_node"]
+    g = QuestGraph(start_handle=1)
+    start_out = g.add_input_node(spec["entry_socket"])
+    hub_in, hub_out = g.add_hub_node()
+    g.connect(start_out, hub_in)
+
+    for com in spec["communities"]:
+        inp, _ = g.add_community_spawn_node(
+            spawn_tpl,
+            action="Activate",
+            spawner_reference=com["spawner"],
+            entry_name=com.get("entry_name", "None"),
+            phase_name=com.get("phase_name", "None"),
+        )
+        g.connect(hub_out, inp)
+
+    ka = spec["keep_alive_pause"]
+    ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
+    g.connect(hub_out, ka_in)
+
+    nodes = g.finalize()
+    validate_refs(nodes)
+    doc = wrap_resource(
+        {
+            "$type": "questQuestPhaseResource",
+            "cookingPlatform": "PLATFORM_PC",
+            "graph": {
+                "HandleId": g.alloc(),
+                "Data": {"$type": "questGraphDefinition", "nodes": nodes},
+            },
+            "inplacePhases": [],
+            "phasePrefabs": [],
+        }
+    )
+    dups = find_duplicate_handles(doc)
+    if dups:
+        raise ValueError(f"duplicate HandleIds in bsc_tower_population.questphase: {dups[:5]}")
+    cross = find_cross_graph_refs(doc)
+    if cross:
+        raise ValueError(f"cross-graph HandleRefIds in bsc_tower_population.questphase: {cross[:5]}")
+    return doc
+
+
 def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
     """Load + validate the declarative venue-access probe spec.
 
@@ -1464,8 +1540,16 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
         if code in codes:
             raise ValueError(f"{venue_path}: duplicate venue code {code}")
         codes.add(code)
+        if not v.get("prefabs") and not v.get("doors"):
+            raise ValueError(f"{venue_path}: venue {code} declares no prefabs and no doors")
         if not v.get("prefabs"):
-            raise ValueError(f"{venue_path}: venue {code} declares no prefabs")
+            # Door-only entry: its prefabets are owned by another phase (cast_and_hubs).
+            # Declaring the same prefab in two phases duplicates it, which can break
+            # instantiation, so this is allowed and documented in the entry's `why`.
+            if "deferred_prefab_owner" not in v:
+                raise ValueError(
+                    f"{venue_path}: venue {code} has no prefabs; set deferred_prefab_owner "
+                    f"naming the phase that declares them")
         for p in v["prefabs"]:
             if not p.startswith("#"):
                 raise ValueError(f"{venue_path}: venue {code} bad prefab ref {p}")
@@ -1477,8 +1561,11 @@ def load_venue_spec(cast_spec: dict[str, Any]) -> dict[str, Any]:
             if d.get("action") not in allowed_actions:
                 raise ValueError(f"{venue_path}: venue {code} bad door action {d.get('action')}")
             controller = d.get("controller", "DoorControllerPS")
-            if not controller.startswith("Door"):
-                raise ValueError(f"{venue_path}: venue {code} door controller {controller} is not a door")
+            allowed_extra = set(venue_spec.get("allowed_device_controllers", []))
+            if not controller.startswith("Door") and controller not in allowed_extra:
+                raise ValueError(
+                    f"{venue_path}: venue {code} door controller {controller} is not a door "
+                    f"and is not in allowed_device_controllers")
             if any(controller.startswith(pfx) for pfx in forbidden_prefixes):
                 raise ValueError(f"{venue_path}: venue {code} door controller {controller} is forbidden")
         for c in v.get("communities", []):
@@ -1584,10 +1671,14 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 "Data": {"$type": "questGraphDefinition", "nodes": nodes},
             },
             "inplacePhases": [],
+            # Deduplicate: two venue entries may legitimately need the same prefab
+            # (e.g. the Black Sapphire entrance and the sneak-in route), and a
+            # repeated questQuestPrefabEntry is not meaningful.
             "phasePrefabs": [
                 {"$type": "questQuestPrefabEntry", "prefabNodeRef": noderef(p)}
-                for venue in venue_spec["venues"]
-                for p in venue["prefabs"]
+                for p in dict.fromkeys(
+                    p for venue in venue_spec["venues"] for p in venue["prefabs"]
+                )
             ],
         }
     )
@@ -1641,6 +1732,7 @@ def build(
     venue_spec: dict[str, Any],
     barricade_spec: dict[str, Any],
     vendors_spec: dict[str, Any],
+    tower_spec: dict[str, Any],
 ) -> Path:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1659,7 +1751,7 @@ def build(
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.gamedef.json", build_gamedef(templates["gamedef"], spec))
         write_resource_json(build_dir, "mod/neon_ascendancy/ascendancy.quest.json", build_quest(templates["quest"], spec))
         write_resource_json(
-            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec, venue_spec, barricade_spec, vendors_spec)
+            build_dir, "mod/neon_ascendancy/ascendancy.questphase.json", build_questphase(templates, spec, cast_spec, venue_spec, barricade_spec, vendors_spec, tower_spec)
         )
         write_resource_json(
             build_dir,
@@ -1675,6 +1767,9 @@ def build(
         )
         write_resource_json(
             build_dir, "mod/neon_ascendancy/dogtown_vendors.questphase.json", build_dogtown_vendors(vendors_spec, templates)
+        )
+        write_resource_json(
+            build_dir, "mod/neon_ascendancy/bsc_tower_population.questphase.json", build_tower_population(tower_spec, templates)
         )
 
         print("Deserializing CR2W JSONs ...", flush=True)
@@ -1712,6 +1807,7 @@ def check(
     venue_spec: dict[str, Any],
     barricade_spec: dict[str, Any],
     vendors_spec: dict[str, Any],
+    tower_spec: dict[str, Any],
 ) -> None:
     wk = Path(args.wk_cli)
     if not wk.is_file():
@@ -1749,12 +1845,13 @@ def check(
         if not failures and len(resources) == len(spec["archive_resources"]):
             _check_gamedef(resources, spec, ok)
             _check_quest(resources, spec, ok)
-            _check_questphase(resources, spec, cast_spec, venue_spec, barricade_spec, vendors_spec, ok)
+            _check_questphase(resources, spec, cast_spec, venue_spec, barricade_spec, vendors_spec, tower_spec, ok)
             _check_cast_and_hubs(resources, spec, cast_spec, ft_spec, ok)
             _check_spike(resources, spec, ok)
             _check_venue_probe(resources, spec, venue_spec, ok)
             _check_barricade_cleanup(resources, barricade_spec, ok)
             _check_dogtown_vendors(resources, vendors_spec, ok)
+            _check_tower_population(resources, tower_spec, ok)
 
     if failures:
         print("\n--check FAILED:")
@@ -1940,6 +2037,7 @@ def _check_questphase(
     venue_spec: dict[str, Any],
     barricade_spec: dict[str, Any],
     vendors_spec: dict[str, Any],
+    tower_spec: dict[str, Any],
     ok: Callable[[bool, str], None],
 ) -> None:
     doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
@@ -1971,8 +2069,8 @@ def _check_questphase(
         ok(len(teles) == 0, f"expected 0 blocking teleport nodes in questphase, found {len(teles)}")
         phases = by_type("questPhaseNodeDefinition")
         top_phase_nodes = [p for p in phases if p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") and p["Data"]["phaseResource"]["DepotPath"]["$value"] != "0"]
-        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 5,
-           f"expected {len(qp['kept_depot_phases']) + 5} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + barricade_cleanup + dogtown_vendors + spike + venue_probe), found {len(top_phase_nodes)}")
+        ok(len(top_phase_nodes) == len(qp["kept_depot_phases"]) + 6,
+           f"expected {len(qp['kept_depot_phases']) + 6} external phase nodes ({len(qp['kept_depot_phases'])} kept + cast_and_hubs + barricade_cleanup + dogtown_vendors + bsc_tower_population + spike + venue_probe), found {len(top_phase_nodes)}")
         expected_reachable += phases
         pause = by_type("questPauseConditionNodeDefinition")
         expected_reachable += pause
@@ -2000,7 +2098,7 @@ def _check_questphase(
         expected_refs = (
             {e["depot_path"] for e in qp["kept_depot_phases"]}
             | set(qp["inline_phase_depot_refs"])
-            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"], barricade_spec["phase_resource"], vendors_spec["phase_resource"]}
+            | {cast_spec["phase_resource"], qp["spike"]["resource"], venue_spec["phase_resource"], barricade_spec["phase_resource"], vendors_spec["phase_resource"], tower_spec["phase_resource"]}
         )
         missing = sorted(expected_refs - set(refs))
         ok(not missing, f"missing kept phase refs: {missing}")
@@ -2534,6 +2632,64 @@ def _check_dogtown_vendors(
     ok(len(qp_gate) == 1, f"expected 1 vendor gate pause in ascendancy.questphase, found {len(qp_gate)}")
 
 
+def _check_tower_population(
+    resources: dict[str, dict[str, Any]],
+    tower_spec: dict[str, Any],
+    ok: Callable[[bool, str], None],
+) -> None:
+    """Round-trip verify bsc_tower_population.questphase.
+
+    Expected: exactly the spec's community Activate triples, one per entry, with
+    no journal/scene/mappin nodes; wired in ascendancy.questphase."""
+    doc = resources[tower_spec["phase_resource"]]
+    rc = doc["Data"]["RootChunk"]
+    ok(rc.get("$type") == "questQuestPhaseResource", "bsc_tower_population root type is not questQuestPhaseResource")
+    dups = find_duplicate_handles(doc)
+    ok(not dups, f"duplicate HandleIds in bsc_tower_population.questphase: {dups[:10]}")
+    cross = find_cross_graph_refs(doc)
+    ok(not cross, f"cross-graph HandleRefIds in bsc_tower_population.questphase: {cross[:10]}")
+
+    nodes = rc["graph"]["Data"]["nodes"]
+    inputs = [n for n in nodes if n["Data"].get("$type") == "questInputNodeDefinition"]
+    ok(len(inputs) == 1, f"bsc_tower_population has {len(inputs)} input nodes")
+    if inputs:
+        reachable = reachable_nodes(nodes, inputs[0])
+        unreachable = [id_of(n) for n in nodes if id_of(n) not in reachable]
+        ok(not unreachable, f"bsc_tower_population nodes unreachable from input: {unreachable}")
+
+    actual = []
+    for n in nodes:
+        d = n["Data"]
+        if d.get("$type") != "questSpawnManagerNodeDefinition":
+            continue
+        for act in d.get("actions", []):
+            at = act.get("type", {}).get("Data", {})
+            if at.get("$type") != "questCommunityTemplate_NodeType":
+                continue
+            ok(at.get("action") == "Activate", f"tower community action is {at.get('action')}, not Activate")
+            actual.append((at.get("spawnerReference", {}).get("$value"),
+                           at.get("communityEntryName", {}).get("$value"),
+                           at.get("communityEntryPhaseName", {}).get("$value")))
+    expected = [(c["spawner"], c.get("entry_name", "None"), c.get("phase_name", "None"))
+                for c in tower_spec["communities"]]
+    ok(sorted(actual) == sorted(expected),
+       f"tower communities mismatch: missing {sorted(set(expected) - set(actual))[:5]} extra {sorted(set(actual) - set(expected))[:5]}")
+    ok(len(actual) == len(expected), f"tower community count {len(actual)} != spec {len(expected)}")
+
+    story = [n for n in nodes if n["Data"].get("$type") in
+             ("questJournalNodeDefinition", "questSceneNodeDefinition", "questMappinManagerNodeDefinition")]
+    ok(not story, f"bsc_tower_population must not copy journal/scene/mappin nodes, found {len(story)}")
+
+    qp_doc = resources["mod\\neon_ascendancy\\ascendancy.questphase"]
+    qp_nodes = qp_doc["Data"]["RootChunk"]["graph"]["Data"]["nodes"]
+    phase_nodes = [
+        p for p in qp_nodes
+        if p["Data"].get("$type") == "questPhaseNodeDefinition"
+        and p["Data"].get("phaseResource", {}).get("DepotPath", {}).get("$value") == tower_spec["phase_resource"]
+    ]
+    ok(len(phase_nodes) == 1, f"expected 1 bsc_tower_population phase node, found {len(phase_nodes)}")
+
+
 def _check_venue_probe(
     resources: dict[str, dict[str, Any]],
     spec: dict[str, Any],
@@ -2554,7 +2710,7 @@ def _check_venue_probe(
     rc = doc["Data"]["RootChunk"]
     ok(rc.get("$type") == "questQuestPhaseResource", "venue_probe root type is not questQuestPhaseResource")
 
-    expected_prefabs = [p for venue in venue_spec["venues"] for p in venue["prefabs"]]
+    expected_prefabs = list(dict.fromkeys(p for venue in venue_spec["venues"] for p in venue["prefabs"]))
     actual_prefabs = [e["prefabNodeRef"]["$value"] for e in rc.get("phasePrefabs", [])]
     ok(actual_prefabs == expected_prefabs,
        f"venue_probe phasePrefabs mismatch:\n  actual:   {actual_prefabs}\n  expected: {expected_prefabs}")
@@ -2690,11 +2846,26 @@ def _check_venue_probe(
     all_refs = _collect_phase_refs(rc)
     bad_refs = sorted({r for r in all_refs if any(p in r for p in venue_spec["forbidden_phase_patterns"])})
     ok(not bad_refs, f"venue_probe declares forbidden phase refs: {bad_refs}")
+
+    # A prefab declared twice can break phase instantiation, which silently
+    # disables every community and device action in the phase.
+    ven_prefabs = [e["prefabNodeRef"]["$value"] for e in rc.get("phasePrefabs", [])]
+    dup_prefabs = sorted({p for p in ven_prefabs if ven_prefabs.count(p) > 1})
+    ok(not dup_prefabs, f"venue_probe declares duplicate phasePrefabs (breaks instantiation): {dup_prefabs}")
+    cast_doc = resources.get("mod\\neon_ascendancy\\cast_and_hubs.questphase")
+    if cast_doc:
+        cast_prefabs = {e["prefabNodeRef"]["$value"]
+                        for e in cast_doc["Data"]["RootChunk"].get("phasePrefabs", []) or []}
+        shared = sorted(set(ven_prefabs) & cast_prefabs)
+        ok(not shared,
+           f"venue_probe and cast_and_hubs both declare these prefabs (prefab must be owned by one phase): {shared}")
     for d_node in device_nodes:
         for p in d_node.get("type", {}).get("Data", {}).get("params", []):
             controller = p["Data"].get("deviceControllerClass", {}).get("$value", "")
-            ok(controller.startswith("Door"),
-               f"venue_probe device controller {controller} is not a door (owner decision)")
+            # Doors are always allowed; the spec may additionally opt in specific
+            # non-door controllers (lift/window/platform/terminal) a route needs.
+            ok(controller.startswith("Door") or controller in set(venue_spec.get("allowed_device_controllers", [])),
+               f"venue_probe device controller {controller} is not a door and not in allowed_device_controllers (owner decision)")
 
     # Keep-alive pause present.
     ka = venue_spec["keep_alive_pause"]
@@ -2789,11 +2960,12 @@ def main() -> int:
     venue_spec = load_venue_spec(cast_spec)
     barricade_spec = load_barricade_spec(cast_spec)
     vendors_spec = load_dogtown_vendors_spec(cast_spec)
+    tower_spec = load_tower_population_spec(cast_spec)
 
     if args.check:
-        check(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec)
+        check(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec, tower_spec)
     else:
-        archive = build(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec)
+        archive = build(args, spec, cast_spec, ft_spec, venue_spec, barricade_spec, vendors_spec, tower_spec)
         print(f"\nBuilt {archive} ({archive.stat().st_size} bytes).")
         print("Run `python3 tools/build-clean-slate.py --check` to verify the round-trip.")
     return 0

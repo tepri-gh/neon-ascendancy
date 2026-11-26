@@ -59,6 +59,10 @@
     {
       "prefab": "#q005_pr_afterlife",
       "why": "Owns Dexter DeShawn's Afterlife booth workspot #q005_ws_dex_afterlife_01 (under the #q005_cin_01_plan sub-prefab). Declared so the cast layer can seat him without any q005 story phase."
+    },
+    {
+      "prefab": "#q303_pr_combat_tower",
+      "why": "Owns the #kurtz spawner entity that seats Kurt Hansen on Black Sapphire floor 99 (vanilla q303_06_paradise / q303_07_finale declare it)."
     }
   ],
   "world_hubs": [
@@ -440,6 +444,19 @@
       "entry_name": "dex",
       "phase_name": "q005_afterlife_default",
       "notes": "Afterlife booth fixer, alive in this alt-timeline. Spawned exactly as vanilla q005_01_plan does: questSpawnSet reference #dex, entryName dex, phaseName q005_afterlife_default. The spawner supplies his character; no scene or dialogue."
+    },
+    {
+      "id": "kurt_hansen",
+      "name": "Kurt Hansen",
+      "role": "barghest_leader",
+      "district": "dogtown",
+      "faction": "barghest",
+      "character_record": "Character.kurtz",
+      "spot_ref": "#kurtz",
+      "reference": "#kurtz",
+      "entry_name": "kurtz",
+      "phase_name": "q303_restaurant_host",
+      "notes": "Barghest leader, alive in this mod's timeline. Spawned exactly as vanilla q303_06_paradise does on Black Sapphire floor 99: questSpawnSet reference #kurtz, entryName kurtz, phaseName q303_restaurant_host. #kurtz is the spawner entity inside #q303_pr_combat_tower; the spawner supplies Character.kurtz (Character.kurtz is Hansen; kurtz_* is his army). No scene or dialogue. Vanilla q303_casino uses the same record for the casino, so the restaurant-host phase seats him in the floor-99 club."
     }
   ],
   "service_vendors": {
@@ -624,5 +641,6 @@
     "johnny_default_on"
   ],
   "barricade_cleanup_spec": "data/clean-slate/barricade_cleanup.json",
-  "dogtown_vendors_spec": "data/clean-slate/dogtown_vendors.json"
+  "dogtown_vendors_spec": "data/clean-slate/dogtown_vendors.json",
+  "tower_population_spec": "data/clean-slate/tower_population.json"
 }

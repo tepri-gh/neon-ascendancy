@@ -637,68 +637,34 @@
     },
     {
       "code": "q303_paradise",
-      "display_name": "Black Sapphire",
-      "why": "EP1 quest-only VIP venue. Declares the paradise technical-floor prefab plus the tower decoration and bottom-lobby devices prefabs that own the entrance shutters and lobby equipment (a phasePrefab variant only applies to a prefab the phase declares), opens the combat-tower main door and tunnel entrance, and swaps the baked tower-gate shutters to the open variant (as vanilla q303_06b does).",
+      "display_name": "Black Sapphire main entrance",
+      "why": "EP1 quest-only venue. The Barghest-logo shutters at the street entrance (~-1819,-2315) are the var_tower_gate_* decoration groups of #loc_q304_pr_combat_tower_decoration; the glass door behind them is #q303_dvc_combat_tower_main_door (owner look-at id 10339269932617277634, locked=true). Both the decoration and the door entities live under #loc_q304_combat_tower, so this phase must declare that prefab for the variant toggle and the device ref to resolve. Vanilla q303_07_finale declares only #q303_pr_combat_tower; the decoration/door node refs resolve because that prefab's questdesign tree sits inside the #loc_q304_combat_tower streamed prefab, which the location phase streams. We declare the location prefab so it is present regardless of story phase state. The garage backdoor is intentionally left sealed: its interior is unfinished previs geometry.",
       "prefabs": [
+        "#loc_q304_combat_tower",
         "#q303_pr_paradise_technical",
         "#loc_q304_pr_combat_tower_decoration",
         "#loc_q303_combat_tower_devices_bottom_lobby"
       ],
       "doors": [
         {
-          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceEnabled",
-          "why": "Tunnel entrance is ForceSealed"
-        },
-        {
-          "ref": "#q303_dvc_ct_tunnel_entrance_door",
-          "action": "ForcePower",
-          "why": "Tunnel entrance power"
-        },
-        {
-          "ref": "#q303_dvc_ct_tunnel_entrance_door",
-          "action": "ForceUnseal",
-          "why": "Tunnel entrance seal"
-        },
-        {
-          "ref": "#q303_dvc_ct_tunnel_entrance_door",
-          "action": "ForceOpen",
-          "why": "Tunnel entrance open"
+          "why": "Re-enable first: a ForceDisabled device ignores power/unlock/open"
         },
         {
           "ref": "#q303_dvc_combat_tower_main_door",
-          "action": "ForceEnabled",
-          "why": "Re-enable the device first (a ForceDisabled device ignores power/open)"
+          "action": "ForcePower",
+          "why": "Ensure powered (owner logged powered=true, but keep it explicit and idempotent)"
         },
         {
           "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceUnlock",
-          "why": "Combat tower main door"
+          "why": "Owner look-at: locked=true. Vanilla q303_07b_lobby_combat issues ForceUnlock then ForceOpen"
         },
         {
           "ref": "#q303_dvc_combat_tower_main_door",
           "action": "ForceOpen",
-          "why": "Combat tower main door"
-        },
-        {
-          "ref": "#q303_dvc_tech_warehouse_gate",
-          "action": "ForceEnabled",
-          "why": "Re-enable the tech-warehouse shutter (the Barghest-logo roller door by the tower entrance) before powering it"
-        },
-        {
-          "ref": "#q303_dvc_tech_warehouse_gate",
-          "action": "ForcePower",
-          "why": "Power the tech-warehouse shutter"
-        },
-        {
-          "ref": "#q303_dvc_tech_warehouse_gate",
-          "action": "ForceUnlock",
-          "why": "Unlock it (the census showed it locked)"
-        },
-        {
-          "ref": "#q303_dvc_tech_warehouse_gate",
-          "action": "ForceOpen",
-          "why": "Open the tech-warehouse shutter"
+          "why": "Open the glass main door (vanilla q303_07b_lobby_combat sequence)"
         }
       ],
       "communities": [
@@ -712,9 +678,9 @@
       ],
       "probe_refs": {
         "workspot": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks/#q303_ws_nighthawks_customer_06",
-        "door": "#q303_dvc_tech_warehouse_gate",
+        "door": "#q303_dvc_combat_tower_main_door",
         "community": "#q303_com_paradise_technical_floor_guards",
-        "note": "Full '$/03_night_city/...' path for a workspot (verified to hash to a real engine globalNodeId in the venue's Quest streaming sector). The probe hashes it with the DLL and checks GlobalNodeRef.IsDefined. Door/community entries are the authored '#name' refs vanilla phases address."
+        "note": "Main door ref is the vanilla authored '#name' (q303_07b_lobby_combat addresses it this way) and hash-matches the owner's look-at id 10339269932617277634 in exterior_-29_-37_0_0. Workspot is a verified Quest-sector node. The garage gate #q303_dvc_backdoor_gate_2 is deliberately not touched (previs-only interior)."
       },
       "variant_toggles": [
         {
@@ -729,9 +695,9 @@
         }
       ],
       "proximity_wait": {
-        "ref": "#q303_ws_nighthawks_customer_06",
-        "within": 150.0,
-        "why": "Defer this venue's device actions until the player is near so they run against streamed entities (the phase otherwise runs at bootstrap from H10)."
+        "ref": "#q303_dvc_lobby_alarm",
+        "within": 40.0,
+        "why": "The previous wait used #q303_ws_nighthawks_customer_06, which sits at (-2424,-2660) - about 700 m from the door at (-1819,-2315) - so the 150 m distance pause never resolved and *nothing* after it ran (neither the door actions nor the variant toggle). #q303_dvc_lobby_alarm is 8 m from the main door, so a 40 m radius covers the street entrance."
       }
     },
     {
@@ -828,11 +794,24 @@
     {
       "code": "dogtown_dataterms",
       "display_name": "Dogtown fast-travel dataterms",
-      "why": "The six EP1 fast-travel dataterms are inside combat_zone_data_terminals_prefabLN6J6KI, which the Dogtown exterior sectors only stream when the streaming variant combat_zone_data_terminals_active is shown (default: _deactive). Declares that prefab and swaps the variant so the dataterm devices exist; the dataterm PS then accepts fast travel once powered (a dataterm offers nothing while IsUnpowered/IsDisabled).",
+      "why": "The six EP1 fast-travel dataterms live in combat_zone_data_terminals_prefabLN6J6KI, which Dogtown exterior sectors stream only when the streaming variant combat_zone_data_terminals_active is shown (default: _deactive). Declares that prefab, swaps the variant, and force-enables/powers the verified stadium dataterm device (#stadium_data_term_001, ep1_data_term_1.ent) so it can offer fast travel. The other five dataterms did not appear as standalone node refs in any extractable sector, so only the stadium one is listed here; the probe logs it on site.",
       "prefabs": [
         "#combat_zone_data_terminals_prefabLN6J6KI"
       ],
-      "doors": [],
+      "doors": [
+        {
+          "ref": "#stadium_data_term_001",
+          "controller": "DataTermControllerPS",
+          "action": "ForceEnabled",
+          "why": "A disabled dataterm offers nothing (dataTermController.swift IsAvailable checks IsUnpowered/IsDisabled)"
+        },
+        {
+          "ref": "#stadium_data_term_001",
+          "controller": "DataTermControllerPS",
+          "action": "ForcePower",
+          "why": "Ensure powered so the fast-travel interaction is offered"
+        }
+      ],
       "communities": [],
       "variant_toggles": [
         {
@@ -846,18 +825,21 @@
       ],
       "probe_refs": {
         "workspot": "",
-        "door": "",
+        "door": "#stadium_data_term_001",
         "community": "",
-        "note": "Dataterm device refs are #combat_zone_dataterm_01..06 (data/clean-slate/dev_fast_travel_points.json); they exist only once the active variant streams."
+        "note": "#stadium_data_term_001 is the verified authored ref inside combat_zone_data_terminals_prefabLN6J6KI/combat_zone_dataterm_04_prefabARG5WKY (ep1_data_term_1.ent at -1876.9,-2459.8,35.7). The '#combat_zone_dataterm_04' name used by dev_fast_travel_points.json is the prefab segment, not the device ref."
+      },
+      "proximity_wait": {
+        "ref": "#stadium_data_term_001",
+        "within": 40.0,
+        "why": "Defers the dataterm device actions and the variant swap until the player is at the stadium dataterm, so they run against a streamed entity."
       }
     },
     {
       "code": "loc_q103_afterlife_backroom",
       "display_name": "Afterlife briefing room (Dexter's booth)",
-      "why": "Afterlife is already open-world; its gameplay/devices prefab streams. The briefing-room door is locked in-game (owner look-at id 17830752525230996744, doors_single_entropy_j, pos=(-1430.8,986.5,16.5)). Ref resolved by hashing the sector at that position: #q005_dvc_afterlife_briefing_room_door.",
-      "prefabs": [
-        "#q005_pr_afterlife"
-      ],
+      "why": "Afterlife is already open-world; its gameplay/devices prefab streams. The briefing-room door is locked in-game (owner look-at id 17830752525230996744, doors_single_entropy_j, pos=(-1430.8,986.5,16.5)). Ref resolved by hashing the sector at that position: #q005_dvc_afterlife_briefing_room_door. Prefab ownership lives in cast_and_hubs.questphase (#q005_pr_afterlife, declared there for Dexter's workspot); this venue entry contributes only the door actions so the prefab is not declared twice.",
+      "prefabs": [],
       "doors": [
         {
           "ref": "#q005_dvc_afterlife_briefing_room_door",
@@ -891,6 +873,144 @@
         "door": "#q005_dvc_afterlife_briefing_room_door",
         "community": "",
         "note": "Door ref verified by FNV-1a hashing the exterior_-23_15_0_0 sector's node refs against the owner's look-at id."
+      },
+      "deferred_prefab_owner": "cast_and_hubs.questphase (#q005_pr_afterlife)"
+    },
+    {
+      "code": "q303_paradise_sneak_in",
+      "display_name": "Black Sapphire sneak-in route (q303 technical floor to floor 99)",
+      "why": "Vanilla q303_06b_paradise_technical drives the whole infiltration path with DoorControllerPS/WindowControllerPS/LiftControllerPS/PlatformControllerPS actions on these refs. We replay only the 'make it passable' subset (enable/power/unseal/unlock/open/on, lift power and floor access), behind one proximity wait at the tunnel entrance, and deliberately do NOT replay any ForceDisabled/ForceSeal/ForceClose/ForceLock step. Refuse/laundry dress and every scene stay out. Route: tunnel entrance door -> tunnels platform -> hatches -> tech-floor lift -> sniper gate -> tech-floor lift door -> laundry door -> floor 99. #q303_pr_combat_tower is declared by cast_and_hubs (Kurt's workspot), so it is omitted here to avoid a duplicate phasePrefab.",
+      "prefabs": [
+        "#q303_pr_paradise_technical",
+        "#q303_pr_paradise_technical_tunnels"
+      ],
+      "doors": [
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceEnabled",
+          "why": "Tunnel entrance is ForceSealed/disabled until the infiltration starts"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForcePower",
+          "why": "Power the tunnel entrance"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceUnseal",
+          "why": "Unseal the tunnel entrance"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceUnlock",
+          "why": "Unlock the tunnel entrance"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnel_entrance_door",
+          "action": "ForceOpen",
+          "why": "Open the tunnel entrance"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnels_hatch_garage_exit",
+          "controller": "WindowControllerPS",
+          "action": "ForceOpen",
+          "why": "Garage-exit hatch on the tunnel route"
+        },
+        {
+          "ref": "#q303_dvc_ct_tunnels_hatch_scaffolding",
+          "action": "ForceOpen",
+          "why": "Scaffolding hatch on the tunnel route"
+        },
+        {
+          "ref": "#q303_dvc_ct_tech_floor_lift",
+          "controller": "LiftControllerPS",
+          "action": "ForcePower",
+          "why": "Power the tech-floor lift (vanilla ForcePower before GoToFloor)"
+        },
+        {
+          "ref": "#q303_dvc_tech_floor_sniper_gate",
+          "controller": "WindowControllerPS",
+          "action": "ForceUnlock",
+          "why": "Sniper-nest gate unlock"
+        },
+        {
+          "ref": "#q303_dvc_tech_floor_sniper_gate",
+          "controller": "WindowControllerPS",
+          "action": "ForceOpen",
+          "why": "Sniper-nest gate open"
+        },
+        {
+          "ref": "#q303_dvc_ct_tech_floor_lift_door_01",
+          "action": "ForceEnabled",
+          "why": "Tech-floor lift door, re-enable"
+        },
+        {
+          "ref": "#q303_dvc_ct_tech_floor_lift_door_01",
+          "action": "ForcePower",
+          "why": "Tech-floor lift door power"
+        },
+        {
+          "ref": "#q303_dvc_ct_tech_floor_lift_door_01",
+          "action": "ForceUnlock",
+          "why": "Tech-floor lift door unlock"
+        },
+        {
+          "ref": "#q303_dvc_ct_tech_floor_lift_door_01",
+          "action": "ForceOpen",
+          "why": "Tech-floor lift door open (vanilla opens then closes it)"
+        },
+        {
+          "ref": "#q303_dvc_tower_tech_laundry_door",
+          "action": "ForceEnabled",
+          "why": "Laundry door onto floor 99 is ForceLocked/ForceClosed in vanilla"
+        },
+        {
+          "ref": "#q303_dvc_tower_tech_laundry_door",
+          "action": "ForcePower",
+          "why": "Power the laundry door"
+        },
+        {
+          "ref": "#q303_dvc_tower_tech_laundry_door",
+          "action": "ForceUnlock",
+          "why": "Unlock the laundry door (vanilla ForceLock/ForceClose; we do the inverse)"
+        },
+        {
+          "ref": "#q303_dvc_tower_tech_laundry_door",
+          "action": "ForceOpen",
+          "why": "Open the laundry door onto the party"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceEnabled",
+          "why": "Main lobby door at the end of the escape leg"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForcePower",
+          "why": "Main lobby door power"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceUnlock",
+          "why": "Main lobby door unlock (same as q303_06b ForceUnlock)"
+        },
+        {
+          "ref": "#q303_dvc_combat_tower_main_door",
+          "action": "ForceOpen",
+          "why": "Main lobby door open"
+        }
+      ],
+      "communities": [],
+      "proximity_wait": {
+        "ref": "#q303_tr_tech_floor_laundry_exit",
+        "within": 120.0,
+        "why": "#q303_tr_tech_floor_laundry_exit is a verified worldTriggerAreaNode 1.5 m from the floor-99 laundry door at (-1898,-2350,446), the top of the route; 120 m covers the tunnel entrance through the technical floor without reaching other venues."
+      },
+      "probe_refs": {
+        "workspot": "",
+        "door": "#q303_dvc_tower_tech_laundry_door",
+        "community": "",
+        "note": "Every ref is taken from vanilla q303_06b_paradise_technical. The owner's two look-at ids (10825320036342704166 baremetal double door, 15098902004723176445 entropy_c floor terminal) are dynamic entity ids, not node refs: no authored '#name' in any extractable sector hashes to them, and the door/terminal entities live in a streamed devices prefab that is not a standalone sector. They are recorded rather than guessed."
       }
     }
   ],
@@ -907,5 +1027,12 @@
       "topic": "dogtown_checkpoint",
       "summary": "Vanilla ep1\\openworld\\combat_zone_gate\\combat_zone_gate.questphase declares #loc_q303_combat_zone_gate_openworld and drives the pedestrian checkpoint with DoorControllerPS ForcePower + ForceOpen (ForceUnpower/ForceClose to reseal). It is gated on ep1_side_content, q302_started, wanted_level, delamain_taxi_state, q304_block_dogtown_gate and dogtown_gate_combat_on. The pedestrian door NodeRefs are prefab-template placeholders inside loc_q303_combat_zone_gate_gameplay_prefab3JCC64Y (e.g. .../single_door_1_prefabCACGKLA/single_door_1_prefabMDLFXRQ); that prefab's sector was not extractable offline, so no unverified door ref was added, and the earlier census ids could not be hash-matched. Verified present: prefab #loc_q303_combat_zone_gate_openworld, triggers #combat_zone_gate_tr_inside / #combat_zone_gate_tr_entrance_to_cz_start / ..._to_nc_start, and the two ..._tr_entrance_foot_*_scan_close_door triggers (a proximity ref candidate). Also relevant: the combat-zone gate openworld sector is what a future pass should own so its device prefab streams; Dogtown access gate is separate from the Black Sapphire shutters."
     }
+  ],
+  "allowed_device_controllers": [
+    "LiftControllerPS",
+    "WindowControllerPS",
+    "PlatformControllerPS",
+    "ElevatorFloorTerminalControllerPS",
+    "DataTermControllerPS"
   ]
 }

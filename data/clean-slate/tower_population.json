@@ -1,0 +1,180 @@
+{
+  "spec_version": 1,
+  "description": "Always-on Black Sapphire (Paradise) tower population for Clean-Slate Night City. Compiled by tools/build-clean-slate.py into mod\\neon_ascendancy\\bsc_tower_population.questphase and wired off the ascendancy.questphase fact fan-out (NOT behind na_dev_venue_probe). Activates only the location/open-world communities vanilla uses, with the default/idle/guard entry phases so nothing depends on a scene. Source: docs/research/factions/barghest.md location catalog plus the exact vanilla entry/phase pairs from q303_06_paradise / q303_06b_paradise_technical / q303_07_finale.",
+  "phase_resource": "mod\\neon_ascendancy\\bsc_tower_population.questphase",
+  "entry_socket": "In1",
+  "keep_alive_pause": {
+    "fact": "na_bsc_population_shutdown",
+    "comparison_type": "Greater",
+    "value": 0,
+    "why": "Never set; keeps the tower communities spawned for the whole save."
+  },
+  "communities": [
+    {
+      "spawner": "#q303_com_tower_lobby",
+      "entry_name": "None",
+      "phase_name": "spawn",
+      "floor": "floor_1_lobby",
+      "why": "13 entries, 9 Barghest. Vanilla q303_06_paradise: Activate, entry=None, phase=spawn. Ground-floor lobby staff and guards."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "gate_guard_01",
+      "phase_name": "guard",
+      "floor": "floor_1_lobby",
+      "why": "Barghest lobby guard, idle guard phase (vanilla q303_07_finale Activate gate_guard_01/guard). Non-combat."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "gate_guard_02",
+      "phase_name": "guard",
+      "floor": "floor_1_lobby",
+      "why": "Barghest lobby guard, idle guard phase."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "entrance_guard_exterior_01",
+      "phase_name": "None",
+      "floor": "floor_1_lobby",
+      "why": "Street-side entrance guard by the logo shutters (vanilla q303_07b_lobby_combat Activates these with no phase name)."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "entrance_guard_exterior_02",
+      "phase_name": "None",
+      "floor": "floor_1_lobby",
+      "why": "Street-side entrance guard."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "entrance_guard_exterior_03",
+      "phase_name": "None",
+      "floor": "floor_1_lobby",
+      "why": "Street-side entrance guard."
+    },
+    {
+      "spawner": "#q303_com_tower_lobby_combat",
+      "entry_name": "entrance_guard_exterior_04",
+      "phase_name": "None",
+      "floor": "floor_1_lobby",
+      "why": "Street-side entrance guard."
+    },
+    {
+      "spawner": "#q303_com_paradise_technical_floor_guards",
+      "entry_name": "elevator_guard_01",
+      "phase_name": "guard",
+      "floor": "floor_67_technical",
+      "why": "Floor 67 (z~344) elevator guard, idle guard phase (vanilla q303_06b_paradise_technical Reactivate). Non-combat."
+    },
+    {
+      "spawner": "#q303_com_paradise_technical_floor_guards",
+      "entry_name": "elevator_guard_02",
+      "phase_name": "guard",
+      "floor": "floor_67_technical",
+      "why": "Floor 67 elevator guard, idle guard phase."
+    },
+    {
+      "spawner": "#q303_com_paradise_technical_floor_guards",
+      "entry_name": "elevator_guard_03",
+      "phase_name": "guard",
+      "floor": "floor_67_technical",
+      "why": "Floor 67 elevator guard, idle guard phase."
+    },
+    {
+      "spawner": "#q303_com_tower_floor_employees",
+      "entry_name": "None",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "18 entries, all staff (no Barghest). Vanilla q303_06_paradise: Activate, phase=spawn. Club/lobby employees."
+    },
+    {
+      "spawner": "#q303_com_paradise_quest_interactions",
+      "entry_name": "None",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "57 entries, 7 Barghest. Vanilla q303_06_paradise: Activate, phase=spawn. Casino/restaurant quest-interaction crowd."
+    },
+    {
+      "spawner": "#q303_com_paradise_guests_audience",
+      "entry_name": "None",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "18 entries, no faction. Club audience crowd."
+    },
+    {
+      "spawner": "#q303_com_paradise_guests_movement",
+      "entry_name": "None",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "17 entries. Club guests moving between the casino and restaurant."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_02_player_01",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 02 (vanilla q303_06_paradise Activate, phase=spawn)."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_02_player_02",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 02."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_02_player_03",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 02."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_02_player_04",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 02."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_03_player_01",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 03."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_03_player_02",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 03."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_03_player_03",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 03."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_03_player_04",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 03."
+    },
+    {
+      "spawner": "#q303_com_paradise_casino_crowd",
+      "entry_name": "q303_casino_03_player_05",
+      "phase_name": "spawn",
+      "floor": "floor_99_club",
+      "why": "Casino player at table 03."
+    }
+  ],
+  "deliberately_excluded": [
+    {"spawner": "#mq304_com_kurts_wake", "why": "47 entries but every entry drives a wake-scene workspot phase; would seat characters in scene poses without the scene. Kurt Hansen is seated separately via the cast layer."},
+    {"spawner": "#q303_com_voodoo_boys*", "why": "q303/mq303 story combat and rooftop guards, not ambient tower population."},
+    {"spawner": "#q303_com_paradise_exit_crew", "why": "q303 finale escape crew; scene-only."}
+  ]
+}

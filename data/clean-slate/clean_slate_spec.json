@@ -12,7 +12,8 @@
     "mod\\neon_ascendancy\\spike_kab07.questphase",
     "mod\\neon_ascendancy\\venue_probe.questphase",
     "mod\\neon_ascendancy\\barricade_cleanup.questphase",
-    "mod\\neon_ascendancy\\dogtown_vendors.questphase"
+    "mod\\neon_ascendancy\\dogtown_vendors.questphase",
+    "mod\\neon_ascendancy\\bsc_tower_population.questphase"
   ],
   "templates": {
     "archive": "archive/pc/content/basegame_4_gamedata.archive",
