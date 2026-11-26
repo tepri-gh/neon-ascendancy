@@ -632,6 +632,7 @@ def stage_catalog(a: argparse.Namespace) -> None:
                                 lst.append(pre)
 
     by_path = {c["path"]: c for c in comms.values() if c.get("path")}
+    dev_pos = {gid: pos for gid, pos, _d in devices_pos}
 
     def resolve(ref: str | None) -> list[str]:
         if not ref:
@@ -793,12 +794,16 @@ def stage_catalog(a: argparse.Namespace) -> None:
                     ids = (c.get("spots") or {}).get(f"{ent['name']}/{phname}", [])
                     ws = sorted({spots[i]["workspot"] for i in ids if i in spots and spots[i]["workspot"]})
                     pos = sorted({posture(w) for w in ws}) or ["unknown"]
+                    first = next((spots[i]["pos"] for i in ids if i in spots), None)
                     opts.append({"path": cpath, "entry": ent["name"], "phase": phname, "record": ent["record"],
-                                 "role": role_of(ent["record"]),
+                                 "role": role_of(ent["record"]), "spot_pos": first,
                                  "initial": ent.get("initial"), "activated": (cpath, ent["name"], phname) in used,
                                  "posture": "alert" if "alert" in pos else pos[0] if len(pos) == 1 else "mixed:" + "+".join(pos),
                                  "workspots": ws})
         rec["community_options"] = opts
+        for d in rec["devices"]:
+            if d.get("path"):
+                d["pos"] = dev_pos.get(str(fnv1a64(d["path"])))
         # Anchor candidates: named devices nearest the venue's own spots, for
         # venues vanilla drives no device at (rule 8 needs a device anchor).
         pts = [e["spot_pos"] for e in rec["communities"] if e.get("spot_pos")]

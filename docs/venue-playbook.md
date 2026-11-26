@@ -297,3 +297,30 @@ Two local tools feed venue research. Their output is never committed;
   mismatch; WolvenKit's strict RTTI check refuses the file. The fourth (EP1
   `exterior_-40_-38_0_0`) fails inside WolvenKit's own JSON step. None of
   the four holds community areas; they cost a few devices and spots.
+
+## 7. Dev tour and playtest notes
+
+Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
+`tools/deploy-probe.sh` after `tools/install-dev-cet.sh` has installed CET.
+
+- **Stops** come from `tools/venue-proposals.py tour-stops`. It writes
+  `tools/probes/tour_stops.json` and `.lua` with every hand-built and approved
+  venue: position (median of its people's spots, else its anchor device),
+  scan radius, and the character records the tour should find. Regenerate
+  after every approval wave.
+- **Tour** (hotkeys "Neon: tour start/resume", "Neon: tour skip stop",
+  "Neon: tour stop"; console `p.tour_start("code")`). It teleports to each
+  stop, waits 20 s for streaming, then writes one JSON line per stop to
+  `tour.log`: every NPC in the radius with record, affiliation, high-level
+  state, stance, workspot, attitude and dead flag, plus the expected records
+  it did not find. Run it in a dev session (dev debug arms the venue gate and
+  the door policy).
+- **Notes** ("Neon: playtest note"). The hotkey stamps the position and the
+  nearest stop; open the CET overlay, type the note and press Save. Notes go
+  to `notes.log`.
+- **Report**: `tools/venue-tour-report.py` combines `tour.log`, `notes.log`
+  and the native log's `DoorPolicy:` lines (which carry door positions) into
+  `~/.cache/neon-ascendancy/extracts/venues/tour-report.md`. One section per
+  stop; flags EMPTY, ALERT, HOSTILE, NO-WORKSPOT, DEAD, MISSING, DOORS, NOTES.
+  Fix what it flags, record the lesson here, and subtract what the owner
+  marks as wrong.

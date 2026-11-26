@@ -43,9 +43,7 @@ printf '%s  %s\n' "$NEON_CET_SHA" "$zip" | sha256sum -c - >/dev/null
 printf 'Installing dev-only CET %s into %s\n' "$NEON_CET_VERSION" "$GAME_DIR"
 unzip -oq "$zip" -d "$GAME_DIR"
 
-PROBE_DEST="$GAME_DIR/bin/x64/plugins/cyber_engine_tweaks/mods/NeonAscendancyProbe"
-mkdir -p "$PROBE_DEST"
-cp -a "$TOOLS_DIR/probes/neon_probe.lua" "$PROBE_DEST/init.lua"
+GAME_DIR="$GAME_DIR" "$TOOLS_DIR/deploy-probe.sh"
 
 printf '\nInstalled dev-only CET %s and NeonAscendancyProbe helper.\n' "$NEON_CET_VERSION"
 printf 'Remember: WINEDLLOVERRIDES=winmm,version=n,b loads both RED4ext (winmm) and CET (version).\n'

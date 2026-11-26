@@ -47,3 +47,11 @@ Bind **Neon: noclip toggle** in CET Bindings. While noclip is on, your normal
 movement keys drive it: forward/back/strafe follow the camera, Jump goes up,
 Crouch goes down, hold Sprint (Shift) for fast. Collision and gravity are
 ignored (the player is teleported each frame). Toggle off to land.
+
+## Dev tour and playtest notes
+
+See `docs/venue-playbook.md` section 7. Deploy the probe and its generated
+stop list with `tools/deploy-probe.sh`. Bind "Neon: tour start/resume",
+"Neon: tour skip stop", "Neon: tour stop" and "Neon: playtest note" in the
+CET overlay's Bindings. Output: `tour.log` and `notes.log` in this mod's
+folder; `tools/venue-tour-report.py` turns them into a report.

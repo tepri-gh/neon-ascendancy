@@ -109,11 +109,12 @@ public class NeonAscendancy_DoorPolicyRecheck extends DelayCallback {
   // then and the re-check never ran (log 2026-11-26 08:11:27, enable without a
   // recheck=true line).
   public let m_ps: ref<DoorControllerPS>;
+  public let m_pos: Vector4;
 
   public func Call() -> Void {
     let ps = this.m_ps;
     if IsDefined(ps) {
-      ps.NeonAscendancy_ApplyDoorPolicy(true);
+      ps.NeonAscendancy_ApplyDoorPolicy(true, this.m_pos);
     }
   }
 }
@@ -139,7 +140,7 @@ public func NeonAscendancy_DoorFacts() -> NeonAscendancy_DoorFacts {
 // queue, so the entity and its notifier update normally. Idempotent: a door
 // already enabled, powered and passable gets "keep".
 @addMethod(DoorControllerPS)
-public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool) -> Void {
+public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4) -> Void {
   let game = this.GetGameInstance();
   if !NeonAscendancy_DoorPolicyEnabled(game) {
     return;
@@ -162,10 +163,11 @@ public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool) -> Void {
   if d.recheck && !isRecheck {
     let cb = new NeonAscendancy_DoorPolicyRecheck();
     cb.m_ps = this;
+    cb.m_pos = pos;
     GameInstance.GetDelaySystem(game).DelayCallback(cb, 1.0, false);
   }
   NcLogInfo(
-    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
+    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) pos=(\(pos.X),\(pos.Y),\(pos.Z)) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
   );
 }
 
@@ -184,7 +186,8 @@ protected cb func OnGameAttached() -> Bool {
   }
   let ps = this.GetDevicePS();
   if IsDefined(ps) {
-    ps.NeonAscendancy_ApplyDoorPolicy(false);
+    // The position lets the tour report attribute each decision to a venue.
+    ps.NeonAscendancy_ApplyDoorPolicy(false, this.GetWorldPosition());
   }
   return res;
 }
