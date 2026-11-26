@@ -158,6 +158,13 @@ Extract the `.questphase` files from the base and EP1 archives, then
 Sector buffers are compressed, so byte-grepping `.streamingsector` files for
 hashes or names finds nothing. Convert them first.
 
+If a scan over the extracted sectors hangs at 100% CPU (mostly kernel time),
+suspect one damaged copy, not the tool. On 2026-11-25 one file's reads ended
+at 36 KB of its 194 KB, and every reader (grep, ripgrep, Python) spun on it
+forever. Find such files with a per-file timeout:
+`find . -name '*.streamingsector' -print0 | xargs -0 -P8 -n1 sh -c 'n=$(timeout 5 cat "$1" | wc -c); [ "$n" = "$(stat -c %s "$1")" ] || echo "$1"' _`.
+Move the bad file aside and re-extract it from the game archive.
+
 ### 4.3 Which sectors belong to a venue
 
 `all.streamingblock` (base and EP1) lists every sector with its category,
@@ -211,6 +218,14 @@ Two local tools feed venue research. Their output is never committed;
   - prefabs, community activations (with character record, spot count,
     workspots and posture), spawn sets, device actions and variant toggles,
     each with the phases that own it;
+  - `community_options`: every phase each used community entry defines, with
+    its posture and workspots and whether vanilla activates it. Pick ambient
+    phases here (rule 9). The relaxed choice is often a phase no quest
+    activates, such as Clouds' `guard_vipentrance_01/start`;
+  - `posture: unknown` means the spot map is missing. About 1,700
+    communities, mostly Phantom Liberty, sit in the 4 sectors WolvenKit
+    cannot convert, and some vanilla quests activate phases that do not
+    exist. Check those on the dev tour;
   - `venue_inferred: true` on items whose ref is not yet resolved to a path
     and was attached to the venues its phase touches. Treat those as
     unverified until the `sectors` stage has run;

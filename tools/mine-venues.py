@@ -326,7 +326,7 @@ _SUBPREFAB = re.compile(r"_(env(_[a-z0-9]+)?|fx|gameplay|questdesign|leveldesign
 
 
 def _venue_name(seg: str) -> str:
-    name = re.sub(r"_prefab[A-Z0-9]{7}$", "", seg.lstrip("#"))
+    name = re.sub(r"_prefab[A-Z0-9]{7}$", "", seg.lstrip("#").replace("{", "").replace("}", ""))
     while True:
         stripped = _SUBPREFAB.sub("", name)
         if stripped == name or len(stripped) < 4:
@@ -341,7 +341,7 @@ def venue_of(path: str | None) -> str | None:
         return None
     segs = path[2:].split("/")
     for s in segs:
-        if s.lstrip("#").startswith("loc_"):
+        if s.lstrip("#{").startswith("loc_"):
             return _venue_name(s)
     for s in segs[3:]:
         if re.search(r"_prefab[A-Z0-9]{7}$", s):
@@ -488,8 +488,8 @@ def stage_catalog(a: argparse.Namespace) -> None:
         pending: list[tuple[str, Any, str | None]] = []
         for kind in ("prefabs", "communities", "spawn_sets", "devices", "toggles"):
             for it in row.get(kind) or []:
-                if kind == "communities" and it.get("entry") == "None":
-                    continue  # whole-community deactivate/reset, not an entry
+                if kind == "communities" and "None" in (it.get("entry"), it.get("phase")):
+                    continue  # deactivate/reset of a community or entry, not a spawn
                 ref = it if kind == "prefabs" else it.get("ref")
                 hits = [(full, venue_of(full)) for full in resolve(ref)]
                 hits = [(f, vn) for f, vn in hits if vn]
@@ -537,6 +537,24 @@ def stage_catalog(a: argparse.Namespace) -> None:
             "wiki": sorted({json.dumps(w, sort_keys=True) for q in v["quests"] for w in wiki.get(q, [])}),
         }
         rec["wiki"] = [json.loads(w) for w in rec["wiki"]]
+        # Every phase each used community entry defines, activated by vanilla
+        # or not: an unused relaxed phase is often the right ambient choice.
+        used = {(e["path"], e["entry"], e["phase"]) for e in rec["communities"]}
+        opts = []
+        for cpath in sorted({e["path"] for e in rec["communities"] if e.get("path")}):
+            c = by_path.get(cpath)
+            if not c:
+                continue
+            for ent in c["entries"]:
+                for phname in ent["phases"]:
+                    ids = (c.get("spots") or {}).get(f"{ent['name']}/{phname}", [])
+                    ws = sorted({spots[i]["workspot"] for i in ids if i in spots and spots[i]["workspot"]})
+                    pos = sorted({posture(w) for w in ws}) or ["unknown"]
+                    opts.append({"path": cpath, "entry": ent["name"], "phase": phname, "record": ent["record"],
+                                 "initial": ent.get("initial"), "activated": (cpath, ent["name"], phname) in used,
+                                 "posture": "alert" if "alert" in pos else pos[0] if len(pos) == 1 else "mixed:" + "+".join(pos),
+                                 "workspots": ws})
+        rec["community_options"] = opts
         rec["counts"] = {k: len(rec[k]) for k in ("prefabs", "communities", "spawn_sets", "devices", "toggles", "quests")}
         rec["quest_families"] = sorted({quest_family(q) for q in rec["quests"]})
         rec["tier"] = tier_of(rec)
