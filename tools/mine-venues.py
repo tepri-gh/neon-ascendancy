@@ -319,6 +319,9 @@ def _phase_items(path: Path, rel: str) -> dict:
         elif t == "questPhaseNodeDefinition":
             # A phase node instantiates these prefabs while it runs, in addition
             # to the child phase's own phasePrefabs.
+            res = val(val(o.get("phaseResource") or {}).get("DepotPath") or {}) if isinstance(o.get("phaseResource"), dict) else None
+            if isinstance(res, str) and res.endswith(".questphase"):
+                items["child_phases"].append(res.replace("\\", "/"))
             for e in o.get("phaseInstancePrefabs") or []:
                 e = val(e)
                 ref = val(e.get("prefabNodeRef")) if isinstance(e, dict) else None

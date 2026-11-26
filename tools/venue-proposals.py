@@ -91,10 +91,29 @@ def layer_activations() -> dict[tuple[str, str, str], str]:
     return out
 
 
+def kept_phase_set(venues_dir: Path) -> set[str]:
+    """Kept vanilla phases plus every child phase they run (phase nodes'
+    phaseResource), transitively."""
+    spec = json.loads((CLEAN / "clean_slate_spec.json").read_text(encoding="utf-8"))
+    children: dict[str, list[str]] = {}
+    for line in (venues_dir / "phases.jsonl").read_text(encoding="utf-8").splitlines():
+        r = json.loads(line)
+        children[r["phase"]] = r.get("child_phases") or []
+    todo = [d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]]
+    todo += [p.replace("\\", "/") for p in spec["questphase"].get("inline_phase_depot_refs") or []]
+    kept: set[str] = set()
+    while todo:
+        ph = todo.pop()
+        if ph in kept:
+            continue
+        kept.add(ph)
+        todo += children.get(ph, [])
+    return kept
+
+
 def kept_vanilla_activations(venues_dir: Path) -> dict[tuple[str, str, str], str]:
     """(ref, entry, phase) spawn-set and community activations kept vanilla phases make."""
-    spec = json.loads((CLEAN / "clean_slate_spec.json").read_text(encoding="utf-8"))
-    kept = {d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]}
+    kept = kept_phase_set(venues_dir)
     out: dict[tuple[str, str, str], str] = {}
     for line in (venues_dir / "phases.jsonl").read_text(encoding="utf-8").splitlines():
         r = json.loads(line)
@@ -106,8 +125,7 @@ def kept_vanilla_activations(venues_dir: Path) -> dict[tuple[str, str, str], str
 
 
 def kept_vanilla_prefabs(venues_dir: Path) -> dict[str, str]:
-    spec = json.loads((CLEAN / "clean_slate_spec.json").read_text(encoding="utf-8"))
-    kept = {d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]}
+    kept = kept_phase_set(venues_dir)
     out: dict[str, str] = {}
     for line in (venues_dir / "phases.jsonl").read_text(encoding="utf-8").splitlines():
         r = json.loads(line)
