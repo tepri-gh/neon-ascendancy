@@ -100,6 +100,11 @@
       "venue": "loc_q301_crashsite_landing",
       "decision": "excluded",
       "why": "Research wave 5: the Golden Pacific shuttle wreck, crash fires and Barghest assault of q301; Space Force One is never shot down in our timeline."
+    },
+    {
+      "venue": "loc_mq057",
+      "decision": "excluded",
+      "why": "Research wave 8: Motorbreath's staged highway chase contains traffic, wrecks and quest triggers. The Ringroad already streams for ordinary use."
     }
   ]
 }
