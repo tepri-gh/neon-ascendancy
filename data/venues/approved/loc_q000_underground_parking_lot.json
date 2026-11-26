@@ -1,0 +1,65 @@
+{
+  "code": "q000_underground_parking_lot",
+  "display_name": "Embers Underground Parking (The Glen)",
+  "why": "The large secured parking garage beneath the Embers building in The Glen (Heywood), reached by a two-stop lift from the street entrance on the building's south side. Vanilla only loads its questdesign section from q000 (The Streetkid): the security booth guard, the 22 parked cars, the corporate Aerondight and the NCPD response. This proposal restores the intact garage look and staffs it: the vanilla booth guard on his relaxed booth workspot, and the two corpo bodyguards posted at the VIP lift, while every car and police/quest actor stays out.",
+  "source": {
+    "proposal": "research/loc_q000_underground_parking_lot/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Cars: the garage's 22 parked cars are questSpawner_NodeType refs (#q000_car_001..025) inside the prefab, and the venue builder has no 'spawners' key (only communities, spawn_sets, devices/toggles). Without them the floor is empty. Decide whether to extend the builder with an Activate spawner list for venues or accept an empty garage.",
+      "Ordinary access is not proven from files: the garage geometry is a normal Interior sector, but the street gate (#q000_kid_embers_gate) and the two-stop lift (#q000_first_elevator) are the only ways in. Confirm in the tour that the gate is usable and the lift is powered/enabled with the garage floor authorised by lift_terminal_1. The door policy cannot help a LiftControllerPS.",
+      "The security-booth and bodyguard community area nodes are not in the converted sectors, so catalogue posture is 'unknown' and the entry-to-spot mapping for parking_security/q000_booth is inferred from the only security workspot. The tour must confirm both the booth guard and the two lift bodyguards actually spawn.",
+      "The two bodyguards are a judgment call: vanilla never activates their q000_kid_bodyguard_elevator phase (their scene is the Arinobu confrontation), and they read as posted VIP-lift security only because no principal is placed. If the tour reads them as a scene setup, drop both; the booth guard alone still staffs the garage.",
+      "The parking prefab nests the El Coyote 'back to bar' alley set (q000_kid_03_back_to_bar_prefabTG53KQY), including a worldCrowdNullAreaNode (#q000_tr_null_area_jackie_chat) and an inert police-car spawner. Instantiating the venue could thin the El Coyote hub crowd near that alley or leave static aftermath dressing there; check on the tour and consider whether a narrower sub-prefab exists.",
+      "The garage has lighting variants #loc_q000_underground_parking_lot_lighting (var_parking_lot_neon_000..003, all enabledByDefault 0 in the streaming block) but no vanilla phase toggles them and the catalogue exposes no toggle for this venue. Confirm the default (unlit neon) look is the intended 'open for business' state.",
+      "The north VIP lift (common_lift_2_floors_prefabQUVDMGA, doors at about -1851.8, -464.7) serves the Embers side; it is not in the catalogue's device list, so it stays exactly vanilla. Confirm it does not conflict with the two bodyguard spots.",
+      "Implementers must copy tour_stop into the approved venue entry: tools/venue-proposals.py approve builds a new entry and drops unknown keys such as tour_stop."
+    ]
+  },
+  "prefabs": [
+    "#q000_kid_pr_undeground_parking_lot"
+  ],
+  "communities": [
+    {
+      "spawner": "#q000_kid_com_parking_corporates",
+      "entry_name": "parking_security",
+      "phase_name": "q000_booth",
+      "action": "Activate",
+      "why": "The garage's own duty guard, the phase vanilla activates when V steps off the lift. The venue has exactly one security spot, #q000_kid_ws_security_booth, and its workspot is q000__male__sit_chair_lean_back__sit_around__01: a relaxed sit/lean in the booth. One guard for a 22-bay garage is the vanilla staffing, so it is the right ambient baseline.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_parking_corporates",
+      "entry_name": "bodyguard1",
+      "phase_name": "q000_kid_bodyguard_elevator",
+      "action": "Activate",
+      "why": "The garage's VIP lift is guarded in vanilla by two corpo bodyguards in their 'waiting at the elevator' phase. Their only spots are #q000_kid_ws_bodyguard_stand_elevator_001/002, on the generic stand-and-wait workspot, so they read as a relaxed posted guard pair at the garage's north lift. No principal is placed, so they are lift security, not the Arinobu arrival scene. Judgment call; see open_questions.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q000_kid_com_parking_corporates",
+      "entry_name": "bodyguard2",
+      "phase_name": "q000_kid_bodyguard_elevator",
+      "action": "Activate",
+      "why": "Second half of the vanilla VIP-lift guard pair, sharing the two stand-and-wait spots with bodyguard1. Without it the elevator pair is a lone guard.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1843.23,
+      -495.25,
+      -5.8
+    ],
+    "source": "worldTriggerAreaNode #q000_kid_mp_area_trigger in base/worlds/03_night_city/_compiled/default/quest_3f85ac06ccbaae1b.streamingsector (the venue's questdesign sector, loaded by #q000_kid_pr_undeground_parking_lot). It sits on the garage floor between the security booth (-1831.05, -519.77, -5.55) and the VIP-lift bodyguard spots (-1851.19/-1852.32, -463.6, -5.67), about 27 m and 33 m away, so the tour's 40 m scan covers both groups. The alternative lift landing is the quest's own start trigger #q000_kid_tr_start at (-1827.84, -558.03, -4.8), ~3 m from the street lift's garage door."
+  },
+  "proximity_wait": {
+    "ref": "#q000_first_elevator",
+    "within": 80.0,
+    "why": "The garage's street-to-garage lift is the venue entrance and a real device (LiftControllerPS) at (-1824.78, -559.22, 7.39 street, garage landing about -4.8). Re-issuing the guard pair after the player reaches it guarantees the garage sector has streamed before the people are activated."
+  }
+}

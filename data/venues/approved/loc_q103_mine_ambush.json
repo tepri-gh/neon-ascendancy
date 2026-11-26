@@ -1,0 +1,95 @@
+{
+  "code": "q103_mine_ambush",
+  "display_name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
+  "why": "The Corp-Bud Mine is the big abandoned mine on the eastern edge of Rocky Ridge Plains whose main tunnel the Wraiths use as a stronghold: a long north tunnel into a multi-level chamber with catwalks, barricades, arcade machines, a makeshift bar and a back exit, plus a second (southern) approach with a loot cache. The mine geometry, covers, spotlights, explosive gas tanks, mines crate and loot stashes are baked into the always-streamed exterior sectors, so the site is already there in the clean slate; only the people, the boss-fight staging, the mine trap and the security area come from q103. This proposal restores a small standing Wraith garrison - Nash at the back of the chamber and six of his people on the idle workspots vanilla uses for the boss fight - and leaves the baked loot, the hazards and the live security system as they are.",
+  "source": {
+    "proposal": "research/loc_q103_mine_ambush/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "What does the baked security area do once #q103_pr_mine is instantiated? Its instance state is deviceState ON and securityAreaType DANGEROUS, and it owns #q103_com_mine_ambush_raffen_shiv plus turrets 001/002. The quest ForceUnpowers the turrets for the approach; we do not run that action. The tour must check whether the turrets are live and hostile from the tunnel, and whether the site is still playable. If they make the approach a death trap, the owner needs either a device action (outside this proposal's vocabulary) or to drop the prefab and the garrison with it.",
+      "Are the bossfight workspots actually idle? The workspots are ordinary patrolling_stand / routine_stand_ground / bar-can spots, but the phase is a quest boss-fight set and the Wraith records are a hostile gang. The tour should confirm the six guards stand, patrol or lean rather than crouch behind cover or aggro through the whole tunnel; if they read as an alert firing line, the subset and/or phase choice needs revisiting.",
+      "Does the kept open-world layer already put Wraiths at the mine? The catalogue finds no open-world phase or combat-event prefab referencing loc_q103_mine_ambush, and the exterior sectors have no community-area node, so today it should be empty; but the global community/dynamic-event system can add gang traffic, so the tour should count bodies before keeping all seven.",
+      "Nash at the chamber's back has no resolved workspot (posture unknown, z 59.27 on the upper south side). He may be a boss-tagged NPC with a health bar or a scripted idle. If he reads as a quest boss rather than the stronghold's owner, drop just his entry; the six guards stand on their own.",
+      "The suggested tour stop is #q103_ws_mine_ambush_enemy_001 at (1880.89,17.54,54.58), the one boss-fight spot deliberately left unspawned: it is a verified AI spot on the chamber's north side and all seven chosen people are within 34 m of it, but it is still inside a hostile room. The quest's own surface arrival, #q103_tr_mine_arrival at (1997.97,129.06,61.19), is 160 m out and safer but would scan nothing; the owner can swap the stop if the tour is too hot.",
+      "The southern entrance approach (y about -62) has a baked Wraith loot cache (weapon locker, equipment case, gadgets, shards) but no quest community of its own. Should it get a guard or two for symmetry, or is the northern chamber garrison enough? No entry in this venue's catalogue sits at that cache."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/se1/loc_q103_mine_ambush_prefabXAKA4NY/loc_q103_mine_ambush_questdesign_prefabSURBHQA/#q103_pr_mine"
+  ],
+  "communities": [
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_002",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "A Wraith handgunner on a patrolling stand spot in the middle of the main chamber (patrolling_stand at 1868.14,10.28,54.60). The bossfight community is the only AI set vanilla defines for the mine, but this entry's own spot is an ordinary patrol/stand workspot, not a cover or aggro position; he is the centre of the standing gauntlet the player has to cross.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_003",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "Second handgunner at the chamber's south end, on the bar 'remove drink' spot (1868.19,-0.29,54.61), which reads as the crew's break area rather than a firing position. Keeps the back of the room staffed so the stronghold does not look like a front-only set.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_004",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "Rifleman on the left flank (routine__stand_ground at 1853.53,3.22,55.13). The west side of the chamber is otherwise empty; this is the spot vanilla itself uses for an idle stand_ground on the boss-fight roster.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_006",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "Shotgun tech on the left-middle patrol spot (1851.52,13.34,54.67). He bridges the left flank and the catwalk so a player walking the lower floor meets a second body on that side instead of a single isolated guard.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_007",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "Second central rifleman on a patrolling stand spot (1870.82,8.70,54.71), on the east side of the main floor. With enemy_002 he makes the centre read as a patrolled room rather than one lone sentry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "#q103_ws_mine_ambush_enemy_008",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "SMG gunner on the west catwalk (1847.79,24.17,59.01), the stronghold's lookout over the chamber floor. The mine's multi-level layout is its character; one elevated guard is enough to make it read as a defended space, and his spot is a patrolling stand, not a cover crouch.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q103_com_mine_ambush_raffen_shiv",
+      "entry_name": "miniboss_bear",
+      "phase_name": "bossfight",
+      "action": "Activate",
+      "why": "Nash himself, at the back of the chamber (AI spot #q103_ws_mine_ambush_bear at 1858.73,-5.35,59.27). The wiki's pre-quest state is exactly this: Nash has already betrayed Panam and is holed up in the Raffen Shiv hideout with his people while the stolen car is still at Rocky Ridge, so the stronghold's owner belongs here. The catalogue calls the record 'civilian' only because the name does not match its role keywords; he is the Wraith leader and is placed as combat. No workspot is resolved for his spot, so the tour must confirm he stands rather than T-poses.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      1880.89,
+      17.54,
+      54.58
+    ],
+    "source": "#q103_ws_mine_ambush_enemy_001 (worldAISpotNode) in quest_1308d8538ebf6366.streamingsector; the entry is deliberately not spawned, so the dev tour arrives on a clear vanilla AI spot at the chamber's north side with all seven chosen people within 34 m"
+  },
+  "proximity_wait": {
+    "ref": "#q103_sec_are_mining_tunnel",
+    "within": 80.0,
+    "why": "The mine's SecurityAreaControllerPS is a worldDeviceNode at (1868.25, 12.2, 57.1) in quest_1308d8538ebf6366.streamingsector. It streams with #q103_pr_mine. The tour must check whether its cooked security state activates the turrets."
+  }
+}

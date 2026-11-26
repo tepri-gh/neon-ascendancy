@@ -1,0 +1,44 @@
+{
+  "code": "sq017_fast_food",
+  "display_name": "Capitán Caliente (Rancho Coronado fast-food restaurant)",
+  "why": "The fast-food restaurant in Rancho Coronado where Kerry takes V for coffee at the end of 'Rebel! Rebel!'. Its building, furniture, doors and loot are ordinary world streaming; its normal cook, waitress and seven patrons are the whole open-world community #sq017_fast_food_com, which the kept district phase std_rcr already switches on ungated. This proposal re-issues that community as the playbook's boot + proximity safety net, and leaves the sq017 coffee-scene prefab, its duplicate 'Caliente folks' staff and Kerry's quest spawn sets out.",
+  "source": {
+    "proposal": "research/loc_sq017_fast_food/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the kept district phase std_rcr actually populate the restaurant in a fresh clean-slate start? The static evidence says yes (ungated whole-community Activate on a node directly on the phase input, and std_rcr is a kept child of open_world_global_commuinity_phase), but this needs one in-game look; the re-issued community in this proposal is the fallback and the rule-6 safety net either way.",
+      "Are the three world doors powered and unlocked by default? No sq017 phase issues a DoorControllerPS action, so they keep their world defaults and are outside the runtime door policy's quest-driven scope. The tour must confirm a customer can walk in through the north wall.",
+      "Which of the two single_door instances is the everyday customer entrance (331.59,-1622.60 vs 324.18,-1621.98)? Both are ordinary doors on the same wall; the proposal anchors on the eastern one near the waitress spots. The anchor choice is a streaming convenience, not a claim about the front door.",
+      "Are the always-streamed quest props (coffee cups, sit interaction, look-at markers) enabled and visible in normal play, and does #sq017_sit_interaction_caliente offer a prompt at an empty table? If it does, it is harmless but worth noting for the scene-free look.",
+      "The catalogue reports the whole community's posture as relaxed, aggregated from workspots; the nine individual entries were not all spot-checked. Confirm on the tour that nobody is frozen in a scene pose or sitting inside furniture."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#sq017_fast_food_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The restaurant's ordinary open-world set: cook Character.sq017_caliente_staff at the wok/wash-hands spots, waitress Character.Waitress on standing/tablet spots, and seven patrons (CorpoManAfterWork, CorpoWomanAfterWork, LowlifeMale/Woman, CitizenAldecaldosMale/FemaleTeenager, and the second CorpoManAfterWork entry sq017_kerry_table) on stand, sit-chair-table and sit-barstool workspots. Vanilla activates this whole community with entry None/phase None on an ungated leaf of the kept district phase std_rcr, so the clean slate should already populate the venue; the re-issue is the rule-6 second activation after proximity, because a one-shot boot activation can miss a streamable community that has not streamed in yet."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      331.59,
+      -1622.6,
+      9.37
+    ],
+    "source": "{single_door}, node 18351170305799752074 in exterior_5_-26_0_0.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_santo_domingo/rancho_coronado/loc_sq017_fast_food_prefabFZ5UQAY/loc_sq017_fast_food_gameplay_prefabTO5YZBQ/loc_sq017_fast_food_devices_prefab5CGO4LY/single_door_001_prefab27JC66I/{single_door}_prefab2UCLO3A",
+    "within": 80.0,
+    "why": "The restaurant's north-wall street door, a plain single_door.ent (DoorControllerPS, appearance doors_single_entropy_j) in the venue's device prefab. The cooked sector exterior_5_-26_0_0 places this entity at (331.59, -1622.60, 9.37); its world node id 18351170305799752074 equals FNV-1a-64 of the ref path with '#' removed, which confirms the path. It streams with the venue, sits at the wall beside the crowd (nearest waitress spot is (332.18,-1627.64,9.30), about 5 m south), and a player standing there is inside the venue's streaming radius."
+  }
+}

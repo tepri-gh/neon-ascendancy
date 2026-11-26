@@ -1,0 +1,100 @@
+{
+  "code": "q112_arasaka_industrial_park_lookout",
+  "display_name": "Arasaka Industrial Park Lookout (Arroyo)",
+  "why": "The lookout is the rooftop vantage over the Arasaka Industrial Park: a two-floor lift from the street-level yard to a mid-level landing, then stairs to a roof rail that overlooks the compound. Gimme Danger sends V and Takemura up here to scan the parade float route, and the venue's own ambient crowd - six workers and two slackers on the yard, stairs and roof - is switched off while q112 is active and only switched back on after q112_done. With the campaign disabled neither fact is ever set, so the registry stays at its initial inactive state and the building stands empty. This proposal restores the nine relaxed entries of that crowd (the tenth, worker2, only has nervous/alert workspots and is left out), keeps the lift's default navigation state, and leaves the quest roof staging, Takemura's recon placement and all Japantown parade content out.",
+  "source": {
+    "proposal": "research/loc_q112_arasaka_industrial_park_lookout/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does the full nine-entry crew spawn without #q112_pr_roof loaded? Their entries and all 42 workspots are in the always-streamed openworld prefab and the roof/building geometry in the env prefab, but the roof deck is only ever used by the quest in vanilla, so the tour should confirm nobody floats or stands on missing geometry.",
+      "Is the roof reachable in a clean save? The lift's only story action (HideFloor floor 1) is gated by q112_rec_drive_together > 0 and never runs here, so the mid-level landing and the stairs above it should be usable, but if the lift needs authorization the roof entries (slacker_f, worker_move_top) may be cut off while the yard crew still works.",
+      "Does the already-active Arasaka compound guard crowd (#std_arr_com_arasaka_compund) make the lookout a restricted area, so the player is engaged on approach and the civilian crew reacts? That is existing vanilla behaviour, not part of this change, but it affects how the tour reads the stop.",
+      "The approved industrial park warehouse venue is ~70-120 m north-east (its surveillance cameras sit at y -1434 to -1502, the lookout crowd at y -1568 to -1599). Both restore people in the same park; confirm on the tour that they do not double-staff one another's spots and that the combined population is acceptable.",
+      "Worker2 is left out because its only phase is nervous/alert. If the owner wants the tenth worker, that phase needs a visual check first (rules 9-10)."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "slacker",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Mid-level idler taking a break on the building ledge. The catalogue's spot is (-287.96, -1569.65, 19.7) and the phase's workspots are sit-on-ground/chair, wall-lean smoke and stand-around poses - no nervous, cover or combat routine. 'default' is the only phase this entry defines."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "slacker_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second idler, up on the roof deck at (-294.28, -1572.21, 43.75). Its workspots are generic__stand_ground_cellphone__record__01, master_dirt__sit_chair and master_generic__sit_ground - sitting, recording, relaxing. Vanilla also gives this entry Character.SlackerMale despite the _f name; copy the record as authored."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ground-floor maintenance worker and the busiest spot pool: (-315.48, -1588.53, 7.58) with 16 relaxed workspots (kneel tool fix, look-at-products, arms crossed, phone check, cigarette, tablet use, window clean, tool lean fix, rail lean, stairs sit). This is the entry that makes the yard read as worked-in."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ground-level worker on the south-east side of the base at (-273.91, -1599.01, 7.6), on a smoke break or a tablet. Only two workspots, both idle: generic__stand_ground_cigarette__smoke__02 and generic__stand_ground_tablet__use__01."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker3",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Ground-level worker on the other side of the base at (-270.14, -1588.15, 7.58); tablet use 02/03 and a wall-lean smoke, all idle routines."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker_move_1st",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "First stop of the walking inspection route, on the lower landing at (-299.1, -1568.67, 11.56). Its only workspot is generic__kneel_ground__inspect__01 - a worker crouching to inspect something, not a guard or combat pose."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker_move_base",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Base-level mover at (-298.16, -1594.18, 7.6), continuing the inspection route with kneel-inspect and tablet-use spots."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker_move_base2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second base-level mover at (-305.37, -1580.88, 7.61), on the lift side; kneel-tablet and stand-tablet spots keep the route moving without any alert or combat routine."
+    },
+    {
+      "spawner": "#std_arr_q112_arasaka_industrial_park_lookout_crowd_com",
+      "entry_name": "worker_move_top",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The roof mover at (-291.46, -1581.46, 43.6): kneel-around, look-at-products and tablet-use spots. This is the entry that puts a working crew on the lookout deck itself, beside the rail the recon uses."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      -289.5,
+      -1588.19,
+      7.6
+    ],
+    "source": "{q112_arasaka_industrial_park_lookout_ws_crowd}_006 in exterior_-3_-13_0_1.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "#q112_dvc_rec_lift",
+    "within": 80.0,
+    "why": "The venue's own LiftControllerPS at the foot of the lookout building (-312.06, -1585.28, 7.6), in the location's gameplay prefab, so it streams with the building the crowd occupies. q112_02_reconnaissance only issues HideFloor on it while q112_rec_drive_together > 0, so in a clean save it is an ordinary streamed device. It is the only device vanilla drives at this venue and a real entity, not a workspot (rule 8)."
+  }
+}

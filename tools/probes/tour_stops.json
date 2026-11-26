@@ -679,6 +679,34 @@
    ]
   },
   {
+   "code": "sq012_diner",
+   "name": "Chubby Buffalo's BBQ (The Glen diner)",
+   "kind": "approved",
+   "venue": "loc_sq012_diner",
+   "pos": [
+    -1209.41,
+    -1155.24,
+    33.71
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoMan",
+    "Character.CorpoWoman",
+    "Character.FattyMale",
+    "Character.LightCrowd_glen_ma",
+    "Character.LightCrowd_glen_wa",
+    "Character.LowlifeMale",
+    "Character.LowlifeMaleRedneck",
+    "Character.LowlifeWoman",
+    "Character.NightlifeMale",
+    "Character.NightlifeWoman",
+    "Character.VendorMale",
+    "Character.Waitress",
+    "Character.WorkerMale"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "hvdr_02_batty",
    "name": "Batty's Hotel",
    "kind": "hand-built",
@@ -708,6 +736,23 @@
    "expected_records": [
     "Character.q115_restaurant_bartender",
     "Character.q115_restaurant_waitress"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q000_underground_parking_lot",
+   "name": "Embers Underground Parking (The Glen)",
+   "kind": "approved",
+   "venue": "loc_q000_underground_parking_lot",
+   "pos": [
+    -1843.23,
+    -495.25,
+    -5.8
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q000_kid_parking_corpo_bodyguard",
+    "Character.q000_kid_parking_security"
    ],
    "spawn_sets": []
   },
@@ -1123,6 +1168,23 @@
    "spawn_sets": []
   },
   {
+   "code": "q112_arasaka_industrial_park_lookout",
+   "name": "Arasaka Industrial Park Lookout (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_q112_arasaka_industrial_park_lookout",
+   "pos": [
+    -289.5,
+    -1588.19,
+    7.6
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.SlackerMale",
+    "Character.WorkerMale"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q112_arasaka_industrial_park_warehouse",
    "name": "Arasaka Industrial Park Warehouse (Arroyo)",
    "kind": "approved",
@@ -1490,6 +1552,29 @@
    "spawn_sets": []
   },
   {
+   "code": "sq017_fast_food",
+   "name": "Capitán Caliente (Rancho Coronado fast-food restaurant)",
+   "kind": "approved",
+   "venue": "loc_sq017_fast_food",
+   "pos": [
+    331.59,
+    -1622.6,
+    9.37
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CitizenAldecaldosFemaleTeenager",
+    "Character.CitizenAldecaldosMaleTeenager",
+    "Character.CorpoManAfterWork",
+    "Character.CorpoWomanAfterWork",
+    "Character.LowlifeMale",
+    "Character.LowlifeWoman",
+    "Character.Waitress",
+    "Character.sq017_caliente_staff"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q105_braindance_studio",
    "name": "Electric Corporation Power Plant (Scavenger XBD studio)",
    "kind": "approved",
@@ -1614,6 +1699,26 @@
    "spawn_sets": [
     "#sq021_com_trailerpark"
    ]
+  },
+  {
+   "code": "q103_mine_ambush",
+   "name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
+   "kind": "approved",
+   "venue": "loc_q103_mine_ambush",
+   "pos": [
+    1880.89,
+    17.54,
+    54.58
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q103_raffen_nash",
+    "Character.q103_wraiths_handgun",
+    "Character.q103_wraiths_rifle_ma",
+    "Character.q103_wraiths_shotgun_tech_ma",
+    "Character.q103_wraiths_smg_ma"
+   ],
+   "spawn_sets": []
   },
   {
    "code": "sq021_farm",

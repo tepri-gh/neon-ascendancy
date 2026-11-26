@@ -8,6 +8,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 9: Corp-Bud Mine, the Arasaka Industrial Park lookout, the
+  Embers garage, Chubby Buffalo’s BBQ, and Rancho Coronado’s Capitán Caliente.
 - Research wave 8: Rolland’s Butcher Shop, Edgewood Farm’s entrance, Rocky
   Ridge, Empathy, Tripple Extreme Gym, and the Kabuki alley block.
 - Research wave 7: Arasaka Estate, Ginger Panda and its netrunner den, the

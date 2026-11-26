@@ -1,0 +1,233 @@
+{
+  "code": "sq012_diner",
+  "display_name": "Chubby Buffalo's BBQ (The Glen diner)",
+  "why": "Restore the ordinary diner crowd at Chubby Buffalo's BBQ without touching the I Fought the Law scene. The diner shell, open-world crowd spawner and every patron/staff workspot are ordinary Glen streaming data, and the kept Glen open-world community phase activates the crowd at boot. This proposal adds no quest prefab and no scene actor: it re-issues the diner's 28 relaxed crowd entries after a proximity wait so the diner is populated on a fresh start, using the interior TV as the device anchor.",
+  "source": {
+    "proposal": "research/loc_sq012_diner/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm on the dev tour that the diner crowd is present after arrival. The kept hey_gle_phase already activates #hey_gle_sq012_diner_crowd_com whole at boot; this venue phase re-issues 28 individual entries after proximity per playbook rule 6. Check that re-activation does not duplicate any patron already spawned by the boot pass.",
+      "The five omitted alert entries are the arcade/nervous-phone variants. The checker rejects a whole-community activation because the catalogue's aggregate posture for #hey_gle_sq012_diner_crowd_com is alert, even though 28 of its 33 entries are relaxed. If the owner wants the full 33, the checker needs a way to express a whole-community activation with a per-entry relaxation override; otherwise the diner runs with 28.",
+      "The proximity anchor is a TVControllerPS, not a door. The diner's entrance is not a quest-driven device at all (it is ordinary world streaming), so the runtime door policy cannot act on it and none is needed. Confirm the entrance opens normally and the main TV streams before the player is deep inside.",
+      "Confirm the kept open-world Glen community phase (hey_gle_phase, reached from the kept open_world_global_commuinity_phase) actually runs in the clean-slate save. If it does not, the diner needs the boot activation as well, and the whole Glen crowd layer is missing.",
+      "If the owner prefers not to duplicate the boot activation, the alternative is to leave this venue to the global phase and accept that a fresh start may miss the diner until the sector reloads. The proposal deliberately re-issues because rule 6 records that failure."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "bar_day_client_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A bar patron (Character.CorpoMan) at the diner counter. Phase A is a relaxed sit/lean/drink idle; verified spot [-1215.88, -1165.01, 33.73] with a barstool workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "bar_day_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A bar patron (Character.CorpoWoman) at the diner counter. Phase A is a relaxed sit/lean/drink idle; verified spot [-1214.5, -1167.7, 33.73] with a barstool workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "bar_night_client_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A bar patron (Character.NightlifeWoman) at the diner counter. Phase A is a relaxed sit/lean/drink idle; verified spot [-1214.87, -1166.79, 33.7] with a barstool workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "bar_night_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A bar patron (Character.NightlifeMale) at the diner counter. Phase A is a relaxed sit/lean/drink idle; verified spot [-1215.54, -1166.07, 33.78] with a barstool workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "bartender",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The diner's bartender (Character.VendorMale), the ordinary bar-staff entry in the Glen open-world crowd. Phase A is a relaxed bar idle; verified spot [-1214.79, -1164.98, 33.71] at the counter, with pen/write, rag/clean and tablet workspots. No separate vendor spawn set or Vendors.* record exists for this diner, so this entry is the venue's ordinary staff."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_dynamic_outside_man",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_ma) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1200.79, -1158.71, 32.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_dynamic_outside_woman",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_wa) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1213.96, -1146.33, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_outside_table_man",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_ma) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1204.43, -1161.92, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_outside_table_woman",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_wa) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1204.9, -1160.99, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_static_outside_man",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LowlifeMale) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1207.22, -1172.95, 33.77] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "day_static_outside_woman",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LowlifeWoman) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1198.42, -1172.81, 33.73] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_dynamic_outside_man",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_ma) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1225.09, -1158.27, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_dynamic_outside_woman",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_wa) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1228.19, -1165.12, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_static_outside_man",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_ma) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1226.47, -1167.13, 33.71] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_static_outside_woman",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "An outdoor patron/passer-by (Character.LightCrowd_glen_wa) at the diner front or patio. Phase A is a relaxed stand/smoke/phone idle; verified spot [-1204.06, -1178.3, 32.9] with a ground/rail/stairs workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_table_001_client_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.NightlifeMale) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1217.16, -1171.18, 33.72] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_table_001_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.NightlifeWoman) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1217.11, -1172.77, 33.72] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "night_table_002_client_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.NightlifeMale) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1221.52, -1164.38, 33.71] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_001_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.LowlifeWoman) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1218.08, -1170.26, 33.73] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_001_client_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.LowlifeMaleRedneck) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1219.22, -1169.19, 33.72] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_002_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.FattyMale) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1221.03, -1164.05, 33.71] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_002_client_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.LowlifeWoman) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1220.81, -1165.72, 33.73] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_003_client_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.CorpoMan) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1222.8, -1161.52, 33.73] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_003_client_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.CorpoMan) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1223.46, -1159.77, 33.72] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "table_003_client_004",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A table patron (Character.CorpoWoman) in the diner. Phase A is a relaxed sit/eat/drink/smoke idle; verified spot [-1222.77, -1159.42, 33.7] with a chair/table workspot. Ordinary Glen crowd entry, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "waitress_inside",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A diner waitress (Character.Waitress) working the floor. Phase A is a relaxed service idle; verified spot [-1220.99, -1160.56, 33.71] with diner take-order workspots. This is the venue's ordinary waiting staff, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "waitress_outside",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A diner waitress (Character.Waitress) working the patio. Phase A is a relaxed service idle; verified spot [-1209.41, -1155.24, 33.71] with diner take-order workspots. This is the venue's ordinary waiting staff, not a quest actor."
+    },
+    {
+      "spawner": "#hey_gle_sq012_diner_crowd_com",
+      "entry_name": "workers",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A worker/cleaner around the diner's exterior (Character.WorkerMale). Phase A is a relaxed work idle; verified spot [-1229.03, -1172.07, 32.64] with kneel/tablet/lean workspots. Part of the diner's ordinary open-world set, not a scene actor."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      -1209.41,
+      -1155.24,
+      33.71
+    ],
+    "source": "{hey_gle_buffalo_waitress_day_outside_}001 in exterior_-10_-10_0_1.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/#c_heywood/glen/loc_sq012_diner_prefab2ADZL5Q/loc_sq012_diner_env_prefabCIJVDPQ/sq_012_diner_int_prefabP5ONFSQ/tv_1_prefabB2MO5KA/#tv_1_q003",
+    "within": 80.0,
+    "why": "The diner's only resolved device entities are the four q003 TVControllerPS sets in the interior; this is the main TV in the room the crowd uses. It streams with the diner interior and a player who walks in is inside the wait radius, so the post-wait re-issue fires when the venue is actually loaded. A workspot would never fire (playbook rule 8). The TV's q003 interaction actions are left alone; it is only the anchor."
+  }
+}

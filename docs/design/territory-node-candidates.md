@@ -117,7 +117,7 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Candidate | Sub-district | Scale / type | Why | Status |
 | --- | --- | --- | --- | --- |
 | Corp-Bud Cement Factory (Raffen Shiv camp) | Badlands | HQ 5 / military | Walled stronghold, prison, chop room | approved |
-| Corp-Bud Mine | Badlands | stronghold 3 / military | Nash's stronghold | pending |
+| Corp-Bud Mine | Badlands | stronghold 3 / military | Nash's stronghold | approved |
 | Union Railroad Station | Badlands | outpost 2 / espionage | Drone-hijack antenna, turrets | pending |
 | New American Autoworks | Badlands | business 3 / economy | Chop shop interior (owner's example type) | pending |
 | Sequoia & Gray outpost | RanchoCoronado | outpost 2 / military | Their foothold inside the city | pending |
