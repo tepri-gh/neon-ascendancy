@@ -119,3 +119,33 @@ the non-combat people. **(after tour)**
     is nervous/alert. Add it after a visual check?
 38. **Farmhouse power** (`sq004_abandoned_farmhouse`). Keep the abandoned,
     unpowered look, or a lit, lived-in landmark?
+
+## 6. Wave 11
+
+39. **Arasaka safe house** (`q112_safe_house`). Vanilla's only people are
+    the raid and Hanako/Takemura hiding from it, so it is an empty, intact
+    ruin (gate and passage open). Keep it as a venue, or drop it? Give it a
+    later purpose (scav squat, player safehouse, stash)? Allow loading the
+    raid-dressed quest prefab if the shell turns out bare?
+40. **Love Shack** (`sq030_love_shack`). Lights on (proposed) or dark and
+    derelict? Should Judy ever rest here? Scenery only, or a later
+    safehouse / dive-job site?
+41. **Eva Cole's yacht** (`sts_cct_dtn_05`). A running party (proposed) or a
+    quiet moored yacht with crew and security? Keep the doll guests? Add
+    Eva Cole as a new cast entry?
+42. **C-Team office** (`sts_std_rcr_01`). Rogue's fixer car outside as
+    dressing? All ten guards (proposed) or only gate and patrol? Vic Vega
+    as the owner on the floor (proposed)?
+43. **7th Hell** (`sts_cct_dtn_02_metal_club`). Keep the 500-eddie cover
+    charge as a mod gate, or free entry (current)? Place Jack Mausser (no
+    vanilla spawn data)? Full nightclub (proposed) or low-key bar?
+44. **Delamain HQ** (`sq025_delamain_garage`). Keep the eight-person
+    complaint queue (staged for the cab crisis), or a quiet lobby with the
+    cleaner?
+45. **Brainporium** (`mq303_shanks_store`). Tool as a calm regular
+    (proposed), absent, or locked in the basement cell (the job's premise)?
+46. **Red Peaks bus stop** (`sq017_ambush`, excluded). Mod-authored content
+    later (nomad pull-off, checkpoint, stall)?
+47. **The Hammer, 2077** (`q101_backalley`, excluded). Should the planned
+    new Hammer include this back alley and rooftop? Should Totentanz get a
+    back-of-house? Where do Nancy, Denny and Henry belong (unplaced now)?

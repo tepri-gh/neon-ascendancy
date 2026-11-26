@@ -1,0 +1,166 @@
+{
+  "code": "sq025_delamain_garage",
+  "display_name": "Delamain Corp Headquarters",
+  "why": "The Delamain Corp Headquarters on Pajaro Street: a reception with a queue of clients, a car hangar, the repair workshop, the control room and Delamain's core at the back. Vanilla only opens it during the Delamain side jobs, so in the clean slate the interior is empty and unpopulated. This proposal loads the one quest section the interior needs and switches on the reception crowd, a greeter drone, a few workshop drones and the powered, lit, non-alert look.",
+  "source": {
+    "proposal": "research/loc_sq025_delamain_garage/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the reception queue reads as normal business. Do the eight regulars stand, sit or sleep calmly at the desk and benches, with no argument or dialogue scene, and is the room busy rather than crowded?",
+      "Walk in from Pajaro Street through the lobby door. Does it open, do you reach the reception, and does the door policy log an unlock or unseal for it?",
+      "Watch the workshop for a minute. Do the four Bombus repair drones hover and work calmly on the hangar floor instead of attacking each other or you? If they fight, drop them and keep only the greeter drone and the deco drones.",
+      "Stand in the reception with the queue. Does the reception turret stay passive (unpowered or non-hostile), or does it track and fire at you?",
+      "Open the door behind the control room. Is there a usable normal-business room behind it, or is it the unfinished core-chamber/labyrinth finale geometry that should stay shut?",
+      "Confirm no quest dressing is visible: no traffic-jam cabs or broken Delamains outside, no Johnny projection, no scanner box, no reward box, no drone-war spawners.",
+      "Check the interior look. Is the reception and workshop lit and powered (not dark after the core shutdown), and are the screens showing the normal state rather than the red alarm lighting?"
+    ]
+  },
+  "prefabs": [
+    "#sq025_pr_02_delamain_garage"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_cleaning",
+      "phase_name": "sq025_ws_delamain_garage_reception_cleaning",
+      "action": "Activate",
+      "why": "The cleaning woman on the reception bar workspot: staff presence at the front desk."
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_corp",
+      "phase_name": "sq025_ws_delamain_garage_reception_corp",
+      "action": "Activate",
+      "why": "A corporate client in the complaint queue at the reception desk; Tune Up's queue is exactly this kind of customer.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_cutie",
+      "phase_name": "sq025_ws_delamain_garage_reception_cutie",
+      "action": "Activate",
+      "why": "A young client standing in the queue, fidgeting on the Judy stand-around workspot."
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_homeless_02",
+      "phase_name": "sq025_ws_delamain_garage_reception_homeless_02",
+      "action": "Activate",
+      "why": "A waiting client asleep on the reception bench, the bench-sleep workspot the vanilla queue uses."
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_homeless_03",
+      "phase_name": "sq025_ws_delamain_garage_reception_homeless_03",
+      "action": "Activate",
+      "why": "A waiting client sitting on the reception couch, the couch sit-around workspot."
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_lady",
+      "phase_name": "sq025_ws_delamain_garage_reception_lady",
+      "action": "Activate",
+      "why": "An elderly client in the queue at the desk; one of the complainants the reception is staged for.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_slacker",
+      "phase_name": "sq025_ws_delamain_garage_reception_slacker",
+      "action": "Activate",
+      "why": "A slacker waiting his turn, standing on the generic wait workspot."
+    },
+    {
+      "spawner": "#sq025_com_regulars",
+      "entry_name": "sq025_reg_stripper",
+      "phase_name": "sq025_ws_delamain_garage_reception_stripper",
+      "action": "Activate",
+      "why": "One more client in the queue, standing on the generic wait workspot."
+    },
+    {
+      "spawner": "#sq025_com_delamain_garage_drones",
+      "entry_name": "drone_01",
+      "phase_name": "sq025_ws_delemain_garage_drone_av_01",
+      "action": "Activate",
+      "why": "The friendly Bombus parked at the reception spot; the garage is run by drones, so one greeter drone at the front desk is the normal look. It is on a workspot, so it stays put.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_delamain_drones_workshop",
+      "entry_name": "#sq025_ws_bombus_drone_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A fast repair Bombus on the front hangar floor (spot -930,-91); the floor reads as staffed only with repair drones on it. No suicidal/divergent entry is used, so nothing here is one of the rogue drones.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_delamain_drones_workshop",
+      "entry_name": "#sq025_ws_bombus_drone_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second fast repair Bombus on the front hangar floor (spot -923,-102).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_delamain_drones_workshop",
+      "entry_name": "#sq025_ws_bombus_drone_004",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A slow repair Bombus working the front hangar floor (spot -913,-113).",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sq025_com_delamain_drones_workshop",
+      "entry_name": "#sq025_ws_bombus_drone_005",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "A second slow repair Bombus on the front hangar floor (spot -942,-112).",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq025_delamain_garage_fx",
+      "states": {
+        "electricity": 1
+      },
+      "why": "Power on: the working garage. 06_backoffice, 07_workshop and 08_core all set 1 while the HQ is in business; 08_core sets 0 only for the shut-down core state."
+    },
+    {
+      "prefab": "#sq025_pr_02_delamain_garage",
+      "states": {
+        "InteriorArea_delamainHQ": 0
+      },
+      "why": "Interior area state: every inside phase (06_backoffice, 07_workshop, 08_core) sets 0, so 0 is the in-the-garage look rather than the exterior one."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/vista_del_rey/loc_sq025_delamain_garage_prefabBOT4ANI/#loc_sq025_delamain_garage_gameplay/loc_sq025_delamain_garage_devices_prefabOYHHUYY",
+      "states": {
+        "security_system_and_area": 0
+      },
+      "why": "Normal customer area, not a security zone: vanilla uses 0 while V walks the workshop and 1 only for the drone-war lockdown, and sq025.questphase powers the reception turret down before V enters."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/vista_del_rey/loc_sq025_delamain_garage_prefabBOT4ANI/loc_sq025_delamain_garage_env_prefabK6JL6UY/loc_sq025_delamain_garage_env_int_prefabCF66FPY/_loc_sq025_delamain_deco_drones_prefab5T4QFPQ",
+      "states": {
+        "drones": 1
+      },
+      "why": "Show the interior's decorative drone props so the factory floor reads as a working drone garage; vanilla only ever turns them on (06_backoffice, 07_workshop)."
+    },
+    {
+      "prefab": "$/03_night_city/#c_heywood/vista_del_rey/loc_sq025_delamain_garage_prefabBOT4ANI/loc_sq025_delamain_garage_gameplay_prefabTDGV7SY/loc_sq025_delamain_garage_devices_prefabOYHHUYY",
+      "states": {
+        "sq025_scanner_box": 0
+      },
+      "why": "Hide the scanner dispenser Delamain hands V in 03_briefing; there is no scanner handout in normal business, so it should not be a visible quest prop."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq025_pr_delamain_lobby_door",
+    "within": 80.0,
+    "why": "The front lobby door every visitor uses: a DoorControllerPS vanilla already drives, with a full path, streamed in with the venue, so the proximity re-issue fires on the normal way in."
+  }
+}

@@ -1,0 +1,88 @@
+{
+  "code": "mq303_shanks_store",
+  "display_name": "Brainporium (BD shop in the Jason Exiled head, Eden Plaza, Dogtown)",
+  "why": "The Brainporium is a braindance shop inside the head of the Jason Exiled sculpture at Eden Plaza in Dogtown: an entrance level with a back cell on the ground floor and the shop floor with the counter one staircase up, owned by Shank. The shop shell, lighting, doors and device prefab are world-streamed; only its quest-design prefab (spawn spots, workspots, quest triggers) is missing, so in normal play the shop is empty. This proposal loads that quest-design prefab, puts Shank behind the counter in his vendor pose and Tool in the shop as a calm regular, and asserts the tidy, open, pre-shoot decoration state with the quest props (keycard, Tool's letter, Lina's gift) switched off. The mall crowd around the shop is a world community that vanilla only thins out for the job, so it stays untouched and still fills the street outside.",
+  "source": {
+    "proposal": "research/loc_mq303_shanks_store/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Eden Plaza and reach the shop floor. Check that the entrance door and the staircase door open under the runtime door policy: vanilla only opens both with quest device nodes, so nothing else guarantees the route to the counter.",
+      "Confirm Shank stands behind the counter, calm, holding his tablet. The vendor spot is the only calm counter pose he has, but the venue has no spot map to score it from data.",
+      "Confirm Tool reads as an ordinary BD regular in the shop. His epilogue_shop pose is borrowed from after the job, and if his appearance is the TooLina look he should be dropped from the proposal.",
+      "Confirm Shank and Tool spawn at all once the venue prefab loads. The spawn set #mq303_main_characters has no resolved path in the catalogue (venue_inferred), and this proposal infers it lives inside #mq303_pr_shanks_shop_quest because its workspots do.",
+      "Check the shop floor for BD-shoot dressing, a shoot chair or leftover mess. var_mess 0 with var_mess_cleaned 1 is the tidy pairing vanilla uses, but it never appears without var_showtime 1, so this exact combination is new.",
+      "Check that no quest keycard, Tool's letter or Lina gift is visible in the shop, and that the storefront does not read as closed.",
+      "Check that the sex worker and other mall crowd outside the shop door are still there; vanilla only removes one of them for the job, which never runs."
+    ]
+  },
+  "prefabs": [
+    "#mq303_pr_shanks_shop_quest"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#mq303_main_characters",
+      "entry_name": "shank",
+      "phase_name": "vendor",
+      "why": "Shank owns the Brainporium, and vendor is his shopkeeper pose: he stands at the counter with a tablet (generic__stand_ground_tablet__stand_around__01 at -1715.11, -2416.65, 62.60 on the shop floor). Vanilla uses the same pose after the job when the shop reopens, and it is the only calm, non-scene, non-captive phase he has at the counter; start places him downstairs at the hook's entrance, and clean is the mop-the-mess pose from the job's opening. needs_tour_check because the venue has no spot map, so the posture cannot be scored from data.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#mq303_main_characters",
+      "entry_name": "tool",
+      "phase_name": "epilogue_shop",
+      "why": "Edgar Tool is the shop's other named character. His start phase is the job's premise (locked in the ground-floor cell below the shop), which must not be staged; epilogue_shop is the only calm phase that puts him on the shop floor, standing at -1720.25, -2411.50, 62.88 with a tablet, where he reads as an ordinary BD regular browsing the shop. Vanilla uses this pose after the job, but the pose is what matters here: no scene, no cell, no quest state. needs_tour_check for the same missing spot map, and to confirm his appearance is Tool and not the TooLina look.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_mq303_shanks_store_decoration",
+      "states": {
+        "var_mess": 0,
+        "var_mess_cleaned": 1
+      },
+      "why": "The tidy shop. Vanilla only ever pairs these two: the job's opening shows the shop messy (var_mess 1, var_mess_cleaned 0) and the cleaned shop uses var_mess 0, var_mess_cleaned 1. Normal business wants the cleaned state, so the venue asserts that pair at boot rather than trusting the prefab's baked default."
+    },
+    {
+      "prefab": "#loc_mq303_shanks_store_decoration",
+      "states": {
+        "var_showtime": 0
+      },
+      "why": "Switches off the BD-shoot set dressing (the showtime props the job dresses the shop with for Lina and Tool's recording). Vanilla only ever sets var_showtime 1, during the job's finale; 0 is the ordinary shop look the venue needs."
+    },
+    {
+      "prefab": "#loc_mq303_shanks_store_devices",
+      "states": {
+        "var_store_closed": 0
+      },
+      "why": "Open-for-business sign. var_store_closed is only ever set to 0 by vanilla (mq303's root), and the job's own epilogue is what shuts the shop; asserting 0 keeps the storefront reading as open."
+    },
+    {
+      "prefab": "#loc_mq303_shanks_store_devices",
+      "states": {
+        "var_mq303_keycard": 0,
+        "var_mq303_tool_letter": 0,
+        "var_gift": 0
+      },
+      "why": "Keeps the job's loose props out of the shop: the quest keycard entity, Tool's letter and Lina's gift bouquet all live in the world-streamed devices prefab and are shown by these variants only while the job runs. Our timeline has no job, so none of them should be lying around."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1720.21,
+      -2415.07,
+      62.61
+    ],
+    "source": "#mq303_ws_shank_clean AIActionSpot inside #mq303_pr_shanks_shop_quest, base/worlds/03_night_city/_compiled/default/ep1/quest_764235858475e934.streamingsector (shop floor, five metres from the counter; unused by this proposal so nothing overlaps the player)"
+  },
+  "proximity_wait": {
+    "ref": "#mq303_dvc_store_door",
+    "within": 80.0,
+    "why": "The shop's own entrance door (DoorControllerPS) in the world-streamed #loc_mq303_shanks_store_devices group, resolved to a full path in input.json: every visitor passes it, and it is the first device that streams when a player walks up to the Brainporium. The only other resolved device is the cell terminal, one level down inside the shop's cellar room, which would delay the re-issue until the player is already in the back room."
+  }
+}

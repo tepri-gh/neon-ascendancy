@@ -4,6 +4,10 @@
     {
       "stop": "q303_combat_zone_gate",
       "text": "Drive down Monument Avenue: no Space Force One wreckage (wrecked cars, the flipped craft part, body bags). The debris (loc_q302_car_chase_sf1_debris, excluded in research wave 10) sits inside the always-streamed monument_av prefab, so its hidden default is unconfirmed."
+    },
+    {
+      "stop": "sq021_trailer_park",
+      "text": "Drive past the Red Peaks freeway bus stop near (1340, -816): no parked ambush truck or spike strip on the shoulder. loc_sq017_ambush was excluded in research wave 11; if the props show, add a var_truck=0 / var_spike_trap=0 toggle on #sq017_pr_truck_freeway."
     }
   ]
 }

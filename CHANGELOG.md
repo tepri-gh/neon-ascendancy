@@ -13,6 +13,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   `data/venues/tour_checks.json`). The tour waits at each stop until the list
   is saved; "Neon: checklist here" opens it anywhere; the tour report flags
   PROBLEMS and UNCHECKED items.
+- Research wave 11 (first part): the Arasaka safe house (intact, empty),
+  the Love Shack, Eva Cole's yacht party, the C-Team office, 7th Hell,
+  Delamain HQ and the Brainporium.
 - Research wave 10 (second part): Haven Clinic in Dogtown (working free
   clinic), the Silver Pixel Cloud drive-in (shut, gates open), the No-Tell
   Motel, the Satwave power plant (security drones) and Jinguji (pre-attack
@@ -117,6 +120,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Venue miner: community actions written as the older `questLegacy_NodeType`
+  (99 vanilla phases) were ignored, so 394 activations were invisible to the
+  checker, e.g. the downtown phase that already fills 7th Hell. The checker
+  now also warns when vanilla activates the whole community an entry
+  belongs to.
 - Venue checker: a community `Deactivate` is no longer judged as an
   activation. Removing an alert or post-quest entry used to fail the posture
   rule; now only the entry's existence is checked.

@@ -1,0 +1,47 @@
+{
+  "code": "q112_safe_house",
+  "display_name": "Abandoned Apartment Building, Vine Street (Vista del Rey)",
+  "why": "The safe house is the derelict apartment building on Vine Street in Vista del Rey where Takemura hides Hanako in apartment 303 during Search and Destroy and where Arasaka breaches the building. Its shell, doors, navmesh, devices and interiors are baked into the location's always-loaded env and gameplay sections; only the quest workspots, splines, map pins, fake AV turrets and fake gunfire decals live in the quest prefab, and the whole q112_07 phase is gated behind the fact q112_setup_07_safe_house. Every community entry at the venue is the Arasaka raid (alert aim posts, patrols and the 2nd-floor breach stack) and both spawn sets are Hanako and Takemura hiding from it, so this proposal restores no people and no prefab: it restores the intact, walkable state of the building (gate and stairs open rather than the combat lockdown) and leaves the place as the empty ruin it is in our timeline.",
+  "source": {
+    "proposal": "research/loc_q112_safe_house/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk up to the front double doors on Vine Street and try to open them. Both entrance doors are only ForceUnlocked by q112_07, and the catalogue leaves them venue_inferred with no path, so the runtime door policy has no hash for them; if they are locked, the catalogue's device path must be filled from the sector ref (given in door_notes) or the building is unreachable.",
+      "Walk from the ground floor up the stairs to apartment 303 and check the route is clear. The intact state is q112_passage_open 1 / q112_passage_block 0; if rubble or a blocked passage appears, the toggle did not take and the building reads as the post-breach ruin instead.",
+      "Check the side/back gate and the shortcut door are in the open, usable state. The gate variant is set at boot, but the shortcut door (#q112_dvc_shortcut_doors) is only ever forced by the quest, so confirm what the baked state is.",
+      "Stand inside the flat and confirm it is furnished without #q112_pr_safe_house loaded. The quest prefab holds only workspots, splines, markers, decals and turret props, so the furniture should come from the env interior; if the rooms are bare shells or the door frames are missing, the prefab has to be loaded after all and its quest dressing accepted or stripped.",
+      "Look for leftover quest dressing inside the building: fake gunfire decals, ceiling sparks, turret props, flash grenades, AV spawn. None should appear now that the quest prefab is not loaded; report anything you see so we know what else pulls that prefab in.",
+      "Approach and knock on the apartment 303 door and confirm nothing explodes and no scene starts. The knock-four-times explosive rig is a quest trigger, and we want a plain door in a plain abandoned building.",
+      "Check the building at night as well as by day. If the env interior has no lighting of its own once the quest's lighting/fx state is absent, the flat may be pitch black; that is worth knowing before the venue is approved as an empty stop."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#q112_pr_gate_locked",
+      "states": {
+        "locked": 0,
+        "open": 1
+      },
+      "why": "The pre-visit state q112_07 sets when V arrives: the gate unlocked and its open mesh shown. The combat phase flips exactly these two to locked 1 / open 0 to seal the fight, so this is the intact, passable state rather than an invented one."
+    },
+    {
+      "prefab": "#loc_q112_safe_house_env_interior",
+      "states": {
+        "q112_passage_block": 0,
+        "q112_passage_open": 1
+      },
+      "why": "Same setup block sets the interior passage open and its blocked variant off, which is the building as V walks in, before the breach brings the floor down. Nothing in our timeline collapses the building, so the passage must never be switched to blocked."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q112_10_safe_house_main_entrance_door",
+    "within": 80.0,
+    "why": "The building's double front door on Vine Street, a DoorControllerPS entity in the always-loaded #loc_q112_safe_house_gameplay/devices section, so it streams in as the player approaches the venue. Full path from the sector ref list: $/03_night_city/#c_heywood/vista_del_rey/loc_q112_safe_house_prefabSDQSTMI/#loc_q112_safe_house_gameplay/loc_q112_safe_house_devices_prefabCC33DEA/double_door_prefabYXHETZA/{double_door}_prefabTFBKWWY;#q112_10_safe_house_main_entrance_door"
+  }
+}

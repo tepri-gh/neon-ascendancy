@@ -1,0 +1,46 @@
+{
+  "code": "sq030_love_shack",
+  "display_name": "Abandoned Lake Dwelling (Laguna Bend Reservoir)",
+  "why": "The Abandoned Lake Dwelling is the small lakeshore cottage at the Laguna Bend Reservoir (world path under Santo Domingo / Rancho Coronado) where Judy takes V in Pyramid Song. Its shell, furniture, entry door, generator, fuse box and corridor lights are world content; vanilla only drives the quest on top of it: ForceUnlock the entry door, switch the cottage lights on, and spawn Judy and her van. In our timeline the cottage still exists and Judy still dives the reservoir and occasionally rests here (wiki history), but nobody lives in it. This proposal keeps every sq030 quest section and person out, leaves the cottage exactly as the world builds it, turns its lights on so the interior reads as a usable building rather than a black box, and lets the runtime door policy open the entry door. Zero people is correct here: this is an abandoned dwelling, and its only vanilla occupant is cast elsewhere.",
+  "source": {
+    "proposal": "research/loc_sq030_love_shack/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk through the front door and confirm the runtime door policy opens it. Approach on foot from the shore, read the look-at log and the DoorPolicy line for #sq030_dvc_hut_door_entry, and report if it stays locked or sealed.",
+      "Confirm the cottage interior is fully built and lit with no quest prefab loaded. Check the bed, bathroom, kitchen shelf and corridor lights (and the ceiling fans) are present and on, with no diving gear, braindance laptop or morning/sex props. [Comment: the shell, doors and lights are world content, but the interior was unverified without running sq030.]",
+      "Check the generator outside and the fuse box on the wall. Confirm whether either responds to interaction in normal play, and whether flipping it changes the lights; if it does, the lights should probably be left off until the player powers the cottage.",
+      "Confirm the yard, shore and pier show no quest dressing. No diving equipment box, glowsticks, swimsuit restriction, Judy's van or pier workspot props should be visible.",
+      "Confirm nobody sits at the two trash spots beside the cottage. Four homeless sit workspots (crowd_ws_homeless_sit) exist there but no community area in the converted sectors maps them; check whether an open-world street community spawns someone anyway, and that they look calm if so.",
+      "Confirm Judy is not duplicated here. She should still be at her Charter Street apartment, not at the cottage or on the pier."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_pr_sq030_love_shack_lighting",
+      "states": {
+        "lights_on": 1,
+        "lights_off": 0
+      },
+      "why": "The powered state vanilla uses for the cottage itself (corridor lights and ceiling fans), set by sq030.questphase before the quest's interior scenes. Because our timeline never runs the generator step, booting this state is what makes the world-built interior lit and usable once the door is open. It is a world-prefab node, not a quest prefab, so no section has to be instantiated."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      1119.74,
+      -3479.38,
+      181.3
+    ],
+    "source": "worldAISpotNode #sq030_mp_hut_interior at (1119.74, -3479.38, 181.3) under #sq030_pr_hut in base/worlds/03_night_city/_compiled/default/quest_58384842124f7a63.streamingsector. It is the cottage's interior standing marker at floor height; the entry door and the fuse box (1119.46, -3481.34, 182.38) are within a few metres, so the tour can step outside and walk back in through the door, and the 40 m scan covers the cottage, the yard and the pier."
+  },
+  "proximity_wait": {
+    "ref": "#sq030_dvc_hut_door_entry",
+    "within": 80.0,
+    "why": "The cottage's only quest-driven device and its entrance door (DoorControllerPS), standing on the normal way in from the shore; it is a device, not a workspot (rule 8), so the proximity wait, the re-issued activations and the door policy all key off the same entity the player has to reach."
+  }
+}

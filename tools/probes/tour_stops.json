@@ -1012,6 +1012,72 @@
    ]
   },
   {
+   "code": "sts_cct_dtn_05_luxury_yacht",
+   "name": "Gold Beach Marina party yacht (Councilwoman Cole's yacht)",
+   "kind": "approved",
+   "venue": "loc_sts_cct_dtn_05_luxury_yacht",
+   "pos": [
+    -2449.0,
+    55.45,
+    4.16
+   ],
+   "radius": 61.9,
+   "expected_records": [
+    "Character.CitizenRichFemale",
+    "Character.CitizenRichMale",
+    "Character.CorpoMan",
+    "Character.CorpoWoman",
+    "Character.CorpoWomanArasaka",
+    "Character.DollMale",
+    "Character.ServiceDiningMale",
+    "Character.WorkerMale",
+    "Character.dtn_security_security1_hmelee2_fists_mb_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Look at the yacht from the dock before boarding.",
+     "detail": "Look at the yacht from the dock before boarding. Confirm the deck is lit and decorated in the party layout (boat_a_lights on, yacht_b arch/deco on) and not the dark idle layout, since the kept downtown community phase also toggles these at boot.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the main deck, bar and lounge.",
+     "detail": "Walk the main deck, bar and lounge. Confirm the crew and guests stand at their own posts (bar, reception, rail, couch, security room) with nobody crouched, alert or frozen in a scene pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Board the yacht from the dock on foot.",
+     "detail": "Board the yacht from the dock on foot. Confirm the glass doors at the party deck are open or open on approach, without a jump or a hack.",
+     "source": "open question"
+    },
+    {
+     "label": "Enter the lower-deck security room.",
+     "detail": "Enter the lower-deck security room. Confirm the door opens by its own terminal, keycard, hack or the door policy, and that the room holds no recording loot or quest-only props.",
+     "source": "open question"
+    },
+    {
+     "label": "Try the wide aft-deck glass door.",
+     "detail": "Try the wide aft-deck glass door. Confirm it opens rather than staying dead and unpowered, and that it is not the only way between the deck and the salon.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q004_q005_arasaka_hotel",
    "name": "Konpeki Plaza",
    "kind": "hand-built",
@@ -1109,6 +1175,74 @@
     {
      "label": "Whether the upper floor / room behind the counter stays reachable without the questdesign prefab and its anders_blocker variant.",
      "detail": "Whether the upper floor / room behind the counter stays reachable without the questdesign prefab and its anders_blocker variant.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "mq303_shanks_store",
+   "name": "Brainporium (BD shop in the Jason Exiled head, Eden Plaza, Dogtown)",
+   "kind": "approved",
+   "venue": "loc_mq303_shanks_store",
+   "pos": [
+    -1720.21,
+    -2415.07,
+    62.61
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [
+    "#mq303_main_characters"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk in from Eden Plaza and reach the shop floor.",
+     "detail": "Walk in from Eden Plaza and reach the shop floor. Check that the entrance door and the staircase door open under the runtime door policy: vanilla only opens both with quest device nodes, so nothing else guarantees the route to the counter.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Shank stands behind the counter, calm, holding his tablet.",
+     "detail": "Confirm Shank stands behind the counter, calm, holding his tablet. The vendor spot is the only calm counter pose he has, but the venue has no spot map to score it from data.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Tool reads as an ordinary BD regular in the shop.",
+     "detail": "Confirm Tool reads as an ordinary BD regular in the shop. His epilogue_shop pose is borrowed from after the job, and if his appearance is the TooLina look he should be dropped from the proposal.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Shank and Tool spawn at all once the venue prefab loads.",
+     "detail": "Confirm Shank and Tool spawn at all once the venue prefab loads. The spawn set #mq303_main_characters has no resolved path in the catalogue (venue_inferred), and this proposal infers it lives inside #mq303_pr_shanks_shop_quest because its workspots do.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the shop floor for BD-shoot dressing, a shoot chair or leftover mess.",
+     "detail": "Check the shop floor for BD-shoot dressing, a shoot chair or leftover mess. var_mess 0 with var_mess_cleaned 1 is the tidy pairing vanilla uses, but it never appears without var_showtime 1, so this exact combination is new.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that no quest keycard, Tool's letter or Lina gift is visible in the shop, and that the storefront does not read as closed.",
+     "detail": "Check that no quest keycard, Tool's letter or Lina gift is visible in the shop, and that the storefront does not read as closed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the sex worker and other mall crowd outside the shop door are still there; vanilla only removes one of them for the job, which never runs.",
+     "detail": "Check that the sex worker and other mall crowd outside the shop door are still there; vanilla only removes one of them for the job, which never runs.",
      "source": "open question"
     }
    ]
@@ -2332,6 +2466,102 @@
     {
      "label": "Mirror: #mirror_scene_police_lab is already loaded by the kept mirror_interactions_control phase; confirm the evidence-room mirror is present and d...",
      "detail": "Mirror: #mirror_scene_police_lab is already loaded by the kept mirror_interactions_control phase; confirm the evidence-room mirror is present and does not show the quest's mirror-area staging.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_cct_dtn_02_metal_club",
+   "name": "7th Hell",
+   "kind": "approved",
+   "venue": "loc_sts_cct_dtn_02_metal_club",
+   "pos": [
+    -1930.83,
+    -41.41,
+    -0.53
+   ],
+   "radius": 41.1,
+   "expected_records": [
+    "Character.CorpoMan",
+    "Character.CorpoManAfterWork",
+    "Character.CorpoWoman",
+    "Character.CorpoWomanAfterWork",
+    "Character.JunkieFemale",
+    "Character.LowlifeMale",
+    "Character.NightlifeMale",
+    "Character.NightlifeWoman",
+    "Character.NonBinaryFemaleBodyNightlife",
+    "Character.SexworkerFemale",
+    "Character.StoopKing",
+    "Character.StoopQueen",
+    "Character.WorkerMale",
+    "Character.sts_cct_dtn_02_bouncer_main_door",
+    "Character.sts_cct_dtn_02_bouncer_melee",
+    "Character.sts_cct_dtn_02_bouncer_melee_drunked",
+    "Character.sts_cct_dtn_02_bouncer_melee_female",
+    "Character.sts_cct_dtn_02_bouncer_short_range",
+    "Character.sts_cct_dtn_02_bouncer_smg",
+    "Character.sts_cct_dtn_02_dj",
+    "Character.sts_cct_dtn_02_dozy",
+    "Character.sts_cct_dtn_02_officer",
+    "Character.sts_cct_dtn_02_stripper_bd",
+    "Character.sts_cct_dtn_02_worker"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk through the front door and confirm the club interior is visible, lit and open.",
+     "detail": "Walk through the front door and confirm the club interior is visible, lit and open. If it is dark or sealed, the interior_area variant is the wrong way round and should be 0.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the patrons on the dance floor, couches and tables.",
+     "detail": "Count the patrons on the dance floor, couches and tables. cct_dtn_phase also carries a whole-community activation for #dtn_02_crowd_com, so check whether the crowd is doubled and drop our crowd entries if it already spawns.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that club music and dance-floor lighting are running.",
+     "detail": "Check that club music and dance-floor lighting are running. #dancefloor_7th_hell is loaded by the kept dancefloors phase, but the audio may need the venue open.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the bouncers are at the door and around the floor, calm and on their workspots, not in a combat stance.",
+     "detail": "Check that the bouncers are at the door and around the floor, calm and on their workspots, not in a combat stance.",
+     "source": "open question"
+    },
+    {
+     "label": "Find the back elevator and try its Technical Ability check.",
+     "detail": "Find the back elevator and try its Technical Ability check. The location page says 9, the gig page says 15, and it must stay a skill check rather than being unlocked by the door policy.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the security room (14 Technical Ability) and artist room (19 Technical Ability) doors still require their checks.",
+     "detail": "Check the security room (14 Technical Ability) and artist room (19 Technical Ability) doors still require their checks.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the VIP area and the owner's office.",
+     "detail": "Check the VIP area and the owner's office. Jack Mausser is not spawnable from vanilla data, so the office will be empty unless the owner decides otherwise.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that no gig staging appears: no quest markers, no body bags or scene props, no hostile Animals.",
+     "detail": "Check that no gig staging appears: no quest markers, no body bags or scene props, no hostile Animals.",
      "source": "open question"
     }
    ]
@@ -4031,6 +4261,72 @@
    ]
   },
   {
+   "code": "q112_safe_house",
+   "name": "Abandoned Apartment Building, Vine Street (Vista del Rey)",
+   "kind": "approved",
+   "venue": "loc_q112_safe_house",
+   "pos": [
+    -607.44,
+    -184.11,
+    16.19
+   ],
+   "radius": 49.4,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk up to the front double doors on Vine Street and try to open them.",
+     "detail": "Walk up to the front double doors on Vine Street and try to open them. Both entrance doors are only ForceUnlocked by q112_07, and the catalogue leaves them venue_inferred with no path, so the runtime door policy has no hash for them; if they are locked, the catalogue's device path must be filled from the sector ref (given in door_notes) or the building is unreachable.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk from the ground floor up the stairs to apartment 303 and check the route is clear.",
+     "detail": "Walk from the ground floor up the stairs to apartment 303 and check the route is clear. The intact state is q112_passage_open 1 / q112_passage_block 0; if rubble or a blocked passage appears, the toggle did not take and the building reads as the post-breach ruin instead.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the side/back gate and the shortcut door are in the open, usable state.",
+     "detail": "Check the side/back gate and the shortcut door are in the open, usable state. The gate variant is set at boot, but the shortcut door (#q112_dvc_shortcut_doors) is only ever forced by the quest, so confirm what the baked state is.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand inside the flat and confirm it is furnished without #q112_pr_safe_house loaded.",
+     "detail": "Stand inside the flat and confirm it is furnished without #q112_pr_safe_house loaded. The quest prefab holds only workspots, splines, markers, decals and turret props, so the furniture should come from the env interior; if the rooms are bare shells or the door frames are missing, the prefab has to be loaded after all and its quest dressing accepted or stripped.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for leftover quest dressing inside the building: fake gunfire decals, ceiling sparks, turret props, flash grenades, AV spawn.",
+     "detail": "Look for leftover quest dressing inside the building: fake gunfire decals, ceiling sparks, turret props, flash grenades, AV spawn. None should appear now that the quest prefab is not loaded; report anything you see so we know what else pulls that prefab in.",
+     "source": "open question"
+    },
+    {
+     "label": "Approach and knock on the apartment 303 door and confirm nothing explodes and no scene starts.",
+     "detail": "Approach and knock on the apartment 303 door and confirm nothing explodes and no scene starts. The knock-four-times explosive rig is a quest trigger, and we want a plain door in a plain abandoned building.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the building at night as well as by day.",
+     "detail": "Check the building at night as well as by day. If the env interior has no lighting of its own once the quest's lighting/fx state is absent, the flat may be pitch black; that is worth knowing before the venue is approved as an empty stop.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sq006_jefferson_residence",
    "name": "Peralezes' Apartment (Charter Hill penthouse)",
    "kind": "approved",
@@ -4095,6 +4391,99 @@
     {
      "label": "The catalogue's sq006 activation names community entry `daughter/phone_call` on #sq006_com_peralez_apartment, but the community registry has no `da...",
      "detail": "The catalogue's sq006 activation names community entry `daughter/phone_call` on #sq006_com_peralez_apartment, but the community registry has no `daughter` entry (only elizabeth_intercom). Treated as a vanilla phantom activation; if the tour shows a missing child NPC in the flat, that is this bug and not a slot this proposal dropped.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sq025_delamain_garage",
+   "name": "Delamain Corp Headquarters",
+   "kind": "approved",
+   "venue": "loc_sq025_delamain_garage",
+   "pos": [
+    -943.12,
+    -85.48,
+    7.52
+   ],
+   "radius": 55.4,
+   "expected_records": [
+    "Character.sq025_delamain_drone_bombus_fast",
+    "Character.sq025_delamain_drone_bombus_friendly",
+    "Character.sq025_delamain_drone_bombus_slow",
+    "Character.sq025_reg_annoying_wa",
+    "Character.sq025_reg_cleaning_wa",
+    "Character.sq025_reg_corpo_ma",
+    "Character.sq025_reg_homeless_02_wa",
+    "Character.sq025_reg_homeless_03_wa",
+    "Character.sq025_reg_oldlady_wa",
+    "Character.sq025_reg_slacker_ma",
+    "Character.sq025_reg_stripper_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #sq025_com_regulars (2 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: sq025_reg_corp/sq025_ws_delamain_garage_reception_corp, sq025_reg_lady/sq025_ws_delamain_garage_reception_lady.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #sq025_com_delamain_garage_drones (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: drone_01/sq025_ws_delemain_garage_drone_av_01.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #sq025_com_delamain_drones_workshop (4 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: #sq025_ws_bombus_drone_001/default, #sq025_ws_bombus_drone_002/default, #sq025_ws_bombus_drone_004/default, #sq025_ws_bombus_drone_005/default.",
+     "source": "community"
+    },
+    {
+     "label": "Check the reception queue reads as normal business.",
+     "detail": "Check the reception queue reads as normal business. Do the eight regulars stand, sit or sleep calmly at the desk and benches, with no argument or dialogue scene, and is the room busy rather than crowded?",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in from Pajaro Street through the lobby door.",
+     "detail": "Walk in from Pajaro Street through the lobby door. Does it open, do you reach the reception, and does the door policy log an unlock or unseal for it?",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the workshop for a minute.",
+     "detail": "Watch the workshop for a minute. Do the four Bombus repair drones hover and work calmly on the hangar floor instead of attacking each other or you? If they fight, drop them and keep only the greeter drone and the deco drones.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand in the reception with the queue.",
+     "detail": "Stand in the reception with the queue. Does the reception turret stay passive (unpowered or non-hostile), or does it track and fire at you?",
+     "source": "open question"
+    },
+    {
+     "label": "Open the door behind the control room.",
+     "detail": "Open the door behind the control room. Is there a usable normal-business room behind it, or is it the unfinished core-chamber/labyrinth finale geometry that should stay shut?",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no quest dressing is visible: no traffic-jam cabs or broken Delamains outside, no Johnny projection, no scanner box, no reward box, no dron...",
+     "detail": "Confirm no quest dressing is visible: no traffic-jam cabs or broken Delamains outside, no Johnny projection, no scanner box, no reward box, no drone-war spawners.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the interior look.",
+     "detail": "Check the interior look. Is the reception and workshop lit and powered (not dark after the core shutdown), and are the screens showing the normal state rather than the red alarm lighting?",
      "source": "open question"
     }
    ]
@@ -5310,6 +5699,67 @@
    ]
   },
   {
+   "code": "sq030_love_shack",
+   "name": "Abandoned Lake Dwelling (Laguna Bend Reservoir)",
+   "kind": "approved",
+   "venue": "loc_sq030_love_shack",
+   "pos": [
+    1119.74,
+    -3479.38,
+    181.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk through the front door and confirm the runtime door policy opens it.",
+     "detail": "Walk through the front door and confirm the runtime door policy opens it. Approach on foot from the shore, read the look-at log and the DoorPolicy line for #sq030_dvc_hut_door_entry, and report if it stays locked or sealed.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the cottage interior is fully built and lit with no quest prefab loaded.",
+     "detail": "Confirm the cottage interior is fully built and lit with no quest prefab loaded. Check the bed, bathroom, kitchen shelf and corridor lights (and the ceiling fans) are present and on, with no diving gear, braindance laptop or morning/sex props. [Comment: the shell, doors and lights are world content, but the interior was unverified without running sq030.]",
+     "source": "open question"
+    },
+    {
+     "label": "Check the generator outside and the fuse box on the wall.",
+     "detail": "Check the generator outside and the fuse box on the wall. Confirm whether either responds to interaction in normal play, and whether flipping it changes the lights; if it does, the lights should probably be left off until the player powers the cottage.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the yard, shore and pier show no quest dressing.",
+     "detail": "Confirm the yard, shore and pier show no quest dressing. No diving equipment box, glowsticks, swimsuit restriction, Judy's van or pier workspot props should be visible.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm nobody sits at the two trash spots beside the cottage.",
+     "detail": "Confirm nobody sits at the two trash spots beside the cottage. Four homeless sit workspots (crowd_ws_homeless_sit) exist there but no community area in the converted sectors maps them; check whether an open-world street community spawns someone anyway, and that they look calm if so.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Judy is not duplicated here.",
+     "detail": "Confirm Judy is not duplicated here. She should still be at her Charter Street apartment, not at the cottage or on the pier.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q103_roadhouse",
    "name": "Sunset Motel (Rocky Ridge roadhouse, Interstate 9)",
    "kind": "approved",
@@ -5440,6 +5890,11 @@
      "label": "The market_f/market_m entries are catalogue-tagged mixed:relaxed+scene because their workspot set includes a chair-sit/eat spot; confirm on tour th...",
      "detail": "The market_f/market_m entries are catalogue-tagged mixed:relaxed+scene because their workspot set includes a chair-sit/eat spot; confirm on tour that none of them freezes into a scene pose.",
      "source": "open question"
+    },
+    {
+     "label": "Drive past the Red Peaks freeway bus stop near (1340, -816): no parked ambush truck or spike strip on the shoulder.",
+     "detail": "Drive past the Red Peaks freeway bus stop near (1340, -816): no parked ambush truck or spike strip on the shoulder. loc_sq017_ambush was excluded in research wave 11; if the props show, add a var_truck=0 / var_spike_trap=0 toggle on #sq017_pr_truck_freeway.",
+     "source": "extra"
     }
    ]
   },

@@ -1,0 +1,78 @@
+{
+  "code": "sts_std_rcr_01",
+  "display_name": "C-Team Office, Carsten St (Rancho Coronado)",
+  "why": "C-Team is a private security company that corporations hire to keep employees in line and break strikes, and it rents this three-storey office building on Carsten St in Rancho Coronado. The building has a glass front door onto a reception, open-plan offices on the ground and upper floors, a garage at the back and Vic Vega's office upstairs. In vanilla it only exists as the infiltration target of Rogue's gig 'The Union Strikes Back'. This proposal keeps it open for business: the receptionist and the petitioners at the front desk, the C-Team guards at their posts, the office men and women, the intern and the worker, and Vic Vega in his office.",
+  "source": {
+    "proposal": "research/loc_sts_std_rcr_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the front door on Carsten St opens. It is the glass double door #rcr_01_second_door, only ForceUnlocked by the gig's gameplay phase which never runs; the runtime door policy should unlock it. If it is sealed, note its position for the door scope.",
+      "Check the C-Team guards are calm at their posts. The whole #rcr_01_combat_com community spawns from sts_std_rcr_01_enemy_security records; phase A workspots are guard posts, so confirm they are neutral and not hostile or in combat on arrival.",
+      "Check the office is staffed and looks open for business. Expect the receptionist at the front desk with the two petitioners, office men and women at desks and tablets, the intern, the worker, and Vic Vega in his upstairs office.",
+      "Check the reception keycard is visible and usable. keycard variant 1 should put the prop on the reception desk; confirm it is there and that it opens the secure inner door rather than the front door.",
+      "Check both second-floor windows look intact. window_office 0 and window_solo_route 0 should leave no broken pane or open gap that reads as a gig entry route.",
+      "Check the garage gate and inner garage door are usable. Both are the gig's Tech/Body doors; confirm the skill-check prompt appears and the policy has not sealed them.",
+      "Check the office shows no quest aftermath. No bodies, no alarm state, no distraction scene props, and the TV bank and fluff laptop stay in their normal state."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_santo_domingo/rancho_coronado/loc_sts_std_rcr_01_prefabQAYV7FY/#sts_std_rcr_01_openworld/#loc_sts_std_rcr_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#rcr_01_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The office as the gig finds it, before any combat: ten C-Team guards on their posts (wall lean, patrol, tablet, vending machine), the office men and women at desks and tablets, the intern, the worker and Vic Vega cleaning a gun in his office. Every entry's initial phase is A, which is the pre-alert at-post phase; the fear/hide workspots belong to other phases the gig switches to.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_01_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The front desk: the receptionist plus the two petitioners at reception (corpos, corpos_02), all in initial phase A. Vanilla uses this spawner for the reception talk, and the receptionist's phase A workspot is a chair at the desk, so the whole community reads as a working lobby.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/rancho_coronado/loc_sts_std_rcr_01_prefabQAYV7FY/#sts_std_rcr_01_gameplay/loc_sts_std_rcr_01_devices_prefabEDH4FHI",
+      "states": {
+        "keycard": 1
+      },
+      "why": "Shows the access keycard on the reception desk, which is vanilla's own state when the building is set up for play (the gig clears it only after the keycard is taken). It also leaves an in-world way through the secure inner door, which rule 12 keeps exactly vanilla."
+    },
+    {
+      "prefab": "#sts_std_rcr_01_openworld",
+      "states": {
+        "window_office": 0,
+        "window_solo_route": 0
+      },
+      "why": "Keeps both second-floor windows intact and shut. The gig opens these as infiltration routes (Vega's office window, and the window reached from the garage roof); a normal office building does not have them hanging open, and no one in our timeline needs the routes."
+    },
+    {
+      "prefab": "#sts_std_rcr_01_openworld",
+      "states": {
+        "toilet_entry": 0
+      },
+      "why": "Leaves the service/toilet side entry in its intact state instead of the gig's alternative way in. Same normal-state values the open-world phase sets while the building is just a building."
+    },
+    {
+      "prefab": "#sts_std_rcr_01_gameplay",
+      "states": {
+        "interior_trigger": 1
+      },
+      "why": "Matches the open-world setup state, where the interior trigger is enabled for the building. Expected to have no visible effect without the quest; kept so the venue is in vanilla's normal open-world state rather than its quest-start state."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rcr_01_second_door",
+    "within": 80.0,
+    "why": "The glass double front door on Carsten St is the first device a player reaches at the office, and it is a door controller (rule 8: never a workspot)."
+  }
+}

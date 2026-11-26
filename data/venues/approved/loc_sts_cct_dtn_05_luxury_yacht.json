@@ -1,0 +1,164 @@
+{
+  "code": "sts_cct_dtn_05_luxury_yacht",
+  "display_name": "Gold Beach Marina party yacht (Councilwoman Cole's yacht)",
+  "why": "A luxury yacht moored at Gold Beach Marina in Downtown, used by the vanilla gig 'The Frolics of Councilwoman Cole' as a party boat: bar, lounge, upper deck, a working security room and marina security, with rich guests and staff. Vanilla only loads its crowd sector inside the gig, so in open-world play the yacht streams empty and dark. This proposal loads that sector and puts the party crew and guests back on post, with the party lighting and deck decoration variants on and the gig's loot and response force left out.",
+  "source": {
+    "proposal": "research/loc_sts_cct_dtn_05_luxury_yacht/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Look at the yacht from the dock before boarding. Confirm the deck is lit and decorated in the party layout (boat_a_lights on, yacht_b arch/deco on) and not the dark idle layout, since the kept downtown community phase also toggles these at boot.",
+      "Walk the main deck, bar and lounge. Confirm the crew and guests stand at their own posts (bar, reception, rail, couch, security room) with nobody crouched, alert or frozen in a scene pose.",
+      "Board the yacht from the dock on foot. Confirm the glass doors at the party deck are open or open on approach, without a jump or a hack.",
+      "Enter the lower-deck security room. Confirm the door opens by its own terminal, keycard, hack or the door policy, and that the room holds no recording loot or quest-only props.",
+      "Try the wide aft-deck glass door. Confirm it opens rather than staying dead and unpowered, and that it is not the only way between the deck and the salon."
+    ]
+  },
+  "prefabs": [
+    "#sts_cct_dtn_05_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "security",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Marina/yacht guard at his post on the main deck (master_generic__stand_ground__guard). Combat group first per population priority, so the party is guarded rather than wide open."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "security_room",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second guard seated in the lower-deck security room, so the security room reads as a working post instead of an empty quest room."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "receptionist",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Reception host at the desk by the boarding point; the normal first face a visitor meets."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "bartender_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Bar staff working the party bar; the bar workspots keep her behind the counter rather than idling."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "bartender_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second bartender for the other bar spot so the bar does not empty when the two share the counter."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "customer_corpo_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Corporate guest at the bar/couch/rail, matching the gig's guest list of corpos and officials."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "customer_corpo_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second corporate guest for the lounge group."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "customer_rich_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Wealthy guest at the lounge/upper deck, the marina's normal clientele."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "customer_rich_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Wealthy guest upstairs; his spot (-2493.26, 65.85, 8.23) is the upper deck, which would otherwise be empty."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "customer_doll_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Doll guest at the bar/lounge, consistent with the party crowd the gig describes; relaxed workspots only."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "near_cars_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Guest standing by the parked cars at the dock, the arrival side of the venue; drinks/phone/cigarette workspots."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "near_cars_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second arrival-side guest so the dock does not read as empty when the player walks up."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "cleaner",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Service worker mopping the main deck, normal staff presence during a party."
+    },
+    {
+      "spawner": "#loc_sts_cct_dtn_05_luxury_yacht_default_state_community",
+      "entry_name": "workers",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Dock/crew worker on the lower quay (z 2.33) with tablet and mop workspots, so the boarding level has a crew member."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_lighting",
+      "states": {
+        "boat_a_lights": 1
+      },
+      "why": "Party lighting on. Vanilla turns the boat lights on for the gig's party state and the kept downtown community phase leaves them off for the idle yacht."
+    },
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_env_ext",
+      "states": {
+        "yacht_b_arch_ext": 1
+      },
+      "why": "Exterior party configuration of the yacht (arch/awning set) that vanilla switches on while the party is running."
+    },
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_env_int",
+      "states": {
+        "yacht_b_arch_int": 1
+      },
+      "why": "Interior party configuration (arch/structure set) so the salon matches the deck instead of the stripped idle layout."
+    },
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_env_deco_ext",
+      "states": {
+        "yacht_b_deco_ext": 1
+      },
+      "why": "Exterior decorations (bar/tables/lights dressing) of the party layout."
+    },
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_env_deco_int",
+      "states": {
+        "yacht_b_deco_int": 1
+      },
+      "why": "Interior decorations of the party layout, so the bar and lounge look set up for guests."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#dtn_05_dvc_computer_reception",
+    "within": 80.0,
+    "why": "Reception terminal on the party deck at the boarding side (-2429.18, 77.17, 5.49); it is a device, streams with the yacht, and sits where a visitor arrives, so the re-issue after proximity happens on approach."
+  }
+}

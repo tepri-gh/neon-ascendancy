@@ -130,6 +130,16 @@
       "venue": "loc_q115_cyberspace",
       "decision": "excluded",
       "why": "Wave 11 triage: cyberspace sequence (q115); virtual space, not a world venue, like the other cyberspace venues."
+    },
+    {
+      "venue": "loc_sq017_ambush",
+      "decision": "excluded",
+      "why": "Research wave 11: the staged Us Cracks van ambush at the Red Peaks freeway bus stop (sq017); every prefab, community and spawn set is quest-only."
+    },
+    {
+      "venue": "loc_q101_backalley",
+      "decision": "excluded",
+      "why": "Research wave 11: The Hammer's back alley and roof from Johnny's 2023 memory (q101), an off-map set with no present-day shell. Owner 2026-11-26: The Hammer is wanted as a new 2077 venue; see docs/design/new-venues.md."
     }
   ]
 }

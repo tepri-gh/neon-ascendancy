@@ -1,0 +1,216 @@
+{
+  "code": "sts_cct_dtn_02_metal_club",
+  "display_name": "7th Hell",
+  "why": "7th Hell is a small, seedy nightclub on Corporation St. in Downtown, owned by ex-merc Jack Mausser and guarded by Animals bouncers, with a paid front entrance and a skill-checked back elevator. Vanilla only fills it for the gig An Inconvenient Killer, leaving the club dark and empty in normal play. This proposal restores the interior variant, the Animals security detail, the club staff and DJ, and a hand-placed crowd of dancers, drinkers and table patrons.",
+  "source": {
+    "proposal": "research/loc_sts_cct_dtn_02_metal_club/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk through the front door and confirm the club interior is visible, lit and open. If it is dark or sealed, the interior_area variant is the wrong way round and should be 0.",
+      "Count the patrons on the dance floor, couches and tables. cct_dtn_phase also carries a whole-community activation for #dtn_02_crowd_com, so check whether the crowd is doubled and drop our crowd entries if it already spawns.",
+      "Check that club music and dance-floor lighting are running. #dancefloor_7th_hell is loaded by the kept dancefloors phase, but the audio may need the venue open.",
+      "Check that the bouncers are at the door and around the floor, calm and on their workspots, not in a combat stance.",
+      "Find the back elevator and try its Technical Ability check. The location page says 9, the gig page says 15, and it must stay a skill check rather than being unlocked by the door policy.",
+      "Check the security room (14 Technical Ability) and artist room (19 Technical Ability) doors still require their checks.",
+      "Check the VIP area and the owner's office. Jack Mausser is not spawnable from vanilla data, so the office will be empty unless the owner decides otherwise.",
+      "Check that no gig staging appears: no quest markers, no body bags or scene props, no hostile Animals."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_city_center/downtown/loc_sts_cct_dtn_02_metal_club_prefabKTCFW7A/#loc_sts_cct_dtn_02_metal_club_openworld/#sts_cct_dtn_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#dtn_02_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the Animals security detail: ten bouncers, all in their initial A_spawn phase, on guard, lean, sit-with-drink and smoke workspots. This is the club's normal door and floor security, not the gig combat layout."
+    },
+    {
+      "spawner": "#dtn_02_non_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the club's staff and hangers-on: two workers, a BD performer and the two guests who wait by the door. Vanilla activates it whole in the openworld phase; workspots are bench/lean/tablet routines."
+    },
+    {
+      "spawner": "#dtn_02_red_thunder_com",
+      "entry_name": "dozy",
+      "phase_name": "talk",
+      "action": "Activate",
+      "why": "Dozy is vanilla's front-of-house contact at the club (arms-crossed stand-around spot by the entrance). Activating his idle talk phase keeps a greeter/doorman at the door without the gig conversation."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dj",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "The club DJ at the booth; without him the dance floor has no visible operator."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_corpo_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_corpo_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_junk_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_junk_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_stoop_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "dance_floor_stoop_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Hand-placed dance-floor patron; default phase uses the nightclub dance workspot, so the floor is not empty."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "bar_stand_corpo",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Two patrons at the bar on stand-drink workspots; the bar reads as staffed and busy."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "first_floor_couches_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Groups on the first-floor couches (four spots each); the lounge side is occupied."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "first_floor_couches_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Groups on the first-floor couches (four spots each); the lounge side is occupied."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "first_floor_drunk",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "One drunk at the first-floor seating; sells the seedy-club mood."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_group_1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Standing pair/group near the floor tables; relaxed stand-around spots."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_group_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Standing pair/group near the floor tables; relaxed stand-around spots."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_1_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated table patrons (chairs, drinks, sit-around workspots) so the floor tables are taken."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_1_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated table patrons (chairs, drinks, sit-around workspots) so the floor tables are taken."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_2_f",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated table patrons (chairs, drinks, sit-around workspots) so the floor tables are taken."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_2_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated table patrons (chairs, drinks, sit-around workspots) so the floor tables are taken."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_9",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Seated table patrons (chairs, drinks, sit-around workspots) so the floor tables are taken."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "toilets_always",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "One patron in the toilets; a club this size should not have an empty toilet."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "workers",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Two floor/bar crew (WorkerMale) on routine spots; keeps the bar and floor staffed."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "prostitute_002",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Sex worker working the first floor; part of 7th Hell's seedy trade as described in the location page."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "prostitute_003",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Sex worker working the first floor; part of 7th Hell's seedy trade as described in the location page."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_city_center/downtown/loc_sts_cct_dtn_02_metal_club_prefabKTCFW7A/loc_sts_cct_dtn_02_metal_club_gameplay_prefabMOFM6GI",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "Shows the club's interior/gameplay area so the venue is open for business. Vanilla shows it (show=1) while the club is in use and hides it (show=0) afterwards; 1 is the normal open state we want."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#dtn_02_main_door",
+    "within": 80.0,
+    "why": "The front entrance door is the device every visitor streams in at, and vanilla drives it here, so the proximity wait fires on arrival."
+  }
+}
