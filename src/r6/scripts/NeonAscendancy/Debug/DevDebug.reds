@@ -142,12 +142,11 @@ private func NeonAscendancy_DevDebugEnableVenueProbe(game: GameInstance) -> Void
   NeonAscendancy_StartVenueProbe(game);
 }
 
-// Dev boost: install and equip Jenkins' Tendons (Reinforced Tendons), the leg
-// cyberware that grants the HasDoubleJump stat flag checked by the locomotion
-// state machine (locomotionTransitions.swift:3951) and shown as the
-// "JenkinsTendons" d-pad hint. Items.AdvancedJenkinsTendonsLegendary is the
-// only tendon record that carries HasDoubleJump; BoostedTendons is the plain
-// leg armour variant without it.
+// Dev boost: install and equip Reinforced Tendons, the double-jump leg
+// cyberware (HasDoubleJump, checked by locomotionTransitions.swift:3951).
+// In TweakDB, Reinforced Tendons is the BoostedTendons family; JenkinsTendons
+// is the different Jenkins' Tendons cyberware (the owner confirmed in-game
+// that the Jenkins record is not the double-jump one).
 //
 // Mirrors a ripperdoc install: grant the item, then call
 // EquipCyberwareByTDBID, which queues the same EquipRequest the ripperdoc UI
@@ -156,7 +155,7 @@ private func NeonAscendancy_DevDebugEnableVenueProbe(game: GameInstance) -> Void
 // not already own one, so repeated bootstraps add nothing. Returns a short
 // status string for the Apply log line.
 private func NeonAscendancy_DevDebugGrantDoubleJump(game: GameInstance, player: ref<GameObject>) -> String {
-  const tendonTdbId = t"Items.AdvancedJenkinsTendonsLegendary";
+  const tendonTdbId = t"Items.AdvancedBoostedTendonsLegendary";
   let equipData = EquipmentSystem.GetData(player);
   if !IsDefined(equipData) {
     return "noEquipmentData";
@@ -183,7 +182,7 @@ private func NeonAscendancy_DevDebugGrantDoubleJump(game: GameInstance, player: 
   if !IsDefined(equipmentSystem) {
     return "noEquipmentSystem";
   }
-  const puppet = player as PlayerPuppet;
+  let puppet = player as PlayerPuppet;
   if !IsDefined(puppet) {
     return "noPlayerPuppet";
   }

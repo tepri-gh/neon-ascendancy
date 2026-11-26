@@ -8,9 +8,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
-- Dev boost: `NeonAscendancy_ApplyDevDebug` grants and equips Jenkins' Tendons
-  (`Items.AdvancedJenkinsTendonsLegendary`, the only tendon record carrying
-  `HasDoubleJump`) in the `LegsCW` slot via `EquipCyberwareByTDBID`, the same
+- Dev boost: `NeonAscendancy_ApplyDevDebug` grants and equips Reinforced
+  Tendons (`Items.AdvancedBoostedTendonsLegendary`, the double-jump leg
+  cyberware) in the `LegsCW` slot via `EquipCyberwareByTDBID`, the same
   path a ripperdoc install uses. Idempotent (equipped leg slots are scanned by
   record id first) and logged as `doubleJump=` on the `DevDebug.Apply` line.
 - Black Sapphire tower population (`data/clean-slate/tower_population.json` ->
