@@ -1,0 +1,113 @@
+{
+  "code": "q302_way_to_blackbox",
+  "display_name": "Container Zone Approach — Way to the Black Box (Dogtown)",
+  "why": "The catalogue name comes from the q302 escape route: the container yard and approach streets south-east of the Akebono Hotel frontage in Dogtown's Pacifica combat zone, threaded by the perimeter road, a manned watchtower and a permanent BARGHEST cordon. Vanilla only ever loads and populates it from the q302_01_escape_the_cz red alert, so in the clean slate the yard's guard posts are empty. This proposal loads the venue's own openworld section, switches on the yard's seven guard groups plus the watchtower in their initial phase a, removes the red-alert stadium blockade and the story lighting/debris states. It restores a normal garrison shift, not the manhunt: the ambush kill team, the crash-site bottom assault, the roadblock cars, the pursuit cars and every group that stands on another venue's ground stay out.",
+  "source": {
+    "proposal": "research/loc_q302_way_to_blackbox/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Every guard group here has no spot map, so its phase-a posture is unknown: do the 31 guards, 3 Minotaurs and 3 pickups stand calmly on their posts, or in a weapon-ready red-alert stance? needs_tour_check on all eight groups.",
+      "This venue's whole population is the q302_01 red alert; I kept the yard's own guard posts and dropped the ambush, roadblock and pursuit groups, but the owner may prefer the batch venue 'container_zone' (341 communities) to own the yard's normal garrison instead. Re-activating the same whole community is idempotent, so both layers can coexist, but that should be a decision, not an accident.",
+      "The proximity anchor #q302_elevator_001 resolves to the venue's gameplay/devices prefab, but that prefab is not one of the two quest prefabs listed, so confirm the lift actually streams with the yard's guard spots on the tour; #q302_electric_box is the alternative, though its own path is unresolved.",
+      "q302_akebono_hotel_lighting is pinned to 0 because that is the ep1 pre-story initialisation; if the Akebono frontage reads as wrongly blacked out on the tour, 1 is the only other state vanilla uses.",
+      "Whether the yard's perimeter road is passable at all in the clean slate: the route depends on the stadium entrance blockade staying hidden (pinned) and on the CZ gate venue's barriers being unsealed by the door policy, which is that venue's problem, not this one.",
+      "The Space Force One debris variant prefab (#loc_q302_car_chase_sf1_debris) is toggled by the q302 phases but is not in this venue's catalogue toggle list, so it is not pinned; if a stray debris field or its fire FX shows up in the yard after the venue loads, that is the prefab to force to 0/0.",
+      "The lighting section's ow_rave_party state is shared with the high_peak parking-lot party (ep1_community/terra_cognita) and is left vanilla; if the yard streams in with party lighting and no crowd, pin it to 0."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q302_way_to_blackbox_prefabEHJU52Q/loc_q302_way_to_blackbox_openworld_prefabIBFJAFQ/#q302_pr_crashsite"
+  ],
+  "communities": [
+    {
+      "spawner": "#q302_container_zone_group_1",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 1, west side of the container yard (spawn area at about -2316,-2652,z22 in data/spawn_points.json): two rifle/shotgun guards and one HMG gunner on workspot posts (entry names ws_guard_new_01..03). This is the yard's own cordon, not an ambush: plain guard workspots, initial phase a, no phase or entry named after a scene. The catalogue found no spot map for the community, so the tour must confirm the stance is a calm posting rather than weapon-ready.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_2",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 2, west edge (about -2413,-2675,z23): a fist-fighting elite, a shotgunner, two Saratoga-armed guards and a recon sniper on ws_guard_new_04..07 and ws_mino_new_08, all initial phase a. An elite and a marksman on a fixed yard post read as the strongpoint of a cordon.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_3",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 3, south-west corner (about -2432,-2756,z26): shotgun, Saratoga and rifle guards plus a sniper and one parked BARGHEST Colby pickup (q302_container_zoner_car_01), initial phase a. The truck is the group's own transport, not a roadblock: it is the 'zoner' (patrol) vehicle variant the same groups carry everywhere.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_4",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 4, the south yard by the venue's two-floor lift (about -2248,-2818,z42; the lift entity sits at -2211,-2855): sniper, two shotgunners, an HMG, a Saratoga guard and a rifle guard, one Minotaur and one pickup (ws_guard_new_14..19, ws_mino_new_19, zoner_car_02), initial phase a. The largest post, covering the yard's service side.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_5",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 5, centre-south (about -2204,-2769,z33): sniper, shotgunner, HMG gunner, a Saratoga guard, one Minotaur and one pickup (ws_guard_new_20..24, ws_mino_new_22, zoner_car_03), initial phase a. Mid-yard post that links posts 4 and 6.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_6",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 6, east yard (about -2225,-2713,z36): an HMG gunner, a shotgunner and a sniper (q302_container_zone_ws_guard_new_25..27), initial phase a. This group's entries are carried with the leading '#' in the registry; the spawner itself is the same node.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_container_zone_group_7",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Yard guard post 7, the yard's north exit toward the perimeter road (about -2246,-2673,z22): HMG gunner, rifle guard and Saratoga guard (ws_guard_new_28..30), initial phase a. Covers the gate the player uses to walk into the yard.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#q302_watchtower_1",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The yard's fixed watchtower on the perimeter road (about -2013,-2529,z30): shotgun and HMG guards in barricade appearance variants, a recon sniper and a rifle guard (guard_n001, guard_n002_night), initial phase a. A manned tower with an HMG is exactly the permanent security the yard would keep; the '_barricade' suffix on two records is an appearance variant, and the phase-a posting is the only state the group declares.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q302_way_to_blackbox_redalert",
+      "states": {
+        "stadium_entrance_blockade": 0,
+        "var_stadium_entrance_blockade": 0
+      },
+      "why": "Both blockade variants are the red-alert stadium entrance shut by BARGHEST while it hunts the escaped president; q302_01_escape_the_cz is the only phase that ever shows them (show 1). Our timeline has no manhunt, so both are pinned hidden, which is also the authored default of the venue's openworld section."
+    },
+    {
+      "prefab": "#loc_q302_way_to_black_box_lighting",
+      "states": {
+        "flares": 0,
+        "q302_akebono_hotel_lighting": 0
+      },
+      "why": "This is exactly the pre-story state the ep1 wrapper sets on the venue's lighting section (flares 0, hotel lighting 0). q302_01_escape_the_cz turns the crash flares on and lights the hotel for the escape, and q302_04_squot adds the after-quest look; none of those nights happen here, so the quiet, unlit pre-quest state is pinned at boot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q302_elevator_001",
+    "within": 80.0,
+    "why": "The venue's own two-floor LiftControllerPS at (-2211.4,-2855.5,63.1), inside the venue's gameplay/devices prefab (lift_2_floors_prefab). It is the only venue-local device whose entity path and position resolve, it sits on the yard's south service edge about 50 m from guard post 4, and it is a device entity, not a workspot."
+  }
+}

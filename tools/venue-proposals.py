@@ -46,7 +46,7 @@ CLEAN = ROOT / "data" / "clean-slate"
 UNTAGGED_SHORT = re.compile(r"^#.*_prefab[A-Z0-9]{7}$")
 REF = re.compile(r"(?:#|\$/)[A-Za-z0-9_{}#/$.-]+")
 BAD_POSTURES = {"alert", "dead", "scene"}
-BAD_PHASE_WORDS = re.compile(r"(hostile|combat|^scene|_scene|cin_|interrogat|after_|ambush|chase|dead|death|wounded)", re.I)
+BAD_PHASE_WORDS = re.compile(r"(hostile|combat|^scene|_scene|cin_|interrogat|after_|ambush|chase|dead|death|wounded|_cover|cover_)", re.I)
 
 
 def load_catalog(venues_dir: Path) -> dict[str, dict]:

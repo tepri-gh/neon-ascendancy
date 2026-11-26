@@ -1,0 +1,46 @@
+{
+  "code": "q000_scavengers",
+  "display_name": "Scavenger Den (Japantown, room 1237)",
+  "why": "Room 1237 of a Japantown apartment block is a working scavenger den: a crew of about fifteen scavengers, including a netrunner, holds the rooms, smokes and eats between jobs, and stashes harvested cyberware. Vanilla only ever populates the den from quest phases (q001 The Rescue, mq036 Sweet Dreams); this proposal restores the mq036 crew as the den's ambient population and switches the building to its normal open-world lighting.",
+  "source": {
+    "proposal": "research/loc_q000_scavengers/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Does a whole-community Activate actually spawn all sixteen #mq036_com_scavengers entries? Vanilla only issues per-entry AI commands over them and they start active:0, so the tour must confirm the den is populated rather than empty.",
+      "scav_02's initial phase is after_chat (kneel and inspect a spot, catalogue posture relaxed); confirm in game that it does not read as an aftermath pose.",
+      "The room-1237 entrance door is not among the venue's quest-driven devices; the wiki's rescue objectives open it with 'Hack the door', so it is expected to stay a hackable apartment door. Its device ref is unknown.",
+      "Is the #q001_scavengers_lift usable in the clean slate (vanilla ForceDisables it at the end of the rescue) and do the floor terminals still authorise floor 2?",
+      "Is the gameplay prefab's cooked default already openworld_lighting=1, or does the toggle do real work?"
+    ]
+  },
+  "prefabs": [
+    "#mq036_pr_scavengers"
+  ],
+  "communities": [
+    {
+      "spawner": "#mq036_com_scavengers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation switches on all sixteen mq036 scavenger entries in their initial phases: mostly routine workspots (smoke on a rail, eat at a chair, use a tablet, lean on a wall, pee) plus one netrunner on a phone. That is exactly the den's vanilla staff from Sweet Dreams (the wiki counts about fifteen scavengers scattered through the area) and it covers the netrunner first per the population priority rule."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/japan_town/loc_q000_scavengers_prefabRBONNGI/loc_q000_scavengers_gameplay_prefabGSJ3G7Y",
+      "states": {
+        "openworld_lighting": 1,
+        "q001_lighting": 0
+      },
+      "why": "q001's ride-back phase returns the building to normal open-world lighting after the rescue (openworld_lighting on, q001_lighting off); the quest-time lighting variant belongs to the rescue only."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#q001_scavengers_lift",
+    "within": 80.0,
+    "why": "The building's three-floor lift at the den entrance is a physical device vanilla drives constantly (ForceGoToFloor 2, ShowFloor, SetFloorSpeed); the player rides it to the den floor, so it is the natural place to re-issue the crew once the rooms have streamed in."
+  }
+}

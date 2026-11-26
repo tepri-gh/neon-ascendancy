@@ -1,0 +1,54 @@
+{
+  "code": "q305_bunker",
+  "display_name": "Cynosure Facility (Militech black site, West Wind Estate)",
+  "why": "Cynosure is Militech's abandoned underground research bunker beneath West Wind Estate, entered from the disused metro tunnels: an outer service bunker (control room, administration, engineering, security, living quarters), the flooded Section 3 airlocks, and the inner labs around a still-running AI core. Nothing lives there - every vanilla community is a Cerberus hunt/kill unit or a memory hologram, and every spawn set is a Reed/Songbird hallucination, so this proposal restores no people and loads no quest sections. What it does is set the outer bunker back to its pre-intrusion state (normal lighting, no alert, gate unsealed) and record how the vanilla entrance works; the rooms, devices and lights are already world-streamed and only the encounter wiring sits in the quest sector.",
+  "source": {
+    "proposal": "research/loc_q305_bunker/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Access: without the MaxTac convoy crash of Black Steel in the Hour of Chaos, is the breach from the metro tunnel still walkable? The approach and interior sectors are Exterior/Interior with questPrefabNodeRef 0 and the metro chase's q305_droproom_closed variant is off by default, which suggests the hole-shaft route exists in open-world streaming, but the tour must walk tunnel -> hole -> crashed-truck area -> deep shaft -> lift and report where it stops.",
+      "The lift: #q305_bunker_elevator is an ElevatorFloorTerminalControllerPS that q305_06_ob_devices ForceDisables under a condition. If the baked or leftover state leaves the floor terminal disabled, the venue is unreachable, and the runtime door policy (World/DoorPolicy) only covers DoorControllerPS doors, not lift floor terminals. This needs an explicit decision - power/enable the floor terminal, or add lift terminals to the device policy.",
+      "Optional dormant Cerberus: #q305_com_outer_bunker_control_room_robot robot_big/Intro is the venue's own standby unit (registry initial phase Intro, never activated by any phase) and would be the Cynosure analogue of the stored Chimera at the Expo hall. It is left out because every other phase of that spawner is a hunt/kill state and the unit cannot be killed; if the owner wants the unmistakable Cerberus on display, this is the one to tour first.",
+      "No community area/spot map was resolved at this venue: all 84 community options report spots 0 and posture unknown, so even the dormant-robot idea would need a workspot check before use (rule 9).",
+      "outer_bunker_normal_state, normal_state_dim, gate_lock and gate_unlock are only ever driven by q305_06_ob_lightning; the prefab's own baked defaults could not be read because the prefab file is not in this extract set. The tour should confirm the outer bunker is lit normally (not dark, not red-alert) and that the unsealed gate state does not conflict with a sealed mesh.",
+      "Which two doors are the walkthrough's 'two sealed gates (20 Body)'? The catalogue has door_01/door_02 in the outer bunker's device section and no separate ref for the gates in the crashed-truck tunnel; the tour must confirm the pair and that the Body check (or flooded bypass) is live."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q305_bunker_lighting",
+      "states": {
+        "outer_bunker_normal_state": 1,
+        "outer_bunker_normal_state_dim": 0,
+        "outer_bunker_alert_state": 0,
+        "outer_bunker_gate_lock": 0,
+        "outer_bunker_gate_unlock": 1,
+        "outer_bunker_gate_open_light": 1,
+        "outer_bunker_gate_close_light": 0,
+        "blackwall_office_off": 1,
+        "blackwall_office_on": 0
+      },
+      "why": "q305_06_ob_lightning drives this prefab through the whole outer-bunker state machine: normal lighting off/alerts on when the lockdown trips, then gate_lock 1/gate_unlock 0, and later gate_lock 0/gate_unlock 1. The normal, powered, unlocked look is the first and last of its sets: normal_state 1, dim 0, alert 0, gate unsealed, gate-open light on, Blackwall office light off. Nothing in vanilla leaves the bunker in that state at boot, and the gate is a baked mesh (rule 14), so only a toggle can open it for normal play."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#q305_dvc_inner_bunker_maincontrolroom_01",
+      "why": "The door into the core control room. q305_07_inner_bunker and q305_07c_cynosure_core ForceSeal/ForceLock/ForceDisable it, and behind it is the live Blackwall-linked AI core whose containment breach is the whole q305 premise. In our timeline nobody breaches containment, so the runtime door policy must not unlock or unseal this door."
+    },
+    {
+      "ref": "#q305_dvc_innerbunker_door_to_cynosure",
+      "why": "The final door into the core chamber, which q305_07c_cynosure_core opens for the finale. The core chamber is the one room that must stay shut: opening it in normal play would hand the player the containment breach that never happens in this timeline."
+    }
+  ],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q305_bunker_elevator",
+    "within": 80.0,
+    "why": "The bunker lift's floor terminal (ElevatorFloorTerminalControllerPS) at (-2383.2, -2544.0, -71.0), the first device a visitor reaches on the way in, in the always-streamed #loc_q305_bunker_gameplay/#loc_q305_bunker_devices section. q305_06_ob_devices can ForceDisable it, so it is also the device whose state decides whether the venue is enterable at all; a device entity, never a workspot (rule 8)."
+  }
+}

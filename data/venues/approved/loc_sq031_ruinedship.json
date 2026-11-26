@@ -1,0 +1,135 @@
+{
+  "code": "sq031_ruinedship",
+  "display_name": "DV Ebunike (Ebunike Docks)",
+  "why": "The DV Ebunike is a defunct container ship in a permanent dry dock at the Ebunike Docks in Northside, which Maelstrom has turned into a fortified cargo and drug depot; Adam Smasher's right hand Jeremiah Grayson supervises Smasher's hideout from the ship. The clean slate runs no sq031 phase, so the ship interior, the 14-strong Maelstrom garrison, the three-man boat crew and Grayson are all missing. This proposal loads the venue's quest prefab and puts that garrison on its relaxed default workspots (lookouts at the dock gate, crew mending, smoking, eating pills, sleeping in bunks, one on the boat), plus Grayson at his post.",
+  "source": {
+    "proposal": "research/loc_sq031_ruinedship/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Grayson's only spawn phase at the venue is sq031_grayson_cover, a kneel-behind-cover workspot on the deck; check on the tour whether that reads as a boss at his post or as someone hiding.",
+      "Does loading #sq031_pr_malorian also instantiate Chippin' In's quest props (the strangled woman, Kang Tao crates, Tri-phet boxes, the container with the Porsche)? If so they come with the one prefab the people need and would need a prefab split to remove.",
+      "Maelstrom is a hostile gang: the crew will be aggressive to the player regardless of the relaxed phase. Confirm that an openly hostile fortress is intended here (territory/faction layer) rather than a neutral venue.",
+      "The three dock-worker entities (#sq031_ebunike_worker_1..3, workspots at -1508, 2977) are not a catalogue community and cannot be activated; check whether they spawn from the prefab alone or need a phase node.",
+      "Whether #sq031_dvc_ebunike_entry_shutter and #sq031_main_gate are static (no authorization module, no controlling terminal), so the runtime door policy will open them; if either has a terminal the venue may need a documented way in."
+    ]
+  },
+  "prefabs": [
+    "#sq031_pr_malorian"
+  ],
+  "communities": [
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_leader_1",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Gang leader at his post on the dock, reading a tablet instead of the combat_alert cover pose vanilla uses."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_10",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Lookout pair at the dock gate, standing watch over the approach road."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_11",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second gate lookout, standing at the yard entrance."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_1a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Yard guard kneeling over a tablet rather than aiming a rifle from cover."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_2a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Crew member leaning on a rail with a phone; a normal break instead of the alert phase."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_3a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Heavy gunner sitting in a chair in the yard, off shift."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_4a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Crew member kneeling over a tool, repairing gear."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_5a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Guard taking pills in the yard."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_6a",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Elite shotgunner leaning against a wall, watching the yard."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_7",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Crew member relieving himself in the yard; the least staged-looking of the ambience phases."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_maelstrom_thug_9",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Melee thug standing in the yard."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_ws_maelstrom_thug_sleeping_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Sniper asleep in one of the bunks; the crew lives aboard."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_ws_maelstrom_thug_sleeping_03",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Crew member scavenging parts on the ground."
+    },
+    {
+      "spawner": "#sq031_maelstrom",
+      "entry_name": "sq031_ws_maelstrom_thug_sleeping_04",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Second crew member asleep in a bunk."
+    },
+    {
+      "spawner": "#sq031_maelstrom_boat",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole community: vanilla activates every entry in its initial phase, which is the relaxed 'default' for all three boat guards (kneeling with a tablet, leaning on the rail smoking, standing around)."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#sq031_main_gate",
+    "within": 80.0,
+    "why": "The fortified main gate is the only road into the Ebunike yard; every approach to the dock, the warehouse and the ship passes it, and it is a DoorControllerPS device, not a workspot."
+  }
+}

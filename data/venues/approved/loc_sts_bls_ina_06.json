@@ -1,0 +1,47 @@
+{
+  "code": "sts_bls_ina_06",
+  "display_name": "Wraiths Outpost (Municipal Landfill)",
+  "why": "A walled Wraiths outpost built into the Municipal Landfill: a main gate and gate house, a garage, several work sheds, a grill and seating area, a water tank, and a cliff ledge used as a lookout over the eastern approach, with a hackable security system and two turrets covering the front. Vanilla only ever shows it through Gig: No Fixers, where Iris Tanner is held in the back building and the crew is staged around the hostage scene. This proposal restores the outpost's standing garrison - the whole #ina_06_com community in its default phases: seven Wraiths (officer, two riflemen, a melee elite, a side-shed welder, a cliff lookout and the main-gate heavy gunner) plus their two parked cars - with no captive, no gig loot and no quest combat.",
+  "source": {
+    "proposal": "research/loc_sts_bls_ina_06/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "No community area node resolved for this venue, so the catalogue posture is 'unknown'. The default-phase spot names are casual routine workspots (drug take, bicep curls, boxing, sit on a couch, kneel to inspect/weld, tablet use, wall lean) except the cliff lookout's patrolling_ranged_agitated_shuffle; the tour must confirm the seven Wraiths idle rather than stand alert.",
+      "Anchor reachability: the outpost has no quest-driven door or terminal, and the only device vanilla drives is an unresolved NodeRef 0. The anchor is the venue's own #ina_06_dvc_security_system from the sector data, at the eastern security area; the tour must confirm the player can walk up to it so the proximity wait fires.",
+      "Are the two turrets (#ina_06_security_turret_1/2 in the gameplay section) live by default? No phase powers or disables them. The wiki says the front is guarded by turrets, so they should be; if they only come alive for the gig, the approach will look softer than the venue's description.",
+      "during_sts=0 is proposed for the loot section; the tour should confirm ordinary containers still spawn inside the outpost. If the toggle empties the section instead, drop it - the boot state is already 0 and dropping it changes nothing.",
+      "Declaring #sts_bls_ina_06_logic also instantiates the nested hostage and meeting-Dakota sections. They carry no people, but the tour should check that the unused hostage chair/props in the back building and the extra workspots at Dakota's autoshop leave no visible oddity.",
+      "Is the whole community's default state the pre-gig state or a post-gig reset? Both are the outpost's normal garrison, but if the tour finds all seven men bunched at the back building instead of at the gate, grill, sheds and cliff, consider the routine sets for ganger_main_door and grill_ganger instead."
+    ]
+  },
+  "prefabs": [
+    "#sts_bls_ina_06_logic"
+  ],
+  "communities": [
+    {
+      "spawner": "#ina_06_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The outpost's standing garrison, exactly as vanilla switches it on when the gig is merely available: every entry in its initial default phase - officer, ganger_main_door (Wraith heavy gunner), grill_ganger, cliff_ganger, ganger_shed2, ganger_side_shed, side_ganger and the two cars (car_02, fast_car). The default spot map is a set of casual idles (drug take, bicep curls, boxing, searching a shelf, sitting on a couch, kneeling to inspect or weld, using a tablet, standing on a wall), so seven Wraiths holding a junkyard read as occupants, not as a combat scene; only the cliff lookout patrols. The routine phases are the gig's rearrangement of two of these men and varA is the angry confrontation set, so the whole-community default state is the right one.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/se1/loc_sts_bls_ina_06_prefabLCR6GFY/loc_sts_bls_ina_06_gameplay_prefabSVCAISQ/loc_sts_bls_ina_06_loot_prefabB7XY2MI",
+      "states": {
+        "during_sts": 0
+      },
+      "why": "The loot section's off-story state. during_sts=1 is what vanilla sets while No Fixers runs, which brings in the three #ina_06_dvc_shard* quest shards and #sts_bls_ina_06_final_loot; with no street story there should be only the ordinary junk, ammo, food and money containers the section also holds."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#ina_06_dvc_security_system",
+    "within": 80.0,
+    "why": "A real device entity at the outpost (a security-system alarm/terminal), sitting on the eastern approach beside the #ina_06_tr_security_area warning trigger, and inside the very section this venue declares, so it streams in with the venue. No phase drives any door or terminal at this outpost, so the catalogue's devices list has only an unresolved NodeRef; this device comes from the venue's own sector data. It is a device, not a workspot."
+  }
+}

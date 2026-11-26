@@ -72,6 +72,38 @@
    "spawn_sets": []
   },
   {
+   "code": "q301_crashsite_way_up",
+   "name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
+   "kind": "approved",
+   "venue": "loc_q301_crashsite_way_up",
+   "pos": [
+    -2044.76,
+    -2709.04,
+    37.36
+   ],
+   "radius": 120.0,
+   "expected_records": [
+    "Character.ep1_combat_zone_citizen_barghest_ma",
+    "Character.ep1_combat_zone_citizen_outcast_ma",
+    "Character.ep1_combat_zone_citizen_outcast_wa",
+    "Character.ep1_combat_zone_citizen_stacks_child",
+    "Character.ep1_combat_zone_citizen_stacks_lowlife_ma",
+    "Character.ep1_combat_zone_citizen_stacks_lowlife_wa",
+    "Character.ep1_combat_zone_citizen_stacks_ma",
+    "Character.ep1_combat_zone_citizen_stacks_wa",
+    "Character.ep1_combat_zone_citizen_stacks_worker_ma",
+    "Character.ep1_combat_zone_service_sexworker_ma",
+    "Character.ep1_combat_zone_service_sexworker_wa",
+    "Character.mon_kurtz_base_minotaur",
+    "Character.mon_kurtz_soldier1_ranged2_rifle_ma",
+    "Character.mon_kurtz_soldier1_ranged2_rifle_wa",
+    "Character.mon_scrappers_grunt1_melee1_fists_ma",
+    "Character.mon_scrappers_grunt1_ranged1_nova_ma",
+    "Character.mon_scrappers_grunt1_ranged1_pulsar_wa"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q302_squat",
    "name": "Rindo Hotel",
    "kind": "approved",
@@ -90,6 +122,32 @@
     "Character.q302_jacob",
     "Character.q302_james",
     "Character.q302_sts13_mia"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q302_way_to_blackbox",
+   "name": "Container Zone Approach — Way to the Black Box (Dogtown)",
+   "kind": "approved",
+   "venue": "loc_q302_way_to_blackbox",
+   "pos": [
+    -2211.44,
+    -2855.51,
+    63.06
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q302_patrol_prevention_dogtown_HMG_mb",
+    "Character.q302_patrol_prevention_dogtown_HMG_mb_barricade",
+    "Character.q302_patrol_prevention_dogtown_martial_hmelee3_fists_mb_elite",
+    "Character.q302_patrol_prevention_dogtown_rifle_ma",
+    "Character.q302_patrol_prevention_dogtown_rifle_wa",
+    "Character.q302_patrol_prevention_dogtown_saratoga_ma",
+    "Character.q302_patrol_prevention_dogtown_saratoga_wa",
+    "Character.q302_patrol_prevention_dogtown_shotgun_ma",
+    "Character.q302_patrol_prevention_dogtown_shotgun_ma_barricade",
+    "Character.q302_patrol_prevention_recon_sniper2_achilles_ma_rare",
+    "Character.q302_patrol_prevnetion_dogtown_base_minotaur"
    ],
    "spawn_sets": []
   },
@@ -150,6 +208,20 @@
    "spawn_sets": [
     "#alex"
    ]
+  },
+  {
+   "code": "q305_bunker",
+   "name": "Cynosure Facility (Militech black site, West Wind Estate)",
+   "kind": "approved",
+   "venue": "loc_q305_bunker",
+   "pos": [
+    -2383.17,
+    -2543.98,
+    -71.04
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": []
   },
   {
    "code": "q305_netwatch_ambush",
@@ -440,6 +512,47 @@
     "Character.sts_ep1_06_violent_guy",
     "Character.sts_ep1_06_waitress",
     "Character.sts_ep1_06_waitress_fluff"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "sts_ep1_13",
+   "name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_13",
+   "pos": [
+    -1998.2,
+    -2988.76,
+    86.01
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_ep1_13_auctioneer_ma",
+    "Character.sts_ep1_13_bartender_ma",
+    "Character.sts_ep1_13_children",
+    "Character.sts_ep1_13_consierge_ma",
+    "Character.sts_ep1_13_consierge_wa",
+    "Character.sts_ep1_13_doll_ma",
+    "Character.sts_ep1_13_doll_wa",
+    "Character.sts_ep1_13_employee_ma",
+    "Character.sts_ep1_13_employee_wa",
+    "Character.sts_ep1_13_enemy_mini_boss",
+    "Character.sts_ep1_13_fiona",
+    "Character.sts_ep1_13_guard_005",
+    "Character.sts_ep1_13_guard_hmelee2_fists_mb_rare",
+    "Character.sts_ep1_13_guard_melee2_baton_ma",
+    "Character.sts_ep1_13_guard_netrunner2_lexington_ma_rare",
+    "Character.sts_ep1_13_guard_ranged2_ajax_ma",
+    "Character.sts_ep1_13_guard_ranged2_ajax_wa",
+    "Character.sts_ep1_13_guard_ranged2_saratoga_wa",
+    "Character.sts_ep1_13_guard_shotgun2_tactician_mb_rare",
+    "Character.sts_ep1_13_guard_sniper3_grad_ma_elite",
+    "Character.sts_ep1_13_human_guest_ma",
+    "Character.sts_ep1_13_human_guest_scene_ma",
+    "Character.sts_ep1_13_human_guest_wa",
+    "Character.sts_ep1_13_katie",
+    "Character.sts_ep1_13_kya",
+    "Character.sts_ep1_13_tommie"
    ],
    "spawn_sets": []
   },
@@ -802,6 +915,34 @@
    "spawn_sets": []
   },
   {
+   "code": "sq031_ruinedship",
+   "name": "DV Ebunike (Ebunike Docks)",
+   "kind": "approved",
+   "venue": "loc_sq031_ruinedship",
+   "pos": [
+    -1572.73,
+    3034.98,
+    8.27
+   ],
+   "radius": 90.9,
+   "expected_records": [
+    "Character.sq031_maelstrom_ajax",
+    "Character.sq031_maelstrom_fast_rifleman",
+    "Character.sq031_maelstrom_grunt1_ranged1_copperhead_ma",
+    "Character.sq031_maelstrom_grunt1_ranged1_copperhead_wa",
+    "Character.sq031_maelstrom_grunt1_ranged1_lexington_pistol_ma",
+    "Character.sq031_maelstrom_grunt1_ranged1_lexington_pistol_wa",
+    "Character.sq031_maelstrom_melee_female_elite_beta",
+    "Character.sq031_maelstrom_rare_sniper_ma",
+    "Character.sq031_maelstrom_standard_melee",
+    "Character.sq031_maelstrom_standard_melee_beta",
+    "Character.sq031_maelstrom_strong_LMG",
+    "Character.sq031_maelstrom_strong_shotgunner_elite",
+    "Character.sq031_maelstrom_strong_shotgunner_lookout"
+   ],
+   "spawn_sets": []
+  },
+  {
    "code": "q112_arasaka_industrial_park_warehouse",
    "name": "Arasaka Industrial Park Warehouse (Arroyo)",
    "kind": "approved",
@@ -817,6 +958,28 @@
     "Character.arr_arasaka_android_android2_shingen_ma",
     "Character.arr_arasaka_ranger1_ranged2_shingen_wa",
     "Character.arr_arasaka_security1_ranged1_shingen_ma"
+   ],
+   "spawn_sets": []
+  },
+  {
+   "code": "q000_scavengers",
+   "name": "Scavenger Den (Japantown, room 1237)",
+   "kind": "approved",
+   "venue": "loc_q000_scavengers",
+   "pos": [
+    -463.03,
+    401.43,
+    132.01
+   ],
+   "radius": 54.7,
+   "expected_records": [
+    "Character.mq036_scavenger_LMG",
+    "Character.mq036_scavenger_netrunner",
+    "Character.mq036_scavenger_regular_handgun_ma",
+    "Character.mq036_scavenger_regular_handgun_wa",
+    "Character.mq036_scavenger_regular_smg_ma",
+    "Character.mq036_scavenger_regular_smg_wa",
+    "Character.mq036_scavenger_shotgunner"
    ],
    "spawn_sets": []
   },

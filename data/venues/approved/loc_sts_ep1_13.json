@@ -1,0 +1,173 @@
+{
+  "code": "sts_ep1_13",
+  "display_name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
+  "why": "Site 341 is a Dogtown academy that selects and modifies young athletes, with an exhibition hall and bar on the main floor, a dolls/showroom wing, staff offices, a security back office and an underground lab. Vanilla only opens it for Gig: Talent Academy. This proposal loads the street-story section and restores the building as it stands at the start of the gig's own setup, before any alarm: receptionists, bartender, auctioneer and staff, the guard detail with its netrunner and head of security, Fiona at her office desk, the young athletes on exhibition, the human guests at the bar and the showroom androids. It also clears the gig-only dressing (post-alert lighting, crowd audio off, glass/tube lockdown, quest collision area, combat steam).",
+  "source": {
+    "proposal": "research/loc_sts_ep1_13/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Variant defaults are the main unknown: the phase files show which states vanilla sets, not the prefab descriptor's default. Confirm on the tour that before_sts=1/during_sts=0 and tube_transparent=1 leave the lobby and top floor looking like a normal open exhibition, not a construction or lockdown state.",
+      "The whole-community activation of #sts_ep1_13_combat_com includes mini_boss (Character.sts_ep1_13_enemy_mini_boss), exactly as vanilla's setup phase does, at a routine stand-tablet spot. If the tour shows a boss bar, hostile attitude or a combat record, replace the whole activation with the individual staff/guard entries and drop mini_boss.",
+      "The dolls are androids/display models by their workspots (generic__android__hang_around, generic__android__stand_around_idle). Confirm in game that they read as showroom exhibits and service staff, not as something else, and that eighteen of them plus eighteen guests is not too heavy for the interior.",
+      "Lift access: the openworld phase deauthorizes the anteroom and Fiona floor terminals while the gig runs. Without the gig the default should be authorized; confirm the player can reach all three floors and does not need a floor-terminal action the runtime policy does not cover (rule 13).",
+      "Fiona's office doors have no obvious terminal of their own (they carry a Computer component) and vanilla force-opens them for the gig. Confirm whether they quickhack/skill-check open in normal play or end up as a dead end.",
+      "Population cap: the full vanilla set is about 65 NPCs. If the interior is too heavy, rule 11a says drop civilians first (guests, then dolls, then children), keeping the security detail and its netrunner."
+    ]
+  },
+  "prefabs": [
+    "#sts_ep1_13_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation, exactly as vanilla's setup phase does it. This is the academy's normal staff and security, each entry at its initial A/a post: two receptionists (human and android), the bartender, the auctioneer, three employees, the guard detail, the site netrunner (guard_009) and the head of security (mini_boss). Spots are bar leans, reception and routine tablet work and plain guard stands, not the combat phase's alert spots.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_fiona_com",
+      "entry_name": "fiona",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Fiona Vargas runs the center and is alive in our timeline. Phase A is her seated office idle (sts_ep1_13_fiona_ws_001, sit chair); the SCARED, SCENE_START and B phases belong to the gig's confrontation and are not used.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_human_guests",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the exhibition's visitors, as vanilla's setup does. Their spots are bar stools (vodka, champagne, phone, tablet), couches and reception tablet work, so they read as guests at a normal event.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_dolls_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation of the showroom's androids and display models in the main chamber, anteroom and dolls room. Every spot is an android hang-around, stand-idle, barstool/couch idle or tablet pose, so they read as exhibits and service staff rather than a scene. doll_stolen is simply the model in the dolls room in normal play.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_002_tommie",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Tommie Walker, one of the athletes on exhibition, browsing files at a display (sts_ep1_13_child_002_tommie, generic__kid__browse_files). Phase A is his exhibition post; behind_fiona/despawn are gig staging.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Kya, an athlete on exhibition, sitting on a bike (ep1__sts13__kid__sits_on_bike). Vanilla's setup activates this entry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_004",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "One of the children on exhibition, playing with a cyberarm (synced child sit-ground cyberarm). Vanilla's setup activates this entry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_006",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A child resting in a bed in the recovery wing (child lie bed sleep). Vanilla's setup activates this entry; it is the facility's normal recovery-room population, not a quest scene.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_007",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A second child resting in the recovery wing (child lie bed sleep); vanilla's setup activates this entry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_008",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A third child resting in the recovery wing (child lie bed sleep); vanilla's setup activates this entry.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_13_children_com",
+      "entry_name": "child_010",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Katie, an athlete on exhibition, sitting on a bike at the ws_katie spot. Vanilla's setup activates this entry; a is her initial phase.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_ep1_13_lighting",
+      "states": {
+        "Lab_Emergency": 0,
+        "Lab_Normal": 1
+      },
+      "why": "The combat phase switches the lab and public floors to emergency lighting; the setup phase's normal state is Lab_Normal on, Lab_Emergency off. Restore normal lighting."
+    },
+    {
+      "prefab": "#loc_sts_ep1_13_audio",
+      "states": {
+        "crowd": 1,
+        "lab_emergency": 0
+      },
+      "why": "Crowd ambience is on for the open exhibition and switched off when the alarm starts (combat sets crowd 0, lab_emergency 1). Restore the crowd track."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/high_peak_prefabAMBSEZY/loc_sts_ep1_13_prefab6R5EZ7Y/loc_sts_ep1_13_env_prefab2SBCOBQ/loc_sts_ep1_13_architecture_prefabHA7J3SY/int_prefabVXADDGQ",
+      "states": {
+        "kids_combat_glass": 0
+      },
+      "why": "The combat/alarm state deploys the kids' protective glass (1); the setup phase and the normal exhibition use the clear state (0). Keep the glass clear so the exhibition is visible."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/high_peak_prefabAMBSEZY/loc_sts_ep1_13_prefab6R5EZ7Y/loc_sts_ep1_13_env_prefab2SBCOBQ/loc_sts_ep1_13_decoration_prefabVO6TB2I/ext_prefabMUMXM5I",
+      "states": {
+        "before_sts": 1,
+        "during_sts": 0
+      },
+      "why": "Pre-gig exterior dressing (before_sts on, during_sts off) is the world as it stands before the street story starts. The setup phase swaps it to during_sts for the gig; our timeline is before anything happened."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/high_peak_prefabAMBSEZY/loc_sts_ep1_13_prefab6R5EZ7Y/loc_sts_ep1_13_env_prefab2SBCOBQ/loc_sts_ep1_13_decoration_prefabVO6TB2I/int_prefabCOQHCLY/loc_sts_ep1_13_env_deco_topfloor_prefabHPO75KY",
+      "states": {
+        "tube_non_transparent": 0,
+        "tube_transparent": 1
+      },
+      "why": "The top-floor display tube (with the Johnny Silverhand exhibit and its lock) is transparent during the exhibition; the combat phase makes it non-transparent as a lockdown shield. Restore the display state."
+    },
+    {
+      "prefab": "#loc_sts_ep1_13_fx",
+      "states": {
+        "steam_hazard": 0
+      },
+      "why": "The steam hazard is quest FX that the combat phase turns on (and off) for the fight. Normal business has no venting steam in the lobby."
+    },
+    {
+      "prefab": "#sts_ep1_13_streetstory",
+      "states": {
+        "collision_area": 0
+      },
+      "why": "The openworld phase raises the quest collision area (1) while the gig is live and drops it to 0 before and after. Normal play needs no quest barrier on the approach."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#loc_sts_ep1_13_elevator_doors_anteroom_terminal",
+    "within": 80.0,
+    "why": "The elevator floor terminal on the exhibition-hall level (z ~86), in the middle of the venue's population (offices z ~78, main chamber z ~82, top floor z ~94). Every route from the entrance to the exhibition hall passes the lift, and it is a device, not a workspot. It streams with the venue's gameplay prefab, so the second activation lands after the people have streamed."
+  }
+}

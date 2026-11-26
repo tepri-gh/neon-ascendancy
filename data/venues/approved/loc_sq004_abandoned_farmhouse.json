@@ -1,0 +1,57 @@
+{
+  "code": "sq004_abandoned_farmhouse",
+  "display_name": "Ingalls Farm (abandoned farmhouse)",
+  "why": "Ingalls Farm is the derelict farmhouse in the eastern badlands that Panam, Saul and V use as shelter from the dust storm in Riders on the Storm. Vanilla puts no ambient population here: the only community entry is the two parked nomad bikes of the morning-after scene, and every spawn set the catalogue attaches is the quest party staged for that night. This proposal therefore restores no people. It pins the venue's variants to the pre-quest derelict look - undamaged house, no sandstorm, no storm FX, no world boundary and the farm unpowered - so the farmhouse is the abandoned, enterable landmark it is outside the quest, and names the farm radio as the builder's proximity anchor.",
+  "source": {
+    "proposal": "research/loc_sq004_abandoned_farmhouse/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "The farm radio ref #sq004_dvc_farm_radio has no resolved path in the catalogue (venue_inferred). The evidence that it is a world device rather than quest-prefab content is negative (no radio node appears under #sq004_pr_03_farmhouse in quest_8802243822b1cce2.streamingsector); the tour should confirm the anchor streams, and if it does not, the builder should skip the proximity wait because this venue re-issues no people there anyway.",
+      "Does the farmhouse front door open in the clean slate? It is baked mesh, not a door device, and the only quest handling is the scene trigger #sq004_tr_saul_farm_dooropen. If the door is sealed, the venue is not enterable and the runtime door policy has nothing to act on (rule 12 covers devices only).",
+      "Should the farm stay unpowered? power_off=1 matches vanilla's arrival state and the abandoned fiction, but the exterior lights panel may still be usable in the clean slate, letting a player restore power. If the owner wants a lit, habitable landmark instead, flip the lighting/audio states (power_off=0, power_restored=1) - that is a design call, not a data one.",
+      "The farmhouse interior is expected to be fully baked (the #sq004_pr_03_farmhouse section holds only workspots, triggers, splines, telephones and spawners, no furniture), so skipping the prefab should leave a furnished empty house. This is inferred from the quest sector's node list; a tour look at the interior is needed.",
+      "Ambient badlands weather (the global sandstorm weather event) is separate from this venue's local FX section; sandstorm=0 clears the quest's local dust wall but does not stop a global weather event, which is out of scope here."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq004_abandoned_farmhouse_env",
+      "states": {
+        "after_storm_sand_damage": 0
+      },
+      "why": "The undamaged house. Vanilla switches the env to the post-storm, sand-blasted variant only while the quest is at the farm, and its quest-done reset block sets it back to 0. In our timeline no dust storm has hit the farm, so the intact pre-storm geometry is the correct normal state and this pin keeps a baked/quest residue from leaving the house storm-wrecked."
+    },
+    {
+      "prefab": "$/03_night_city/se1/loc_sq004_abandoned_farmhouse_prefabNBFD7HI/loc_sq004_abandoned_farmhouse_fx_prefabSFHPXRA",
+      "states": {
+        "sandstorm": 0
+      },
+      "why": "No dust storm at the site. Vanilla raises sandstorm=1 on this FX section only for the escape and the night at the farm (sq004_follower and the top-level storm block) and clears it in the farm phase; 0 is the ordinary badlands weather state. Full $/ path because the FX prefab is an untagged node (playbook rule 3)."
+    },
+    {
+      "prefab": "#loc_sq004_abandoned_farmhouse_lighting",
+      "states": {
+        "power_off": 1
+      },
+      "why": "The farm has no live power feed: it has been abandoned for years and the quest's own arrival state is power_off=1, with V having to 'Restore power to the farm' from the external panel before the house lights up. Since we restore no one, the unpowered variant is the honest normal look and stops the house reading as occupied."
+    },
+    {
+      "prefab": "#loc_sq004_abandoned_farmhouse_audio",
+      "states": {
+        "power_restored": 0
+      },
+      "why": "Keeps the 'power restored' audio layer (the humming, powered-house ambience) off to match the unpowered lighting state. Vanilla sets 0 at the farm arrival and only the quest's power-restore moment switches the house on."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq004_dvc_farm_radio",
+    "within": 80.0,
+    "why": "The farmhouse radio is a real streamed RadioControllerPS device that vanilla drives in this exact phase (ForcePower + SetChannel 5 while V and Panam are inside, ForceUnpower when they leave), so it is a device entity, not a workspot (rule 8). Its tagged ref does not appear in any node list of the #sq004_pr_03_farmhouse quest sector, so it lives in the location's own world device section and streams with the house rather than with the quest prefab. A player walking up to the farmhouse passes it."
+  }
+}

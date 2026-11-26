@@ -8,6 +8,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Research wave 6: the Ebunike docks (Maelstrom crew), the prologue
+  scavenger den, Ingalls Farm (switches only), the Wraiths' landfill
+  outpost, Site 341 academy, the Black Box container yard and the crash-site
+  route's residents and checkpoint (Dogtown), and the sealed Cynosure bunker.
 - Research wave 5: the derelict West Wind Estate hotel, Gloria's house
   (Gloria and Mariah), the Militech Detention Center, the Dogtown checkpoint
   gate garrison, Cherry Blossom Market (Karim, the ramen cook, Ozob), The

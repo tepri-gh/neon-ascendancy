@@ -1,0 +1,106 @@
+{
+  "code": "q301_crashsite_way_up",
+  "display_name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
+  "why": "A stacked-container housing block and container yard at the bottom of the Luxor Heights slope, between the Nighthawks container zone and the hill-park spa, with an unfinished concrete shell above it. In Phantom Liberty q301 drops V into this yard as the Space Force One crash site and q302 climbs back out through it, but the place itself is ordinary Dogtown ground: shipping-container homes with children playing in the lanes, outcasts and junkies on the walls and curbs, stacks labourers welding and scanning, a Barghest foot checkpoint, two Minotaur mechs on patrol and a small scavenger camp. This proposal restores that ambient population (four vanilla whole communities, all in their only phase, all relaxed) and forces the prefab variants back to the no-crash, no-quest-staging state; no quest prefab is needed because world streaming already loads the yard.",
+  "source": {
+    "proposal": "research/loc_q301_crashsite_way_up/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Reachability of the upper route: the residents sit at z 36-68 in an open-air yard, but the climb from the yard to the Luxor Heights street (the q301 'way up' chute/crane route) may depend on the scissor lift #q301_dvc_crashsite_bottom_scissors_lift, which vanilla only powers inside q301_crashsite_combat_bottom. The dev tour must confirm the yard can be entered and left on foot without a device action.",
+      "Neighbourhood label: the spot records are all stacks_* (Longshore Stacks citizens) and the prefab is in container_zone_prefab4PZIADQ, but the nearest sub-territory centroid in data/sub_territories.json is dt_luxor_heights ('Luxor High Wellness Spa', 85 m away). Confirm in game whether the location reads as Longshore Stacks, Luxor Heights or Golden Pacific; the display name may want adjusting.",
+      "The brief calls the upper structure a 'mall shell'; I found no named mall prefab in this venue's sectors, only container-zone env/decoration/decoset nodes (e.g. decoset_construction_concrete_pallet). If it is a specific building, confirm which, because it decides how the intact shell should read.",
+      "Do the Barghest checkpoint and the two Minotaurs read as gate security or as a crash cordon on tour? They are driven by the ambient Dogtown layer (ep1_quest_community, gated on ep1_side_content) and reused by mq304 city scenes, which is why they are kept, but the militia community is the one item to drop first if the yard feels militarised.",
+      "Whole-community activation also switches on day_q301_way_up_vehicle (Vehicle.cs_savable_kaukaz_zeya_container_broken). Confirm the broken container truck reads as a parked yard wreck, not as crash debris; the schema cannot activate the community's people while leaving that one entry out.",
+      "The catalogue tags the residential entries role 'combat' (record prefix ep1_combat_zone_citizen_*). Confirm on tour that they spawn non-hostile and go to their sit/lean/play/weld workspots, and that the venue's RESTRICTED security area is not left armed in the clean slate.",
+      "If Dogtown city life is ever restored wholesale (ep1_quest_community with ep1_side_content), the four communities here would be activated twice. That is harmless under rule 9a but redundant; the owner may want a single Dogtown-wide switch instead of per-venue activation.",
+      "The fx/lighting/audio variant values are set explicitly to 0 as a guard; their vanilla defaults outside q301 were not readable offline (no streaming block extract), so the tour should confirm nothing flickers back on."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#pac_cz_q301_crashsite_way_up_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The yard's own ambient population: 22 day/night entries of container-block residents, outcasts, stacks labourers, two children, two night sex workers and one broken Kaukaz Zeya container truck, all in the community's single phase 'a', none ever activated entry-by-entry by vanilla. Whole-community Activate switches on every entry in its initial state, exactly as the ambient Dogtown layer does. The catalogue tags the group 'combat' only because the character records are named ep1_combat_zone_citizen_*; behaviour is residential (sit, lean, smoke, sleep, beg, play hopscotch, scan a tablet, weld). The vehicle entry has no spot map (posture unknown), hence the tour check.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#pac_cz_q301_crashsite_way_up_kurt_militia_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Four Barghest riflemen (mon_kurtz_soldier1_ranged2_rifle_ma/wa, day and night pair) standing the yard's checkpoint, with guard_stand and lean-on-wall workspots. This is the venue's standing armed presence, activated by the ambient Dogtown layer and re-used by mq304's city scenes, so it does not depend on q301. Kept first per the combat-first priority rule."
+    },
+    {
+      "spawner": "#pac_cz_q301_crashsite_way_up_minotaur_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Two Minotaur mechs (minotaur_001_day/night, minotaur_002_day; Character.mon_kurtz_base_minotaur) patrolling the checkpoint on guard_stand/patrolling_stand workspots - the heavy unit that belongs with a Barghest strongpoint in Dogtown. Catalogue marks the community's role 'civilian' because of the record name, but these are mechs, so it is counted as combat. Needs a tour check: a mech pair must read as gate security, not as an assault wave.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#pac_cz_q301_crashsite_way_up_scrappers_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Three scavenger grunts (nova rifle, pulsar, fists) hanging around a bar lean, a cigarette and a baseball-bat spot: the yard's small scrapping crew. Scavengers are one of the two gangs the wiki gives Longshore Stacks, and the community is activated by the ambient layer only."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_pr_q301_crashsite_way_up_decoration",
+      "states": {
+        "301_quest_stuff": 0,
+        "var_kurt_barricades": 0
+      },
+      "why": "The yard's decoration has a q301 staging variant (301_quest_stuff) and a Barghest cordon variant (var_kurt_barricades). Both are 0 in the state vanilla itself restores once the crash sequence is over (q301_shuttle sets both to 0), which is the clean, non-quest yard we want."
+    },
+    {
+      "prefab": "#loc_pr_q301_crashsite_way_up_devices",
+      "states": {
+        "var_kurt_barricades": 0
+      },
+      "why": "The device section carries a second copy of the barricade variant; 0 removes the cordon devices so the yard's normal device set (AV computer, access point, scissor lift) is what streams in."
+    },
+    {
+      "prefab": "#loc_pr_q301_crashsite_way_up_lighting",
+      "states": {
+        "V_Crash_Bottom": 0
+      },
+      "why": "V_Crash_Bottom is the crash-scene lighting rig for the bottom of the pit. Vanilla switches it on for the walk to the crash site and off again in q301_crashsite, so 0 is the ordinary lighting state for the yard."
+    },
+    {
+      "prefab": "#loc_q301_crashsite_way_up_fx",
+      "states": {
+        "fx_embers_from_crashsite": 0
+      },
+      "why": "Embers drifting from the wreck only exist while the shuttle is burning; q301_shuttle turns them off. With no crash there is nothing to burn."
+    },
+    {
+      "prefab": "#loc_pr_q301_crashsite_way_up_audio",
+      "states": {
+        "q301_crashsite_way_up_shooting_far": 0
+      },
+      "why": "Distant gunfire ambience for the crash walk, switched off in q301_crashsite. A quiet yard is the normal state."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q301_crashsite_way_up_prefabG2MDTSI/loc_q301_crashsite_way_up_gameplay_prefabPMZLSZQ/loc_q301_crashsite_way_up_loot_prefabMVPO26A",
+      "states": {
+        "loot": 0
+      },
+      "why": "The only loot in this prefab is the wst_ep1_21 world-story object (Katya's loot), which q301_crashsite_setup also switches on for the wreck scene. The mod runs no EP1 world stories and there is no wreck, so the quest loot stays hidden."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#q301_crashsite_bottom_computer_av_001",
+    "within": 80.0,
+    "why": "A ComputerControllerPS at the yard floor (x -2048.5, y -2694.3, z 38.4) inside this venue's own gameplay prefab, on the route through the yard, and the only resolved non-door device entity vanilla drives here. Used for the proximity wait only; no device action is proposed."
+  }
+}
