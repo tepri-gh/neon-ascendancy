@@ -130,6 +130,29 @@ def posture(workspot: str | None) -> str:
     return "relaxed"
 
 
+_COMBAT_TOKENS = re.compile(
+    r"(^|[._])(ranged\d*|melee\d*|[fh]melee\d*|grunt\d*|guard|guards|security|soldier|officer|sniper|shotgun\d*|"
+    r"shotgunner|rifle|handgun|hmg|elite|enemy|enemies|gangster\d*|ganger|ncpd|police|maxtac|max_tac|bodyguard|"
+    r"combat|merc|heavy|boss|katana|mantis|kanabo|lmg|smg|bouncer|enforcer|thug|cop|cops|militia)([._]|\d|$)")
+
+
+def role_of(record: str | None) -> str:
+    """Population role from a character record name: 'netrunner', 'combat'
+    (any fighting group: guards, security, gangers, soldiers, police),
+    'vehicle', or 'civilian'. Name-based; owner rule (playbook rule 17)
+    ranks netrunner > combat > civilian when an area's groups are capped."""
+    if not record:
+        return "unknown"
+    r = record.lower()
+    if "netrunner" in r:
+        return "netrunner"
+    if r.startswith(("vehicle.", "character.vehicle")) or "_vehicle_" in r:
+        return "vehicle"
+    if _COMBAT_TOKENS.search(r):
+        return "combat"
+    return "civilian"
+
+
 # ---------------------------------------------------------------- sectors
 
 def _sector_batch(args: tuple[Path, Path, list[str], int]) -> int:
@@ -461,6 +484,7 @@ def stage_catalog(a: argparse.Namespace) -> None:
             if c and "record" not in e:
                 ent = next((x for x in c["entries"] if x["name"] == it["entry"]), None)
                 e["record"] = ent and ent["record"]
+                e["role"] = role_of(e["record"])
                 ids = (c.get("spots") or {}).get(f"{it['entry']}/{it['phase']}", [])
                 ws = [spots[i]["workspot"] for i in ids if i in spots]
                 e["workspots"] = sorted({w for w in ws if w})
@@ -552,6 +576,7 @@ def stage_catalog(a: argparse.Namespace) -> None:
                     ws = sorted({spots[i]["workspot"] for i in ids if i in spots and spots[i]["workspot"]})
                     pos = sorted({posture(w) for w in ws}) or ["unknown"]
                     opts.append({"path": cpath, "entry": ent["name"], "phase": phname, "record": ent["record"],
+                                 "role": role_of(ent["record"]),
                                  "initial": ent.get("initial"), "activated": (cpath, ent["name"], phname) in used,
                                  "posture": "alert" if "alert" in pos else pos[0] if len(pos) == 1 else "mixed:" + "+".join(pos),
                                  "workspots": ws})

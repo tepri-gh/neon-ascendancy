@@ -91,6 +91,14 @@ already define all four; we copy them, never invent them.
     exact reference, entry and phase. The cast layer (`cast_and_hubs.json`)
     holds city-wide named NPCs; venue phases hold venue staff.
 
+11a. **Population priority (owner rule).** When an area has to cap how many
+    groups are active (spawn budget, performance, overlapping venues),
+    keep combat groups first: netrunners above all, then other fighting
+    groups (guards, security, gangers, soldiers, police), then civilians
+    (staff, patrons, crowds). Combat groups still use relaxed, non-hostile
+    phases. The catalogue tags each entry with `role` (`netrunner`,
+    `combat`, `civilian`, `vehicle`) from its character record name.
+
 **Doors and devices**
 
 12. **Door policy** (the owner's, recorded as `door_policy` in the spec):
