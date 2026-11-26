@@ -21,7 +21,7 @@
       "entry_name": "sq017_pachinko_doorman",
       "phase_name": "sq017_pachinko_doorman_start",
       "action": "Activate",
-      "why": "The street doorman/bouncer at the pachinko-parlor lift entrance. He is the one venue person who exists outside the premiere set-pieces: the wiki has him blocking the elevator in normal play, and his start phase is a relaxed guard stand-around, not a quest pose. Vanilla's cleanup deactivates the whole community, leaving the venue unstaffed in the clean slate."
+      "why": "The street doorman/bouncer at the pachinko-parlor lift entrance. He is the one venue person who exists outside the premiere set-pieces: the wiki has him at the lift door when V arrives, and his start phase is a relaxed guard stand-around, not a quest pose. Vanilla's cleanup deactivates the whole community, leaving the venue unstaffed in the clean slate."
     }
   ],
   "spawn_sets": [],
