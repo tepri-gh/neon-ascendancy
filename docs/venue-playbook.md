@@ -348,6 +348,15 @@ Two local tools feed venue research. Their output is never committed;
   as noise: check every `venue_inferred` spawn set's own quest before
   keeping it (waves 11-13: Cytech, the Kenmore Diner, Dry Creek).
 
+- **An anchor inside an off-by-default variant never resolves.** If a
+  venue's only device sits in a quest variant that stays off (the Kabuki
+  container yard's GPS trackers in `during_sts`, the Kenmore Diner's camera
+  in its DLC range), the proximity wait never fires and only the boot
+  activation runs. Anchor on the nearest ungated device instead, even a
+  building away, and widen `proximity_anchor.within` to cover the venue
+  (`approve` honours it). If none exists, add a fresh-start tour check
+  (wave 15).
+
 ## 7. Dev tour and playtest notes
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with

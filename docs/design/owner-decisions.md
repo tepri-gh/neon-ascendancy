@@ -453,3 +453,19 @@ the non-combat people. **(after tour)**
 128. **Acorn Towers lot** (`sts_wbr_hil_06`). Keep the full 12-ganger,
      11-car crew, or trim it? Dan out, or at his meeting spot? Leave the
      bar vendor to the casino venue? Security hidden (proposed) or shown?
+129. **Tirempire Auto Shop** (`sts_std_arr_12_gas_station`). The gig's
+     friendly workshop crew and eight cars as everyday staff (proposed;
+     vanilla switches them off in open play), or a quiet shop? Kirk and Big
+     Joe out? Trim the cars?
+130. **Kabuki basement ripperdoc lab** (`sts_wat_kab_02`). A live Maelstrom
+     den (proposed) or empty? Ripperdoc Lucy out until a proper spot is
+     authored? Maelstrom hostile or neutral (see 78)? Crime-scene gore off
+     (recommended)? Add the crew's parked Thrax?
+131. **Mallagra St. house** (`sts_std_rcr_03`). Flavio and his 6th Street
+     crew (recommended), Flavio alone, or none? The five party guests later
+     (no calm phase exists)? The escape car in the garage (recommended no)?
+132. **Kabuki docks container yard** (`sts_wat_kab_102`). A plain working
+     dock (proposed), or also the gig's nine elite guards and five workers
+     (recommended no)? GPS trackers and restricted-area markers off
+     (recommended)? Name it "Kabuki Docks Container Yard" or "Kabuki Cargo
+     Yard"?

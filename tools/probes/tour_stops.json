@@ -3341,6 +3341,75 @@
    ]
   },
   {
+   "code": "sts_std_arr_12_gas_station",
+   "name": "Tirempire Auto Shop (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_12_gas_station",
+   "pos": [
+    -1029.43,
+    -1703.08,
+    11.02
+   ],
+   "radius": 45.7,
+   "expected_records": [
+    "Character.sts_std_arr_12_lowlife_wa",
+    "Character.sts_std_arr_12_worker_friendly"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the Tirempire yard from Valley Street and confirm it reads as a working autoshop: garage open, tire racks and tools in place, no Valentin...",
+     "detail": "Walk into the Tirempire yard from Valley Street and confirm it reads as a working autoshop: garage open, tire racks and tools in place, no Valentino guards at the door.",
+     "source": "open question"
+    },
+    {
+     "label": "Count the shop crew: expect the friendly cohort (eight mechanics, two assistants, one worker to talk to) around the bays plus the vanilla Arcade ki...",
+     "detail": "Count the shop crew: expect the friendly cohort (eight mechanics, two assistants, one worker to talk to) around the bays plus the vanilla Arcade kids/workers the Arroyo phase spawns; if only two people are there, the whole-community activation is not sticking.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the eight friendly cars: they should sit parked in the bays and lot, not across the road, and should not read as quest-locked props belonging...",
+     "detail": "Check the eight friendly cars: they should sit parked in the bays and lot, not across the road, and should not read as quest-locked props belonging to a gig.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk behind the gate into the container bay and confirm it is empty: no delivery van, no Valentino thugs, no Kirk or Big Joe bodies, no delivery tr...",
+     "detail": "Walk behind the gate into the container bay and confirm it is empty: no delivery van, no Valentino thugs, no Kirk or Big Joe bodies, no delivery truck.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the yard for gig loot: no weapon or ammo cases, grenades, consumable kits, toolboxes or floating loot tokens behind the DLC dressing.",
+     "detail": "Check the yard for gig loot: no weapon or ammo cases, grenades, consumable kits, toolboxes or floating loot tokens behind the DLC dressing.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the yard gate #arr_12_warehouse_final_gate can be opened on foot or by car (door policy unseal or another way through) and that the contain...",
+     "detail": "Confirm the yard gate #arr_12_warehouse_final_gate can be opened on foot or by car (door policy unseal or another way through) and that the container bay is reachable.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for Tirempire signage on the building to confirm this yard is the autoshop the wiki calls Tirempire rather than a neighbouring gas station lot.",
+     "detail": "Look for Tirempire signage on the building to confirm this yard is the autoshop the wiki calls Tirempire rather than a neighbouring gas station lot.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "hvdr_02_batty",
    "name": "Batty's Hotel",
    "kind": "hand-built",
@@ -4964,6 +5033,59 @@
    ]
   },
   {
+   "code": "sts_wat_kab_102_cargo",
+   "name": "Kabuki Docks Container Yard",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_102_cargo",
+   "pos": [
+    -1030.84,
+    1288.0,
+    5.15
+   ],
+   "radius": 62.4,
+   "expected_records": [
+    "Character.WorkerMale"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk into the yard from the dock street and confirm the dock workers and the container truck are there on a fresh approach.",
+     "detail": "Walk into the yard from the dock street and confirm the dock workers and the container truck are there on a fresh approach. Check that the crew is spread out on the ground/tablet/smoking spots rather than bunched at one end.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the yard populates on a fresh start from far away, not only after standing in it.",
+     "detail": "Check that the yard populates on a fresh start from far away, not only after standing in it. The proximity anchor is the only device the venue declares, and it lives in the quest-only during_sts device variant, so the post-proximity re-activation may never fire.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for leftover gig props in normal play: no GPS tracker, laptop or security-area warning should be visible or hackable in the yard.",
+     "detail": "Look for leftover gig props in normal play: no GPS tracker, laptop or security-area warning should be visible or hackable in the yard.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the yard is reachable on foot from the street and holds no locked gate or fence that needs opening; input.json declares no door controller...",
+     "detail": "Confirm the yard is reachable on foot from the street and holds no locked gate or fence that needs opening; input.json declares no door controller for this venue.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "loc_sq011_totentanz",
    "name": "Totentanz",
    "kind": "hand-built",
@@ -5155,6 +5277,82 @@
     {
      "label": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is no...",
      "detail": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is not documented; confirm it is the club ambience/party layer and not a quest-only mix.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_kab_02_ripperdoc_lab",
+   "name": "North Kabuki Ripperdoc Lab",
+   "kind": "approved",
+   "venue": "loc_sts_wat_kab_02_ripperdoc_lab",
+   "pos": [
+    -1157.79,
+    2414.72,
+    7.12
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.kab_02_enemy_handgun_tier1",
+    "Character.kab_02_enemy_leader_tier2",
+    "Character.kab_02_enemy_melee_tier1",
+    "Character.kab_02_enemy_rifle_tier1"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Confirm the lab reads as a working Maelstrom den, not a firefight: six crew on their idle spots (kneeling inspect by the chair, stretching, writing...",
+     "detail": "Confirm the lab reads as a working Maelstrom den, not a firefight: six crew on their idle spots (kneeling inspect by the chair, stretching, writing at the bar, taking pills, tablet in the meat room, tech-door patrol), nobody clustered at the spawner or frozen mid-pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Check there is no blood or crime-scene dressing in the surgery and meat rooms; if red gore is still visible, the bloddygore ON=0 toggle did not tak...",
+     "detail": "Check there is no blood or crime-scene dressing in the surgery and meat rooms; if red gore is still visible, the bloddygore ON=0 toggle did not take, because the baked default is the other way round.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in through the street entrance and report what opens it: a keypad, the laptop terminal, a Technical Ability door or nothing at all.",
+     "detail": "Walk in through the street entrance and report what opens it: a keypad, the laptop terminal, a Technical Ability door or nothing at all. The entrance controller #kab_02_dvc_door_entrance has no resolved $/ path, so this is the one thing about the way in we could not determine.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the entrance door actually streams and fires the proximity wait, since it is also the anchor; if the wait never fires, switch the anchor to t...",
+     "detail": "Check the entrance door actually streams and fires the proximity wait, since it is also the anchor; if the wait never fires, switch the anchor to the resolved surgery door #kab_02_door_surgery_002a.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the surgery double door opens normally and is powered after the visit (vanilla closes, unpowers and re-powers it in its leave branch).",
+     "detail": "Confirm the surgery double door opens normally and is powered after the visit (vanilla closes, unpowers and re-powers it in its leave branch).",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the cameras appear and stay on in the restricted area with cameras=1, and that they do not put the den into permanent alarm or turn the cre...",
+     "detail": "Confirm the cameras appear and stay on in the restricted area with cameras=1, and that they do not put the den into permanent alarm or turn the crew hostile on sight.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm no street-story residue appears with the prefab loaded: no Lucy at the chair, no patient, no synth-blood prop or final loot, no scene marke...",
+     "detail": "Confirm no street-story residue appears with the prefab loaded: no Lucy at the chair, no patient, no synth-blood prop or final loot, no scene markers, no objective or mappin.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the crew's attitude.",
+     "detail": "Confirm the crew's attitude. They are Maelstrom and may engage on sight; that is the owner hostility decision, not a posture bug.",
      "source": "open question"
     }
    ]
@@ -8208,6 +8406,89 @@
     {
      "label": "Check how the three reinforcement guards read.",
      "detail": "Check how the three reinforcement guards read. If they cluster in one room like a spawn wave rather than as off-shift staff, the community can be dropped without touching the rest of the ward.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_rcr_03",
+   "name": "Flavio dos Santos's safehouse, Mallagra St. (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_sts_std_rcr_03",
+   "pos": [
+    479.51,
+    -1206.11,
+    28.62
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_std_rcr_03_flavio",
+    "Character.sts_std_rcr_03_gangers_ajax",
+    "Character.sts_std_rcr_03_gangers_dave",
+    "Character.sts_std_rcr_03_gangers_melee_med",
+    "Character.sts_std_rcr_03_gangers_officer",
+    "Character.sts_std_rcr_03_gangers_short_med_m"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #rcr_03_com_house_gangers (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Calm and on post: #rcr_03_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: flavio/#rcr_03_ws_flavio_appear.",
+     "source": "community"
+    },
+    {
+     "label": "Confirm Flavio is upstairs in the bedroom standing and waiting at his appear spot, not lying wounded, kneeling or missing.",
+     "detail": "Confirm Flavio is upstairs in the bedroom standing and waiting at his appear spot, not lying wounded, kneeling or missing.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the 6th Street crew are spread around the house and the two parked Hellas (leaning, smoking, on the phone, on the stairs, patrolling) rather...",
+     "detail": "Check the 6th Street crew are spread around the house and the two parked Hellas (leaning, smoking, on the phone, on the stairs, patrolling) rather than standing in a stack at one spawner point.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether the crew turns hostile as you approach; note it, since a 6th Street house may be meant to read that way.",
+     "detail": "Check whether the crew turns hostile as you approach; note it, since a 6th Street house may be meant to read that way.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk in without the gig: try the front door, the back door, the garage gate and the crawlspace under the house, and say which one worked.",
+     "detail": "Walk in without the gig: try the front door, the back door, the garage gate and the crawlspace under the house, and say which one worked.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for an execution or street-violence vignette in the yard (a civilian plus gang members) and report it if the openworld prefab stages one.",
+     "detail": "Look for an execution or street-violence vignette in the yard (a civilian plus gang members) and report it if the openworld prefab stages one.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the house shows outside_rcr_03: no corpses, no glitched turret and no explosive tanks, just the normal fridge/laptop/coffee-machine/sprinkl...",
+     "detail": "Confirm the house shows outside_rcr_03: no corpses, no glitched turret and no explosive tanks, just the normal fridge/laptop/coffee-machine/sprinkler props.",
+     "source": "open question"
+    },
+    {
+     "label": "Read the DoorPolicy lines for #rcr_03_main_door and #rcr_03_garage_gate to confirm the doors are enabled and powered.",
+     "detail": "Read the DoorPolicy lines for #rcr_03_main_door and #rcr_03_garage_gate to confirm the doors are enabled and powered.",
      "source": "open question"
     }
    ]

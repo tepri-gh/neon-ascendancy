@@ -1,0 +1,38 @@
+{
+  "code": "sts_std_arr_12_gas_station",
+  "display_name": "Tirempire Auto Shop (Arroyo)",
+  "why": "The Tirempire Auto Shop is the single-floor Arroyo garage on Valley Street that Desperate Measures uses as its drop-off and where Small Man, Big Mouth goes wrong. The building, workshop workspots, back yard gate and container bay are base-world geometry, and the kept Arroyo community phase already activates the vanilla kids-and-workers crowd there. This proposal restores the shop's own friendly workshop cohort - eight mechanics, two workshop assistants, a worker to talk to and eight customer cars in the bays and lot - so the yard reads as an open autoshop, and deliberately leaves out the heist's Valentino thugs, corpses, delivery van, stolen truck and gig loot.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_12_gas_station/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the Tirempire yard from Valley Street and confirm it reads as a working autoshop: garage open, tire racks and tools in place, no Valentino guards at the door.",
+      "Count the shop crew: expect the friendly cohort (eight mechanics, two assistants, one worker to talk to) around the bays plus the vanilla Arcade kids/workers the Arroyo phase spawns; if only two people are there, the whole-community activation is not sticking.",
+      "Check the eight friendly cars: they should sit parked in the bays and lot, not across the road, and should not read as quest-locked props belonging to a gig.",
+      "Walk behind the gate into the container bay and confirm it is empty: no delivery van, no Valentino thugs, no Kirk or Big Joe bodies, no delivery truck.",
+      "Check the yard for gig loot: no weapon or ammo cases, grenades, consumable kits, toolboxes or floating loot tokens behind the DLC dressing.",
+      "Confirm the yard gate #arr_12_warehouse_final_gate can be opened on foot or by car (door policy unseal or another way through) and that the container bay is reachable.",
+      "Look for Tirempire signage on the building to confirm this yard is the autoshop the wiki calls Tirempire rather than a neighbouring gas station lot."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The shop's own staffed-day cohort: eight Character.sts_std_arr_12_worker_friendly mechanics, two Character.sts_std_arr_12_lowlife_wa assistants and the worker_talk talker, plus eight customer vehicles parked in the bays and lot. Vanilla activates the whole community (entry None, phase None) in sts_std_arr_12_ow, which sets every entry to its entriesInitialState phase (a, and A for worker_talk). Every workspot is routine garage work - kneel_welder use, stand_tablet scanning/use, sit_couch_tablet read, stand_wall lean_back/smoke, stand_table lean_back - so nobody is alert, hostile or posed in a scene. Its only ungated vanilla node is the gig's Deactivate, so in vanilla normal play the shop sits empty of staff; restoring this cohort gives the autoshop the crew vanilla modelled for it."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#arr_12_warehouse_final_gate",
+    "within": 80.0,
+    "why": "The only named device at the venue is the warehouse yard's roller gate (DoorControllerPS, full path $/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_12_gas_station_prefabMT3TCMQ/loc_sts_std_arr_12_warehouse_gameplay_prefabUHF7QQI/gate_maelstrom_prefab7I2MDVQ/gate_maelstrom_prefabNOCIDEI) at (-1022.92,-1704.08,11.02), about 38 m from the workshop spots and 5 m from the worker_talk spot. It is a door entity in the always-streamed exterior_-16_-27_0_0 sector, not a workspot, so it satisfies rule 8."
+  }
+}

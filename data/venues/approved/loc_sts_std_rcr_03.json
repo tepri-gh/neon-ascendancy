@@ -1,0 +1,57 @@
+{
+  "code": "sts_std_rcr_03",
+  "display_name": "Flavio dos Santos's safehouse, Mallagra St. (Rancho Coronado)",
+  "why": "A run-down two-storey house with a garage off Mallagra St. in Rancho Coronado, used by Going-away Party (sts_std_rcr_03, Muamar Reyes) as 6th Street victim Flavio dos Santos's hideout. Vanilla stages the aftermath there through the street story's own phases: the openworld phase switches on Flavio, an eight-strong 6th Street crew with two Archer Hellas, and five terrified sex workers at execution/afraid workspots, and the gameplay phase runs the search, the turret and the drive to the Aldecaldo pickup. None of that section loads in the clean slate. This proposal restores the house as a 6th Street house before the purge: Flavio at home upstairs and his crew hanging around the house and the parked cars, with the massacre staging (victims, corpses, glitched turret, escape car, nomad pickup) left out.",
+  "source": {
+    "proposal": "research/loc_sts_std_rcr_03/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm Flavio is upstairs in the bedroom standing and waiting at his appear spot, not lying wounded, kneeling or missing.",
+      "Check the 6th Street crew are spread around the house and the two parked Hellas (leaning, smoking, on the phone, on the stairs, patrolling) rather than standing in a stack at one spawner point.",
+      "Check whether the crew turns hostile as you approach; note it, since a 6th Street house may be meant to read that way.",
+      "Walk in without the gig: try the front door, the back door, the garage gate and the crawlspace under the house, and say which one worked.",
+      "Look for an execution or street-violence vignette in the yard (a civilian plus gang members) and report it if the openworld prefab stages one.",
+      "Confirm the house shows outside_rcr_03: no corpses, no glitched turret and no explosive tanks, just the normal fridge/laptop/coffee-machine/sprinkler props.",
+      "Read the DoorPolicy lines for #rcr_03_main_door and #rcr_03_garage_gate to confirm the doors are enabled and powered."
+    ]
+  },
+  "prefabs": [
+    "#loc_sts_std_rcr_03_openworld"
+  ],
+  "communities": [
+    {
+      "spawner": "#rcr_03_com_house_gangers",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The house's gang presence and the only crowd the venue has: eight 6th Street members (two melee, an Ajax, an officer, a shotgunner and two turret gangers) plus two parked 6th Street Archer Hellas. The site record's own faction is 6th Street (default_faction_id 4), so a crew hanging around a 6th Street house in their own turf is the normal reading; their workspots are lean, smoke, phone, tablet, sit-on-stairs and patrol poses, i.e. hanging out and keeping an eye out, not a firefight. Vanilla's own action is the whole-community Activate from the openworld phase, so this is a proven activation, not an invention. Posture is unknown because no compiled community area node for this community was found, so the tour must confirm they are spread around the house instead of stacked at the spawner; combat groups come first under rule 11a.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#rcr_03_com",
+      "entry_name": "flavio",
+      "phase_name": "#rcr_03_ws_flavio_appear",
+      "action": "Activate",
+      "why": "Flavio dos Santos, the house's owner and the gig's client, is alive in our timeline (no coup, no purge, no gig) and should be at home. #rcr_03_ws_flavio_appear is the entry's own initial phase in the registry and its spot is a generic stand-and-wait on the second floor (464.4, -1240.11, 34.71), which reads as the owner waiting at home rather than the gig's wounded, kneeling-by-the-car or lying-at-the-nomad poses. Posture is unknown because the community has no compiled area node, so the tour must confirm the pose and position.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sts_std_rcr_03_devices",
+      "states": {
+        "during_rcr_03": 0,
+        "outside_rcr_03": 1
+      },
+      "why": "outside_rcr_03 is the house outside the gig: normal appliances and props (fridge, coffee machine, laptop, radio, sprinklers) and no massacre dressing. The during_rcr_03 set is the staged gig state, whose device prefab children include the two wa_corpse props, the glitched turret and the small explosive tank. The openworld phase's reset branch shows outside=1/during=0 and its setup branch shows the opposite, so setting outside=1 explicitly gives the before-anything-happened house even if the variant default were during."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#rcr_03_garage_gate",
+    "within": 80.0,
+    "why": "The garage gate is a DoorControllerPS device vanilla drives at this venue, it streams with the house on the street side where the player arrives, and its tag is unique in the catalogue (the front door tag #rcr_03_main_door is carried by two different single_door nodes)."
+  }
+}

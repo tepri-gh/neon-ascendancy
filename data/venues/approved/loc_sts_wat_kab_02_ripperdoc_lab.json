@@ -1,0 +1,55 @@
+{
+  "code": "sts_wat_kab_02_ripperdoc_lab",
+  "display_name": "North Kabuki Ripperdoc Lab",
+  "why": "A grimy basement clinic under a North Kabuki block: an entrance off the street, a surgery room with a proper operating chair, a 'meat room' used for butchering and storage, a restricted security area with cameras, and a door out the back. Vanilla uses the same interior twice: the street story sts_wat_kab_02 stages a Maelstrom crew holding the ripperdoc Lucy at gunpoint while she operates on their wounded (community #kab_02_com_ar), and the NCPD organized-crime activity ma_wat_nid_06 later/alternately puts a nine-strong Maelstrom outpost (with a miniboss) in the same rooms, turns the blood-and-gore dressing on and hides the cameras. Neither runs in our timeline. This proposal loads the street-story prefab and switches on the whole #kab_02_com_ar community in the idle phases vanilla itself uses before the fight, so the lab reads as a working Maelstrom chop-shop: gangers inspecting, stretching, writing, taking pills, working a tablet in the meat room and patrolling the tech door, with the crime-scene gore off and the venue's cameras back on.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_02_ripperdoc_lab/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Confirm the lab reads as a working Maelstrom den, not a firefight: six crew on their idle spots (kneeling inspect by the chair, stretching, writing at the bar, taking pills, tablet in the meat room, tech-door patrol), nobody clustered at the spawner or frozen mid-pose.",
+      "Check there is no blood or crime-scene dressing in the surgery and meat rooms; if red gore is still visible, the bloddygore ON=0 toggle did not take, because the baked default is the other way round.",
+      "Walk in through the street entrance and report what opens it: a keypad, the laptop terminal, a Technical Ability door or nothing at all. The entrance controller #kab_02_dvc_door_entrance has no resolved $/ path, so this is the one thing about the way in we could not determine.",
+      "Check the entrance door actually streams and fires the proximity wait, since it is also the anchor; if the wait never fires, switch the anchor to the resolved surgery door #kab_02_door_surgery_002a.",
+      "Confirm the surgery double door opens normally and is powered after the visit (vanilla closes, unpowers and re-powers it in its leave branch).",
+      "Confirm the cameras appear and stay on in the restricted area with cameras=1, and that they do not put the den into permanent alarm or turn the crew hostile on sight.",
+      "Confirm no street-story residue appears with the prefab loaded: no Lucy at the chair, no patient, no synth-blood prop or final loot, no scene markers, no objective or mappin.",
+      "Confirm the crew's attitude. They are Maelstrom and may engage on sight; that is the owner hostility decision, not a posture bug."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_02_ripperdoc_lab_prefabJLST3PA/#loc_sts_wat_kab_02_ripperdoc_lab_openworld/#sts_wat_kab_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#kab_02_com_ar",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Whole-community activation, exactly the shape vanilla uses: entry None / phase None switches on all six entries in their initial phases (gang_anest default, gang_talk1 01default, gang_talk2 01default, gang_walk 01default, meat_room default, tech_door_patrol default), which are the pre-fight idle set, not the combat repositioning phases (02default, static, anest, safe_switch). The mapped spots are all routine business: one ganger kneeling to inspect something by the chair, one stretching, one leaning on a bar writing, one taking pills, one working a tablet in the meat room, one kneeling/using a tablet at the tech door. The lab is a Maelstrom den in free roam anyway: vanilla's own NCPD organized-crime activity ma_wat_nid_06 stages a nine-strong Maelstrom outpost with a miniboss inside these same rooms, so a Maelstrom crew is the venue's normal occupancy rather than the street story's invention. Combat group kept first under rule 11a; there are no civilians to rank."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#kab02_sts_bloddygore_variantstates",
+      "states": {
+        "ON": 0
+      },
+      "why": "The lab's blood-and-gore dressing off, so the surgery and meat rooms read as a working (if illegal) clinic rather than a crime scene or a massacre aftermath. The only vanilla switch for this variant is ma_wat_nid_06 turning it ON for its NCPD scene; in our timeline that activity never runs and the owner's base check is 'no blood, debris or crime scene', so we pin it off."
+    },
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_02_ripperdoc_lab_prefabJLST3PA/loc_sts_wat_kab_02_ripperdoc_lab_gameplay_prefabPNJ52AY/loc_sts_wat_kab_02_ripperdoc_lab_devices_prefabJDS2FRQ",
+      "states": {
+        "cameras": 1
+      },
+      "why": "The venue's security cameras shown/present. ma_wat_nid_06 hides them (cameras 0) so its assault is not watched by the lab's own security; a Maelstrom den with a restricted security area keeps its cameras, which is the intact 'security at work' look. The devices prefab also holds the doors and security areas, but the toggle only names the cameras variant, so nothing else is switched."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#kab_02_dvc_door_entrance",
+    "within": 80.0,
+    "why": "The lab's entrance door controller (DoorControllerPS) on the normal way in; vanilla ForceCloses it when the street story's combat starts, so the ref is known to be a real device of this venue. It is a device, not a workspot (rule 8), and it lives in the streetstory prefab this proposal loads, so it streams with the people. The catalogue has no $/ path for it (venue_inferred), so the tour should confirm it resolves; the resolved surgery door #kab_02_door_surgery_002a is the fallback if it does not."
+  }
+}

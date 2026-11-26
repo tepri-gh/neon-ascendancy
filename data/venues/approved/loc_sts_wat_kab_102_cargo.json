@@ -1,0 +1,43 @@
+{
+  "code": "sts_wat_kab_102_cargo",
+  "display_name": "Kabuki Docks Container Yard",
+  "why": "A fenced container yard on the Kabuki waterfront, used by the Regina Jones gig 'Welcome to America, Comrade' (baseid sts_wat_kab_102) as the place where a car hidden in a container is guarded and a GPS tracker has to be planted. With the campaign off, the yard is kept as a working dock: this proposal switches on vanilla's own pre-state crew - a container truck and the dock workers - and keeps the quest-only device variant off so no gig props or restricted-area markers appear.",
+  "source": {
+    "proposal": "research/loc_sts_wat_kab_102_cargo/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk into the yard from the dock street and confirm the dock workers and the container truck are there on a fresh approach. Check that the crew is spread out on the ground/tablet/smoking spots rather than bunched at one end.",
+      "Check that the yard populates on a fresh start from far away, not only after standing in it. The proximity anchor is the only device the venue declares, and it lives in the quest-only during_sts device variant, so the post-proximity re-activation may never fire.",
+      "Look for leftover gig props in normal play: no GPS tracker, laptop or security-area warning should be visible or hackable in the yard.",
+      "Confirm the yard is reachable on foot from the street and holds no locked gate or fence that needs opening; input.json declares no door controller for this venue."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#sts_wat_kab_102_prestate_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Vanilla's pre-state control phase switches this whole community on before the gig: one container truck (Vehicle.cs_savable_kaukaz_zeya_container) and the dock workers (Character.WorkerMale) on ground / chair / smoking / tablet workspots spread through the yard. That is exactly the intact working-dock look we want; the phase itself is not kept, so nothing switches it on in the clean slate. The spawner and its spots live in the world-streamed openworld prefab, so no quest prefab is needed."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_102_cargo_prefabOGVNRJA/loc_sts_wat_kab_102_cargo_gameplay_prefabOSPYYLI/loc_sts_wat_kab_102_devices_prefab2HJAHOY",
+      "states": {
+        "during_sts": 0
+      },
+      "why": "during_sts is the gig's device layer. Vanilla switches it on (show=1) when the street story starts and off (show=0) when it ends, and the streaming block ships it with enabledByDefault 0, so 0 is the normal, intact look: no GPS trackers, laptop, master access point, alarm or security-area markers left in a working yard. Setting it explicitly at boot also clears a save that still carries the quest state."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_04_psycho_penthouse_prefabRTUM27Y/loc_psycho_penthouse_gameplay_prefabIXQFTRQ/loc_psycho_penthouse_devices_prefabGBKGJRQ/lift_2_floors_001_prefabM6MLA3I/lift_1",
+    "within": 300.0,
+    "why": "Lead agent: the yard's only devices (the GPS trackers) sit in the quest-only during_sts variant, which stays off, so they never stream and a wait on them never resolves. The nearest ungated device is this LiftControllerPS in the Kabuki penthouse building, 214 m from the yard; within 300 m re-issues the crowd when V is near the yard."
+  }
+}
