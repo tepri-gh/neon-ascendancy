@@ -12,6 +12,7 @@ public struct NeonAscendancy_VenueProbe {
   public let workspot: String;
   public let door: String;
   public let community: String;
+  public let decoration: String;
 }
 
 // Dev-only in-game venue-access probe. Reports whether Neon-authored venue
@@ -120,6 +121,25 @@ private func NeonAscendancy_RepairDoor(game: GameInstance, path: String, range: 
   return "repaired";
 }
 
+// Item 2: report the Black Sapphire tower-gate decoration variant. The shutters
+// are sector/prefab variant groups (var_tower_gate_closed_* / _open_*), not a
+// device, so there is no PS state to read. Redscript exposes no getter for a
+// prefab variant's current state, so this logs whether the decoration node
+// resolves - the decisive signal. If it resolves and the shutters are still
+// closed, the toggle reached a node that is not the one rendering them.
+private func NeonAscendancy_LogDecorationVariant(game: GameInstance, path: String) -> Void {
+  if Equals(path, "") {
+    return;
+  }
+  const ref = NeonAscendancy_ResolveProbeRef(path);
+  let state = "unresolved";
+  if GlobalNodeRef.IsDefined(ref) {
+    const entity = GameInstance.FindEntityByID(game, Cast<EntityID>(ref));
+    state = (IsDefined(entity) ? "resolved+entity" : "resolved noEntity");
+  }
+  NcLogInfo(s"VenueProbe[black_sapphire_decoration]: resolve=\(state) ref=\(path)");
+}
+
 private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscendancy_VenueProbe) -> Void {
   // 1. Does the venue's key workspot ref resolve to a node?
   let workspotResolved = false;
@@ -178,6 +198,7 @@ private func NeonAscendancy_ProbeOneVenue(game: GameInstance, venue: NeonAscenda
   NcLogInfo(
     s"VenueProbe[\(venue.code)]: workspotResolved=\(workspotResolved) door=\(doorState) repair=\(repair) authModuleOn=\(authModule) communitySpawned=\(communityCount)"
   );
+  NeonAscendancy_LogDecorationVariant(game, venue.decoration);
 }
 
 // Run the whole probe once. `pass` distinguishes the post-bootstrap pass from the
@@ -202,7 +223,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "sts_wat_kab_07",
       "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_07_casino_bar_prefab43ERUKQ/loc_sts_wat_kab_07_casino_bar_openworld_prefabAH5TG5A/#sts_wat_kab_07_streetstory/loc_sts_wat_kab_07_casino_bar_combat_prefabH3W2SIY/#kab_07_ws_bottom_guard_001",
       "#kab_07_gate_001",
-      "#kab_07_com_enemies"
+      "#kab_07_com_enemies",
+      ""
     )
   );
   ArrayPush(
@@ -211,7 +233,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "konpeki_plaza",
       "$/03_night_city/c_watson/arasaka_waterfront/loc_q004_q005_arasaka_hotel_prefabSAJNFOI/loc_q004_q005_arasaka_hotel_questdesign_prefabNPCBDRY/#q005_pr_arasaka/#q005_ws_concierge_during_escape",
       "#konpeki_plaza_entrance_door",
-      "#q005_com_hotel_guests"
+      "#q005_com_hotel_guests",
+      ""
     )
   );
   ArrayPush(
@@ -220,7 +243,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "clouds",
       "$/03_night_city/c_westbrook/japan_town/loc_q105_dollhouse_prefabSOC2PJY/loc_q105_dollhouse_questdesign_prefabZ2ZMCDI/#q105_pr_dollhouse/#q105_ws_judys_van_dollhouse",
       "#q105_dvc_dollhouse_door_vip",
-      "#q105_com_dollhouse"
+      "#q105_com_dollhouse",
+      ""
     )
   );
   ArrayPush(
@@ -229,7 +253,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "all_foods",
       "$/03_night_city/c_watson/northside/wnid_07_prefab2UR7MHY/#loc_q003_meat_factory/loc_meat_factory_questdesign_prefabCIYNT2A/#q003_pr_quest/#q003_pr_00_base/#q003_ws_car_by_militech_ditch",
       "#q003_maelstrom_gate_entry",
-      "#q003_com_main_hall"
+      "#q003_com_main_hall",
+      ""
     )
   );
   ArrayPush(
@@ -238,7 +263,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "totentanz",
       "$/03_night_city/c_watson/northside/loc_sq011_totentanz_prefabOSRVQDA/#loc_sq011_totentanz_openworld/#loc_pre_quest_totentanz/#ws_totentanz_pre_quest_crowd_bar_standing_003",
       "#sq011_dvc_door_sliding_totentanz_entrance",
-      "#com_totentanz"
+      "#com_totentanz",
+      ""
     )
   );
   ArrayPush(
@@ -247,7 +273,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "battys_hotel",
       "$/03_night_city/#c_heywood/vista_del_rey/hvdr_02/hvdr_02_questdesign_prefabQGPW7TI/#batty_pr_roof/#batty_ws_roof",
       "",
-      "#batty_com_roof"
+      "#batty_com_roof",
+      ""
     )
   );
   ArrayPush(
@@ -256,7 +283,8 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "embers",
       "$/03_night_city/#c_heywood/glen/loc_q115_fancy_restaurant_prefabMOPJDYY/loc_q115_fancy_restaurant_questdesign_prefabXXJX6OQ/#q115_pr_restaurant/#q115_ws_hanako_bodyguard_street_000",
       "#q115_dvc_embers_elevator_bottom_door",
-      "#q115_com_restaurant_staff"
+      "#q115_com_restaurant_staff",
+      ""
     )
   );
   ArrayPush(
@@ -264,8 +292,19 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
     NeonAscendancy_VenueProbe(
       "black_sapphire",
       "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_q303_nighthawks_bar_prefabUYZLC4I/loc_q303_nighthawks_bar_questdesign_prefabIV4S35Q/#q303_pr_nighthawks/#q303_ws_nighthawks_customer_06",
-      "#q303_dvc_tech_warehouse_gate",
-      "#q303_com_paradise_technical_floor_guards"
+      "#q303_dvc_combat_tower_main_door",
+      "#q303_com_paradise_technical_floor_guards",
+      "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/#loc_q304_combat_tower/loc_q304_combat_tower_env_prefabSP26S2I/loc_q304_combat_tower_atrium_env_prefabCYXUQEI/deco_prefab3KUBUQY/#loc_q304_pr_combat_tower_decoration"
+    )
+  );
+  ArrayPush(
+    venues,
+    NeonAscendancy_VenueProbe(
+      "black_sapphire_sneak_in",
+      "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/#loc_q304_combat_tower/loc_q304_combat_tower_questdesign_prefabTYGHURA/#q303_pr_combat_tower/#q303_pr_paradise_technical/#q303_06b_paradise_technical/#q303_reed_end_laundry",
+      "#q303_dvc_tower_tech_laundry_door",
+      "",
+      ""
     )
   );
   ArrayPush(
@@ -274,6 +313,7 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "afterlife_backroom",
       "$/03_night_city/c_watson/little_china/#loc_q103_afterlife/loc_q103_afterlife_questdesign_prefabPGWI5FY/#q005_pr_afterlife/#q005_cin_01_plan/#q005_ws_dex_afterlife_01",
       "#q005_dvc_afterlife_briefing_room_door",
+      "",
       ""
     )
   );
@@ -283,12 +323,14 @@ public func NeonAscendancy_RunVenueProbe(game: GameInstance, pass: Int32) -> Voi
       "arasaka_tower",
       "$/03_night_city/#c_city_center/corpo_plaza/#loc_arasaka_tower/loc_arasaka_tower_questdesign_prefabDP2FMWA/#q113_pr_top_atrium_new/#q113_ws_propaganda_voice_atrium",
       "#q113_dvc_atrium_start_lift_door",
-      "#q113_com_atrium_scenes"
+      "#q113_com_atrium_scenes",
+      ""
     )
   );
 
   NcLogInfo(s"VenueProbe: start pass=\(pass) venues=\(ArraySize(venues))");
   NeonAscendancy_LogBridgeState(game, qs);
+  NeonAscendancy_LogDataterms(game);
   for venue in venues {
     NeonAscendancy_ProbeOneVenue(game, venue);
   }
@@ -443,5 +485,41 @@ private func NeonAscendancy_LogBridgeState(game: GameInstance, qs: QuestsSystem)
   NcLogInfo(
     s"BridgeState: watson_prolog_lock=\(qs.GetFact(n"watson_prolog_lock")) spawned[\(counts)] (expect 0 spawns after cleanup)"
   );
+}
+
+// Item 2 dataterm probe: report each Dogtown fast-travel dataterm's resolve and PS
+// state. A dataterm offers no interaction while IsUnpowered() or IsDisabled()
+// (dataTermController.swift:28/69), so this distinguishes "prefab not streamed"
+// (unresolved) from "present but dead" (resolved, powered=false) from "working".
+private func NeonAscendancy_LogDataterms(game: GameInstance) -> Void {
+  const refs: array<String> = [
+    "#stadium_data_term_001",
+    "#combat_zone_dataterm_01",
+    "#combat_zone_dataterm_02",
+    "#combat_zone_dataterm_03",
+    "#combat_zone_dataterm_05",
+    "#combat_zone_dataterm_06"
+  ];
+  let i = 0;
+  while i < ArraySize(refs) {
+    const nodeRef = NeonAscendancy_ResolveProbeRef(refs[i]);
+    let state = "unresolved";
+    if GlobalNodeRef.IsDefined(nodeRef) {
+      const entity = GameInstance.FindEntityByID(game, Cast<EntityID>(nodeRef));
+      const device = entity as Device;
+      if !IsDefined(device) {
+        state = "resolved noDevice";
+      } else {
+        const ps = device.GetDevicePS();
+        if !IsDefined(ps) {
+          state = "resolved noPS";
+        } else {
+          state = s"resolved powered=\(ps.IsPowered()) disabled=\(ps.IsDisabled())";
+        }
+      }
+    }
+    NcLogInfo(s"Dataterm[\(refs[i])]: \(state)");
+    i += 1;
+  }
 }
 
