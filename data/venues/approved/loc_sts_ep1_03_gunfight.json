@@ -1,0 +1,229 @@
+{
+  "code": "sts_ep1_03_gunfight",
+  "display_name": "Longshore Stacks courtyard (Jason Foreman vigil site)",
+  "why": "A container-stack housing courtyard in Longshore Stacks, built around a small chapel/shrine, where the sts_ep1_03 gig stages Jason Foreman's evening vigil and the crime-scene investigation. In our timeline Jason is alive and the gig never happens, so the yard is simply where the residents live. This proposal restores that normal life: the block's two netrunners, kids playing football, hopscotch and cyberarm games, a parent on the bench, residents smoking, drinking, repairing and praying at the shrine, and Briana Dolson as the Stacks' local representative. It also turns off the quest dressing (blood, gunfight effects, smoke, vigil memorial, memorial shards and scannable crime-scene clues).",
+  "source": {
+    "proposal": "research/loc_sts_ep1_03_gunfight/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the yard and confirm no murder-scene dressing remains. Check for blood, bullet impacts, spent casings, footprints or a police cordon with blood_cleaned=1 and gunfight_effects=0; if any are visible, the variant is reversed.",
+      "Check the shrine still reads as a memorial. With memorial=0, confirm the permanent candles/photos around the shrine/Tree of the Lost are still there; if the yard looks stripped, the gig toggle also controls the permanent memorial and should stay 1.",
+      "Check the courtyard's night lighting. With scenes=0, confirm the yard is lit like the surrounding stacks rather than stage-lit for a vigil; flip scenes to 1 if it is too dark.",
+      "Check where Briana stands. hana/A has no resolved spot, so confirm she is in the yard (not inside a container or on a roof) and reads as the local representative, not as a client waiting for V.",
+      "Check the synced pairs animate. Confirm the football pair (child/child_001), the bench pair (child_synk/parent_sync) and the hopscotch kid are playing rather than T-posed or standing apart.",
+      "Check no gig actors appear in the yard. Confirm Jason Foreman, his friends and the pre_gunfight community are absent, even though #sts_ep1_03_pre_gunfight_com is initial-active in the neighbouring ep1_ls_cz_12 prefab.",
+      "Check the population is present on arrival. The anchor is a neighbouring sandbox security system 37.5 m away; if the crowd only appears after standing in the yard for a while, move the anchor to a camera or gate closer to the spots.",
+      "Check no scannable clues remain. Scan the yard with clues_turned_off=1 and clues_after=0; if clue markers or a scanner prompt still appear, the clue states are reversed.",
+      "Check the crowd does not block the stairs or the shrine. The chosen spots are on three levels; confirm the stairs and the chapel door stay passable with all 21 people active."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_openworld_prefab3P2OSDA/#sts_ep1_03_gunfight_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "netrunner_friend",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "One of the block's two netrunners, standing at the rail with a cigarette. Rule 11a puts netrunners first; this is the only netrunner pair at the venue, and phase A is a plain smoke/stand-around pose, not a quest beat."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "young_netrunner",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The second netrunner, leaning on the opposite rail a few metres away. Keeping both makes the pair read as neighbourhood netrunners working the local signal, not a quest contact."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "child",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "One half of the synced football pair in the lower yard. A housing block with kids playing ball is the strongest sign the yard is lived-in rather than a vigil scene."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "child_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "The football partner for child; the two synced workspots only animate as a pair, so both must be activated together."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "child_synk",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A child sitting on the bench with a tired parent; normal family downtime and a second synced pair."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "parent_sync",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "The parent half of the bench pair; without her child_synk has nobody to sit with."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "youngster_doing_pics",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A kid playing hopscotch on the yard floor. Phase a is the hopscotch spot; the quest's b phase moves the same entry to a wait spot, so a is the normal one."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "youngster_doing_pics_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A kid sitting on the upper walkway playing with a cyberarm toy; another ordinary afternoon pose from the crowd's initial phase. Never use the entry's b phase, which has no resolved spot."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "youngster_doing_pics_002",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A kid lying on the ground with legs up the wall, on a phone. Reads as the same group of children hanging around the yard."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "hobo",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A homeless woman sitting on the ground with a bottle, part of the block's regular street life and not tied to the vigil."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "junkie",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A man lying back on a broken braindance set at the yard edge. A normal Dogtown sight, and far enough from the shrine not to disturb it."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_lowlife_man",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A resident standing on the upper landing with a bottle, watching the yard."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_lowlife_man_002",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A resident sitting on the stairs by the upper landing, filling the circulation route without blocking it."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_lowlife_woman",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A woman relaxing with her feet up at a table on the upper level; the yard's equivalent of a front porch."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_lowlife_woman_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Her neighbour at the same table, checking a phone. The two table spots are adjacent, so they read as a conversation."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_man_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A resident standing at the shrine in prayer. The chapel spot is a normal daily use of the yard, not the vigil."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_civilian_woman_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A woman smoking by the shrine steps, giving the lower yard a second ordinary loiterer."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "night_elder",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "An elderly resident seated in prayer at the shrine. The dedicated elder record gives the chapel a believable keeper-like presence."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "stacks_male_day_scraping",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A resident kneeling in the yard repairing something with a screwdriver. The one work-pose in the crowd, and exactly the kind of scrap maintenance Longshore Stacks lives on."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_crowd_com",
+      "entry_name": "stacks_male_005",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "A resident standing with a can, next to the repairman. Use phase a (the can spot); the entry's b phase is the vigil move-to spot activated by vanilla openworld."
+    },
+    {
+      "spawner": "#sts_ep1_03_gunfight_com",
+      "entry_name": "hana",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Briana Dolson, the Stacks' chosen local representative (the gig's client record sts_ep1_03_client), as the one named resident who gives the yard an owner figure. Phase A is her initial idle state; the b/c phases are her vigil conversation with V, so they are not used. No spot map resolved for this community, so her position needs a tour check.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_decoration_prefabJNVYPNQ",
+      "states": {
+        "blood_cleaned": 1,
+        "memorial": 0
+      },
+      "why": "No murder scene: blood_cleaned=1 is the cleaned yard state vanilla's gameplay phase sets, and memorial=0 removes the vigils' candles/photos/flowers set up for Jason. In our timeline Jason is alive and no vigil happens."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_fx_prefabEMIYUVA",
+      "states": {
+        "gunfight_effects": 0,
+        "smoke": 0
+      },
+      "why": "No gunfight and no fire/smoke aftermath in the yard. Vanilla turns both on for the gig's crime scene; the openworld phase itself turns smoke back off (smoke=0), which confirms 0 is the normal state."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_lighting_prefabJH2DU3Y",
+      "states": {
+        "scenes": 0
+      },
+      "why": "Normal neighbourhood lighting instead of the gig's staged scene lighting. Vanilla only sets scenes=1 for the vigil/crime-scene beat."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_gameplay_prefabXXKSX2I/loc_sts_ep1_03_gunfight_loot_prefabMNBBGNY",
+      "states": {
+        "memorial_shards": 0
+      },
+      "why": "No memorial shard/quest loot at the shrine; the yard is not a gig site in this timeline."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/container_zone_prefab4PZIADQ/loc_sts_ep1_03_gunfight_prefabDSNH7OA/loc_sts_ep1_03_gunfight_openworld_prefab3P2OSDA/#sts_ep1_03_gunfight_streetstory",
+      "states": {
+        "clues_after": 0,
+        "clues_turned_off": 1,
+        "interior_trigger": 0
+      },
+      "why": "Hide the gig's scannable crime-scene clues and keep the interior scene trigger off. clues_turned_off=1 is what vanilla sets while the clues are disabled; the cleanup phase leaves interior_trigger=0."
+    },
+    {
+      "prefab": "#loc_sts_ep1_03_gunfight_devices",
+      "states": {
+        "clues_turned_off": 1
+      },
+      "why": "Same clue shutdown on the venue's device prefab; gameplay sets 1 while the investigation is not available. The separate clues_var swap is left alone because its two states are not identifiable from names."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/boulevard_av_openworld_prefab2QCUN2I/boulevard_av_sandbox_activities_prefabR6UES5Y/sa_ep1_114_prefabJ2V4IIY/sa_ep1_114_gameplay_prefabLCJA7BA/sa_ep1_114_devices_prefabC7CKWWY/#sa_ep1_114_dvc_sec_sys",
+    "within": 80.0,
+    "why": "No usable door or terminal resolves at the courtyard: the devices in input.json are all venue_inferred, and the one resolved node (#sts_ep1_03_miniboss_doors) sits in the sibling West Wind Estate motel sector exterior_-10_-10_0_2. This is the nearest named device to the yard's spots, the security system of the adjacent sa_ep1_114 sandbox activity 37.5 m away; the 80 m proximity wait fires on the approach and streams the community prefab."
+  }
+}

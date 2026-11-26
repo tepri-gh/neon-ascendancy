@@ -1,0 +1,124 @@
+{
+  "code": "sts_wat_nid_02",
+  "display_name": "Revere Courier Services Facility",
+  "why": "A fenced two-storey courier depot in Northside: a small reception and a large parcel garage on the ground floor, two IT offices above, yard gates and a rooftop window. Tyger Claws use the former Revere Courier Services facility to launder cash and smuggle goods, so in normal play it is a working depot staffed by couriers and watched by Tyger Claws guards. This proposal restores exactly the ambient state vanilla's own street-story gameplay phase uses: the venue prefab with its gates and set dressing, the seven relaxed Tyger Claws at their posts, the four relaxed workers (receptionist on the phone, two standing, one on a tablet) and the courier van in the garage. Regina's gig, its chase crew and its objective triggers stay out.",
+  "source": {
+    "proposal": "research/loc_sts_wat_nid_02/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Drake Avenue and confirm the yard and building are enterable. Vanilla's open-world phase closes and unpowers the front door, upstairs door, backdoor and gates 000/002-005 while leaving gate_001, the opened door and the metal sliding gate open, so at least one route must reach the garage and reception.",
+      "Check the reception and stairwell doors are actually usable. #nid_02_dvc_front_door, #nid_02_dvc_front_door_upstairs and #nid_02_dvc_backdoor are closed and unpowered by vanilla and have no terminal, keycard or skill check, so only the runtime door policy can open them.",
+      "Walk into the garage and check the courier van. There should be exactly one RCS-style van, parked upright by the loading area, not duplicated, floating or clipping the parcel shelves.",
+      "Look at the seven Tyger Claws and confirm they are calm and on post. They should stand guard, sit on the couch, use the tablet and sit on the chair upstairs; if they turn hostile on sight, the venue needs an attitude decision because no venue field sets their group neutral.",
+      "Stand at reception and check the four workers. The receptionist should be on the phone behind the counter, the two couriers talking on the garage floor and the fourth on a tablet at the back, not stacked in one spot or stuck in a doorway.",
+      "Climb to the roof and check the skylight route. Vanilla's open-world phase force-closes and unpowers #nid_02_dvc_skylight and windows are outside the door policy, so confirm whether the roof way in (open window / stairwell door) still works.",
+      "Check the Collision_area variant did not add an invisible wall. If the yard or garage feels blocked, or parcel shelves are walk-through, this is the first switch to flip."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_watson/northside/loc_sts_wat_nid_02_prefabH3QN6SQ/#loc_sts_wat_nid_02_openworld/#loc_sts_wat_nid_02_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Vanilla's gameplay phase activates exactly this phase-A ganger set; ganger_001 stands at a tablet spot on the ground floor, so he reads as a guard doing paperwork rather than a quest ambusher."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Phase-A guard on a routine stand_ground spot next to ganger_001 at the garage desks; vanilla activates him with the ambient guards."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_007",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Sits in a chair on the phone at z~22.1, i.e. in one of the two upstairs offices, which is exactly the Tyger Claws' bookkeeping/laundering space the wiki describes."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_008",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Phase-A guard on a routine stand spot on the north side of the yard (z~18.1), where a courier front would keep a lookout."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_009",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Guard_stand workspot on the west side of the yard; vanilla uses him as an ambient guard, not a scene actor."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_010",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Sits on a garage couch (z~18.1) among the parcel shelves, the everyday off-shift guard pose of a gang-run depot."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "ganger_011",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Patrolling_stand spot on the west side, paired with ganger_009; the last of the seven phase-A guards vanilla switches on for this site."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "worker_001",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "One of the two couriers the wiki has discussing a shipment when V approaches; vanilla activates him in the ambient set, standing on the garage floor."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "worker_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The second half of the standing worker pair (spots 0.3 m apart) on the garage floor; two couriers talking is the depot's normal look."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "worker_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "The reception record standing on the phone spot at the lobby desk (z~18.1); this is the staffed front desk the wiki shows in the facility's reception."
+    },
+    {
+      "spawner": "#nid_02_combat_com",
+      "entry_name": "worker_004",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Worker on a tablet-use spot at the back of the garage (x~-1712), sorting or scanning parcels; vanilla activates him with the rest of the ambient staff."
+    },
+    {
+      "spawner": "#nid_02_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Vanilla's open-world phase activates this whole community with entry/phase None; its only entry is the RCS objective van, and a courier depot with a loaded van in the garage is the venue's normal state (the open-world phase, not the gig, puts it there)."
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_watson/northside/loc_sts_wat_nid_02_prefabH3QN6SQ/#loc_sts_wat_nid_02_openworld/#loc_sts_wat_nid_02_streetstory",
+      "states": {
+        "Collision_area": 1
+      },
+      "why": "The only variant vanilla touches on this prefab, and its only value: the always-running open-world phase shows Collision_area, i.e. the normal in-world state. The streaming block has enabledByDefault 0 for the same variant, so the venue must set it to match vanilla's ordinary look."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#nid_02_dvc_front_door",
+    "within": 80.0,
+    "why": "A DoorControllerPS with a resolved full path in the venue's own devices prefab, on the normal way in from the yard to reception, driven by vanilla (ForceClose/ForceUnpower by the open-world phase). Not a workspot, and it streams with the building."
+  }
+}

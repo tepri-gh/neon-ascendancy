@@ -1,0 +1,62 @@
+{
+  "code": "sq030_underwater_house",
+  "display_name": "Laguna Bend (submerged town)",
+  "why": "Laguna Bend is the drowned town at the bottom of the Laguna Bend Reservoir: Flo's Diner, Judy's childhood home, the fuel station and Saint Catherine's Church, all intact but submerged and toxic. Vanilla only dresses it for the sq030 dive, when Judy brings V down on a rope with a braindance, route glowsticks and scannable memory clues. Nobody lives or works there in normal play, so this proposal restores no people: it keeps the always-loaded ruins and pins the venue's device variants to the undisturbed post-dive state, with no clue markers and no glowstick route, and leaves the quest's dive machinery, the dive crane and Judy's spawn sets out.",
+  "source": {
+    "proposal": "research/loc_sq030_underwater_house/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Swim or teleport to the lake bed at the tour stop and confirm the ruined town is physically there without the quest prefab. The houses, diner, fuel station and church should stream from the env sections around (1183, -3350, 125); report grey proxies, holes or a missing town.",
+      "Look for quest clue markers and glowsticks among the ruins. None of the scannable clue props (photo, hockey stick, umbrella, doll, car, cross necklace) and no lit route sticks should be visible or scannable after the var_clues/glowstick pin.",
+      "Look north from the abandoned lake dwelling dock and confirm the dive crane is absent. It only exists inside the quest prefab; if its absence reads as a hole at the dive site, that is the one reason to load the quest prefab, so say so on the checklist.",
+      "Check whether V can reach the sunken town at all without the quest. Walk the dam slope or swim from the shore and report whether the lake bed is walkable, swimmable or blocked; that answer decides whether this venue ever needs an access feature.",
+      "Confirm the #sq030_dvc_hut_door_entry anchor streams at the dive site. It is the lake dwelling's front door, about 150 m from the ruins and outside the 80 m wait radius; with no people restored the wait gates nothing, but the tour should log the door so the anchor choice is verified."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq030_underwater_house_devices",
+      "states": {
+        "var_clues": 0
+      },
+      "why": "The underwater tour's scannable memory clues belong to the dive. Vanilla switches var_clues=1 on only for the exploration section and switches it back to 0 on its own exit branch, so 0 is the resting, undisturbed-ruins state. Pinning it guarantees no quest clue markers (the photo, hockey stick, umbrella, doll, car and the cross necklace) are left showing in a place no quest will ever visit."
+    },
+    {
+      "prefab": "#loc_sq030_underwater_house_devices",
+      "states": {
+        "var_glowstick_01": 0,
+        "var_glowstick_02": 0,
+        "var_glowstick_03": 0,
+        "var_glowstick_04": 0,
+        "var_glowstick_05": 0,
+        "var_glowstick_06": 0,
+        "var_glowstick_07": 0,
+        "var_glowstick_08": 0,
+        "var_glowstick_09": 0,
+        "var_glowstick_10": 0,
+        "var_glowstick_11": 0,
+        "var_glowsticks": 0
+      },
+      "why": "The glowsticks mark Judy's dive route and are lit only for the lake-test calibration; vanilla's exit branch turns every one of them off again. The ruins were 'almost completely undisturbed' by 2077, so the normal look is dark drowned ruins with no glowing route markers. This is exactly the state vanilla's own cleanup block sets."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      1183.16,
+      -3349.93,
+      125.36
+    ],
+    "source": "{sq030_ws_06_judy_lake_village_area_}02 in base/worlds/03_night_city/_compiled/default/quest_8b59cb9d56cc0685.streamingsector (the lake-bed stand spot Judy uses over the ruins; the water surface above is around z=166)"
+  },
+  "proximity_wait": {
+    "ref": "#sq030_dvc_hut_door_entry",
+    "within": 80.0,
+    "why": "The drowned village has no doors or terminals at all (input.json devices is empty), so the nearest real device on the way to it is the abandoned lake dwelling's front door, the shore cottage at the dive site where V and Judy put on the diving gear. It is a DoorControllerPS that vanilla itself drives (ForceUnlock), streams with the shore, and is the point a player physically arrives at before the water. The venue restores no people, so its proximity branch is empty; the anchor only gives the builder a real device and the tour a landmark."
+  }
+}

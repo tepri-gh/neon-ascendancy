@@ -1,0 +1,54 @@
+{
+  "code": "q111_pumpstation",
+  "display_name": "Wellsprings Water Treatment Facility (Pump Station)",
+  "why": "The pump station is the Wellsprings water treatment facility in Heywood: an outdoor plant on the coast with a service road, an AV landing pad on its north side, a homeless camp at the fence line and a small sand beach below it. In vanilla the beach hosts a timed mini world story, a rave of nine people (DJ, four male and three female ravers, a sitting child), which Clean Slate does not keep; this proposal restores that crowd, the beach prefab its workspots live in, and the DJ booth variant. The Peralez limo meeting on the AV pad and the divergent Delamain cab are quest events and stay out.",
+  "source": {
+    "proposal": "research/loc_q111_pumpstation/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the beach party spawns. Walk down to the sand below the pump station and confirm the DJ (#mws_hey_04_dj) at the booth, four male and three female ravers and the sitting child are present and dancing, not standing around in an alert pose.",
+      "Watch the DJ booth. Confirm the booth and speakers are standing next to the DJ's workspot (djbooth=1 applied at boot) rather than an empty patch of sand.",
+      "Walk from the AV pad to the beach. Confirm the proximity anchor fires (VariantToggle breadcrumb for this venue's prefix) so the second activation lands; if the beach crowd only appears on first boot, the anchor needs replacing.",
+      "Check the AV pad is clean. Confirm there is no Peralez limo, no AV, no invisible wall and no BD rig on the pad, and the pad is walkable end to end.",
+      "Check the north fence line. Confirm the homeless camp along the service road is the kept background crowd and that the beach rave did not duplicate or displace it."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/wellsprings/loc_q111_pumpstation_prefabE6MLOMI/loc_q111_pumpstation_questdesign_prefabD5KF5JQ/#mws_hey_04_pr_beach"
+  ],
+  "communities": [
+    {
+      "spawner": "#mws_hey_04_com_beach",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The venue's only patron group: the beach rave under the pump station. Vanilla switches the whole community on with entry None/phase None when its night world story starts (18:00-04:00, player in the beach trigger area) and off again on abort. With the mini world story not kept, the beach is empty; this restores the nine-strong crowd (DJ, four male and three female ravers, the sitting child) on its dance/sit workspots. The catalogue has no spot map, so the tour confirms they are calm and dancing.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#mws_hey_04_pr_env",
+      "states": {
+        "djbooth": 1
+      },
+      "why": "The DJ booth and its kit are a variant of the always-loaded env prefab; vanilla shows it (djbooth=1) exactly when the beach party is up and hides it (0) on abort. With the community restored, the DJ needs the booth standing next to his workspot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -2419.49,
+      -1115.59,
+      1.79
+    ],
+    "source": "median of the nine #mws_hey_04_*_beach community spots (#mws_hey_04_ws_dj_beach, #mws_hey_04_ws_raver_01..07_beach, #mws_hey_04_ws_sitter_01_beach) in base/worlds/03_night_city/_compiled/default/quest_88f47152aaf8acaa.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "#ma_hey_spr_06_dvc_sec_sys",
+    "within": 80.0,
+    "why": "The venue itself drives no device: the pump station prefabs hold only env, gameplay covers and props, and the catalogue's one device (#sq012_door_sex_shop_back_office ForceSeal) is a sex-shop door in the Glen, not here. The nearest real device to the beach spots is the Wellsprings block security box at the south edge of the compound (~32 m from the dance spots), a worldDeviceNode in the same sector as the facility: $/03_night_city/#c_heywood/wellsprings/spr_ma_prefabLNUJM7A/ma_hey_spr_06_prefabTWY4IJI/ma_hey_spr_06_gameplay_prefab5S7LDHA/#ma_hey_spr_06_devices/#ma_hey_spr_06_dvc_sec_sys."
+  }
+}

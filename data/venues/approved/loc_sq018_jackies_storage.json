@@ -1,0 +1,48 @@
+{
+  "code": "sq018_jackies_storage",
+  "display_name": "Jackie's Garage",
+  "why": "Jackie's garage is the roll-up-door storage unit in the alley behind El Coyote Cojo on Los Lobos, where the Welles family keeps Jackie's ARCH, his boxing gear, posters and mementos; Heroes only visits it so V can choose an ofrenda offering. In our timeline Jackie is alive and the garage is simply his: the base world already contains the interior shell, all its props and the gate, so this proposal only makes the gate usable, parks Jackie's ARCH inside on the quest section's own bike spot, and treats the room as a private workshop, not a wake. There are no community spawners here and no named character with a non-quest spot at this venue, so no people are added.",
+  "source": {
+    "proposal": "research/loc_sq018_jackies_storage/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in through the garage gate and confirm the interior is furnished. The shell and the props (posters, mandala, gym gear, photos, bottles, toolbox) are base-world refs in exterior_-19_-16_0_0, so they should be there without any quest section; if the room renders bare, the interior needs a section named explicitly.",
+      "Check the map and the alley for a Jackie's-garage pin, an explore prompt or an invisible vehicle block after the section loads. #sq018_pr_storage carries #sq018_mp_storage and explore/vehicle-forbidden triggers that should stay inert; if a pin, a tutorial popup or a blocked volume appears, drop the prefab and the bike with it.",
+      "Look at the parked bike: is it Jackie's ARCH, does it sit still, and can V ride it away? Only the spawn-set activation is reproduced, not vanilla's set-immovable and disable-interaction nodes, so the spawned bike may be drivable and may respawn on streaming.",
+      "Try the blue inner door. The 'Key to Jackie's Room' prop (#sq018_key_prop) comes with the proposed section; confirm it can be picked up, otherwise Jackie's back room is a permanent dead end.",
+      "Approach from the alley and confirm the door policy opens the gate. Vanilla only ForceDisables/ForceCloses it and its ref name says 'code', so a baked keypad seal here would make the whole venue unreachable.",
+      "Check the pedestrian door in the garage's device section (single_door_1_prefabXBCV7HI/single_door_1_prefabRS5MNXQ). It is base world and no quest drives it, so the runtime policy will not touch it; if it is the normal way in and it is locked, the gate is the only route.",
+      "Confirm the alley keeps its normal street crowd during the visit. The section has a crowd-null area (#sq018_tr_crowd_null_area_storage) that Heroes alone enables, so people should still walk past; if the alley goes silent, something else is nulling it."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/#c_heywood/glen/loc_sq018_jackies_storage_prefabXQ7H2NQ/loc_sq018_jackies_storage_quest_prefabK7IFQTI/#sq018_pr_storage"
+  ],
+  "communities": [],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#jackie_vehicle",
+      "entry_name": "bike",
+      "phase_name": "sq018_storage",
+      "why": "Jackie's ARCH parked in its own spot inside the garage is the one piece of life this venue has in vanilla, and the owner is alive so the bike is simply where it lives. 'sq018_storage' is the initial parked phase vanilla activates as V and Misty walk in; the second phase, 'sq018_storage_tune', only runs when fact q003_jackie_motorcycle_upgraded >= 1, which no quest in our timeline sets.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1175.85,
+      -998.8,
+      13.01
+    ],
+    "source": "#sq018_ws_misty_outside_storage, worldAISpotNode in base/worlds/03_night_city/_compiled/default/quest_d7cb69d4a72b4553.streamingsector: the curb spot outside the garage door where Heroes seats Misty; the gate is 5.6 m away."
+  },
+  "proximity_wait": {
+    "ref": "#sq018_dvc_gate_storage_code",
+    "within": 80.0,
+    "why": "The garage's roll-up gate on the alley side, a DoorControllerPS in the base-world gameplay section (path .../loc_sq018_jackies_storage_devices_prefabJCZBLGA/gate_1_prefabPS66Q4Q/#sq018_dvc_gate_storage_code), 5.6 m from the bike spot. Vanilla itself drives it (ForceDisabled in sq018_02_storage, ForceClose in sq018_03_funeral), so it is guaranteed to stream and carry a controller. A device, not a workspot (rule 8)."
+  }
+}

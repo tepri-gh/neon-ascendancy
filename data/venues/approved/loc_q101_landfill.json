@@ -1,0 +1,46 @@
+{
+  "code": "q101_landfill",
+  "display_name": "Night City Municipal Landfill",
+  "why": "The Night City Municipal Landfill is the open garbage dump east of Santo Domingo: trash hills, wrecked cars and the Warbler Lake waste facility, with the Wraiths Outpost on its eastern edge (each already its own venue). The dump's geometry and set dressing are baked into the always-loaded env prefab, so in the clean slate the place is already there, open and walkable; every q101, KOLD MIRAGE, These Boots and Epistrophy prop is a quest-only prefab. This proposal therefore restores no people and no sections - vanilla supplies no ambient community at the pit - and guards the one timeline-critical state: Dexter DeShawn is alive, so his corpse and loot must stay hidden.",
+  "source": {
+    "proposal": "research/loc_q101_landfill/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk the pit at the landfill centre and confirm no q101 aftermath is visible (no trash-cover mound, no blood or mud decals, no Dex loot, no Takemura car). The quest prefab that stages it is not loaded and nothing in this timeline produces it.",
+      "Confirm there is no Dexter DeShawn corpse or loot container anywhere in the dump. Dex is alive at the Afterlife, so the q101_dex_corpse variant must stay hidden; report if you find one.",
+      "Look for a parked Delamain cab or a Delamain AV among the junk and report it. Epistrophy's 'deep' cab and the sq025_deep_av state belong to a quest that never runs here.",
+      "Confirm Bartmoss's freezer is absent from the deep dump. It only exists while KOLD MIRAGE runs, and the prop (freezer, corpse, cyberdeck) is deliberately not loaded.",
+      "Look for any door, gate, barrier or terminal at the dump and report it. The converted sectors say the venue has no device of its own, which is why the proximity anchor is the Warbler Lake facility computer 322 m away.",
+      "Report whether any ambient pedestrian or scavenger crowd appears at the dump without a venue activation. Vanilla has no ambient community positions here, so an empty pit is the expected result; tell us if open-world crowds do show up, so the notes can record it.",
+      "Look east from the pit towards the Wraiths Outpost chimneys and confirm it is populated by its own approved venue rather than by anything here. That outpost (loc_sts_bls_ina_06) is the dump's only standing garrison."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_q101_landfill_loot",
+      "states": {
+        "q101_dex_corpse": 0
+      },
+      "why": "Guard, not restoration. Dexter DeShawn is alive in this timeline, so the landfill must never carry his body or the loot container on it. Vanilla only shows this state from the q101 landfill follow-up phase (and a nested persistent_content phase); the cooked default is already 0, so this entry simply keeps it off at boot."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "tour_stop": {
+    "position": [
+      1547.4,
+      -1978.6,
+      74.0
+    ],
+    "source": "vanilla workspots #q101_ws_dex_landfill (1547.42,-1978.57,73.57) and #q101_ws_take_kneels (1549.48,-1977.91,73.89) inside #q101_pr_landfill, exported from base/worlds/03_night_city/_compiled/default/quest_bc517ab05d9b1e1c.streamingsector (spot rows {q101_ws_dex_landfill}, {q101_ws_take_kneels})"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/se1/loc_sts_bls_ina_11_prefabLY7IQUY/loc_sts_bls_ina_11_gameplay_prefabWF6YGVQ/loc_sts_bls_ina_11_devices_prefab5C57ONQ/#ina_11_main_computer",
+    "within": 80.0,
+    "why": "The dump has no device entity of its own: in the 14 converted sectors that hold the landfill's geometry there are five devices, all inside the Warbler Lake hazardous-waste facility (loc_sts_bls_ina_11), and the nearest one - this main computer at 1385.3,-1671.8,51.4 - is 322 m from the q101 pit. The catalogue's own venue devices are two doors that resolve elsewhere (Wilson's range in Megabuilding H10 and the Delamain HQ garage in Vista del Rey), so this is the closest real device in the landfill area. With no communities to re-issue the wait is inert; if the venue ever gains people, widen within or replace it."
+  }
+}

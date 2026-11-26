@@ -1,0 +1,82 @@
+{
+  "code": "q000_roadhouse_town",
+  "display_name": "Yucca",
+  "why": "Yucca is the small truck-stop town just south of the SoCal border wall, on the last stretch before Night City: a car repair shop with its garage, a gas station, a diner/roadhouse with a food cart and gym, and the sheriff's office. Its buildings stream in with the open world, but its people do not, because the roadhouse crowd, the mechanic and the sheriff are all spawned by the Nomad prologue phases. This proposal activates vanilla's own whole-community roadhouse crowd (patrons, boxer and trainer, card and basketball players, kids, a guard, the food-cart vendor) and restores the two named residents at their relaxed daytime posts: the mechanic on his shop bench and Sheriff Andrew Jones on his porch. It also clears the garage-door blocker so the repair shop is enterable.",
+  "source": {
+    "proposal": "research/loc_q000_roadhouse_town/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Check the garage entrance. Walk into the repair-shop garage bay from the street: with var_garage_door_blocker=0 there should be no invisible wall, and #q000_dvc_garage_door should be open or openable by the door policy; if a wall remains, report where it sits.",
+      "Check the garage door device. Does #q000_dvc_garage_door stay sealed with no terminal, keycard, skill check or quickhack, so the runtime door policy is the only way in? Note what the door shows when looked at (locked, sealed, static).",
+      "Check the gate device. Does var_garage_gate_device=1 add a usable chain-link garage gate, or does it duplicate #q000_dvc_garage_door or leave a device with no visible mesh? Compare against leaving it at its prefab default.",
+      "Check the office door. Is #q000_nomad_garage_office_door (force-unsealed in the prologue) open in normal play, and is there a second closed door (#q000_nomad_dvc_car_shop_garage_to_office_door) between the garage bay and the mechanic's office?",
+      "Check the crowd. All 26 roadhouse people should appear on their workspots: boxing and training in the gym, cards and a table lean, basketball at the court, smokers on the ramp, the cart vendor at his cart, kids playing, and no entry standing in a T-pose, duplicated or in an alert pose.",
+      "Check the mechanic. Mike should be sitting on the bench inside the shop (03_resting_shop), not standing at the empty car spot or missing; if he is absent, the spawn set phase or its workspot did not resolve.",
+      "Check the sheriff. Andrew Jones should be leaning on his porch with a cigarette (03_porch) and should not confront or attack the player; if he is hostile, the town reads as a quest state.",
+      "Check the mirror. Does the garage office mirror at the prefab default show a normal reflection, or a black or doubled surface? If it is broken, set var_fake_mirror=1 (with var_real_mirror=0) and re-check.",
+      "Check for prologue leftovers. Walk the garage and the roadhouse lot and look for stuck quest props, an empty sheriff's-car marker, a hovering drone, a forced first-person view near the garage, or any trigger that resets the area; these come with the declared prefab and should be inert."
+    ]
+  },
+  "prefabs": [
+    "#q000_nomad_pr_roadhouse"
+  ],
+  "communities": [
+    {
+      "spawner": "#q000_nomad_com_roadhouse_people",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "Vanilla's own whole-community activation for the roadside bar: 26 locals in their initial 'default' phase - chat pairs at the counter and tables, a boxer and his trainer in the gym, three basketball players and two card players, the food-cart vendor, a wall-lean smoker, the ramp smokers, Jaime with his drone, the roadhouse guard, the fat man, kids playing, and a homeless kid on the couch. Every workspot this prefab exposes for these chats is a sit, stand, lean, smoke, box, cards or child-play pose, so the crowd reads as an ordinary afternoon rather than a scene. Posture is marked unknown in the catalogue because no community area node was resolved; the named workspots below prove the poses, and the entry-to-spot mapping for the few entries without a same-named spot (guard, kids, man_fat, man_re, woman_re, chat_02_man_001) still only reaches relaxed spots.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#california_mechanic",
+      "entry_name": "california_mechanic",
+      "phase_name": "03_resting_shop",
+      "why": "Mike, the Yucca repair-shop mechanic, at his normal daytime post: sitting back on the bench inside his shop, not standing at V's car as in the prologue's 01_garage_car phase. The 03_resting_shop spot is a bench rest in the shop, so this is the ambient, non-quest placement.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#california_sheriff",
+      "entry_name": "california_sheriff",
+      "phase_name": "03_porch",
+      "why": "Sheriff Andrew Jones at his normal post: leaning on his porch with a cigarette, instead of the prologue's 01_garage_start confrontation outside the garage. The 03_porch spot is a wall lean with a smoke at the sheriff's office, so this is the calm, non-quest placement.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#q000_nomad_pr_roadhouse",
+      "states": {
+        "var_garage_door_blocker": 0
+      },
+      "why": "Clears the invisible blocker vanilla puts across the repair-shop garage doorway until V fixes the car in the prologue. With the prologue gone nothing clears it, and the shop - a normal open business in this timeline - would be walled off."
+    },
+    {
+      "prefab": "$/03_night_city/sw2/loc_q000_roadhouse_town_prefabE7JYE5A/loc_q000_roadhouse_town_gameplay_prefabTLSJEZQ/loc_q000_roadhouse_town_devices_prefab6BA3HWY",
+      "states": {
+        "var_garage_gate_device": 1
+      },
+      "why": "Shows the garage-gate device in the normal town state. Vanilla sets it during the town phase (after V leaves the garage) and the q000 bugfix phase sets it again, so state 0 would leave the gate without its device."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -3991.89,
+      -6504.21,
+      75.83
+    ],
+    "source": "spot {q000_ws_roadhouse_chat_11_wall_lean} in sector base/worlds/03_night_city/_compiled/default/quest_cbcd87dcde6c1397.streamingsector; the roadhouse lot between the food cart, the gym and the bar seating"
+  },
+  "proximity_wait": {
+    "ref": "#q000_dvc_garage_door",
+    "within": 80.0,
+    "why": "The venue's only DoorControllerPS with a resolved path inside the town's gameplay prefab; it sits at the repair shop in the middle of the venue, next to the garage, the sheriff's porch and the roadhouse chats, and it is the door the prologue unseals."
+  }
+}

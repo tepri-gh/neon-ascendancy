@@ -1,0 +1,112 @@
+{
+  "code": "sts_wbr_jpn_03_shrine",
+  "display_name": "Chram Denya Jinja",
+  "why": "The Chram Denya Jinja is Japantown's Shinto shrine in North Oak: outer and inner torii, a chōzuya purification trough at the foot of the stairs, the honden and offering hall, a kagura stage, a gift shop, and changing rooms and back terraces behind the main hall. The shrine is run by shinshoku, visited for worship and photos, and the Tyger Claws have a strong presence there. In vanilla the courtyard crowd is already live in the clean slate (the kept Japantown district phase activates #jpn_03_com_openworld), but the shrine's inner section and everyone inside it - the monks at the trough, the shop visitor, and the Tyger guard detail - are instantiated only by the A Shrine Defiled street story, and the shrine's doors exist only while that gig's device variant is on. This proposal restores the inner section, its four shrine people and a seven-strong Tyger detail on their idle pre-gig posts, and pins the device variant so the hall doors and shop shutters exist.",
+  "source": {
+    "proposal": "research/loc_sts_wbr_jpn_03_shrine/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Compare the shrine with the sts device variant off. With sts=1 the hall and shop doors exist but are pinning the gig-era device set; if the place reads as sealed or staged (shut shop, shutters down), the fallback is sts=0, which leaves the inner section open but without door leaves - report which looks right.",
+      "Confirm the seven Tyger guards stay calm at their posts. They are all in pre-gig 0-phases (0Guard/0Guarding/0Spawn/0Smoke) with relaxed workspots, but whether a Tyger guard in those phases aggroes when V walks the public shrine can only be seen in game.",
+      "Check the two monks at the trough read as tending the chōzuya. Their 0Talk spot uses routine__kneel_ground_parts__scavenge, so confirm they look like they are cleaning the purification trough, not scrabbling for parts."
+    ]
+  },
+  "prefabs": [
+    "$/03_night_city/c_westbrook/north_oaks/loc_sts_wbr_jpn_03_shrine_prefab62JAV6Q/loc_sts_wbr_jpn_03_shrine_openworld_prefabCQXT5QI/#sts_wbr_jpn_03_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#jpn_03_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The shrine's own people, activated whole exactly as vanilla does at the start of the street story: MonkWater1 and MonkWater2 working at the trough (Character.Monk, 0Talk, kneeling at routine__kneel_ground_parts__scavenge), VisitorWell taking a selfie at the trough (0default, generic__stand_ground_selfie__take) and VisitorsShop browsing the gift shop (Visitor, generic__stand_ground__look_at_products). The catalogue resolves all four as relaxed; they are the shinshoku and worshippers the wiki says run and use the shrine."
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy1",
+      "phase_name": "0Guarding",
+      "action": "Activate",
+      "why": "One of the pair at the foot of the shrine stairs, standing guard over the entrance the whole venue is walked through. 0Guarding is the pre-gig guard post (patrolling\\guard_stand), not the fight: the combat phase moves this guard on only once V is detected. Set needs_tour_check because whether a 0-phase Tyger guard aggroes on sight is only observable in game.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy2",
+      "phase_name": "0Guarding",
+      "action": "Activate",
+      "why": "The second stair guard (guard_stand at 32.67,1596.85), pairing with Enemy1 at the outer gate so the way in reads as watched rather than empty. Vanilla also gives this entry a ScareHim phase during the gig; 0Guarding is the calm post before that.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy3",
+      "phase_name": "0Spawn",
+      "action": "Activate",
+      "why": "The Tyger keeper of the shrine, the only guard with a bespoke record (jpn_03_tyger_guard_emon_fujikura, the name the game gives the man running the site). 0Spawn is the pre-gig state and the spot is the wall by the gift shop (generic__stand_wall_lean_back__stand_around__02, 45.6,1634.05), leaning where he can watch the hall and the shop. He is the venue's owner-figure in our timeline.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy4",
+      "phase_name": "0Guarding",
+      "action": "Activate",
+      "why": "Inner-approach guard working a tablet (routine__stand_ground_tablet__use at 40.02,1588.61), the post vanilla calls 'guard_inside' - between the stairs and the courtyard. Gives the entrance more depth than the two stair posts alone.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy8",
+      "phase_name": "0Smoke",
+      "action": "Activate",
+      "why": "The detail's officer on a smoke break against the wall beside the shrine (routine__stand_wall_lean_back at 56.26,1598.5). 0Smoke is his off-the-clock posture, which is exactly what a normal day at a gang-held shrine looks like between jobs.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy12",
+      "phase_name": "0Guard",
+      "action": "Activate",
+      "why": "Off-duty guard sitting on the couch in the shrine's back lounge (generic__sit_couch__sit_around__03 at 58.62,1623.18), pairing with Enemy13. This is the 'gang hangs out in the back rooms' texture the shrine has in vanilla, without the fight.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#jpn_03_com_enemies",
+      "entry_name": "Enemy13",
+      "phase_name": "0Guard",
+      "action": "Activate",
+      "why": "Second off-duty guard on the back couch reading a tablet (generic__sit_couch_tablet__read__01 at 61.39,1625.38). Keeps the lounge from being an empty room with one man on it.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/c_westbrook/north_oaks/loc_sts_wbr_jpn_03_shrine_prefab62JAV6Q/loc_sts_wbr_jpn_03_shrine_gameplay_prefabRC3SF7Q/loc_sts_wbr_jpn_03_shrine_devices_prefab5CD6RRI",
+      "states": {
+        "sts": 1
+      },
+      "why": "The shrine's doors, shop window shutters and hall devices live only in this device prefab, which streams in as the 'sts' variant of five shrine exterior sectors and is off by default. Vanilla raises sts=1 for the street story and never lowers it again, and its own bugfix phase returns the double doors and big shutters to open and powered, i.e. 1 is the steady state the shrine is left in; at 0 the inner section has doorways with no door leaves. Pinned on so the restored inner hall and gift shop have their real doors, which the runtime door policy then powers and unseals. Flagged in open_questions because sts=1 is also what the gig turns on."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [
+    {
+      "ref": "#jpn_03_dvc_shutters_loot_room_001",
+      "why": "The gig's sealed loot-room shutter behind the gift-shop/hall area. There is no heist in our timeline, so the cache room should stay shut rather than being unsealed by the door policy and turned into free loot."
+    }
+  ],
+  "tour_stop": {
+    "position": [
+      33.88,
+      1598.02,
+      128.34
+    ],
+    "source": "#jpn_03_dvc_security_area_001 worldDeviceNode at 33.88,1598.02,128.34 at the foot of the shrine stairs, base/worlds/03_night_city/_compiled/default/exterior_0_24_2_0.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "$/03_night_city/c_westbrook/north_oaks/loc_sts_wbr_jpn_03_shrine_prefab62JAV6Q/loc_sts_wbr_jpn_03_shrine_gameplay_prefabRC3SF7Q/loc_sts_wbr_jpn_03_shrine_devices_prefab5CD6RRI/double_door_001_prefabNFK7XMQ/{double_door}_prefabTFBKWWY",
+    "within": 80.0,
+    "why": "The main-hall double doors between the courtyard and the honden: the first device a visitor meets on the way in, so the proximity re-issue fires once the inner section and its people have streamed in. Vanilla drives this door (streetstory closes and unpowers it, bugfixing opens and powers it again) and the device only exists with the sts variant the venue phase pins on, so the anchor is always there."
+  }
+}

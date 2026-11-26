@@ -149,3 +149,36 @@ the non-combat people. **(after tour)**
 47. **The Hammer, 2077** (`q101_backalley`, excluded). Should the planned
     new Hammer include this back alley and rooftop? Should Totentanz get a
     back-of-house? Where do Nancy, Denny and Henry belong (unplaced now)?
+48. **Dry Creek protein farm and Yucca** (`q000_protein_farm`,
+    `q000_roadhouse_town`). The farm sits about 1.2 km south of the border,
+    outside free roam. Should the border fix let V drive into the SoCal
+    prologue area, or do these stay scenery? Farm empty (proposed) or
+    Jackie's Badlands camp? Who holds Yucca (Scav, Aldecaldos supply stop,
+    NCPD)? Keep Sheriff Jones? Make the food cart and garage real vendors
+    later?
+49. **Chram Denya Jinja shrine** (`sts_wbr_jpn_03`). Seven Tyger guards
+    (proposed) or just the stair pair? Restore the interior's device set
+    (doors, shutters, honden terminal as fittings), or courtyard only?
+50. **High Peak VDB meeting ground** (`mq304_vdb_meeting`). Jago standing
+    there permanently (proposed)? A standing Voodoo Boys site, or neutral
+    construction they borrow?
+51. **Municipal landfill** (`q101_landfill`). Empty dump with a toggle-only
+    entry (proposed), or no entry? A scavenging or waste node in the org
+    game later?
+52. **Rancho Coronado coffee cart** (`sq017_emptystreet`). One silent
+    barista (proposed), an empty corner, or later a working coffee vendor?
+53. **Jackie's garage** (`sq018_jackies_storage`). Add Jackie there through
+    the cast layer, or keep him for the companion design? Open to V like any
+    venue, or shut like Judy's flat? Keep his ARCH parked inside (proposed)?
+54. **Laguna Bend drowned town** (`sq030_underwater_house`). Leave it an
+    unreachable landmark, or add a dive or boat route? Should Judy's dive
+    gear exist as ordinary equipment?
+55. **Revere Courier depot** (`sts_wat_nid_02`). Keep the courier van the
+    gig steals (proposed)? Open for business (proposed) or a shut-up Tyger
+    Claw front? Tyger Claws neutral here, or hostile on sight?
+56. **Wellsprings pump station beach** (`q111_pumpstation`). A permanent
+    beach rave (proposed) or just the homeless crowd? Invented staff or
+    security for the unmanned facility later?
+57. **Longshore Stacks courtyard** (`sts_ep1_03_gunfight`). A plain chapel
+    yard (proposed) or a permanent memorial for Jason Foreman? Briana Dolson
+    as the Stacks' resident representative?

@@ -2,6 +2,160 @@
  "generated_by": "tools/venue-proposals.py tour-stops",
  "stops": [
   {
+   "code": "q000_protein_farm",
+   "name": "Dry Creek's Farm",
+   "kind": "approved",
+   "venue": "loc_q000_protein_farm",
+   "pos": [
+    -3239.35,
+    -6736.65,
+    108.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Drive south from the SoCal Border Crossing and confirm a player can reach Dry Creek's Farm in free roam.",
+     "detail": "Drive south from the SoCal Border Crossing and confirm a player can reach Dry Creek's Farm in free roam. Vanilla seals the checkpoint and kills anyone who tries to pass; the farm's map pin (-3239, -6737) is about 1.15 km south of the checkpoint (-2836, -5663), so this may be a tour-only venue unless the border opens.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the farmyard and into the storage shack where Jackie waits in vanilla, and confirm the shed, TV and radio all stream without #q000_nomad_pr_pr...",
+     "detail": "Walk the farmyard and into the storage shack where Jackie waits in vanilla, and confirm the shed, TV and radio all stream without #q000_nomad_pr_protein_farm. The gameplay, devices and loot refs are in the always-streamed exterior_-51_-106_1_0 sector while only the camp and triggers are in quest_2aa9d17bde3f9140, so the shell should be there.",
+     "source": "open question"
+    },
+    {
+     "label": "Turn on the TV and use the radio in the shack and confirm both still interact.",
+     "detail": "Turn on the TV and use the radio in the shack and confirm both still interact. They are ordinary devices in the farm's always-loaded devices section, and q003's TV actions (which name the same #tv_1_q003) never run.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that the farm is empty of prologue props: no Jackie, no old car, no iguana crate, no meeting-point trigger firing and no Arasaka chase agents.",
+     "detail": "Check that the farm is empty of prologue props: no Jackie, no old car, no iguana crate, no meeting-point trigger firing and no Arasaka chase agents. The chase agents' community lives on the AV-chase route, not at the farm.",
+     "source": "open question"
+    },
+    {
+     "label": "Open the storage-shack door in free roam with no quest running.",
+     "detail": "Open the storage-shack door in free roam with no quest running. The catalogue knows no DoorControllerPS at the farm, so the runtime door policy will not touch it and it must be an ordinary interactive door.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q000_roadhouse_town",
+   "name": "Yucca",
+   "kind": "approved",
+   "venue": "loc_q000_roadhouse_town",
+   "pos": [
+    -3991.89,
+    -6504.21,
+    75.83
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q000_kid_homeless",
+    "Character.q000_roadhouse_town_boxer",
+    "Character.q000_roadhouse_town_fat",
+    "Character.q000_roadhouse_town_female",
+    "Character.q000_roadhouse_town_jaime",
+    "Character.q000_roadhouse_town_kids",
+    "Character.q000_roadhouse_town_male",
+    "Character.q000_roadhouse_town_male_defender_nova",
+    "Character.q000_roadhouse_town_male_defender_pulsar",
+    "Character.q000_roadhouse_town_male_defender_tactician",
+    "Character.q000_roadhouse_town_trainer",
+    "Character.q000_roadhouse_town_vendor",
+    "Character.q000_roadhouse_town_weightlifter"
+   ],
+   "spawn_sets": [
+    "#california_mechanic",
+    "#california_sheriff"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #q000_nomad_com_roadhouse_people (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the garage entrance.",
+     "detail": "Check the garage entrance. Walk into the repair-shop garage bay from the street: with var_garage_door_blocker=0 there should be no invisible wall, and #q000_dvc_garage_door should be open or openable by the door policy; if a wall remains, report where it sits.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the garage door device.",
+     "detail": "Check the garage door device. Does #q000_dvc_garage_door stay sealed with no terminal, keycard, skill check or quickhack, so the runtime door policy is the only way in? Note what the door shows when looked at (locked, sealed, static).",
+     "source": "open question"
+    },
+    {
+     "label": "Check the gate device.",
+     "detail": "Check the gate device. Does var_garage_gate_device=1 add a usable chain-link garage gate, or does it duplicate #q000_dvc_garage_door or leave a device with no visible mesh? Compare against leaving it at its prefab default.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the office door.",
+     "detail": "Check the office door. Is #q000_nomad_garage_office_door (force-unsealed in the prologue) open in normal play, and is there a second closed door (#q000_nomad_dvc_car_shop_garage_to_office_door) between the garage bay and the mechanic's office?",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crowd.",
+     "detail": "Check the crowd. All 26 roadhouse people should appear on their workspots: boxing and training in the gym, cards and a table lean, basketball at the court, smokers on the ramp, the cart vendor at his cart, kids playing, and no entry standing in a T-pose, duplicated or in an alert pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the mechanic.",
+     "detail": "Check the mechanic. Mike should be sitting on the bench inside the shop (03_resting_shop), not standing at the empty car spot or missing; if he is absent, the spawn set phase or its workspot did not resolve.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the sheriff.",
+     "detail": "Check the sheriff. Andrew Jones should be leaning on his porch with a cigarette (03_porch) and should not confront or attack the player; if he is hostile, the town reads as a quest state.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the mirror.",
+     "detail": "Check the mirror. Does the garage office mirror at the prefab default show a normal reflection, or a black or doubled surface? If it is broken, set var_fake_mirror=1 (with var_real_mirror=0) and re-check.",
+     "source": "open question"
+    },
+    {
+     "label": "Check for prologue leftovers.",
+     "detail": "Check for prologue leftovers. Walk the garage and the roadhouse lot and look for stuck quest props, an empty sheriff's-car marker, a hovering drone, a forced first-person view near the garage, or any trigger that resets the area; these come with the declared prefab and should be inert.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q000_border_crossing",
    "name": "SoCal Border Crossing",
    "kind": "approved",
@@ -853,6 +1007,99 @@
    ]
   },
   {
+   "code": "sts_ep1_03_gunfight",
+   "name": "Longshore Stacks courtyard (Jason Foreman vigil site)",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_03_gunfight",
+   "pos": [
+    -2148.55,
+    -2773.54,
+    39.26
+   ],
+   "radius": 44.5,
+   "expected_records": [
+    "Character.sts_ep1_03_client",
+    "Character.sts_ep1_03_gunfight_citizen_stacks_child",
+    "Character.sts_ep1_03_gunfight_citizen_stacks_elder_wa",
+    "Character.sts_ep1_03_gunfight_citizen_stacks_ma",
+    "Character.sts_ep1_03_gunfight_citizen_stacks_wa",
+    "Character.sts_ep1_03_gunfight_homeless_female",
+    "Character.sts_ep1_03_gunfight_junkie_male",
+    "Character.sts_ep1_03_gunfight_lowlife_female",
+    "Character.sts_ep1_03_gunfight_lowlife_male",
+    "Character.sts_ep1_03_gunfight_netrunner_friend",
+    "Character.sts_ep1_03_gunfight_young_netrunner"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #sts_ep1_03_gunfight_com (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: hana/A.",
+     "source": "community"
+    },
+    {
+     "label": "Walk the yard and confirm no murder-scene dressing remains.",
+     "detail": "Walk the yard and confirm no murder-scene dressing remains. Check for blood, bullet impacts, spent casings, footprints or a police cordon with blood_cleaned=1 and gunfight_effects=0; if any are visible, the variant is reversed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the shrine still reads as a memorial.",
+     "detail": "Check the shrine still reads as a memorial. With memorial=0, confirm the permanent candles/photos around the shrine/Tree of the Lost are still there; if the yard looks stripped, the gig toggle also controls the permanent memorial and should stay 1.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the courtyard's night lighting.",
+     "detail": "Check the courtyard's night lighting. With scenes=0, confirm the yard is lit like the surrounding stacks rather than stage-lit for a vigil; flip scenes to 1 if it is too dark.",
+     "source": "open question"
+    },
+    {
+     "label": "Check where Briana stands.",
+     "detail": "Check where Briana stands. hana/A has no resolved spot, so confirm she is in the yard (not inside a container or on a roof) and reads as the local representative, not as a client waiting for V.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the synced pairs animate.",
+     "detail": "Check the synced pairs animate. Confirm the football pair (child/child_001), the bench pair (child_synk/parent_sync) and the hopscotch kid are playing rather than T-posed or standing apart.",
+     "source": "open question"
+    },
+    {
+     "label": "Check no gig actors appear in the yard.",
+     "detail": "Check no gig actors appear in the yard. Confirm Jason Foreman, his friends and the pre_gunfight community are absent, even though #sts_ep1_03_pre_gunfight_com is initial-active in the neighbouring ep1_ls_cz_12 prefab.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the population is present on arrival.",
+     "detail": "Check the population is present on arrival. The anchor is a neighbouring sandbox security system 37.5 m away; if the crowd only appears after standing in the yard for a while, move the anchor to a camera or gate closer to the spots.",
+     "source": "open question"
+    },
+    {
+     "label": "Check no scannable clues remain.",
+     "detail": "Check no scannable clues remain. Scan the yard with clues_turned_off=1 and clues_after=0; if clue markers or a scanner prompt still appear, the clue states are reversed.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the crowd does not block the stairs or the shrine.",
+     "detail": "Check the crowd does not block the stairs or the shrine. The chosen spots are on three levels; confirm the stairs and the chapel door stay passable with all 21 people active.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q110_pacifica_mall",
    "name": "Grand Imperial Mall (GIM), Coastview",
    "kind": "approved",
@@ -946,6 +1193,71 @@
     {
      "label": "Do the #mq006_com_party spawn sets and their intro workspots stream only with the mq006 quest prefabs?",
      "detail": "Do the #mq006_com_party spawn sets and their intro workspots stream only with the mq006 quest prefabs? If they need a quest sector that never loads, the rollercoaster locals will stand at their spawn origin instead of their workspots.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q111_pumpstation",
+   "name": "Wellsprings Water Treatment Facility (Pump Station)",
+   "kind": "approved",
+   "venue": "loc_q111_pumpstation",
+   "pos": [
+    -2419.49,
+    -1115.59,
+    1.79
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.ChildPoor",
+    "Character.LowlifeMale",
+    "Character.LowlifeWoman"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mws_hey_04_com_beach (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Check the beach party spawns.",
+     "detail": "Check the beach party spawns. Walk down to the sand below the pump station and confirm the DJ (#mws_hey_04_dj) at the booth, four male and three female ravers and the sitting child are present and dancing, not standing around in an alert pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Watch the DJ booth.",
+     "detail": "Watch the DJ booth. Confirm the booth and speakers are standing next to the DJ's workspot (djbooth=1 applied at boot) rather than an empty patch of sand.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk from the AV pad to the beach.",
+     "detail": "Walk from the AV pad to the beach. Confirm the proximity anchor fires (VariantToggle breadcrumb for this venue's prefix) so the second activation lands; if the beach crowd only appears on first boot, the anchor needs replacing.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the AV pad is clean.",
+     "detail": "Check the AV pad is clean. Confirm there is no Peralez limo, no AV, no invisible wall and no BD rig on the pad, and the pad is walkable end to end.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the north fence line.",
+     "detail": "Check the north fence line. Confirm the homeless camp along the service road is the kept background crowd and that the beach rave did not duplicate or displace it.",
      "source": "open question"
     }
    ]
@@ -2393,6 +2705,74 @@
    ]
   },
   {
+   "code": "sq018_jackies_storage",
+   "name": "Jackie's Garage",
+   "kind": "approved",
+   "venue": "loc_sq018_jackies_storage",
+   "pos": [
+    -1175.85,
+    -998.8,
+    13.01
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [
+    "#jackie_vehicle"
+   ],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk in through the garage gate and confirm the interior is furnished.",
+     "detail": "Walk in through the garage gate and confirm the interior is furnished. The shell and the props (posters, mandala, gym gear, photos, bottles, toolbox) are base-world refs in exterior_-19_-16_0_0, so they should be there without any quest section; if the room renders bare, the interior needs a section named explicitly.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the map and the alley for a Jackie's-garage pin, an explore prompt or an invisible vehicle block after the section loads.",
+     "detail": "Check the map and the alley for a Jackie's-garage pin, an explore prompt or an invisible vehicle block after the section loads. #sq018_pr_storage carries #sq018_mp_storage and explore/vehicle-forbidden triggers that should stay inert; if a pin, a tutorial popup or a blocked volume appears, drop the prefab and the bike with it.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the parked bike: is it Jackie's ARCH, does it sit still, and can V ride it away?",
+     "detail": "Look at the parked bike: is it Jackie's ARCH, does it sit still, and can V ride it away? Only the spawn-set activation is reproduced, not vanilla's set-immovable and disable-interaction nodes, so the spawned bike may be drivable and may respawn on streaming.",
+     "source": "open question"
+    },
+    {
+     "label": "Try the blue inner door.",
+     "detail": "Try the blue inner door. The 'Key to Jackie's Room' prop (#sq018_key_prop) comes with the proposed section; confirm it can be picked up, otherwise Jackie's back room is a permanent dead end.",
+     "source": "open question"
+    },
+    {
+     "label": "Approach from the alley and confirm the door policy opens the gate.",
+     "detail": "Approach from the alley and confirm the door policy opens the gate. Vanilla only ForceDisables/ForceCloses it and its ref name says 'code', so a baked keypad seal here would make the whole venue unreachable.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the pedestrian door in the garage's device section (single_door_1_prefabXBCV7HI/single_door_1_prefabRS5MNXQ).",
+     "detail": "Check the pedestrian door in the garage's device section (single_door_1_prefabXBCV7HI/single_door_1_prefabRS5MNXQ). It is base world and no quest drives it, so the runtime policy will not touch it; if it is the normal way in and it is locked, the gate is the only route.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the alley keeps its normal street crowd during the visit.",
+     "detail": "Confirm the alley keeps its normal street crowd during the visit. The section has a crowd-null area (#sq018_tr_crowd_null_area_storage) that Heroes alone enables, so people should still walk past; if the alley goes silent, something else is nulling it.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sq021_police_lab",
    "name": "NCPD Lab (The Glen)",
    "kind": "approved",
@@ -3601,6 +3981,80 @@
     {
      "label": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is no...",
      "detail": "Variant `#loc_sq011_totentanz_audio` crowd_party semantics: it is toggled with the crowd (1 when the party crowd is in, 0 at cleanup), but it is not documented; confirm it is the club ambience/party layer and not a quest-only mix.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_wat_nid_02",
+   "name": "Revere Courier Services Facility",
+   "kind": "approved",
+   "venue": "loc_sts_wat_nid_02",
+   "pos": [
+    -1679.42,
+    2011.68,
+    18.15
+   ],
+   "radius": 60.9,
+   "expected_records": [
+    "Character.sts_wat_nid_02_tyger_claws_biker1_melee1_fists_ma",
+    "Character.sts_wat_nid_02_tyger_claws_biker2_melee2_baseball_ma",
+    "Character.sts_wat_nid_02_tyger_claws_gangster1_ranged1_copperhead_wa",
+    "Character.sts_wat_nid_02_tygerclaw_rifle",
+    "Character.sts_wat_nid_02_tygerclaw_smg_saratoga",
+    "Character.sts_wat_nid_02_worker_reception",
+    "Character.sts_wat_nid_02_workers"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk in from Drake Avenue and confirm the yard and building are enterable.",
+     "detail": "Walk in from Drake Avenue and confirm the yard and building are enterable. Vanilla's open-world phase closes and unpowers the front door, upstairs door, backdoor and gates 000/002-005 while leaving gate_001, the opened door and the metal sliding gate open, so at least one route must reach the garage and reception.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the reception and stairwell doors are actually usable.",
+     "detail": "Check the reception and stairwell doors are actually usable. #nid_02_dvc_front_door, #nid_02_dvc_front_door_upstairs and #nid_02_dvc_backdoor are closed and unpowered by vanilla and have no terminal, keycard or skill check, so only the runtime door policy can open them.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk into the garage and check the courier van.",
+     "detail": "Walk into the garage and check the courier van. There should be exactly one RCS-style van, parked upright by the loading area, not duplicated, floating or clipping the parcel shelves.",
+     "source": "open question"
+    },
+    {
+     "label": "Look at the seven Tyger Claws and confirm they are calm and on post.",
+     "detail": "Look at the seven Tyger Claws and confirm they are calm and on post. They should stand guard, sit on the couch, use the tablet and sit on the chair upstairs; if they turn hostile on sight, the venue needs an attitude decision because no venue field sets their group neutral.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand at reception and check the four workers.",
+     "detail": "Stand at reception and check the four workers. The receptionist should be on the phone behind the counter, the two couriers talking on the garage floor and the fourth on a tablet at the back, not stacked in one spot or stuck in a doorway.",
+     "source": "open question"
+    },
+    {
+     "label": "Climb to the roof and check the skylight route.",
+     "detail": "Climb to the roof and check the skylight route. Vanilla's open-world phase force-closes and unpowers #nid_02_dvc_skylight and windows are outside the door policy, so confirm whether the roof way in (open window / stairwell door) still works.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the Collision_area variant did not add an invisible wall.",
+     "detail": "Check the Collision_area variant did not add an invisible wall. If the yard or garage feels blocked, or parcel shelves are walk-through, this is the first switch to flip.",
      "source": "open question"
     }
    ]
@@ -5350,6 +5804,69 @@
    ]
   },
   {
+   "code": "sq017_emptystreet",
+   "name": "Empty Street coffee cart (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_sq017_emptystreet",
+   "pos": [
+    348.69,
+    -1416.84,
+    15.32
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sq017_filipino_barista"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #sq017_com_filipino_barista (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: sq017_filipino_barista/sq017_barista_start.",
+     "source": "community"
+    },
+    {
+     "label": "Stand at the cart and check the barista is serving.",
+     "detail": "Stand at the cart and check the barista is serving. Walk to (348.7,-1416.8) and confirm Character.sq017_filipino_barista is standing at the counter in the relaxed bar-lean, not missing, T-posed or crouched.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the cart, counter and cups read as a normal coffee stand.",
+     "detail": "Check the cart, counter and cups read as a normal coffee stand. The coffee cups, sit/stand interaction entities and food tokens are always-streamed quest props; confirm they look like an ordinary cart and no invisible sit prompt appears at an empty counter.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the door beside the cart opens.",
+     "detail": "Check the door beside the cart opens. The anchor door at (348.1,-1411.1) is a plain world single_door with no quest action; confirm it is powered and unlocked in normal play.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the corner appears once.",
+     "detail": "Check the corner appears once. Confirm the coffee cart, barista and storefront are not duplicated after the venue phase and the district stream have both run.",
+     "source": "open question"
+    },
+    {
+     "label": "Check no sq017 scene leftovers are visible.",
+     "detail": "Check no sq017 scene leftovers are visible. Confirm there is no parked Galena, no Kerry, and no meeting-position marker or scene prop floating at the corner.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "sq017_fast_food",
    "name": "Capitán Caliente (Rancho Coronado fast-food restaurant)",
    "kind": "approved",
@@ -5624,6 +6141,65 @@
    ]
   },
   {
+   "code": "sts_wbr_jpn_03_shrine",
+   "name": "Chram Denya Jinja",
+   "kind": "approved",
+   "venue": "loc_sts_wbr_jpn_03_shrine",
+   "pos": [
+    33.88,
+    1598.02,
+    128.34
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.Monk",
+    "Character.SlackerFemale",
+    "Character.jpn_03_tyger_guard_emon_fujikura",
+    "Character.jpn_03_tyger_guard_handgun",
+    "Character.jpn_03_tyger_guard_officer",
+    "Character.jpn_03_tyger_guard_rifle",
+    "Character.jpn_03_tyger_guard_wa"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #jpn_03_com_enemies (7 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: Enemy1/0Guarding, Enemy2/0Guarding, Enemy3/0Spawn, Enemy4/0Guarding, Enemy8/0Smoke, Enemy12/0Guard, Enemy13/0Guard.",
+     "source": "community"
+    },
+    {
+     "label": "Compare the shrine with the sts device variant off.",
+     "detail": "Compare the shrine with the sts device variant off. With sts=1 the hall and shop doors exist but are pinning the gig-era device set; if the place reads as sealed or staged (shut shop, shutters down), the fallback is sts=0, which leaves the inner section open but without door leaves - report which looks right.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the seven Tyger guards stay calm at their posts.",
+     "detail": "Confirm the seven Tyger guards stay calm at their posts. They are all in pre-gig 0-phases (0Guard/0Guarding/0Spawn/0Smoke) with relaxed workspots, but whether a Tyger guard in those phases aggroes when V walks the public shrine can only be seen in game.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the two monks at the trough read as tending the chōzuya.",
+     "detail": "Check the two monks at the trough read as tending the chōzuya. Their 0Talk spot uses routine__kneel_ground_parts__scavenge, so confirm they look like they are cleaning the purification trough, not scrabbling for parts.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q114_tunnel_site",
    "name": "Maglev Tunnel Construction Site (Badlands)",
    "kind": "approved",
@@ -5755,6 +6331,128 @@
     {
      "label": "Confirm Judy is not duplicated here.",
      "detail": "Confirm Judy is not duplicated here. She should still be at her Charter Street apartment, not at the cottage or on the pier.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sq030_underwater_house",
+   "name": "Laguna Bend (submerged town)",
+   "kind": "approved",
+   "venue": "loc_sq030_underwater_house",
+   "pos": [
+    1183.16,
+    -3349.93,
+    125.36
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Swim or teleport to the lake bed at the tour stop and confirm the ruined town is physically there without the quest prefab.",
+     "detail": "Swim or teleport to the lake bed at the tour stop and confirm the ruined town is physically there without the quest prefab. The houses, diner, fuel station and church should stream from the env sections around (1183, -3350, 125); report grey proxies, holes or a missing town.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for quest clue markers and glowsticks among the ruins.",
+     "detail": "Look for quest clue markers and glowsticks among the ruins. None of the scannable clue props (photo, hockey stick, umbrella, doll, car, cross necklace) and no lit route sticks should be visible or scannable after the var_clues/glowstick pin.",
+     "source": "open question"
+    },
+    {
+     "label": "Look north from the abandoned lake dwelling dock and confirm the dive crane is absent.",
+     "detail": "Look north from the abandoned lake dwelling dock and confirm the dive crane is absent. It only exists inside the quest prefab; if its absence reads as a hole at the dive site, that is the one reason to load the quest prefab, so say so on the checklist.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether V can reach the sunken town at all without the quest.",
+     "detail": "Check whether V can reach the sunken town at all without the quest. Walk the dam slope or swim from the shore and report whether the lake bed is walkable, swimmable or blocked; that answer decides whether this venue ever needs an access feature.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm the #sq030_dvc_hut_door_entry anchor streams at the dive site.",
+     "detail": "Confirm the #sq030_dvc_hut_door_entry anchor streams at the dive site. It is the lake dwelling's front door, about 150 m from the ruins and outside the 80 m wait radius; with no people restored the wait gates nothing, but the tour should log the door so the anchor choice is verified.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "q101_landfill",
+   "name": "Night City Municipal Landfill",
+   "kind": "approved",
+   "venue": "loc_q101_landfill",
+   "pos": [
+    1547.4,
+    -1978.6,
+    74.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Walk the pit at the landfill centre and confirm no q101 aftermath is visible (no trash-cover mound, no blood or mud decals, no Dex loot, no Takemur...",
+     "detail": "Walk the pit at the landfill centre and confirm no q101 aftermath is visible (no trash-cover mound, no blood or mud decals, no Dex loot, no Takemura car). The quest prefab that stages it is not loaded and nothing in this timeline produces it.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm there is no Dexter DeShawn corpse or loot container anywhere in the dump.",
+     "detail": "Confirm there is no Dexter DeShawn corpse or loot container anywhere in the dump. Dex is alive at the Afterlife, so the q101_dex_corpse variant must stay hidden; report if you find one.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for a parked Delamain cab or a Delamain AV among the junk and report it.",
+     "detail": "Look for a parked Delamain cab or a Delamain AV among the junk and report it. Epistrophy's 'deep' cab and the sq025_deep_av state belong to a quest that never runs here.",
+     "source": "open question"
+    },
+    {
+     "label": "Confirm Bartmoss's freezer is absent from the deep dump.",
+     "detail": "Confirm Bartmoss's freezer is absent from the deep dump. It only exists while KOLD MIRAGE runs, and the prop (freezer, corpse, cyberdeck) is deliberately not loaded.",
+     "source": "open question"
+    },
+    {
+     "label": "Look for any door, gate, barrier or terminal at the dump and report it.",
+     "detail": "Look for any door, gate, barrier or terminal at the dump and report it. The converted sectors say the venue has no device of its own, which is why the proximity anchor is the Warbler Lake facility computer 322 m away.",
+     "source": "open question"
+    },
+    {
+     "label": "Report whether any ambient pedestrian or scavenger crowd appears at the dump without a venue activation.",
+     "detail": "Report whether any ambient pedestrian or scavenger crowd appears at the dump without a venue activation. Vanilla has no ambient community positions here, so an empty pit is the expected result; tell us if open-world crowds do show up, so the notes can record it.",
+     "source": "open question"
+    },
+    {
+     "label": "Look east from the pit towards the Wraiths Outpost chimneys and confirm it is populated by its own approved venue rather than by anything here.",
+     "detail": "Look east from the pit towards the Wraiths Outpost chimneys and confirm it is populated by its own approved venue rather than by anything here. That outpost (loc_sts_bls_ina_06) is the dump's only standing garrison.",
      "source": "open question"
     }
    ]
