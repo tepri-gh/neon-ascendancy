@@ -1,0 +1,193 @@
+# Venue Playbook
+
+How to make a quest-only venue accessible and populated in the clean-slate
+world, and the rules we learned the hard way. Read this before changing
+`data/clean-slate/venue_phases.json`, `data/clean-slate/cast_and_hubs.json`,
+or the venue code in `tools/build-clean-slate.py`.
+
+Background research: [`research/world-access.md`](research/world-access.md)
+(lock mechanisms, options). This playbook supersedes its §5 open probes where
+they overlap.
+
+## 1. What a venue needs
+
+Every venue fix so far came down to four ingredients. Vanilla quest phases
+already define all four; we copy them, never invent them.
+
+| Ingredient | Vanilla source | Spec key |
+| --- | --- | --- |
+| Building sections (interiors, props) | a phase's `phasePrefabs` | `prefabs` |
+| People: crowds, staff, guards | `questCommunityTemplate_NodeType` (spawner ref + entry + phase) | `communities` |
+| Named NPCs (Woodman, Hansen, Dexter) | `questSpawnSet_NodeType` (reference + entry + phase), sometimes a community | `spawn_sets` |
+| Door and device state | `questDeviceManager_NodeType` (controller class + action) | `doors` |
+| Baked geometry states (shutters, barricades, dataterms) | `questTogglePrefabVariant_NodeType` | `variant_toggles` |
+
+## 2. How the builder wires a venue
+
+- **One quest phase per venue**: `mod\neon_ascendancy\venue_<code>.questphase`.
+  All venue phases fan out from one gate pause (`gate` in the spec). A broken
+  venue can then only empty itself.
+- **Parallel branches, never serial chains.** Per venue:
+  hub → branch fact →
+  1. every community and spawn-set activation as its own leaf, at boot;
+  2. variant toggles at boot, with no proximity wait;
+  3. `_prewait` → proximity wait on a device → `_prox` → communities and spawn
+     sets re-issued as leaves, plus the device actions as a leaf.
+- **Debug breadcrumbs.** `debug_fact_prefix` makes the builder set
+  `<prefix>_branch`, `_prewait`, `_prox`, `_reached` and `_done`. Add the
+  prefix to `VenueProbe.reds`, and the probe logs them once a minute to
+  `red4ext/logs/neonascendancy-*.log` as `VariantToggle[<prefix>]: ...`. That
+  shows exactly where a branch stops.
+- `--check` enforces the topology: one owner per prefab, leaves with exactly
+  one incoming edge, and re-issue counts.
+
+## 3. Rules, each learned from a real failure
+
+**Phases and prefabs**
+
+1. **A phase that fails to instantiate runs nothing, silently.** Symptom:
+   `branch=0`. Usually one of rules 2–3.
+2. **A prefab declared twice breaks the phase**, whether in one phase, across
+   venue phases, or against a kept vanilla phase or `cast_and_hubs`. Each
+   prefab gets one owner. If another phase already owns it, give the venue no
+   `prefabs` and set `deferred_prefab_owner` to the owner.
+3. **`#` short refs only resolve for authored (tagged) node names.** Untagged
+   nodes (`..._prefabXXXXXXX`) need the full `$/03_night_city/...` path. Take
+   it from the streaming block (`all.streamingblock`, a descriptor's
+   `questPrefabNodeRef` or a variant's `nodeRef`). The builder rejects untagged
+   `#` refs.
+4. **A serial chain stalls if any spawn or device node never completes.** Use
+   parallel leaves (§2).
+
+**Timing and streaming**
+
+5. **Variant toggles work at boot, without proximity** (the Watson barricades
+   proved it).
+6. **Communities need activating twice: at boot, and again after
+   proximity.** On a fresh start, a one-shot boot activation misses venues
+   that haven't streamed in yet.
+7. **Device actions need the entity streamed in**, so they run after the
+   proximity wait.
+8. **Proximity anchors must be device entities** (a door, an alarm, a
+   dataterm), not workspots. A workspot anchor never fired at Clouds.
+
+**People**
+
+9. **Pick community phases by their workspot, not by their name.** A phase is
+   a set of spots, and each spot plays a workspot animation.
+   - `start`, `bar`, `end` and similar phases usually use `routine\...`
+     workspots (sit, lean, use a tablet).
+   - `hostile`, `after_*` and lockdown phases use
+     `generic__stand_ground_gun__nervous__*` or `patrolling\..._agitated_shuffle`.
+     NPCs on those look alert, crouched or "sheltering", even when not hostile.
+
+   At Clouds, `after_woodman` looked harmless by name but is the
+   post-interrogation lockdown. See §4.2 for how to check.
+10. **Drop combat, hostile, scene, cutscene and interrogation phases** unless
+    one is chosen on purpose and its workspot is checked. Example: Woodman's
+    `q105_interrogation_friendly_start` spawn set is idle behind his desk.
+11. **Named NPCs often come from spawn sets, not communities.** Woodman is
+    `#woodman`, Hansen is `#kurtz` / `q303_restaurant_host`. Copy vanilla's
+    exact reference, entry and phase. The cast layer (`cast_and_hubs.json`)
+    holds city-wide named NPCs; venue phases hold venue staff.
+
+**Doors and devices**
+
+12. **Door policy** (the owner's, recorded as `door_policy` in the spec):
+    - Doors are closed by default but usable: enable and power them, and
+      unlock only where there is otherwise no way through.
+    - Never `ForceOpen`.
+    - Doors with an in-world way through stay exactly vanilla: a terminal, a
+      keycard somewhere in the world, a quickhack, or a Technical or Body
+      check.
+
+    The engine's own "no way to open" test is `doorController.swift:84`:
+    `IsLocked() && !IsAuthorizationValid() && !canPlayerToggleLockState() &&
+    !HasAnySkillCheckActive() && !CanCreateAnyQuickHackActions()`. The
+    look-at logger prints those inputs. The only exception so far is the
+    Black Sapphire sneak-in route.
+13. **Lift floor access comes from its floor terminals**, the slave
+    `ElevatorFloorTerminalControllerPS` devices
+    (`liftController.swift`, `GetFloorAuthorizationFromSlaves`).
+    `AuthorizationDisable` on the `LiftControllerPS` does nothing for floor
+    access. A hackable lift stays vanilla under rule 12.
+14. **Baked shutters are mesh (`worldCookedStaticMeshNode`), not devices.**
+    Only a variant toggle opens them (Black Sapphire tower gate).
+15. **Never touch journal, map pin, phone or holocall controllers.** The
+    spec's `forbidden_*` lists enforce this, and `allowed_device_controllers`
+    lists the non-door devices we may drive.
+
+**Content that lives elsewhere**
+
+16. The Dogtown vendors are in `ep1_vendors.questphase`, gated by facts; see
+    the spec's `notes` entry `dogtown_vendors`.
+
+## 4. Finding the data
+
+Extracting game data uses the pinned WolvenKit CLI
+(`~/.cache/neon-ascendancy/wolvenkit-10.0.0-beta.1/WolvenKit.CLI`, run with
+`DOTNET_ROLL_FORWARD=Major`). Never commit extracted files. Local extract
+locations are listed in `AGENTS-LOCAL.md`.
+
+### 4.1 Quest phases
+
+Extract the `.questphase` files from the base and EP1 archives, then
+`convert serialize` them to JSON. For a venue:
+- collect every `questCommunityTemplate_NodeType`
+  (`spawnerReference`, `communityEntryName`, `communityEntryPhaseName`,
+  `action`);
+- collect every spawn set, device action (`deviceControllerClass`,
+  `deviceAction`, `objectRef`) and variant toggle;
+- note which phase owns each item. That phase's name says what it's for
+  (setup, mood, combat, leave).
+
+### 4.2 Community definitions and their workspots
+
+1. **Entries and records.** Community templates live in
+   `always_loaded_1.streamingsector` as `worldCommunityRegistryItem` (entries,
+   `characterRecordId`, phases, `entriesInitialState`). Find the right one by
+   searching for an entry name.
+2. **Spots.** The matching `worldCompiledCommunityAreaNode` (same sector,
+   same `communityId` hash) maps each entry and phase to `spotNodeIds`
+   (`worldGlobalNodeID` hashes).
+3. **Workspots.** Convert the venue's sectors and match the
+   `nodeData[*].globalNodeId.hash` values. `nodes[nodeIdx]` is a
+   `worldAISpotNode` whose `spot` names the `.workspot` file. That path
+   decides rule 9.
+
+Sector buffers are compressed, so byte-grepping `.streamingsector` files for
+hashes or names finds nothing. Convert them first.
+
+### 4.3 Which sectors belong to a venue
+
+`all.streamingblock` (base and EP1) lists every sector with its category,
+`questPrefabNodeRef` and variants. Filter by the venue's prefab path.
+
+### 4.4 Mapping an in-game object to a ref
+
+The look-at logger prints an entity's 64-bit id. Static entity ids are the
+FNV-1a 64 hash of the node's full ref path with the `#` characters removed
+(`NcHashNodeRefPath` in `native/plugin/Main.cpp`). Hash the `nodeRefs` of the venue's sectors and match the id. The
+Afterlife back-room door was found this way.
+
+### 4.5 In-game evidence
+
+- `lookat.log` (in the CET probe folder): class, id, appearance, position,
+  PS state, door open/locked/sealed, `skillCheck`, `quickhack`, `authValid`,
+  and NPC record and affiliation.
+- `red4ext/logs/neonascendancy-*.log`: `VariantToggle[...]` breadcrumbs,
+  `VenueProbe[...]` and `Dataterm[...]` lines.
+
+## 5. Checklist for a new venue
+
+1. Find the vanilla phases that own the venue (§4.1). List prefabs,
+   communities, spawn sets, devices and toggles.
+2. Check prefab ownership against kept vanilla phases, `cast_and_hubs` and
+   other venues (rule 2).
+3. Resolve every ref; use full `$/` paths for untagged nodes (rule 3).
+4. Choose community phases by workspot (rules 9–10).
+5. Classify each door against the door policy (rules 12–13).
+6. Pick a device as the proximity anchor (rule 8).
+7. Set `debug_fact_prefix` and add it to `VenueProbe.reds`.
+8. Build, run `--check` and `tools/verify.sh`, deploy, then read the
+   breadcrumbs and the look-at log in game.

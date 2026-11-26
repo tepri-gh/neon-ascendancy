@@ -14,7 +14,10 @@ are reused.
 4. For `.reds` work, read `.agents/skills/redscript/SKILL.md`.
 5. Read `docs/versioning.md` before bumping versions, changing persisted save
    fields, or updating pinned frameworks.
-6. Before planning or implementing a feature, read the relevant design,
+6. Read `docs/venue-playbook.md` before venue, door, community or spawn work
+   (`data/clean-slate/`, venue code in `tools/build-clean-slate.py`). Add new
+   lessons there when a venue fix teaches one.
+7. Before planning or implementing a feature, read the relevant design,
    roadmap, architecture, and glossary docs under `docs/` when they exist. If
    scope is missing or ambiguous, ask instead of inventing it.
 
