@@ -174,7 +174,9 @@ already define all four; we copy them, never invent them.
     protest at the gate, which the gate venue suppresses. Dynamic events,
     vendors, world encounters, gigs and sandbox activities sit behind
     `ep1_active` too, so it stays forbidden; `ep1_dynamic_events` is wired
-    directly as a kept phase instead (38 of 43 events run).
+    directly as a kept phase instead (38 of 43 events run). Verified in game on
+    2026-11-26: populated streets and dynamic events, no PL story, no
+    gigs or fixer calls, no protest at the gate.
 
 **Content that lives elsewhere**
 
