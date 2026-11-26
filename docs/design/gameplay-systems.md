@@ -208,6 +208,8 @@ lieutenants) are to be represented. Design pending.
 - Kurt Hansen is alive and leads Barghest.
 - Dexter DeShawn is alive (no heist) and still works as a fixer, based in
   the Afterlife back room.
+- T-Bug is alive (no heist) and spends time with Dexter in the Afterlife
+  back room.
 - Songbird should still exist somewhere in the world (players want her);
   placement to be decided.
 - **NUSA:** an external military/political special faction that influences
