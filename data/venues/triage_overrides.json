@@ -105,6 +105,11 @@
       "venue": "loc_mq057",
       "decision": "excluded",
       "why": "Research wave 8: Motorbreath's staged highway chase contains traffic, wrecks and quest triggers. The Ringroad already streams for ordinary use."
+    },
+    {
+      "venue": "loc_q202_staging_camp",
+      "decision": "excluded",
+      "why": "Research wave 8: the temporary Aldecaldo staging camp belongs to the Star ending. The Solar Arrays site already streams in its ordinary state."
     }
   ]
 }
