@@ -1,0 +1,99 @@
+{
+  "code": "sq021_trailer_park",
+  "display_name": "Red Peaks Trailer Park (Kutcher's Home)",
+  "why": "A small Badlands trailer park on the edge of Red Peaks: Joss Kutcher's trailer, Randy's trailer next door, a scrap yard with a water tower, and a tiny open-air market where Aldecaldo squatters, a homeless regular and a clothes vendor hang around. Vanilla populates it from base/open_world/community/badlands/inland_avenue/bad_ina_phase.questphase (#loc_sq021_trailer_park_com, whole community, every entry in phase 'default', none of it active by default) plus quest spawn sets for Joss and her two kids that only the Hunt and Following the River phases issue. This proposal switches the whole ambient crowd on, seats Joss at her own trailer and puts the kids back playing in the yard, and zeroes the quest-only prop variants (BBQ/dinner set, AR game gear, River's gifts, the apartment stash).",
+  "source": {
+    "proposal": "research/loc_sq021_trailer_park/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Which of #sq021_pr_trailerpark / #sq029_pr_trailer_park actually holds the workspots behind sq029_kid_girl_playing and sq029_kid_boy_playing. Their spawner (#sq021_com_trailerpark) is in the sq021 section but sq029_conclusion only inherits #sq029_pr_trailer_park, so both are declared; a prefab dump or a tour would settle it.",
+      "Polarity of var_bbq on #sq021_pr_trailerpark: no vanilla phase ever sets it to 0 there (only to 1 for the dinner), so 0 may hide the family's everyday grill rather than just party food.",
+      "Whether default_dialogs' instance-prefab declarations of #pr_joss_default, #sq021_pr_trailerpark and #sq029_pr_trailer_park are gated behind a dialogue/node that never runs. If one is always instantiated, rule 2 says the venue should declare it once (as the cast layer does for #q303_pr_combat_tower) - tour-check the phase does not break.",
+      "Whether #sq021_dvc_joss_door and sq021_dvc_door_hinged_kids are normal toggleable doors or static locked ones once no quest is running; the runtime door policy log should show the IsStatic decision.",
+      "The market_f/market_m entries are catalogue-tagged mixed:relaxed+scene because their workspot set includes a chair-sit/eat spot; confirm on tour that none of them freezes into a scene pose."
+    ]
+  },
+  "prefabs": [],
+  "communities": [
+    {
+      "spawner": "#loc_sq021_trailer_park_com",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The park's whole ambient population: Aldecaldo men and women (day/market/day_movable variants), children, a homeless regular, a car and the square's clothes vendor, all in their initial phase 'default'. bad_ina_phase is the only thing that ever activates it and that phase is not kept, so the venue re-issues the vanilla whole-community activation (rule 9a, entry None/phase None). Every entry is inactive at 0 in entriesInitialState and no quest phase touches the community, so nothing is a quest scene; the catalogue marks market_f and market_m mixed:relaxed+scene because their spots include a chair-sit/eat workspot, which is why this needs a look on tour.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [
+    {
+      "action": "Activate",
+      "reference": "#sq021_com_trailerpark",
+      "entry_name": "Joss",
+      "phase_name": "sq029_ws_joss_default",
+      "why": "Joss Kutcher at her own trailer's default workspot. Vanilla uses exactly this phase to put her back to normal life in the morning after Following the River, which is the closest thing to her everyday state.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#sq021_com_trailerpark",
+      "entry_name": "Joss_daughter",
+      "phase_name": "sq029_kid_girl_playing",
+      "why": "Joss's daughter, on the same 'playing' phase vanilla activates for her when the family is back home; idle child workspots, no scene.",
+      "needs_tour_check": true
+    },
+    {
+      "action": "Activate",
+      "reference": "#sq021_com_trailerpark",
+      "entry_name": "Joss_son",
+      "phase_name": "sq029_kid_boy_playing",
+      "why": "Joss's son (Randy's cousin), same 'playing' phase vanilla switches him to at the end of Following the River; he plays in the yard rather than standing in a quest pose.",
+      "needs_tour_check": true
+    }
+  ],
+  "variant_toggles": [
+    {
+      "prefab": "#loc_sq021_trailer_park_devices",
+      "states": {
+        "var_bbq": 0,
+        "var_vr_game": 0,
+        "sq029_active": 0,
+        "sq029_dinner": 0,
+        "stash": 0,
+        "var_mq055_car_01": 0,
+        "var_mq055_car_02": 0,
+        "var_mq055_car_03": 0,
+        "var_mq055_car_04": 0,
+        "var_mq055_flower_blue": 0,
+        "var_mq055_flower_pink": 0,
+        "var_mq055_flower_red": 0
+      },
+      "why": "Clears everything the jobs would bolt onto the park: the BBQ/dinner set of Following the River (var_bbq, sq029_active, sq029_dinner), the Big Trouble in Heywood AR gear (var_vr_game), River's gift cars and flowers from I Really Want to Stay at Your House, and the apartment stash that only exists once V owns Kutcher's Home. Vanilla's own 'no party' state in sq029_bbq_prep/sq029_conclusion is var_bbq 0 plus var_vr_game 0."
+    },
+    {
+      "prefab": "#sq021_pr_trailerpark",
+      "states": {
+        "var_bbq": 0,
+        "var_vr_game": 0,
+        "var_real_pc_randy": 0,
+        "var_fake_pc_randy": 0
+      },
+      "why": "Same clean state on the trailer section itself: no grill/dinner set, no AR gear, and neither of Randy's quest computers (the hackable one and the fake/prop one) forced into place. sq021_randys_room, the only phase that touches these, sets real and fake Randy PC to 0, and sq021_tp_vr_game sets var_vr_game to 0."
+    },
+    {
+      "prefab": "#sq029_pr_trailer_park",
+      "states": {
+        "var_bbq": 0,
+        "var_vr_game": 0
+      },
+      "why": "Keeps the second trailer section in its off-party state, which is what sq029_bbq_prep and sq029_conclusion both set while nobody is having a barbecue and no AR game is running."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#sq029_dvc_radio_cooking",
+    "within": 80.0,
+    "why": "The porch radio by the shared cooking/dining spot, a RadioControllerPS device with a resolved path inside the venue's gameplay prefab, streamed next to the community and Joss's trailer. A device, not a workspot (rule 8)."
+  }
+}

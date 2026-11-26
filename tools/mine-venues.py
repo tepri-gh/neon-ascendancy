@@ -299,50 +299,178 @@ def stage_communities(a: argparse.Namespace) -> None:
 
 # ---------------------------------------------------------------- phases
 
-def _phase_items(path: Path, rel: str) -> dict:
-    d = json.loads(path.read_text(encoding="utf-8"))
-    items: dict[str, list] = defaultdict(list)
+def _is_node(o: dict) -> bool:
+    t = o.get("$type", "")
+    return t.startswith("quest") and t.endswith("NodeDefinition") and "sockets" in o and "id" in o
+
+
+def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> bool:
+    """True when the node's fact condition can never pass in the clean slate:
+    it requires a fact we never set (forbidden facts stay 0) and has no OR."""
+    cond = node.get("condition")
+    if not cond:
+        return False
+    s = json.dumps(cond)
+    if '"Or"' in s or '"OR"' in s:
+        return False
+    for o in walk(cond):
+        if o.get("$type") != "questVarComparison_ConditionType":
+            continue
+        name = str(val(o.get("factName")))
+        if name not in forbidden and not name.startswith(prefixes):
+            continue
+        cmp_, value = o.get("comparisonType"), o.get("value", 0)
+        if (cmp_ == "Greater" and value >= 0) or (cmp_ in ("GreaterOrEqual", "Equal") and value >= 1):
+            return True
+    return False
+
+
+def _reachable_nodes(d: dict, forbidden: set[str], prefixes: tuple[str, ...]) -> tuple[dict[int, dict], set[int], dict[int, int | None]]:
+    """Map every graph node to whether the clean slate can reach it.
+
+    Nodes connect through shared socket handles (WolvenKit HandleId /
+    HandleRefId). Traversal starts at input nodes and stops at pause nodes,
+    and at a condition node's True output, whose fact condition can never
+    pass. A nested phase graph's inputs count only if its phase node does."""
+    handles: dict[str, dict] = {}
     for o in walk(d):
-        t = o.get("$type")
-        if t == "questCommunityTemplate_NodeType":
-            items["communities"].append({"ref": val(o.get("spawnerReference")), "entry": val(o.get("communityEntryName")),
-                                         "phase": val(o.get("communityEntryPhaseName")), "action": o.get("action")})
-        elif t == "questSpawnSet_NodeType":
-            s = json.dumps(o)
-            items["spawn_sets"].append({"ref": val(o.get("reference")), "entry": val(o.get("entryName")),
-                                        "phase": val(o.get("phaseName")), "action": o.get("action"),
-                                        "raw_refs": sorted(set(re.findall(r'"\$value": "(#[^"]+)"', s)))})
-        elif t == "questDeviceManager_NodeTypeParams":
-            items["devices"].append({"ref": val(o.get("objectRef")), "controller": val(o.get("deviceControllerClass")),
-                                     "action": val(o.get("deviceAction")),
-                                     "props": {val(p["name"]): val(p.get("value")) for p in o.get("actionProperties") or []}})
-        elif t == "questPhaseNodeDefinition":
-            # A phase node instantiates these prefabs while it runs, in addition
-            # to the child phase's own phasePrefabs.
-            res = val(val(o.get("phaseResource") or {}).get("DepotPath") or {}) if isinstance(o.get("phaseResource"), dict) else None
-            if isinstance(res, str) and res.endswith(".questphase"):
-                items["child_phases"].append(res.replace("\\", "/"))
-            for e in o.get("phaseInstancePrefabs") or []:
-                e = val(e)
-                ref = val(e.get("prefabNodeRef")) if isinstance(e, dict) else None
-                if ref:
-                    items["instance_prefabs"].append(ref)
-        elif t == "questTogglePrefabVariant_NodeType":
-            for p in o.get("params") or []:
-                p = val(p)
-                items["toggles"].append({"ref": val(p.get("prefabNodeRef")),
-                                         "states": {val(s["name"]): s.get("show") for s in p.get("variantStates") or []}})
+        if "HandleId" in o and isinstance(o.get("Data"), dict):
+            handles[o["HandleId"]] = o["Data"]
+    nodes: dict[int, dict] = {}
+    container: dict[int, int | None] = {}
+
+    def collect(o: Any, cont: int | None) -> None:
+        if isinstance(o, dict):
+            if _is_node(o):
+                nodes[id(o)] = o
+                container[id(o)] = cont
+                for k, v in o.items():
+                    collect(v, id(o) if k in ("phaseGraph", "graph") else cont)
+                return
+            for v in o.values():
+                collect(v, cont)
+        elif isinstance(o, list):
+            for v in o:
+                collect(v, cont)
+
+    collect(d, None)
+
+    def hid(x: dict) -> str | None:
+        return x.get("HandleId") or x.get("HandleRefId")
+
+    sock_owner: dict[str, int] = {}
+    for nid, n in nodes.items():
+        for sk in n.get("sockets") or []:
+            h = hid(sk)
+            if h:
+                sock_owner[h] = nid
+    edges: dict[int, list[tuple[str, int]]] = defaultdict(list)
+    for nid, n in nodes.items():
+        for sk in n.get("sockets") or []:
+            sd = handles.get(hid(sk) or "", {})
+            if sd.get("type") != "Output":
+                continue
+            out_name = str(val(sd.get("name")))
+            for c in sd.get("connections") or []:
+                cd = handles.get(hid(c) or "", c.get("Data") if isinstance(c.get("Data"), dict) else {})
+                dst = cd.get("destination") or {}
+                owner = sock_owner.get(hid(dst) or "")
+                if owner is not None:
+                    edges[nid].append((out_name, owner))
+    reach: set[int] = set()
+    changed = True
+    while changed:
+        changed = False
+        todo = [nid for nid, n in nodes.items() if n["$type"] == "questInputNodeDefinition"
+                and nid not in reach and (container[nid] is None or container[nid] in reach)]
+        while todo:
+            nid = todo.pop()
+            if nid in reach:
+                continue
+            reach.add(nid)
+            changed = True
+            n = nodes[nid]
+            blocked = _blocks(n, forbidden, prefixes)
+            if blocked and n["$type"] == "questPauseConditionNodeDefinition":
+                continue
+            for out_name, dst in edges.get(nid, []):
+                if blocked and out_name == "True":
+                    continue
+                if dst not in reach:
+                    todo.append(dst)
+    return nodes, reach, container
+
+
+def _phase_items(path: Path, rel: str, forbidden: set[str], prefixes: tuple[str, ...]) -> dict:
+    d = json.loads(path.read_text(encoding="utf-8"))
+    nodes, reach, _cont = _reachable_nodes(d, forbidden, prefixes)
+    items: dict[str, list] = defaultdict(list)
+
+    def visit(o: Any, node: int | None) -> None:
+        if isinstance(o, dict):
+            if _is_node(o):
+                node = id(o)
+            gated = node is not None and node not in reach
+            t = o.get("$type")
+            if t == "questCommunityTemplate_NodeType":
+                items["communities"].append({"ref": val(o.get("spawnerReference")), "entry": val(o.get("communityEntryName")),
+                                             "phase": val(o.get("communityEntryPhaseName")), "action": o.get("action"),
+                                             "gated": gated})
+            elif t == "questSpawnSet_NodeType":
+                s = json.dumps(o)
+                items["spawn_sets"].append({"ref": val(o.get("reference")), "entry": val(o.get("entryName")),
+                                            "phase": val(o.get("phaseName")), "action": o.get("action"), "gated": gated,
+                                            "raw_refs": sorted(set(re.findall(r'"\$value": "(#[^"]+)"', s)))})
+            elif t == "questDeviceManager_NodeTypeParams":
+                items["devices"].append({"ref": val(o.get("objectRef")), "controller": val(o.get("deviceControllerClass")),
+                                         "action": val(o.get("deviceAction")), "gated": gated,
+                                         "props": {val(p["name"]): val(p.get("value")) for p in o.get("actionProperties") or []}})
+            elif t == "questPhaseNodeDefinition":
+                # A phase node instantiates these prefabs while it runs, in addition
+                # to the child phase's own phasePrefabs.
+                res = val(val(o.get("phaseResource") or {}).get("DepotPath") or {}) if isinstance(o.get("phaseResource"), dict) else None
+                if isinstance(res, str) and res.endswith(".questphase"):
+                    items["child_phases"].append(res.replace("\\", "/"))
+                    if not gated:
+                        items["open_child_phases"].append(res.replace("\\", "/"))
+                for e in o.get("phaseInstancePrefabs") or []:
+                    e = val(e)
+                    ref = val(e.get("prefabNodeRef")) if isinstance(e, dict) else None
+                    if ref:
+                        items["gated_instance_prefabs" if gated else "instance_prefabs"].append(ref)
+            elif t == "questTogglePrefabVariant_NodeType":
+                for p in o.get("params") or []:
+                    p = val(p)
+                    items["toggles"].append({"ref": val(p.get("prefabNodeRef")), "gated": gated,
+                                             "states": {val(s["name"]): s.get("show") for s in p.get("variantStates") or []}})
+            for v in o.values():
+                visit(v, node)
+        elif isinstance(o, list):
+            for v in o:
+                visit(v, node)
+
+    visit(d, None)
     for pp in val(val(d["Data"]["RootChunk"]).get("phasePrefabs")) or []:
         items["prefabs"].append(val(pp.get("prefabNodeRef")) if isinstance(pp, dict) else val(pp))
     return {"phase": rel, **{k: v for k, v in items.items()}}
 
 
+def clean_slate_forbidden() -> tuple[set[str], tuple[str, ...]]:
+    """Facts the clean slate never sets: a condition requiring one never passes."""
+    root = Path(__file__).resolve().parent.parent / "data" / "clean-slate"
+    spec = json.loads((root / "clean_slate_spec.json").read_text(encoding="utf-8"))["questphase"]
+    cast = json.loads((root / "cast_and_hubs.json").read_text(encoding="utf-8"))
+    facts = set(spec.get("forbidden_facts") or []) | set(cast.get("forbidden_default_on_facts") or [])
+    return facts, tuple(spec.get("forbidden_fact_prefixes") or [])
+
+
 def stage_phases(a: argparse.Namespace) -> None:
     rows = []
+    forbidden, prefixes = clean_slate_forbidden()
     for p in sorted(a.phases.rglob("*.questphase.json")):
         rel = "/".join(p.relative_to(a.phases).parts[1:])[: -len(".json")]
         try:
-            rows.append(_phase_items(p, rel))
+            rows.append(_phase_items(p, rel, forbidden, prefixes))
         except (json.JSONDecodeError, KeyError) as exc:
             rows.append({"phase": rel, "error": str(exc)})
     a.out.mkdir(parents=True, exist_ok=True)
@@ -480,7 +608,7 @@ def stage_catalog(a: argparse.Namespace) -> None:
                                         "communities": {}, "spawn_sets": {}, "devices": {}, "toggles": {}})
 
     def add(v: dict, kind: str, it: Any, ref: str | None, full: str | None, ph: str, inferred: bool) -> None:
-        if kind in ("prefabs", "instance_prefabs"):
+        if kind in ("prefabs", "instance_prefabs", "gated_instance_prefabs"):
             e = v["prefabs"].setdefault(full or ref, {"owners": set(), "kinds": set()})
             e["owners"].add(ph)
             e["kinds"].add("phase" if kind == "prefabs" else "instance")
@@ -538,13 +666,13 @@ def stage_catalog(a: argparse.Namespace) -> None:
         quest = qm.group(1) if qm else stem
         resolved: list[tuple[str, Any, str | None, str, str]] = []
         pending: list[tuple[str, Any, str | None]] = []
-        for kind in ("prefabs", "instance_prefabs", "communities", "spawn_sets", "devices", "toggles"):
+        for kind in ("prefabs", "instance_prefabs", "gated_instance_prefabs", "communities", "spawn_sets", "devices", "toggles"):
             for it in row.get(kind) or []:
                 if kind == "communities" and it.get("action") == "Deactivate":
                     continue  # switches people off; not a spawn
                 if kind == "communities" and it.get("phase") == "None" and it.get("entry") != "None":
                     continue  # entry reset without a phase; not a spawn
-                ref = it if kind in ("prefabs", "instance_prefabs") else it.get("ref")
+                ref = it if kind in ("prefabs", "instance_prefabs", "gated_instance_prefabs") else it.get("ref")
                 hits = [(full, venue_of(full)) for full in resolve(ref)]
                 hits = [(f, vn) for f, vn in hits if vn]
                 if hits:

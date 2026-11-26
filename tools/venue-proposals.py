@@ -98,7 +98,7 @@ def kept_phase_set(venues_dir: Path) -> set[str]:
     children: dict[str, list[str]] = {}
     for line in (venues_dir / "phases.jsonl").read_text(encoding="utf-8").splitlines():
         r = json.loads(line)
-        children[r["phase"]] = r.get("child_phases") or []
+        children[r["phase"]] = r.get("open_child_phases") or []
     todo = [d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]]
     todo += [p.replace("\\", "/") for p in spec["questphase"].get("inline_phase_depot_refs") or []]
     kept: set[str] = set()
@@ -119,7 +119,7 @@ def kept_vanilla_activations(venues_dir: Path) -> dict[tuple[str, str, str], str
         r = json.loads(line)
         if r["phase"] in kept:
             for it in (r.get("spawn_sets") or []) + (r.get("communities") or []):
-                if it.get("action") == "Activate":
+                if it.get("action") == "Activate" and not it.get("gated"):
                     out[(it.get("ref"), it.get("entry"), it.get("phase"))] = r["phase"]
     return out
 
@@ -190,14 +190,10 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
             errs.append(f"prefab {ref}: not a quest prefab of this venue (use input.json 'prefabs')")
         for k, owner in kept.items():
             if ref == k or k.endswith("/" + ref) or ref.endswith("/" + k):
-                if owner.startswith("instance:"):
-                    # A kept phase instantiates it per phase node, usually behind
-                    # a gate the clean slate never opens (q000_done); declaring it
-                    # again works then (cast layer precedent) but must be toured.
-                    warns.append(f"prefab {ref}: kept vanilla phase {owner[9:]} instantiates it on one of its "
-                                 f"phase nodes (often behind q000_done); tour-check for rule 2")
-                else:
-                    errs.append(f"prefab {ref}: already declared by kept vanilla phase {owner} (rule 2)")
+                # instance_prefabs only lists phase nodes the clean slate can
+                # reach; gated ones (behind q000_done etc.) never instantiate.
+                errs.append(f"prefab {ref}: kept vanilla phase {owner.removeprefix('instance:')} already "
+                            f"instantiates it in the clean slate (rule 2)")
         if ref in layers:
             errs.append(f"prefab {ref}: already used by {layers[ref]} (rule 2)")
 
@@ -224,8 +220,8 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
             if BAD_PHASE_WORDS.search(ph):
                 warns.append(f"community {sp} {en}/{ph}: phase name looks like a quest scene (rule 10)")
         if (sp, en, ph) in kept_acts:
-            warns.append(f"community {sp} {en}/{ph}: kept vanilla phase {kept_acts[(sp, en, ph)]} also activates it "
-                         f"(often behind a gate); confirm on tour")
+            warns.append(f"community {sp} {en}/{ph}: kept vanilla phase {kept_acts[(sp, en, ph)]} already activates it "
+                         f"in the clean slate (re-activation is harmless but redundant)")
         owner = acts.get((sp, en, ph)) or acts.get((sp, "None", "None"))
         if owner:
             errs.append(f"community {sp} {en}/{ph}: already activated by {owner}")

@@ -51,6 +51,18 @@ already define all four; we copy them, never invent them.
    venue phases, or against a kept vanilla phase or `cast_and_hubs`. Each
    prefab gets one owner. If another phase already owns it, give the venue no
    `prefabs` and set `deferred_prefab_owner` to the owner.
+   Declaring a prefab a *kept vanilla phase* already loads is redundant
+   rather than fatal: hand-built Totentanz declares `#loc_pre_quest_totentanz`,
+   which `wat_nid_phase` also loads, and it works. Omit such prefabs; activate
+   only the people. Which vanilla loads are live in the clean slate is decided
+   by `tools/mine-venues.py` gate analysis: traversal from a phase's inputs
+   stops at pause nodes, and at a condition node's True branch, whose fact
+   condition needs a fact the clean slate never sets (`q000_done`, the
+   `_default_on` facts). Note that a phase node's `phaseInstancePrefabs`
+   load when the node itself is reached. A `q000_done` pause *inside* the
+   node gates only its contents: the border crossing's open-world section
+   loads, while its guards inside wait on `q000_done`.
+
 3. **`#` short refs only resolve for authored (tagged) node names.** Untagged
    nodes (`..._prefabXXXXXXX`) need the full `$/03_night_city/...` path. Take
    it from the streaming block (`all.streamingblock`, a descriptor's
