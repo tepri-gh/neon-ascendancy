@@ -392,6 +392,11 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   open question is really a thing to look at, put it in the proposal; a
   check the owner should repeat at a hand-built venue goes in its
   `tour_checks`.
+- **CET events in the probe:** CET keeps one callback per event per mod, so
+  a second `registerForEvent` for the same event silently replaces the
+  first (the tour's `onUpdate` broke noclip). Register handlers through the
+  probe's `on(event, fn)`, which fans one CET registration out to all of
+  them.
 - **Notes** ("Neon: playtest note"). The hotkey stamps the position and the
   nearest stop; open the CET overlay, type the note and press Save. Notes go
   to `notes.log`.

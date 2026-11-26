@@ -156,6 +156,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Dev probe: noclip and the playtest-note window work again. CET keeps one
+  callback per event per mod, so the tour's `onUpdate` and the checklist's
+  `onDraw` had replaced them; the probe now fans each event out to every
+  handler.
 - Wang's Clinic (Kabuki) is staffed: `kana_yakin_default_on` is set so the
   kept Kabuki vendor layer places Roger Wang (it was set only by a gig phase).
 - Venue approve: a proposal's `proximity_anchor.within` now sets the wait

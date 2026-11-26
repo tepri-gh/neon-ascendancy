@@ -10,6 +10,22 @@
 
 local Probe = {}
 
+-- CET keeps one callback per event per mod: a second registerForEvent for the
+-- same event replaces the first. The tour's onUpdate silently replaced
+-- noclip's, and the checklist's onDraw replaced the note window. Register
+-- each event once and fan out to every handler instead.
+local handlers = {}
+local function on(event, fn)
+  if not handlers[event] then
+    handlers[event] = {}
+    local list = handlers[event]
+    registerForEvent(event, function(...)
+      for _, f in ipairs(list) do f(...) end
+    end)
+  end
+  table.insert(handlers[event], fn)
+end
+
 local ERA_FACTS = {
   "watson_prolog_lock", "watson_prolog_unlock",
   "q000_done", "q001_done", "q001_active",
@@ -376,7 +392,7 @@ local function setup_noclip_input()
   end)
 end
 
-registerForEvent("onUpdate", function(dt)
+on("onUpdate", function(dt)
   if not fly.on or not fly.pos then return end
   local player = Game.GetPlayer()
   if not player then fly.on = false; return end
@@ -620,7 +636,7 @@ registerHotkey("NeonChecklist", "Neon: checklist here", function()
 end)
 registerHotkey("NeonTourStop", "Neon: tour stop", function() Probe.tour_stop() end)
 
-registerForEvent("onUpdate", function(dt)
+on("onUpdate", function(dt)
   if tour.state ~= "settle" then return end
   tour.t = tour.t + dt
   if tour.t >= tour.settle then
@@ -649,10 +665,10 @@ registerHotkey("NeonNote", "Neon: playtest note", function()
     p.x, p.y, p.z, tostring(s and s.code)))
 end)
 
-registerForEvent("onOverlayOpen", function() note.overlay = true end)
-registerForEvent("onOverlayClose", function() note.overlay = false end)
+on("onOverlayOpen", function() note.overlay = true end)
+on("onOverlayClose", function() note.overlay = false end)
 
-registerForEvent("onDraw", function()
+on("onDraw", function()
   if not note.pending or not note.overlay then return end
   if ImGui.Begin("Neon playtest note") then
     ImGui.Text(string.format("Near %s (%.0f m)", tostring(note.pending.stop), note.pending.dist or -1))
@@ -669,7 +685,7 @@ registerForEvent("onDraw", function()
   ImGui.End()
 end)
 
-registerForEvent("onDraw", function()
+on("onDraw", function()
   if not review or not note.overlay then return end
   local s = review.stop
   ImGui.SetNextWindowSize(560, 520, ImGuiCond.FirstUseEver)
@@ -706,7 +722,7 @@ registerForEvent("onDraw", function()
   ImGui.End()
 end)
 
-registerForEvent("onInit", function()
+on("onInit", function()
   setup_noclip_input()
   print("[NeonAscendancyProbe] Ready. In console: p = GetMod(\"NeonAscendancyProbe\"); p.help()")
 end)
