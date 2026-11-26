@@ -442,6 +442,76 @@
    ]
   },
   {
+   "code": "mq304_ce_2",
+   "name": "Longshore Stacks container yard (Dogtown)",
+   "kind": "approved",
+   "venue": "loc_mq304_ce_2",
+   "pos": [
+    -2473.49,
+    -2773.12,
+    28.52
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.con_scavenger_grunt1_melee1_fists_ma",
+    "Character.con_scavenger_grunt1_melee1_pipewrench_ma",
+    "Character.con_scavenger_grunt1_melee1_tireiron_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #mq304_com_ce_2_scavs (3 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: scav_1/a, scav_2/a, scav_3/a.",
+     "source": "community"
+    },
+    {
+     "label": "Check the yard has a calm scav camp.",
+     "detail": "Check the yard has a calm scav camp. Stand in the container yard: three scavengers should be idle on routine spots (one on a phone, one taking drugs, one standing), not crouched, aiming or fighting.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the scavengers actually appear in the yard.",
+     "detail": "Check the scavengers actually appear in the yard. Their community has no area node in the converted sectors, so confirm all three spawn inside this yard (not floating, inside a container or a block away) and are not T-posing.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the yard is not a restricted area.",
+     "detail": "Check the yard is not a restricted area. Walk across the whole yard: no trespass banner or Barghest warning should appear; both vanilla security areas are DISABLED and must stay so.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the anchor flips on approach.",
+     "detail": "Check the anchor flips on approach. Walk toward the yard and confirm the tour breadcrumb _prox turns on; the wait is on the scav side's security-area controller at the yard's north edge.",
+     "source": "open question"
+    },
+    {
+     "label": "Check nothing of the quest scene is left.",
+     "detail": "Check nothing of the quest scene is left. There should be no second Barghest pair, no quest cars, no shootout, no invisible encounter trigger and no lingering combat music or attitude change.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the yard does not double-populate.",
+     "detail": "Check the yard does not double-populate. If the combat zone's own ambient encounters also spawn scavs or Barghest inside this prefab, report the overlap so the camp can be dropped.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
    "code": "q301_crashsite_way_up",
    "name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
    "kind": "approved",
@@ -1903,6 +1973,79 @@
      "label": "Container Zone 3's basketball court is a different Dogtown court from this stop (mq304_ce_3): kids playing, civilians and outcasts, the grill vendo...",
      "detail": "Container Zone 3's basketball court is a different Dogtown court from this stop (mq304_ce_3): kids playing, civilians and outcasts, the grill vendor; no Bennett or Jago succession bodyguards. Wave 14: nothing to restore, so no venue entry.",
      "source": "extra"
+    }
+   ]
+  },
+  {
+   "code": "q302_goodnight_charlies",
+   "name": "Capitán Caliente (Eden Plaza, Dogtown)",
+   "kind": "approved",
+   "venue": "loc_q302_goodnight_charlies",
+   "pos": [
+    -1669.65,
+    -2421.77,
+    39.92
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q302_homeless_scav_caliente"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #q302_com_caliente_scav (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: scav_hobo/a.",
+     "source": "community"
+    },
+    {
+     "label": "Stand on Monument Ave outside the bar and check the squatter appears at the door.",
+     "detail": "Stand on Monument Ave outside the bar and check the squatter appears at the door. He should stand in the advertise pose, calm and non-reactive, not alert, crouched or in combat.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk into the bar and check the interior is intact and lit without any quest.",
+     "detail": "Walk into the bar and check the interior is intact and lit without any quest. The dining room, the phone room and the scavenger stash should render from the normal interior sector with power on.",
+     "source": "open question"
+    },
+    {
+     "label": "Walk the bar floor and check the two mines do not go off.",
+     "detail": "Walk the bar floor and check the two mines do not go off. Vanilla disables #q302_caliente_mine_001/002 during q302_05_bar and this venue cannot issue device actions.",
+     "source": "open question"
+    },
+    {
+     "label": "Stand on the bar's upper walkway or railing edge and check you cannot fall through.",
+     "detail": "Stand on the bar's upper walkway or railing edge and check you cannot fall through. The only variant is the collision-only railing variant, which vanilla always sets to 1.",
+     "source": "open question"
+    },
+    {
+     "label": "Check that no 6th Street protesters, gate guards, Minotaur or protest vehicles appear at the bar.",
+     "detail": "Check that no 6th Street protesters, gate guards, Minotaur or protest vehicles appear at the bar. The catalogue's #q302_com_protesters belongs to the Dogtown gate, about 560 m away.",
+     "source": "open question"
+    },
+    {
+     "label": "Check whether Ronald Malone's junk stand is outside and open.",
+     "detail": "Check whether Ronald Malone's junk stand is outside and open. The vendor who stands here until Lucretia My Reflection comes from ep1_vendors.questphase, which the clean slate does not load.",
+     "source": "open question"
+    },
+    {
+     "label": "Look behind the sliding shelf and check the old telephone room is reachable or acceptably shut.",
+     "detail": "Look behind the sliding shelf and check the old telephone room is reachable or acceptably shut. Vanilla moves #q302_caliente_moving_shelf only during the quest.",
+     "source": "open question"
     }
    ]
   },
@@ -3924,6 +4067,11 @@
      "label": "Consider whether wat_lch_phase should simply be kept instead of per-venue crowds: it activates #megabuilding_com_001 whole plus the floor-01 market...",
      "detail": "Consider whether wat_lch_phase should simply be kept instead of per-venue crowds: it activates #megabuilding_com_001 whole plus the floor-01 market community, which is the cheapest way to repopulate every megabuilding interior at once.",
      "source": "open question"
+    },
+    {
+     "label": "Megabuilding H10 garage (q001_garage): do the tunnel roller shutters (#q001_shutter_mb_grg_1/_2) open?",
+     "detail": "Megabuilding H10 garage (q001_garage): do the tunnel roller shutters (#q001_shutter_mb_grg_1/_2) open? Walk in from the street and from the garage lift. No Quadra or Ride staging. Wave 14: nothing to restore, so no venue entry.",
+     "source": "extra"
     }
    ]
   },
@@ -6128,6 +6276,81 @@
     {
      "label": "Check the back rooms are intact but not the way in.",
      "detail": "Check the back rooms are intact but not the way in. The Technical Ability back door should still work, the storage rooms should hold no bodies or gig props, and the kitchen window route should read as normal bar clutter.",
+     "source": "open question"
+    }
+   ]
+  },
+  {
+   "code": "sts_std_arr_01",
+   "name": "Dewdrop Inn (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_01",
+   "pos": [
+    -574.37,
+    -823.92,
+    12.19
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CorpoManBraindance",
+    "Character.LowlifeMale",
+    "Character.LowlifeWoman",
+    "Character.SexworkerFemale",
+    "Character.SexworkerMale",
+    "Character.sts_std_arr_01_drug_producer",
+    "Character.sts_std_arr_01_receptionist",
+    "Character.sts_std_arr_01_sixthstreet_hooligan_ranged1_nova_ma",
+    "Character.sts_std_arr_01_sixthstreet_hooligan_ranged1_nova_wa",
+    "Character.sts_std_arr_01_sixthstreet_menace1_shotgun2_igla_ma",
+    "Character.sts_std_arr_01_sixthstreet_patrol2_ranged2_ajax_wa",
+    "Character.sts_std_arr_01_worker",
+    "Character.tenant_android"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Normal business",
+     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
+     "source": "base"
+    },
+    {
+     "label": "People at their posts",
+     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
+     "source": "base"
+    },
+    {
+     "label": "You can get in",
+     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
+     "source": "base"
+    },
+    {
+     "label": "Calm and on post: #arr_01_com_combat (1 unmapped)",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
+     "source": "community"
+    },
+    {
+     "label": "Walk in from Brandon Street: the street main door, the reception and the ground-floor corridor door should all be usable, with the receptionist wor...",
+     "detail": "Walk in from Brandon Street: the street main door, the reception and the ground-floor corridor door should all be usable, with the receptionist working behind the desk.",
+     "source": "open question"
+    },
+    {
+     "label": "Look around the lobby and both floors: roughly nine civilian guests (two androids, four lowlife men, two joytoys and a corpo braindance client) sho...",
+     "detail": "Look around the lobby and both floors: roughly nine civilian guests (two androids, four lowlife men, two joytoys and a corpo braindance client) should be idling at their spots, none dead or in an alert pose.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the 6th Street lab crew on the upper floor: six armed members and two drug producers should stand or sit calmly at their spots and must not a...",
+     "detail": "Check the 6th Street lab crew on the upper floor: six armed members and two drug producers should stand or sit calmly at their spots and must not attack a guest walking the ground-floor corridor.",
+     "source": "open question"
+    },
+    {
+     "label": "Try rooms 103 and 203: both should still be locked behind their vanilla Technical/Body checks, not sealed forever and not hanging open.",
+     "detail": "Try rooms 103 and 203: both should still be locked behind their vanilla Technical/Body checks, not sealed forever and not hanging open.",
+     "source": "open question"
+    },
+    {
+     "label": "Check the balcony door and the back-corridor shutter: closed but passable where vanilla expects it, and not the only sealed route into a lab room.",
+     "detail": "Check the balcony door and the back-corridor shutter: closed but passable where vanilla expects it, and not the only sealed route into a lab room.",
      "source": "open question"
     }
    ]

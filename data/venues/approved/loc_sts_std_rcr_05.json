@@ -1,0 +1,35 @@
+{
+  "code": "sts_std_rcr_05",
+  "display_name": "Horrigan Family Home (Gibson St., Rancho Coronado)",
+  "why": "The Horrigan family home is the quest-only interior of the street story 'Family Matters' (baseid sts_std_rcr_05): a two-storey house with a basement where the owner's sister, in cyberpsychosis, has killed her. The shell, furniture, front and back doors all sit in the always-loaded exterior sector, so the house is already present and enterable in the clean slate; the one vanilla state worth restoring is the open upstairs bathroom window, the gig's no-skill way in. Vanilla defines no resident population - the only character is the hostile cyberpsycho - so this proposal restores no people and leaves the murder props to the quest-prop cleanup pass.",
+  "source": {
+    "proposal": "research/loc_sts_std_rcr_05/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand on Gibson St. and try all three ways in. Confirm the front door offers a Technical Ability check, the back door a Body check, and that with the window toggle the front-roof window is open into the upstairs bathroom.",
+      "Walk the ground floor and basement and check the murder props. Juliet's corpse, the safe, the freezer, three shard cases, the sedatives, the painting and a blood decal are baked into the always-loaded exterior sector with no hide variant; confirm whether they are visible and whether the clean-slate prop pass removes them.",
+      "Look for the gig's leftovers. With the street-story phases omitted there should be no cyberpsycho in the basement, no guard-area alert, no truck at the kerb and no Johnny investigation markers.",
+      "Judge whether an empty family home is acceptable here. There is no vanilla resident record (Juliet has none; Rose exists only as the hostile cyberpsycho), so the house reads as unoccupied unless a resident is hand-built."
+    ]
+  },
+  "prefabs": [],
+  "communities": [],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/rancho_coronado/loc_sts_std_rcr_05_prefabYQKC3PQ/loc_sts_std_rcr_05_gameplay_prefab56Q7WIA/loc_sts_std_rcr_05_devices_prefabUBMTXWQ",
+      "states": {
+        "locked_window": 0
+      },
+      "why": "The location sector ships the 'locked_window' variant on by default, so the upstairs bathroom window is shut. Vanilla's own street-story state hides it (state 0), leaving the open window the front roof leads into - the third entrance for a V without the Technical Ability or Body check. Hiding it restores the house's normal, enterable state without the gig."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "deferred_prefab_owner": "world streaming (the chosen people need no quest prefab)",
+  "proximity_wait": {
+    "ref": "#rcr_05_main_door",
+    "within": 80.0,
+    "why": "The front door on Gibson St. is the normal way in and the only venue device with a resolved entity path; a door entity, not a workspot (rule 8). The variant toggle runs at boot and does not need the proximity branch."
+  }
+}

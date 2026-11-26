@@ -1,0 +1,56 @@
+{
+  "code": "q302_goodnight_charlies",
+  "display_name": "Capitán Caliente (Eden Plaza, Dogtown)",
+  "why": "Capitán Caliente is the abandoned restaurant below Montezuma's Throne in Eden Plaza, Golden Pacific, entered from Monument Ave; its location prefab is internally named loc_q302_goodnight_charlies. Vanilla gives it a full interior, a fusebox-locked front door, an old telephone behind a sliding shelf and a scavenger stash, but only one body of its own: a homeless scavenger who advertises at the door. This proposal restores that squatter, the #q302_pr_bar quest prefab his workspot lives in, and the railing-collision variant vanilla always sets. The 6th Street protest in the same catalogue record is a Dogtown gate set-piece, not this venue's crowd, and is left out.",
+  "source": {
+    "proposal": "research/loc_q302_goodnight_charlies/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Stand on Monument Ave outside the bar and check the squatter appears at the door. He should stand in the advertise pose, calm and non-reactive, not alert, crouched or in combat.",
+      "Walk into the bar and check the interior is intact and lit without any quest. The dining room, the phone room and the scavenger stash should render from the normal interior sector with power on.",
+      "Walk the bar floor and check the two mines do not go off. Vanilla disables #q302_caliente_mine_001/002 during q302_05_bar and this venue cannot issue device actions.",
+      "Stand on the bar's upper walkway or railing edge and check you cannot fall through. The only variant is the collision-only railing variant, which vanilla always sets to 1.",
+      "Check that no 6th Street protesters, gate guards, Minotaur or protest vehicles appear at the bar. The catalogue's #q302_com_protesters belongs to the Dogtown gate, about 560 m away.",
+      "Check whether Ronald Malone's junk stand is outside and open. The vendor who stands here until Lucretia My Reflection comes from ep1_vendors.questphase, which the clean slate does not load.",
+      "Look behind the sliding shelf and check the old telephone room is reachable or acceptably shut. Vanilla moves #q302_caliente_moving_shelf only during the quest."
+    ]
+  },
+  "prefabs": [
+    "#q302_pr_bar"
+  ],
+  "communities": [
+    {
+      "spawner": "#q302_com_caliente_scav",
+      "entry_name": "scav_hobo",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Vanilla's only ambient body of its own at the bar: a homeless scavenger who stands at the front advertising, made non-reactive to V (ReactionPresets.NoReaction). Phase a is his spot at the restaurant (-1669.65, -2421.77, 39.92); phase tree is a different place and is left out. Restoring him keeps the closed bar from being completely dead without inventing staff.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "#q302_pr_bar",
+      "states": {
+        "var_q302_railing_collision": 1
+      },
+      "why": "The only variant vanilla ever sets on this prefab, and it always sets it to 1. It is collision-only, so it changes no visuals; it keeps the upper railing solid so a player cannot fall out of the bar once the prefab is loaded at boot instead of during the quest."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "tour_stop": {
+    "position": [
+      -1669.65,
+      -2421.77,
+      39.92
+    ],
+    "source": "{q302_ws_scav_hobo} AIActionSpot at $/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_q302_goodnight_charlies_prefab4L3I56Q/loc_q302_goodnight_charlies_questdesign_prefabKH4C2XA/#q302_pr_bar/#q302_05_bar/#q302_ws_scav_hobo, in base/worlds/03_night_city/_compiled/default/ep1/quest_7abca2b8d18f8562.streamingsector"
+  },
+  "proximity_wait": {
+    "ref": "#q302_dvc_door_bar_caliente",
+    "within": 80.0,
+    "why": "The restaurant's front door (DoorControllerPS) on the normal way in, so the proximity re-issue fires as the player reaches the bar; its device actions run against a streamed entity."
+  }
+}

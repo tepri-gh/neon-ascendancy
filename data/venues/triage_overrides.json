@@ -170,6 +170,11 @@
       "venue": "loc_sq021_school",
       "decision": "excluded",
       "why": "Research wave 14: a braindance memory set of Laguna Bend Public School (2045), out of bounds; Laguna Bend was flooded in 2062."
+    },
+    {
+      "venue": "loc_mq014_zen",
+      "decision": "excluded",
+      "why": "Research wave 14: the hidden vision set for the Zen master's mq014 meditation clips, a sector variant 7 km east of the city that is off by default; the real meeting spot is Reconciliation Park."
     }
   ]
 }

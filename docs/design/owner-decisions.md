@@ -379,3 +379,26 @@ the non-combat people. **(after tour)**
      lieutenant (proposed)? Ten Valentinos and a Thrax, or add the static
      enemy detail? Valentinos hostile or neutral (see 78)? Leave the
      quest's bus and car fleet out (proposed)?
+111. **Dewdrop Inn** (`sts_std_arr_01`). Keep the 6th Street lab crew as
+     permanent ambience (recommended) or civilians only (see 78)? Booker
+     Updike out (recommended), or his corpse shown?
+112. **Longshore Stacks container yard** (`mq304_ce_2`). A scav squat
+     (proposed), a Barghest guard pair, or both (likely a firefight)? Drop
+     the camp if the combat zone already spawns encounters there?
+113. **Horrigan home** (`sts_std_rcr_05`). Who lives there: empty
+     (proposed), a hand-built Juliet, or a relaxed Rose? The murder props
+     (corpse, blood, shard cases) are baked world nodes with no hide
+     variant; remove them with a cleanup pass? Keep the roof window open as
+     a no-skill entrance?
+114. **H10 garage** (`q001_garage`, nothing to restore). Jackie and V's
+     Quadra stay out (recommended)? No invented garage crowd unless the tour
+     finds it empty?
+115. **Capitán Caliente, Eden Plaza** (`q302_goodnight_charlies`).
+     Abandoned with one squatter (proposed), or reopened with mod staff?
+     Display name "Capitán Caliente" or "Goodnight Charlie's"? Ronald
+     Malone absent for now? Leave the mines and phone shelf vanilla, or a
+     device-action exception?
+116. **Zen master** (`mq014_zen`, excluded). Keep the vision set excluded,
+     or save it for a meditation activity? Place the Zen master as an
+     ambient monk in Reconciliation Park (unplaced now)? Research the se5
+     cliff separately?

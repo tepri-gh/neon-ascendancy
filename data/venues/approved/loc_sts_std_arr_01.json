@@ -1,0 +1,74 @@
+{
+  "code": "sts_std_arr_01",
+  "display_name": "Dewdrop Inn (Arroyo)",
+  "why": "The Dewdrop Inn is a by-the-hour motel in northern Arroyo: a street entrance on Brandon Street, a reception desk with a manager's office behind it, a ground-floor corridor of rooms 101-107 with a laundromat and storage room, and an upper floor of rooms 200-209 that 6th Street uses as a drug lab. It is rundown, dirty and used by joytoys and their clients, and 6th Street protects it. This proposal restores the motel's normal occupancy: the receptionist at her terminal, a worker fixing the corridor, the guest/joytoy crowd on both floors, and the 6th Street lab crew working the upper rooms. It hides the gig's dead investigator and its quest keycard, and leaves the room doors as vanilla.",
+  "source": {
+    "proposal": "research/loc_sts_std_arr_01/proposal.json",
+    "confidence": "medium",
+    "open_questions": [
+      "Walk in from Brandon Street: the street main door, the reception and the ground-floor corridor door should all be usable, with the receptionist working behind the desk.",
+      "Look around the lobby and both floors: roughly nine civilian guests (two androids, four lowlife men, two joytoys and a corpo braindance client) should be idling at their spots, none dead or in an alert pose.",
+      "Check the 6th Street lab crew on the upper floor: six armed members and two drug producers should stand or sit calmly at their spots and must not attack a guest walking the ground-floor corridor.",
+      "Try rooms 103 and 203: both should still be locked behind their vanilla Technical/Body checks, not sealed forever and not hanging open.",
+      "Check the balcony door and the back-corridor shutter: closed but passable where vanilla expects it, and not the only sealed route into a lab room."
+    ]
+  },
+  "prefabs": [
+    "#sts_std_arr_01_streetstory"
+  ],
+  "communities": [
+    {
+      "spawner": "#arr_01_com",
+      "entry_name": "receptionist",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "The motel's front-desk clerk, working the bar-keyboard spot behind reception. Vanilla activates exactly this entry/phase when the gig's open-world phase starts; without the gig the desk is still staffed."
+    },
+    {
+      "spawner": "#arr_01_com",
+      "entry_name": "cleaner",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "A motel worker kneeling with a tool in the ground-floor corridor: the ordinary maintenance/housekeeping presence. Phase A is the phase vanilla itself activates, and it plays a handyman workspot, not an alert or scene pose."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The whole guest crowd: two tenant androids, four lowlife men, a joytoy and a joytoy woman, and a corpo braindance client. Their only phase is 'default' and every workspot is an idle motel pose (braindance couch, bar lean, fries, phone, table search, bed/couch). Vanilla switches the whole community on when the gig's open-world phase runs; a by-the-hour motel should be busy whether or not anyone hires V."
+    },
+    {
+      "spawner": "#arr_01_com_combat",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Activate",
+      "why": "The 6th Street crew that runs the upper-floor drug lab: six armed members and two drug-producer civilians, all on idle A-phase workspots (sit, smoke, lean on a wall, tablet, sniff drugs). 6th Street protects the Dewdrop Inn and the lab exists before the gig ever starts, so this is the venue's working state, not an aftermath; rule 11a also keeps combat groups ahead of civilians. Only their calm posture is unverified in game.",
+      "needs_tour_check": true
+    }
+  ],
+  "spawn_sets": [],
+  "variant_toggles": [
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_01_prefabUSTVARI/loc_sts_std_arr_01_gameplay_prefabCVG3WTI/loc_sts_std_arr_01_devices_prefabZDUH4IA",
+      "states": {
+        "during_sts_std_arr_01": 0
+      },
+      "why": "This variant is the gig's body-and-keycard dressing: the only nodes it owns in the two venue sectors are #arr_01_dvc_booker (Booker Updike's scannable corpse, room 103) and the personnel-shard keycard, plus the story trigger areas. Vanilla leaves it at 0 when the job closes out; our timeline has no murder and no hired theft, so the body and quest keycard must stay out of the world."
+    },
+    {
+      "prefab": "$/03_night_city/#c_santo_domingo/arroyo/loc_sts_std_arr_01_prefabUSTVARI/loc_sts_std_arr_01_gameplay_prefabCVG3WTI",
+      "states": {
+        "interior": 1
+      },
+      "why": "The gameplay prefab's interior section. It is off by default and vanilla only ever sets it to 1, on the completion branch, so the motel stays walkable inside after the story; the whole venue (reception, corridors, the lab rooms) is interior, and we need it on for the people to be inside a real building."
+    }
+  ],
+  "doors": [],
+  "door_exclusions": [],
+  "proximity_wait": {
+    "ref": "#arr_01_dvc_door_start_001",
+    "within": 80.0,
+    "why": "The ground-floor corridor door just past reception (-574.1, -827.7, 8.2), inside the building and about 7 m from the reception desk: the venue streams in as the player walks in from Brandon Street, before the crowd and the lab crew are re-activated."
+  }
+}

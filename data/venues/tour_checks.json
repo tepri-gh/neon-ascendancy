@@ -76,6 +76,10 @@
     {
       "stop": "sts_hey_gle_04",
       "text": "Go to Night City Hall's conference room near (-1752, -1011, 94), about 244 m from this stop (sq012): can you get in? The hall door is outside the door scope (no quest drives it). No braindance cast or staging. Wave 14: nothing to restore, so no venue entry."
+    },
+    {
+      "stop": "megabuilding_a",
+      "text": "Megabuilding H10 garage (q001_garage): do the tunnel roller shutters (#q001_shutter_mb_grg_1/_2) open? Walk in from the street and from the garage lift. No Quadra or Ride staging. Wave 14: nothing to restore, so no venue entry."
     }
   ]
 }
