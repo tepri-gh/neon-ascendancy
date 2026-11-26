@@ -158,6 +158,21 @@ already define all four; we copy them, never invent them.
     spec's `forbidden_*` lists enforce this, and `allowed_device_controllers`
     lists the non-door devices we may drive.
 
+**Phantom Liberty (Dogtown)**
+
+16a. **The engine merges `ep1.gamedef` at boot**, so Phantom Liberty's tree
+    (`ep1/quest/ep1.questphase`) runs alongside our clean slate, gated by
+    facts. The clean slate forbids every `ep1_` fact except
+    `ep1_side_content` (`allowed_prefixed_facts` in
+    `clean_slate_spec.json`). Setting it opens Dogtown's vanilla open-world
+    layer: the district communities and their combat variants, the quest
+    communities (stadium, Heavy Hearts, Golden Pacific, ...) and the
+    checkpoint gate. Gigs, vendors, dynamic events and the PL campaign stay
+    gated on other facts. The miner and checker treat `ep1.questphase` as
+    a kept root but never its `main_quests` subtree, which stays dormant
+    (`q005_done` and `ep1_active` are never set). It also opens the q302
+    protest at the gate, which the gate venue suppresses.
+
 **Content that lives elsewhere**
 
 16. The Dogtown vendors are in `ep1_vendors.questphase`, gated by facts; see

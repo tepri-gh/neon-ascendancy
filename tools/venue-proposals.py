@@ -103,13 +103,15 @@ def kept_phase_set(venues_dir: Path) -> set[str]:
         children[r["phase"]] = r.get("open_child_phases") or []
     todo = [d["depot_path"].replace("\\", "/") for d in spec["questphase"]["kept_depot_phases"]]
     todo += [p.replace("\\", "/") for p in spec["questphase"].get("inline_phase_depot_refs") or []]
+    todo += ["ep1/quest/ep1.questphase"]  # auto-merged by the engine (ep1.gamedef)
     kept: set[str] = set()
     while todo:
         ph = todo.pop()
         if ph in kept:
             continue
         kept.add(ph)
-        todo += children.get(ph, [])
+        # The PL campaign stays dormant (q005_done / ep1_active never set).
+        todo += [c for c in children.get(ph, []) if not c.startswith("ep1/quest/main_quests/")]
     return kept
 
 

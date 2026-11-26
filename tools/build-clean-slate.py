@@ -2267,7 +2267,8 @@ def _check_questphase(
            f"setvar facts mismatch:\n  actual:   {sorted(actual_facts)}\n  expected: {sorted(expected_facts)}")
         forbidden = set(qp["forbidden_facts"]) | set(cast_spec["forbidden_default_on_facts"])
         prefixes = tuple(qp["forbidden_fact_prefixes"])
-        bad = [f for f, _ in actual_facts if f in forbidden or f.startswith(prefixes)]
+        allowed = set(qp.get("allowed_prefixed_facts", []))
+        bad = [f for f, _ in actual_facts if f in forbidden or (f.startswith(prefixes) and f not in allowed)]
         ok(not bad, f"forbidden story/default_on facts set: {bad}")
 
         # phase refs: kept + cast_and_hubs + spike present, excluded absent
@@ -2625,7 +2626,8 @@ def _check_cast_and_hubs(
     actual_facts = _collect_setvar_facts(rc)
     forbidden = set(qp["forbidden_facts"]) | set(cast_spec["forbidden_default_on_facts"])
     prefixes = tuple(qp["forbidden_fact_prefixes"])
-    bad_facts = [f for f, _ in actual_facts if f in forbidden or f.startswith(prefixes)]
+    allowed = set(qp.get("allowed_prefixed_facts", []))
+    bad_facts = [f for f, _ in actual_facts if f in forbidden or (f.startswith(prefixes) and f not in allowed)]
     ok(not bad_facts, f"forbidden facts set inside cast_and_hubs.questphase: {bad_facts}")
 
     refs = _collect_phase_refs(rc)

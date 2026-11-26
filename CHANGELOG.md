@@ -75,6 +75,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Changed
+- Dogtown's vanilla open-world layer is live: the clean slate sets
+  `ep1_side_content` (the only allowed `ep1_` fact). That opens the
+  district ambient communities and combat groups, the quest communities
+  (stadium, Heavy Hearts, Golden Pacific, Longshore market and others) and
+  the checkpoint gate. Gigs, vendors, dynamic events and the Phantom Liberty
+  campaign stay gated. The q302 protest at the gate is suppressed.
 - Venue doors follow the owner's door policy: closed by default but usable
   (enabled/powered, unlocked only where there is no other way through), never
   force-opened; doors with an in-world opener (terminal, keycard, hacking,

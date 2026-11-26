@@ -153,6 +153,10 @@
       {
         "fact": "cz_stadium_ripperdoc_01_default_on",
         "value": 1
+      },
+      {
+        "fact": "ep1_side_content",
+        "value": 1
       }
     ],
     "forbidden_facts": [
@@ -162,6 +166,10 @@
       "q101_done",
       "sts_loop_start"
     ],
+    "allowed_prefixed_facts": [
+      "ep1_side_content"
+    ],
+    "allowed_prefixed_facts_why": "Owner 2026-11-26: open Dogtown's vanilla open-world layer (ep1.gamedef is auto-merged by the engine). Gate analysis: it opens the ep1 communities (~612 activations), the checkpoint gate and q301 cleanup deactivations; gigs, vendors, dynamic events and the PL campaign stay gated on other ep1_/q30x facts. The q302 protest it opens is suppressed by the combat-zone-gate venue.",
     "forbidden_fact_prefixes": [
       "q115_",
       "ep1_"

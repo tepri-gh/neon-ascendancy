@@ -12,12 +12,12 @@
       "Mr. Hands: cast_and_hubs.json seats him on a #ws_mr_hands_default in the ne2 fixers prefab at world position ~6013/6115, while this venue also owns a #ws_mr_hands_default inside mr_hands_combat_zone_default_prefabPY55PSI at ~-1586/-2340 (his Heavy Hearts suite). If the owner wants him in the club, that is a cast-layer change, not a venue phase.",
       "The wiki names Helen Wandoo (bartender) and Sarah Rossack (manager) but vanilla has no character records for them; they are covered only by generic waitress records.",
       "Whether the terrace/rail and second-floor crowd entries picked here still read well once streamed; the crowd phases are single 'a' phase for all entries, so the exact room each entry lands in is only verified by the tour."
+    ],
+    "stripped": [
+      "prefabs ['$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_streetstory', '$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_combat']: vanilla Dogtown layer loads them once ep1_side_content is set (rule 2, redundant)"
     ]
   },
-  "prefabs": [
-    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_streetstory",
-    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/monument_av_prefabCJD7Q4Q/loc_sts_ep1_06_prefab7J2LN5A/loc_sts_ep1_06_openworld_prefabV7KAIGA/#loc_sts_ep1_06_combat"
-  ],
+  "prefabs": [],
   "communities": [
     {
       "spawner": "#sts_ep1_06_com_civilians",
@@ -304,5 +304,6 @@
     "ref": "#sts_ep1_06_heavy_hearts_entrance_doors",
     "within": 80.0,
     "why": "The club's main double entrance doors, on the only way in and streamed with the venue; vanilla's ambient club phase enables and powers them, so they are a device that reliably streams in before the crowd needs re-issuing (rule 8)."
-  }
+  },
+  "deferred_prefab_owner": "vanilla ep1 open-world phases (ep1_side_content)"
 }

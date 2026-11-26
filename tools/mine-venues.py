@@ -304,6 +304,10 @@ def _is_node(o: dict) -> bool:
     return t.startswith("quest") and t.endswith("NodeDefinition") and "sockets" in o and "id" in o
 
 
+# Facts exempt from forbidden_fact_prefixes (clean_slate_spec allowed_prefixed_facts).
+ALLOWED_PREFIXED: set[str] = set()
+
+
 def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...], settable: set[str] | None = None) -> bool:
     """True when the node's fact condition can never pass in the clean slate.
 
@@ -320,7 +324,8 @@ def _blocks(node: dict, forbidden: set[str], prefixes: tuple[str, ...], settable
         if o.get("$type") != "questVarComparison_ConditionType":
             continue
         name = str(val(o.get("factName")))
-        never = name in forbidden or name.startswith(prefixes) or (settable is not None and name not in settable)
+        never = (name in forbidden or (name.startswith(prefixes) and name not in ALLOWED_PREFIXED)
+                 or (settable is not None and name not in settable))
         if not never:
             continue
         cmp_, value = o.get("comparisonType"), o.get("value", 0)
@@ -469,7 +474,19 @@ def clean_slate_forbidden() -> tuple[set[str], tuple[str, ...]]:
     spec = json.loads((root / "clean_slate_spec.json").read_text(encoding="utf-8"))["questphase"]
     cast = json.loads((root / "cast_and_hubs.json").read_text(encoding="utf-8"))
     facts = set(spec.get("forbidden_facts") or []) | set(cast.get("forbidden_default_on_facts") or [])
+    ALLOWED_PREFIXED.clear()
+    ALLOWED_PREFIXED.update(spec.get("allowed_prefixed_facts") or [])
     return facts, tuple(spec.get("forbidden_fact_prefixes") or [])
+
+
+# The engine merges ep1.gamedef's quests at boot (docs/research/option-a-clean-
+# slate-start.md 5.3), so Phantom Liberty's tree runs alongside ours, gated
+# by facts.
+EP1_AUTO_MERGED_ROOTS = ["ep1/quest/ep1.questphase"]
+# The PL campaign under it stays dormant: its start needs q005_done and
+# ep1_active (both forbidden) plus player-driven triggers, which a static
+# fact analysis cannot see. Never treat it as running.
+EP1_DORMANT_PREFIXES = ("ep1/quest/main_quests/",)
 
 
 def _kept_closure(rows: list[dict]) -> set[str]:
@@ -478,12 +495,13 @@ def _kept_closure(rows: list[dict]) -> set[str]:
     children = {r["phase"]: r.get("open_child_phases") or [] for r in rows}
     todo = [d["depot_path"].replace("\\", "/") for d in spec["kept_depot_phases"]]
     todo += [p.replace("\\", "/") for p in spec.get("inline_phase_depot_refs") or []]
+    todo += EP1_AUTO_MERGED_ROOTS
     kept: set[str] = set()
     while todo:
         ph = todo.pop()
         if ph not in kept:
             kept.add(ph)
-            todo += children.get(ph, [])
+            todo += [c for c in children.get(ph, []) if not c.startswith(EP1_DORMANT_PREFIXES)]
     return kept
 
 

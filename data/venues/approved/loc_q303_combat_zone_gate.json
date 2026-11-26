@@ -11,11 +11,12 @@
       "Do the guard spots sit inside the interior_area section? If they do, interior_area may have to be 1 for them to be visible; it is left at the vanilla default 0 here.",
       "Can the player actually cross the checkpoint in the clean slate? The pedestrian single doors and the vehicle gate_maelstrom barriers are script-opened by the gated openworld phase, so this depends on the runtime door policy unsealing them; tour both directions.",
       "The location prefab also carries an on_off_switch variant ($/03_night_city/c_pacifica/#switch_cz_on_off, default 0) that may control the Combat Zone's own barrier power. No quest toggle declares it in this venue's data, so it is left vanilla and unchecked."
+    ],
+    "stripped": [
+      "prefabs ['$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/loc_q303_combat_zone_gate_prefabT6SV24Y/#loc_q303_combat_zone_gate_openworld']: vanilla Dogtown layer loads them once ep1_side_content is set (rule 2, redundant)"
     ]
   },
-  "prefabs": [
-    "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/loc_q303_combat_zone_gate_prefabT6SV24Y/#loc_q303_combat_zone_gate_openworld"
-  ],
+  "prefabs": [],
   "communities": [
     {
       "spawner": "#combat_zone_gate_com",
@@ -31,6 +32,13 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The checkpoint's lived-in layer: three technicians working tablets at a table and on the ground, plus four workers/workout NPCs on rail, ground and gym workspots (lean, smoke, drink, lift, box). Every workspot is a common routine/gym spot, so the group looks like staff on a break and off-duty guards working out beside the gate. Vanilla's openworld gate phase activates this community whole, with no quest condition."
+    },
+    {
+      "spawner": "#q302_com_protesters",
+      "entry_name": "None",
+      "phase_name": "None",
+      "action": "Deactivate",
+      "why": "Lead agent: ep1_side_content opens vanilla q302_protest (ep1_persistent_content), which activates the protesters at the gate; the protest is q302 story state that never happens in our timeline."
     }
   ],
   "spawn_sets": [],
@@ -48,6 +56,13 @@
         "q302_protest_audio": 0
       },
       "why": "q302_protest_audio 1 is the protest PA that only plays for the q302 gate protest, a story scene that does not happen in our timeline. 0 is the quiet checkpoint."
+    },
+    {
+      "prefab": "#loc_pr_q303_combat_zone_gate_env",
+      "states": {
+        "q302_protest_deco": 0
+      },
+      "why": "Lead agent: keep q302's protest dressing off (q302_protest sets it to 1 once ep1_side_content is open)."
     }
   ],
   "doors": [],
@@ -56,5 +71,6 @@
     "ref": "#combat_zone_gate_dvc_security_system",
     "within": 80.0,
     "why": "The checkpoint's own SecuritySystemControllerPS at (-2060.9,-2318.6,21.0) is the centred device between the guard and civilian spots, and vanilla drives it in this gate's phase. A device, not a workspot."
-  }
+  },
+  "deferred_prefab_owner": "vanilla ep1 open-world phases (ep1_side_content)"
 }
