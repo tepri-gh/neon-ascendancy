@@ -83,6 +83,11 @@ already define all four; we copy them, never invent them.
 
    At Clouds, `after_woodman` looked harmless by name but is the
    post-interrogation lockdown. See §4.2 for how to check.
+9a. **Entry `None` with phase `None` and `Activate` switches on a whole
+    community**, every entry in its initial phase (`entriesInitialState`).
+    It is not a reset. The Totentanz DJ and crowd run this way
+    (`#com_totentanz`). The catalogue marks these `whole_community: true` and
+    lists each entry's initial phase, so check their postures there.
 10. **Drop combat, hostile, scene, cutscene and interrogation phases** unless
     one is chosen on purpose and its workspot is checked. Example: Woodman's
     `q105_interrogation_friendly_start` spawn set is idle behind his desk.

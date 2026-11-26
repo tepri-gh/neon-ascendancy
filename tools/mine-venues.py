@@ -481,7 +481,21 @@ def stage_catalog(a: argparse.Namespace) -> None:
             if inferred:
                 e["venue_inferred"] = True
             c = by_path.get(full) if full else None
-            if c and "record" not in e:
+            if c and "record" not in e and it["entry"] == "None":
+                # Whole-community activation: every entry starts in its initial phase.
+                e["whole_community"] = True
+                ents = [(x, (x.get("initial") or {}).get("phase")) for x in c["entries"]]
+                ws = [spots[i]["workspot"] for x, ph0 in ents
+                      for i in (c.get("spots") or {}).get(f"{x['name']}/{ph0}", []) if i in spots]
+                e["entries"] = [{"entry": x["name"], "initial_phase": ph0, "record": x["record"],
+                                 "role": role_of(x["record"])} for x, ph0 in ents]
+                e["workspots"] = sorted({w for w in ws if w})
+                roles = {role_of(x["record"]) for x, _ in ents}
+                e["role"] = next((r for r in ("netrunner", "combat", "civilian", "vehicle") if r in roles), "unknown")
+                pos = sorted({posture(w) for w in ws}) or ["unknown"]
+                e["posture"] = "alert" if "alert" in pos else pos[0] if len(pos) == 1 else "mixed:" + "+".join(pos)
+                e["record"] = None
+            elif c and "record" not in e:
                 ent = next((x for x in c["entries"] if x["name"] == it["entry"]), None)
                 e["record"] = ent and ent["record"]
                 e["role"] = role_of(e["record"])
@@ -513,8 +527,10 @@ def stage_catalog(a: argparse.Namespace) -> None:
         pending: list[tuple[str, Any, str | None]] = []
         for kind in ("prefabs", "communities", "spawn_sets", "devices", "toggles"):
             for it in row.get(kind) or []:
-                if kind == "communities" and "None" in (it.get("entry"), it.get("phase")):
-                    continue  # deactivate/reset of a community or entry, not a spawn
+                if kind == "communities" and it.get("action") == "Deactivate":
+                    continue  # switches people off; not a spawn
+                if kind == "communities" and it.get("phase") == "None" and it.get("entry") != "None":
+                    continue  # entry reset without a phase; not a spawn
                 ref = it if kind == "prefabs" else it.get("ref")
                 hits = [(full, venue_of(full)) for full in resolve(ref)]
                 hits = [(f, vn) for f, vn in hits if vn]
