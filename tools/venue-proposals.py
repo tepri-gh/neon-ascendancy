@@ -233,7 +233,18 @@ def check_one(vn: str, prop: dict, v: dict, layers: dict[str, str], kept: dict[s
                 errs.append(f"community {sp} whole-community: posture {hits[0].get('posture')}")
         else:
             hits = [o for o in opts if o["entry"] == en and o["phase"] == ph and ref_matches(sp, o)]
-            if not hits:
+            vanilla_act = any("Activate" in (e.get("actions") or []) and not e.get("venue_inferred") and e.get("entry") == en and e.get("phase") == ph
+                              and ref_matches(sp, e) for e in v["communities"])
+            if not hits and vanilla_act:
+                # The spawner's registry did not resolve (no options), but a
+                # vanilla phase activates exactly this entry phase here.
+                if not c.get("needs_tour_check"):
+                    errs.append(f"community {sp} {en}/{ph}: vanilla activates it but the catalogue has no posture for "
+                                f"it; set needs_tour_check")
+                else:
+                    warns.append(f"community {sp} {en}/{ph}: posture unknown (no catalogue options); vanilla "
+                                 f"activates this entry phase here")
+            elif not hits:
                 errs.append(f"community {sp} {en}/{ph}: no such entry phase in the catalogue")
             else:
                 pos = hits[0]["posture"]
