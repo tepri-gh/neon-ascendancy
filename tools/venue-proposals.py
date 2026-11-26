@@ -429,7 +429,7 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
         "  return [",
     ]
     lines += [f"    {h}ul{',' if i + 1 < len(hashes) else ''}" for i, h in enumerate(hashes)]
-    lines += ["  ];", "}", ""]
+    lines += ["  ];", "}", "", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
     print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs) -> {SCOPE_OUT.relative_to(ROOT)}")

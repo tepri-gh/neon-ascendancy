@@ -105,7 +105,10 @@ public func NeonAscendancy_DoorPolicyEnabled(game: GameInstance) -> Bool {
 }
 
 public class NeonAscendancy_DoorPolicyRecheck extends DelayCallback {
-  public let m_ps: wref<DoorControllerPS>;
+  // Strong for the one second until Call(): with a weak ref the PS was gone by
+  // then and the re-check never ran (log 2026-11-26 08:11:27, enable without a
+  // recheck=true line).
+  public let m_ps: ref<DoorControllerPS>;
 
   public func Call() -> Void {
     let ps = this.m_ps;

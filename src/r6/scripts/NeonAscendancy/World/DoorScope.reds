@@ -906,3 +906,4 @@ public func NeonAscendancy_DoorScopeHashes() -> array<Uint64> {
     18446317621582118821ul
   ];
 }
+
