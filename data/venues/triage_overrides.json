@@ -79,7 +79,7 @@
     {
       "venue": "loc_q108_atlantis_club",
       "decision": "excluded",
-      "why": "Research wave 3: Club Atlantis is a closed, rubble-blocked shell in 2077; its content is Johnny's 2013 memory (q108), which never runs."
+      "why": "Research wave 3: Club Atlantis is a closed, rubble-blocked shell in 2077; its content is Johnny's 2013 memory (q108), which never runs. Owner 2026-11-26: wanted as a new 2077 venue; see docs/design/new-venues.md."
     },
     {
       "venue": "loc_q104_crash_site",
@@ -94,7 +94,7 @@
     {
       "venue": "loc_q101_concert",
       "decision": "excluded",
-      "why": "Research wave 4: The Hammer exists only as Johnny's Samurai-concert memory set, off-map, with no present-day shell."
+      "why": "Research wave 4: The Hammer exists only as Johnny's Samurai-concert memory set, off-map, with no present-day shell. Owner 2026-11-26: wanted as a new 2077 venue; see docs/design/new-venues.md."
     }
   ]
 }
