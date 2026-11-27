@@ -630,6 +630,11 @@ local function tour_goto(i)
   if tour.mode == "tour" then
     while stops[i] and stops[i].done do i = i + 1 end
   end
+  if tour.mode == "sweep" and stops[i] then
+    -- Written before the teleport: if the game hangs loading this stop, the
+    -- next resume sees a visit with no result and skips it.
+    append("tour.log", json_enc({ event = "visit", time = os.date("%Y-%m-%d %H:%M:%S"), code = stops[i].code, mode = "sweep" }))
+  end
   if i > #stops then
     -- God mode and invisibility stay on after a sweep: it ends wherever the
     -- last stop is (the owner died in the Badlands right after one). Starting
@@ -747,16 +752,56 @@ end
 -- Unattended sweep of every stop, toured or not: no checklists, god mode and
 -- invisibility on, doors and lifts logged. A stopped sweep resumes where it
 -- left off. About 25 s a stop.
+-- Stops already swept in the latest unfinished sweep run, read back from
+-- tour.log, so a sweep resumes after a game crash or hang (Spidertank arena
+-- load hang, 2026-11-27). Empty when the latest run finished. Also returns
+-- the stop the game was loading when it died (a `visit` with no `stop` or
+-- `skip` after it), so the resume can skip it instead of hanging again.
+local function swept_in_last_run()
+  local done, pending = {}, nil
+  local f = io.open("tour.log", "r")
+  if not f then return done, nil end
+  for line in f:lines() do
+    if line:find('"mode":"sweep"', 1, true) then
+      local ev = line:match('"event":"(%w+)"')
+      local c = line:match('"code":"([^"]+)"')
+      if (ev == "start" and not line:find('"resume":true', 1, true)) or ev == "done" then
+        done, pending = {}, nil
+      elseif ev == "visit" then
+        pending = c
+      elseif (ev == "stop" or ev == "skip") and c then
+        done[c] = true
+        if pending == c then pending = nil end
+      end
+    end
+  end
+  f:close()
+  return done, pending
+end
+
 function Probe.sweep_start(code)
   local stops = load_stops()
   if not stops then return end
-  local start = (tour.mode == "sweep" and tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
+  local start = 1
+  local done, hung = swept_in_last_run()
+  if hung then
+    append("tour.log", json_enc({ event = "skip", time = os.date("%Y-%m-%d %H:%M:%S"), code = hung,
+      reason = "game hung loading it last run", mode = "sweep" }))
+    emit("SWEEP skipping " .. hung .. ": the game hung loading it last run")
+    done[hung] = true
+  end
+  while stops[start] and done[stops[start].code] do start = start + 1 end
+  local resume = start > 1 and start <= #stops
+  if not resume then start = 1 end
   if code then
+    resume = false
     for i, s in ipairs(stops) do if s.code == code then start = i end end
   end
   tour.mode = "sweep"
   sweep_protect(true)
-  append("tour.log", json_enc({ event = "start", time = os.date("%Y-%m-%d %H:%M:%S"), from = stops[start].code, mode = "sweep" }))
+  append("tour.log", json_enc({ event = "start", time = os.date("%Y-%m-%d %H:%M:%S"), from = stops[start].code,
+    mode = "sweep", resume = resume }))
+  emit(string.format("SWEEP %s at %d/%d %s", resume and "resuming" or "starting", start, #stops, stops[start].code))
   tour_goto(start)
 end
 
