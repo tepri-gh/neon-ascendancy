@@ -576,10 +576,18 @@ end
 -- each item marked OK or Problem. Saving logs a "checklist" line to tour.log
 -- for tools/venue-tour-report.py; unmarked items are reported as unchecked.
 
-local review = nil  -- { stop, marks = {i -> "ok"|"problem"}, from_tour }
+local review = nil       -- { stop, marks = {i -> "ok"|"problem"}, from_tour }
+local last_review = nil  -- the checklist most recently closed without saving
 
 function Probe.checklist_open(stop, from_tour)
-  review = { stop = stop, marks = {}, from_tour = from_tour == true }
+  -- Reopening the stop you just closed keeps its marks.
+  if last_review and last_review.stop.code == stop.code then
+    review = last_review
+    review.from_tour = review.from_tour or from_tour == true
+  else
+    review = { stop = stop, marks = {}, from_tour = from_tour == true }
+  end
+  last_review = nil
 end
 
 local function checklist_save()
@@ -656,14 +664,15 @@ end)
 
 local note = { pending = nil, text = "", overlay = false }
 
-registerHotkey("NeonNote", "Neon: playtest note", function()
+local function note_new()
   local p = Game.GetPlayer():GetWorldPosition()
   local s, d = nearest_stop(p)
   note.pending = { pos = { p.x, p.y, p.z }, stop = s and s.code or nil, dist = d, time = os.date("%Y-%m-%d %H:%M:%S") }
   note.text = ""
   emit(string.format("NOTE stamped at (%.1f,%.1f,%.1f) near %s - open the CET overlay to write it",
     p.x, p.y, p.z, tostring(s and s.code)))
-end)
+end
+registerHotkey("NeonNote", "Neon: playtest note", note_new)
 
 on("onOverlayOpen", function() note.overlay = true end)
 on("onOverlayClose", function() note.overlay = false end)
@@ -717,7 +726,39 @@ on("onDraw", function()
     ImGui.SameLine()
     if ImGui.Button(review.from_tour and "Save + next stop" or "Save") then checklist_save() end
     ImGui.SameLine()
-    if ImGui.Button("Close") then review = nil end
+    if ImGui.Button("Close") then last_review = review; review = nil end
+  end
+  ImGui.End()
+end)
+
+-- Always-available panel (owner request 2026-11-26): closing the checklist
+-- or a note must never strand you, and it must not depend on bound hotkeys.
+on("onDraw", function()
+  if not note.overlay then return end
+  if ImGui.Begin("Neon tour") then
+    local stops = load_stops()
+    if tour.state ~= "idle" and stops and stops[tour.i] then
+      ImGui.Text(string.format("Tour: stop %d/%d %s (%s)", tour.i, #stops, stops[tour.i].code, tour.state))
+    else
+      ImGui.Text("Tour: idle")
+    end
+    if ImGui.Button("Checklist here") then
+      local p = Game.GetPlayer():GetWorldPosition()
+      local st = nearest_stop(p)
+      if st then Probe.checklist_open(st, tour.state == "review" and stops and stops[tour.i] == st) end
+    end
+    if last_review then
+      ImGui.SameLine()
+      if ImGui.Button("Reopen " .. last_review.stop.code) then
+        review = last_review
+        last_review = nil
+      end
+    end
+    ImGui.SameLine()
+    if ImGui.Button("New note") then note_new() end
+    if tour.state == "review" and not review then
+      if ImGui.Button("Next stop") then tour_goto(tour.i + 1) end
+    end
   end
   ImGui.End()
 end)
