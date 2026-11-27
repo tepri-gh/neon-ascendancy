@@ -640,7 +640,7 @@ local function tour_goto(i)
     return
   end
   local s = stops[i]
-  tour.i, tour.state, tour.t = i, "settle", 0.0
+  tour.i, tour.state, tour.t, tour.retried = i, "settle", 0.0, false
   local player = Game.GetPlayer()
   if fly.on then fly.pos = Vector4.new(s.pos[1], s.pos[2], s.pos[3] + 1.5, 1.0) end
   Game.GetTeleportationFacility():Teleport(player, Vector4.new(s.pos[1], s.pos[2], s.pos[3] + 1.5, 1.0),
@@ -777,10 +777,40 @@ end)
 registerHotkey("NeonTourStop", "Neon: tour stop", function() Probe.tour_stop() end)
 registerHotkey("NeonSweepStart", "Neon: sweep start/resume", function() Probe.sweep_start() end)
 
+-- How far from a stop the player may be and still count as arrived.
+local ARRIVE_M = 30.0
+
 on("onUpdate", function(dt)
   if tour.state ~= "settle" then return end
   tour.t = tour.t + dt
   if tour.t >= tour.settle then
+    local player = Game.GetPlayer()
+    local s = tour.stops[tour.i]
+    -- A dead player cannot teleport: the first sweep kept "visiting" 66 stops
+    -- from the death screen at the Kabuki gun trainer (2026-11-27).
+    if not player or safe(function() return player:IsDead() end) then
+      emit(string.format("TOUR stopped at %d %s: the player is dead", tour.i, s.code))
+      append("tour.log", json_enc({ event = "abort", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code,
+        reason = "player dead", mode = tour.mode }))
+      tour.state = "idle"
+      return
+    end
+    local p = player:GetWorldPosition()
+    local off = math.sqrt((p.x - s.pos[1]) ^ 2 + (p.y - s.pos[2]) ^ 2)
+    if off > ARRIVE_M then
+      if not tour.retried then
+        tour.retried, tour.t = true, 0.0
+        Game.GetTeleportationFacility():Teleport(player, Vector4.new(s.pos[1], s.pos[2], s.pos[3] + 1.5, 1.0),
+          player:GetWorldOrientation():ToEulerAngles())
+        emit(string.format("TOUR %s: %.0f m off after teleport, retrying", s.code, off))
+        return
+      end
+      emit(string.format("TOUR %s: did not arrive (%.0f m off), skipped", s.code, off))
+      append("tour.log", json_enc({ event = "skip", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code,
+        reason = "not arrived", off = off, mode = tour.mode }))
+      tour_goto(tour.i + 1)
+      return
+    end
     tour.state = "scan"
     local ok, err = pcall(tour_scan)
     if not ok then

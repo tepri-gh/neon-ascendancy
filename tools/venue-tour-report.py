@@ -46,6 +46,9 @@ DOOR_RE = re.compile(r"\[(?P<t>[\d-]+ [\d:.]+)\].*DoorPolicy: id=(?P<id>\d+) pos
                      r"(?P<z>[-\d.]+)\) recheck=(?P<re>\w+) .*impassable=(?P<imp>\w+) otherWayIn=(?P<other>\w+) "
                      r".*?decision=(?P<dec>.*)$")
 OVERRIDES = ROOT / "data" / "venues" / "door_overrides.json"
+STOPS = ROOT / "tools" / "probes" / "tour_stops.json"
+# The probe's own arrival radius (neon_probe.lua ARRIVE_M).
+ARRIVE_M = 30.0
 USABLE_SIDES = {"INTERACTIVE", "AUTOMATIC", "PHYSICAL"}
 # Nearby devices may be a doubled prefab or variant, or separate devices.
 DUPLICATE_M = 0.75
@@ -125,6 +128,14 @@ def main() -> int:
     a = ap.parse_args()
 
     stops = [r for r in read_jsonl(PROBE / "tour.log") if r.get("event") == "stop" and r.get("time", "") >= a.since]
+    # A scan is only evidence for its stop if the player got there: a failed
+    # teleport (or a dead player) scans the previous spot again.
+    targets = ({st["code"]: st["pos"] for st in json.loads(STOPS.read_text(encoding="utf-8"))["stops"]}
+               if STOPS.exists() else {})
+    not_arrived = sorted({r["code"] for r in stops if r["code"] in targets
+                          and dist(r["player"][:2] + [0], targets[r["code"]][:2] + [0]) > ARRIVE_M})
+    stops = [r for r in stops if r["code"] not in not_arrived
+             or dist(r["player"][:2] + [0], targets[r["code"]][:2] + [0]) <= ARRIVE_M]
     notes = [r for r in read_jsonl(PROBE / "notes.log") if r.get("time", "") >= a.since]
     doors = door_decisions(a.since)
     in_policy = {d["id"] for d in doors}
@@ -150,6 +161,9 @@ def main() -> int:
 
     lines = ["# Venue tour report", "",
              f"{len(latest)} stops toured, {len(notes)} notes, {len(doors)} door decisions logged.", ""]
+    missed = [c for c in not_arrived if c not in latest]
+    if missed:
+        lines += [f"Not arrived (scan dropped, sweep again): {', '.join(missed)}", ""]
     summary = []
     for code, s in sorted(latest.items()):
         scanned = s.get("npcs") is not None
