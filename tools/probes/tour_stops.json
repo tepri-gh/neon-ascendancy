@@ -98,6 +98,11 @@
      "source": "open question"
     },
     {
+     "label": "Lead agent, owner tour 2026-11-26: var_garage_gate_device=1 added a second, openable garage gate in the same opening as the sealed roller door.",
+     "detail": "Lead agent, owner tour 2026-11-26: var_garage_gate_device=1 added a second, openable garage gate in the same opening as the sealed roller door. Dropped; the door policy now unseals the roller door. Check there is one working garage door.",
+     "source": "open question"
+    },
+    {
      "label": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable?",
      "detail": "Yucca radio tower (q000_radio_tower): does the fence gate open, and are the ladders climbable? Check that no quest marker or background car (Willie's) appears with the quest prefab left out. Wave 13: nothing to restore, so no venue entry.",
      "source": "extra"
@@ -4676,7 +4681,7 @@
     },
     {
      "label": "Calm and on post: #q001_com_residents_gate (2 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: resident1/gate_closed, resident2/gate_closed.",
+     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: resident1/after_chat1, resident2/after_chat1.",
      "source": "community"
     },
     {

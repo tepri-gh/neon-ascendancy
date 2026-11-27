@@ -1,0 +1,17 @@
+{
+  "description": "Owner-flagged doors the runtime door policy must open up regardless of its normal rules: disable authorization, unlock and unseal (never force open). For doors whose 'other way in' (an authorization module or terminal) has no obtainable keycard or usable terminal in our timeline. id is the engine entity id the policy and look-at logger print. tools/venue-proposals.py door-scope generates the list into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
+  "doors": [
+    {
+      "id": "9614311589775865692",
+      "venue": "loc_q000_border_crossing",
+      "pos": [-2811.5, -5658.9, 101.1],
+      "why": "Owner tour 2026-11-26: the checkpoint office doors stay shut. Locked and impassable behind an authorization module with no keycard in our timeline."
+    },
+    {
+      "id": "8449225943234870983",
+      "venue": "loc_q000_radio_tower",
+      "pos": [-4091.0, -6620.0, 88.1],
+      "why": "Owner tour 2026-11-26: the Yucca radio tower fence gate does not open. Unlocked and unsealed but gated by an authorization module only the prologue satisfied."
+    }
+  ]
+}

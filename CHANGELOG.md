@@ -160,6 +160,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Door overrides: owner-flagged doors (`data/venues/door_overrides.json`)
+  get authorization disabled, unlocked and unsealed, in or out of scope;
+  first two are the SoCal border office and the Yucca radio tower gate.
+- Yucca: the extra openable garage gate is gone (the garage-gate variant
+  duplicated the sealed roller door, which the policy now unseals).
 - Door policy: a sealed, impassable door is always unsealed, even with an
   authorization module or terminal; those only get past locks (Wilson's
   range in H10 stayed shut).

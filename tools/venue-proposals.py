@@ -560,10 +560,28 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
         "  return [",
     ]
     lines += [f"    {h}ul{',' if i + 1 < len(hashes) else ''}" for i, h in enumerate(hashes)]
-    lines += ["  ];", "}", "", ""]
+    lines += ["  ];", "}", ""]
+    # Owner-flagged doors the policy opens up past authorization (door_overrides.json).
+    ov_path = ROOT / "data" / "venues" / "door_overrides.json"
+    overrides = sorted({str(d["id"]) for d in json.loads(ov_path.read_text(encoding="utf-8"))["doors"]}) if ov_path.exists() else []
+    lines += [
+        "// Owner-flagged doors (data/venues/door_overrides.json), as the decimal entity",
+        "// ids the policy logs: it disables authorization, unlocks and unseals them, in",
+        "// or out of scope.",
+        "public func NeonAscendancy_DoorAccessOverrides() -> array<String> {",
+    ]
+    # The formatter keeps a short array on one line and wraps a long one.
+    one_line = "  return [" + ", ".join(f'"{h}"' for h in overrides) + "];"
+    if len(one_line) <= 100:
+        lines += [one_line]
+    else:
+        lines += ["  return ["]
+        lines += [f'    "{h}"{"," if i + 1 < len(overrides) else ""}' for i, h in enumerate(overrides)]
+        lines += ["  ];"]
+    lines += ["}", "", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs) -> {SCOPE_OUT.relative_to(ROOT)}")
+    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides -> {SCOPE_OUT.relative_to(ROOT)}")
     return 0
 
 

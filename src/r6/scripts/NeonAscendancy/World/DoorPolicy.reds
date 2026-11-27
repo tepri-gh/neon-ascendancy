@@ -24,6 +24,11 @@ public struct NeonAscendancy_DoorFacts {
   public let otherWayIn: Bool;
   public let locked: Bool;
   public let sealed: Bool;
+  // An authorization module is on (a keycard is required to open it).
+  public let authorization: Bool;
+  // Owner-flagged in data/venues/door_overrides.json: its other way in is not
+  // obtainable in our timeline, so open it up regardless.
+  public let overridden: Bool;
 }
 
 public struct NeonAscendancy_DoorDecision {
@@ -31,6 +36,7 @@ public struct NeonAscendancy_DoorDecision {
   public let power: Bool;
   public let unlock: Bool;
   public let unseal: Bool;
+  public let disableAuthorization: Bool;
   // Re-evaluate the lock after enable/power lands: skill checks and quickhacks
   // only register on an enabled, powered device.
   public let recheck: Bool;
@@ -46,6 +52,12 @@ public func NeonAscendancy_DecideDoor(f: NeonAscendancy_DoorFacts) -> NeonAscend
     d.recheck = true;
     return d;
   }
+  if f.overridden {
+    d.disableAuthorization = f.authorization;
+    d.unlock = f.locked;
+    d.unseal = f.sealed;
+    return d;
+  }
   if f.impassable {
     // A keycard, terminal or skill check gets past a lock, never a seal: only
     // quests unseal. So the other way in protects locks alone (Wilson's range
@@ -57,7 +69,7 @@ public func NeonAscendancy_DecideDoor(f: NeonAscendancy_DoorFacts) -> NeonAscend
 }
 
 public func NeonAscendancy_DescribeDoorDecision(d: NeonAscendancy_DoorDecision) -> String {
-  if !d.enable && !d.power && !d.unlock && !d.unseal {
+  if !d.enable && !d.power && !d.unlock && !d.unseal && !d.disableAuthorization {
     return "keep";
   }
   let parts = "";
@@ -73,6 +85,9 @@ public func NeonAscendancy_DescribeDoorDecision(d: NeonAscendancy_DoorDecision) 
   if d.unseal {
     parts += "unseal ";
   }
+  if d.disableAuthorization {
+    parts += "authorize ";
+  }
   if d.recheck {
     parts += "recheck";
   }
@@ -84,6 +99,16 @@ public func NeonAscendancy_DescribeDoorDecision(d: NeonAscendancy_DoorDecision) 
 public class NeonAscendancy_DoorPolicySystem extends ScriptableSystem {
   private let m_scope: array<Uint32>;
   private let m_built: Bool;
+  private let m_overrides: array<String>;
+  private let m_overridesBuilt: Bool;
+
+  public func IsOverridden(id: EntityID) -> Bool {
+    if !this.m_overridesBuilt {
+      this.m_overrides = NeonAscendancy_DoorAccessOverrides();
+      this.m_overridesBuilt = true;
+    }
+    return ArrayContains(this.m_overrides, EntityID.ToDebugStringDecimal(id));
+  }
 
   public func InScope(id: EntityID) -> Bool {
     if !this.m_built {
@@ -113,11 +138,12 @@ public class NeonAscendancy_DoorPolicyRecheck extends DelayCallback {
   // recheck=true line).
   public let m_ps: ref<DoorControllerPS>;
   public let m_pos: Vector4;
+  public let m_overridden: Bool;
 
   public func Call() -> Void {
     let ps = this.m_ps;
     if IsDefined(ps) {
-      ps.NeonAscendancy_ApplyDoorPolicy(true, this.m_pos);
+      ps.NeonAscendancy_ApplyDoorPolicy(true, this.m_pos, this.m_overridden);
     }
   }
 }
@@ -130,7 +156,8 @@ public func NeonAscendancy_DoorFacts() -> NeonAscendancy_DoorFacts {
   f.impassable = this.IsStatic();
   f.locked = this.IsLocked();
   f.sealed = this.IsSealed();
-  f.otherWayIn = this.IsAuthorizationModuleOn();
+  f.authorization = this.IsAuthorizationModuleOn();
+  f.otherWayIn = f.authorization;
   for parent in this.GetImmediateParents() {
     if IsDefined(parent as TerminalControllerPS) {
       f.otherWayIn = true;
@@ -143,12 +170,13 @@ public func NeonAscendancy_DoorFacts() -> NeonAscendancy_DoorFacts {
 // queue, so the entity and its notifier update normally. Idempotent: a door
 // already enabled, powered and passable gets "keep".
 @addMethod(DoorControllerPS)
-public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4) -> Void {
+public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4, overridden: Bool) -> Void {
   let game = this.GetGameInstance();
   if !NeonAscendancy_DoorPolicyEnabled(game) {
     return;
   }
-  const facts = this.NeonAscendancy_DoorFacts();
+  let facts = this.NeonAscendancy_DoorFacts();
+  facts.overridden = overridden;
   const d = NeonAscendancy_DecideDoor(facts);
   let ps = this.GetPersistencySystem();
   if d.enable {
@@ -163,14 +191,18 @@ public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4) -> Voi
   if d.unseal {
     ps.QueuePSDeviceEvent(this.ActionQuestForceUnseal());
   }
+  if d.disableAuthorization {
+    ps.QueuePSDeviceEvent(this.ActionQuestForceAuthorizationDisabled());
+  }
   if d.recheck && !isRecheck {
     let cb = new NeonAscendancy_DoorPolicyRecheck();
     cb.m_ps = this;
     cb.m_pos = pos;
+    cb.m_overridden = overridden;
     GameInstance.GetDelaySystem(game).DelayCallback(cb, 1.0, false);
   }
   NcLogInfo(
-    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) pos=(\(pos.X),\(pos.Y),\(pos.Z)) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
+    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) pos=(\(pos.X),\(pos.Y),\(pos.Z)) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) override=\(facts.overridden) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
   );
 }
 
@@ -184,13 +216,17 @@ protected cb func OnGameAttached() -> Bool {
   let sys = GameInstance
     .GetScriptableSystemsContainer(game)
     .Get(n"NeonAscendancy.World.NeonAscendancy_DoorPolicySystem") as NeonAscendancy_DoorPolicySystem;
-  if !IsDefined(sys) || !sys.InScope(this.GetEntityID()) {
+  if !IsDefined(sys) {
+    return res;
+  }
+  const overridden = sys.IsOverridden(this.GetEntityID());
+  if !overridden && !sys.InScope(this.GetEntityID()) {
     return res;
   }
   let ps = this.GetDevicePS();
   if IsDefined(ps) {
     // The position lets the tour report attribute each decision to a venue.
-    ps.NeonAscendancy_ApplyDoorPolicy(false, this.GetWorldPosition());
+    ps.NeonAscendancy_ApplyDoorPolicy(false, this.GetWorldPosition(), overridden);
   }
   return res;
 }

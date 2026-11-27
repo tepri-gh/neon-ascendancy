@@ -14,7 +14,8 @@
       "Check the mechanic. Mike should be sitting on the bench inside the shop (03_resting_shop), not standing at the empty car spot or missing; if he is absent, the spawn set phase or its workspot did not resolve.",
       "Check the sheriff. Andrew Jones should be leaning on his porch with a cigarette (03_porch) and should not confront or attack the player; if he is hostile, the town reads as a quest state.",
       "Check the mirror. Does the garage office mirror at the prefab default show a normal reflection, or a black or doubled surface? If it is broken, set var_fake_mirror=1 (with var_real_mirror=0) and re-check.",
-      "Check for prologue leftovers. Walk the garage and the roadhouse lot and look for stuck quest props, an empty sheriff's-car marker, a hovering drone, a forced first-person view near the garage, or any trigger that resets the area; these come with the declared prefab and should be inert."
+      "Check for prologue leftovers. Walk the garage and the roadhouse lot and look for stuck quest props, an empty sheriff's-car marker, a hovering drone, a forced first-person view near the garage, or any trigger that resets the area; these come with the declared prefab and should be inert.",
+      "Lead agent, owner tour 2026-11-26: var_garage_gate_device=1 added a second, openable garage gate in the same opening as the sealed roller door. Dropped; the door policy now unseals the roller door. Check there is one working garage door."
     ]
   },
   "prefabs": [
@@ -55,13 +56,6 @@
         "var_garage_door_blocker": 0
       },
       "why": "Clears the invisible blocker vanilla puts across the repair-shop garage doorway until V fixes the car in the prologue. With the prologue gone nothing clears it, and the shop - a normal open business in this timeline - would be walled off."
-    },
-    {
-      "prefab": "$/03_night_city/sw2/loc_q000_roadhouse_town_prefabE7JYE5A/loc_q000_roadhouse_town_gameplay_prefabTLSJEZQ/loc_q000_roadhouse_town_devices_prefab6BA3HWY",
-      "states": {
-        "var_garage_gate_device": 1
-      },
-      "why": "Shows the garage-gate device in the normal town state. Vanilla sets it during the town phase (after V leaves the garage) and the q000 bugfix phase sets it again, so state 0 would leave the gate without its device."
     }
   ],
   "doors": [],

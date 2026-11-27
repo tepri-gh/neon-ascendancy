@@ -130,6 +130,11 @@ already define all four; we copy them, never invent them.
       check. That covers locks only: nothing in the world opens a seal, so
       a sealed, impassable door is always unsealed (Wilson's range in H10
       stayed shut behind its auth module, tour 2026-11-26).
+    - When the "other way in" is not obtainable in our timeline (no keycard,
+      a prologue-only authorization), list the door's logged entity id in
+      `data/venues/door_overrides.json`. `door-scope` generates it into
+      `DoorScope.reds`, and the policy disables authorization, unlocks and
+      unseals it, in or out of scope. Still never force-opens.
 
     The engine's own "no way to open" test is `doorController.swift:84`:
     `IsLocked() && !IsAuthorizationValid() && !canPlayerToggleLockState() &&

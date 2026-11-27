@@ -1030,3 +1030,10 @@ public func NeonAscendancy_DoorScopeHashes() -> array<Uint64> {
   ];
 }
 
+// Owner-flagged doors (data/venues/door_overrides.json), as the decimal entity
+// ids the policy logs: it disables authorization, unlocks and unseals them, in
+// or out of scope.
+public func NeonAscendancy_DoorAccessOverrides() -> array<String> {
+  return ["8449225943234870983", "9614311589775865692"];
+}
+
