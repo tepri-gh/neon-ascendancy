@@ -776,6 +776,9 @@ local function swept_in_last_run()
       elseif (ev == "stop" or ev == "skip") and c then
         done[c] = true
         if pending == c then pending = nil end
+      elseif ev == "abort" and pending == c then
+        -- The player died there (the game did not hang): retry it on resume.
+        pending = nil
       end
     end
   end
