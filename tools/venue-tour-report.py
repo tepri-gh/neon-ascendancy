@@ -17,12 +17,11 @@ Flags:
   DOORS        doors the policy still found impassable after its recheck
   PROBLEMS     checklist items the owner marked Problem
   UNCHECKED    checklist items left unmarked when the checklist was saved
-  STUCK        (sweep) doors or lifts the policy or an override covers that
-               still stop the player: disabled, unpowered, sealed, locked
-               with no way in, or one-sided
-  BLOCKED-UNSCOPED  (sweep) the same for doors outside the policy's scope
-  DUPLICATE    (sweep) two devices of one kind within 0.75 m (a doubled
-               prefab or variant)
+  STUCK        (sweep) policy-covered devices with a potentially restrictive
+               state; access and remote controls require inspection
+  BLOCKED-UNSCOPED  (sweep) the same for devices outside the policy's scope
+  DUPLICATE    (sweep) two devices of one kind within 0.75 m; a candidate
+               for inspection, not proof of a doubled prefab or variant
 
 Usage:
   tools/venue-tour-report.py [--out FILE] [--since "YYYY-MM-DD HH:MM:SS"]
@@ -48,7 +47,7 @@ DOOR_RE = re.compile(r"\[(?P<t>[\d-]+ [\d:.]+)\].*DoorPolicy: id=(?P<id>\d+) pos
                      r".*?decision=(?P<dec>.*)$")
 OVERRIDES = ROOT / "data" / "venues" / "door_overrides.json"
 USABLE_SIDES = {"INTERACTIVE", "AUTOMATIC", "PHYSICAL"}
-# Two devices of one kind closer than this are a doubled prefab or variant.
+# Nearby devices may be a doubled prefab or variant, or separate devices.
 DUPLICATE_M = 0.75
 
 
@@ -63,8 +62,11 @@ def door_problems(d: dict) -> list[str]:
     if d.get("sealed"):
         out.append("sealed")
     # A lift door stays locked on every floor the car is not at; that is normal.
-    if d.get("locked") and not d.get("lift") and not (d.get("auth_valid") or d.get("skill") or d.get("hack")):
-        out.append("locked, no way in")
+    if d.get("locked") and not d.get("lift") and d.get("static") is not False and not (d.get("auth_valid") or d.get("skill") or d.get("hack")):
+        # IsStatic also checks whether the player can toggle the lock. Even
+        # when true, a terminal parent may provide a way in: the sweep does
+        # not collect parent devices.
+        out.append("locked, access unverified")
     sides = {d.get("side1"), d.get("side2")}
     if not d.get("shutter") and len(sides & USABLE_SIDES) == 1 and len(sides) == 2:
         out.append(f"one-sided ({d.get('side1')}/{d.get('side2')})")
@@ -207,7 +209,7 @@ def main() -> int:
                                 f"({dv['pos'][0]:.1f}, {dv['pos'][1]:.1f}, {dv['pos'][2]:.1f}) | {scope} | {', '.join(why)} |")
             for x, y in dups:
                 fix_rows.append(f"| {code} | {x['kind']} x2 | {device_id(x)} + {device_id(y)} | {x.get('app')} | "
-                                f"({x['pos'][0]:.1f}, {x['pos'][1]:.1f}, {x['pos'][2]:.1f}) | - | duplicate |")
+                                f"({x['pos'][0]:.1f}, {x['pos'][1]:.1f}, {x['pos'][2]:.1f}) | - | possible duplicate |")
         if notes_by.get(code):
             flags.append(f"NOTES {len(notes_by[code])}")
         summary.append((code, flags))

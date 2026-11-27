@@ -154,6 +154,26 @@ already define all four; we copy them, never invent them.
     `red4ext/logs/neonascendancy-*.log`. Venue specs and research proposals
     therefore do not list door actions any more; they list
     `door_exclusions` (rooms that must stay shut) and `door_notes`.
+
+    A sweep flag is a lead, not proof that a door is inaccessible. The sweep
+    does not inspect terminal parents, and a one-sided door may deliberately
+    have an in-world remote opener. On the 2026-11-27 sweep the Yucca gate
+    `10942343670595111412` had a terminal parent; H10 door
+    `12144628006029586807` and shutter `750585353481470118` reported
+    `IsStatic=false`, which also accounts for a player-toggleable lock. The
+    latter shutter's repeated appearances in the report are the same entity,
+    not separate doors. Confirm the terminal's actual controls and reachability
+    before treating a terminal parent as a working way in: a parent alone does
+    not establish either. Inspect the one-sided H10 secret-room door
+    `6373481765164401677`, nightclub door `14118118983733731532`, and Dogtown
+    door `10846427555440147780` from both sides before overriding them.
+    The same sweep's proximity pairs also need inspection: the Arasaka hotel
+    pair `6790515536193496286` / `6191024671720459010` have different
+    appearances and elevations; the metal-club pair `11883500528457144420` /
+    `16335784949598343898` comprise a regular door and a lift door; and the
+    Glen terminals `3984133746229174344` / `3984134845740802555` are 0.48 m
+    apart vertically. Proximity alone does not establish duplicate geometry or
+    identify which device, if any, should be removed.
 13. **Lift floor access comes from its floor terminals**, the slave
     `ElevatorFloorTerminalControllerPS` devices
     (`liftController.swift`, `GetFloorAuthorizationFromSlaves`).
