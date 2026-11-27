@@ -57,6 +57,7 @@ function Probe.help()
   print("  p.player_pos()       -- Step 0.2: print player world X/Y/Z & current district")
   print("  p.dump_tweak_check() -- Step 0.2/0.4: count Character & District records in runtime TweakDB")
   print("  p.look_at()          -- log the object under the crosshair (also hotkey 'Neon: log look-at')")
+  print("  p.invisible()        -- toggle invisible to AI (also hotkey 'Neon: invisible to AI' and the Neon tour panel)")
   print("  p.noclip()           -- toggle noclip (also hotkey 'Neon: noclip toggle'; uses normal movement keys, Shift = fast)")
 end
 
@@ -371,6 +372,30 @@ function Probe.noclip(enable)
 end
 
 registerHotkey("NeonNoclip", "Neon: noclip toggle", function() Probe.noclip() end)
+
+-- Invisible to AI (dev-only, owner request 2026-11-26 for touring hostile
+-- venues). PlayerPuppet.SetInvisible switches off the visibility component AI
+-- perception uses; vanilla uses the same call for the spawn grace period and
+-- optical camo. Camo ending, EnablePlayerVisibilityEvent and the grace period
+-- can switch it back on, so it is re-applied every frame while enabled.
+local ghost = { on = false }
+
+function Probe.invisible(enable)
+  local player = Game.GetPlayer()
+  if not player then return end
+  if enable == nil then enable = not ghost.on end
+  ghost.on = enable
+  player:SetInvisible(enable)
+  emit("INVISIBLE " .. (enable and "on" or "off"))
+end
+
+registerHotkey("NeonInvisible", "Neon: invisible to AI", function() Probe.invisible() end)
+
+on("onUpdate", function()
+  if not ghost.on then return end
+  local player = Game.GetPlayer()
+  if player and not player:IsInvisible() then player:SetInvisible(true) end
+end)
 
 local function setup_noclip_input()
   Observe("PlayerPuppet", "OnAction", function(_, action)
@@ -742,6 +767,11 @@ on("onDraw", function()
     else
       ImGui.Text("Tour: idle")
     end
+    local nc = ImGui.Checkbox("Noclip", fly.on)
+    if nc ~= fly.on then Probe.noclip(nc) end
+    ImGui.SameLine()
+    local inv = ImGui.Checkbox("Invisible to AI", ghost.on)
+    if inv ~= ghost.on then Probe.invisible(inv) end
     if ImGui.Button("Checklist here") then
       local p = Game.GetPlayer():GetWorldPosition()
       local st = nearest_stop(p)
