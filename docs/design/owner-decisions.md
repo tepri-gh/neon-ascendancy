@@ -601,6 +601,10 @@ Decided by the owner on the tour (recorded, already applied):
      implications), kept as a *maybe, much later* area. Deferred. The owner
      sees it, Blackwall residue and all, as a possible unique player base;
      that needs a discussion.
+165a. **The Spidertank arena** (`q302_spidertank_arena`, the Founding Our
+     Future Expo). Stripped (2026-11-27): the game hung loading it during
+     the sweep, and its entry was the only thing loading q302's boss-fight
+     prefab. Excluded; the hall stays sealed and empty.
 165. **Goodnight Charlie's and the Dogtown basketball court.** Toured again
      on the second leg (night at the court; the mine at Charlie's entrance).
 

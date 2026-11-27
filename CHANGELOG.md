@@ -167,7 +167,8 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   valid keycard or password; lift doors only get enable and power; owner
   overrides fix one-sided doors. The log line shows `lift` and `oneSided`.
 - The Space Force One crash area is excluded and the Cynosure bunker
-  deferred (owner).
+  deferred (owner). The Spidertank arena is excluded too: the game hung
+  loading its q302 boss-fight prefab during the sweep (owner).
 - Dogtown's vanilla open-world layer is live: the clean slate sets
   `ep1_side_content` (the only allowed `ep1_` fact). That opens the
   district ambient communities and combat groups, the quest communities
