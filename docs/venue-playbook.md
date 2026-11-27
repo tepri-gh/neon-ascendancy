@@ -364,6 +364,47 @@ Two local tools feed venue research. Their output is never committed;
   (`approve` honours it). If none exists, add a fresh-start tour check
   (wave 15).
 
+- **A kept vanilla phase can undo a venue's variant toggles.** Boot order
+  between phases is not defined. `cct_dtn_phase` hides the North Oak
+  yacht's whole party layout at boot, and the venue showed it at boot too,
+  so there was sometimes no yacht at all. The builder now re-issues every
+  venue's toggles after its proximity wait, so ours land last. When
+  proposing a toggle, check the catalogue `toggles` owners for a kept phase
+  that sets the opposite value (leg 1 tour).
+
+- **An empty authorization module is not a way in.** The policy counted
+  any authorization module as "another way in" and kept the lock, but many
+  quest doors ship a module with no keycard or password (Shank's, the
+  Nighthawks safehouse). It now asks `IsAuthorizationValid()` (leg 1 tour).
+
+- **Lift doors only get enable and power.** Their lift and floor
+  terminals open them; unlocking one can leave it open on a floor the car
+  has left. An owner override still unlocks one (the Wellsprings lobby).
+  A lift that looks doubled is usually two door entities in one shaft, one
+  of them still quest-locked, not a second prefab.
+
+- **One-sided doors.** A door typed interactive on one side and remote or
+  none on the other opens only from inside (the Berkeley Ave junk shop).
+  For an owner override the policy gives both sides the usable type; never
+  for shutters or lift doors.
+
+- **Vendors need their scenes.** A stall's trade interaction runs through
+  its vendor scene; the spawn set alone gives a vendor you cannot trade
+  with. `dogtown_vendors.json` `scenes` starts each stadium stall's scene.
+
+- **Dead quest marks.** Some devices bake `markAsQuest` and a forced
+  personal link for a gig step we never run (yellow icon, V freezes on
+  jack-in). List them in `data/venues/device_quest_marks.json`;
+  `DeviceQuestMarks.reds` clears both when the device attaches.
+
+- **Hustle set pieces leak into neighbouring venues.** NCPD hustle
+  dressing (bodies, clue props, armed mines) is often on by default, with
+  only an unkept cleanup phase hiding it. Toggle the hustle's own loot and
+  devices variants to vanilla's post-hustle values (the pump station).
+
+- **Tour stop radius.** A `tour_stop` pins the scan to 40 m unless it
+  sets `radius`; a spread-out venue needs a larger one (Pacifica mall).
+
 ## 7. Dev tour and playtest notes
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with

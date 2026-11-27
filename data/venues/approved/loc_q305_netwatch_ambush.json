@@ -7,12 +7,22 @@
     "confidence": "medium",
     "open_questions": [
       "No community-area/spot map was resolved for this venue: every entry has spots 0 and posture unknown. The dev tour must confirm that the chosen crew actually spawn on the q305_ws_6th_street_* and q305_ws_pre_ambush_* workspots, and that the 'start' workspots read as idle/stand rather than as a stakeout pose (rule 9).",
-      "Is this the Hotel Pistis Sophia? The wiki names the q305 hotel only as 'an abandoned hotel overlooking a skybridge' in West Wind Estate, and Hotel Pistis Sophia is the derelict there; the catalogue coordinates were not cross-checked against a map position.",
+      "6th_female1 was dropped (leg 1): her only phase is 'start', whose spot q305_ws_6th_street_female_001 plays generic__sit_table_tablet__read__01, and #q305_ambush ships no table or chair mesh, so she sat on air. The owner's rule is to drop a broken entry rather than leave a body on nothing; re-add her only if the hotel gains a table.",
       "Does 6th Street hold this hotel in our timeline? The crew is the venue's own vanilla population, so it is the least-invented occupancy, but the gang is based in Santo Domingo and only comes here for Reed's ambush. If the owner prefers a local Pacifica population, the scavs are the lore-appropriate alternative (West Wind Estate database entry: scavengers are a common sight), but their spawner is tied to the chase.",
       "The catalogue declares no door controller at this venue, so no door_notes could be written. The hotel has door map pins (#q305_mp_hotel_door_bot/top, #q305_tr_hotel_door_bot/top, #q305_tr_outsidehotel_door_bot) but they are not device entities. The tour must check that the entrance and the stair/catwalk route are passable under the runtime policy.",
       "Variant defaults were not verified against all.streamingblock (it is not in this extract set); the toggles set every quest state explicitly, but the decoration pair (signs off/on) is the one to eyeball on tour for an over-lit or missing entrance sign.",
-      "Several community entries the crew 'should' include were left dormant; if the tour finds the building sparse, add 6th_male3-9 and 6th_female3-4 in the same start phase rather than a new group."
+      "Several community entries the crew 'should' include were left dormant; if the tour finds the building sparse, add 6th_male3-9 and 6th_female3-4 in the same start phase rather than a new group.",
+      "Building identity settled (leg 1): this venue's hotel is the structure the crew spawns in, #q305_ambush around (-2772,-2460,17). The room the owner recognised from Johnny/V near (-2636,-2474,35) is #sq032_pr_finale, which the catalogue files under a different venue (pwwe_01; sector quest_7388aa4fbc147b7c, spot {sq032_ws_johnny_tapeworm} at -2638.62,-2451.91,35.0), and the 6th Street structure near (-2669,-2437,18) is pac_wwd open-world dressing. The wiki puts Hotel Pistis Sophia in West Wind Estate, so the display name stands, but the Tapeworm room is a separate sub-prefab ~200 m away and is not this venue.",
+      "The interior near (-2779,-2498,18) reads unlit (owner, leg 1). Checked the default state in ep1_root/.../blocks/all.streamingblock.json: the lighting prefab's only variant is q305_lights_blackout with enabledByDefault=1, i.e. blackout-on (dark) is vanilla's default, and this venue already pins it to 0 to light the hotel. So the pin is the right direction. The sector that carries the prefab (ep1/exterior_-22_-20_0_1) does hold a worldStaticLightNode and one worldAmbientAreaNode for hotel_corridor, so interior light exists to be switched on; what is left to confirm on tour is that the toggle is applied after the area streams (a boot-order race would leave it dark), and that the ambient area covers the room at -2779,-2498."
     ]
+  },
+  "tour_stop": {
+    "position": [
+      -2773.87,
+      -2471.14,
+      29.9
+    ],
+    "source": "worldAISpotNode {q305_ws_6th_street_male_}_014 in #q305_ambush, base/worlds/03_night_city/_compiled/default/ep1/quest_a495857cac80c7a7.streamingsector; the upper ambush floor among the pre-ambush group, so all 11 crew entries fall inside the 40 m scan radius. The previous stop sat on the anchor device in the street 40 m below, which put gunner, captain, boz and friend1 outside the radius and made them read as missing"
   },
   "prefabs": [
     "#q305_ambush"
@@ -64,14 +74,6 @@
       "phase_name": "start",
       "action": "Activate",
       "why": "Third old 6th Street hand, with her own pre-ambush workspot; part of the same meeting group vanilla keeps at the hotel.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q305_com_6th_street_pre_ambush",
-      "entry_name": "6th_female1",
-      "phase_name": "start",
-      "action": "Activate",
-      "why": "A 6th Street soldier of the hotel crew; vanilla activates her with the meeting block and she has a q305_ws_6th_street_female_001 spot in the building.",
       "needs_tour_check": true
     },
     {

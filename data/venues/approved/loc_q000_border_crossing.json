@@ -1,15 +1,13 @@
 {
   "code": "q000_border_crossing",
   "display_name": "SoCal Border Crossing",
-  "why": "The SoCal Border Crossing is the walled checkpoint where Highway 101 out of Night City crosses the NorCal-SoCal border wall: gated lanes and queued traffic outside, and a security building whose public waiting room and two question rooms face the lanes; the wiki names both the SoCal Border Patrol and Militech as its security providers. In vanilla the checkpoint's interior and lane section is instantiated only by V's nomad prologue, and its open-world section is instantiated only behind q000_done, so the clean slate leaves an empty shell. This proposal restores both halves of a normal working day: the patrol's desk officer, counter and gate posts with travellers waiting or under secondary inspection, plus the open-world section with its Militech guard posts, patrol drone, eight queued civilian cars and the fifteen passengers waiting beside them.",
+  "why": "The SoCal Border Crossing is the walled checkpoint where Highway 101 out of Night City crosses the NorCal-SoCal border wall: gated lanes and queued traffic outside, and a security building whose public waiting room and two question rooms face the lanes; the wiki names both the SoCal Border Patrol and Militech as its security providers. In vanilla the checkpoint's interior and lane section is instantiated only by V's nomad prologue, and its open-world section is instantiated only behind q000_done, so the clean slate leaves an empty shell. This proposal restores both halves of a normal working day: the patrol's desk officer, counter and gate posts with travellers waiting or under secondary inspection, plus the open-world section with its Militech guard posts and patrol drone. The prologue's queue on the SoCal side is deliberately not restored: its eight car spawners, nine drivers and fifteen passengers are all driven by bad_ina_phase, which spawns the cars and seats the passengers in them, and no venue can activate a vehicle spawner yet, so the people would stand in an empty lane.",
   "source": {
     "proposal": "research/loc_q000_border_crossing/proposal.json",
     "confidence": "medium",
     "open_questions": [
-      "Density and possible double dressing: the prologue section exposes 37 patrol posts, 16 background-guard posts and 14 crowd posts, and the openworld section adds 25 guard posts, 15 passengers and eight more queued car spawners. The wiki names both the SoCal Border Patrol and Militech as security providers, so this proposal keeps both populations; if the tour shows two car queues in the same lane positions or a doubled staff, the owner must pick one set (rule 11a keeps the combat groups).",
+      "The prologue queue on the SoCal side is not restored: its eight car spawners (#q000_nomad_spn_ow_civilian_car_001..008), eight #q000_nomad_border_car_drivers entries and fifteen #q000_nomad_ow_civilians_com passengers are all driven by bad_ina_phase, which the clean slate does not run, and vanilla seats the passengers in the spawned cars. Confirm the crossing still reads staffed without the queue; restore it once the venue builder can emit questSpawner_NodeType Activate actions.",
       "Does instantiating #loc_q000_border_crossing_openworld also arm its illegal-crossing encounter (combat activator, kill trigger, respawn trigger) and the security-area devices, making the checkpoint shoot-on-sight as in vanilla (wiki: one star wanted level, skull boss guards)? The venue phase drives no device actions, so if the tour finds the guards hostile or the player wanted on approach, those triggers need suppressing before the venue is usable.",
-      "Posture of #q000_ow_com is unknown: no community area node was resolved, so the guard-to-post mapping (ranged/melee/shotgun/additional to the 25 `q000_ow_ws_guard_*` posts) is inferred from record and node names. Confirm the guards stand their posts relaxed, that `Character.max_border_guards*` is the Militech affiliation the wiki names, and that none of them barks hostile at the player.",
-      "Posture of #q000_nomad_com_border_patrol_guards is unknown (no community area node in the converted sectors); entry-to-spot mapping was inferred from spot names. Confirm each chosen patrol entry stands a gate or lane post and that Character.q000_nomad_border_patrol_guard_reprimand has no confrontational ambient barks.",
       "The var_cameras variant is only ever set to 1 by q000_nomad.questphase and the camera devices are only driven by q305_08. Confirm on tour whether 1 adds the visible camera set or removes it; if it is the latter, drop the toggle.",
       "Does the checkpoint office double door open onto the staff side or the public entrance? If it is the public entrance, the runtime door policy must unlock it or the interior is unreachable.",
       "The openworld prefab is instantiated by bad_ina_phase, a phase the clean slate does not keep, so declaring it should not break rule 2 (cast-layer precedent for instance prefabs). Confirm on tour that the venue phase instantiates it once (no double-instantiation crash) and that no other kept phase owns it."
@@ -252,91 +250,11 @@
       "needs_tour_check": true
     },
     {
-      "spawner": "#q000_nomad_com_border_patrol_guards",
-      "entry_name": "broken_car_scene_f_001",
-      "phase_name": "q000_default",
-      "action": "Activate",
-      "why": "Couple waiting beside a car in the inspection lane (generic__stand_ground__look_at_products__01.workspot); the prefab's var_car_smoke stays at its default 0, so there is no breakdown smoke and it reads as an ordinary wait.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_com_border_patrol_guards",
-      "entry_name": "broken_car_scene_m_001",
-      "phase_name": "q000_default",
-      "action": "Activate",
-      "why": "Couple waiting beside a car in the inspection lane (big__stand_car_hood_lean_back__stand_around__01.workspot (leaning on the car hood)); the prefab's var_car_smoke stays at its default 0, so there is no breakdown smoke and it reads as an ordinary wait.",
-      "needs_tour_check": true
-    },
-    {
       "spawner": "#q000_nomad_com_border_patrol_guards_crowd",
       "entry_name": "None",
       "phase_name": "None",
       "action": "Activate",
       "why": "Background guard crowd at the crossing, activated whole exactly as vanilla does. The catalogue resolves its spots (guard_stand.workspot, dirtboy__stand_ground_rifle__guard__01) as relaxed, so this is the one group whose posture is proven."
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_before_v_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_001_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_002_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_003_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_004_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_006_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_007_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_border_car_drivers",
-      "entry_name": "#q000_nomad_ws_border_cars_bg_008_driver",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Driver standing beside a queued car in one of the border-crossing lanes (generic__stand_ground__stand_around / cigarette / check-phone workspots). Vanilla activates these exact entries from the prologue wrapper, so they are the normal traffic, not the chase.",
-      "needs_tour_check": true
     },
     {
       "spawner": "#q000_ow_com",
@@ -376,14 +294,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "The checkpoint's patrol drone (record name `max_border_drone_octant`; the catalogue classes the entry civilian). It hovers on the section's `q000_ow_ws_drones_001` spot, adding the surveillance traffic a wall checkpoint has without adding a combatant on the ground.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_nomad_ow_civilians_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The crossing's own passenger crowd, activated whole exactly as vanilla does (entry and phase None). Fifteen civilians - couples, two families with children, Aldecaldo travellers - wait on the section's fifteen passenger workspots beside the eight queued civilian cars. The section's `#q000_nomad_ow_border_crossing_crowd_null` marker suppresses the generic street crowd, so these fifteen are the venue's crowd rather than an addition to one.",
       "needs_tour_check": true
     }
   ],

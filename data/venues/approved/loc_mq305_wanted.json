@@ -1,15 +1,14 @@
 {
   "code": "mq305_wanted",
-  "display_name": "Bree Whitney's Apartment (Skyline West)",
-  "why": "A small unnamed apartment building in central Night City whose lobby and fifth-floor corridor carry quest-dressing for Bree Whitney's flat. Vanilla only loads the apartment quest prefab and the neighbours while mq305 runs, so the building is empty in the clean slate. This proposal loads the apartment prefab and switches on the five residents' relaxed 'start' phases (kids eating, janitor mopping, mechanic fixing, corpo woman on the phone) in the lobby and corridor, without the quest scene, the stranger, the NetWatch squad or the quest paper.",
+  "display_name": "Bree Whitney's Apartment (Skyline West, Wellsprings)",
+  "why": "A small unnamed apartment building in Wellsprings, Heywood (Skyline West, floor 05) whose lobby and fifth-floor corridor carry quest-dressing for Bree Whitney's flat. The building shell, street door and terminals are the shared Heywood architecture prefab hey_spr_building_backwall_ext_v1 at about -2345,-182 (the logged street door 14651295146389086030 hashes from that prefab); the quest prefab is only authored under #c_city_center/downtown and is placed inside it, which is why the catalogue folder is misleading. Vanilla only loads the apartment quest prefab and the neighbours while mq305 runs, so the building is empty in the clean slate. This proposal loads the apartment prefab and switches on the five residents' relaxed 'start' phases (kids eating, janitor mopping, mechanic fixing, corpo woman on the phone) in the lobby and corridor, without the quest scene, the stranger, the NetWatch squad or the quest paper.",
   "source": {
     "proposal": "research/loc_mq305_wanted/proposal.json",
     "confidence": "medium",
     "open_questions": [
-      "The wiki places the building in Wellsprings (Heywood), Skyline West, while the catalogue prefab is authored under #c_city_center/downtown; the tour should confirm which district the lobby and fifth-floor corridor actually stream in and that the street entrance/stair route works.",
       "The corridor, flat shell and lift appear to come from the always-streamed location prefab, with only the community spawner and dressing in #mq305_pr_apartment - confirm on the tour that the corridor is walkable and the residents have spots before/after our prefab loads.",
       "Whether the flat door's force-open (Body check) still works in a clean save; if not, it needs a decision on leaving the flat sealed versus letting the door policy unlock it.",
-      "Whether the lift terminal in the lobby can call the two-floor lift without the quest's unseal actions, and whether the inferred #q303_squat_lift_door_1 (no resolved path) really is this building's lift door.",
+      "The lobby lift door (#mq305_apartment_lift_door_1) is locked by the door policy (otherWayIn=true from its floor terminal); vanilla unseals and unlocks it in mq305_02_apartment, which the clean slate does not run. Check that the lift now opens on both floors and that no second closed door remains at the top (owner tour 2026-11-26 said the car door closed on a second lift door).",
       "Whether 'paper_coordinates' variant 0 is the normal flat look (no quest note) and not an empty variant."
     ]
   },

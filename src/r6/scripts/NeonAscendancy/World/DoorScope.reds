@@ -1034,6 +1034,24 @@ public func NeonAscendancy_DoorScopeHashes() -> array<Uint64> {
 // ids the policy logs: it disables authorization, unlocks and unseals them, in
 // or out of scope.
 public func NeonAscendancy_DoorAccessOverrides() -> array<String> {
-  return ["8449225943234870983", "9614311589775865692"];
+  return [
+    "13400032501529177363",
+    "14651295146389086030",
+    "15265392420759227790",
+    "17741768246805157947",
+    "3843216534750408631",
+    "5474562508547213513",
+    "7278308239135850386",
+    "7285717058466177479",
+    "827506936858081459",
+    "8449225943234870983",
+    "9614311589775865692"
+  ];
+}
+
+// Devices whose baked quest marking and forced personal link belong to a quest
+// the clean slate does not run (data/venues/device_quest_marks.json).
+public func NeonAscendancy_DeviceQuestMarkClears() -> array<String> {
+  return ["1588903074532932702"];
 }
 

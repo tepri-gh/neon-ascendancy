@@ -1,5 +1,5 @@
 {
-  "description": "Owner-flagged doors the runtime door policy must open up regardless of its normal rules: disable authorization, unlock and unseal (never force open). For doors whose 'other way in' (an authorization module or terminal) has no obtainable keycard or usable terminal in our timeline. id is the engine entity id the policy and look-at logger print. tools/venue-proposals.py door-scope generates the list into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
+  "description": "Owner-flagged doors the runtime door policy must open up regardless of its normal rules: disable authorization, unlock and unseal (never force open). Used where the normal rules leave a door shut or one-sided: an authorization module with no obtainable keycard or password, a seal no phase lifts, a one-sided door type, an out-of-scope unpowered lift gate, or an owner-preferred no-force garage gate. id is the engine entity id the policy and look-at logger print. tools/venue-proposals.py door-scope generates the list into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
   "doors": [
     {
       "id": "9614311589775865692",
@@ -12,6 +12,60 @@
       "venue": "loc_q000_radio_tower",
       "pos": [-4091.0, -6620.0, 88.1],
       "why": "Owner tour 2026-11-26: the Yucca radio tower fence gate does not open. Unlocked and unsealed but gated by an authorization module only the prologue satisfied."
+    },
+    {
+      "id": "15265392420759227790",
+      "venue": "loc_mq303_shanks_store",
+      "pos": [-1716.4, -2421.3, 62.6],
+      "why": "Owner tour 2026-11-26: the Brainporium's front door stays shut. #mq303_dvc_store_door ships locked, and its authorization module has no valid keycard or password (look-at authValid=false), so nothing in the world authorizes it. The policy read the empty module as an in-world way in and kept the lock."
+    },
+    {
+      "id": "13400032501529177363",
+      "venue": "loc_q303_nighthawks_bar",
+      "pos": [-2433.4, -2653.6, 28.0],
+      "why": "Owner tour 2026-11-26: #q303_04_safehouse_door_01, the way from the bar to Alex's flat, does not open. It ships locked with an empty authorization module (no valid keycard or password), which the policy counted as a way in. Only the hidden NUSA door is a door_exclusion here; this one must be usable."
+    },
+    {
+      "id": "5474562508547213513",
+      "venue": "loc_sts_cct_dtn_04",
+      "pos": [-2129.2, 482.7, 9.5],
+      "why": "Owner tour 2026-11-26: the ground-floor lift gate does not open (look-at powered=false) while the lift itself works. It is #dtn_04_dvc_lift/#dtn_04_dvc_lift_door, a lift door whose catalogue path never resolved, so the policy never even powered it. DoorPolicy must only power lift doors, never unlock them (see fixes/A-doors.md, Needs code)."
+    },
+    {
+      "id": "7285717058466177479",
+      "venue": "loc_sts_hey_spr_06",
+      "pos": [-2255.1, -418.9, 3.4],
+      "why": "Owner tour 2026-11-26: the street door opens from inside but not from the street. It is neither locked nor sealed; its two sides are typed INTERACTIVE and REMOTELY_CONTROLLED, so the street side offers no interaction at all. No vanilla phase drives it, hence no policy line. Bringing it into policy lets the side-type fix in fixes/A-doors.md reach it; the override also disables its empty authorization module."
+    },
+    {
+      "id": "7278308239135850386",
+      "venue": "loc_mq306_tech_expo",
+      "pos": [-2400.0, -3095.8, 144.5],
+      "why": "Owner tour 2026-11-26: the glass single door by Damir's clinic is sealed. The prefab ships single_door_1_prefabRS5MNXQ with initial state SEALED, no vanilla phase drives it, and its untagged ref never entered the door scope. The policy may unseal it but must not force it open."
+    },
+    {
+      "id": "17741768246805157947",
+      "venue": "loc_q104_gas_station",
+      "pos": [-1844.1, -4286.8, 74.0],
+      "why": "Owner tour 2026-11-26: the garage gates start locked shut and have to be forced with a Body/Athletics check. #q104_gas_station_gate_garage_combat carries a HARD force-open check, which the policy rightly counts as an in-world way through; the owner wants a normal garage gate instead of a forced one. Unlock it (never force-open)."
+    },
+    {
+      "id": "827506936858081459",
+      "venue": "loc_q104_gas_station",
+      "pos": [-1849.1, -4293.1, 74.0],
+      "why": "Owner tour 2026-11-26: the second garage gate (#q104_gas_station_gate_garage_combat_001) starts locked with the same HARD force-open check as the first. Owner wants it to work as a normal garage gate, so unlock it; never force-open."
+    },
+    {
+      "id": "14651295146389086030",
+      "venue": "loc_mq305_wanted",
+      "pos": [-2345.4, -181.9, 16.0],
+      "why": "Owner tour 2026-11-26: the Wellsprings apartment street door (#mq305_apartment_building_main_door) stays shut. It ships locked; only mq305 unlocks it, and its door terminal was read as a way in."
+    },
+    {
+      "id": "3843216534750408631",
+      "venue": "loc_mq305_wanted",
+      "pos": [-2331.8, -172.9, 15.9],
+      "why": "Owner tour 2026-11-26: the lobby lift's inner door stays locked, so the car door closes onto it (the 'doubled lift'). Only mq305 unlocks it."
     }
   ]
 }

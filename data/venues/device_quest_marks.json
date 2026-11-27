@@ -1,0 +1,11 @@
+{
+  "description": "Devices whose baked quest marking (yellow icon) and forced personal link belong to a quest or gig the clean slate does not run. src/.../World/DeviceQuestMarks.reds clears both when the device attaches. id is the engine entity id. tools/venue-proposals.py door-scope generates the list into DoorScope.reds.",
+  "devices": [
+    {
+      "id": "1588903074532932702",
+      "venue": "loc_sts_ep1_botanic_gardens",
+      "pos": [-2213.4, -3020.1, 111.2],
+      "why": "Owner tour 2026-11-26: the wall access point shows a yellow quest icon, and using it gets V stuck. markAsQuest and personalLinkForced are baked for sts_ep1_08's IsPersonalLinkConnected pause, which never runs (fixes/D1-leftovers.md)."
+    }
+  ]
+}

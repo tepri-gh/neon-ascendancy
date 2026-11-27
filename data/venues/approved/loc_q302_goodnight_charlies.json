@@ -38,7 +38,20 @@
       "why": "The only variant vanilla ever sets on this prefab, and it always sets it to 1. It is collision-only, so it changes no visuals; it keeps the upper railing solid so a player cannot fall out of the bar once the prefab is loaded at boot instead of during the quest."
     }
   ],
-  "doors": [],
+  "doors": [
+    {
+      "ref": "#q302_caliente_mine_001",
+      "controller": "ExplosiveTriggerDeviceControllerPS",
+      "action": "ForceDisabled",
+      "why": "Owner tour 2026-11-26: a mine at the entrance killed V. The restaurant's security system arms two mines by default; only q302_05_bar, not kept, disables them. Vanilla's own cleanup action."
+    },
+    {
+      "ref": "#q302_caliente_mine_002",
+      "controller": "ExplosiveTriggerDeviceControllerPS",
+      "action": "ForceDisabled",
+      "why": "Owner tour 2026-11-26: a mine at the entrance killed V. The restaurant's security system arms two mines by default; only q302_05_bar, not kept, disables them. Vanilla's own cleanup action."
+    }
+  ],
   "door_exclusions": [],
   "tour_stop": {
     "position": [

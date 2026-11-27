@@ -6,11 +6,12 @@
     "proposal": "research/loc_sts_cct_dtn_05_luxury_yacht/proposal.json",
     "confidence": "medium",
     "open_questions": [
-      "Look at the yacht from the dock before boarding. Confirm the deck is lit and decorated in the party layout (boat_a_lights on, yacht_b arch/deco on) and not the dark idle layout, since the kept downtown community phase also toggles these at boot.",
+      "Look at the yacht from the dock before boarding. The deck is now set to the party layout (boat_a_lights, yacht_b arch/deco on, devices shown). Confirm it is lit and decorated, not the dark idle layout: the kept downtown community phase cct_dtn_phase also sets every yacht toggle to 0 at boot, and our venue sets them to 1 at boot too, so whichever runs last wins until the variant toggles are re-issued after the proximity wait (see the report's Needs code).",
       "Walk the main deck, bar and lounge. Confirm the crew and guests stand at their own posts (bar, reception, rail, couch, security room) with nobody crouched, alert or frozen in a scene pose.",
       "Board the yacht from the dock on foot. Confirm the glass doors at the party deck are open or open on approach, without a jump or a hack.",
       "Enter the lower-deck security room. Confirm the door opens by its own terminal, keycard, hack or the door policy, and that the room holds no recording loot or quest-only props.",
-      "Try the wide aft-deck glass door. Confirm it opens rather than staying dead and unpowered, and that it is not the only way between the deck and the salon."
+      "Try the wide aft-deck glass door. Confirm it opens rather than staying dead and unpowered, and that it is not the only way between the deck and the salon.",
+      "The hull and superstructure are variant-gated, not always-on: the yacht_a_ext/int/railings/deck meshes have zero always-on (BASE) instances and only appear under yacht_b_deco_ext / yacht_b_arch_int. So a 'no yacht' tour almost certainly means the party variant toggles lost the boot race to cct_dtn_phase's all-zero set. Confirm the hull appears once the re-issue lands; if it still does not, the toggles are not reaching the sector variant ranges and the sector-to-prefab variant mapping needs a look."
     ]
   },
   "prefabs": [
@@ -152,13 +153,20 @@
         "yacht_b_deco_int": 1
       },
       "why": "Interior decorations of the party layout, so the bar and lounge look set up for guests."
+    },
+    {
+      "prefab": "#loc_sts_cct_dtn_05_luxury_yacht_devices",
+      "states": {
+        "loc_sts_cct_dtn_05_luxury_yacht_devices_hiden": 1
+      },
+      "why": "Devices/party-dressing variant. In the yacht sectors it carries 37 deck light nodes plus the TV and laptop/access-point props (and, in the shore sectors, the fuse box, cable coils, toolboxes, safes and military cases). Vanilla's party phase sts_cct_dtn_05_openworld / sts_cct_downtown sets it to 1 as part of the party set-up, while the kept cct_dtn_phase sets it to 0 at boot. Pin 1 to match the party. Owner call: this variant carries a few gig-clutter containers (toolboxes, safes, military cases) alongside the lights; if those read as leftover loot on the second tour, drop this toggle and keep only boat_a_lights."
     }
   ],
   "doors": [],
   "door_exclusions": [],
   "proximity_wait": {
-    "ref": "#dtn_05_dvc_computer_reception",
+    "ref": "#dtn_05_dvc_computer_003",
     "within": 80.0,
-    "why": "Reception terminal on the party deck at the boarding side (-2429.18, 77.17, 5.49); it is a device, streams with the yacht, and sits where a visitor arrives, so the re-issue after proximity happens on approach."
+    "why": "Computer on the main deck at (-2480.12, 50.8, 5.51), beside the bar (catalogue position matches the sector node exactly). It is a worldDeviceNode in the yacht's always-on (BASE) geometry, not inside any yacht_b_* or devices_hiden variant, so it streams with the hull and resolves regardless of which party toggle won the boot race. The old anchor, the reception terminal #dtn_05_dvc_computer_reception, is also BASE/ungated (hypothesis 2 did not hold), but it sits about 60 m away on the shore side; the deck computer is nearer the crowd so the post-wait re-issue lands on top of the party."
   }
 }

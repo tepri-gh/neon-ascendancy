@@ -518,6 +518,20 @@ def fnv1a64(path: str) -> int:
     return h
 
 
+def _string_array_func(comment: list[str], name: str, values: list[str]) -> list[str]:
+    """A generated redscript function returning a string array, laid out the
+    way the formatter keeps it (a short array on one line, a long one wrapped)."""
+    out = comment + [f"public func {name}() -> array<String> {{"]
+    one_line = "  return [" + ", ".join(f'"{h}"' for h in values) + "];"
+    if len(one_line) <= 100:
+        out += [one_line]
+    else:
+        out += ["  return ["]
+        out += [f'    "{h}"{"," if i + 1 < len(values) else ""}' for i, h in enumerate(values)]
+        out += ["  ];"]
+    return out + ["}"]
+
+
 def cmd_door_scope(a: argparse.Namespace) -> int:
     """Doors the runtime door policy may act on: every DoorControllerPS a
     vanilla quest phase drives, resolved to a full path, outside excluded and
@@ -564,24 +578,23 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
     # Owner-flagged doors the policy opens up past authorization (door_overrides.json).
     ov_path = ROOT / "data" / "venues" / "door_overrides.json"
     overrides = sorted({str(d["id"]) for d in json.loads(ov_path.read_text(encoding="utf-8"))["doors"]}) if ov_path.exists() else []
-    lines += [
-        "// Owner-flagged doors (data/venues/door_overrides.json), as the decimal entity",
-        "// ids the policy logs: it disables authorization, unlocks and unseals them, in",
-        "// or out of scope.",
-        "public func NeonAscendancy_DoorAccessOverrides() -> array<String> {",
-    ]
-    # The formatter keeps a short array on one line and wraps a long one.
-    one_line = "  return [" + ", ".join(f'"{h}"' for h in overrides) + "];"
-    if len(one_line) <= 100:
-        lines += [one_line]
-    else:
-        lines += ["  return ["]
-        lines += [f'    "{h}"{"," if i + 1 < len(overrides) else ""}' for i, h in enumerate(overrides)]
-        lines += ["  ];"]
-    lines += ["}", "", ""]
+    lines += _string_array_func(
+        ["// Owner-flagged doors (data/venues/door_overrides.json), as the decimal entity",
+         "// ids the policy logs: it disables authorization, unlocks and unseals them, in",
+         "// or out of scope."],
+        "NeonAscendancy_DoorAccessOverrides", overrides)
+    # Devices that keep a dead quest marking (data/venues/device_quest_marks.json).
+    qm_path = ROOT / "data" / "venues" / "device_quest_marks.json"
+    quest_marks = sorted({str(d["id"]) for d in json.loads(qm_path.read_text(encoding="utf-8"))["devices"]}) if qm_path.exists() else []
+    lines += [""]
+    lines += _string_array_func(
+        ["// Devices whose baked quest marking and forced personal link belong to a quest",
+         "// the clean slate does not run (data/venues/device_quest_marks.json)."],
+        "NeonAscendancy_DeviceQuestMarkClears", quest_marks)
+    lines += ["", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides -> {SCOPE_OUT.relative_to(ROOT)}")
+    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears -> {SCOPE_OUT.relative_to(ROOT)}")
     return 0
 
 
@@ -681,7 +694,8 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         pos = [round(_median([p[i] for p in pts]), 2) for i in range(3)]
         spread = max(((p[0] - pos[0]) ** 2 + (p[1] - pos[1]) ** 2) ** 0.5 for p in pts)
         stops.append({"code": e["code"], "name": e.get("display_name") or e["code"], "kind": kind,
-                      "venue": best, "pos": pos, "radius": round(min(max(spread + 15.0, 40.0), 120.0), 1),
+                      "venue": best, "pos": pos,
+                      "radius": float((tour_stop or {}).get("radius") or round(min(max(spread + 15.0, 40.0), 120.0), 1)),
                       "expected_records": sorted(records),
                       "spawn_sets": sorted({s["reference"] for s in e.get("spawn_sets") or []}),
                       "checklist": tour_checklist(e)})

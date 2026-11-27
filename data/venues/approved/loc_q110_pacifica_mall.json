@@ -12,7 +12,7 @@
       "The lobby and escalator shutters (#q110_main_lobby_shutter_*, #q110_escalator_shutter_*) are only ever sealed by q110 phases. If they default sealed rather than open, the atrium and upper floor are cut off and the door policy has to unseal them.",
       "Community postures are all 'unknown' (no community-area node was converted for this venue), so every choice is verified only from raw spot workspots; all groups carry needs_tour_check.",
       "Sasquatch: her registry defines a 'hall_chat' phase that would be ideal for a relaxed mall boss, but no vanilla spawn set activates it, so the catalogue does not permit it. Worth an owner decision if the mall should have its Animals leader present.",
-      "Do the #mq006_com_party spawn sets and their intro workspots stream only with the mq006 quest prefabs? If they need a quest sector that never loads, the rollercoaster locals will stand at their spawn origin instead of their workspots."
+      "Answered (leg 1): yes, the #mq006_com_party spawn sets stream without the mq006 quest phases. The tour found all five intro locals (jean, darline, farah, anel, sandley) standing on their q110/rollercoaster intro spots, so the '#mq006_pr_rollercoaster' prefab this venue already loads is enough; no mq006 quest sector is needed."
     ]
   },
   "prefabs": [
@@ -80,9 +80,9 @@
     {
       "spawner": "#q110_com_mall_gym_boxing_robot",
       "entry_name": "#q110_ws_gym_boxing_robot",
-      "phase_name": "boxing",
+      "phase_name": "idle",
       "action": "Activate",
-      "why": "The gym's boxing robot left in its active 'boxing' phase (q110_ws_boxing_robot_01) instead of the inactive 'idle' phase, so the ring looks in use.",
+      "why": "The gym's boxing robot in its standby phase (q001_02a_robot_inactive), powered down beside the ring instead of shadow-boxing an opponent who never comes. The 'boxing' phase plays q110_ws_boxing_robot_01, the chained sparring target the Razor Hugh finale needs; in our timeline nothing fights it, so it swung at air (owner, leg 1).",
       "needs_tour_check": true
     },
     {
@@ -179,5 +179,14 @@
     "ref": "#q110_mall_front_door",
     "within": 80.0,
     "why": "The mall's own main entrance door device, on the only normal way in; the player passes it before any of the atrium population streams."
+  },
+  "tour_stop": {
+    "position": [
+      -2338.83,
+      -2030.44,
+      13.98
+    ],
+    "radius": 130.0,
+    "source": "worldAISpotNode {q110_ws_gym_enemy_006_}_004 (routine__stand_rail_lean_front, unused by this proposal) in base/worlds/03_night_city/_compiled/default/quest_e7fe3f9691903c44.streamingsector; the gym/hall landing at the top of the mall's main escalator, the one point that holds all four hall entries, all three gym entries and the boxing robot inside a 40 m scan. The previous stop was the rollercoaster control panel (-2405.23,-1969.43,15.96) 130 m behind the mall, so barely half the crew could ever be seen (owner, leg 1: 5 of 11 found)"
   }
 }

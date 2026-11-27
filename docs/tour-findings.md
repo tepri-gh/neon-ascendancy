@@ -39,6 +39,31 @@ Door ids come from `lookat.log`.
 
 The fix reports go in `~/.cache/neon-ascendancy/extracts/venues/research/fixes/`.
 
+### Leg 1 status (fix pass done, awaiting the second tour)
+
+Fixed in data or code, all of them awaiting the second tour: batches A,
+C1, C2, D1, D2 and E, and the west half of B. Agent reports (with the
+second-tour checks) are A-doors, B-checkpoint, C1-pacifica, C2-people,
+D1-leftovers, D2-services and E-scene in the fixes folder.
+
+Still open:
+
+- **Dogtown main checkpoint** (-1797, -2250): the pedestrian door belongs to
+  the combat tower's sectors (`#q303_dvc_combat_tower_main_door`), not
+  `q303_combat_zone_gate`; it needs its own fix in that venue.
+- **Border crossing car queue**: the passengers were removed because their
+  cars never spawn. Restoring the queue needs `questSpawner` Activate in
+  the builder (C2 report has the list).
+- **Spot maps**: the miner loses the spot map of 1,880 communities whose area
+  node is in another `always_loaded` sector; the cause of most "(N
+  unmapped)" labels. Fix the miner and re-mine (C2 report).
+- **Container-zone vendors**: same scene gap as the stadium, and their
+  `cz_con_*_default_on` facts are not set (D2 report).
+- **Other cyberpsycho sites**: eight hustle set pieces leave bodies and
+  mines on by default (D1 report); fix each where a venue sits on one.
+- **Stadium crowd**: 31 expected records missing (gangs, Kurtz's people,
+  stall staff); check on the second tour.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

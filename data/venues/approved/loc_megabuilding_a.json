@@ -8,9 +8,8 @@
     "open_questions": [
       "Catalogue gap, blocks the main fix: #megabuilding_com_001 (id 13483497367760522212) is the H10 apartment-floor crowd with ~80 entries (gym, tenants, floor vendors, homeless, stoop kids) but has no resolved community area path, so mine-venues emitted no community_options for it and the checker rejects every entry. Resolving its area node (or letting whole-community activation through for a registered spawner) would let a follow-up restore the real crowd.",
       "Is the shooting-range door #q001_dvc_wilson_range_door sealed in a build without persistent_content? If yes, the range and the contestants' rail spot are unreachable until the runtime door policy unseals it.",
-      "Do the q001 lobby residents' spots sit on the public side of #q001_door_mb_v_floor, and are they visible with the gate in its baked state? Their workspots are relaxed, but the phase name gate_closed ties them to a gate state we do not drive.",
       "Variant semantics are inferred from usage: player_blocker and wilson_door_blocker are treated as '1 = blocker shown'. Both are set to 0 here because those are the only values vanilla uses for the normal/open state.",
-      "Loading #q001_pr_megabuilding also loads the fistfight tutorial sub-prefab; confirm no other quest-only props (gate scene markers, tutorial blockers beyond player_blocker) look wrong in the lobby.",
+      "Loading #q001_pr_megabuilding also loads the fistfight tutorial sub-prefab; that sub-prefab's only variant is player_blocker (already 0), it adds no meshes and activates no one (its gym_robo_fighter entry starts inactive), and the prefab has to stay because the lobby regulars' spawners live inside it. Confirm Coach Fred's ring and the range are walkable and nothing tutorial-like is visible.",
       "Consider whether wat_lch_phase should simply be kept instead of per-venue crowds: it activates #megabuilding_com_001 whole plus the floor-01 market community, which is the cheapest way to repopulate every megabuilding interior at once."
     ]
   },
@@ -25,7 +24,7 @@
       "entry_name": "resident1",
       "phase_name": "after_chat1",
       "action": "Activate",
-      "why": "Owner tour 2026-11-26: in gate_closed they stare through the lobby gate, which is open in the clean slate. after_chat1 is vanilla's after-the-gate phase (resident1 smoking, resident2 at the vending machine), both relaxed. Lobby regular waiting at the security gate; workspot routine__stand_ground_device__fix reads as someone using/fixing the entry panel. gate_closed is the phase vanilla uses when the building gate is shut, which is the normal state outside The Ride.",
+      "why": "Owner tour 2026-11-26: the two residents stood at the broken-gate panel on V's own floor, staring through the gate, which is open in the clean slate. The gate-closed spots are {q001_ws_broken_gate}1 (routine__stand_ground_device__fix on the panel) and {q001_ws_broken_gate}2; after_chat1 is vanilla's after-the-gate phase and the entry's own initial phase, and its {q001_ws_broken_gate1_aft} spot at (-1393.61, 1261.31, 123.08) is a relaxed cigarette by the corridor. The tour that flagged this ran at 17:47, before the phase change landed (fa60430, 18:04), so it saw gate_closed; this is a re-test, not a new fix.",
       "needs_tour_check": true
     },
     {
@@ -33,7 +32,7 @@
       "entry_name": "resident2",
       "phase_name": "after_chat1",
       "action": "Activate",
-      "why": "Owner tour 2026-11-26: in gate_closed they stare through the lobby gate, which is open in the clean slate. after_chat1 is vanilla's after-the-gate phase (resident1 smoking, resident2 at the vending machine), both relaxed. Second lobby resident standing around the gate beside the first; generic__stand_ground__stand_around__02 workspot.",
+      "why": "Owner tour 2026-11-26: same gate_panel problem as resident1; after_chat1 is the entry's own initial phase, and its {q001_ws_broken_gate2_aft} spot at (-1394.26, 1277.09, 123.08) is the corridor vending machine (generic__stand_vending_machine__use__01), a relaxed use pose. The tour that flagged this ran at 17:47, before the phase change landed (fa60430, 18:04).",
       "needs_tour_check": true
     },
     {
@@ -77,7 +76,7 @@
       "entry_name": "contestant_01",
       "phase_name": "idle",
       "action": "Activate",
-      "why": "A customer leaning on the shooting-range rail in Wilson's open shop; idle is the relaxed phase (the default phase is the contest line-up and two of the five default spots are scene poses).",
+      "why": "A customer leaning on the shooting-range rail in Wilson's open shop: the entry's own spot map gives contestant_01/idle {mq011_ws_contestant_idle_}000 at (-1439.20, 1304.72, 119.06), generic__stand_rail_lean_front__stand_around__01, while default is the contest line-up (stand_ground_shotgun__stand_around) and shooting is an aim pose. The tour that marked this a problem could not get into the range, whose door was still sealed then; fa60430's seal rule should have unsealed it, so this is a re-test.",
       "needs_tour_check": true
     },
     {
@@ -85,7 +84,7 @@
       "entry_name": "contestant_03",
       "phase_name": "idle",
       "action": "Activate",
-      "why": "Second customer checking a phone in the shop; idle is the relaxed, non-contest stance.",
+      "why": "Second customer checking a phone in the shop: contestant_03/idle maps to {mq011_ws_contestant_idle_}_002 at (-1441.26, 1342.09, 119.06), generic__stand_ground_cellphone__check_phone__01, vanilla's own mq011 idle spot on the 2nd Amendment floor. Same re-test as contestant_01: the range door was sealed at tour time.",
       "needs_tour_check": true
     }
   ],
@@ -96,7 +95,7 @@
       "states": {
         "player_blocker": 0
       },
-      "why": "Hides the tutorial's invisible player blocker so Coach Fred's ring and gym stay walkable in the open world; the tutorial shows it (1) for the bout and hides it (0) afterwards, so 0 is the normal look."
+      "why": "Hides the tutorial's invisible player blocker so Coach Fred's ring and gym stay walkable in the open world; the tutorial shows it (1) for the bout and hides it (0) afterwards, so 0 is the normal look. player_blocker is the tutorial prefab's only variant, and the sub-prefab itself adds no meshes and activates no one: its contents are four trigger areas, the crowd-null area, two workspots and the blocker collision, and its gym_robo_fighter community starts inactive and is only reactivated by the unkept q001_fistfight_tutorial phase."
     },
     {
       "prefab": "#mq011_pr_wilson",
@@ -111,6 +110,6 @@
   "proximity_wait": {
     "ref": "#q001_door_mb_v_floor",
     "within": 80.0,
-    "why": "The floor-01 security gate at the lobby entrance is a DoorControllerPS that vanilla drives (q001_ride_to_mb) and that every player passes on the way in; the anchored re-issue covers the lobby regulars and the floor-07 flat and shop."
+    "why": "The broken metal-fence gate (#q001_door_mb_v_floor, gate_metal_fence_prefab5OZIO4Q) on V's own floor, where the two residents stood at tour time: a DoorControllerPS vanilla drives (q001_ride_to_mb) and that every player passes between the lift and the apartment, at z ≈ 123. Its proximity covers the floor-07 flat and shop (z ≈ 119) and the floor-08 corridor; the lobby at street level gets the boot activation only."
   }
 }

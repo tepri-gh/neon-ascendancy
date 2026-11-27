@@ -1,14 +1,14 @@
 {
   "code": "q303_combat_zone_gate",
   "display_name": "Dogtown Gate Checkpoint (Combat Zone Border)",
-  "why": "A fortified road checkpoint on the Dogtown wall at the Combat Zone border: vehicle barriers, pedestrian turnstiles, scanners, cameras and turret posts, permanently manned by BARGHEST's Prevention Unit, with a small staff-and-gym area beside it on the Night City side. Vanilla only loads and populates it from a fact-gated openworld phase, so in the clean slate the checkpoint stands empty. This proposal loads the gate's openworld quest section, switches on its two ambient communities (the Prevention Unit garrison and the checkpoint civilians) and pins the two variant states that give the calm, non-combat, no-protest look.",
+  "why": "A fortified road checkpoint on the Dogtown wall at the Combat Zone border: vehicle barriers, pedestrian turnstiles, scanners, cameras and turret posts, permanently manned by BARGHEST's Prevention Unit, with a small staff-and-gym area beside it on the Night City side. Vanilla only loads and populates it from a fact-gated openworld phase, so in the clean slate the checkpoint stands empty. This proposal loads the gate's openworld quest section, switches on its two ambient communities (the Prevention Unit garrison and the checkpoint civilians) and pins the calm-state variants: no protest dressing/audio and the loaded interior area that the vanilla phase only reaches from its 'combat goes off' branch.",
   "source": {
     "proposal": "research/loc_q303_combat_zone_gate/proposal.json",
     "confidence": "medium",
     "open_questions": [
       "The guard community (#combat_zone_gate_com) has no spot map, so its phase a posture is unknown: do the 21 guards, Minotaurs, sniper droids and HMG stand calmly on post, or in an alert/weapon-ready pose? needs_tour_check.",
       "Which of Dogtown's two gates this is: the wiki describes the western gate as BARGHEST Prevention Unit with turrets and scanners (matching these records), but the prefab sits beside the EBM stadium, so the northern main gate is possible. The display name stays neutral until a map/position check.",
-      "Do the guard spots sit inside the interior_area section? If they do, interior_area may have to be 1 for them to be visible; it is left at the vanilla default 0 here.",
+      "Do the guard spots sit inside the interior_area section? interior_area is now pinned to 1 (vanilla's calm state; see variant_toggles) because leaving the default 0 keeps the checkpoint in its combat-locked look, so the pedestrian scanner corridor/doors never stream and the scan animation completes with no door to open. Confirm the corridor and doors load and the pedestrian scan opens them.",
       "The location prefab also carries an on_off_switch variant ($/03_night_city/c_pacifica/#switch_cz_on_off, default 0) that may control the Combat Zone's own barrier power. No quest toggle declares it in this venue's data, so it is left vanilla and unchecked.",
       "Verify both vehicle lanes in game after ArchiveXL attaches the vanilla checkpoint phase."
     ],
@@ -56,6 +56,13 @@
         "q302_protest_deco": 0
       },
       "why": "Lead agent: keep q302's protest dressing off (q302_protest sets it to 1 once ep1_side_content is open)."
+    },
+    {
+      "prefab": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/boulevard_av_prefabHHWJYRA/loc_q303_combat_zone_gate_prefabT6SV24Y/loc_q303_combat_zone_gate_gameplay_prefab3JCC64Y",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "The checkpoint's calm, open state. combat_zone_gate.questphase sets interior_area 1 at boot and in its 'combat goes off' branch, and 0 only during gate combat; but its boot toggle runs against a gameplay prefab the attached phase does not stream, and the variant's own sector default is 0. Left unset, the checkpoint stays in the combat-locked look: the pedestrian corridor/booth interior and its glass doors never stream, so the scanner animation (a player FX from the openworld sector) completes with no door to open. Full node path because the gameplay prefab node is untagged (rule 3)."
     }
   ],
   "doors": [],

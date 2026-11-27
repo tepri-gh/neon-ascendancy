@@ -298,6 +298,27 @@
         "var_pz_market_gate_broken": 0
       },
       "why": "The market gate in its working state rather than the broken one the escape leaves behind."
+    },
+    {
+      "prefab": "#stadium_vendor_01_gameplay",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "Weapon-stall interior open. stadium_vendors sets interior_area=1 whenever the player is at the stall and 0 on leaving; the block defaults it off, so without this the gunsmith's counter and goods never stream in. A variant toggle, so it needs no proximity (rule 5)."
+    },
+    {
+      "prefab": "#stadium_vendor_05_gameplay",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "Meds-stall interior open (enabledByDefault=0 in the EP1 streaming block). stadium_vendors sets 1 near the stall; without it Saki Seo's stall is empty even though she spawns."
+    },
+    {
+      "prefab": "#stadium_vendor_07_gameplay",
+      "states": {
+        "interior_area": 1
+      },
+      "why": "Ripperdoc bay interior open (enabledByDefault=0 in the EP1 streaming block). stadium_vendors sets 1 near the stall; without it Eron Acedo's bay is empty even though he spawns."
     }
   ],
   "doors": [],

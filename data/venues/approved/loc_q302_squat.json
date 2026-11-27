@@ -11,7 +11,7 @@
       "Which door is #q302_dvc_squot_door: the 8th-floor hideout door or the hotel entrance? The wiki gives two street entrances (Pacific Boulevard, Elizabeth Kress Street); the tour should check the anchor's position and that the normal way in is passable.",
       "peace_no_fix is the only calm phase for the two talking hobos; the tour should confirm their workspots are sit/lean/talk and not a leftover of the oath standoff.",
       "The subway route prefab #q302_pr_subway is a q302_04 phasePrefab but is not in this venue's catalogue prefab list, so it is not restored. Is the hotel reachable on foot from the Dogtown street entrances without it?",
-      "The q302_07_oath lighting set also names q302_04_squot_ground_floor_community and q302_squat's squat_lights_to_turn_on, but neither variant is registered in all.streamingblock; I left them out. If the ground-floor camp still looks unlit on tour, those stale names are the first thing to investigate."
+      "The q302_07_oath lighting set also names q302_04_squot_ground_floor_community and q302_squat's squat_lights_to_turn_on. Both are dead names: neither is registered in any all.streamingblock (base or EP1), so they were never the cause. The dark flat was the baked default: q302_04_squot = 1 has zero light nodes, and after_fixing_engine only has 13 tiny engine-room lamps. The venue now pins q302_07_squat_day = 1, the authored 61-lamp full-room set. Second tour: confirm the 8th-floor flat and the ground camp are lit at start."
     ]
   },
   "prefabs": [
@@ -132,10 +132,11 @@
         "q302_04_squot": 0,
         "q302_04_squot_after_fixing_engine": 1,
         "q302_after_quest": 0,
+        "q302_07_squat_day": 1,
         "q302_glowstics": 0,
         "q302_additional_blue": 0
       },
-      "why": "The squat's default state is the power-cut lighting from q302_04 (q302_04_squot = 1 by default). This reproduces the lit, generator-repaired, community-present state vanilla uses in q302_07_oath, with the quest's blue mood light and the after-quest/aftermath state off. The stale variant name q302_04_squot_ground_floor_community was dropped because it is not registered in all.streamingblock."
+      "why": "The squat's baked default is the power-cut state q302_04_squot = 1, and across every squat sector it carries only 6 light nodes in total, so the building streams almost unlit. q302_04_squot_after_fixing_engine (the generator-repaired state vanilla sets in q302_04 and q302_07_oath) adds 26 small engine-room/hall lamps, not a full-room set, so the 8th-floor flat Jacob and James occupy stayed very dark. q302_07_squat_day is the prefab's authored full-room daytime lighting set (72 warm-white lamps across the squat, 61 of them in the flat sector alone) but no vanilla phase ever switches it on; turning it on gives the lived-in, lit look the venue is for. The quest's blue mood floodlight (q302_additional_blue, 36 lights, on by default) and the glowstick accents (q302_glowstics, 29 lights, on by default) are the oath-scene mood set, so they stay off here; the after-quest/aftermath state and the sleep scene stay off too. The two names the old open question chased (q302_04_squot_ground_floor_community, squat_lights_to_turn_on) do not exist in any all.streamingblock, base or EP1, so they were never the cause."
     },
     {
       "prefab": "#loc_q302_squat_decoration_variants",

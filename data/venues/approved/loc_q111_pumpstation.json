@@ -34,6 +34,20 @@
         "djbooth": 1
       },
       "why": "The DJ booth and its kit are a variant of the always-loaded env prefab; vanilla shows it (djbooth=1) exactly when the beach party is up and hides it (0) on abort. With the community restored, the DJ needs the booth standing next to his workspot."
+    },
+    {
+      "prefab": "#ma_hey_spr_06_loot",
+      "states": {
+        "bodies": 0
+      },
+      "why": "The beach is inside the Wellsprings NCPD cyberpsycho-disposal set piece (#ma_hey_spr_06, the next beat over from the fence line at -2408,-1081,13). Its three corpses are never a quest object: they are the 'bodies' variant of a world sector prefab, and that variant is enabledByDefault:1, so the scene renders in the clean slate even though its hustle phase (ma_hey_spr_06_phase, not kept) is the only thing that ever ends it. Vanilla's own cleanup sets exactly this to 0 (ma_hey_spr_06_phase: '#ma_hey_spr_06_loot bodies=0' on the phase's done branch). Hiding it removes the dead bodies and their loot prompts from the pump station's front door and matches the police-scene look of a world with no cyberpsycho hustles."
+    },
+    {
+      "prefab": "#ma_hey_spr_06_devices",
+      "states": {
+        "psycho_active": 0
+      },
+      "why": "The same NCPD site's armed set. 'psycho_active' is a world-sector range enabledByDefault:1 holding thirteen armed proximity and laser trip mines (checked against exterior_-38_-18_0_0: proximity_mine_005..017, laser_trip_mine_008/009/med/long) laid across the compound between the plant and the sand - the exact walk the tour takes to the beach, and the same failure the owner hit at the bar in q302. The un-kept hustle phase ends them (ma_hey_spr_06_phase: '#ma_hey_spr_06_devices psycho_active=0' on its done branch), so with the hustle gone they would stay armed forever. Hiding them is vanilla's own post-hustle state."
     }
   ],
   "doors": [],

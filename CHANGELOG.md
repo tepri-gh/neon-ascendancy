@@ -8,6 +8,23 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Tour leg 1 fix pass (28 stops, Yucca to the Stadium), from seven agent
+  batches. Doors: Shank's front door, the Nighthawks safehouse door, the
+  Tech Expo clinic door, the Biotechnica lift gate, the junk shop street
+  door, the gas station garage gates and the Wellsprings apartment doors
+  (owner overrides). People: the border crossing's carless queue removed,
+  the junk shop clerk restored, an NPC sitting on air at the Netwatch
+  ambush hotel removed, the mall's boxing robot idle. Dressing: the pump
+  station's hustle bodies and 13 beach mines off, Goodnight Charlie's
+  entrance mines disarmed, the Dogtown west checkpoint in its calm state,
+  the squat's day lamps on, the North Oak yacht's party layout and stadium
+  stall interiors on. Tour stops for the mall and the hotel moved.
+- Stadium vendors: each stall's vendor scene now runs
+  (`dogtown_vendors.json` `scenes`), so trade works.
+- `data/venues/device_quest_marks.json` and `DeviceQuestMarks.reds`: clear
+  a dead quest mark and forced personal link (the Botanic Gardens console).
+- The tour leaves out toured stops (`data/venues/tour_done.json`); a
+  `tour_stop` can set its own scan `radius`.
 - Hustle research: all 333 NCPD scanner sites classified
   (`data/venues/hustle_sites.json`), with a ranked shortlist of node-worthy
   Organized Crime sites, chop shops, arms caches and corporate posts in
@@ -139,6 +156,14 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (lift/window/platform/terminal/dataterm) so a route can drive non-door devices.
 
 ### Changed
+- Venue variant toggles are re-issued after the proximity wait, so a kept
+  vanilla phase that sets them the other way at boot no longer wins (the
+  North Oak yacht).
+- Door policy: an authorization module counts as a way in only with a
+  valid keycard or password; lift doors only get enable and power; owner
+  overrides fix one-sided doors. The log line shows `lift` and `oneSided`.
+- The Space Force One crash area is excluded and the Cynosure bunker
+  deferred (owner).
 - Dogtown's vanilla open-world layer is live: the clean slate sets
   `ep1_side_content` (the only allowed `ep1_` fact). That opens the
   district ambient communities and combat groups, the quest communities

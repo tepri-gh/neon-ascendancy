@@ -774,6 +774,40 @@ class QuestGraph:
         self.nodes.append({"HandleId": self.alloc(), "Data": data})
         return inp
 
+    def add_scene_node(
+        self, scene_file: str, marker: str, sockets: list[list[str]], interruptible: bool,
+    ) -> str:
+        """Add a questSceneNodeDefinition at a world marker and return its
+        "Start 0" input. Matches vanilla stadium_vendors.questphase field for
+        field; `sockets` are the scene's own input/output names, in order."""
+        own = [self.new_socket("CutDestination", "CutDestination")]
+        own += [self.new_socket(name, stype) for name, stype in sockets]
+        start = next(h for h in own if self._socket_meta[h] == ("Start 0", "Input"))
+        ops = [{"HandleId": self.alloc(),
+                "Data": {"$type": "scnToggleInterruption_InterruptionOperation", "enable": 1}}] if interruptible else []
+        self.nodes.append(
+            {
+                "HandleId": self.alloc(),
+                "Data": {
+                    "$type": "questSceneNodeDefinition",
+                    "id": self.node_id(),
+                    "interruptionOperations": ops,
+                    "notAllowedToBeFrozen": 0,
+                    "reapplyInterruptionOperationsAfterGameLoad": 0,
+                    "sceneFile": rpath(scene_file),
+                    "sceneLocation": {
+                        "$type": "scnWorldMarker",
+                        "nodeRef": noderef(marker),
+                        "tag": cname("None"),
+                        "type": "NodeRef",
+                    },
+                    "syncToMusic": 0,
+                    "_sockets": own,
+                },
+            }
+        )
+        return start
+
     def finalize(self) -> list[dict[str, Any]]:
         """Materialize node socket slots (full defs / HandleRefIds per target state)."""
         out = []
@@ -1422,7 +1456,8 @@ def build_dogtown_vendors(spec: dict[str, Any], templates: dict[str, dict[str, A
     """Assemble mod\\neon_ascendancy\\dogtown_vendors.questphase.
 
     In1 -> hub -> spawn-set activations -> community activations -> keep-alive
-    pause. No journal/scene nodes; the story gate pauses are dropped."""
+    pause, plus one leaf per stall vendor scene off the hub (trade runs
+    through the scene). No journal nodes; the story gate pauses are dropped."""
     spawn_tpl = templates["spawn_manager_node"]
     g = QuestGraph(start_handle=1)
     start_out = g.add_input_node(spec["entry_socket"])
@@ -1449,6 +1484,10 @@ def build_dogtown_vendors(spec: dict[str, Any], templates: dict[str, dict[str, A
         )
         g.connect(prev, inp)
         prev = out
+
+    for sc in spec.get("scenes", []):
+        start = g.add_scene_node(sc["scene_file"], sc["marker"], sc["sockets"], sc["interruptible"])
+        g.connect(hub_out, start)
 
     ka = spec["keep_alive_pause"]
     ka_in, _ = g.add_pause_fact_node(ka["fact"], ka["comparison_type"], ka["value"])
@@ -1810,6 +1849,15 @@ def build_venue_probe(venue_spec: dict[str, Any], templates: dict[str, dict[str,
                 g.connect(tail, cf2)
                 tail = co2
             emit_communities_parallel(venue, tail)
+            # Re-issue the toggles too, on their own edge: a kept vanilla
+            # phase can set the same variants the other way at boot
+            # (cct_dtn_phase hides the North Oak yacht), and boot order between
+            # phases is not defined. After the wait ours land last.
+            re_tail = tail
+            for toggle in venue.get("variant_toggles", []):
+                inp, out = g.add_variant_toggle_node(toggle["prefab"], toggle["states"])
+                g.connect(re_tail, inp)
+                re_tail = out
             door_src = tail
         else:
             door_src = branch
@@ -2457,6 +2505,7 @@ def _check_community_reissue(
                       -> variant toggles (no proximity wait)
                       -> [prewait] -> distance pause -> [prox]
                            -> each community activation again, own edges
+                           -> the variant toggles again, one chain
                            -> door device manager, own edge
     Every community activation node has exactly one incoming edge and no
     outgoing edge, so a spawn node that never completes blocks nothing; the
@@ -2829,10 +2878,16 @@ def _check_dogtown_vendors(
     ok(actual_comms == expected_comms,
        f"vendor communities mismatch:\n  actual:   {sorted(actual_comms)}\n  expected: {sorted(expected_comms)}")
 
-    # No story content copied in.
+    # No story content copied in; the only scenes are the spec's stall scenes.
     story = [n for n in nodes if n["Data"].get("$type") in
-             ("questJournalNodeDefinition", "questSceneNodeDefinition", "questMappinManagerNodeDefinition")]
-    ok(not story, f"dogtown_vendors must not copy journal/scene/mappin nodes, found {len(story)}")
+             ("questJournalNodeDefinition", "questMappinManagerNodeDefinition")]
+    ok(not story, f"dogtown_vendors must not copy journal/mappin nodes, found {len(story)}")
+    actual_scenes = sorted(
+        (n["Data"]["sceneFile"]["DepotPath"]["$value"], n["Data"]["sceneLocation"]["nodeRef"]["$value"])
+        for n in nodes if n["Data"].get("$type") == "questSceneNodeDefinition")
+    expected_scenes = sorted((sc["scene_file"], sc["marker"]) for sc in vendors_spec.get("scenes", []))
+    ok(actual_scenes == expected_scenes,
+       f"dogtown_vendors scenes mismatch:\n  actual:   {actual_scenes}\n  expected: {expected_scenes}")
 
     # Keep-alive pause lives inside the vendor phase; the gate pause lives in
     # ascendancy.questphase.
@@ -3014,9 +3069,13 @@ def _check_one_venue_phase(
 
     # Variant toggles: one questWorldDataManagerNodeDefinition per variant_toggles
     # entry, each carrying exactly the spec's prefab + show map.
+    # Each toggle runs at boot and, for a venue with a proximity wait, again
+    # after it.
     expected_toggles = [
         (t["prefab"], dict(t["states"]))
-        for v in venue_spec["venues"] for t in v.get("variant_toggles", [])
+        for v in venue_spec["venues"]
+        for _ in range(2 if "proximity_wait" in v else 1)
+        for t in v.get("variant_toggles", [])
     ]
     toggle_nodes = [
         n["Data"] for n in nodes

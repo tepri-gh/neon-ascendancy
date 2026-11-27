@@ -598,24 +598,44 @@ Decided by the owner on the tour (recorded, already applied):
      leave it sealed: the crash damage only makes sense in Phantom Liberty's
      story. Excluded in `data/venues/triage_overrides.json`.
 164. **The Cynosure bunker** (`q305_bunker`). Scrapped for now (too many lore
-     implications), kept as a *maybe, much later* area. Deferred.
+     implications), kept as a *maybe, much later* area. Deferred. The owner
+     sees it, Blackwall residue and all, as a possible unique player base;
+     that needs a discussion.
 165. **Goodnight Charlie's and the Dogtown basketball court.** Toured again
      on the second leg (night at the court; the mine at Charlie's entrance).
 
 Open, for a later discussion:
 
-166. **The Blackwall-residue area under Dogtown** (near -2377, -2537, -73).
-     A unique player base? Lore implications to weigh.
-167. **Konpeki Plaza** (`q004_q005_arasaka_hotel`). A large job: lockdown
+166. **Konpeki Plaza** (`q004_q005_arasaka_hotel`). A large job: lockdown
      gates and "code red" panels to remove, Yorinobu's suite not fully
      loaded, no reception staff, only one lift option. The owner sees it as
      a good dynamic mission spot with civilians and guards. Scope it as its
      own task?
-168. **Pacifica mall gym** (`q110_pacifica_mall`). The owner suggests
+167. **Pacifica mall gym** (`q110_pacifica_mall`). The owner suggests
      Sasquatch there. She is an Animals boss; this is a cast-layer job.
-169. **North Oak marina** (`sts_cct_dtn_05_luxury_yacht`). A prominent port
+168. **North Oak marina** (`sts_cct_dtn_05_luxury_yacht`). A prominent port
      business (marine bar sign) that needs guards. Its own node or part of
      the yacht venue?
-170. **Gas station, Badlands** (`q104_gas_station`). The owner rates it a
+169. **Gas station, Badlands** (`q104_gas_station`). The owner rates it a
      good business node; its garage doors should work like normal garage
      doors (the fix pass handles the doors).
+
+From the leg 1 fix pass (agent reports in
+`~/.cache/neon-ascendancy/extracts/venues/research/fixes/`):
+
+170. **Hidden NUSA room, Nighthawks** (`q303_nighthawks_bar`). Its secret
+     door stays shut on purpose (the briefing boards belong to the removed
+     plot). Open it up, or keep it hidden?
+171. **SoCal border office double door.** It is usable now. If it reads as
+     staff-only on the second tour, should it stay shut?
+172. **Pump station police scene** (`q111_pumpstation`). Removed as you
+     flagged it. Bring the cordon and bodies back as lived-in flavour
+     instead? (The 13 hustle mines on the beach path stay off either way.)
+173. **Goodnight Charlie's mines.** Disarmed. Lore has the security system
+     still live; keep them as visible, disarmable traps instead?
+174. **Squat lighting** (`q302_squat`). The warm day lamps are on now. Keep
+     the blue lights and glowsticks vanilla leaves on?
+175. **North Oak yacht deck devices.** The party layout also brings a few
+     toolboxes and safes with its deck lights. Fine?
+176. **Gas station shutters.** They belong to the q104 quest prefab, which
+     also brings the quest's garage and mine dressing. Leave them out?

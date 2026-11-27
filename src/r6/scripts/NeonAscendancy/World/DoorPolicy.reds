@@ -19,13 +19,23 @@ public struct NeonAscendancy_DoorFacts {
   // DoorControllerPS.IsStatic(): sealed without a toggle, or locked with no
   // authorization, toggle, skill check or quickhack (doorController.swift).
   public let impassable: Bool;
-  // A keycard/password authorization module or a controlling terminal: an
-  // in-world way through that IsStatic() does not see.
+  // A working keycard/password authorization or a controlling terminal: an
+  // in-world way through that IsStatic() does not see. An authorization
+  // module with no keycard or password configured is not a way in: it hid
+  // Shank's and the Nighthawks safehouse doors (tour 2026-11-26).
   public let otherWayIn: Bool;
   public let locked: Bool;
   public let sealed: Bool;
-  // An authorization module is on (a keycard is required to open it).
+  // An authorization module is on, valid or not.
   public let authorization: Bool;
+  // A lift's own door: its lift and floor terminals open it, so the policy
+  // only enables and powers it. Unlocking could leave it open on a floor the
+  // car has left.
+  public let liftDoor: Bool;
+  // One side usable (interactive or automatic) and the other offering
+  // nothing (none or remotely controlled): the door opens from one side only.
+  public let oneSided: Bool;
+  public let shutter: Bool;
   // Owner-flagged in data/venues/door_overrides.json: its other way in is not
   // obtainable in our timeline, so open it up regardless.
   public let overridden: Bool;
@@ -37,6 +47,8 @@ public struct NeonAscendancy_DoorDecision {
   public let unlock: Bool;
   public let unseal: Bool;
   public let disableAuthorization: Bool;
+  // Give both sides the usable side's type (owner overrides only).
+  public let fixSides: Bool;
   // Re-evaluate the lock after enable/power lands: skill checks and quickhacks
   // only register on an enabled, powered device.
   public let recheck: Bool;
@@ -53,9 +65,17 @@ public func NeonAscendancy_DecideDoor(f: NeonAscendancy_DoorFacts) -> NeonAscend
     return d;
   }
   if f.overridden {
+    // Never for shutters: one that is driven by an access point is
+    // legitimately remote-only.
+    d.fixSides = f.oneSided && !f.shutter;
     d.disableAuthorization = f.authorization;
     d.unlock = f.locked;
     d.unseal = f.sealed;
+    return d;
+  }
+  // Owner overrides above still unlock a lift door (the Wellsprings lobby
+  // lift); the general rule only enables and powers one.
+  if f.liftDoor {
     return d;
   }
   if f.impassable {
@@ -69,7 +89,12 @@ public func NeonAscendancy_DecideDoor(f: NeonAscendancy_DoorFacts) -> NeonAscend
 }
 
 public func NeonAscendancy_DescribeDoorDecision(d: NeonAscendancy_DoorDecision) -> String {
-  if !d.enable && !d.power && !d.unlock && !d.unseal && !d.disableAuthorization {
+  if !d.enable
+    && !d.power
+    && !d.unlock
+    && !d.unseal
+    && !d.disableAuthorization
+    && !d.fixSides {
     return "keep";
   }
   let parts = "";
@@ -87,6 +112,9 @@ public func NeonAscendancy_DescribeDoorDecision(d: NeonAscendancy_DoorDecision) 
   }
   if d.disableAuthorization {
     parts += "authorize ";
+  }
+  if d.fixSides {
+    parts += "sides ";
   }
   if d.recheck {
     parts += "recheck";
@@ -157,13 +185,22 @@ public func NeonAscendancy_DoorFacts() -> NeonAscendancy_DoorFacts {
   f.locked = this.IsLocked();
   f.sealed = this.IsSealed();
   f.authorization = this.IsAuthorizationModuleOn();
-  f.otherWayIn = f.authorization;
+  f.otherWayIn = f.authorization && this.IsAuthorizationValid();
+  f.liftDoor = this.IsLiftDoor();
+  f.shutter = this.IsShutter();
+  const one = NeonAscendancy_DoorSideUsable(this.GetDoorTypeSideOne());
+  const two = NeonAscendancy_DoorSideUsable(this.GetDoorTypeSideTwo());
+  f.oneSided = one != two;
   for parent in this.GetImmediateParents() {
     if IsDefined(parent as TerminalControllerPS) {
       f.otherWayIn = true;
     }
   }
   return f;
+}
+
+public func NeonAscendancy_DoorSideUsable(t: EDoorType) -> Bool {
+  return Equals(t, EDoorType.INTERACTIVE) || Equals(t, EDoorType.AUTOMATIC);
 }
 
 // Evaluate and apply the policy through the same quest actions vanilla phases
@@ -194,6 +231,16 @@ public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4, overri
   if d.disableAuthorization {
     ps.QueuePSDeviceEvent(this.ActionQuestForceAuthorizationDisabled());
   }
+  if d.fixSides {
+    let sides = new SetDoorType();
+    let usable = this.GetDoorTypeSideOne();
+    if !NeonAscendancy_DoorSideUsable(usable) {
+      usable = this.GetDoorTypeSideTwo();
+    }
+    sides.doorTypeSideOne = usable;
+    sides.doorTypeSideTwo = usable;
+    this.SetNewDoorType(sides);
+  }
   if d.recheck && !isRecheck {
     let cb = new NeonAscendancy_DoorPolicyRecheck();
     cb.m_ps = this;
@@ -202,7 +249,7 @@ public func NeonAscendancy_ApplyDoorPolicy(isRecheck: Bool, pos: Vector4, overri
     GameInstance.GetDelaySystem(game).DelayCallback(cb, 1.0, false);
   }
   NcLogInfo(
-    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) pos=(\(pos.X),\(pos.Y),\(pos.Z)) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) override=\(facts.overridden) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
+    s"DoorPolicy: id=\(EntityID.ToDebugStringDecimal(PersistentID.ExtractEntityID(this.GetID()))) pos=(\(pos.X),\(pos.Y),\(pos.Z)) recheck=\(isRecheck) disabled=\(facts.disabled) unpowered=\(facts.unpowered) locked=\(facts.locked) sealed=\(facts.sealed) impassable=\(facts.impassable) otherWayIn=\(facts.otherWayIn) lift=\(facts.liftDoor) oneSided=\(facts.oneSided) override=\(facts.overridden) decision=\(NeonAscendancy_DescribeDoorDecision(d))"
   );
 }
 
