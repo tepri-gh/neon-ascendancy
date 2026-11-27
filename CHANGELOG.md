@@ -8,6 +8,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 ## [Unreleased]
 
 ### Added
+- Hustle research: all 333 NCPD scanner sites classified
+  (`data/venues/hustle_sites.json`), with a ranked shortlist of node-worthy
+  Organized Crime sites, chop shops, arms caches and corporate posts in
+  `docs/design/territory-node-candidates.md`.
 - Dev tour checklist: every tour stop lists what to look at (base checks,
   unmapped groups, the venue's open research questions, extra checks from
   `data/venues/tour_checks.json`). The tour waits at each stop until the list

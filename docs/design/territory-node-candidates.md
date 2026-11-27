@@ -189,6 +189,65 @@ Padre's Glen corner**, are fixer places and drop out of the candidates.
 | Scavs | Electric Corporation Power Plant | stronghold 3 / technology | XBD base, three sub-levels | pending |
 | Scavs | Digimmortal / Organitopia | outpost 2 / economy | Dogtown expo dens | pending |
 
+## From the hustle research (owner pick pending)
+
+The hustle pass (2026-11-26, `data/venues/hustle_sites.json`) classified
+all 333 NCPD scanner sites: 162 reported crime (many are loot-only
+caches), 93 assault in progress, 13 organized crime, 13 cyberpsycho and 44
+other (Hidden Gems, cut content, story scenes). These are the sites the
+agents judged node-worthy, ranked best first within each group. The design
+behind them is `hustle-sites.md`. Pick the ones you want; the rest become
+encounter data.
+
+**Strongest (real organised operations)**
+
+| Site | Holder | What it is | Note |
+| --- | --- | --- | --- |
+| `wbr_jpn_20` Willow St, Japantown | Tyger Claws | Fenced trafficking and forced-labour outpost, named boss, netrunner, 13 captives | Clear of every venue |
+| `std_arr_03` Hargreaves St, Arroyo | 6th Street | Darius Miles's drug lab, 10 fighters, a five-car reinforcement, miniboss | Canon organized crime |
+| `std_rcr_08` Rancho Coronado | 6th Street | Drug production station with four captive NCPD officers | 15 m from control centre `cc_rcr_almunecar_strip` |
+| `wat_nid_02` Northside | Maelstrom | Outpost with boss, netrunner, two androids, drug and chemical stash | |
+| `wat_lch_08` Drake & Cartwright, Little China | Tyger Claws | Extortion market corner, 12 Claws, netrunner, 16 cameras | Protection racket |
+| `wat_lch_01` Little China rooftop | Scavengers | Fortified illegal cyberware trade, netrunner and sniper | |
+| `bls_ina_se1_17` I-9, Badlands | Wraiths | Outpost with named leader Bruce Ward, nine hostiles | |
+
+**Chop shops and arms caches (economy)**
+
+| Site | Holder | What it is | Note |
+| --- | --- | --- | --- |
+| `cct_dtn_12` Corpo Plaza garage | Scavs (corporate guard) | Chop shop in a parking garage: lift, stripped cars, netrunner, two androids | |
+| `bls_ina_se5_09` Badlands | none (turrets, mines) | Defended wrecker and salvage yard | Unoccupied; a garrison would be invented |
+| `bls_ina_se5_14` Badlands | Wraiths | Roadside garage front with a trapped car lift, Aldecaldo hostage | |
+| `hey_gle_109` the Glen | unknown | Arms lock-up: LMG, grenades, shard case | Holder not in the data |
+| `hey_gle_105` behind Megabuilding H1 | unknown | Small arms cache in a service row | Holder not in the data |
+| `bls_ina_se1_19` Badlands ridge | Wraiths | Lookout over an arms cache, sniper | |
+| `wat_nid_27` Northside | Scavengers | Stripping den by a body freezer | Weakest; confirm it is a place |
+
+**Corporate posts (Militech, Kang Tao)**
+
+| Site | Holder | What it is | Note |
+| --- | --- | --- | --- |
+| `bls_ina_se1_23` Badlands | Militech | Largest garrison in its group (10 and a drone), garage yard | |
+| `bls_ina_se1_05` Badlands | Militech | Restricted roadside compound, drug stash | |
+| `cct_dtn_15` Downtown | Militech | Fenced freight yard and guard post | |
+| `wbr_hil_01` Charter Hill | Militech | Industrial black site, HMG gunner, sniper | 36 m from the approved Acorn Towers lot |
+| `cct_cpz_16` Corpo Plaza roof | Kang Tao | Guarded rooftop cache, five caches | |
+
+**Weaker or already covered**
+
+- `std_rcr_18` Wraith trafficking yard: already the "Sequoia & Gray outpost"
+  candidate, but its anchor sits at the Mallagra & Manzanita Depot control
+  centre; one of the two positions is wrong.
+- `std_rcr_05` Kendal Park: already a candidate.
+- `wat_nid_06` Maelstrom outpost: may coincide with the approved North Kabuki
+  ripperdoc lab; check in game.
+- `wat_nid_01` Hobotown harvesting: strong operation, weak physical site.
+- `std_arr_02` container-terminal arms handoff and `wat_kab_06`
+  trafficking container: transfer points rather than held places.
+- `bls_ina_se1_01` roadside organ harvesting: marginal.
+- `mq304_ce` Barghest-held Dogtown block: a quest scene; the approved
+  container-yard lanes venue may already cover it.
+
 ## Next
 
 1. Owner: confirm or trim, and settle the two test-point conflicts.
