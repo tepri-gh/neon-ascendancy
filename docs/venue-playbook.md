@@ -440,6 +440,21 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   open question is really a thing to look at, put it in the proposal; a
   check the owner should repeat at a hand-built venue goes in its
   `tour_checks`.
+- **Sweep first, tour second** (owner, 2026-11-26: 28 hand-toured stops
+  took hours, mostly on doors and lifts). "Neon: sweep start/resume" or the
+  panel's "Sweep all stops" visits every stop unattended, including toured
+  ones, with god mode and invisibility on, and no checklists. On top of the
+  NPC scan it logs every door, lift and lift terminal in the radius with
+  its raw state (power, lock, seal, valid authorization, skill check,
+  quickhack, lift door, side types). The report then flags `STUCK` (doors
+  the policy or an override covers that still stop the player),
+  `BLOCKED-UNSCOPED` and `DUPLICATE` (two devices of one kind within
+  0.75 m), and ends with one table of devices to fix. Fix those in a batch,
+  then hand-tour only the flagged stops and the things a script cannot
+  judge (lore, lighting, a pose, whether it reads as normal business).
+  Toured stops are listed in `data/venues/tour_done.json`; the tour skips
+  them and the sweep does not. Venues without a known position (28) are
+  not swept; give them a `tour_stop`.
 - **CET events in the probe:** CET keeps one callback per event per mod, so
   a second `registerForEvent` for the same event silently replaces the
   first (the tour's `onUpdate` broke noclip). Register handlers through the

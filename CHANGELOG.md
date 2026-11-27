@@ -23,8 +23,12 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   (`dogtown_vendors.json` `scenes`), so trade works.
 - `data/venues/device_quest_marks.json` and `DeviceQuestMarks.reds`: clear
   a dead quest mark and forced personal link (the Botanic Gardens console).
-- The tour leaves out toured stops (`data/venues/tour_done.json`); a
+- The tour skips toured stops (`data/venues/tour_done.json`); a
   `tour_stop` can set its own scan `radius`.
+- Probe sweep mode ("Neon: sweep start/resume", "Sweep all stops" on the
+  panel): visits every stop unattended under god mode and invisibility and
+  logs each door, lift and lift terminal's state. The tour report flags
+  stuck, unscoped-blocked and duplicate devices and lists them in one table.
 - Hustle research: all 333 NCPD scanner sites classified
   (`data/venues/hustle_sites.json`), with a ranked shortlist of node-worthy
   Organized Crime sites, chop shops, arms caches and corporate posts in

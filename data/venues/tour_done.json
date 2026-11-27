@@ -1,5 +1,5 @@
 {
- "_comment": "Stops the owner has already toured. tools/venue-proposals.py tour-stops leaves them out; their findings are in docs/tour-findings.md. Remove a code to tour it again.",
+ "_comment": "Stops the owner has already toured. tools/venue-proposals.py tour-stops marks them done: the tour skips them, the sweep does not; their findings are in docs/tour-findings.md. Remove a code to tour it again.",
  "done": {
   "2026-11-26": [
    "q000_roadhouse_town",

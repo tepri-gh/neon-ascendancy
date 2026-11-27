@@ -458,7 +458,10 @@ end)
 -- (or skipped); "Neon: checklist here" opens the nearest venue's list anytime.
 -- Console: p.tour_start("code") starts at a named stop.
 
-local tour = { stops = nil, i = 0, state = "idle", t = 0.0, settle = 20.0 }
+-- mode "tour" skips stops already toured (tour_stops.lua `done`) and waits
+-- for checklists; mode "sweep" visits every stop unattended and also logs the
+-- doors, lifts and lift terminals in range (see Probe.sweep_start).
+local tour = { stops = nil, i = 0, state = "idle", t = 0.0, settle = 20.0, mode = "tour" }
 
 local function json_str(s)
   s = tostring(s)
@@ -553,13 +556,85 @@ local function scan_npcs(radius)
   return out
 end
 
+-- Doors, lifts and lift terminals within the radius, with the raw state the
+-- sweep report judges (tools/venue-tour-report.py): power, locks, seals, the
+-- in-world ways in, lift door and side types. Read-only; nothing is changed.
+local DEVICE_CLASSES = { "Door", "LiftDevice", "ElevatorFloorTerminal" }
+
+local function scan_devices(radius)
+  local player = Game.GetPlayer()
+  local out = {}
+  local q = Game["TSQ_ALL;"]()
+  q.maxDistance = radius
+  q.testedSet = TargetingSet.Complete
+  local ok, parts = Game.GetTargetingSystem():GetTargetParts(player, q)
+  if not ok or not parts then return out end
+  local seen = {}
+  for _, part in ipairs(parts) do
+    local obj = safe(function() return part:GetComponent(part):GetEntity() end)
+    local kind = nil
+    if obj then
+      for _, c in ipairs(DEVICE_CLASSES) do
+        if obj:IsA(c) then kind = c end
+      end
+    end
+    local id = kind and tostring(safe(function() return obj:GetEntityID().hash end))
+    if kind and not seen[id] then
+      seen[id] = true
+      local pos = obj:GetWorldPosition()
+      local ps = safe(function() return obj:GetDevicePS() end)
+      local d = {
+        id = id, kind = kind, pos = { pos.x, pos.y, pos.z },
+        app = tostring(safe(function() return obj:GetCurrentAppearanceName().value end)),
+      }
+      if ps then
+        d.powered = safe(function() return ps:IsPowered() end) == true
+        d.disabled = safe(function() return ps:IsDisabled() end) == true
+        if kind == "Door" then
+          d.open = safe(function() return ps:IsOpen() end) == true
+          d.locked = safe(function() return ps:IsLocked() end) == true
+          d.sealed = safe(function() return ps:IsSealed() end) == true
+          d.static = safe(function() return ps:IsStatic() end) == true
+          d.auth_on = safe(function() return ps:IsAuthorizationModuleOn() end) == true
+          d.auth_valid = safe(function() return ps:IsAuthorizationValid() end) == true
+          d.skill = safe(function() return ps:HasAnySkillCheckActive() end) == true
+          d.hack = safe(function() return ps:CanCreateAnyQuickHackActions() end) == true
+          d.lift = safe(function() return ps:IsLiftDoor() end) == true
+          d.shutter = safe(function() return ps:IsShutter() end) == true
+          d.side1 = tostring(safe(function() return ps:GetDoorTypeSideOne().value end))
+          d.side2 = tostring(safe(function() return ps:GetDoorTypeSideTwo().value end))
+        end
+      end
+      out[#out + 1] = d
+    end
+  end
+  return out
+end
+
+-- God mode for the unattended sweep (mines, turrets, hostile garrisons).
+local function sweep_protect(enable)
+  local player = Game.GetPlayer()
+  if not player then return end
+  local gms = Game.GetGodModeSystem()
+  if enable then
+    gms:AddGodMode(player:GetEntityID(), gameGodModeType.Invulnerable, CName.new("NeonSweep"))
+  else
+    gms:RemoveGodMode(player:GetEntityID(), gameGodModeType.Invulnerable, CName.new("NeonSweep"))
+  end
+  Probe.invisible(enable)
+end
+
 local function tour_goto(i)
   local stops = load_stops()
   if not stops then return end
+  if tour.mode == "tour" then
+    while stops[i] and stops[i].done do i = i + 1 end
+  end
   if i > #stops then
+    if tour.mode == "sweep" then sweep_protect(false) end
     tour.state = "idle"
     emit("TOUR done (" .. #stops .. " stops)")
-    append("tour.log", json_enc({ event = "done", time = os.date("%Y-%m-%d %H:%M:%S"), stops = #stops }))
+    append("tour.log", json_enc({ event = "done", time = os.date("%Y-%m-%d %H:%M:%S"), stops = #stops, mode = tour.mode }))
     return
   end
   local s = stops[i]
@@ -581,10 +656,18 @@ local function tour_scan()
     if not found[r] then missing[#missing + 1] = r end
   end
   local p = Game.GetPlayer():GetWorldPosition()
+  local devices = nil
+  if tour.mode == "sweep" then devices = scan_devices(s.radius) end
   append("tour.log", json_enc({
     event = "stop", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code, venue = s.venue, kind = s.kind,
-    player = { p.x, p.y, p.z }, radius = s.radius, npcs = npcs, missing_records = missing,
+    mode = tour.mode, player = { p.x, p.y, p.z }, radius = s.radius, npcs = npcs, missing_records = missing,
+    devices = devices,
   }))
+  if tour.mode == "sweep" then
+    emit(string.format("SWEEP %d/%d %s: %d npcs, %d devices", tour.i, #tour.stops, s.code, #npcs, #devices))
+    tour_goto(tour.i + 1)
+    return
+  end
   emit(string.format("TOUR %s: %d npcs, %d expected records missing", s.code, #npcs, #missing))
   if s.checklist and #s.checklist > 0 then
     -- Wait here for the owner's checklist (drawn while the CET overlay is open).
@@ -640,6 +723,10 @@ Probe.checklist_save = checklist_save
 function Probe.tour_start(code)
   local stops = load_stops()
   if not stops then return end
+  if tour.mode ~= "tour" then
+    -- Coming from a sweep: start the tour from the top, not the sweep's index.
+    tour.mode, tour.i = "tour", 0
+  end
   local start = (tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
   if code then
     for i, s in ipairs(stops) do if s.code == code then start = i end end
@@ -649,8 +736,25 @@ function Probe.tour_start(code)
 end
 
 function Probe.tour_stop()
+  if tour.mode == "sweep" and tour.state ~= "idle" then sweep_protect(false) end
   tour.state = "idle"
   emit("TOUR stopped at " .. tostring(tour.i))
+end
+
+-- Unattended sweep of every stop, toured or not: no checklists, god mode and
+-- invisibility on, doors and lifts logged. A stopped sweep resumes where it
+-- left off. About 25 s a stop.
+function Probe.sweep_start(code)
+  local stops = load_stops()
+  if not stops then return end
+  local start = (tour.mode == "sweep" and tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
+  if code then
+    for i, s in ipairs(stops) do if s.code == code then start = i end end
+  end
+  tour.mode = "sweep"
+  sweep_protect(true)
+  append("tour.log", json_enc({ event = "start", time = os.date("%Y-%m-%d %H:%M:%S"), from = stops[start].code, mode = "sweep" }))
+  tour_goto(start)
 end
 
 registerHotkey("NeonTourStart", "Neon: tour start/resume", function() Probe.tour_start() end)
@@ -668,6 +772,7 @@ registerHotkey("NeonChecklist", "Neon: checklist here", function()
   emit(string.format("CHECKLIST %s (%.0f m away) - open the CET overlay", s.code, d))
 end)
 registerHotkey("NeonTourStop", "Neon: tour stop", function() Probe.tour_stop() end)
+registerHotkey("NeonSweepStart", "Neon: sweep start/resume", function() Probe.sweep_start() end)
 
 on("onUpdate", function(dt)
   if tour.state ~= "settle" then return end
@@ -763,9 +868,16 @@ on("onDraw", function()
   if ImGui.Begin("Neon tour") then
     local stops = load_stops()
     if tour.state ~= "idle" and stops and stops[tour.i] then
-      ImGui.Text(string.format("Tour: stop %d/%d %s (%s)", tour.i, #stops, stops[tour.i].code, tour.state))
+      ImGui.Text(string.format("%s: stop %d/%d %s (%s)", tour.mode == "sweep" and "Sweep" or "Tour",
+        tour.i, #stops, stops[tour.i].code, tour.state))
+      if tour.mode == "sweep" then
+        if ImGui.Button("Stop sweep") then Probe.tour_stop() end
+      end
     else
       ImGui.Text("Tour: idle")
+      if ImGui.Button("Start tour") then Probe.tour_start() end
+      ImGui.SameLine()
+      if ImGui.Button("Sweep all stops") then Probe.sweep_start() end
     end
     local nc = ImGui.Checkbox("Noclip", fly.on)
     if nc ~= fly.on then Probe.noclip(nc) end

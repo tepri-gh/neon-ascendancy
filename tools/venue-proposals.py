@@ -14,7 +14,8 @@ proposal.json for one catalogue venue. This tool keeps that loop honest:
   approve VENUE...   turn checked proposals into venue entries under
                      data/venues/approved/ (the builder loads them)
   tour-stops         regenerate tools/probes/tour_stops.json, the dev tour's
-                     stops (every hand-built and approved venue)
+                     stops (every hand-built and approved venue; toured ones
+                     from data/venues/tour_done.json are marked done)
   door-scope         regenerate src/.../World/DoorScope.reds, the quest-driven
                      doors the runtime door policy may act on
 
@@ -709,9 +710,13 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         st["checklist"].append(_check_item(x["text"], "extra"))
     done = {c for codes in (json.loads(TOUR_DONE.read_text(encoding="utf-8"))["done"].values()
                             if TOUR_DONE.exists() else []) for c in codes}
+    # Toured stops stay in the list for the unattended sweep; the tour skips
+    # them (the probe reads `done`).
+    for st in stops:
+        if st["code"] in done:
+            st["done"] = True
     if done:
-        print(f"  {len(done & set(by_code))} stops already toured, left out")
-        stops = [st for st in stops if st["code"] not in done]
+        print(f"  {len(done & set(by_code))} stops already toured (the tour skips them)")
     stops.sort(key=lambda s: (s["pos"][0] // 1000, s["pos"][1] // 1000, s["code"]))
     TOUR_OUT.write_text(json.dumps({"generated_by": "tools/venue-proposals.py tour-stops", "stops": stops},
                                    indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
