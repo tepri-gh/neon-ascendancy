@@ -47,7 +47,7 @@ DOOR_RE = re.compile(r"\[(?P<t>[\d-]+ [\d:.]+)\].*DoorPolicy: id=(?P<id>\d+) pos
                      r"(?P<z>[-\d.]+)\) recheck=(?P<re>\w+) .*impassable=(?P<imp>\w+) otherWayIn=(?P<other>\w+) "
                      r".*?decision=(?P<dec>.*)$")
 OVERRIDES = ROOT / "data" / "venues" / "door_overrides.json"
-USABLE_SIDES = {"INTERACTIVE", "AUTOMATIC"}
+USABLE_SIDES = {"INTERACTIVE", "AUTOMATIC", "PHYSICAL"}
 # Two devices of one kind closer than this are a doubled prefab or variant.
 DUPLICATE_M = 0.75
 
@@ -62,7 +62,8 @@ def door_problems(d: dict) -> list[str]:
         out.append("unpowered")
     if d.get("sealed"):
         out.append("sealed")
-    if d.get("locked") and not (d.get("auth_valid") or d.get("skill") or d.get("hack")):
+    # A lift door stays locked on every floor the car is not at; that is normal.
+    if d.get("locked") and not d.get("lift") and not (d.get("auth_valid") or d.get("skill") or d.get("hack")):
         out.append("locked, no way in")
     sides = {d.get("side1"), d.get("side2")}
     if not d.get("shutter") and len(sides & USABLE_SIDES) == 1 and len(sides) == 2:

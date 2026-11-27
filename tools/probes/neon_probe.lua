@@ -631,7 +631,9 @@ local function tour_goto(i)
     while stops[i] and stops[i].done do i = i + 1 end
   end
   if i > #stops then
-    if tour.mode == "sweep" then sweep_protect(false) end
+    -- God mode and invisibility stay on after a sweep: it ends wherever the
+    -- last stop is (the owner died in the Badlands right after one). Starting
+    -- the tour or "Stop sweep" turns them off.
     tour.state = "idle"
     emit("TOUR done (" .. #stops .. " stops)")
     append("tour.log", json_enc({ event = "done", time = os.date("%Y-%m-%d %H:%M:%S"), stops = #stops, mode = tour.mode }))
@@ -726,6 +728,7 @@ function Probe.tour_start(code)
   if tour.mode ~= "tour" then
     -- Coming from a sweep: start the tour from the top, not the sweep's index.
     tour.mode, tour.i = "tour", 0
+    sweep_protect(false)
   end
   local start = (tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
   if code then
@@ -736,7 +739,7 @@ function Probe.tour_start(code)
 end
 
 function Probe.tour_stop()
-  if tour.mode == "sweep" and tour.state ~= "idle" then sweep_protect(false) end
+  if tour.mode == "sweep" then sweep_protect(false) end
   tour.state = "idle"
   emit("TOUR stopped at " .. tostring(tour.i))
 end
@@ -875,6 +878,9 @@ on("onDraw", function()
       end
     else
       ImGui.Text("Tour: idle")
+      if tour.mode == "sweep" then
+        if ImGui.Button("End sweep protection") then Probe.tour_stop() end
+      end
       if ImGui.Button("Start tour") then Probe.tour_start() end
       ImGui.SameLine()
       if ImGui.Button("Sweep all stops") then Probe.sweep_start() end
