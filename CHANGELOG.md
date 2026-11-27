@@ -160,6 +160,11 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- Door policy: a sealed, impassable door is always unsealed, even with an
+  authorization module or terminal; those only get past locks (Wilson's
+  range in H10 stayed shut).
+- H10 lobby: the two residents stand in their after-the-gate phase instead
+  of staring through the open gate.
 - Dev probe: noclip and the playtest-note window work again. CET keeps one
   callback per event per mod, so the tour's `onUpdate` and the checklist's
   `onDraw` had replaced them; the probe now fans each event out to every

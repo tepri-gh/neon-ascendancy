@@ -127,7 +127,9 @@ already define all four; we copy them, never invent them.
     - Never `ForceOpen`.
     - Doors with an in-world way through stay exactly vanilla: a terminal, a
       keycard somewhere in the world, a quickhack, or a Technical or Body
-      check.
+      check. That covers locks only: nothing in the world opens a seal, so
+      a sealed, impassable door is always unsealed (Wilson's range in H10
+      stayed shut behind its auth module, tour 2026-11-26).
 
     The engine's own "no way to open" test is `doorController.swift:84`:
     `IsLocked() && !IsAuthorizationValid() && !canPlayerToggleLockState() &&

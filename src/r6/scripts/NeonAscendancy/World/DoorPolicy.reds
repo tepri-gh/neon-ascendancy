@@ -46,8 +46,11 @@ public func NeonAscendancy_DecideDoor(f: NeonAscendancy_DoorFacts) -> NeonAscend
     d.recheck = true;
     return d;
   }
-  if f.impassable && !f.otherWayIn {
-    d.unlock = f.locked;
+  if f.impassable {
+    // A keycard, terminal or skill check gets past a lock, never a seal: only
+    // quests unseal. So the other way in protects locks alone (Wilson's range
+    // in H10 stayed sealed behind its auth module, tour 2026-11-26).
+    d.unlock = f.locked && !f.otherWayIn;
     d.unseal = f.sealed;
   }
   return d;

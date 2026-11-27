@@ -23,17 +23,17 @@
     {
       "spawner": "#q001_com_residents_gate",
       "entry_name": "resident1",
-      "phase_name": "gate_closed",
+      "phase_name": "after_chat1",
       "action": "Activate",
-      "why": "Lobby regular waiting at the security gate; workspot routine__stand_ground_device__fix reads as someone using/fixing the entry panel. gate_closed is the phase vanilla uses when the building gate is shut, which is the normal state outside The Ride.",
+      "why": "Owner tour 2026-11-26: in gate_closed they stare through the lobby gate, which is open in the clean slate. after_chat1 is vanilla's after-the-gate phase (resident1 smoking, resident2 at the vending machine), both relaxed. Lobby regular waiting at the security gate; workspot routine__stand_ground_device__fix reads as someone using/fixing the entry panel. gate_closed is the phase vanilla uses when the building gate is shut, which is the normal state outside The Ride.",
       "needs_tour_check": true
     },
     {
       "spawner": "#q001_com_residents_gate",
       "entry_name": "resident2",
-      "phase_name": "gate_closed",
+      "phase_name": "after_chat1",
       "action": "Activate",
-      "why": "Second lobby resident standing around the gate beside the first; generic__stand_ground__stand_around__02 workspot.",
+      "why": "Owner tour 2026-11-26: in gate_closed they stare through the lobby gate, which is open in the clean slate. after_chat1 is vanilla's after-the-gate phase (resident1 smoking, resident2 at the vending machine), both relaxed. Second lobby resident standing around the gate beside the first; generic__stand_ground__stand_around__02 workspot.",
       "needs_tour_check": true
     },
     {
