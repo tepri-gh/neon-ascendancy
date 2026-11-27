@@ -175,6 +175,16 @@
       "venue": "loc_mq014_zen",
       "decision": "excluded",
       "why": "Research wave 14: the hidden vision set for the Zen master's mq014 meditation clips, a sector variant 7 km east of the city that is off by default; the real meeting spot is Reconciliation Park."
+    },
+    {
+      "venue": "loc_q302_way_to_blackbox",
+      "decision": "excluded",
+      "why": "Owner tour 2026-11-26: lore. The Space Force One crash damage makes no sense outside Phantom Liberty's story; leave the area sealed and ignore it."
+    },
+    {
+      "venue": "loc_q305_bunker",
+      "decision": "deferred",
+      "why": "Owner tour 2026-11-26: the Cynosure bunker carries too many lore implications to restore now. Noted as a possible much-later area (see docs/design/owner-decisions.md)."
     }
   ]
 }

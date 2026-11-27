@@ -1,0 +1,36 @@
+{
+ "_comment": "Stops the owner has already toured. tools/venue-proposals.py tour-stops leaves them out; their findings are in docs/tour-findings.md. Remove a code to tour it again.",
+ "done": {
+  "2026-11-26": [
+   "q000_roadhouse_town",
+   "q000_border_crossing",
+   "mq306_tech_expo",
+   "sts_ep1_botanic_gardens",
+   "conz_mq304_ce",
+   "mq303_linas_mansion",
+   "mq304_ce_2",
+   "q301_crashsite_way_up",
+   "q302_squat",
+   "q302_way_to_blackbox",
+   "q303_combat_zone_gate",
+   "q303_nighthawks_bar",
+   "q305_bunker",
+   "q305_netwatch_ambush",
+   "sts_ep1_03_gunfight",
+   "q110_pacifica_mall",
+   "q111_pumpstation",
+   "mq305_wanted",
+   "sts_hey_spr_06",
+   "mq304_bennett_meeting",
+   "q306_meeting_spot",
+   "sts_cct_dtn_04",
+   "sts_cct_dtn_05_luxury_yacht",
+   "q004_q005_arasaka_hotel",
+   "q104_gas_station",
+   "sts_bls_ina_08",
+   "mq303_shanks_store",
+   "pr_stadium",
+   "megabuilding_a"
+  ]
+ }
+}

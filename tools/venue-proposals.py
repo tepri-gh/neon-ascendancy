@@ -591,6 +591,8 @@ TOUR_OUT = ROOT / "tools" / "probes" / "tour_stops.json"
 # Owner-facing checks that belong to no venue entry (an excluded venue's
 # leftovers, a cross-venue system). Each names the stop it is shown at.
 TOUR_CHECKS = ROOT / "data" / "venues" / "tour_checks.json"
+# Stops the owner has already toured, by date; the tour leaves them out.
+TOUR_DONE = ROOT / "data" / "venues" / "tour_done.json"
 # Asked at every stop, before the venue's own items.
 BASE_CHECKS = [
     ("Normal business", "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene."),
@@ -691,6 +693,11 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
             print(f"  tour check for unknown stop {x['stop']}: {x['text'][:60]}")
             continue
         st["checklist"].append(_check_item(x["text"], "extra"))
+    done = {c for codes in (json.loads(TOUR_DONE.read_text(encoding="utf-8"))["done"].values()
+                            if TOUR_DONE.exists() else []) for c in codes}
+    if done:
+        print(f"  {len(done & set(by_code))} stops already toured, left out")
+        stops = [st for st in stops if st["code"] not in done]
     stops.sort(key=lambda s: (s["pos"][0] // 1000, s["pos"][1] // 1000, s["code"]))
     TOUR_OUT.write_text(json.dumps({"generated_by": "tools/venue-proposals.py tour-stops", "stops": stops},
                                    indent=1, ensure_ascii=False) + "\n", encoding="utf-8")

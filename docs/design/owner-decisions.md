@@ -589,3 +589,33 @@ the non-combat people. **(after tour)**
      hostile restricted compound or a neutral fuel stop (see 78)? Accept
      the missing roof turret, or extend venue support for world nodes?
      Day-only phases (empty at night), or a mod night crew?
+
+## 12. From the first tour leg (2026-11-26)
+
+Decided by the owner on the tour (recorded, already applied):
+
+163. **Space Force One crash area** (`q302_way_to_blackbox`). Ignore it and
+     leave it sealed: the crash damage only makes sense in Phantom Liberty's
+     story. Excluded in `data/venues/triage_overrides.json`.
+164. **The Cynosure bunker** (`q305_bunker`). Scrapped for now (too many lore
+     implications), kept as a *maybe, much later* area. Deferred.
+165. **Goodnight Charlie's and the Dogtown basketball court.** Toured again
+     on the second leg (night at the court; the mine at Charlie's entrance).
+
+Open, for a later discussion:
+
+166. **The Blackwall-residue area under Dogtown** (near -2377, -2537, -73).
+     A unique player base? Lore implications to weigh.
+167. **Konpeki Plaza** (`q004_q005_arasaka_hotel`). A large job: lockdown
+     gates and "code red" panels to remove, Yorinobu's suite not fully
+     loaded, no reception staff, only one lift option. The owner sees it as
+     a good dynamic mission spot with civilians and guards. Scope it as its
+     own task?
+168. **Pacifica mall gym** (`q110_pacifica_mall`). The owner suggests
+     Sasquatch there. She is an Animals boss; this is a cast-layer job.
+169. **North Oak marina** (`sts_cct_dtn_05_luxury_yacht`). A prominent port
+     business (marine bar sign) that needs guards. Its own node or part of
+     the yacht venue?
+170. **Gas station, Badlands** (`q104_gas_station`). The owner rates it a
+     good business node; its garage doors should work like normal garage
+     doors (the fix pass handles the doors).

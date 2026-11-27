@@ -2,27 +2,51 @@
 
 Problems the owner finds on the venue tour, waiting for a batched fix pass
 (subagents). Fixed items move to the changelog. The raw sources are the
-probe's `notes.log` and `tour.log` (checklist marks) in the CET mod folder;
-`tools/venue-tour-report.py` summarises them.
+probe's `notes.log`, `lookat.log` and `tour.log` (checklist marks) in the CET
+mod folder; `tools/venue-tour-report.py` summarises them.
 
-## Open
+Toured stops are listed in `data/venues/tour_done.json` and left out of the
+tour. Owner calls from the tour are in `docs/design/owner-decisions.md`
+section 12.
 
-| Venue | Finding | Lead |
+## Leg 1 (2026-11-26): 28 stops, Yucca to the Stadium
+
+Each batch owns its files, so agents can work in parallel in one checkout.
+Door ids come from `lookat.log`.
+
+| Batch | Venue | Finding |
 | --- | --- | --- |
-| `mq306_tech_expo` | One door at about (-2400, -3095, 144) will not open. The policy never logged it, so it is outside the door scope. | Owner: "Neon: log look-at" on it for the entity id, then add it to `data/venues/door_overrides.json`. |
-| `mq306_tech_expo` | Damir's clinic is not on the map; the gate-terminal question is still open. | Check after the seal fix (the gate doors were sealed). |
-| `sts_ep1_botanic_gardens` | The wall authorization console shows a yellow quest icon; using it gets V stuck because the gig's trigger never fires. | Leftover gig interaction: find its mappin or journal and disable the device or its quest interaction. |
-| `q000_border_crossing` | Civilians stand on the far side (away from the city) looking at nothing; guards are fine. | Probably the prologue queue posts: pick their calm phase or drop those entries. |
-| `megabuilding_a` | `#mq011_com_contestants` (2 unmapped) marked as a problem. | Check posture and spots; drop or re-phase. |
-| `megabuilding_a` | Loading `#q001_pr_megabuilding` also loads the fistfight tutorial sub-prefab. | Find a variant that hides it, or stop declaring the prefab. |
+| A doors | `mq303_shanks_store` | Front door sealed (`15265392420759227790`). |
+| A doors | `q303_nighthawks_bar` | Both doors to the boiler-room hideout will not open (`13400032501529177363`, `830512930825541107`). |
+| A doors | `sts_cct_dtn_04` | Ground-floor lift works, but its gate does not open (`5474562508547213513`, unpowered). |
+| A doors | `sts_hey_spr_06` | The street door opens from inside but not from the street (`7285717058466177479`). |
+| A doors | `mq306_tech_expo` | A door near (-2400, -3095, 144) and the front gate stay sealed; the door was never in scope. |
+| A doors | `q000_border_crossing` | The checkpoint office double door: which side does it open onto (marked a problem)? |
+| A doors | `q104_gas_station` | Garage doors and shutters start down and must be forced; they should work as normal garage doors. |
+| B checkpoint | `q303_combat_zone_gate` | The Dogtown pedestrian scanners finish their animation but never unlock the door, either way; the western gate does the same. |
+| C1 Pacifica | `q110_pacifica_mall` | Many NPCs missing; the boxing robot fights nothing; the hall, gym, robot and garage groups marked as problems. |
+| C1 Pacifica | `q305_netwatch_ambush` | One NPC sits on air near (-2772, -2460, 17); the interior near (-2779, -2498, 18) has no lighting; check which building is the Pistis Sophia. |
+| C2 people | `sts_hey_spr_06` | Not normal business: no arguing customer, staffing marked as a problem; the netrunner den at (-2250, -400, 1). |
+| C2 people | `q000_border_crossing` | Civilians stand on the far side (away from the city) looking at nothing; guards are fine. |
+| C2 people | `megabuilding_a` | `#mq011_com_contestants` and `#q001_com_residents_gate` marked as problems; loading `#q001_pr_megabuilding` brings the fistfight tutorial sub-prefab. |
+| D1 leftovers | `sts_ep1_botanic_gardens` | The wall authorization console shows a yellow quest icon; using it gets V stuck. |
+| D1 leftovers | `q111_pumpstation` | A cyberpsycho site with a body and clues everywhere. |
+| D1 leftovers | `q302_goodnight_charlies` | A mine at the entrance (-1673, -2426, 40) kills V and leaves broken HUD elements. |
+| D2 services | `pr_stadium` | Vendors still do not work at all. |
+| D2 services | `mq305_wanted` | The lift is doubled (a second lift door inside the first); the street door will not open; the wiki places it in Wellsprings. |
+| E scene | `q302_squat` | The squat's lights are off; Jacob and James's flat is very dark. |
+| E scene | `sts_cct_dtn_05_luxury_yacht` | No yacht exists; the boarding, security room and aft door checks all failed. |
 
-## Fixed, awaiting re-test
+The fix reports go in `~/.cache/neon-ascendancy/extracts/venues/research/fixes/`.
+
+## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).
-- Wilson's shooting range sealed behind an auth module: seal rule (`fa60430`).
+- Wilson's shooting range sealed behind an auth module: the seal rule (`fa60430`).
 - Yucca garage duplicate gate and sealed roller door (`36b1ebe`).
 - Yucca radio tower fence gate and SoCal border office doors: door overrides
   (`36b1ebe`).
-- Tech Expo gate doors: sealed, covered by the seal rule (`fa60430`).
-- Probe: noclip, notes and checklist reopening (`f3d0008`, `7a7c8be`);
+- Tech Expo gate doors and Damir's clinic on the map.
+- Probe: noclip, notes and checklist reopening (`f3d0008`, `7a7c8be`); the
   invisible-to-AI toggle (`b3b55f0`).
+- Everything the leg 1 fix pass changes.
