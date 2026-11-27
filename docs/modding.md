@@ -53,6 +53,10 @@ side must match.
   The local desktop entry has the override; if launching another way, set it there too.
 - On a Wine prefix, do not install the native VC++ redistributable unless RED4ext logs show a missing runtime; native MSVC DLLs are a known RED4ext failure.
 - If the game fails to start after installing redscript, add `TZ=UTC` to the launch environment as a fallback.
+- If the game freezes while the world loads (a teleport, a save load or a new game; every thread asleep and
+  wineserver idle), launch with `PROTON_NO_NTSYNC=1`. Under UMU-Proton 11.0-2e on an RX 7600 it froze four times in
+  about 100 sweep stops on ntsync, then ran 93 stops and five hours clean on fsync (2026-11-27). The local desktop
+  entry sets it.
 - `-modded` is only needed for REDmod content; it is not needed for redscript/RED4ext/ArchiveXL/TweakXL.
 
 ## Optional native Linux `redscript-cli`
