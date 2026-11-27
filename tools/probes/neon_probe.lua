@@ -616,10 +616,14 @@ local function sweep_protect(enable)
   local player = Game.GetPlayer()
   if not player then return end
   local gms = Game.GetGodModeSystem()
-  if enable then
-    gms:AddGodMode(player:GetEntityID(), gameGodModeType.Invulnerable, CName.new("NeonSweep"))
-  else
-    gms:RemoveGodMode(player:GetEntityID(), gameGodModeType.Invulnerable, CName.new("NeonSweep"))
+  -- Invulnerable blocks damage; Immortal also keeps a fall or kill volume
+  -- from killing (Invulnerable alone let V die in H10's atrium, 2026-11-27).
+  for _, t in ipairs({ gameGodModeType.Invulnerable, gameGodModeType.Immortal }) do
+    if enable then
+      gms:AddGodMode(player:GetEntityID(), t, CName.new("NeonSweep"))
+    else
+      gms:RemoveGodMode(player:GetEntityID(), t, CName.new("NeonSweep"))
+    end
   end
   Probe.invisible(enable)
 end

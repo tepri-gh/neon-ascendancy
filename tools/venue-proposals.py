@@ -692,7 +692,11 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         if not pts:
             print(f"  no position for {e['code']} ({best})")
             continue
-        pos = [round(_median([p[i] for p in pts]), 2) for i in range(3)]
+        # Arrive on a real spot (the one nearest the per-axis median), not on
+        # the median itself: in H10 the median of three floors' spots was the
+        # open atrium, and the sweep dropped V to the bottom (2026-11-27).
+        mid = [_median([p[i] for p in pts]) for i in range(3)]
+        pos = [round(v, 2) for v in min(pts, key=lambda p: sum((p[i] - mid[i]) ** 2 for i in range(3)))]
         spread = max(((p[0] - pos[0]) ** 2 + (p[1] - pos[1]) ** 2) ** 0.5 for p in pts)
         stops.append({"code": e["code"], "name": e.get("display_name") or e["code"], "kind": kind,
                       "venue": best, "pos": pos,

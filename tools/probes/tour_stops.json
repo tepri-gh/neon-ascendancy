@@ -209,10 +209,10 @@
    "venue": "loc_mq306_tech_expo",
    "pos": [
     -2378.42,
-    -3079.39,
-    136.5
+    -3082.46,
+    133.5
    ],
-   "radius": 56.8,
+   "radius": 57.7,
    "expected_records": [
     "Character.mq306_Assistant",
     "Character.mq306_damir",
@@ -666,9 +666,9 @@
    "kind": "approved",
    "venue": "loc_q301_crashsite_way_up",
    "pos": [
-    -2044.76,
-    -2709.04,
-    37.36
+    -2051.31,
+    -2708.33,
+    37.34
    ],
    "radius": 120.0,
    "expected_records": [
@@ -861,11 +861,11 @@
    "kind": "approved",
    "venue": "loc_q303_combat_zone_gate",
    "pos": [
-    -2062.46,
-    -2283.95,
-    18.69
+    -2060.74,
+    -2280.06,
+    18.61
    ],
-   "radius": 65.7,
+   "radius": 69.6,
    "expected_records": [
     "Character.WorkerSpecialistMale",
     "Character.WorkoutFemale",
@@ -942,9 +942,9 @@
    "kind": "approved",
    "venue": "loc_q303_nighthawks_bar",
    "pos": [
-    -2422.51,
-    -2664.02,
-    27.98
+    -2421.13,
+    -2665.42,
+    28.02
    ],
    "radius": 40.0,
    "expected_records": [
@@ -1108,11 +1108,11 @@
    "kind": "approved",
    "venue": "loc_sts_ep1_03_gunfight",
    "pos": [
-    -2148.55,
-    -2773.54,
-    39.26
+    -2149.46,
+    -2776.49,
+    35.17
    ],
-   "radius": 44.5,
+   "radius": 42.1,
    "expected_records": [
     "Character.sts_ep1_03_client",
     "Character.sts_ep1_03_gunfight_citizen_stacks_child",
@@ -1268,8 +1268,8 @@
    "kind": "approved",
    "venue": "loc_mq305_wanted",
    "pos": [
-    -2331.38,
-    -180.12,
+    -2330.58,
+    -181.19,
     16.05
    ],
    "radius": 40.0,
@@ -1402,7 +1402,7 @@
    "pos": [
     -2279.37,
     487.22,
-    7.63
+    7.26
    ],
    "radius": 50.3,
    "expected_records": [
@@ -1596,7 +1596,7 @@
    "pos": [
     -2449.0,
     55.45,
-    4.16
+    4.53
    ],
    "radius": 61.9,
    "expected_records": [
@@ -1666,11 +1666,11 @@
    "kind": "hand-built",
    "venue": "loc_q004_q005_arasaka_hotel",
    "pos": [
-    -2210.28,
-    1762.93,
+    -2212.75,
+    1762.11,
     20.21
    ],
-   "radius": 94.0,
+   "radius": 91.8,
    "expected_records": [
     "Character.q005_akulov",
     "Character.q005_hideyoshi_oshima",
@@ -1929,9 +1929,9 @@
    "kind": "approved",
    "venue": "loc_pr_stadium",
    "pos": [
-    -1398.71,
-    -2083.03,
-    71.86
+    -1396.15,
+    -2086.67,
+    71.87
    ],
    "radius": 120.0,
    "expected_records": [
@@ -2276,11 +2276,11 @@
    "kind": "hand-built",
    "venue": "loc_q304_combat_tower",
    "pos": [
-    -1916.55,
+    -1927.38,
     -2318.45,
-    336.26
+    337.26
    ],
-   "radius": 93.1,
+   "radius": 101.7,
    "expected_records": [
     "Character.q303_tech_floor_challange_01_guard_01",
     "Character.q303_tech_floor_challange_01_guard_02",
@@ -2336,11 +2336,11 @@
    "kind": "hand-built",
    "venue": "loc_q304_combat_tower",
    "pos": [
-    -1887.38,
-    -2275.92,
+    -1885.04,
+    -2269.82,
     439.77
    ],
-   "radius": 96.3,
+   "radius": 102.0,
    "expected_records": [],
    "spawn_sets": [],
    "checklist": [
@@ -2367,11 +2367,11 @@
    "kind": "approved",
    "venue": "loc_q304_songbird_meeting",
    "pos": [
-    -1728.21,
-    -2681.31,
-    77.94
+    -1724.98,
+    -2684.86,
+    78.07
    ],
-   "radius": 66.2,
+   "radius": 69.8,
    "expected_records": [
     "Character.ep1_combat_zone_citizen_outcast_ma",
     "Character.ep1_combat_zone_citizen_outcast_wa",
@@ -2536,11 +2536,11 @@
    "kind": "approved",
    "venue": "loc_sts_ep1_06",
    "pos": [
-    -1604.34,
+    -1603.35,
     -2340.6,
-    43.24
+    43.22
    ],
-   "radius": 42.9,
+   "radius": 42.0,
    "expected_records": [
     "Character.sts_ep1_06_arasaka_business_ma",
     "Character.sts_ep1_06_barghest_no_reaction_handgun_ma",
@@ -3238,11 +3238,11 @@
    "kind": "approved",
    "venue": "loc_sts_hey_gle_04",
    "pos": [
-    -1525.45,
-    -1102.76,
+    -1528.38,
+    -1101.23,
     9.14
    ],
-   "radius": 53.7,
+   "radius": 50.4,
    "expected_records": [
     "Character.FattyMale",
     "Character.HomelessMan",
@@ -3329,11 +3329,11 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_12_gas_station",
    "pos": [
-    -1029.43,
-    -1703.08,
+    -1032.42,
+    -1702.84,
     11.02
    ],
-   "radius": 45.7,
+   "radius": 46.0,
    "expected_records": [
     "Character.sts_std_arr_12_lowlife_wa",
     "Character.sts_std_arr_12_worker_friendly"
@@ -3776,11 +3776,11 @@
    "kind": "approved",
    "venue": "loc_sts_cct_dtn_02_metal_club",
    "pos": [
-    -1930.83,
-    -41.41,
-    -0.53
+    -1930.38,
+    -37.83,
+    -1.56
    ],
-   "radius": 41.1,
+   "radius": 40.8,
    "expected_records": [
     "Character.CorpoMan",
     "Character.CorpoManAfterWork",
@@ -4023,7 +4023,7 @@
    "venue": "loc_sts_hey_rey_06",
    "pos": [
     -1120.05,
-    -654.52,
+    -649.29,
     8.27
    ],
    "radius": 40.0,
@@ -4084,10 +4084,10 @@
    "venue": "loc_arasaka_tower",
    "pos": [
     -1432.89,
-    154.9,
+    153.95,
     141.99
    ],
-   "radius": 111.5,
+   "radius": 110.6,
    "expected_records": [
     "Character.q000_corpo_arasaka_f_corporate",
     "Character.q000_corpo_arasaka_f_corporate_crowd",
@@ -4218,8 +4218,8 @@
    "venue": "loc_mq030_suit_store",
    "pos": [
     -1882.58,
-    91.29,
-    7.59
+    93.84,
+    7.53
    ],
    "radius": 40.0,
    "expected_records": [
@@ -4360,9 +4360,9 @@
    "kind": "hand-built",
    "venue": "loc_q103_afterlife",
    "pos": [
-    -1437.92,
-    1016.98,
-    16.96
+    -1433.34,
+    1018.27,
+    16.52
    ],
    "radius": 120.0,
    "expected_records": [],
@@ -4391,11 +4391,11 @@
    "kind": "approved",
    "venue": "loc_megabuilding_a",
    "pos": [
-    -1400.8,
+    -1385.22,
     1301.8,
-    119.16
+    119.1
    ],
-   "radius": 72.1,
+   "radius": 84.0,
    "expected_records": [
     "Character.AsianVendorMale",
     "Character.FattyMale",
@@ -4478,11 +4478,11 @@
    "kind": "approved",
    "venue": "loc_mystic_mistys_ripperdoc",
    "pos": [
-    -1558.16,
-    1193.98,
-    16.36
+    -1558.48,
+    1193.72,
+    16.25
    ],
-   "radius": 56.6,
+   "radius": 56.2,
    "expected_records": [],
    "spawn_sets": [],
    "checklist": [
@@ -4539,11 +4539,11 @@
    "kind": "approved",
    "venue": "loc_q004_lizzys_nightclub",
    "pos": [
-    -1182.5,
-    1564.52,
-    22.94
+    -1177.35,
+    1566.18,
+    22.92
    ],
-   "radius": 50.9,
+   "radius": 56.1,
    "expected_records": [
     "Character.lizzies_bouncer",
     "Character.lizzies_customer_female_6th",
@@ -4702,11 +4702,11 @@
    "kind": "approved",
    "venue": "loc_q103_afterlife",
    "pos": [
-    -1441.85,
-    1017.26,
-    16.9
+    -1441.19,
+    1017.12,
+    16.54
    ],
-   "radius": 51.6,
+   "radius": 52.1,
    "expected_records": [
     "Character.CorpoMan",
     "Character.CorpoWomanAfterWork",
@@ -4801,11 +4801,11 @@
    "kind": "approved",
    "venue": "loc_sq017_nightclub",
    "pos": [
-    -1642.26,
-    1012.42,
-    28.84
+    -1642.85,
+    1017.22,
+    28.82
    ],
-   "radius": 48.8,
+   "radius": 47.1,
    "expected_records": [
     "Character.HoodHottie",
     "Character.mq019_fa_club_staff",
@@ -4873,11 +4873,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_01_street_maze",
    "pos": [
-    -1170.4,
-    1755.67,
+    -1166.24,
+    1754.68,
     23.37
    ],
-   "radius": 51.2,
+   "radius": 53.2,
    "expected_records": [
     "Character.CitizenRichMale",
     "Character.CookMale",
@@ -5032,7 +5032,7 @@
    "kind": "hand-built",
    "venue": "loc_sts_wat_kab_07_casino_bar",
    "pos": [
-    -1031.34,
+    -1033.73,
     1353.35,
     9.28
    ],
@@ -5071,11 +5071,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_08_cop_hotel",
    "pos": [
-    -1233.44,
-    1964.34,
-    7.98
+    -1234.09,
+    1966.42,
+    7.86
    ],
-   "radius": 44.1,
+   "radius": 42.0,
    "expected_records": [
     "Character.AsianFemale",
     "Character.AsianMale",
@@ -5166,11 +5166,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_101_slums",
    "pos": [
-    -1101.97,
+    -1100.93,
     1452.54,
-    16.36
+    19.45
    ],
-   "radius": 57.7,
+   "radius": 57.4,
    "expected_records": [
     "Character.HomelessMan",
     "Character.HomelessManBackpack",
@@ -5246,11 +5246,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_102_cargo",
    "pos": [
-    -1030.84,
+    -1071.03,
     1288.0,
-    5.15
+    5.13
    ],
-   "radius": 62.4,
+   "radius": 77.1,
    "expected_records": [
     "Character.WorkerMale"
    ],
@@ -5465,10 +5465,10 @@
    "venue": "loc_sts_wat_lch_06_neon_basement",
    "pos": [
     -1742.74,
-    1526.41,
-    13.7
+    1527.46,
+    13.75
    ],
-   "radius": 44.1,
+   "radius": 45.0,
    "expected_records": [
     "Character.JunkieMaleDE",
     "Character.lch_06_tyger_generic1_smg1",
@@ -5539,11 +5539,11 @@
    "kind": "hand-built",
    "venue": "loc_sq011_totentanz",
    "pos": [
-    -1733.58,
-    2217.56,
-    90.21
+    -1734.48,
+    2218.21,
+    90.39
    ],
-   "radius": 63.2,
+   "radius": 64.3,
    "expected_records": [],
    "spawn_sets": [],
    "checklist": [
@@ -5572,7 +5572,7 @@
    "pos": [
     -1920.99,
     2765.42,
-    7.42
+    7.23
    ],
    "radius": 120.0,
    "expected_records": [
@@ -5631,10 +5631,10 @@
    "venue": "loc_sq011_totentanz",
    "pos": [
     -1733.0,
-    2214.31,
-    86.22
+    2216.29,
+    90.41
    ],
-   "radius": 57.0,
+   "radius": 57.9,
    "expected_records": [
     "Character.FreakFemale",
     "Character.NightlifeMale",
@@ -5735,11 +5735,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_02_ripperdoc_lab",
    "pos": [
-    -1157.79,
-    2414.72,
+    -1156.8,
+    2411.21,
     7.12
    ],
-   "radius": 40.0,
+   "radius": 43.2,
    "expected_records": [
     "Character.kab_02_enemy_handgun_tier1",
     "Character.kab_02_enemy_leader_tier2",
@@ -5812,8 +5812,8 @@
    "venue": "loc_sts_wat_kab_05_client_signal",
    "pos": [
     -1108.79,
-    2145.43,
-    13.33
+    2144.03,
+    13.28
    ],
    "radius": 40.0,
    "expected_records": [
@@ -5942,10 +5942,10 @@
    "venue": "loc_sts_wat_nid_02",
    "pos": [
     -1679.42,
-    2011.68,
+    2001.8,
     18.15
    ],
-   "radius": 60.9,
+   "radius": 57.6,
    "expected_records": [
     "Character.sts_wat_nid_02_tyger_claws_biker1_melee1_fists_ma",
     "Character.sts_wat_nid_02_tyger_claws_biker2_melee2_baseball_ma",
@@ -6015,11 +6015,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_nid_03_abandoned_motel",
    "pos": [
-    -1506.06,
-    2197.98,
-    18.2
+    -1510.99,
+    2197.88,
+    18.21
    ],
-   "radius": 40.2,
+   "radius": 45.0,
    "expected_records": [
     "Character.CitizenRichMaleDE",
     "Character.CreoleChildDE",
@@ -6085,11 +6085,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_nid_04_netrunner_hideout",
    "pos": [
-    -1818.66,
-    2649.61,
-    14.86
+    -1818.87,
+    2668.55,
+    18.94
    ],
-   "radius": 59.8,
+   "radius": 53.2,
    "expected_records": [
     "Character.sts_wat_nid_04_enemy_maelstrom_fast_sniper2_grad_ma",
     "Character.sts_wat_nid_04_enemy_rifle_ma",
@@ -6227,11 +6227,11 @@
    "kind": "approved",
    "venue": "loc_sts_wat_nid_06",
    "pos": [
-    -1341.46,
+    -1347.55,
     2767.66,
-    7.21
+    7.22
    ],
-   "radius": 60.5,
+   "radius": 55.4,
    "expected_records": [
     "Character.sts_wat_nid_06_enemy_gunner_big",
     "Character.sts_wat_nid_06_enemy_ma",
@@ -6428,11 +6428,11 @@
    "kind": "approved",
    "venue": "loc_sq031_ruinedship",
    "pos": [
-    -1572.73,
-    3034.98,
-    8.27
+    -1581.74,
+    3029.56,
+    11.44
    ],
-   "radius": 90.9,
+   "radius": 101.4,
    "expected_records": [
     "Character.sq031_maelstrom_ajax",
     "Character.sq031_maelstrom_fast_rifleman",
@@ -6799,11 +6799,11 @@
    "kind": "approved",
    "venue": "loc_q112_arasaka_industrial_park_warehouse",
    "pos": [
-    -254.92,
+    -246.64,
     -1462.11,
-    12.12
+    13.76
    ],
-   "radius": 90.7,
+   "radius": 99.0,
    "expected_records": [
     "Character.WorkerMale",
     "Character.arr_arasaka_android_android2_shingen_ma",
@@ -7034,7 +7034,7 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_12_diner",
    "pos": [
-    -986.33,
+    -987.45,
     -1157.61,
     11.76
    ],
@@ -7100,8 +7100,8 @@
    "kind": "approved",
    "venue": "loc_mq022_ezekiel",
    "pos": [
-    -542.98,
-    -737.38,
+    -543.58,
+    -737.33,
     7.82
    ],
    "radius": 40.0,
@@ -7183,11 +7183,11 @@
    "kind": "approved",
    "venue": "loc_mq062",
    "pos": [
-    -506.68,
+    -502.62,
     -648.56,
-    11.26
+    7.96
    ],
-   "radius": 68.0,
+   "radius": 69.9,
    "expected_records": [
     "Character.CitizenAldecaldosFemale",
     "Character.LightCrowd_arroyo_ma",
@@ -7285,11 +7285,11 @@
    "kind": "approved",
    "venue": "loc_q112_safe_house",
    "pos": [
-    -607.44,
-    -184.11,
-    16.19
+    -610.98,
+    -182.55,
+    16.17
    ],
-   "radius": 49.4,
+   "radius": 48.0,
    "expected_records": [],
    "spawn_sets": [],
    "checklist": [
@@ -7421,10 +7421,10 @@
    "venue": "loc_sq025_delamain_garage",
    "pos": [
     -943.12,
-    -85.48,
+    -84.66,
     7.52
    ],
-   "radius": 55.4,
+   "radius": 55.9,
    "expected_records": [
     "Character.sq025_delamain_drone_bombus_fast",
     "Character.sq025_delamain_drone_bombus_friendly",
@@ -7515,7 +7515,7 @@
    "pos": [
     -800.08,
     -79.51,
-    8.61
+    7.6
    ],
    "radius": 44.1,
    "expected_records": [
@@ -7585,9 +7585,9 @@
    "kind": "approved",
    "venue": "loc_sts_hey_rey_08",
    "pos": [
-    -923.19,
-    -216.71,
-    7.67
+    -922.8,
+    -217.81,
+    7.72
    ],
    "radius": 40.0,
    "expected_records": [
@@ -7659,9 +7659,9 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_01",
    "pos": [
-    -574.37,
-    -823.92,
-    12.19
+    -577.83,
+    -824.05,
+    12.2
    ],
    "radius": 40.0,
    "expected_records": [
@@ -7739,11 +7739,11 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_11",
    "pos": [
-    -204.26,
-    -845.31,
+    -210.57,
+    -836.02,
     259.69
    ],
-   "radius": 46.6,
+   "radius": 56.1,
    "expected_records": [
     "Character.CorpoManBraindance",
     "Character.sts_std_arr_11_6thStreet_ganger",
@@ -7905,11 +7905,11 @@
    "kind": "approved",
    "venue": "loc_q000_scavengers",
    "pos": [
-    -463.03,
-    401.43,
-    132.01
+    -458.29,
+    399.59,
+    132.02
    ],
-   "radius": 54.7,
+   "radius": 55.5,
    "expected_records": [
     "Character.mq036_scavenger_LMG",
     "Character.mq036_scavenger_netrunner",
@@ -7969,9 +7969,9 @@
    "kind": "hand-built",
    "venue": "loc_q105_dollhouse",
    "pos": [
-    -653.18,
+    -653.19,
     784.08,
-    128.41
+    128.54
    ],
    "radius": 57.9,
    "expected_records": [
@@ -8017,11 +8017,11 @@
    "kind": "approved",
    "venue": "loc_q105_dollhouse",
    "pos": [
-    -666.49,
+    -667.61,
     758.21,
-    132.25
+    132.26
    ],
-   "radius": 47.5,
+   "radius": 48.1,
    "expected_records": [
     "Character.q105_dollhouse_reinforcementcaller_tyger_claws_gangster3_ranged3_sidewinder_ma",
     "Character.q105_dollhouse_tyger_claws_gangster2_ranged2_shingen_ma",
@@ -8107,11 +8107,11 @@
    "kind": "hand-built",
    "venue": "loc_q105_dollhouse",
    "pos": [
-    -660.54,
-    767.1,
-    132.25
+    -664.62,
+    768.93,
+    128.26
    ],
-   "radius": 61.9,
+   "radius": 62.0,
    "expected_records": [
     "Character.q105_dollhouse_officer_tyger_claws_martial_fmelee2_katana_ma_rare",
     "Character.q105_dollhouse_reinforcementcaller_tyger_claws_gangster3_ranged3_sidewinder_ma",
@@ -8146,9 +8146,9 @@
    "kind": "approved",
    "venue": "loc_q105_fingers_appartment",
    "pos": [
-    -577.23,
-    801.99,
-    20.96
+    -579.95,
+    802.01,
+    20.9
    ],
    "radius": 40.0,
    "expected_records": [
@@ -8227,10 +8227,10 @@
    "venue": "loc_q105_jigjig_street",
    "pos": [
     -636.48,
-    851.89,
-    19.46
+    843.52,
+    19.97
    ],
-   "radius": 62.6,
+   "radius": 55.5,
    "expected_records": [
     "Character.AsianVendorMale",
     "Character.CorpoMan",
@@ -8339,10 +8339,10 @@
    "venue": "loc_q112_market_area",
    "pos": [
     -686.35,
-    938.92,
-    11.46
+    931.09,
+    11.4
    ],
-   "radius": 40.6,
+   "radius": 48.3,
    "expected_records": [
     "Character.VendorFemale",
     "Character.VendorMale",
@@ -8545,11 +8545,11 @@
    "kind": "approved",
    "venue": "loc_sts_hey_rey_01",
    "pos": [
-    -976.85,
-    85.86,
-    48.35
+    -971.01,
+    87.07,
+    48.34
    ],
-   "radius": 44.3,
+   "radius": 41.1,
    "expected_records": [
     "Character.HomelessMan",
     "Character.TenantMale",
@@ -8780,11 +8780,11 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_jpn_12b",
    "pos": [
-    -374.41,
+    -376.53,
     476.16,
-    17.6
+    17.23
    ],
-   "radius": 54.8,
+   "radius": 55.2,
    "expected_records": [
     "Character.sts_wbr_jpn_12_tyger_claws_gangster1_ranged1_nue_wa",
     "Character.sts_wbr_jpn_12_tyger_claws_gangster2_ranged2_copperhead_ma",
@@ -8842,11 +8842,11 @@
    "kind": "approved",
    "venue": "loc_q026_judys_apartment",
    "pos": [
-    -911.45,
+    -933.86,
     1888.12,
-    36.19
+    36.14
    ],
-   "radius": 51.5,
+   "radius": 57.8,
    "expected_records": [
     "Character.CreoleChild",
     "Character.HomelessMan",
@@ -8979,7 +8979,7 @@
    "venue": "loc_sts_hey_rey_09",
    "pos": [
     -553.13,
-    1299.85,
+    1299.36,
     37.27
    ],
    "radius": 40.0,
@@ -9039,7 +9039,7 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_jpn_01_tygerclaw_restaurant",
    "pos": [
-    -468.34,
+    -466.12,
     1384.45,
     37.29
    ],
@@ -9114,9 +9114,9 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_jpn_02_monoblade_workshop",
    "pos": [
-    -255.66,
-    1636.59,
-    41.17
+    -260.85,
+    1638.65,
+    41.19
    ],
    "radius": 40.0,
    "expected_records": [
@@ -9257,8 +9257,8 @@
    "venue": "loc_q003_meat_factory",
    "pos": [
     -842.58,
-    2231.38,
-    58.88
+    2227.28,
+    58.89
    ],
    "radius": 40.0,
    "expected_records": [
@@ -9296,7 +9296,7 @@
    "kind": "approved",
    "venue": "loc_sts_wat_nid_07",
    "pos": [
-    -895.39,
+    -898.5,
     2360.92,
     53.07
    ],
@@ -9837,11 +9837,11 @@
    "kind": "approved",
    "venue": "loc_q105_braindance_studio",
    "pos": [
-    61.98,
-    -492.63,
-    -7.69
+    58.86,
+    -497.57,
+    -4.67
    ],
-   "radius": 64.8,
+   "radius": 63.5,
    "expected_records": [
     "Character.q105_bds_officer_scavenger_grunt3_netrunner2_nova_ma_rare",
     "Character.q105_bds_scavenger_butcher3_hmelee2_machete_mb_rare",
@@ -9925,10 +9925,10 @@
    "venue": "loc_rosebud",
    "pos": [
     680.4,
-    -469.84,
-    -1.34
+    -466.11,
+    -5.34
    ],
-   "radius": 53.0,
+   "radius": 56.7,
    "expected_records": [
     "Character.sq012_animal_beta",
     "Character.sq012_animal_bouncer_short_range",
@@ -9991,11 +9991,11 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_hil_06",
    "pos": [
-    440.03,
+    436.19,
     -441.54,
     2.58
    ],
-   "radius": 46.6,
+   "radius": 50.1,
    "expected_records": [
     "Character.sts_wbr_hil_06_6th_street_ganger",
     "Character.sts_wbr_hil_06_6th_street_ganger_wa",
@@ -10057,9 +10057,9 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_hil_01",
    "pos": [
-    4.23,
-    15.6,
-    134.84
+    0.36,
+    16.27,
+    138.89
    ],
    "radius": 40.0,
    "expected_records": [
@@ -10126,8 +10126,8 @@
    "venue": "loc_q113_arasaka_estate",
    "pos": [
     311.67,
-    1049.72,
-    225.93
+    1047.09,
+    229.93
    ],
    "radius": 120.0,
    "expected_records": [
@@ -10249,9 +10249,9 @@
    "kind": "approved",
    "venue": "loc_q114_tunnel_site",
    "pos": [
-    202.7,
+    203.59,
     2366.19,
-    67.19
+    67.16
    ],
    "radius": 120.0,
    "expected_records": [
@@ -10647,10 +10647,10 @@
    "venue": "loc_sts_bls_ina_03",
    "pos": [
     1891.29,
-    -549.57,
-    54.79
+    -549.92,
+    54.78
    ],
-   "radius": 87.3,
+   "radius": 87.4,
    "expected_records": [
     "Character.ina_03_med_range_hard",
     "Character.ina_03_med_range_med",
@@ -10863,9 +10863,9 @@
    "kind": "approved",
    "venue": "loc_q103_ghost_town",
    "pos": [
-    2576.32,
+    2575.22,
     -26.87,
-    80.83
+    80.85
    ],
    "radius": 40.0,
    "expected_records": [
@@ -10991,11 +10991,11 @@
    "kind": "approved",
    "venue": "loc_sq004_mobile_camp",
    "pos": [
-    3427.8,
-    -364.69,
+    3428.64,
+    -352.08,
     134.19
    ],
-   "radius": 63.1,
+   "radius": 57.7,
    "expected_records": [
     "Character.AldecaldosFemale",
     "Character.AldecaldosMale",
@@ -11072,11 +11072,11 @@
    "kind": "approved",
    "venue": "loc_sts_bla_ina_04",
    "pos": [
-    3628.57,
-    -929.77,
-    120.62
+    3623.02,
+    -935.21,
+    120.58
    ],
-   "radius": 52.4,
+   "radius": 58.7,
    "expected_records": [
     "Character.ina_04_bad_technician",
     "Character.ina_04_long_hard",
