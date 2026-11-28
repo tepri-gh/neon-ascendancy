@@ -55,7 +55,7 @@
       "wraiths": "loc_sq004_raffen_shiv_camp"
     },
     "owner_decisions_resolved_count": 121,
-    "logistics_node_count": 21,
+    "logistics_node_count": 23,
     "meeting_spot_count": 12
   },
   "items": [
@@ -1853,7 +1853,7 @@
         "180": "Open the meeting room and usable floor-33 doors, verify lift access, and leave vanilla-unusable lift floors closed."
       },
       "is_multi_type": true,
-      "is_logistics": false,
+      "is_logistics": true,
       "is_meeting_spot": false
     },
     {
@@ -2740,7 +2740,7 @@
         "168": "Treat the marina and yacht as one economy node, with security covering both.",
         "175": "Keep ordinary toolboxes and safes with the party lighting, excluding gig-specific loot."
       },
-      "is_logistics": false,
+      "is_logistics": true,
       "is_meeting_spot": true,
       "is_multi_type": false
     },

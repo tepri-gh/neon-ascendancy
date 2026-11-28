@@ -58,8 +58,12 @@ universal Culture ordering (`economy > espionage > tech > military`):
 - **Major drug labs → `tech` (S4)** (chemical/pharma synthesis; feeds `drugs`
   materiel discounts).
 - **`is_logistics` tag (S3):** Applied to freight/container yards, docks,
-  courier depots, rail/bus yards, border crossings, and major supply warehouses
-  (typically `economy`, or `military` for arms depots).
+  ports/marinas, courier depots, rail/bus yards, border crossings, and major
+  supply warehouses (typically `economy`, or `military` for arms depots), **and
+  to every Megacorp HQ** (`Arasaka Tower`, `Militech Offices`, `Kang Tao
+  Building`, `Biotechnica Protein Flats`, `Petrochem North Sunrise Oil Fields`
+  — corporate branches have industrial shipping yards, AV freight hangars, or
+  underground loading docks so no megacorp starts with 0 logistics).
   - **Convoys** route from a faction's `is_logistics` nodes to its other nodes
     (driving "Intercept / Kill Convoy" dynamic missions).
   - **Zero-logistics penalty:** Any faction holding **0 logistics nodes**

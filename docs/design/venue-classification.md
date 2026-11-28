@@ -8,7 +8,7 @@ Status: **finalized** (owner calls & staffing pass applied 2026-11-28). Policy: 
 - **Buckets:** `123` nodes, `51` civilian-only venues, `7` neutral hubs, `13` excluded, **`0` undecided**
 - **Node types:** {'economy': 56, 'military': 24, 'tech': 31, 'espionage': 12} *(garages, chop shops & drug labs → `tech`)*
 - **Node sizes:** {'medium': 73, 'large': 31, 'small': 17, 'very_large': 2}
-- **Special tags:** `21` logistics nodes (`is_logistics`), `12` VIP meeting spots (`is_meeting_spot`)
+- **Special tags:** `23` mapped logistics nodes (`is_logistics`, plus pending megacorp HQs), `12` VIP meeting spots (`is_meeting_spot`)
 - **Bosses:** 13 lore bosses (0 conflicts), 110 dynamically generated lieutenants
 - **Pending `owner-decisions.md` items resolved:** 121 / 121
 
@@ -25,13 +25,13 @@ Status: **finalized** (owner calls & staffing pass applied 2026-11-28). Policy: 
 | `the_mox` | 2 | 0 | loc_q004_lizzys_nightclub | Susie Q (`loc_q004_lizzys_nightclub`) |
 | `wraiths` | 10 | 2 | loc_sq004_raffen_shiv_camp | Nash (`loc_q103_mine_ambush`) |
 | `aldecaldos` | 3 | 1 | loc_sq004_mobile_camp | Saul Bright (`loc_sq004_mobile_camp`) |
-| `arasaka` | 6 | 1 | loc_arasaka_tower | — |
-| `militech` | 11 | 3 | *(pending open-world HQ)* | — |
-| `kang_tao` | 1 | 0 | *(pending open-world HQ)* | — |
-| `biotechnica` | 1 | 0 | *(pending open-world HQ)* | — |
-| `petrochem` | 0 | 0 | *(pending open-world HQ)* | — |
+| `arasaka` | 6 | 2 | loc_arasaka_tower | — |
+| `militech` | 11 | 4 (+1 HQ) | *(pending HQ: Militech Offices, logistics)* | — |
+| `kang_tao` | 1 | 0 (+1 HQ) | *(pending HQ: Kang Tao Building, logistics)* | — |
+| `biotechnica` | 1 | 0 (+1 HQ) | *(pending HQ: Protein Flats, logistics)* | — |
+| `petrochem` | 0 | 0 (+1 HQ) | *(pending HQ: North Sunrise Oil Fields, logistics)* | — |
 | `barghest` | 6 | 2 | loc_q303_paradise | Kurt Hansen (`loc_q303_paradise`), Carl “Dodger” Robinson (`loc_sts_ep1_10`) |
-| `ncpd` | 9 | 1 | *(pending open-world HQ)* | Sheriff Jones (`loc_q000_roadhouse_town`) |
+| `ncpd` | 9 | 1 | *(pending HQ: Little China Precinct)* | Sheriff Jones (`loc_q000_roadhouse_town`) |
 | `scavs` | 20 | 4 | *(none — cells)* | — |
 
 ## 2. Confirmed Nodes (123)
@@ -48,7 +48,7 @@ Status: **finalized** (owner calls & staffing pass applied 2026-11-28). Policy: 
 | `animals` | medium | economy | — | `loc_sts_cct_dtn_02_metal_club` | 7th Hell | Animals Lieutenant (gen) | yes |
 | `animals` | medium | economy | — | `loc_sts_pac_wwd_05_paint_factory` | Tripple Xtreme Epic Workout Center (Old Paint Factory) | **Logan Garcia** (lore) | no |
 | `animals` | small | economy | — | `loc_sts_hey_spr_06` | Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise) | Animals Lieutenant (gen) | yes |
-| `arasaka` | very_large | espionage | multi-type | `loc_arasaka_tower` | Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor) **(HQ)** | Arasaka counter-intelligence lieutenant (gen) | yes |
+| `arasaka` | very_large | espionage | multi-type, logistics | `loc_arasaka_tower` | Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor) **(HQ)** | Arasaka counter-intelligence lieutenant (gen) | yes |
 | `arasaka` | large | economy | meeting_spot | `loc_q004_q005_arasaka_hotel` | Konpeki Plaza | Arasaka Lieutenant (gen) | yes |
 | `arasaka` | large | economy | logistics | `loc_q112_arasaka_industrial_park_warehouse` | Arasaka Industrial Park Warehouse (Arroyo) | Arasaka Lieutenant (gen) | yes |
 | `arasaka` | large | military | meeting_spot | `loc_q113_arasaka_estate` | Arasaka Estate (North Oak) | Arasaka Lieutenant (gen) | yes |
@@ -78,7 +78,7 @@ Status: **finalized** (owner calls & staffing pass applied 2026-11-28). Policy: 
 | `militech` | medium | tech | — | `loc_q114_tunnel_site` | Maglev Tunnel Construction Site (Badlands) | Militech Tunnel Site Lieutenant (gen) | yes |
 | `militech` | medium | military | — | `loc_sts_bla_ina_04` | Sunshine Motel (Militech Outpost) | Militech outpost lieutenant (gen) | yes |
 | `militech` | medium | military | — | `loc_sts_bls_ina_05` | Militech Detention Center | Militech lieutenant (gen) | yes |
-| `militech` | medium | economy | meeting_spot | `loc_sts_cct_dtn_05_luxury_yacht` | Gold Beach Marina party yacht (Councilwoman Cole's yacht) | Militech Marina Lieutenant (gen) | yes |
+| `militech` | medium | economy | logistics, meeting_spot | `loc_sts_cct_dtn_05_luxury_yacht` | Gold Beach Marina party yacht (Councilwoman Cole's yacht) | Militech Marina Lieutenant (gen) | yes |
 | `militech` | medium | economy | meeting_spot | `loc_sts_hey_gle_01` | Tucker Albach's Condo (Scoffield & Sinkyone, The Glen) | Militech Lieutenant (gen) | yes |
 | `militech` | medium | military | — | `loc_sts_std_rcr_01` | C-Team Office, Carsten St (Rancho Coronado) | Militech Lieutenant (gen) | yes |
 | `militech` | small | military | — | `hustle_bls_ina_se1_05` | bls_ina_se1_05 (Badlands) | Militech Lieutenant (gen) | yes |
