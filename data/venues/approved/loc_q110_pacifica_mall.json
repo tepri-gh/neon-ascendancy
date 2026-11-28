@@ -1,7 +1,7 @@
 {
   "code": "q110_pacifica_mall",
   "display_name": "Grand Imperial Mall (GIM), Coastview",
-  "why": "The Grand Imperial Mall is Pacifica's dead luxury mall, held by the Animals and used by them as a gym, garage and dormitory; behind it locals keep tinkering with the Eden Beach rollercoaster. In our timeline nothing clears the mall and nobody fights over it, so this proposal keeps the building open and populates it with relaxed Animals (hall patrol, gym users, garage crew, the boxing robot) plus the five rollercoaster regulars from Love Rollercoaster. It restores only the mall quest prefab and the rollercoaster station/ride sections, with the mall's entrance colliders and lockdown variants set to their open state. Venue-node-policy section 1: remove the rollercoaster side-job cast from static spawns.",
+  "why": "The Grand Imperial Mall is Pacifica's dead luxury mall, held by the Animals and used by them as a gym, garage and dormitory; behind it locals keep tinkering with the Eden Beach rollercoaster. In our timeline nothing clears the mall and nobody fights over it, so this proposal keeps the building open and populates it with relaxed Animals (hall patrol, gym users, garage crew, the boxing robot) plus the five rollercoaster regulars from Love Rollercoaster. It restores only the mall quest prefab and the rollercoaster station/ride sections, with the mall's entrance colliders and lockdown variants set to their open state. Venue-node-policy section 1: remove the rollercoaster side-job cast from static spawns. Owner tour 2026-11-27: venue-node-policy section 5 removes robots activated only by quests, including main quests.",
   "source": {
     "proposal": "research/loc_q110_pacifica_mall/proposal.json",
     "confidence": "medium",
@@ -75,14 +75,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Gym regular parked at the gym bar (big__sit_bar__sit_around__01), giving the gym a second, calmer body without adding a fighter.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q110_com_mall_gym_boxing_robot",
-      "entry_name": "#q110_ws_gym_boxing_robot",
-      "phase_name": "idle",
-      "action": "Activate",
-      "why": "The gym's boxing robot in its standby phase (q001_02a_robot_inactive), powered down beside the ring instead of shadow-boxing an opponent who never comes. The 'boxing' phase plays q110_ws_boxing_robot_01, the chained sparring target the Razor Hugh finale needs; in our timeline nothing fights it, so it swung at air (owner, leg 1).",
       "needs_tour_check": true
     },
     {

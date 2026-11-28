@@ -159,6 +159,8 @@ When classifying venues and settling pending `owner-decisions.md` items:
   security. Human guards and netrunners stay as the node's vanilla security
   (Luxor High Wellness Spa: the droid den is off, the netrunner guards
   stay). Dolls are people, not androids (Talent Academy).
+  The rule is for nodes only. Hubs and civilian venues keep robots that are
+  staff (Delamain's drones, the Moth's robot bartender).
 - **Wrecks at garages (owner, tour 2026-11-27):** broken-down or stripped cars
   at a garage, chop shop or auto shop are removed; the venue reads as a working
   business.

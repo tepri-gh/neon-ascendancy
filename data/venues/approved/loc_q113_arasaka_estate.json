@@ -1,7 +1,7 @@
 {
   "code": "q113_arasaka_estate",
   "display_name": "Arasaka Estate (North Oak)",
-  "why": "Restore the Arasaka Estate garrison and security mech on their ordinary posts. The North Oak district phase supplies the estate workers. Keep access to the private suite under vanilla controls.",
+  "why": "Restore the Arasaka Estate garrison and security mech on their ordinary posts. The North Oak district phase supplies the estate workers. Keep access to the private suite under vanilla controls. Owner tour 2026-11-27: venue-node-policy section 5 removes robots activated only by quests, including main quests.",
   "source": {
     "proposal": "research/loc_q113_arasaka_estate/proposal.json",
     "confidence": "medium",
@@ -113,13 +113,6 @@
       "phase_name": "spawn",
       "action": "Activate",
       "why": "Sniper on the upper landing patrolling_stand at roof height (299,1048,z 234), the estate's overwatch post."
-    },
-    {
-      "spawner": "#q113_com_arasaka_estate_mech_drones",
-      "entry_name": "mech_01",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Standing Arasaka security mech on routine__stand_ground in the forecourt (331,1120), the estate's fixed heavy sentry. The catalogue tags the mech record 'civilian' because its name has no guard keyword; it is estate security and is placed here as such. Drone entries are left out (their only phase is combat reinforcement 'reinf', no spots)."
     }
   ],
   "spawn_sets": [],

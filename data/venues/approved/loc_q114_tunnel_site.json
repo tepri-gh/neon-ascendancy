@@ -1,7 +1,7 @@
 {
   "code": "q114_tunnel_site",
   "display_name": "Maglev Tunnel Construction Site (Badlands)",
-  "why": "A canyon in the north-east Badlands where a maglev line is being bored towards Arasaka Tower's sublevels: a construction yard with a bridge and an unfinished tunnel mouth, guarded by Militech site security and hiding an Arasaka-controlled underground facility behind a blast door. In vanilla the site is only seen as the Aldecaldos' assault route in the Panam ending (q114: We Gotta Live Together -> Forward to Death -> Belly of the Beast). This proposal restores the site as a normally staffed construction project: the WorkerMale construction crew at work on the yard, the site's Militech security drones, and the two control-room guards of the facility below, with the canyon narrowing intact, no barrage damage and no battle remnants.",
+  "why": "A canyon in the north-east Badlands where a maglev line is being bored towards Arasaka Tower's sublevels: a construction yard with a bridge and an unfinished tunnel mouth, guarded by Militech site security and hiding an Arasaka-controlled underground facility behind a blast door. In vanilla the site is only seen as the Aldecaldos' assault route in the Panam ending (q114: We Gotta Live Together -> Forward to Death -> Belly of the Beast). This proposal restores the site as a normally staffed construction project: the WorkerMale construction crew at work on the yard, the site's Militech security drones, and the two control-room guards of the facility below, with the canyon narrowing intact, no barrage damage and no battle remnants. Owner tour 2026-11-27: venue-node-policy section 5 removes robots activated only by quests, including main quests.",
   "source": {
     "proposal": "research/loc_q114_tunnel_site/proposal.json",
     "confidence": "medium",
@@ -32,14 +32,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The facility control room's two standing guards (guard_ctrl_01/02, Character.q114_militech_response_sniper). Vanilla switches the whole community on in q114_construction_site as the site garrison and only then assigns the militech attitude group, so unprovoked they are ordinary on-duty guards. Their single workspot is routine__stand_ground, a relaxed stand, not an alert or combat pose. Kept first under rule 11a."
-    },
-    {
-      "spawner": "#q114_com_construction_nc_security",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The site's perimeter security: six Character.q114_militech_medium_drone entries, switched on whole by vanilla in the same construction-site phase as the control room and given the militech attitude group only at the assault, i.e. neutral site drones before it. The catalogue miner tagged the drone record as civilian and found no spot map, so posture is unknown; the count and placement (open yard vs facility) need the tour. Security is kept ahead of adding more civilians per rule 11a.",
-      "needs_tour_check": true
     }
   ],
   "spawn_sets": [],
