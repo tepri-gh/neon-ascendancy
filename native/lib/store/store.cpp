@@ -6,6 +6,8 @@
 #include <cmath>
 #include <cstring>
 #include <ctime>
+#include <limits>
+#include <queue>
 #include <random>
 
 #include "embedded_schemas.hpp"
@@ -213,11 +215,20 @@ void WorldDb::Close() {
   sub_territories_.clear();
   control_centers_.clear();
   faction_hqs_.clear();
+  road_chunks_.clear();
+  road_nodes_.clear();
+  road_adj_offset_.clear();
+  road_adj_edges_.clear();
   faction_index_.clear();
   district_index_.clear();
   sub_territory_index_.clear();
   cc_by_st_index_.clear();
+  road_chunk_index_.clear();
+  road_node_index_.clear();
+  road_nodes_by_xy_cell_.clear();
   cell_grid_.clear();
+  road_chunk_xy_m_ = 200.0;
+  road_max_speed_mps_ = 17.0;
 }
 
 uint32_t WorldDb::ParseHexColorRgba(const std::string& hex) {
@@ -281,6 +292,11 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
         content_hash_ = v;
       } else if (k == "cell_size_m") {
         cell_size_m_ = std::stod(v);
+      } else if (k == "road_chunk_xy_m") {
+        const double parsed = std::stod(v);
+        if (parsed > 0.0) {
+          road_chunk_xy_m_ = parsed;
+        }
       }
     }
   }
@@ -443,6 +459,111 @@ bool WorldDb::Open(const std::string& path, bool immutable, std::string& err) {
     Close();
     return false;
   }
+
+  // Boot-load drivable road chunks, nodes, and CSR adjacency list into RAM.
+  {
+    StmtGuard g;
+    const char* sql =
+        "SELECT chunk_id, COALESCE(district_id, 0), grid_x, grid_y, grid_z, "
+        "lane_count, navmesh_ready FROM road_chunks ORDER BY chunk_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      WorldRoadChunk c;
+      c.chunk_id = sqlite3_column_int(g.stmt, 0);
+      c.district_id = sqlite3_column_int(g.stmt, 1);
+      c.grid_x = sqlite3_column_int(g.stmt, 2);
+      c.grid_y = sqlite3_column_int(g.stmt, 3);
+      c.grid_z = sqlite3_column_int(g.stmt, 4);
+      c.lane_count = sqlite3_column_int(g.stmt, 5);
+      c.navmesh_ready = sqlite3_column_int(g.stmt, 6) != 0;
+      road_chunk_index_[c.chunk_id] = road_chunks_.size();
+      road_chunks_.push_back(c);
+    }
+  }
+
+  {
+    StmtGuard g;
+    const char* sql =
+        "SELECT node_id, chunk_id, x, y, z, lane FROM road_nodes ORDER BY node_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      WorldRoadNode n;
+      n.node_id = sqlite3_column_int(g.stmt, 0);
+      n.chunk_id = sqlite3_column_int(g.stmt, 1);
+      n.x = sqlite3_column_double(g.stmt, 2);
+      n.y = sqlite3_column_double(g.stmt, 3);
+      n.z = sqlite3_column_double(g.stmt, 4);
+      n.lane = sqlite3_column_int(g.stmt, 5);
+      const uint32_t idx = static_cast<uint32_t>(road_nodes_.size());
+      road_node_index_[n.node_id] = idx;
+      const int32_t gx = static_cast<int32_t>(std::floor(n.x / road_chunk_xy_m_));
+      const int32_t gy = static_cast<int32_t>(std::floor(n.y / road_chunk_xy_m_));
+      road_nodes_by_xy_cell_[PackCellKey(gx, gy)].push_back(idx);
+      road_nodes_.push_back(n);
+    }
+  }
+
+  if (!road_nodes_.empty()) {
+    struct RawEdgeRow {
+      uint32_t from_idx;
+      CompactRoadEdge edge;
+    };
+    std::vector<RawEdgeRow> raw_edges;
+    std::vector<uint32_t> out_degree(road_nodes_.size(), 0U);
+    double max_speed_mps = 1.0;
+
+    StmtGuard g;
+    const char* sql =
+        "SELECT from_node_id, to_node_id, length_m, COALESCE(speed_kph, 54.0), is_tunnel "
+        "FROM road_edges ORDER BY from_node_id, to_node_id";
+    if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+      err = sqlite3_errmsg(db_);
+      Close();
+      return false;
+    }
+    while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+      const int32_t from_id = sqlite3_column_int(g.stmt, 0);
+      const int32_t to_id = sqlite3_column_int(g.stmt, 1);
+      const auto it_from = road_node_index_.find(from_id);
+      const auto it_to = road_node_index_.find(to_id);
+      if (it_from == road_node_index_.end() || it_to == road_node_index_.end()) {
+        continue;
+      }
+      const double len_m = std::max(0.05, sqlite3_column_double(g.stmt, 2));
+      const double sp_kph = std::max(5.0, sqlite3_column_double(g.stmt, 3));
+      const double sp_mps = sp_kph / 3.6;
+      if (sp_mps > max_speed_mps) {
+        max_speed_mps = sp_mps;
+      }
+      CompactRoadEdge e;
+      e.to_idx = it_to->second;
+      e.length_m = static_cast<float>(len_m);
+      e.speed_kph = static_cast<float>(sp_kph);
+      e.travel_sec = static_cast<float>(len_m / sp_mps);
+      e.is_tunnel = static_cast<uint8_t>(sqlite3_column_int(g.stmt, 4) != 0 ? 1 : 0);
+      ++out_degree[it_from->second];
+      raw_edges.push_back(RawEdgeRow{it_from->second, e});
+    }
+
+    road_max_speed_mps_ = max_speed_mps;
+    road_adj_offset_.assign(road_nodes_.size() + 1U, 0U);
+    for (size_t i = 0; i < road_nodes_.size(); ++i) {
+      road_adj_offset_[i + 1U] = road_adj_offset_[i] + out_degree[i];
+    }
+    road_adj_edges_.resize(raw_edges.size());
+    std::vector<uint32_t> write_pos = road_adj_offset_;
+    for (const auto& r : raw_edges) {
+      road_adj_edges_[write_pos[r.from_idx]++] = r.edge;
+    }
+  }
   return true;
 }
 
@@ -564,6 +685,216 @@ std::vector<int32_t> WorldDb::QuerySpawnPointsNear(
     }
   }
   return out;
+}
+
+const WorldRoadChunk* WorldDb::FindRoadChunk(int32_t chunk_id) const {
+  const auto it = road_chunk_index_.find(chunk_id);
+  return it != road_chunk_index_.end() ? &road_chunks_[it->second] : nullptr;
+}
+
+const WorldRoadNode* WorldDb::FindRoadNode(int32_t node_id) const {
+  const auto it = road_node_index_.find(node_id);
+  return it != road_node_index_.end() ? &road_nodes_[it->second] : nullptr;
+}
+
+std::vector<int32_t> WorldDb::QueryRoadChunksNear(
+    double x, double y, double radius_m) const {
+  std::vector<int32_t> out;
+  if (db_ == nullptr || radius_m <= 0.0) {
+    return out;
+  }
+  StmtGuard g;
+  const char* sql =
+      "SELECT id FROM road_chunk_rtree "
+      "WHERE min_x <= ?1 AND max_x >= ?2 AND min_y <= ?3 AND max_y >= ?4 "
+      "ORDER BY id";
+  if (sqlite3_prepare_v2(db_, sql, -1, &g.stmt, nullptr) != SQLITE_OK) {
+    return out;
+  }
+  sqlite3_bind_double(g.stmt, 1, x + radius_m);
+  sqlite3_bind_double(g.stmt, 2, x - radius_m);
+  sqlite3_bind_double(g.stmt, 3, y + radius_m);
+  sqlite3_bind_double(g.stmt, 4, y - radius_m);
+  while (sqlite3_step(g.stmt) == SQLITE_ROW) {
+    out.push_back(sqlite3_column_int(g.stmt, 0));
+  }
+  return out;
+}
+
+int32_t WorldDb::FindNearestRoadNode(
+    double x, double y, double z, double max_radius_m) const {
+  if (road_nodes_.empty() || max_radius_m <= 0.0 || road_chunk_xy_m_ <= 0.0) {
+    return 0;
+  }
+  const int32_t cx = static_cast<int32_t>(std::floor(x / road_chunk_xy_m_));
+  const int32_t cy = static_cast<int32_t>(std::floor(y / road_chunk_xy_m_));
+  const int32_t max_ring = static_cast<int32_t>(std::ceil(max_radius_m / road_chunk_xy_m_));
+  const double max_r2 = max_radius_m * max_radius_m;
+
+  int32_t best_node_id = 0;
+  double best_d2 = max_r2;
+
+  for (int32_t ring = 0; ring <= max_ring; ++ring) {
+    // Lower bound on XY distance to any cell at this Chebyshev ring.
+    if (ring >= 2) {
+      const double min_ring_dist = static_cast<double>(ring - 1) * road_chunk_xy_m_;
+      if (best_node_id != 0 && (min_ring_dist * min_ring_dist) > best_d2) {
+        break;
+      }
+    }
+    for (int32_t dx_c = -ring; dx_c <= ring; ++dx_c) {
+      for (int32_t dy_c = -ring; dy_c <= ring; ++dy_c) {
+        if (ring > 0 && std::abs(dx_c) != ring && std::abs(dy_c) != ring) {
+          continue;
+        }
+        const auto it = road_nodes_by_xy_cell_.find(PackCellKey(cx + dx_c, cy + dy_c));
+        if (it == road_nodes_by_xy_cell_.end()) {
+          continue;
+        }
+        for (const uint32_t idx : it->second) {
+          const auto& n = road_nodes_[idx];
+          const double dx = n.x - x;
+          const double dy = n.y - y;
+          const double dz = n.z - z;
+          const double d2 = dx * dx + dy * dy + dz * dz;
+          if (d2 <= max_r2 &&
+              (best_node_id == 0 || d2 < best_d2 ||
+               (d2 == best_d2 && n.node_id < best_node_id))) {
+            best_d2 = d2;
+            best_node_id = n.node_id;
+          }
+        }
+      }
+    }
+  }
+  return best_node_id;
+}
+
+RoadPathResult WorldDb::FindRoadPath(int32_t start_node_id, int32_t goal_node_id) const {
+  RoadPathResult res;
+  const auto it_start = road_node_index_.find(start_node_id);
+  const auto it_goal = road_node_index_.find(goal_node_id);
+  if (it_start == road_node_index_.end() || it_goal == road_node_index_.end() ||
+      road_adj_offset_.size() != road_nodes_.size() + 1U) {
+    return res;
+  }
+  const uint32_t s_idx = it_start->second;
+  const uint32_t g_idx = it_goal->second;
+  if (s_idx == g_idx) {
+    const auto& n = road_nodes_[s_idx];
+    res.found = true;
+    res.waypoints.push_back(RoadPathWaypoint{n.node_id, n.chunk_id, n.x, n.y, n.z, 54.0f, false});
+    return res;
+  }
+
+  const size_t n_count = road_nodes_.size();
+  const auto& goal_n = road_nodes_[g_idx];
+  const double inv_max_speed = 1.0 / std::max(road_max_speed_mps_, 1.0);
+  auto heuristic = [&](uint32_t idx) -> double {
+    const auto& n = road_nodes_[idx];
+    const double dx = goal_n.x - n.x;
+    const double dy = goal_n.y - n.y;
+    const double dz = goal_n.z - n.z;
+    return std::sqrt(dx * dx + dy * dy + dz * dz) * inv_max_speed;
+  };
+
+  constexpr uint32_t kInvalidIdx = std::numeric_limits<uint32_t>::max();
+  constexpr double kInf = std::numeric_limits<double>::infinity();
+  std::vector<double> g_cost(n_count, kInf);
+  std::vector<uint32_t> prev_node(n_count, kInvalidIdx);
+  std::vector<uint32_t> prev_edge(n_count, kInvalidIdx);
+
+  struct QueueEntry {
+    double f;
+    double g;
+    uint32_t idx;
+    bool operator>(const QueueEntry& other) const {
+      return f > other.f || (f == other.f && idx > other.idx);
+    }
+  };
+  std::priority_queue<QueueEntry, std::vector<QueueEntry>, std::greater<QueueEntry>> open;
+
+  g_cost[s_idx] = 0.0;
+  open.push(QueueEntry{heuristic(s_idx), 0.0, s_idx});
+
+  while (!open.empty()) {
+    const QueueEntry cur = open.top();
+    open.pop();
+    if (cur.g > g_cost[cur.idx]) {
+      continue;
+    }
+    if (cur.idx == g_idx) {
+      break;
+    }
+    const uint32_t edge_begin = road_adj_offset_[cur.idx];
+    const uint32_t edge_end = road_adj_offset_[cur.idx + 1U];
+    for (uint32_t ei = edge_begin; ei < edge_end; ++ei) {
+      const auto& e = road_adj_edges_[ei];
+      const double ng = cur.g + static_cast<double>(e.travel_sec);
+      if (ng < g_cost[e.to_idx]) {
+        g_cost[e.to_idx] = ng;
+        prev_node[e.to_idx] = cur.idx;
+        prev_edge[e.to_idx] = ei;
+        open.push(QueueEntry{ng + heuristic(e.to_idx), ng, e.to_idx});
+      }
+    }
+  }
+
+  if (!std::isfinite(g_cost[g_idx])) {
+    return res;
+  }
+
+  std::vector<uint32_t> rev_nodes;
+  std::vector<uint32_t> rev_edges;
+  for (uint32_t cur = g_idx; cur != kInvalidIdx; cur = prev_node[cur]) {
+    rev_nodes.push_back(cur);
+    if (prev_edge[cur] != kInvalidIdx) {
+      rev_edges.push_back(prev_edge[cur]);
+    }
+    if (cur == s_idx) {
+      break;
+    }
+  }
+  if (rev_nodes.empty() || rev_nodes.back() != s_idx) {
+    return res;
+  }
+
+  res.found = true;
+  res.estimated_seconds = g_cost[g_idx];
+  res.waypoints.reserve(rev_nodes.size());
+  double total_len = 0.0;
+  for (size_t k = rev_nodes.size(); k-- > 0;) {
+    const uint32_t ni = rev_nodes[k];
+    const auto& n = road_nodes_[ni];
+    float sp = 54.0f;
+    bool tunnel = false;
+    if (k < rev_edges.size()) {
+      const auto& e = road_adj_edges_[rev_edges[k]];
+      sp = e.speed_kph;
+      tunnel = e.is_tunnel != 0;
+      total_len += static_cast<double>(e.length_m);
+    } else if (!rev_edges.empty()) {
+      const auto& first_e = road_adj_edges_[rev_edges.back()];
+      sp = first_e.speed_kph;
+      tunnel = first_e.is_tunnel != 0;
+    }
+    res.waypoints.push_back(RoadPathWaypoint{
+        n.node_id, n.chunk_id, n.x, n.y, n.z, sp, tunnel});
+  }
+  res.total_length_m = total_len;
+  return res;
+}
+
+RoadPathResult WorldDb::FindRoadPathBetween(
+    double from_x, double from_y, double from_z,
+    double to_x, double to_y, double to_z,
+    double snap_radius_m) const {
+  const int32_t s_id = FindNearestRoadNode(from_x, from_y, from_z, snap_radius_m);
+  const int32_t g_id = FindNearestRoadNode(to_x, to_y, to_z, snap_radius_m);
+  if (s_id == 0 || g_id == 0) {
+    return RoadPathResult{};
+  }
+  return FindRoadPath(s_id, g_id);
 }
 
 // --- PlaythroughDb ----------------------------------------------------------

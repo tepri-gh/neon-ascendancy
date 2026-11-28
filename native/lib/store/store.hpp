@@ -66,6 +66,42 @@ struct WorldSubTerritory {
   double centroid_z = 0.0;
 };
 
+struct WorldRoadChunk {
+  int32_t chunk_id = 0;
+  int32_t district_id = 0;
+  int32_t grid_x = 0;
+  int32_t grid_y = 0;
+  int32_t grid_z = 0;
+  int32_t lane_count = 0;
+  bool navmesh_ready = false;
+};
+
+struct WorldRoadNode {
+  int32_t node_id = 0;
+  int32_t chunk_id = 0;
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+  int32_t lane = 0;
+};
+
+struct RoadPathWaypoint {
+  int32_t node_id = 0;
+  int32_t chunk_id = 0;
+  double x = 0.0;
+  double y = 0.0;
+  double z = 0.0;
+  float speed_kph = 54.0f;
+  bool is_tunnel = false;
+};
+
+struct RoadPathResult {
+  bool found = false;
+  double total_length_m = 0.0;
+  double estimated_seconds = 0.0;
+  std::vector<RoadPathWaypoint> waypoints;
+};
+
 // Read-only static world.db loader with O(1) boot-loaded level-0 grid lookup.
 class WorldDb {
  public:
@@ -109,23 +145,58 @@ class WorldDb {
   [[nodiscard]] std::vector<int32_t> QuerySpawnPointsNear(
       double x, double y, double z, double radius_m) const;
 
+  // Boot-loaded drivable road graph & sub-millisecond A* routing.
+  [[nodiscard]] const std::vector<WorldRoadChunk>& RoadChunks() const { return road_chunks_; }
+  [[nodiscard]] const std::vector<WorldRoadNode>& RoadNodes() const { return road_nodes_; }
+  [[nodiscard]] size_t RoadEdgeCount() const { return road_adj_edges_.size(); }
+  [[nodiscard]] double RoadChunkSizeXY() const { return road_chunk_xy_m_; }
+  [[nodiscard]] const WorldRoadChunk* FindRoadChunk(int32_t chunk_id) const;
+  [[nodiscard]] const WorldRoadNode* FindRoadNode(int32_t node_id) const;
+  [[nodiscard]] std::vector<int32_t> QueryRoadChunksNear(
+      double x, double y, double radius_m) const;
+  [[nodiscard]] int32_t FindNearestRoadNode(
+      double x, double y, double z, double max_radius_m = 750.0) const;
+  [[nodiscard]] RoadPathResult FindRoadPath(
+      int32_t start_node_id, int32_t goal_node_id) const;
+  [[nodiscard]] RoadPathResult FindRoadPathBetween(
+      double from_x, double from_y, double from_z,
+      double to_x, double to_y, double to_z,
+      double snap_radius_m = 750.0) const;
+
   [[nodiscard]] static uint32_t ParseHexColorRgba(const std::string& hex);
 
  private:
+  struct CompactRoadEdge {
+    uint32_t to_idx = 0;
+    float length_m = 0.0f;
+    float travel_sec = 0.0f;
+    float speed_kph = 54.0f;
+    uint8_t is_tunnel = 0;
+  };
+
   static uint64_t PackCellKey(int32_t cx, int32_t cy);
 
   sqlite3* db_ = nullptr;
   std::string content_hash_;
   double cell_size_m_ = 100.0;
+  double road_chunk_xy_m_ = 200.0;
+  double road_max_speed_mps_ = 17.0;
   std::vector<WorldFaction> factions_;
   std::vector<WorldDistrict> districts_;
   std::vector<WorldSubTerritory> sub_territories_;
   std::vector<WorldControlCenter> control_centers_;
   std::vector<WorldFactionHq> faction_hqs_;
+  std::vector<WorldRoadChunk> road_chunks_;
+  std::vector<WorldRoadNode> road_nodes_;
+  std::vector<uint32_t> road_adj_offset_;
+  std::vector<CompactRoadEdge> road_adj_edges_;
   std::unordered_map<int32_t, size_t> faction_index_;
   std::unordered_map<int32_t, size_t> district_index_;
   std::unordered_map<int32_t, size_t> sub_territory_index_;
   std::unordered_map<int32_t, size_t> cc_by_st_index_;
+  std::unordered_map<int32_t, size_t> road_chunk_index_;
+  std::unordered_map<int32_t, uint32_t> road_node_index_;
+  std::unordered_map<uint64_t, std::vector<uint32_t>> road_nodes_by_xy_cell_;
   std::unordered_map<uint64_t, int32_t> cell_grid_;
 };
 

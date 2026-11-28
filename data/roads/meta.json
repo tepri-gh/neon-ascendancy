@@ -1,0 +1,57 @@
+{
+  "bbox": {
+    "max_x": 5966.16,
+    "max_y": 4146.89,
+    "max_z": 320.22,
+    "min_x": -4616.7,
+    "min_y": -7377.99,
+    "min_z": -27.54
+  },
+  "chunk_count": 1089,
+  "chunk_xy_m": 200.0,
+  "chunk_z_m": 50.0,
+  "chunks_by_district": {
+    "badlands": 474,
+    "city_center": 46,
+    "dogtown": 54,
+    "heywood": 114,
+    "morro_rock": 5,
+    "pacifica": 12,
+    "santo_domingo": 121,
+    "watson": 159,
+    "westbrook": 104
+  },
+  "dead_end_uturn_edges_added": 943,
+  "dp_epsilon_m": 1.5,
+  "edge_count": 49559,
+  "formats": {
+    "edges": [
+      "edge_id",
+      "from_node_id",
+      "to_node_id",
+      "chunk_id",
+      "length_m",
+      "speed_kph",
+      "is_tunnel"
+    ],
+    "nodes": [
+      "node_id",
+      "chunk_id",
+      "x",
+      "y",
+      "z",
+      "lane"
+    ]
+  },
+  "game_version": "2.5",
+  "generator": "tools/extract-roads.py",
+  "lane_change_edges_added": 23244,
+  "max_seg_len_m": 160.0,
+  "node_count": 29305,
+  "raw_total_lanes": 33953,
+  "selected_vehicle_lanes": 15787,
+  "source_traffic_rel": "base/worlds/03_night_city/sectors/_generated/traffic",
+  "strongly_connected": true,
+  "total_directed_lane_km": 1340.32,
+  "tunnel_edge_count": 1837
+}

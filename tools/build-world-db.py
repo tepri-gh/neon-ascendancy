@@ -33,10 +33,18 @@ DATA_DIR = ROOT / "data"
 SCHEMA_V1_PATH = DATA_DIR / "schema" / "world_v1.sql"
 SCHEMA_V2_PATH = DATA_DIR / "schema" / "world_v2.sql"
 SITES_DIR = DATA_DIR / "sites"
+ROADS_DIR = DATA_DIR / "roads"
 DEFAULT_OUT = ROOT / "dist" / "world.db"
 
 CELL_SIZE_M = 100.0  # 100 m level-0 ownership grid cells (~80x100 across NC)
 SCHEMA_VERSION = "2"
+
+ROAD_SEED_FILES = (
+    "chunks.json",
+    "nodes.json",
+    "edges.json",
+    "meta.json",
+)
 
 SITE_SEED_FILES = (
     "sites.json",
@@ -86,6 +94,15 @@ def load_site_seed(name: str) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def load_road_seed(name: str) -> Any:
+    path = ROADS_DIR / name
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Missing road seed file: {path}\nRun tools/extract-roads.py first."
+        )
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
 def json_text(value: Any) -> str | None:
     """Lists/dicts become compact sorted JSON text; scalars become TEXT."""
     if value is None:
@@ -95,7 +112,11 @@ def json_text(value: Any) -> str | None:
     return str(value)
 
 
-def compute_seed_hash(files: list[str], site_files: list[str]) -> str:
+def compute_seed_hash(
+    files: list[str],
+    site_files: list[str],
+    road_files: list[str],
+) -> str:
     h = hashlib.sha256()
     h.update(SCHEMA_V1_PATH.read_bytes())
     h.update(b"\0")
@@ -111,6 +132,12 @@ def compute_seed_hash(files: list[str], site_files: list[str]) -> str:
         h.update(name.encode("utf-8"))
         h.update(b"\0")
         h.update((SITES_DIR / name).read_bytes())
+        h.update(b"\0")
+    for name in sorted(road_files):
+        h.update(b"data/roads/")
+        h.update(name.encode("utf-8"))
+        h.update(b"\0")
+        h.update((ROADS_DIR / name).read_bytes())
         h.update(b"\0")
     return h.hexdigest()
 
@@ -611,9 +638,80 @@ def validate_site_tables(con: sqlite3.Connection) -> None:
         raise RuntimeError("v_site_garrison returned no rows")
 
 
+def insert_road_tables(con: sqlite3.Connection, road_seeds: dict[str, Any]) -> dict[str, int]:
+    """Insert road_chunks, road_chunk_rtree, road_nodes, and road_edges from data/roads/*.json."""
+    chunks = road_seeds["chunks.json"]
+    nodes = road_seeds["nodes.json"]
+    edges = road_seeds["edges.json"]
+
+    if not chunks or not nodes or not edges:
+        raise RuntimeError("data/roads/*.json is empty; run tools/extract-roads.py")
+
+    sorted_chunks = sorted(chunks, key=lambda r: r["chunk_id"])
+    con.executemany(
+        """INSERT INTO road_chunks(
+             chunk_id, district_id, grid_x, grid_y, grid_z, lane_count, navmesh_ready
+           ) VALUES(?,?,?,?,?,?,?)""",
+        [
+            (
+                c["chunk_id"], c["district_id"], c["grid_x"], c["grid_y"], c["grid_z"],
+                c["lane_count"], c["navmesh_ready"],
+            )
+            for c in sorted_chunks
+        ],
+    )
+    con.executemany(
+        "INSERT INTO road_chunk_rtree(id, min_x, max_x, min_y, max_y) VALUES(?,?,?,?,?)",
+        [
+            (c["chunk_id"], c["min_x"], c["max_x"], c["min_y"], c["max_y"])
+            for c in sorted_chunks
+        ],
+    )
+    con.executemany(
+        "INSERT INTO road_nodes(node_id, chunk_id, x, y, z, lane) VALUES(?,?,?,?,?,?)",
+        sorted(nodes, key=lambda r: r[0]),
+    )
+    con.executemany(
+        """INSERT INTO road_edges(
+             edge_id, from_node_id, to_node_id, chunk_id, length_m, speed_kph, is_tunnel
+           ) VALUES(?,?,?,?,?,?,?)""",
+        sorted(edges, key=lambda r: r[0]),
+    )
+    return {
+        "road_chunks": len(chunks),
+        "road_nodes": len(nodes),
+        "road_edges": len(edges),
+    }
+
+
+def validate_road_tables(con: sqlite3.Connection) -> None:
+    """Assert road graph structural and spatial invariants."""
+    chunk_count = con.execute("SELECT COUNT(*) FROM road_chunks").fetchone()[0]
+    rtree_count = con.execute("SELECT COUNT(*) FROM road_chunk_rtree").fetchone()[0]
+    node_count = con.execute("SELECT COUNT(*) FROM road_nodes").fetchone()[0]
+    edge_count = con.execute("SELECT COUNT(*) FROM road_edges").fetchone()[0]
+    if chunk_count == 0 or node_count == 0 or edge_count == 0:
+        raise RuntimeError(
+            f"Road graph tables are empty (chunks={chunk_count}, nodes={node_count}, edges={edge_count})"
+        )
+    if chunk_count != rtree_count:
+        raise RuntimeError(f"road_chunk_rtree count {rtree_count} != road_chunks count {chunk_count}")
+    self_loops = con.execute(
+        "SELECT COUNT(*) FROM road_edges WHERE from_node_id = to_node_id"
+    ).fetchone()[0]
+    if self_loops:
+        raise RuntimeError(f"{self_loops} self-loop road_edges found")
+    bad_speed = con.execute(
+        "SELECT COUNT(*) FROM road_edges WHERE speed_kph IS NULL OR speed_kph <= 0.0"
+    ).fetchone()[0]
+    if bad_speed:
+        raise RuntimeError(f"{bad_speed} road_edges have invalid speed_kph")
+
+
 def build_db(out_path: Path) -> dict[str, Any]:
     seeds = {name: load_json(name) for name in WORLD_SEED_FILES}
     site_seeds = {name: load_site_seed(name) for name in SITE_SEED_FILES}
+    road_seeds = {name: load_road_seed(name) for name in ROAD_SEED_FILES}
 
     factions = seeds["factions.json"]
     districts = seeds["districts.json"]
@@ -623,7 +721,11 @@ def build_db(out_path: Path) -> dict[str, Any]:
     landmarks = seeds["landmarks.json"]
     spawn_points = seeds["spawn_points.json"]
 
-    content_hash = compute_seed_hash(list(WORLD_SEED_FILES), list(SITE_SEED_FILES))
+    content_hash = compute_seed_hash(
+        list(WORLD_SEED_FILES),
+        list(SITE_SEED_FILES),
+        list(ROAD_SEED_FILES),
+    )
 
     # Coordinate and structural validation before writing.
     dist_map = {d["district_id"]: d for d in districts}
@@ -675,6 +777,9 @@ def build_db(out_path: Path) -> dict[str, Any]:
                     ("cell_size_m", str(CELL_SIZE_M)),
                     ("generator", "tools/build-world-db.py"),
                     ("site_seed_generator", site_seeds["meta.json"].get("generator", "tools/extract-sites.py")),
+                    ("road_seed_generator", road_seeds["meta.json"].get("generator", "tools/extract-roads.py")),
+                    ("road_chunk_xy_m", str(road_seeds["meta.json"].get("chunk_xy_m", 200.0))),
+                    ("road_chunk_z_m", str(road_seeds["meta.json"].get("chunk_z_m", 50.0))),
                 ],
             )
             con.executemany(
@@ -807,6 +912,7 @@ def build_db(out_path: Path) -> dict[str, Any]:
                 [(sp["spawn_point_id"], sp["x"], sp["x"], sp["y"], sp["y"]) for sp in sorted(spawn_points, key=lambda r: r["spawn_point_id"])],
             )
             site_stats = insert_site_tables(con, site_seeds)
+            road_stats = insert_road_tables(con, road_seeds)
 
         ic = con.execute("PRAGMA integrity_check").fetchall()
         if ic != [("ok",)]:
@@ -815,6 +921,7 @@ def build_db(out_path: Path) -> dict[str, Any]:
         if fk:
             raise RuntimeError(f"foreign_key_check failed: {fk[:5]}")
         validate_site_tables(con)
+        validate_road_tables(con)
         user_version = con.execute("PRAGMA user_version").fetchone()[0]
         if user_version != 2:
             raise RuntimeError(f"user_version is {user_version}, expected 2")
@@ -840,6 +947,7 @@ def build_db(out_path: Path) -> dict[str, Any]:
         "polygon_vertices": len(poly_rows),
     }
     stats.update(site_stats)
+    stats.update(road_stats)
     return stats
 
 
@@ -861,7 +969,7 @@ def main() -> int:
             print(
                 f"world.db deterministic OK (sha256={hb[:16]}..., {b['bytes']} B, "
                 f"schema v{b['schema_version']}, {b['world_sites']} sites, "
-                f"{b['site_spots']} spots)"
+                f"{b['site_spots']} spots, {b['road_nodes']} road_nodes, {b['road_edges']} road_edges)"
             )
         finally:
             if probe.exists():

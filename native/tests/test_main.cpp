@@ -257,6 +257,61 @@ void TestWorldDbAndSpatialLookups(const std::string& world_db_path) {
     }
   }
   NC_CHECK(centers_with_spawns * 2 >= world.ControlCenters().size());
+
+  // Road graph boot-load, chunk R-Tree prefilter, snapping, and cross-district A* routing.
+  NC_CHECK(world.RoadChunks().size() >= 1000);
+  NC_CHECK(world.RoadNodes().size() >= 25000);
+  NC_CHECK(world.RoadEdgeCount() >= 40000);
+
+  // Every faction HQ snaps cleanly onto the strongly connected road graph.
+  for (const auto& hq : world.FactionHeadquarters()) {
+    const int32_t nid = world.FindNearestRoadNode(hq.x, hq.y, hq.z, 500.0);
+    NC_CHECK(nid > 0);
+    const auto* rn = world.FindRoadNode(nid);
+    NC_CHECK(rn != nullptr);
+    NC_CHECK(world.FindRoadChunk(rn->chunk_id) != nullptr);
+  }
+
+  // SQLite road_chunk_rtree query returns chunks near Corpo Plaza.
+  NC_CHECK(!world.QueryRoadChunksNear(-1609.0, 356.0, 400.0).empty());
+
+  // Cross-district bidirectional A* routes: Watson <-> Santo Domingo, Heywood <-> Dogtown,
+  // and City Center <-> Badlands must all resolve with realistic driving distances.
+  {
+    const auto watson_to_sd = world.FindRoadPathBetween(
+        -1381.8, 1271.7, 25.0,    // Watson (H10 area)
+        -150.0, -1950.0, 10.0);   // Santo Domingo (Rancho Coronado)
+    NC_CHECK(watson_to_sd.found);
+    NC_CHECK(watson_to_sd.waypoints.size() >= 10);
+    NC_CHECK(watson_to_sd.total_length_m > 3000.0 && watson_to_sd.total_length_m < 12000.0);
+    NC_CHECK(watson_to_sd.estimated_seconds > 150.0);
+
+    const auto sd_to_watson = world.FindRoadPathBetween(
+        -150.0, -1950.0, 10.0,
+        -1381.8, 1271.7, 25.0);
+    NC_CHECK(sd_to_watson.found);
+    NC_CHECK(sd_to_watson.total_length_m > 3000.0);
+
+    // Heywood <-> Dogtown interior (verifies Dogtown checkpoint connectivity!)
+    const auto heywood_to_dt = world.FindRoadPathBetween(
+        -1520.0, -976.0, 25.0,    // Heywood (The Glen)
+        -2134.3, -2692.7, 78.6);  // Dogtown (Luxor Heights)
+    NC_CHECK(heywood_to_dt.found);
+    NC_CHECK(heywood_to_dt.total_length_m > 1500.0 && heywood_to_dt.total_length_m < 10000.0);
+
+    const auto dt_to_heywood = world.FindRoadPathBetween(
+        -2134.3, -2692.7, 78.6,
+        -1520.0, -976.0, 25.0);
+    NC_CHECK(dt_to_heywood.found);
+    NC_CHECK(dt_to_heywood.total_length_m > 1500.0);
+
+    // City Center <-> Badlands
+    const auto cc_to_badlands = world.FindRoadPathBetween(
+        -1609.0, 356.5, 25.0,     // City Center
+        3003.6, -2394.3, 118.5);  // Badlands (Wraith Compound area)
+    NC_CHECK(cc_to_badlands.found);
+    NC_CHECK(cc_to_badlands.total_length_m > 5000.0);
+  }
 }
 
 void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
