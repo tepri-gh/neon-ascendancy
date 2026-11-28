@@ -315,6 +315,14 @@
       "pos": [-3991.9, -6504.2, 75.8],
       "check": "The roadhouse garage door (#q000_dvc_garage_door) opens.",
       "why": "the sweep never logged it: its controller comes from an entity template (S4 sweep triage)"
+    },
+    {
+      "kind": "route",
+      "id": "corpbud_mine_traps",
+      "venue": "q103_mine_ambush",
+      "pos": [1880.89, 17.54, 54.58],
+      "check": "Walk in through the mine entrance: no trap goes off.",
+      "why": "owner decision 185: the trap triggers share the prefab that brings Nash and the garrison, so the prefab stays; if a trap fires, it needs a device action"
     }
   ]
 }

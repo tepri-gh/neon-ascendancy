@@ -40,10 +40,10 @@
     {
       "prefab": "#loc_q110_chapel_of_the_black_madonna_fx",
       "states": {
-        "projector_on": 1,
-        "projector_off": 0
+        "projector_on": 0,
+        "projector_off": 1
       },
-      "why": "Runs the chapel projector during the service, matching the sermon phase. Vanilla switches it off only when the quest leaves the chapel."
+      "why": "Owner decision 187 (2026-11-27): no sermon runs, so the projector is off, the state vanilla sets when the quest leaves the chapel. The service lighting stays on (lighting rule, owner #40)."
     },
     {
       "prefab": "#loc_q110_chapel_of_the_black_madonna_lighting",

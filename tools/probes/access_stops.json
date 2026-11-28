@@ -1474,7 +1474,33 @@
    ]
   },
   {
-   "code": "access_48_q103_ghost_town",
+   "code": "access_48_q103_mine_ambush",
+   "name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
+   "kind": "access",
+   "venue": "q103_mine_ambush",
+   "pos": [
+    1880.89,
+    17.54,
+    54.58
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Walk in through the mine entrance: no trap goes off.",
+     "detail": "route corpbud_mine_traps: owner decision 185: the trap triggers share the prefab that brings Nash and the garrison, so the prefab stays; if a trap fires, it needs a device action",
+     "source": "route",
+     "pos": [
+      1880.89,
+      17.54,
+      54.58
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_49_q103_ghost_town",
    "name": "Rocky Ridge (Wraith-held ghost town)",
    "kind": "access",
    "venue": "loc_q103_ghost_town",

@@ -1790,7 +1790,7 @@
         "conflict_note": "Sasquatch belongs at Grand Imperial Mall."
       },
       "strip_from_static": [
-        "For My Son target, transport van and quest staging"
+        "For My Son transport van and quest staging (the gig's target, Logan Garcia, stays as the node's lore boss: owner decision 191)"
       ],
       "needs_garrison_work": false,
       "owner_decisions_resolved": {}

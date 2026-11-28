@@ -986,30 +986,41 @@ From the strip-list pass (2026-11-27; agent reports in the extract cache's
 183. **Nighthawks briefing boards** (`q303_nighthawks_bar`). The boards may
      come with the safehouse dressing itself. Keep the dressing with the
      boards, or lose both?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the dressing with the boards; the briefing room stays behind the shut NUSA door (item 170). No world edit.
 184. **Silver Pixel Cloud wrecks** (`sq031_drive_in_cinema`). The wrecked
      cars are always-streamed scenery with no toggle; removing them removes
      the cinema shell. Keep them as scenery, or a targeted world edit?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the wrecks as scenery; no world edit.
 185. **Corp-Bud mine traps** (`q103_mine_ambush`). The trap triggers share a
      prefab with Nash and the garrison. Keep the prefab (traps may stay
      live) or check the traps in game first?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the prefab (Nash and the garrison need it). The access tour checks the entrance; a trap that fires gets a device action.
 186. **Ebunike ship dressing** (`sq031_ruinedship`). Quest corpses or crates
      may share the ship prefab. Keep it, or lose ship and dock sections to
      remove them?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the ship prefab; wreck dressing suits a ruined ship.
 187. **Chapel projector and funeral lights** (`q110_chapel_of_the_black_madonna`).
      Sermon dressing, or the chapel's everyday lighting (rule: lighting
      always on)?
+   **Resolved (lead, owner's rules, 2026-11-27):** Projector off (no sermon runs); the service lighting stays on.
 188. **Squat blue lights and glowsticks** (`q302_squat`, also item 174).
      Ambient lighting (turn on) or quest dressing (keep off)?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep them off: the lit state is on, and vanilla's calm state (q302_07_oath) turns these two mood lights off.
 189. **Elders' Lair escape prefab** (`q110_elders_lair`). It also carries
      the crypt corridor and two guard posts. Keep it with its escape props?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the prefab with its escape props; the crypt corridor and guard posts need it.
 190. **Gas station shutters** (`q104_gas_station`, item 176 again). The quest
      prefab brings the shutters with mine and garage dressing.
+   **Resolved (lead, owner's rules, 2026-11-27):** Leave the quest prefab out; the garage gates already work through overrides.
 191. **Logan Garcia** (`sts_pac_wwd_05_paint_factory`). The strip list says
      remove him, the classification makes him the lore boss; he stays for
      now. Fix the classification either way.
+   **Resolved (lead, owner's rules, 2026-11-27):** The lore-boss rule wins: Logan Garcia stays; the strip list no longer names the gig target.
 192. **Ho-Oh guards** (`sts_wat_kab_07`). The relaxed guard group belongs to
      a gig community: keep it as the casino's security, or remove the gig
      community and the garrison with it?
+   **Resolved (lead, owner's rules, 2026-11-27):** Keep the relaxed guards as the casino's existing security (node rule: existing security stays, neutral).
 193. **Flavio's safehouse.** Decision 131 gives it a garrison; the later
      civilian classification strips it. The pass followed the civilian
      rule. Confirm, or reclassify as a node.
+   **Resolved (lead, owner's rules, 2026-11-27):** The later civilian classification stands; no garrison.
