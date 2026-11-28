@@ -58,11 +58,12 @@ penalty) live in `data/economy/tunables.json`.
 ## 4. Rules (pure functions, settled each turn in this order)
 
 1. **Income.** For each node: `base_eddies` of its revenue streams, scaled
-   by node scale and influence, title efficiency, node strength, loyalty,
-   sub-district holding, scarcity (fewer named nodes in a sub-district
-   means a higher yield per node), policies and archetype modifiers. Each
-   node also produces Influence; meaningful nodes produce their pillar
-   points. Blocs add their base Influence (history and leader).
+   by node **size** (`small / medium / large`), title efficiency, node strength,
+   loyalty, sub-district holding, policies and archetype modifiers (per-subdistrict
+   scarcity scaling is deferred until simulation testing shows whether it is
+   needed). Each node also produces Influence, its primary pillar output, and
+   **Culture** (`economy > espionage > tech > military`). Blocs add their base
+   Influence (history and leader).
 2. **Branch budgets.** Corps receive their subsidy; performance (territory
    held, losses, later the stock market) moves it for the next turn.
 3. **Deals.** Recurring deals settle; one-off deals execute on acceptance.

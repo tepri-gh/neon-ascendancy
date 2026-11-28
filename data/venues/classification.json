@@ -1,0 +1,4665 @@
+{
+  "spec_version": 1,
+  "policy_doc": "docs/design/venue-node-policy.md",
+  "summary": {
+    "total_items": 194,
+    "buckets": {
+      "civilian_venue": 51,
+      "excluded": 13,
+      "neutral_hub": 7,
+      "node": 123
+    },
+    "node_types": {
+      "military": 23,
+      "economy": 68,
+      "espionage": 13,
+      "tech": 19
+    },
+    "node_sizes": {
+      "large": 28,
+      "medium": 79,
+      "small": 16
+    },
+    "node_controllers": {
+      "scavs": 20,
+      "tyger_claws": 16,
+      "militech": 11,
+      "maelstrom": 10,
+      "wraiths": 10,
+      "ncpd": 9,
+      "sixth_street": 9,
+      "animals": 7,
+      "arasaka": 6,
+      "barghest": 6,
+      "valentinos": 6,
+      "voodoo_boys": 6,
+      "aldecaldos": 3,
+      "the_mox": 2,
+      "biotechnica": 1,
+      "kang_tao": 1
+    },
+    "lore_boss_count": 12,
+    "generated_boss_count": 111,
+    "hqs_mapped": {
+      "aldecaldos": "loc_sq004_mobile_camp",
+      "animals": "loc_q110_pacifica_mall",
+      "arasaka": "loc_arasaka_tower",
+      "barghest": "loc_q303_paradise",
+      "maelstrom": "loc_sq011_totentanz",
+      "sixth_street": "loc_sts_std_arr_11",
+      "the_mox": "loc_q004_lizzys_nightclub",
+      "tyger_claws": "loc_q105_dollhouse",
+      "valentinos": "loc_sts_hey_rey_06",
+      "voodoo_boys": "loc_q110_netrunners_den",
+      "wraiths": "loc_sq004_raffen_shiv_camp"
+    },
+    "owner_decisions_resolved_count": 121
+  },
+  "items": [
+    {
+      "id": "loc_conz_mq304_ce",
+      "display_name": "Container yard lanes below Luxor Heights (Dogtown) \u2014 mq304 city-scene ground",
+      "source_kind": "approved",
+      "case_for_node": "The container yard supports logistics and security.",
+      "case_against_node": "This wrapper covers a public lane and overlaps an existing yard rather than a distinct asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep its civilian street life and leave control to the overlapping yard.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "staged firefight",
+        "handcuffed prisoners and robbery aftermath"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "118": "Keep the fifteen calm locals, omit the staged fight, and leave security areas subject to normal access policy."
+      }
+    },
+    {
+      "id": "loc_hvdr_02_batty",
+      "display_name": "Batty's Hotel",
+      "source_kind": "hand_built",
+      "case_for_node": "Batty\u2019s Hotel is the Voodoo Boys\u2019 designated flagship and netrunner base.",
+      "case_against_node": "This roof-only hand-built record does not itself provide the full hotel garrison and boss.",
+      "bucket": "civilian_venue",
+      "reason": "Heywood (hvdr_02) Beat on the Brat rooftop, not Coastview Batty's Hotel; resolves duplicate VDB HQ and Placide conflict.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Remove any VDB attribution; keep ambient rooftop boxing/crowd only"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_megabuilding_a",
+      "display_name": "Megabuilding H10 (V's home building)",
+      "source_kind": "approved",
+      "case_for_node": "A large populated megabuilding contains shops and security space.",
+      "case_against_node": "V\u2019s home and ordinary residential services are not an identified capturable asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the home building as residential and vendor scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Barry Lewis quest placement"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "177": "Make Barry\u2019s door usable and leave the one-off quest resident out."
+      }
+    },
+    {
+      "id": "loc_mq022_ezekiel",
+      "display_name": "BuryGer diner, Arroyo (MLK & Brandon)",
+      "source_kind": "approved",
+      "case_for_node": "An operating diner supplies local food and trade.",
+      "case_against_node": "Its small interior cannot plausibly fit staff, patrons and six security personnel.",
+      "bucket": "civilian_venue",
+      "reason": "A small diner fails the garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Robbers",
+        "King briefing and quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "97": "Keep the ordinary barman and patrons; omit robbers and King\u2019s briefing booth."
+      }
+    },
+    {
+      "id": "loc_mq030_suit_store",
+      "display_name": "Jinguji \u2014 Downtown clothing store (Senate Avenue)",
+      "source_kind": "approved",
+      "case_for_node": "Luxury retail generates revenue and already has entrance bouncers.",
+      "case_against_node": "Its single showroom cannot plausibly accommodate a five-person security team and boss.",
+      "bucket": "civilian_venue",
+      "reason": "Its single showroom cannot plausibly accommodate a five-person security team and boss.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "attack aftermath",
+        "quest replacement guard"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq303_linas_mansion",
+      "display_name": "Lina Malina's Residence (Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "A sizable mansion could house a guarded property operation.",
+      "case_against_node": "It is a side-job celebrity residence without an established faction operation.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the residence as civilian scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Lina Malina",
+        "Scav acting crew",
+        "side-job staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "84": "Remove Lina and the acting crew from static cast; retain the ordinary parked car and use a calm ambient state."
+      }
+    },
+    {
+      "id": "loc_mq303_shanks_store",
+      "display_name": "Brainporium (BD shop in the Jason Exiled head, Eden Plaza, Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "The BD shop sells a valuable entertainment product.",
+      "case_against_node": "Its compact shop and cell are too small for staff and a full garrison.",
+      "bucket": "civilian_venue",
+      "reason": "The small shop fails the garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Shank and Tool as named side-job cast",
+        "Quest gifts, letter and keycard"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq305_wanted",
+      "display_name": "Bree Whitney's Apartment (Skyline West, Wellsprings)",
+      "source_kind": "approved",
+      "case_for_node": "The building offers ownable residential space.",
+      "case_against_node": "The small ordinary apartment and corridor lack a credible guarded asset.",
+      "bucket": "civilian_venue",
+      "reason": "Retain the residents as civilian scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Bree Whitney",
+        "NetWatch squad and quest paper"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "93": "Keep Cynosure Site D sealed and excluded, with no reoccupation, active hazards, lift access, or quest video replay.",
+        "178": "Open usable entrances and lift floors while leaving Bree and her quest dressing absent."
+      }
+    },
+    {
+      "id": "loc_mq306_boxing_ring",
+      "display_name": "Boxing Ring by Montezuma's Throne (Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "A popular fight ring could generate entertainment revenue.",
+      "case_against_node": "An open street ring is not a substantial guarded business or compound.",
+      "bucket": "civilian_venue",
+      "reason": "The open ring fails the security and asset test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Angie and Animals crew",
+        "Off-duty Barghest combat crew",
+        "Quest fight staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "94": "Keep a generic bout, referee and civilian crowd; omit Aaron, Angie and her Animals."
+      }
+    },
+    {
+      "id": "loc_q000_underground_parking_lot",
+      "display_name": "Embers Underground Parking (The Glen)",
+      "source_kind": "approved",
+      "case_for_node": "The large secured garage is a viable parking business with a booth and VIP lift.",
+      "case_against_node": "Its existing security is too thin and the campaign vehicle staging is not ordinary business.",
+      "bucket": "civilian_venue",
+      "reason": "Basement parking structure directly under Embers; keep ambient parked cars rather than a separate Scav node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "corporate Aerondight",
+        "quest NCPD response",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q004_braindance_store",
+      "display_name": "Cali Express (The Glen, Scoffield Street)",
+      "source_kind": "approved",
+      "case_for_node": "A convenience store generates ordinary retail income.",
+      "case_against_node": "A small shop cannot plausibly accommodate a full garrison and boss.",
+      "bucket": "civilian_venue",
+      "reason": "The small convenience store is civilian retail.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "robbery cast",
+        "braindance tutorial clues"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "73": "Keep the vendor and normal lighting, with the robbery cast and tutorial staging absent."
+      }
+    },
+    {
+      "id": "loc_q101_landfill",
+      "display_name": "Night City Municipal Landfill",
+      "source_kind": "approved",
+      "case_for_node": "A municipal landfill is a potentially valuable waste asset.",
+      "case_against_node": "This mapped dump has no staffed facility or garrison and the separate outpost is already mapped.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the open dump as scenery without duplicating its separate outpost.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Dexter corpse and quest props"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "92": "Keep normal lighting on, omit chase-only staging and leave convoy or ambush content off."
+      }
+    },
+    {
+      "id": "loc_q105_fingers_appartment",
+      "display_name": "Fingers' Clinic, Jig-Jig Street",
+      "source_kind": "approved",
+      "case_for_node": "A ripperdoc clinic has a plausible technology function and a small guard presence.",
+      "case_against_node": "Its waiting and exam rooms are too cramped for five security personnel plus a boss.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the ordinary civilian venue because it fails the asset or garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Fingers\u2019 stairway thugs",
+        "quest-specific pimp and actors"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q110_butcher_shop",
+      "display_name": "Rolland's Butcher Shop (Voodoo Boys front, Coastview)",
+      "source_kind": "approved",
+      "case_for_node": "The Voodoo Boys use the shop as a retail front.",
+      "case_against_node": "A small storefront has no demonstrated room for five guards and a lieutenant alongside staff.",
+      "bucket": "civilian_venue",
+      "reason": "The compact butcher shop fails the garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "quest-only Placide staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q112_arasaka_industrial_park_lookout",
+      "display_name": "Arasaka Industrial Park Lookout (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The rooftop and lift could serve as an industrial observation post.",
+      "case_against_node": "It is a worker lookout with no independent asset role apart from the adjacent industrial park.",
+      "bucket": "civilian_venue",
+      "reason": "Avoid treating an ancillary lookout as a separate guarded node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Takemura recon and parade staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q112_parade_area",
+      "display_name": "Japantown Parade Route (market bridge and shrine)",
+      "source_kind": "approved",
+      "case_for_node": "The market bridge supports multiple stalls, shoppers and a security room.",
+      "case_against_node": "The mapped route also includes parade staging and public circulation that should not become a barricaded checkpoint.",
+      "bucket": "civilian_venue",
+      "reason": "Open-street parade bridge overlapping Cherry Blossom Market & Jig-Jig Street; not an independent building node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "parade barges",
+        "parade blockers",
+        "funeral security and frozen spectators",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q112_safe_house",
+      "display_name": "Abandoned Apartment Building, Vine Street (Vista del Rey)",
+      "source_kind": "approved",
+      "case_for_node": "A whole apartment building could be controlled as real estate.",
+      "case_against_node": "This derelict safe house has no operating business or normal occupants and only a quest raid crew.",
+      "bucket": "civilian_venue",
+      "reason": "Leave the intact ruin as non-node scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Arasaka raid",
+        "Hanako and Takemura",
+        "fake gunfire and AV turrets"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q302_06_basketball",
+      "display_name": "Hillpark Basketball Court (Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "The court is a Voodoo Boys neighborhood gathering place.",
+      "case_against_node": "An open basketball court is not an ownable asset with a credible everyday guarded operation.",
+      "bucket": "civilian_venue",
+      "reason": "The public park is civilian scenery rather than a guarded asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Voodoo Boys combat crews",
+        "drive-by and ambush staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q302_goodnight_charlies",
+      "display_name": "Capit\u00e1n Caliente (Eden Plaza, Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "The full restaurant interior can be reopened as an ownable business.",
+      "case_against_node": "It is abandoned, lightly occupied and would require a new staff and security presence.",
+      "bucket": "civilian_venue",
+      "reason": "Small abandoned Eden Plaza restaurant with one squatter; fails 5+ security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "mines",
+        "quest phone and shelf staging",
+        "Ronald Malone",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "115": "Reopen as Capit\u00e1n Caliente with ordinary staff and a neutral garrison, omit Malone and quest staging, and make the entrance usable.",
+        "173": "Remove or disable the quest mines rather than keeping live traps."
+      }
+    },
+    {
+      "id": "loc_q302_squat",
+      "display_name": "Rindo Hotel",
+      "source_kind": "approved",
+      "case_for_node": "A large hotel footprint could accommodate a security garrison.",
+      "case_against_node": "The unfinished ruin is a civilian squat, not an operating hotel or guarded asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the squatters and exclude the crash-driven cast.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Myers",
+        "Reed",
+        "Barghest pursuit",
+        "Cynosure crew",
+        "one-off Jacob Long and Taylor Gibbs"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "174": "Keep normal lighting on, including the blue lights and glowsticks where they are ambient."
+      }
+    },
+    {
+      "id": "loc_q303_macs_clinic",
+      "display_name": "Farida's Clinic",
+      "source_kind": "approved",
+      "case_for_node": "A ripper clinic can support a technology asset.",
+      "case_against_node": "This small underpass shop cannot plausibly fit five guards and a lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "This small underpass shop cannot plausibly fit five guards and a lieutenant.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "quest meeting staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "98": "Keep Farida as the ordinary cyberware vendor, leave Kurt\u2019s AV off, and defer any separate Monument Avenue research."
+      }
+    },
+    {
+      "id": "loc_q303_nighthawks_bar",
+      "display_name": "The Moth",
+      "source_kind": "approved",
+      "case_for_node": "The functioning bar and lounge can support a compact guarded business.",
+      "case_against_node": "The small floor plan and secret story safehouse make a full garrison a tight fit.",
+      "bucket": "civilian_venue",
+      "reason": "Small one-room Dogtown dive bar with lore-sealed NUSA backroom (owner #170); fails 5+ security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Alex",
+        "NUSA briefing boards and plot staging",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "170": "Keep the secret room accessible while removing the NUSA plot boards and other quest dressing."
+      }
+    },
+    {
+      "id": "loc_q304_songbird_meeting",
+      "display_name": "Tranquil Terrace \u2014 Luxor Heights park and basketball court",
+      "source_kind": "approved",
+      "case_for_node": "A large park can physically accommodate armed groups and meetings.",
+      "case_against_node": "A public park and basketball court lack an ownable pillar operation and are not a fortified asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the ordinary civilian venue because it fails the asset or garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Scavenger and Voodoo Boys security crews",
+        "airdrop camp",
+        "Songbird meeting"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "66": "Keep the civilian park population, omit Songbird and both gang crews, and remove the airdrop encounter."
+      }
+    },
+    {
+      "id": "loc_sq012_diner",
+      "display_name": "Chubby Buffalo's BBQ (The Glen diner)",
+      "source_kind": "approved",
+      "case_for_node": "A busy diner serves the local economy.",
+      "case_against_node": "Its ordinary dining space is a poor fit for five guards and a boss.",
+      "bucket": "civilian_venue",
+      "reason": "The diner fails the everyday garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "I Fought the Law scene actors and staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq017_emptystreet",
+      "display_name": "Empty Street coffee cart (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The working cart supplies a local food service.",
+      "case_against_node": "A single coffee stand cannot support five guards and a lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "A single coffee stand cannot support five guards and a lieutenant.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Kerry meeting actors and vehicle",
+        "freeway ambush"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq017_fast_food",
+      "display_name": "Capit\u00e1n Caliente (Rancho Coronado fast-food restaurant)",
+      "source_kind": "approved",
+      "case_for_node": "The restaurant serves customers and produces retail income.",
+      "case_against_node": "A small fast-food restaurant with ordinary patrons is a poor fit for six security personnel.",
+      "bucket": "civilian_venue",
+      "reason": "The ordinary restaurant remains a civilian venue.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Kerry quest scene"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq021_farm",
+      "display_name": "Edgewood Farm (Anthony Harris's farmstead)",
+      "source_kind": "approved",
+      "case_for_node": "An intact farmstead could support agricultural production.",
+      "case_against_node": "This unattended family farm has no established guarded operation and limited space.",
+      "bucket": "civilian_venue",
+      "reason": "The unattended farmstead lacks a convincing guarded asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Farm quest props and Wraith combat crew"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "70": "Leave Edgewood Farm unattended without a Wraith garrison or staged smuggling content."
+      }
+    },
+    {
+      "id": "loc_sq023_glorias_house",
+      "display_name": "Gloria El-Ahmar's House",
+      "source_kind": "approved",
+      "case_for_node": "A family house provides residential value.",
+      "case_against_node": "The small one-storey home cannot plausibly accommodate a garrison and lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "A small family home fails the garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Gloria and Mariah as side-job cast",
+        "Sinnerman quest props and visit"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq023_resturant",
+      "display_name": "PieZ (Rancho Coronado pizza restaurant)",
+      "source_kind": "approved",
+      "case_for_node": "The staffed restaurant is a functioning neighborhood business.",
+      "case_against_node": "Its ordinary dining room is a small civilian venue without evidence of space for a dedicated garrison and boss.",
+      "bucket": "civilian_venue",
+      "reason": "Its ordinary dining room is a small civilian venue without evidence of space for a dedicated garrison and boss.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "last-supper scene actors and props"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq030_love_shack",
+      "display_name": "Abandoned Lake Dwelling (Laguna Bend Reservoir)",
+      "source_kind": "approved",
+      "case_for_node": "The lit cottage is an accessible lakeside property.",
+      "case_against_node": "A small abandoned cottage cannot accommodate a garrison and boss.",
+      "bucket": "civilian_venue",
+      "reason": "The cottage fails the five-person security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Judy quest staging",
+        "quest van"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq031_drive_in_cinema",
+      "display_name": "Silver Pixel Cloud (North Oak drive-in cinema)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced drive-in lot and projection building can be restored as an ownable entertainment business.",
+      "case_against_node": "It is abandoned with no current staff, garrison, or boss.",
+      "bucket": "civilian_venue",
+      "reason": "Owner decision #20 explicitly kept Silver Pixel Cloud open with no holding crew.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "wrecked cars",
+        "quest combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_01",
+      "display_name": "Haven Clinic",
+      "source_kind": "approved",
+      "case_for_node": "The converted church is a substantial functioning clinic with staff and patients.",
+      "case_against_node": "A free clinic risks feeling militarized and currently lacks a standing garrison.",
+      "bucket": "civilian_venue",
+      "reason": "Owner call (U4): Haven Clinic stays a civilian venue (working ripperdoc hub).",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Scavenger attack and hostages",
+        "one-off gig actors"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_03_gunfight",
+      "display_name": "Longshore Stacks courtyard (Jason Foreman vigil site)",
+      "source_kind": "approved",
+      "case_for_node": "The residential courtyard and shrine are a community gathering place.",
+      "case_against_node": "A small housing courtyard cannot accommodate a faction garrison without displacing residents.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the Stacks courtyard as civilian residential scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Briana Dolson",
+        "Jason Foreman vigil",
+        "blood and crime-scene clues"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_botanic_gardens",
+      "display_name": "Organitopia",
+      "source_kind": "approved",
+      "case_for_node": "The large former garden could in principle be repurposed.",
+      "case_against_node": "The current venue is a ruin with no operating asset or security footprint established.",
+      "bucket": "civilian_venue",
+      "reason": "Leave the lore-clean ruin as scenery.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "gig scorch",
+        "corpse",
+        "loot",
+        "hidden target"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_hey_gle_05",
+      "display_name": "Megabuilding H1 \u2014 basement lift-repair workshop (Gig: Going Up or Down?)",
+      "source_kind": "approved",
+      "case_for_node": "Lift repair is an essential building utility.",
+      "case_against_node": "The single basement workshop cannot credibly fit a full security garrison and boss.",
+      "bucket": "civilian_venue",
+      "reason": "The small utility room remains part of the civilian megabuilding.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "El Gallo",
+        "gig squatter and drug routine"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "150": "Remove El Gallo and the gig squatter, use ordinary staff if available, and enable only built, vanilla-usable lift stops."
+      }
+    },
+    {
+      "id": "loc_sts_hey_rey_01",
+      "display_name": "Gustavo Orta's Apartment",
+      "source_kind": "approved",
+      "case_for_node": "A gang-guarded terrace apartment could hold a small crew.",
+      "case_against_node": "A single residential flat is not an ownable apartment building or meaningful independent asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep ordinary neighbours and remove the residential gang crew.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Gustavo Orta",
+        "apartment and alley gang crews",
+        "Marta coma body"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "124": "Remove Gustavo, Marta and the apartment and alley gang crews, retain ordinary neighbours, and allow usable lift floors."
+      }
+    },
+    {
+      "id": "loc_sts_hey_rey_08",
+      "display_name": "Jacked and Coke (Karubo's bar, Vista del Rey)",
+      "source_kind": "approved",
+      "case_for_node": "The bar is a staffed business with eight Valentino regulars and room for a security detail.",
+      "case_against_node": "The dive is compact and its owner is a one-off gig target, requiring a generated lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "Tiny corner dive bar (Jacked and Coke); fails 5+ security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Karubo Bairei",
+        "Padre driver",
+        "reinforcement car",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "63": "Remove one-off target Karubo, retain the bartender and suitable regulars, and leave Padre\u2019s driver and reinforcement car out."
+      }
+    },
+    {
+      "id": "loc_sts_hey_rey_09",
+      "display_name": "8ug8ear's Apartment Building (Salinas St.)",
+      "source_kind": "approved",
+      "case_for_node": "An apartment building can be owned as a real-estate asset.",
+      "case_against_node": "This modest residential block and single netrunner flat lack evidence of sufficient space for a garrison.",
+      "bucket": "civilian_venue",
+      "reason": "The small residential premises fail the security-space test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "8ug8ear",
+        "Tyger raid crew",
+        "extraction driver and van"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "122": "Keep ordinary residents, remove 8ug8ear and the raid crew, and omit the extraction driver and van."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_05_parking",
+      "display_name": "Kendachi factory parking lot (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced factory garage and parking yard have an eight-person security detail.",
+      "case_against_node": "A parking lot alone could be a staging wrapper rather than an independent factory asset.",
+      "bucket": "civilian_venue",
+      "reason": "Adjacent parking lot of Kendachi Factory; redundant with loc_sts_std_arr_03 as a separate node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Ted Fox and his car",
+        "quest transport and tracker",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "125": "Omit Ted and the quest transport, keep ordinary parked cars as needed, and make the security detail neutral until provoked."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_12_diner",
+      "display_name": "Kenmore Diner (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The diner serves local patrons and could provide food commerce.",
+      "case_against_node": "A small diner with six ambient staff and patrons has no demonstrated space for a security team and lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "A small diner with six ambient staff and patrons has no demonstrated space for a security team and lieutenant.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "transport ambush staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "91": "Keep the vanilla staff and customers as scenery and defer any new food-vendor implementation."
+      }
+    },
+    {
+      "id": "loc_sts_std_rcr_03",
+      "display_name": "Flavio dos Santos's safehouse, Mallagra St. (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The two-storey house and garage already hold eight 6th Street members.",
+      "case_against_node": "It is primarily a one-off victim\u2019s residence and its massacre staging is unsuitable.",
+      "bucket": "civilian_venue",
+      "reason": "Ordinary run-down suburban house (Flavio's safehouse); not an ownable tower or 5+ security asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Flavio dos Santos",
+        "Terrified guests, corpses, escape car and pickup",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "131": "Retain the neutral 6th Street garrison with a generated lieutenant; omit Flavio, terrified guests, escape car and massacre staging."
+      }
+    },
+    {
+      "id": "loc_sts_std_rcr_05",
+      "display_name": "Horrigan Family Home (Gibson St., Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "A house is ownable property.",
+      "case_against_node": "A single family home is too small for staff, five guards and a lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "The family residence fails the security-space test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Rose",
+        "corpse",
+        "blood and quest shard cases"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "113": "Remove the murder dressing and side-job cast, retain ordinary access including the window, and leave population to ambient systems."
+      }
+    },
+    {
+      "id": "loc_sts_wat_kab_01_street_maze",
+      "display_name": "Kabuki Street Maze",
+      "source_kind": "approved",
+      "case_for_node": "Its businesses and residents collectively support a local economy.",
+      "case_against_node": "The mapped venue is a tight network of small shops and alleys rather than one defensible asset.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the ordinary civilian venue because it fails the asset or garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "gang or combat crews",
+        "one-off gig actors"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wat_kab_03_stolen_meds",
+      "display_name": "Columbus St. housing block (Backs Against the Wall)",
+      "source_kind": "approved",
+      "case_for_node": "The housing block has an upstairs flat and street-level residents.",
+      "case_against_node": "The derelict single flat and stoop cannot support a garrison and lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "The small residential site fails the garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "William Hare",
+        "stolen meds",
+        "quest laptop and drug dressing"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "144": "Leave the flat free of Hare and stolen meds and make the door usable."
+      }
+    },
+    {
+      "id": "loc_sts_wat_kab_101_slums",
+      "display_name": "Rooftop Slums near Allen St. (Kabuki)",
+      "source_kind": "approved",
+      "case_for_node": "The occupied rooftop has enough inhabitants and space for a gang crew.",
+      "case_against_node": "A cramped residential slum lacks a distinct ownable pillar asset and should retain its residents.",
+      "bucket": "civilian_venue",
+      "reason": "The rooftop is residential scenery rather than a meaningful guarded asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Scavenger combat crew",
+        "Jae-Hyun and gig staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "83": "Keep the ordinary rooftop residents, strip the Scav combat crew, and do not hand-place Jae-Hyun."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_07b",
+      "display_name": "Aaron McCarlson's Apartment",
+      "source_kind": "approved",
+      "case_for_node": "An apartment block is ownable property.",
+      "case_against_node": "This entry covers a small individual flat with no space for a garrison.",
+      "bucket": "civilian_venue",
+      "reason": "The single flat fails the security-space test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Aaron McCarlson",
+        "gig recording and combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "104": "Remove Aaron from static placement, keep the door usable, and treat ordinary furnishings as belongings."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_jpn_01_tygerclaw_garage",
+      "display_name": "Garage on Redwood St.",
+      "source_kind": "approved",
+      "case_for_node": "The dedicated car workshop and lock-up can operate as a small automotive asset.",
+      "case_against_node": "It has only one current keeper and needs a security team and lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "Single-car lock-up garage on Redwood St. with no guards; fails 5+ security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Sergei Karasinsky",
+        "gift car and hostage",
+        "quest aftermath",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "141": "Remove one-off gig character Sergei, add a generated Tyger garrison and lieutenant, allow normal vehicle access, and omit his quest-associated car."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_jpn_01_tygerclaw_restaurant",
+      "display_name": "Tyger Claws Diner (Japantown)",
+      "source_kind": "approved",
+      "case_for_node": "The diner is an existing gang-associated food business.",
+      "case_against_node": "The compact counter and four loitering Claws do not establish room for staff, five guards and a boss.",
+      "bucket": "civilian_venue",
+      "reason": "The small diner fails the full security-space test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "four Tyger Claws",
+        "delivery car and gig participants"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "151": "Keep the Japantown diner as civilian space with ordinary patrons or staff, and strip the four Claws and delivery staging."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_jpn_05_burned_store",
+      "display_name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
+      "source_kind": "approved",
+      "case_for_node": "The restaurant has a netrunner den that could provide intelligence services.",
+      "case_against_node": "A small basement den with a lone netrunner does not demonstrate room for a garrison.",
+      "bucket": "civilian_venue",
+      "reason": "The small restaurant and den fail the five-guard test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Chang-Hoon Nam"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wbr_jpn_12",
+      "display_name": "Japantown Apartments (Holly & Floyd St) \u2014 Leah Gladen's building",
+      "source_kind": "approved",
+      "case_for_node": "The multi-floor residential building with a lobby and lifts is ownable real estate.",
+      "case_against_node": "Its gig murder scene and bespoke guard are not ordinary tenancy.",
+      "bucket": "civilian_venue",
+      "reason": "Ordinary Japantown residential block with one flat and one gig guard; fails 5+ security test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Leah Gladen corpse",
+        "gig break-in crew",
+        "CorpCracker and quest shards",
+        "Strip combat/gang garrison & gig cast; keep civilian/ambient population only."
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "79": "Do not hand-author one-off gig victim Leah; leave her flat without a static story character.",
+        "80": "Keep the service worker, replace the bespoke gig guard with normal neutral security, and make the stash shutter usable.",
+        "81": "For the separate Wired Head site retain the ten Claws as neutral garrison if classified as a node and omit reinforcement gunmen."
+      }
+    },
+    {
+      "id": "loc_wat_kab_gun_trainer_01",
+      "display_name": "Straight Shooters (Kabuki weapon vendor and shooting range)",
+      "source_kind": "approved",
+      "case_for_node": "A weapons vendor and range have a plausible arms-economy role.",
+      "case_against_node": "The ordinary small shop and range do not establish room for five guards and a lieutenant.",
+      "bucket": "civilian_venue",
+      "reason": "Keep the ordinary civilian venue because it fails the asset or garrison test.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "quest-specific customers or targets",
+        "hostile security crews"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_bls_ina_se1_19",
+      "display_name": "bls_ina_se1_19 (Badlands ridge)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "Six armed Wraiths guard a lookout and arms cache.",
+      "case_against_node": "A bare ridge with a broken car and temporary loot lacks a credible staffed facility.",
+      "bucket": "excluded",
+      "reason": "The exposed stash is encounter staging rather than a sustainable node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "hustle combat crew",
+        "loot and explosive staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_cct_cpz_16",
+      "display_name": "cct_cpz_16 (Corpo Plaza roof)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "Five Kang Tao soldiers guard a rooftop security system and caches.",
+      "case_against_node": "A rooftop loot cluster has no independent facility or room for routine staff and a boss.",
+      "bucket": "excluded",
+      "reason": "The cache is encounter staging rather than a meaningful node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "hustle soldiers",
+        "loot caches"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_hey_gle_105",
+      "display_name": "hey_gle_105 (behind Megabuilding H1)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The arms cache could supply an organization\u2019s operations.",
+      "case_against_node": "A dumpster service row with a few weapon cases is an empty alley staging wrapper.",
+      "bucket": "excluded",
+      "reason": "This is a quest staging wrapper rather than a separate ownable asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "weapon-cache quest dressing"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_hey_gle_109",
+      "display_name": "hey_gle_109 (the Glen)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "A secured arms cache could support a weapons operation.",
+      "case_against_node": "One lock-up bay with no recorded crew cannot plausibly house a garrison and boss.",
+      "bucket": "excluded",
+      "reason": "The isolated cache is too small to operate as a node.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "hustle loot and quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_wat_nid_27",
+      "display_name": "wat_nid_27 (Northside)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "Seven Scavs and a body freezer suggest an illicit harvesting operation.",
+      "case_against_node": "A stripped van and scattered debris do not establish a building or durable guarded site.",
+      "bucket": "excluded",
+      "reason": "The roadside stripping scene lacks a substantial physical asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Scav combat crew",
+        "body freezer and hustle evidence"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq304_bennett_meeting",
+      "display_name": "Bennett's meeting alley (Downtown back court)",
+      "source_kind": "approved",
+      "case_for_node": "A sheltered service court could host a covert meeting.",
+      "case_against_node": "It is a street staging wrapper without a meaningful ownable asset.",
+      "bucket": "excluded",
+      "reason": "It is a street staging wrapper without a meaningful ownable asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Bennett meeting driver and Thrax",
+        "meeting and disguise actors"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "65": "Leave the alley empty of the quest driver and car, retain ordinary clutter, and defer any future dead-drop use."
+      }
+    },
+    {
+      "id": "loc_mq304_ce_2",
+      "display_name": "Longshore Stacks container yard (Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "The container yard is a defined logistics asset with room for security.",
+      "case_against_node": "Its three squatters and encounter staging do not constitute a complete garrison.",
+      "bucket": "excluded",
+      "reason": "Owner call (U11): overlaps Stacks Container Yard (loc_q301_crashsite_way_up); drop.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Barghest encounter pair",
+        "scripted firefight"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "112": "Keep a calm Scav-held yard, omit the Barghest encounter, and supply a node garrison and boss."
+      }
+    },
+    {
+      "id": "loc_mq304_vdb_meeting",
+      "display_name": "High Peak \u2014 the Voodoo Boys' meeting ground",
+      "source_kind": "approved",
+      "case_for_node": "The container and sizable delegation could serve as an outpost.",
+      "case_against_node": "This scraped shelf is a quest meeting and road-staging wrapper with no established operating asset.",
+      "bucket": "excluded",
+      "reason": "This is a quest staging wrapper rather than a separate ownable asset.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Jago and quest delegation",
+        "meeting staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq305_wanted_lab",
+      "display_name": "Cynosure Site D (Militech lab beneath the Kress Street hideout)",
+      "source_kind": "approved",
+      "case_for_node": "The lab has a security gauntlet and technological infrastructure.",
+      "case_against_node": "Cynosure is explicitly lore-excluded and tied to unique story remnants.",
+      "bucket": "excluded",
+      "reason": "The policy explicitly excludes Cynosure bunkers.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Evan McRay recordings",
+        "Bree and Dante",
+        "mines and quest props"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "93": "Keep the lab sealed and unoccupied; remove quest hazards and recordings rather than reoccupying it."
+      }
+    },
+    {
+      "id": "loc_q306_meeting_spot",
+      "display_name": "Downtown back-alley meeting spot (City Center, Songbird's pickup)",
+      "source_kind": "approved",
+      "case_for_node": "A hidden alley could host a clandestine meeting.",
+      "case_against_node": "It is a narrow sleeping spot and quest pickup wrapper, not a viable guarded asset.",
+      "bucket": "excluded",
+      "reason": "The empty alley fails the physical garrison and asset tests.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Songbird",
+        "spy van",
+        "meeting props"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "85": "Keep the ordinary sleeper and omit Songbird, the spy van and quest meeting props."
+      }
+    },
+    {
+      "id": "loc_sq004_abandoned_farmhouse",
+      "display_name": "Ingalls Farm (abandoned farmhouse)",
+      "source_kind": "approved",
+      "case_for_node": "A rural building could shelter a small faction outpost.",
+      "case_against_node": "The derelict farmhouse has no established operational role and is an empty story landmark.",
+      "bucket": "excluded",
+      "reason": "The derelict farmhouse has no established operational role and is an empty story landmark.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "quest party",
+        "nomad bikes",
+        "storm staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq030_underwater_house",
+      "display_name": "Laguna Bend (submerged town)",
+      "source_kind": "approved",
+      "case_for_node": "The drowned town contains several recognizable buildings.",
+      "case_against_node": "The policy explicitly excludes submerged Laguna Bend as unremovable story scenery.",
+      "bucket": "excluded",
+      "reason": "Submerged Laguna Bend is explicitly lore-excluded.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Dive equipment, markers and quest cast"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wbr_jpn_09_netrunner_parking_lot",
+      "display_name": "Netrunner Parking Lot (Japantown)",
+      "source_kind": "approved",
+      "case_for_node": "A netrunner meeting might suggest an intelligence operation.",
+      "case_against_node": "The bare lot is only a one-off job and ambush staging area.",
+      "bucket": "excluded",
+      "reason": "An empty road-side staging lot has no independent asset to restore.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Walt Ozark and gig netrunner",
+        "Truck and Militech ambush teams"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "148": "Leave the staging lot empty, omit the netrunner, Walt, truck and ambush, and defer any hire hook."
+      }
+    },
+    {
+      "id": "loc_mystic_mistys_ripperdoc",
+      "display_name": "Misty's Esoterica and Viktor's Clinic",
+      "source_kind": "approved",
+      "case_for_node": "A ripperdoc clinic provides a technical service.",
+      "case_against_node": "The small shop and basement clinic cannot comfortably house staff, five guards and a boss.",
+      "bucket": "neutral_hub",
+      "reason": "Misty & Viktor core ally / ripperdoc hub; never captured.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q026_judys_apartment",
+      "display_name": "Judy's Apartment (Charter Street, Kabuki)",
+      "source_kind": "approved",
+      "case_for_node": "The residential building could serve as a protected asset.",
+      "case_against_node": "Judy\u2019s apartment is a companion home and cannot flip.",
+      "bucket": "neutral_hub",
+      "reason": "Companion homes are protected neutral hubs.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Evelyn",
+        "suicide and planning-meeting props"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q103_afterlife",
+      "display_name": "The Afterlife",
+      "source_kind": "approved",
+      "case_for_node": "A famous bar with a substantial footprint could be an economic asset.",
+      "case_against_node": "Rogue\u2019s fixer headquarters is explicitly protected and cannot be captured.",
+      "bucket": "neutral_hub",
+      "reason": "Rogue\u2019s fixer headquarters is explicitly protected and cannot be captured.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "heist dressing",
+        "quest-only actors"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq018_jackies_storage",
+      "display_name": "Jackie's Garage",
+      "source_kind": "approved",
+      "case_for_node": "The garage contains a private motorcycle workshop.",
+      "case_against_node": "A single storage unit cannot plausibly fit staff, five guards and a boss.",
+      "bucket": "neutral_hub",
+      "reason": "Jackie Welles companion hub (owner #53: Jackie stays here when not accompanying V).",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "wake-specific quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq021_trailer_park",
+      "display_name": "Red Peaks Trailer Park (Kutcher's Home)",
+      "source_kind": "approved",
+      "case_for_node": "The trailer park has residents, a market and room for security.",
+      "case_against_node": "Joss and River\u2019s family home is a protected companion home rather than a capturable base.",
+      "bucket": "neutral_hub",
+      "reason": "The site is protected by the neutral-hub policy.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "quest-specific family drama and staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq025_delamain_garage",
+      "display_name": "Delamain Corp Headquarters",
+      "source_kind": "approved",
+      "case_for_node": "The large taxi business and workshop are plausible economic assets.",
+      "case_against_node": "Delamain HQ is explicitly protected as a neutral service organization.",
+      "bucket": "neutral_hub",
+      "reason": "The site is protected by the neutral-hub policy.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "side-job malfunction and combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "181": "Make the workshop and control-room doors usable where the floors are normally accessible, while preserving Delamain as a neutral service hub."
+      }
+    },
+    {
+      "id": "loc_sts_ep1_06",
+      "display_name": "Heavy Hearts",
+      "source_kind": "approved",
+      "case_for_node": "The large club has substantial commercial space and security.",
+      "case_against_node": "Mr. Hands uses it as his protected fixer headquarters.",
+      "bucket": "neutral_hub",
+      "reason": "Fixer headquarters are protected neutral hubs.",
+      "node_type": null,
+      "size": null,
+      "is_hq": false,
+      "initial_controller": null,
+      "boss": null,
+      "strip_from_static": [
+        "Gig-specific patrons and quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q103_roadhouse",
+      "display_name": "Sunset Motel (Rocky Ridge roadhouse, Interstate 9)",
+      "source_kind": "approved",
+      "case_for_node": "The roadhouse combines lodging, bar, garage and parking.",
+      "case_against_node": "Ambient patrons and a transient crew do not establish an owner or boss.",
+      "bucket": "node",
+      "reason": "Owner call (U10): keep Sunset Motel as medium Aldecaldos economy node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "aldecaldos",
+      "boss": {
+        "kind": "generated",
+        "name": "Aldecaldos Roadhouse Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest-only Panam scene"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq004_mobile_camp",
+      "display_name": "Mobile Camp (Aldecaldo Camp, Rocky Ridge Plains)",
+      "source_kind": "approved",
+      "case_for_node": "The mobile camp is the clan\u2019s home and guarded convoy base.",
+      "case_against_node": "Its companion and story cast must follow their own ownership rules.",
+      "bucket": "node",
+      "reason": "The mobile camp is the designated Aldecaldos flagship HQ.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "aldecaldos",
+      "boss": {
+        "kind": "lore",
+        "name": "Saul Bright",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest-specific scenes and companions duplicated from their home layer"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq024_mariannes_garage",
+      "display_name": "Claire's Garage",
+      "source_kind": "approved",
+      "case_for_node": "The workshop and yard are an automotive repair asset.",
+      "case_against_node": "The existing record shows only a mechanic and vehicles, with no security or boss.",
+      "bucket": "node",
+      "reason": "The garage and yard fit the policy\u2019s guarded workshop category.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "aldecaldos",
+      "boss": {
+        "kind": "generated",
+        "name": "Aldecaldos Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Claire quest scene"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q110_pacifica_mall",
+      "display_name": "Grand Imperial Mall (GIM), Coastview",
+      "source_kind": "approved",
+      "case_for_node": "The mall is the Animals\u2019 major occupied base with gym and extensive security space.",
+      "case_against_node": "Much of the mall is a derelict quest environment requiring cleanup.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "lore",
+        "name": "Sasquatch",
+        "conflict_note": "Sasquatch is placed here rather than at Tripple Extreme."
+      },
+      "strip_from_static": [
+        "quest combat and lockdown staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "167": "Place Sasquatch here as the Animals\u2019 flagship lieutenant; generate the boss at Tripple Extreme."
+      }
+    },
+    {
+      "id": "loc_rosebud",
+      "display_name": "Red Queen's Race (Charter Hill basement club)",
+      "source_kind": "approved",
+      "case_for_node": "The two-floor club has a bar, private rooms, office and established security.",
+      "case_against_node": "Its basement entrance and campaign associations need clean restoration.",
+      "bucket": "node",
+      "reason": "The operating club has room for staff, guards and a lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "generated",
+        "name": "Animals lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Quest investigation and ambush staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "78": "Set all node garrisons neutral until provoked, with faction standing and affiliation determining hostility."
+      }
+    },
+    {
+      "id": "loc_sq017_nightclub",
+      "display_name": "Riot",
+      "source_kind": "approved",
+      "case_for_node": "Riot is a substantial nightclub with backstage, VIP and security areas.",
+      "case_against_node": "Its named bouncer and VIP crowd alone do not establish a full node garrison and lieutenant.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "generated",
+        "name": "Animals club security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "one-off side-job visitors and targets"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_cct_dtn_02_metal_club",
+      "display_name": "7th Hell",
+      "source_kind": "approved",
+      "case_for_node": "The two-floor nightclub has a functioning bar and Animals security.",
+      "case_against_node": "Its civilian club operation needs a larger guard detail and a suitable lieutenant.",
+      "bucket": "node",
+      "reason": "The guarded nightclub is a viable medium business node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "generated",
+        "name": "Animals Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Jack Mausser gig target",
+        "quest-specific conflict"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_cct_dtn_03",
+      "display_name": "Empathy",
+      "source_kind": "approved",
+      "case_for_node": "Empathy is a staffed club with established Animals bouncers.",
+      "case_against_node": "Its security needs a distinct lieutenant alongside the existing bouncers.",
+      "bucket": "node",
+      "reason": "The full club supports patrons, staff and a guarded business node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "generated",
+        "name": "Animals lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Gig-specific targets and staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_hey_spr_06",
+      "display_name": "Data Inc. electronics store \u2014 Wellsprings, Heywood (Hot Merchandise)",
+      "source_kind": "approved",
+      "case_for_node": "The two-level electronics business has a basement and back room for guarded stock.",
+      "case_against_node": "Its proposed four Animals and side-job manager do not satisfy the standard garrison and cast rules.",
+      "bucket": "node",
+      "reason": "Owner call (U2): keep Data Inc. as small Animals economy node.",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "generated",
+        "name": "Animals Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Rebeca Price",
+        "quest-specific complaining customer"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "136": "Replace Rebeca with a generated lieutenant, retain calm staff and ordinary customers, add security to five and make the front door usable."
+      }
+    },
+    {
+      "id": "loc_sts_pac_wwd_05_paint_factory",
+      "display_name": "Tripple Xtreme Epic Workout Center (Old Paint Factory)",
+      "source_kind": "approved",
+      "case_for_node": "The gym has a fight pit, office, vendor and established Animals crew.",
+      "case_against_node": "Its gang club setting could be mistaken for the Animals flagship.",
+      "bucket": "node",
+      "reason": "The working gym is a guarded business; the mall remains the HQ.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "animals",
+      "boss": {
+        "kind": "lore",
+        "name": "Logan Garcia",
+        "conflict_note": "Sasquatch belongs at Grand Imperial Mall."
+      },
+      "strip_from_static": [
+        "For My Son target, transport van and quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_arasaka_tower",
+      "display_name": "Arasaka Tower \u2014 Corpo Plaza (lobby and counter-intelligence floor)",
+      "source_kind": "approved",
+      "case_for_node": "The tower is Arasaka\u2019s flagship headquarters and hosts a counter-intelligence suite.",
+      "case_against_node": "Only the lobby and one operational floor are currently restored, with upper floors inaccessible.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable espionage asset with space for a five-person garrison and lieutenant.",
+      "node_type": "espionage",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka counter-intelligence lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Lifepath quest actors and staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "180": "Open the meeting room and usable floor-33 doors, verify lift access, and leave vanilla-unusable lift floors closed."
+      }
+    },
+    {
+      "id": "loc_mq059_freedom",
+      "display_name": "Rayfield Contractor Site \u2014 Bullard & Sequoia (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced site supports guarded automotive engineering and a working security team.",
+      "case_against_node": "Its temporary roadworks setting and quest-specific car could make it merely staging.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable tech asset with space for a five-person garrison and lieutenant.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka contractor security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Yorinobu\u2019s Mordred",
+        "dam crash and NCPD response",
+        "quest-specific gang encounter"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "74": "Keep the working staffed site and ordinary parked sedans, omit Mordred and dam gangers, and make security neutral until provoked."
+      }
+    },
+    {
+      "id": "loc_q004_q005_arasaka_hotel",
+      "display_name": "Konpeki Plaza",
+      "source_kind": "hand_built",
+      "case_for_node": "The major Arasaka hotel can house guests, staff and a substantial security force.",
+      "case_against_node": "Its unfinished quest interior and lockdown dressing need significant restoration.",
+      "bucket": "node",
+      "reason": "Konpeki Plaza is explicitly a large hotel economy node.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "lockdown gates",
+        "code red panels",
+        "heist-specific props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "166": "Scope a dedicated restoration task to remove lockdown dressing, restore staff and guards, and make usable access and available lift floors work."
+      }
+    },
+    {
+      "id": "loc_q112_arasaka_industrial_park_warehouse",
+      "display_name": "Arasaka Industrial Park Warehouse (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced freight yard and large warehouse are a significant logistics asset.",
+      "case_against_node": "The parade infiltration and associated quest dressing are not normal operations.",
+      "bucket": "node",
+      "reason": "The fenced freight yard and large warehouse are a significant logistics asset. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "parade quest infiltration prefab"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q113_arasaka_estate",
+      "display_name": "Arasaka Estate (North Oak)",
+      "source_kind": "approved",
+      "case_for_node": "The fortified Arasaka estate has a standing garrison and extensive grounds.",
+      "case_against_node": "A private residence is less directly productive than an industrial or military site.",
+      "bucket": "node",
+      "reason": "Its fortified corporate compound and security detail support military control.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest-only estate events"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q115_fancy_restaurant",
+      "display_name": "Embers",
+      "source_kind": "hand_built",
+      "case_for_node": "The staffed upscale restaurant is a meaningful hospitality asset.",
+      "case_against_node": "Only restaurant staff are specified and its quest-only interior needs normal security.",
+      "bucket": "node",
+      "reason": "Embers is an Arasaka-controlled upscale venue in The Glen, not a Scav den.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "arasaka",
+      "boss": {
+        "kind": "generated",
+        "name": "Arasaka Venue Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Hanako meeting and quest-only cast"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_pr_stadium",
+      "display_name": "EBM Petrochem Stadium (Dogtown black market and Barghest base)",
+      "source_kind": "approved",
+      "case_for_node": "The stadium houses a major guarded black market and workshop.",
+      "case_against_node": "Its arena wreck and quest-specific remains need cleanup for ordinary operation.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "generated",
+        "name": "Barghest market lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest wreckage and mission staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q301_crashsite_way_up",
+      "display_name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
+      "source_kind": "approved",
+      "case_for_node": "The container yard is a substantial occupied logistics and residential site with a Barghest checkpoint.",
+      "case_against_node": "Its crash staging and mixed scavenger camp must be removed to establish a coherent controller.",
+      "bucket": "node",
+      "reason": "The container yard is a substantial occupied logistics and residential site with a Barghest checkpoint. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "generated",
+        "name": "Barghest Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Space Force One crash staging",
+        "scavenger combat crew",
+        "quest wreckage"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q303_combat_zone_gate",
+      "display_name": "Dogtown Gate Checkpoint (Combat Zone Border)",
+      "source_kind": "approved",
+      "case_for_node": "The fortified border checkpoint already has barriers, security posts and a garrison.",
+      "case_against_node": "Its road-control function may overlap broader border mechanics.",
+      "bucket": "node",
+      "reason": "A staffed fortified checkpoint satisfies the military node criteria.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "generated",
+        "name": "Barghest Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "protest dressing and audio",
+        "quest combat waves"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q303_paradise",
+      "display_name": "Black Sapphire (Dogtown)",
+      "source_kind": "hand_built",
+      "case_for_node": "The entrance provides access to the Black Sapphire flagship complex.",
+      "case_against_node": "This record is only a door and shutter wrapper for the larger Black Sapphire, not an independent asset.",
+      "bucket": "node",
+      "reason": "Barghest flagship tower, floor-99 club, and Kurt Hansen HQ (not a staging wrapper).",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "lore",
+        "name": "Kurt Hansen",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest entrance and combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_10",
+      "display_name": "Abandoned Pacifica NCPD Precinct \u2014 Dodger's Barghest base (Coastview)",
+      "source_kind": "approved",
+      "case_for_node": "The occupied precinct has a cell block, garage and established Barghest lieutenant with guards.",
+      "case_against_node": "Captive officers, the corpse and the staged convoy are gig leftovers.",
+      "bucket": "node",
+      "reason": "The occupied precinct has a cell block, garage and established Barghest lieutenant with guards. Its existing boss and security satisfy the staffing requirement.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "lore",
+        "name": "Carl \u201cDodger\u201d Robinson",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "captive NCPD officers",
+        "dead dealer",
+        "informer",
+        "quest police cars and convoy"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_13",
+      "display_name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
+      "source_kind": "approved",
+      "case_for_node": "The academy has a substantial augmentation lab, offices, staff and security.",
+      "case_against_node": "Its athlete exhibition and named gig director are bound to a side job.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable tech asset with space for a five-person garrison and lieutenant.",
+      "node_type": "tech",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "barghest",
+      "boss": {
+        "kind": "generated",
+        "name": "Barghest academy security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Fiona and one-off gig targets",
+        "quest auction and hostage staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_cct_dtn_04",
+      "display_name": "Biotechnica Hotel (Republic Way, Downtown)",
+      "source_kind": "approved",
+      "case_for_node": "The corporate hotel has reception, resident floors, security and a roof AV pad.",
+      "case_against_node": "The assassination target and quest-only staging do not belong in static cast.",
+      "bucket": "node",
+      "reason": "The corporate hotel has reception, resident floors, security and a roof AV pad. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "biotechnica",
+      "boss": {
+        "kind": "generated",
+        "name": "Biotechnica Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Joanne Koch",
+        "gig assassination staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "158": "Remove Koch as a one-off gig target, keep the full neutral security detail and open bar, and make the usable nineteenth-floor lift accessible."
+      }
+    },
+    {
+      "id": "loc_q104_gas_station",
+      "display_name": "SovOil Fuel Station (Highway 101)",
+      "source_kind": "approved",
+      "case_for_node": "The staffed fuel station and garage support a guarded truck-stop business.",
+      "case_against_node": "Its normal civilian use requires new security and careful removal of quest dressing.",
+      "bucket": "node",
+      "reason": "Gas station with garage usable as repair/chop-shop node; Kang Tao holder per territory-node-candidates (owner #169).",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "kang_tao",
+      "boss": {
+        "kind": "generated",
+        "name": "Kang Tao Station Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest mines",
+        "quest garage dressing"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "169": "Keep the station operating and make garage doors usable; remove mines and other quest dressing while retaining or replacing shutters as needed.",
+        "176": "Keep the station operating and make garage doors usable; remove mines and other quest dressing while retaining or replacing shutters as needed."
+      }
+    },
+    {
+      "id": "hustle_wat_nid_02",
+      "display_name": "wat_nid_02 (Northside)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The industrial yard is an occupied outpost with eleven combatants and a boss.",
+      "case_against_node": "Its drug stash alone does not establish a dedicated research facility or stable commerce.",
+      "bucket": "node",
+      "reason": "The industrial yard is an occupied outpost with eleven combatants and a boss. Its existing boss and security satisfy the staffing requirement.",
+      "node_type": "military",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hustle-specific loot and combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq032_maelstrom_warehouse",
+      "display_name": "Abandoned Warehouse \u2014 Northside docks (Maelstrom stash)",
+      "source_kind": "approved",
+      "case_for_node": "A fenced warehouse and yard can support a guarded logistics stash.",
+      "case_against_node": "The captured monk and gig staging would make it a story scene.",
+      "bucket": "node",
+      "reason": "The warehouse remains a usable Maelstrom asset after removing the hostage scene.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "captured monk and brother",
+        "quest hostage staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "90": "Keep the stash and neutral Maelstrom guards; remove both monks and quest-specific Fenrir loot."
+      }
+    },
+    {
+      "id": "loc_q003_meat_factory",
+      "display_name": "All Foods",
+      "source_kind": "hand_built",
+      "case_for_node": "The major factory has production floors, a lab, cells and a large Maelstrom presence.",
+      "case_against_node": "Quest-only interiors and story dressing need a clean operational state.",
+      "bucket": "node",
+      "reason": "The large gang stronghold is distinct from Totentanz, the Maelstrom HQ.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Quest negotiation, hostages and combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq011_totentanz",
+      "display_name": "Totentanz",
+      "source_kind": "approved",
+      "case_for_node": "Maelstrom\u2019s flagship club has a guarded entrance, bar and dancefloor.",
+      "case_against_node": "Restoring a routine club requires separating party life from side-job conflict.",
+      "bucket": "node",
+      "reason": "Totentanz is the designated Maelstrom flagship HQ and a major club.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "side-job conflict and quest-only actors"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq031_ruinedship",
+      "display_name": "DV Ebunike (Ebunike Docks)",
+      "source_kind": "approved",
+      "case_for_node": "The fortified ship and dock operate as a substantial cargo and drug depot.",
+      "case_against_node": "Grayson is connected to Smasher and does not qualify as a territorial faction lieutenant.",
+      "bucket": "node",
+      "reason": "The occupied docks are a large logistics node with a generated Maelstrom boss.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Jeremiah Grayson",
+        "quest-specific Smasher hideout staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wat_kab_02_ripperdoc_lab",
+      "display_name": "North Kabuki Ripperdoc Lab",
+      "source_kind": "approved",
+      "case_for_node": "The operating surgery and meat rooms are a guarded cyberware facility.",
+      "case_against_node": "The small basement and its hostage encounter make ordinary staffing important.",
+      "bucket": "node",
+      "reason": "The multi-room clinic has an established nine-person alternative occupation.",
+      "node_type": "tech",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Lucy hostage staging",
+        "crime-scene gore"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "130": "Keep a calm Maelstrom crew with a generated lieutenant, remove the hostage and gore, and retain the parked Thrax if ambient."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_04_netrunner_hideout",
+      "display_name": "Dirty Biz XBD studio (Maelstrom-guarded netrunner hideout, Northside)",
+      "source_kind": "approved",
+      "case_for_node": "The industrial BD studio and lower guarded floors support information exploitation.",
+      "case_against_node": "Its named tuners are one-off gig targets and reinforcements are encounter staging.",
+      "bucket": "node",
+      "reason": "The multi-floor studio and nine guards support an intelligence node.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Gottfrid Persson",
+        "Fredrik Persson",
+        "reinforcement wave"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "143": "Keep nine calm posted guards and normal studio staff with a generated boss, omit the named gig tuners and reinforcement wave, and open the studio."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_05",
+      "display_name": "HeavenMed clinic (Daniels St., Northside)",
+      "source_kind": "approved",
+      "case_for_node": "The two-floor ripper clinic has operating rooms and a ten-member Maelstrom crew.",
+      "case_against_node": "Its existing named gig figure is not established as an eligible faction lieutenant.",
+      "bucket": "node",
+      "reason": "The guarded cyberware clinic is a viable tech node.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Othmar Brasi",
+        "gig-specific objectives"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "147": "Keep ordinary clinic staff and cars, replace Othmar with a generated lieutenant, and make the security neutral until provoked."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_06",
+      "display_name": "Maelstrom chop shop (Offshore St warehouse, Northside)",
+      "source_kind": "approved",
+      "case_for_node": "The warehouse, garage and yard already accommodate ten Maelstrom members.",
+      "case_against_node": "The gig-specific vehicle and lockdown staging needs removal.",
+      "bucket": "node",
+      "reason": "The established chop shop is a full guarded business.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Dead driver and gig lockdown staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "146": "Keep both five-person crews neutral, provide a lieutenant and retain ordinary stripped cars as shop dressing."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_07",
+      "display_name": "Maelstrom warehouse \u2014 Industrial & Eisenhower (Northside)",
+      "source_kind": "approved",
+      "case_for_node": "The two-storey warehouse is a usable logistics asset with six Maelstrom members.",
+      "case_against_node": "Its security-footage gig and confrontation do not define a permanent business.",
+      "bucket": "node",
+      "reason": "The two-storey warehouse is a usable logistics asset with six Maelstrom members. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "maelstrom",
+      "boss": {
+        "kind": "generated",
+        "name": "Maelstrom Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig recording and playback",
+        "Johnny and Aaron confrontation"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "104": "Leave Aaron out as a one-off side-job character, allow ordinary access to the flat, and retain its ordinary belongings.",
+        "155": "Keep the six Maelstrom neutral until provoked, use the intact pre-gig look with a usable roof hatch, and retain the homeless as ambient civilians."
+      }
+    },
+    {
+      "id": "hustle_bls_ina_se1_05",
+      "display_name": "bls_ina_se1_05 (Badlands)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The fenced powered roadside compound supports a forward security outpost.",
+      "case_against_node": "Its single shack and drone-heavy six combat roles require a verified five-person garrison and boss.",
+      "bucket": "node",
+      "reason": "The fenced powered roadside compound supports a forward security outpost. A garrison and/or lieutenant must be added.",
+      "node_type": "military",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hustle drug stash",
+        "assault staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_bls_ina_se1_23",
+      "display_name": "bls_ina_se1_23 (Badlands)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The industrial garage yard already accommodates ten Militech fighters.",
+      "case_against_node": "Its squatter and corpse-container dressing makes its normal function unclear.",
+      "bucket": "node",
+      "reason": "The occupied garage yard supports a guarded logistics or vehicle asset.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Corpse containers and event-specific combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_cct_dtn_15",
+      "display_name": "cct_dtn_15 (Downtown)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The fenced freight yard and guardpost form a compact logistics site.",
+      "case_against_node": "Only a small team and drone are recorded, with no clear lieutenant.",
+      "bucket": "node",
+      "reason": "The fenced freight yard is a small guarded logistics asset.",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hustle-specific loot and combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_wbr_hil_01",
+      "display_name": "wbr_hil_01 (Charter Hill)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The two-level industrial compound supports a sizable Militech security force.",
+      "case_against_node": "Execution victims and corpse containers make its current scene a one-off atrocity.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech black-site lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "victims",
+        "corpse containers",
+        "execution staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q000_border_crossing",
+      "display_name": "SoCal Border Crossing",
+      "source_kind": "approved",
+      "case_for_node": "The fortified border crossing is a permanent security checkpoint.",
+      "case_against_node": "Its prologue traffic and inspection scenes are story staging.",
+      "bucket": "node",
+      "reason": "Its gates, office, and security staff support a military node.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "prologue queue and scripted inspection"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "171": "Keep the usable double door accessible under the general access policy."
+      }
+    },
+    {
+      "id": "loc_q114_tunnel_site",
+      "display_name": "Maglev Tunnel Construction Site (Badlands)",
+      "source_kind": "approved",
+      "case_for_node": "A construction yard guards a strategic Arasaka underground facility.",
+      "case_against_node": "Its ending-specific context and mixed Militech security need careful cleanup.",
+      "bucket": "node",
+      "reason": "Militech maglev construction compound with 15+ security (owner #27 / territory-node-candidates).",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Tunnel Site Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Aldecaldo assault, barrage and battle remnants"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_bla_ina_04",
+      "display_name": "Sunshine Motel (Militech Outpost)",
+      "source_kind": "approved",
+      "case_for_node": "The fortified motel is an operating Militech forward base with guards and technicians.",
+      "case_against_node": "The radar test and surrounding restricted area are tied to a single gig.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech outpost lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "reinforcement staging",
+        "quest-specific restricted-area hostility"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "121": "Keep the radar van, Emperor and calm base crew, omit reinforcement waves, and make garrison attitude neutral until provoked."
+      }
+    },
+    {
+      "id": "loc_sts_bls_ina_05",
+      "display_name": "Militech Detention Center",
+      "source_kind": "approved",
+      "case_for_node": "The walled detention center has a substantial Militech security contingent.",
+      "case_against_node": "Its gig detainees and extraction setup must be pruned.",
+      "bucket": "node",
+      "reason": "The guarded detention compound is a clear military asset.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Named gig targets",
+        "Quest detainees and extraction car",
+        "Alarm response and reinforcements"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_cct_dtn_05_luxury_yacht",
+      "display_name": "Gold Beach Marina party yacht (Councilwoman Cole's yacht)",
+      "source_kind": "approved",
+      "case_for_node": "The yacht has a bar, party decks, staff and a security room.",
+      "case_against_node": "A single yacht may be too confined to justify its own territorial operation.",
+      "bucket": "node",
+      "reason": "Gold Beach Marina & luxury yacht are under Militech waterfront security (territory-node-candidates / owner #168).",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Marina Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Councilwoman Cole and gig-only cast",
+        "gig loot and response force"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "168": "Treat the marina and yacht as one economy node, with security covering both.",
+        "175": "Keep ordinary toolboxes and safes with the party lighting, excluding gig-specific loot."
+      }
+    },
+    {
+      "id": "loc_sts_hey_gle_01",
+      "display_name": "Tucker Albach's Condo (Scoffield & Sinkyone, The Glen)",
+      "source_kind": "approved",
+      "case_for_node": "The multi-level upscale residence has an office and eight-person security detail.",
+      "case_against_node": "Its current owner and renovation are side-job specific rather than a faction business.",
+      "bucket": "node",
+      "reason": "The guarded upscale property fits the ownable real-estate category.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Tucker Albach",
+        "gig objective"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "153": "Remove Tucker from static cast, retain an appropriately neutral security detail and ordinary renovation staff, and add the truck only as ambient scenery."
+      }
+    },
+    {
+      "id": "loc_sts_std_rcr_01",
+      "display_name": "C-Team Office, Carsten St (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The multi-storey security company has offices, garage and armed personnel.",
+      "case_against_node": "C-Team is not one of the playable controllers and Vic is a gig target.",
+      "bucket": "node",
+      "reason": "A private security office is a military asset under the closest available corporate controller.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "militech",
+      "boss": {
+        "kind": "generated",
+        "name": "Militech Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Vic Vega",
+        "one-off gig petitioners"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq062",
+      "display_name": "Night City Prison (Arroyo) \u2014 visitor center, cell block and security cortex",
+      "source_kind": "approved",
+      "case_for_node": "A maximum-security prison is a major detention and security facility.",
+      "case_against_node": "Its quest-specific prisoners and escape scenarios cannot define the baseline.",
+      "bucket": "node",
+      "reason": "The staffed prison is a substantial NCPD military facility.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Wex and other one-off quest prisoners",
+        "escape scenario and cordon"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q000_roadhouse_town",
+      "display_name": "Yucca",
+      "source_kind": "approved",
+      "case_for_node": "The truck stop combines a working garage, diner and fuel business.",
+      "case_against_node": "The dispersed small town is not an established faction holding and needs a security detail.",
+      "bucket": "node",
+      "reason": "Owner decision #48 assigns Yucca to NCPD with Sheriff Jones; garage also serves future vehicle customization.",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "lore",
+        "name": "Sheriff Jones",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "prologue-specific actors and events"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q111_pumpstation",
+      "display_name": "Wellsprings Water Treatment Facility (Pump Station)",
+      "source_kind": "approved",
+      "case_for_node": "A coastal water treatment plant is a substantial utility asset with a service road and landing pad.",
+      "case_against_node": "The restored crowd is on a beach, not an existing facility garrison.",
+      "bucket": "node",
+      "reason": "The plant itself can support a guarded utility operation.",
+      "node_type": "tech",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "police cordon",
+        "bodies",
+        "beach mines",
+        "Peralez meeting",
+        "quest cab"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "172": "Keep the cordon, bodies and mines off; retain the ordinary beach crowd."
+      }
+    },
+    {
+      "id": "loc_sq006_jefferson_residence",
+      "display_name": "Peralezes' Apartment (Charter Hill penthouse)",
+      "source_kind": "approved",
+      "case_for_node": "The upscale apartment building is explicitly eligible as ownable real estate.",
+      "case_against_node": "The private penthouse and political residents need careful separation from security ownership.",
+      "bucket": "node",
+      "reason": "The building supports a guarded real-estate node with a generated boss.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest surveillance and one-off investigators"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq021_police_lab",
+      "display_name": "NCPD Lab (The Glen)",
+      "source_kind": "approved",
+      "case_for_node": "The NCPD research facility is a meaningful forensic and neuroscience asset.",
+      "case_against_node": "Only one researcher is currently recorded, so the security staffing is missing.",
+      "bucket": "node",
+      "reason": "A full research facility can sustain a security detail and lieutenant.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "River and Sobchak break-in staging",
+        "investigation quest variants"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_cct_cpz_01",
+      "display_name": "Memorial Park NCART Station (concourse and security annex)",
+      "source_kind": "approved",
+      "case_for_node": "The staffed transit facility includes infrastructure, control systems and security rooms.",
+      "case_against_node": "A public station is primarily a transit service and may overlap the metro venue.",
+      "bucket": "node",
+      "reason": "Its dedicated control and security annex is a guardable utility facility.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "heist staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "95": "Keep the concourse and annex accessible with calm staff and the two commuters, coordinating the shared concourse with the metro venue."
+      }
+    },
+    {
+      "id": "loc_sts_hey_gle_03",
+      "display_name": "Gaston Slayton's Apartment (Lobos St, floor 17)",
+      "source_kind": "approved",
+      "case_for_node": "The apartment tower has a lobby, roof and established private security.",
+      "case_against_node": "A collector\u2019s individual apartment is not itself a faction stronghold.",
+      "bucket": "node",
+      "reason": "Owner call (U5): luxury apartment tower node owned initially by NCPD.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "NCPD Security Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Gaston Slayton as one-off gig target",
+        "Quest-specific guitar and collection"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "126": "Keep at least five neutral security staff and ordinary parked AV and workers, omit Gaston and gig-specific collection, and make floor 17 accessible."
+      }
+    },
+    {
+      "id": "loc_sts_std_rcr_02",
+      "display_name": "Night City Center for Psychiatric Health (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The two-floor psychiatric facility has wards, staff and a restricted wing.",
+      "case_against_node": "Medical care is civilian-facing and the quest patient and hostile restrictions must be removed.",
+      "bucket": "node",
+      "reason": "The substantial guarded clinic fits the tech facility category.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "Ncpd Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Jasmine Dixon",
+        "rescue and fixer car",
+        "quest-specific hostility"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "76": "Remove Dixon and rescue staging, retain ordinary patients and staff, and use at least five neutral-until-provoked security staff."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_hil_01",
+      "display_name": "Gutierrezes' Apartment (Charter Hill)",
+      "source_kind": "approved",
+      "case_for_node": "The luxury penthouse building is ownable real estate with a secured lobby and rooftop.",
+      "case_against_node": "Only three human guards are recorded and the owners are absent.",
+      "bucket": "node",
+      "reason": "Owner call (U6): Charter Hill luxury penthouse node owned initially by NCPD.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "ncpd",
+      "boss": {
+        "kind": "generated",
+        "name": "NCPD Security Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig-specific owners and quest staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "71": "Use generated ownership and security, calm automated defenses for normal access, and keep usable penthouse doors and lifts accessible."
+      }
+    },
+    {
+      "id": "hustle_bls_ina_se5_09",
+      "display_name": "bls_ina_se5_09 (Badlands)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The fenced salvage yard and office support vehicle dismantling.",
+      "case_against_node": "It currently has only automated defenses and no human crew.",
+      "bucket": "node",
+      "reason": "The salvage business can plausibly house a new garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Mines and loot-cache quest remnants"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_cct_dtn_12",
+      "display_name": "cct_dtn_12 (Corpo Plaza garage)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "A large garage contains an equipped vehicle-stripping bay and eight guards.",
+      "case_against_node": "The operation occupies corporate property and its event crew may not represent a permanent business.",
+      "bucket": "node",
+      "reason": "The equipped chop shop is a substantial economy asset.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hustle-specific loot and event props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_wat_lch_01",
+      "display_name": "wat_lch_01 (Little China rooftop)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The fortified rooftop supports a large crew and illegal cyberware trade.",
+      "case_against_node": "A hijacked container on a roof may read as an improvised temporary crime scene.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable tech asset with space for a five-person garrison and lieutenant.",
+      "node_type": "tech",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger cyberware lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "victims and quest-specific crime-scene dressing"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_mq306_tech_expo",
+      "display_name": "Digimmortal (Terra Cognita exhibition hall)",
+      "source_kind": "approved",
+      "case_for_node": "The exhibition complex houses an operating ripper clinic and a substantial scavenger garrison.",
+      "case_against_node": "Abandoned exhibits and quest defenses need cleanup before it reads as a working asset.",
+      "bucket": "node",
+      "reason": "The exhibition complex houses an operating ripper clinic and a substantial scavenger garrison. A garrison and/or lieutenant must be added.",
+      "node_type": "tech",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest mines",
+        "post-combat loot dressing",
+        "Damir Kovac and assistant if one-off gig cast"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q000_scavengers",
+      "display_name": "Scavenger Den (Japantown, room 1237)",
+      "source_kind": "approved",
+      "case_for_node": "The occupied den holds a large scavenger crew and cyberware stock.",
+      "case_against_node": "A single apartment risks crowding and has no public business role.",
+      "bucket": "node",
+      "reason": "Owner call (U1): keep as small Scav military node.",
+      "node_type": "military",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger Den Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Quest victims and rescue staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q005_notell_motel",
+      "display_name": "No-Tell Motel (Kabuki)",
+      "source_kind": "approved",
+      "case_for_node": "The motel is an operating multi-floor rental business.",
+      "case_against_node": "Its ordinary patrons and quest guests do not supply a garrison.",
+      "bucket": "node",
+      "reason": "Owner call (U9): keep No-Tell Motel as medium economy node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger Motel Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Lizzy Wizzy",
+        "heist briefing and Liam corpse"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q104_power_plant",
+      "display_name": "Satwave Power Plant (Jackson Plains)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced power plant and control station are a strategic utility.",
+      "case_against_node": "Only three drones are currently present and no human operator is established.",
+      "bucket": "node",
+      "reason": "The compound supports a guarded utility node with a new garrison.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "EMP and alarm staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q105_braindance_studio",
+      "display_name": "Electric Corporation Power Plant (Scavenger XBD studio)",
+      "source_kind": "approved",
+      "case_for_node": "The walled plant houses an extensive XBD production complex and a standing crew.",
+      "case_against_node": "Its campaign kidnapping and violent set dressing must be removed.",
+      "bucket": "node",
+      "reason": "The walled plant houses an extensive XBD production complex and a standing crew. A garrison and/or lieutenant must be added.",
+      "node_type": "espionage",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest victims and hostages",
+        "campaign corpses and quest props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq023_braindance_studio",
+      "display_name": "Fourth Wall Studios (Japantown braindance studio)",
+      "source_kind": "approved",
+      "case_for_node": "A full braindance production studio can support media-based intelligence operations.",
+      "case_against_node": "Its current cast is a civilian film crew with only one guard and no established intel operation.",
+      "bucket": "node",
+      "reason": "A sizable BD studio is a plausible media and intelligence asset.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Rachel Casich",
+        "crucifixion recording",
+        "riot audio",
+        "protester barricade"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq027_rail_junction",
+      "display_name": "Corp-Bud Railroad Station",
+      "source_kind": "approved",
+      "case_for_node": "The loading and washing station is a freight logistics asset with room for guards.",
+      "case_against_node": "It is closed and its recorded occupants are temporary quest forces.",
+      "bucket": "node",
+      "reason": "The reusable industrial station can be occupied as a logistics node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Aldecaldo quest camp",
+        "Militech convoy and investigation"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_bls_ina_11",
+      "display_name": "Warbler Lake Hazardous Waste Facility (Junk Vendor scrapyard)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced scrapyard has garages, offices, workers and five guards.",
+      "case_against_node": "Its junk-vendor operation and broken bot originate in a specific gig.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scrapyard security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest ambush",
+        "roadblock",
+        "quest shards"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "140": "Keep the five neutral guards and ordinary cars, open usable offices, and omit the broken quest sparring bot."
+      }
+    },
+    {
+      "id": "loc_sts_ep1_03",
+      "display_name": "Los Osos Motel (West Wind Estate)",
+      "source_kind": "approved",
+      "case_for_node": "The motel is an occupied cyberware chop-shop with multiple guarded floors.",
+      "case_against_node": "It is derelict and its named gig combatants are quest-specific.",
+      "bucket": "node",
+      "reason": "The existing workshop and Scav occupation form a viable tech asset.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Leon Rinder",
+        "Yasha heavy",
+        "blood and clue props",
+        "dog tag"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "109": "Keep the calm Scav den and ambient parked cars, omit Rinder and the quest heavy, and provide ordinary lighting and a generated boss."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_03",
+      "display_name": "Kendachi Factory, El Camino Rd (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced factory and production yard are a substantial industrial asset.",
+      "case_against_node": "Kendachi is outside the territorial factions and its gig detail cannot define ownership directly.",
+      "bucket": "node",
+      "reason": "The large factory becomes an industrial economy node under the neutral-site default.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Matheus Stove",
+        "gig objective and quest-spawned yard cars"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "156": "Keep proportionate security neutral until provoked, omit quest-spawned cars and Matheus, and install a generated Scav lieutenant."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_10",
+      "display_name": "Cytech Factory",
+      "source_kind": "approved",
+      "case_for_node": "The factory has industrial production, a server room and ten security posts.",
+      "case_against_node": "Its corporate owner is outside the permitted initial controller list.",
+      "bucket": "node",
+      "reason": "The industrial facility supports a guarded technology operation with the neutral default controller.",
+      "node_type": "tech",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Rihanna Kumar",
+        "gig research objective"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "88": "Run the plant with workers and ten neutral-until-provoked guards; leave Rihanna and the gig objective out."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_12_gas_station",
+      "display_name": "Tirempire Auto Shop (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The garage, bays and yard are a substantial automotive business.",
+      "case_against_node": "The existing mechanics and customers do not provide security or a boss.",
+      "bucket": "node",
+      "reason": "The full auto shop meets the policy\u2019s garage-node example.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavs Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Kirk",
+        "Big Joe",
+        "heist crew and quest vehicles"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "129": "Keep the mechanics, assistants and ordinary customer cars, remove Kirk and Big Joe, and add neutral security and a generated boss."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_12_motel",
+      "display_name": "Las Palapas Motel (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "A courtyard motel is an ownable real-estate business with room for a security team.",
+      "case_against_node": "It is primarily poor residential lodging and currently has no guards or boss.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Motel security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Pedro Aimar and quest props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "161": "Omit Pedro, keep ordinary courtyard residents, and make usable room doors accessible."
+      }
+    },
+    {
+      "id": "loc_sts_wat_kab_05_client_signal",
+      "display_name": "Eisenhower St. scav den and Charles Bucks' clinic (Kabuki)",
+      "source_kind": "approved",
+      "case_for_node": "The multi-floor scav den feeds an illegal ripper clinic and already holds six scavs.",
+      "case_against_node": "The clinic is compact and its captive-like BD occupants are tied to the gig.",
+      "bucket": "node",
+      "reason": "The guarded clinic and den form a compact cyberware asset.",
+      "node_type": "tech",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Scavenger lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Quest-specific joytoys and BD victims",
+        "Corpse, laptop and post-gig scenes"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "82": "Keep a neutral territory-owned scav garrison and ordinary clinic staff, omit gig-specific BD occupants, and make the basement accessible."
+      }
+    },
+    {
+      "id": "loc_sts_wat_kab_102_cargo",
+      "display_name": "Kabuki Docks Container Yard",
+      "source_kind": "approved",
+      "case_for_node": "The fenced container yard is an operating logistics asset with room for guards.",
+      "case_against_node": "The current pre-state has only dock workers and a truck, with gig security separate.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Dock security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "GPS tracker",
+        "gig restricted-area markers",
+        "quest-specific target vehicle"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "132": "Use the name Kabuki Docks Container Yard, keep ordinary workers and truck, add a neutral garrison and lieutenant, and omit tracker and quest markers."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_03_abandoned_motel",
+      "display_name": "Abandoned Motel on Martin Street",
+      "source_kind": "approved",
+      "case_for_node": "The two-storey motel is a sizable ownable property with parking and walkways.",
+      "case_against_node": "Its boarded rooms and resident squatters make present-day commercial operation uncertain.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Motel security lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Hwangbo and gig actors",
+        "quest props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "182": "Leave the rooms derelict unless ordinary furnishings are needed for a functioning motel; remove gig props and make usable doors accessible."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_12",
+      "display_name": "Old WNS Station",
+      "source_kind": "approved",
+      "case_for_node": "The two-storey broadcasting studio can serve as a guarded media and intelligence operation.",
+      "case_against_node": "The station is abandoned and its existing security is quest-rigged.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable espionage asset with space for a five-person garrison and lieutenant.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "scavs",
+      "boss": {
+        "kind": "generated",
+        "name": "Media intelligence lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Max Jones",
+        "mines",
+        "trapped door",
+        "quest turret and staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "77": "Remove Max Jones and quest mines and traps, make the front door usable, and install neutral security and a generated lieutenant."
+      }
+    },
+    {
+      "id": "hustle_std_arr_03",
+      "display_name": "std_arr_03 (Hargreaves St, Arroyo)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The industrial drug-manufacturing yard has ten fighters and production infrastructure.",
+      "case_against_node": "The event\u2019s miniboss and reinforcement wave are tied to organized crime gameplay.",
+      "bucket": "node",
+      "reason": "A guarded drug lab is a plausible chemical production asset.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Darius Miles",
+        "reinforcement wave",
+        "hustle loot and event props"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_std_rcr_08",
+      "display_name": "std_rcr_08 (Rancho Coronado)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "A two-storey drug-production house and yard hold eleven fighters.",
+      "case_against_node": "Its captive officers and reinforcement wave are event-specific.",
+      "bucket": "node",
+      "reason": "The guarded production station is a compact chemical asset.",
+      "node_type": "tech",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "6th Street lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Captive officers",
+        "Reinforcement wave and quest casualties"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q305_netwatch_ambush",
+      "display_name": "Abandoned Hotel (West Wind Estate, Pacifica)",
+      "source_kind": "approved",
+      "case_for_node": "The multi-floor building accommodates a substantial gang stronghold.",
+      "case_against_node": "Its vanilla military role is a one-off convoy ambush in a derelict hotel.",
+      "bucket": "node",
+      "reason": "Its existing crew and defensible footprint support a gang hideout after removing ambush staging.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "mines",
+        "turrets",
+        "convoy hologram",
+        "Reed",
+        "MaxTac and ambush vehicles"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_hey_gle_06",
+      "display_name": "Wicked Tires Autoshop (McBride St., the Glen)",
+      "source_kind": "approved",
+      "case_for_node": "The two-level operating garage has mechanics, patrols and an office.",
+      "case_against_node": "Its population and target vehicle are authored for a gig.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "6th Street garage lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Jake Estevez",
+        "quest Colby",
+        "Joaqu\u00edn Davis"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "149": "Keep the full working crew with neutral security, omit Jake and the quest Colby, and use a generated lieutenant instead of a side-job owner."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_01",
+      "display_name": "Dewdrop Inn (Arroyo)",
+      "source_kind": "approved",
+      "case_for_node": "The two-floor motel and protected drug lab are an established 6th Street business.",
+      "case_against_node": "The dead investigator and gig keycard are quest leftovers.",
+      "bucket": "node",
+      "reason": "The two-floor motel and protected drug lab are an established 6th Street business. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Booker Updike corpse",
+        "gig keycard"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "111": "Keep the 6th Street lab crew as neutral-until-provoked node personnel and omit Booker Updike and his corpse."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_06",
+      "display_name": "Sixth Street Garage \u2014 Hargreaves St., Arroyo",
+      "source_kind": "approved",
+      "case_for_node": "The garage and warehouse have a yard, equipment and seven guards.",
+      "case_against_node": "Its recorded occupation centers on a one-off stolen shard and confrontation.",
+      "bucket": "node",
+      "reason": "The garage is a reusable guarded vehicle asset.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Karl Ginsky",
+        "Kang Tao confrontation",
+        "blood",
+        "quest shard"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "142": "Keep the calm gang den with a generated boss, omit Karl and quest blood, and leave unrelated vanilla variants at their defaults."
+      }
+    },
+    {
+      "id": "loc_sts_std_arr_11",
+      "display_name": "6th Street Hideout, Megabuilding H6 (19F)",
+      "source_kind": "approved",
+      "case_for_node": "H6 is the designated 6th Street flagship with a large defended hideout.",
+      "case_against_node": "It occupies a single megabuilding floor and contains a named gig target.",
+      "bucket": "node",
+      "reason": "The established faction HQ has ample existing garrison and needs a lieutenant.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "6th Street lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Lucius Thoran as gig target",
+        "Reinforcement wave and sabotage staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "60": "Keep a live neutral garrison and generic tech staff, omit Lucius and reinforcements, make doors usable and computers powered."
+      }
+    },
+    {
+      "id": "loc_sts_std_rcr_04",
+      "display_name": "6th Street propaganda garage, Oak St. (Rancho Coronado)",
+      "source_kind": "approved",
+      "case_for_node": "The guarded compound hosts a working propaganda server farm and workers.",
+      "case_against_node": "The gig malware objective and any political mission staging are not permanent operations.",
+      "bucket": "node",
+      "reason": "The guarded compound hosts a working propaganda server farm and workers. A garrison and/or lieutenant must be added.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig malware objective and quest staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "159": "Keep the four workers and propaganda servers, include the west building in the compound, and make the garrison neutral until provoked."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_hil_06",
+      "display_name": "Acorn Towers Parking Lot",
+      "source_kind": "approved",
+      "case_for_node": "The fenced parking yard holds a chop-shop crew and numerous vehicles.",
+      "case_against_node": "A gig-specific boss and escape setup do not belong in the static cast.",
+      "bucket": "node",
+      "reason": "The substantial guarded chop-shop yard fits the economy category.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "sixth_street",
+      "boss": {
+        "kind": "generated",
+        "name": "Sixth Street Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Wyatt Alken",
+        "Dan",
+        "gig-specific escape staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "128": "Keep a calm crew of at least five and ordinary cars, remove Dan and the gig boss, leave the vendor with the casino, and use routine security."
+      }
+    },
+    {
+      "id": "loc_q004_lizzys_nightclub",
+      "display_name": "Lizzie's Bar",
+      "source_kind": "approved",
+      "case_for_node": "Lizzie\u2019s is the Mox flagship club with staff, security and offices.",
+      "case_against_node": "Its quest-only rooms and crowd require restoration.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "the_mox",
+      "boss": {
+        "kind": "lore",
+        "name": "Susie Q",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "one-off quest visitors and staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wat_nid_01",
+      "display_name": "Autowerks (Longshore North)",
+      "source_kind": "approved",
+      "case_for_node": "The workshop, hall and container yard form an established Mox automotive business.",
+      "case_against_node": "Its current three workers do not provide the required security and lieutenant.",
+      "bucket": "node",
+      "reason": "The workshop, hall and container yard form an established Mox automotive business. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "the_mox",
+      "boss": {
+        "kind": "generated",
+        "name": "The Mox Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Anna Nox",
+        "Hal Cantos",
+        "dead and wounded Mox",
+        "gig crate and lockdown dressing"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "160": "Omit Hal Cantos and Anna Nox, keep the three ordinary workers, and add the required neutral garrison and generated lieutenant."
+      }
+    },
+    {
+      "id": "hustle_wat_lch_08",
+      "display_name": "wat_lch_08 (Drake & Cartwright, Little China)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The market includes stalls, a diner, a camera grid and a sizable established crew.",
+      "case_against_node": "A street-corner encounter could otherwise be merely a transient crime scene.",
+      "bucket": "node",
+      "reason": "The multi-stall market supports a guarded protection-racket node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hustle robbery victims and scripted combat"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_wbr_jpn_20",
+      "display_name": "wbr_jpn_20 (Willow St, Japantown)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The fenced market block has workshops, multiple levels and a large Tyger presence.",
+      "case_against_node": "Captives and police response are quest staging rather than normal asset population.",
+      "bucket": "node",
+      "reason": "The defensible market and workshop complex supports a guarded economy node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "captives",
+        "bodies",
+        "NCPD incident response",
+        "one-off named target"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q105_dollhouse",
+      "display_name": "Clouds",
+      "source_kind": "approved",
+      "case_for_node": "The multilevel dollhouse is the Tyger Claws\u2019 flagship business.",
+      "case_against_node": "Its quest scenes and staff need separating from ordinary club operations.",
+      "bucket": "node",
+      "reason": "Clouds is the designated Tyger Claws HQ and a large guarded business.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "lore",
+        "name": "Oswald Forrest (Woodman)",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest-only confrontation and story staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q105_jigjig_street",
+      "display_name": "Jig-Jig Street",
+      "source_kind": "approved",
+      "case_for_node": "The extensive red-light market is a meaningful Tyger protection economy.",
+      "case_against_node": "Its public lane overlaps a protected fixer hub and has limited enclosed security space.",
+      "bucket": "node",
+      "reason": "Owner call (U7): open-air economy hubs allowed; Tyger Claws large economy node.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws District Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "one-off quest crowds"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q112_market_area",
+      "display_name": "Cherry Blossom Market (Japantown market area)",
+      "source_kind": "approved",
+      "case_for_node": "The extensive covered market contains many businesses and room for security.",
+      "case_against_node": "A public market needs its civilian commerce preserved instead of becoming a combat scene.",
+      "bucket": "node",
+      "reason": "Owner call (U8): open-air economy hubs allowed; Tyger Claws large economy node.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Market Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Stefan",
+        "Ozob",
+        "quest-specific side-job cast"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq017_pachinko_lounge",
+      "display_name": "Dark Matter",
+      "source_kind": "approved",
+      "case_for_node": "The multi-floor nightclub and pachinko lounge are an ownable nightlife business.",
+      "case_against_node": "Only a single bouncer is currently restored and its premiere crowd is event-specific.",
+      "bucket": "node",
+      "reason": "The club has sufficient space for normal staff and a security detail.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Us Cracks premiere",
+        "press and fan event crowd"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wat_kab_07",
+      "display_name": "Ho-Oh Casino (Kabuki)",
+      "source_kind": "hand_built",
+      "case_for_node": "The multi-floor casino and club is an established Tyger business.",
+      "case_against_node": "The current hand-built state activates a combat community rather than normal staffing.",
+      "bucket": "node",
+      "reason": "The casino is a substantial guardable commercial node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wat_kab_08_cop_hotel",
+      "display_name": "Motel Kabuki",
+      "source_kind": "approved",
+      "case_for_node": "The multi-floor motel and market form a substantial operating business with a Tyger crew.",
+      "case_against_node": "The gig investigation and its one-off characters should not be restored.",
+      "bucket": "node",
+      "reason": "The multi-floor motel and market form a substantial operating business with a Tyger crew. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Anna Hamill",
+        "Dave Hamill",
+        "gig combat and triggers"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "64": "Keep the bouncer and full ordinary market crowd, omit Anna Hamill, and retain a neutral-until-provoked Tyger garrison."
+      }
+    },
+    {
+      "id": "loc_sts_wat_lch_01_server_room",
+      "display_name": "Megabuilding H11 Server Room",
+      "source_kind": "approved",
+      "case_for_node": "A netrunner chair and inner server room support an intelligence den.",
+      "case_against_node": "It is a compact single floor with only five crew and no established lieutenant.",
+      "bucket": "node",
+      "reason": "Owner call (U3): keep H11 Server Room as small Tyger Claws espionage node.",
+      "node_type": "espionage",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Netrunner Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Tatsuya Takei",
+        "Yuri Shaku",
+        "gig combat staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {
+        "138": "Power callable access to usable lift floors, keep five calm generic guards and a generated lieutenant, and apply neutral-until-provoked security."
+      }
+    },
+    {
+      "id": "loc_sts_wat_lch_03_dojo",
+      "display_name": "Deravaja Dojo",
+      "source_kind": "approved",
+      "case_for_node": "The walled Tyger dojo has a training floor, basement and guards.",
+      "case_against_node": "It is a small training business whose listed routine posts include fewer than five dedicated guards.",
+      "bucket": "node",
+      "reason": "The dojo is a substantial gang training stronghold.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Roh Chi-Won",
+        "Ricky",
+        "torture scene",
+        "Timothee LeBeau"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "154": "Keep the Tyger dojo and yard worker, remove the gig cast, and supply five neutral guards and a generated lieutenant."
+      }
+    },
+    {
+      "id": "loc_sts_wat_lch_06_neon_basement",
+      "display_name": "Rovinj St. Glitter Lab (Neon Basement)",
+      "source_kind": "approved",
+      "case_for_node": "Two lab floors and a garage support a guarded chemical production operation.",
+      "case_against_node": "Named gig cooks and sabotage props should not become permanent faction cast.",
+      "bucket": "node",
+      "reason": "The multi-floor drug laboratory supports staff, security and a lieutenant.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Joe Kaneshiro and Yusaku Ogata as gig cast",
+        "Sabotage props and reinforcements"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "133": "Keep generic cooks, neutral Tyger security, ordinary parked cars and the ambient junkie; remove named gig cast and make the entrance usable."
+      }
+    },
+    {
+      "id": "loc_sts_wat_nid_02",
+      "display_name": "Revere Courier Services Facility",
+      "source_kind": "approved",
+      "case_for_node": "The fenced courier depot is a staffed logistics and laundering business.",
+      "case_against_node": "The gig chase and objective elements would compromise its normal operation.",
+      "bucket": "node",
+      "reason": "The two-storey depot is a clear guarded logistics node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig chase crew and objective triggers"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wbr_hil_07",
+      "display_name": "Tyger Claws Casino (Charter Hill)",
+      "source_kind": "approved",
+      "case_for_node": "The casino has a gaming hall, bar, office, staff and distributed security.",
+      "case_against_node": "Its sewer setting and gig netrunner require clean replacement staffing.",
+      "bucket": "node",
+      "reason": "The multi-level casino is a substantial guarded business.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Vortex and post-heist guards",
+        "Heist staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "89": "Allow free entry, retain the bar vendor and ordinary patrons, omit Vortex and post-heist guards, and use generic neutral security and staff."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_jpn_02_monoblade_workshop",
+      "display_name": "Monokatana Workshop (Raymond St, Japantown)",
+      "source_kind": "approved",
+      "case_for_node": "The walled two-level arms workshop has workers, storage and a substantial guard crew.",
+      "case_against_node": "The holding cell and hostage scene are quest-specific and must be cleaned up.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable tech asset with space for a five-person garrison and lieutenant.",
+      "node_type": "tech",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws workshop lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "hostage",
+        "torturer",
+        "post-gig combat event"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "127": "Drop the hostage and torturer, retain the working crew and sufficient neutral guards, and add a generated lieutenant."
+      }
+    },
+    {
+      "id": "loc_sts_wbr_jpn_03_shrine",
+      "display_name": "Chram Denya Jinja",
+      "source_kind": "approved",
+      "case_for_node": "The shrine has a gift shop, substantial grounds and an existing seven-person Tyger detail.",
+      "case_against_node": "It is primarily a religious public space and must retain worshippers and staff.",
+      "bucket": "node",
+      "reason": "Its scale and established security support an economy node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "one-off gig target and combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_wbr_jpn_12b",
+      "display_name": "Wired Head (Japantown)",
+      "source_kind": "approved",
+      "case_for_node": "The two-level braindance club is a meaningful guarded business.",
+      "case_against_node": "Its gig corpse, stolen item and reinforcement waves are quest-specific.",
+      "bucket": "node",
+      "reason": "The club and mezzanine support a medium economy node.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "tyger_claws",
+      "boss": {
+        "kind": "generated",
+        "name": "Tyger Claws Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Leah Gladen\u2019s corpse",
+        "stolen CorpCracker",
+        "gig reinforcement waves"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "79": "Do not hand-author Leah; remove her side-job remains from static placements.",
+        "81": "Keep the ten ordinary Claws neutral until provoked, omit reinforcements, and add a generated lieutenant."
+      }
+    },
+    {
+      "id": "loc_sq022_el_coyote_cojo_bar",
+      "display_name": "El Coyote Cojo",
+      "source_kind": "approved",
+      "case_for_node": "The multi-level Valentino bar is a community and commercial anchor.",
+      "case_against_node": "Its civilian patrons and one bouncer are not a complete garrison.",
+      "bucket": "node",
+      "reason": "The established bar can house staff and a neutral-until-provoked detail.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentinos Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Kirk Sawyer",
+        "Big Joe",
+        "ofrenda quest dressing"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_hey_gle_04",
+      "display_name": "El Pinche Pollo",
+      "source_kind": "approved",
+      "case_for_node": "The restaurant includes an office and gang-only upper floor with a twelve-person crew.",
+      "case_against_node": "The gig evidence and its one-off characters do not belong in a permanent venue.",
+      "bucket": "node",
+      "reason": "The restaurant includes an office and gang-only upper floor with a twelve-person crew. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentinos Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "gig office evidence",
+        "Mauricio Salinas",
+        "Ernesto Mu\u00f1oz"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "96": "Keep the office ordinary and inert, use generated faction staff and lieutenant, and make the garrison neutral until provoked throughout."
+      }
+    },
+    {
+      "id": "loc_sts_hey_rey_02",
+      "display_name": "Dicky Twister",
+      "source_kind": "approved",
+      "case_for_node": "The Valentino-run club has a bar, stage, offices and server rooms.",
+      "case_against_node": "The named crew chief is a gig character and routine security must be established.",
+      "bucket": "node",
+      "reason": "The operating multi-floor club is a viable faction business.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentinos Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Lena Dominguez",
+        "story chat actors",
+        "reinforcement wave"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "157": "Use a generated Valentino lieutenant and at least five neutral guards, retain the service worker and established club name, and do not add Se\u00f1or Ladrillo or Lena as static cast."
+      }
+    },
+    {
+      "id": "loc_sts_hey_rey_06",
+      "display_name": "La Catrina Funeral Home",
+      "source_kind": "approved",
+      "case_for_node": "La Catrina is the Valentino flagship funeral home with a chapel, morgue and garage.",
+      "case_against_node": "Its current ambient setup has only one guard and needs substantial staffing.",
+      "bucket": "node",
+      "reason": "The faction flagship is a large business node requiring a garrison and lieutenant.",
+      "node_type": "economy",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentinos lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Staged funeral, ambush and hacked hologram"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "120": "Keep regular reception and visitors, add normal mortuary staff and a neutral garrison, and operate without a staged permanent wake or time gate."
+      }
+    },
+    {
+      "id": "loc_sts_hey_spr_01",
+      "display_name": "Bus Depot on Benko St \u2014 Wellsprings (Valentino depot)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced depot is an established armed Valentino staging base with an office and vehicle hall.",
+      "case_against_node": "The named target and transport fleet are tied to a single gig.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentino depot lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Jos\u00e9 Luis",
+        "quest bus and car fleet",
+        "quest encounter reinforcements"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "110": "Use a generated Valentino lieutenant and the existing ten neutral guards and ordinary Thrax; omit Jos\u00e9 Luis and quest fleet."
+      }
+    },
+    {
+      "id": "loc_sts_hey_spr_03",
+      "display_name": "Valentinos Auto Shop (Russell St., Wellsprings)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced workshop and yard are an established chop shop.",
+      "case_against_node": "The original vehicle and crew are tied to a gig.",
+      "bucket": "node",
+      "reason": "The working automotive site supports a full economy garrison.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "valentinos",
+      "boss": {
+        "kind": "generated",
+        "name": "Valentinos Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest stolen SUV"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "139": "Keep the calm eleven-person crew with a generated boss, remove the quest SUV, and retain the nomad truck if it is ambient."
+      }
+    },
+    {
+      "id": "loc_q110_chapel_of_the_black_madonna",
+      "display_name": "Pacifica Serenity Bible Church (Chapel of the Black Madonna)",
+      "source_kind": "approved",
+      "case_for_node": "The chapel is a substantial community venue and Voodoo Boys meeting place.",
+      "case_against_node": "Its religious use and nearby separate tunnel den make an armed garrison intrusive.",
+      "bucket": "node",
+      "reason": "The church has space for worshippers and a discreet security team.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "generated",
+        "name": "Voodoo Boys lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Quest sermon scene actors and staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q110_elders_lair",
+      "display_name": "Voodoo Boys' Lair (Pacifica Serenity Bible Church basement and old maglev tunnel)",
+      "source_kind": "approved",
+      "case_for_node": "The maglev tunnel and chair bank form the Voodoo Boys\u2019 central netrunning fortress.",
+      "case_against_node": "Its escape-scene dressing must be removed and a complete garrison verified.",
+      "bucket": "node",
+      "reason": "The maglev tunnel and chair bank form the Voodoo Boys\u2019 central netrunning fortress. A garrison and/or lieutenant must be added.",
+      "node_type": "espionage",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "lore",
+        "name": "Brigitte",
+        "conflict_note": "Brigitte is placed at the Elders\u2019 Lair rather than Batty\u2019s Hotel."
+      },
+      "strip_from_static": [
+        "escape-scene props",
+        "quest ambush waves"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q110_netrunners_den",
+      "display_name": "Voodoo Boys' Netrunners Den (Batty's Hotel / Coastview market)",
+      "source_kind": "approved",
+      "case_for_node": "The hotel and netrunning den form the faction\u2019s headquarters and intelligence operation.",
+      "case_against_node": "The den contains story-specific scenes and Brigitte also fits a more significant site.",
+      "bucket": "node",
+      "reason": "Batty\u2019s is the designated HQ, with Brigitte assigned to the Elders\u2019 Lair.",
+      "node_type": "espionage",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "lore",
+        "name": "Placide",
+        "conflict_note": "Brigitte is assigned to the Elders\u2019 Lair."
+      },
+      "strip_from_static": [
+        "quest-only netrunning scenes"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q110_surroundings",
+      "display_name": "Coastview Relay Tower (Charon Exotics tracking station)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced transmitter is an operating communications relay with a six-person watch.",
+      "case_against_node": "Its exposed platform is small and the quest watch needs a boss.",
+      "bucket": "node",
+      "reason": "The relay supports a compact intelligence outpost.",
+      "node_type": "espionage",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "generated",
+        "name": "Voodoo Boys Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest-only tracking scenes"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "69": "Keep the six calm Voodoo Boys and existing ambient people, add a generated lieutenant, and do not transplant an unrelated child crowd."
+      }
+    },
+    {
+      "id": "loc_q303_hill_park_spa",
+      "display_name": "Eventide Resort & Spa \u2014 Slider's Hideout (Dogtown, Luxor Heights)",
+      "source_kind": "approved",
+      "case_for_node": "Slider\u2019s resort hideout contains a guarded netrunning and server operation.",
+      "case_against_node": "The unfinished resort depends on restoring its pre-quest occupation.",
+      "bucket": "node",
+      "reason": "The substantial operational netrunner den is a clear espionage asset.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "lore",
+        "name": "Slider",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "FIA operation",
+        "Hill Park Scrappers post-quest occupation",
+        "Post-quest loot and damage"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_ep1_12",
+      "display_name": "Luxor High Wellness Spa \u2014 Voodoo Boys base (Luxor Heights, Dogtown)",
+      "source_kind": "approved",
+      "case_for_node": "The occupied spa contains a substantial netrunner operation and server room.",
+      "case_against_node": "The unopened spa and undercover gig cast need cleanup to read as a normal base.",
+      "bucket": "node",
+      "reason": "The sizable occupied complex is an intelligence asset.",
+      "node_type": "espionage",
+      "size": "large",
+      "is_hq": false,
+      "initial_controller": "voodoo_boys",
+      "boss": {
+        "kind": "generated",
+        "name": "Voodoo Boys Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Milko Alexis",
+        "Alan No\u00ebl",
+        "gig-specific broken android and courier"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "67": "Replace Milko and Alan with a generated lieutenant and ordinary staff, retain proportionate neutral security and functioning androids, and leave Ayo\u2019s wing with its separate venue."
+      }
+    },
+    {
+      "id": "hustle_bls_ina_se1_17",
+      "display_name": "bls_ina_se1_17 (I-9, Badlands)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The established camp has a leader seat, workspots and nine combatants.",
+      "case_against_node": "The outpost may be little more than a roadside gang camp.",
+      "bucket": "node",
+      "reason": "Its permanent camp footprint and garrison support a small stronghold.",
+      "node_type": "military",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Bruce Ward if a one-off hustle target"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "hustle_bls_ina_se5_14",
+      "display_name": "bls_ina_se5_14 (Badlands)",
+      "source_kind": "hustle_candidate",
+      "case_for_node": "The roadside garage and car lift form a plausible Wraith chop-shop with six combatants.",
+      "case_against_node": "The hostage and trapped lift are assault staging, and no standing boss is established.",
+      "bucket": "node",
+      "reason": "The roadside garage and car lift form a plausible Wraith chop-shop with six combatants. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Aldecaldo hostage",
+        "car-lift trap",
+        "assault staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_q103_ghost_town",
+      "display_name": "Rocky Ridge (Wraith-held ghost town)",
+      "source_kind": "approved",
+      "case_for_node": "The fuel station and bar provide a trade and transport outpost.",
+      "case_against_node": "The ghost-town staging and power state need cleanup for normal operation.",
+      "bucket": "node",
+      "reason": "The station and bar form a usable guarded Wraith outpost.",
+      "node_type": "economy",
+      "size": "small",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "quest ambush and story staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "179": "Power the town and keep the fuel station and bar accessible with neutral Wraith security."
+      }
+    },
+    {
+      "id": "loc_q103_mine_ambush",
+      "display_name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
+      "source_kind": "approved",
+      "case_for_node": "The fortified multi-level mine is an established Wraith stronghold.",
+      "case_against_node": "The mine is abandoned industrial infrastructure dressed for a specific ambush.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "lore",
+        "name": "Nash",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "ambush waves",
+        "mine trap",
+        "quest explosives and staging"
+      ],
+      "needs_garrison_work": false,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq004_raffen_shiv_camp",
+      "display_name": "Corp-Bud Cement Factory (Wraith camp)",
+      "source_kind": "approved",
+      "case_for_node": "The walled cement factory is the Wraiths\u2019 flagship garage, barracks and stronghold.",
+      "case_against_node": "Its prisoner rescue and chase dressing need removal.",
+      "bucket": "node",
+      "reason": "The site is a lore-cleanable military asset with space for a five-person garrison and lieutenant.",
+      "node_type": "military",
+      "size": "large",
+      "is_hq": true,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraith camp lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "prisoners and hostage staging",
+        "rescue and chase waves",
+        "quest storm staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sq021_farm_wrong",
+      "display_name": "Poppy Farm",
+      "source_kind": "approved",
+      "case_for_node": "The farmstead and yard provide an agricultural site and Wraith smuggling stash for ten gangers.",
+      "case_against_node": "Its abandoned appearance needs ordinary operating activity and removal of quest staging.",
+      "bucket": "node",
+      "reason": "The farmstead and yard provide an agricultural site and Wraith smuggling stash for ten gangers. A garrison and/or lieutenant must be added.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "wrong-farm quest staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "70": "Keep the ten Wraiths as neutral-until-provoked security and treat the site as a working smuggling asset; defer detailed goods content."
+      }
+    },
+    {
+      "id": "loc_sts_bls_ina_02",
+      "display_name": "New American Autoworks (Big Pete's Garage)",
+      "source_kind": "approved",
+      "case_for_node": "The walled garage and fuel station are an established Wraith vehicle business.",
+      "case_against_node": "The named gig target and combat staging are not required to run it.",
+      "bucket": "node",
+      "reason": "The workshop and seven guards meet the node footprint test.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Big Pete",
+        "shooting gunmen",
+        "gig combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "162": "Keep a calm seven-person Wraith garrison with a generated boss and night coverage, omit Big Pete and shooting staging, and use normal access without adding a missing turret."
+      }
+    },
+    {
+      "id": "loc_sts_bls_ina_03",
+      "display_name": "Union Railroad Station (Wraiths outpost)",
+      "source_kind": "approved",
+      "case_for_node": "The fenced rail station has a rooftop antenna and a substantial Wraith garrison.",
+      "case_against_node": "Its abandoned character and quest-only staffing require a normal operating role.",
+      "bucket": "node",
+      "reason": "The fortified antenna outpost supports an espionage role.",
+      "node_type": "espionage",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "reinforcement car",
+        "gig loot and scenes"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "123": "Keep the routine garrison, omit the reinforcement car and add calm ambient Wraiths only if useful."
+      }
+    },
+    {
+      "id": "loc_sts_bls_ina_06",
+      "display_name": "Wraiths Outpost (Municipal Landfill)",
+      "source_kind": "approved",
+      "case_for_node": "The walled landfill compound has sheds, a garage, defenses and seven Wraiths.",
+      "case_against_node": "The hostage scene and gig loot cannot remain as ordinary operations.",
+      "bucket": "node",
+      "reason": "The walled landfill compound has sheds, a garage, defenses and seven Wraiths. A garrison and/or lieutenant must be added.",
+      "node_type": "military",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Iris Tanner hostage",
+        "gig loot and combat staging"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {}
+    },
+    {
+      "id": "loc_sts_bls_ina_08",
+      "display_name": "Wraith Camp (Highway 101)",
+      "source_kind": "approved",
+      "case_for_node": "The camp includes a garage yard for stripping vehicles.",
+      "case_against_node": "Its roadside camp and gig corpse could read as transient quest staging.",
+      "bucket": "node",
+      "reason": "The garage and camp make an occupiable Wraith chop-shop site.",
+      "node_type": "economy",
+      "size": "medium",
+      "is_hq": false,
+      "initial_controller": "wraiths",
+      "boss": {
+        "kind": "generated",
+        "name": "Wraiths Lieutenant",
+        "conflict_note": ""
+      },
+      "strip_from_static": [
+        "Trevor\u2019s corpse and car",
+        "quest clues"
+      ],
+      "needs_garrison_work": true,
+      "owner_decisions_resolved": {
+        "135": "Keep the Wraith garage camp as a node with neutral security and day/night coverage, omit Trevor and his car, and use a reliable camp-side trigger if needed."
+      }
+    }
+  ],
+  "unmatched_owner_decisions_resolved": {
+    "59": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "61": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "62": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "68": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "72": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "75": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "86": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "87": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "99": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "100": "Resolved by 3-way City Politics design (2026-11-27): incumbent Mayor (pro-corp/anti-gang) sits in the politics sim roster with immediate dynamic replacement + 1-week election on assassination; City Hall stays accessible.",
+    "101": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "102": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "103": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "105": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "106": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "107": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "108": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "114": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "116": "Keep excluded per lore-cleanliness rule (memory/ending/crash/out-of-bounds set); no static venue restoration.",
+    "117": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "119": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "134": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "137": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "145": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast.",
+    "152": "Drop from nodes (nothing to restore / open-world ambient only); keep civilian ambient life and vendors where applicable, no gang garrison or gig cast."
+  }
+}

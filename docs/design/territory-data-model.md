@@ -15,10 +15,10 @@ lives in one place.
 
 | Term | Meaning |
 | --- | --- |
-| **Node** | A place a faction holds: corner crew, outpost, business, HQ. The unit of capture. Exactly one controller. |
-| **Scale** | `hangout` (1), `outpost` (2), `landmark` (3), `stronghold` (3–4), `business` (3–4), `hq` (5). The number is the node's influence. |
-| **Type** | The node's pillar focus: `economy` (markets, businesses, shops), `technology` (ripperdocs, labs, workshops), `military` (strongholds, garrisons; also large communities with no specific purpose), `espionage` (netrunner dens, intel hubs), `culture` (venues, shrines, media, community hubs). Small Hangouts may have no type. HQs produce across several pillars. Every node produces Influence (Politics) regardless of type. |
-| **Meaningful node** | Scale `landmark`, `stronghold`, `business` or `hq`. Only these produce pillar resources beyond Influence. |
+| **Node** | A meaningful, capturable place a faction holds (must support staff, 5+ security, and a lieutenant boss; see [`venue-node-policy.md`](venue-node-policy.md)). The unit of capture. Exactly one controller. |
+| **Size** | `small`, `medium`, `large` (e.g. Totentanz is `large`). Drives node output and influence directly (replaces legacy hangout/outpost/landmark/stronghold/business scale split; HQ flag marks each faction's capital). |
+| **Type** | The node's primary pillar focus: `economy` (markets, businesses, clubs, hotels, chop shops, logistics, ownable executive buildings), `espionage` (netrunner dens, server rooms, relay/intel hubs), `tech` (labs, workshops, clinics, power/utility facilities), `military` (strongholds, garrisons, precincts, checkpoints, depots). Every node also outputs Influence (Politics) and **Culture** (`economy > espionage > tech > military`). |
+| **Lieutenant boss** | Every node has 1 boss (lore character at their largest/most meaningful node, otherwise dynamically generated). Killable and replaceable at a cost to the owning faction. |
 | **Controller** | The faction physically holding a node. Drives influence, spawns and pillar output. |
 | **Title holder** | Optional. The faction with the legal/political claim. Holding without title runs at reduced efficiency. Mechanics come with the Politics pillar. |
 | **Bloc** | An internal political faction (vassal) inside a faction, with a leader. A node may be assigned to one of its controller's blocs. |

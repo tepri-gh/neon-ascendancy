@@ -50,9 +50,20 @@ Zetatech, NetWatch, the fixers, …) are dropped as nodes.
 Special factions:
 
 - **Night Corp and the Government of Night City:** special political
-  factions with no territory. They influence the political simulation (how
-  is not yet designed). The game has no Night Corp affiliation, so places
-  tied to Night Corp go to NCPD.
+  factions with no territory. The city's mayoral politics runs on a **three-way
+  political structure** (owner, 2026-11-27):
+  1. **Current Mayor** (Lucius Rhyne / Weldon Holt): **pro-corp** (NCPD counts
+     as corp) / **anti-gang**.
+  2. **Jefferson Peralez:** **anti-corp (federalist)** / **anti-gang**.
+  3. **Third Candidate:** **pro-gang** / **anti-corp**.
+  Any city politician can be targeted by assassination contracts (available to
+  V and to AI factions hiring off-screen freelancers of varying quality).
+  Political assassinations are hard and rare, with a discovery chance that
+  applies a political-influence-gain penalty to the sponsor. On death, a
+  politician gets an immediate dynamically generated replacement; if the
+  **Mayor** dies, the Mayor's simulation effects are nulled until a special
+  **election 1 week (7 turns) later**. The game has no Night Corp affiliation,
+  so places tied to Night Corp go to NCPD.
 - **Scavs:** rebels/pirates, the unaligned swarm faction (like rebels in
   Mount & Blade or pirates in Stellaris), constantly at war with everyone.
   Every neutral or abandoned node is held by the Scavs. Scav nodes are
@@ -66,16 +77,28 @@ lieutenants) are to be represented. Design pending.
 
 ## 2. Territory: nodes and sub-districts
 
-- **Node:** every place a faction holds counts toward territory:
-  corners, small spawns, outposts, businesses, HQs. Each has exactly one
-  owner (no co-owners), a type (pillar focus) and an integer influence by scale: Hangout 1,
-  Outpost 2, Landmark 3, Stronghold 3–4, Business 3–4, HQ 5. Dynamic events,
-  patrols and convoys are presence only, not nodes.
-- **Pillar resources:** only *meaningful* nodes produce pillar
-  resources (cultural, economic, espionage, military, political): businesses,
-  HQs, places with meaningful interiors, large community spawns, and
-  meaningful lore locations (an open market, a prominent alley group). Minor
-  nodes add influence only.
+- **Node:** every meaningful place a faction holds counts toward territory (see
+  [`venue-node-policy.md`](venue-node-policy.md) for the strict node criteria).
+  Each node has exactly one controller (no co-owners), a **type** in
+  `{economy, espionage, tech, military}` (big clubs and hotels fold into
+  `economy`), and a **size** in `{small, medium, large}` (e.g. Totentanz is
+  `large`). Every node must plausibly support staff, a **5+ security team**,
+  and a **lieutenant boss**. Small one-off shops, street corners, and venues
+  that fail the 5+ security test are dropped from nodes (if mapped, kept as
+  civilian-only venues). Dynamic events, patrols and convoys are presence only,
+  not nodes.
+- **Pillar resources & universal culture:** Every node produces its primary
+  pillar output plus Influence (Politics) and **Culture**, scaled by node
+  `size` (`small / medium / large`). Cultural output is ordered by node type:
+  **`economy > espionage > tech > military`**. Sub-district scarcity scaling
+  (boosting yield when a sub-district has fewer nodes) is **deferred** until
+  simulation testing shows whether it is needed.
+- **Bosses & replacement:** Every node is staffed by a **lieutenant boss**
+  (lore faction character where there is no placement conflict — on conflict,
+  the lore character sits at the larger, more meaningful node and the smaller
+  node gets a dynamically generated boss). Any lieutenant, gang/corp leader, or
+  city politician can be killed and dynamically replaced; losing a lieutenant
+  imposes a replacement cost on the owning gang/corp.
 - **Connected capture:** important nodes cannot be taken directly. You must
   first secure the connected nodes around them, so an HQ cannot
   be walked into, turf and gang wars play out realistically, and control does

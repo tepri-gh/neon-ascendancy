@@ -178,6 +178,22 @@ model, effective modifiers.
   but must join defensive wars. An alliance also unlocks trade in more
   advanced equipment (e.g. Tyger Claws allied with Arasaka can buy weapon
   tiers above their normal cap).
+- **City mayoral politics (owner, 2026-11-27):** Three-way structure —
+  (1) Current Mayor: pro-corp (NCPD counted as corp) / anti-gang;
+  (2) Jefferson Peralez: anti-corp federalist / anti-gang;
+  (3) Third candidate: pro-gang / anti-corp.
+  Any politician can be targeted for assassination by V or by AI-hired
+  freelancers of varying quality (hard and rare, with a discovery chance that
+  penalizes the sponsor's political influence gain). On death, the politician
+  gets an immediate dynamically generated replacement; if the **Mayor** dies,
+  mayoral sim effects are nulled and a special election runs 1 week (7 turns)
+  later.
+- **Dynamic character replacement & lieutenant deaths (owner, 2026-11-27):**
+  Every node is staffed by a lieutenant boss; faction leaders, lieutenants,
+  and politicians can all be killed and dynamically replaced. Killing a node's
+  lieutenant imposes a replacement cost on the owning faction (eddies +
+  political influence / bloc satisfaction hit). Side-job & gig characters are
+  removed from static placements unless they fit into the simulation roster.
 
 ## 7. Open questions
 
