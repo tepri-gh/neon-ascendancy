@@ -80,7 +80,14 @@ def main():
             ident = str(obj.get('id','')).removesuffix('ULL')
             cmd = shlex.join(['tools/world-deletions.py','add',ident,'--venue',str(venue),'--why',f'Quest object or corpse at {code}'])
             add('quest_object' if obj.get('quest') else 'corpse', code, obj, cmd)
-        for record in s.get('missing_records') or []: add('missing_record', code, {'record':record}, venue_route(record))
+        # Expected records include time-of-day and dynamic entries, so one absent
+        # record is noise; flag the stop when most of them are missing.
+        missing = s.get('missing_records') or []
+        expected = len((stops.get(code) or {}).get('expected_records') or []) or len(missing)
+        mr = rules['missing_records']
+        if len(missing) >= mr['min_count'] and len(missing) >= mr['min_share'] * expected:
+            add('missing_records', code, {'missing': len(missing), 'expected': expected, 'records': missing},
+                [venue_route(r) for r in missing])
         civilian_records = {o.get('record') for o in options if o.get('role') == 'civilian'}
         if bucket in ('node','civilian_venue') and civilian_records and not any(not n.get('dead') and (n.get('record') in civilian_records or n.get('affiliation') in rules['civilian_affiliations']) for n in npcs): add('empty_public', code, {'expected_civilian_records':sorted(x for x in civilian_records if x)}, 'owner look in play')
         for d in s.get('devices') or []:

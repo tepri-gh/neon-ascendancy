@@ -171,5 +171,10 @@
     "INTERACTIVE",
     "AUTOMATIC",
     "PHYSICAL"
-  ]
+  ],
+  "missing_records": {
+    "min_count": 3,
+    "min_share": 0.5,
+    "why": "Flag a stop only when at least min_count and min_share of its expected records are absent; single absences are usually time-of-day or dynamic entries."
+  }
 }
