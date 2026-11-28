@@ -2061,7 +2061,7 @@
         "informer",
         "quest police cars and convoy"
       ],
-      "needs_garrison_work": false,
+      "needs_garrison_work": true,
       "owner_decisions_resolved": {}
     },
     {

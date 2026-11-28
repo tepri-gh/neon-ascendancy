@@ -139,6 +139,15 @@ When classifying venues and settling pending `owner-decisions.md` items:
 - **Quest dressing:** Corpses, hostages, mines, blood decals, ambush/reinforcement
   waves, and gig escape cars stay **OFF**. Everyday ambient vehicles, vendors,
   and calm staff stay **ON**.
+- **Investigation markers (owner, tour 2026-11-27):** any object that carries a
+  quest investigation marker (a scannable clue, a gig's evidence prop, a
+  destroyed quest vehicle) is removed, and the marker with it.
+- **Wrecks at garages (owner, tour 2026-11-27):** broken-down or stripped cars
+  at a garage, chop shop or auto shop are removed; the venue reads as a working
+  business.
+- **Security strength (owner, tour 2026-11-27):** a node's existing vanilla
+  guards do not count as its garrison when they read as a token presence (Dodger's
+  garage, `sts_ep1_10`); it still gets the full garrison work.
 - **Ambiguity discipline:** Classifying agents must reason through **both** the
   case FOR a venue being a node and the case AGAINST it before deciding.
   `undecided` is reserved for genuinely balanced edge cases and must stay small
