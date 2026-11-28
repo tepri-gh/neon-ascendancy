@@ -64,14 +64,6 @@
       "why": "Second stoop kid leaning on the same wall with a cigarette; relaxed ambient stance."
     },
     {
-      "spawner": "#mq010_com_barry",
-      "entry_name": "barry",
-      "phase_name": "sit_inside",
-      "action": "Activate",
-      "why": "Barry Lewis at home in flat 0613, sitting in a chair. His depression and refusal to answer the door predate the game's story, so this is the normal pre-heist state; by_door and cyberpsycho are the mq010 scene/lockdown phases and are not used.",
-      "needs_tour_check": true
-    },
-    {
       "spawner": "#mq011_com_contestants",
       "entry_name": "contestant_01",
       "phase_name": "idle",
@@ -110,6 +102,6 @@
   "proximity_wait": {
     "ref": "#q001_door_mb_v_floor",
     "within": 80.0,
-    "why": "The broken metal-fence gate (#q001_door_mb_v_floor, gate_metal_fence_prefab5OZIO4Q) on V's own floor, where the two residents stood at tour time: a DoorControllerPS vanilla drives (q001_ride_to_mb) and that every player passes between the lift and the apartment, at z ≈ 123. Its proximity covers the floor-07 flat and shop (z ≈ 119) and the floor-08 corridor; the lobby at street level gets the boot activation only."
+    "why": "The broken metal-fence gate (#q001_door_mb_v_floor, gate_metal_fence_prefab5OZIO4Q) on V's own floor, where the two residents stood at tour time: a DoorControllerPS vanilla drives (q001_ride_to_mb) and that every player passes between the lift and the apartment, at z \u2248 123. Its proximity covers the floor-07 flat and shop (z \u2248 119) and the floor-08 corridor; the lobby at street level gets the boot activation only."
   }
 }

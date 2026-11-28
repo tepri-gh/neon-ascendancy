@@ -34,15 +34,7 @@
       "needs_tour_check": true
     }
   ],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#alex",
-      "entry_name": "alex",
-      "phase_name": "q303_02_nighthawks_01_bar",
-      "why": "Alex (Alena Xenakis) is the Moth's owner and bartender under the alias Daphne, and the bar is her cover and workplace. q303_02_nighthawks_01_bar is her bar-side placement while the venue is open for business; vanilla uses it for the first bar scene. Her other phases are the after-hours heart-to-heart (q304_03_alex_heart_to_heart) and the q306 epilogue, both story scenes, so the bar phase is the normal-occupancy choice."
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#loc_q303_nighthawks_bar_lighting",

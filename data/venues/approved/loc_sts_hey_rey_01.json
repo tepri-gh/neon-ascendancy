@@ -24,27 +24,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "Four ordinary neighbours on the terrace outside the building: homeless man searching a bin / sitting with a bottle, two tenants on phones, leaning and squatting, and a worker kneeling with a tablet. Vanilla activates the whole community, which lands every entry in its relaxed default phase."
-    },
-    {
-      "spawner": "#rey_01_gustavo_com",
-      "entry_name": "gustavo",
-      "phase_name": "B",
-      "action": "Activate",
-      "why": "Gustavo at home, sitting in his office chair at z=51.37. Vanilla uses phase B when V reaches the flat, and it is the calm, pre-dialogue pose; he is alive and a Valentino resident because the contract on him never exists in our timeline."
-    },
-    {
-      "spawner": "#rey_01_apartment_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Gustavo's six Valentino henchmen inside the flat. Whole-community activation uses each entry's initial phase (enemy_001/003/004/005/006 A_spawn, enemy_002 B), all relaxed: table lean, wall lean, phone, tablet, pills, chair. They read as household security, not a combat scene, and combat groups come first under rule 11a. The miner tags these records civilian; they are Valentino riflemen, an officer and a range guard."
-    },
-    {
-      "spawner": "#rey_01_groud_floor_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Three Valentinos in the lower alley by the lift, at z about 7.4: graffiti spraying, wall lean, drinking from a can. Vanilla's prestate control activates this whole community as the venue's baseline before the gig, so it belongs to the normal look. Records are the same Valentino ground gang as the gig guards."
     }
   ],
   "spawn_sets": [],

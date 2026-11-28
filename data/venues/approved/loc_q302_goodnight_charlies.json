@@ -1,7 +1,7 @@
 {
   "code": "q302_goodnight_charlies",
-  "display_name": "Capitán Caliente (Eden Plaza, Dogtown)",
-  "why": "Capitán Caliente is the abandoned restaurant below Montezuma's Throne in Eden Plaza, Golden Pacific, entered from Monument Ave; its location prefab is internally named loc_q302_goodnight_charlies. Vanilla gives it a full interior, a fusebox-locked front door, an old telephone behind a sliding shelf and a scavenger stash, but only one body of its own: a homeless scavenger who advertises at the door. This proposal restores that squatter, the #q302_pr_bar quest prefab his workspot lives in, and the railing-collision variant vanilla always sets. The 6th Street protest in the same catalogue record is a Dogtown gate set-piece, not this venue's crowd, and is left out.",
+  "display_name": "Capit\u00e1n Caliente (Eden Plaza, Dogtown)",
+  "why": "Capit\u00e1n Caliente is the abandoned restaurant below Montezuma's Throne in Eden Plaza, Golden Pacific, entered from Monument Ave; its location prefab is internally named loc_q302_goodnight_charlies. Vanilla gives it a full interior, a fusebox-locked front door, an old telephone behind a sliding shelf and a scavenger stash, but only one body of its own: a homeless scavenger who advertises at the door. This proposal restores that squatter, the #q302_pr_bar quest prefab his workspot lives in, and the railing-collision variant vanilla always sets. The 6th Street protest in the same catalogue record is a Dogtown gate set-piece, not this venue's crowd, and is left out.",
   "source": {
     "proposal": "research/loc_q302_goodnight_charlies/proposal.json",
     "confidence": "medium",
@@ -18,16 +18,7 @@
   "prefabs": [
     "#q302_pr_bar"
   ],
-  "communities": [
-    {
-      "spawner": "#q302_com_caliente_scav",
-      "entry_name": "scav_hobo",
-      "phase_name": "a",
-      "action": "Activate",
-      "why": "Vanilla's only ambient body of its own at the bar: a homeless scavenger who stands at the front advertising, made non-reactive to V (ReactionPresets.NoReaction). Phase a is his spot at the restaurant (-1669.65, -2421.77, 39.92); phase tree is a different place and is left out. Restoring him keeps the closed bar from being completely dead without inventing staff.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

@@ -60,27 +60,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Fourth joytoy of the queue, sitting on the other waiting-room chair (generic__sit_chair__sit_around__01, spot -577.23, 798.4, 24.94)."
-    },
-    {
-      "spawner": "#q105_com_fingers_combat",
-      "entry_name": "goon_01",
-      "phase_name": "start",
-      "action": "Activate",
-      "why": "One of Fingers' three thugs on the clinic stairs, sitting on the rail (generic__sit_stairs_lean_back__sit_around, spot -581.77, 802.74, 20.3). `start` is the relaxed pre-quest pose vanilla's setup activates; `attack` and `outside` are the fight and the post-fight escape and are dropped. Catalogue tags the record civilian from its name; it is armed muscle, so it ranks above the queue under rule 11a."
-    },
-    {
-      "spawner": "#q105_com_fingers_combat",
-      "entry_name": "goon_02",
-      "phase_name": "start",
-      "action": "Activate",
-      "why": "Second thug, standing around at the foot of the stairs (generic__stand_ground__stand_around__02, spot -579.95, 802.01, 20.9). Same setup-phase choice as goon_01; `non_hostile` is the quest's truce state, not the pre-quest look."
-    },
-    {
-      "spawner": "#q105_com_fingers_combat",
-      "entry_name": "goon_03",
-      "phase_name": "start",
-      "action": "Activate",
-      "why": "Third thug, eating takeout on the stairs (generic__sit_chair_asian_takeout__eat, spot -581.75, 804.1, 20.21) - the most obviously off-duty of the three and the reason the group reads as standing guard rather than waiting for a fight."
     }
   ],
   "spawn_sets": [],

@@ -18,24 +18,7 @@
   "prefabs": [
     "#mq303_pr_linas_mansion"
   ],
-  "communities": [
-    {
-      "spawner": "#mq303_com_gangers",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Whole-community activation switches on all five scavengers in their initial phases, exactly the group vanilla spawns at the mansion's start: scavenger_1/2/4 in start, scavenger_5/6 in change. Their spots are all loitering poses: standing around, a big scav sitting in a chair, sitting on a ledge, sitting on the ledge smoking, standing on a phone, standing with a cigarette. The wiki calls them a group of Scavengers who look like members of Lina's acting crew waiting outside, so they read as the star's crew rather than an attack; the catalogue tags them civilian because the records are named mq303_scav_N, but they are gangers, so I rank them combat under rule 11a. needs_tour_check because the group's attitude is unverified and two of the five use the phase-'change' spot.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#mq303_com_ganger_veh",
-      "entry_name": "car",
-      "phase_name": "start",
-      "action": "Activate",
-      "why": "The crew's parked Archer Hella, spawned by the same mansion phase step as the crew; 'left' is the state after they drive off, so start is the car-present state. A car in the drive makes the group read as people who arrived together instead of five men loitering for no reason. Vehicles carry no posture in the catalogue, hence the tour check that it sits off the entrance.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

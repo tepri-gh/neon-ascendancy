@@ -19,15 +19,7 @@
   "prefabs": [
     "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_restaurant_prefab5C6JH2Q/#loc_sts_wbr_jpn_01_tygerclaw_restaurant_openworld/#sts_wbr_jpn_01b_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#jpn_01_com_tyger_claws",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The diner's whole Claw crew: Enemy_01 and Enemy_03 handgunners on stand_ground guard spots, Enemy_02 a dual-melee blade on stand_ground guard, Enemy_03 also leaning on a wall smoking, Enemy_04 a rifle on the master guard spot. Their only vanilla state is 0_default (Enemy_02 also has an unused 1_inside cellphone phase), and every 0_default workspot is a stand, guard, lean or smoke - the restaurant's bouncers/hangers-on, not a fight. Vanilla switches the set on exactly this way twice: ungated by the Japantown street-story manager and again by the post-delivery openworld phase, which is the normal 'diner after the delivery' look we want."
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

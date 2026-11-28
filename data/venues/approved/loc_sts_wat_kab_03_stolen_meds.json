@@ -20,16 +20,7 @@
   "prefabs": [
     "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_03_stolen_meds_prefabTJEH3AI/loc_sts_wat_kab_03_stolen_meds_openworld_prefab645JSRI/#sts_wat_kab_03_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#kab_03_com_ar",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Whole-community activation, exactly the shape vanilla uses while the gig is live: sts_wat_kab_03_openworld activates entry None / phase None, which switches on the two StoopKing neighbours on the street pair (#kab_03_ws_scene_001/002, standing/waiting in the alley) and Character.sts_wat_kab_03_solo upstairs on #kab_03_ws_solo_001 in the rifle guard stance - all three initial phases are 'default', all catalogue postures relaxed. The solo is the squatting veteran Corporal William Hare from the wiki; vanilla's own pre-gig state has him in the flat, so keeping him is the 'before anything happened' look rather than the gig's scene. The patrol (alert) and suicide phases are not used. needs_tour_check because his guard stance carries a rifle and the attitude must be eyeballed in game.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

@@ -19,24 +19,7 @@
     "#mq303_pr_shanks_shop_quest"
   ],
   "communities": [],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#mq303_main_characters",
-      "entry_name": "shank",
-      "phase_name": "vendor",
-      "why": "Shank owns the Brainporium, and vendor is his shopkeeper pose: he stands at the counter with a tablet (generic__stand_ground_tablet__stand_around__01 at -1715.11, -2416.65, 62.60 on the shop floor). Vanilla uses the same pose after the job when the shop reopens, and it is the only calm, non-scene, non-captive phase he has at the counter; start places him downstairs at the hook's entrance, and clean is the mop-the-mess pose from the job's opening. needs_tour_check because the venue has no spot map, so the posture cannot be scored from data.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#mq303_main_characters",
-      "entry_name": "tool",
-      "phase_name": "epilogue_shop",
-      "why": "Edgar Tool is the shop's other named character. His start phase is the job's premise (locked in the ground-floor cell below the shop), which must not be staged; epilogue_shop is the only calm phase that puts him on the shop floor, standing at -1720.25, -2411.50, 62.88 with a tablet, where he reads as an ordinary BD regular browsing the shop. Vanilla uses this pose after the job, but the pose is what matters here: no scene, no cell, no quest state. needs_tour_check for the same missing spot map, and to confirm his appearance is Tool and not the TooLina look.",
-      "needs_tour_check": true
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#loc_mq303_shanks_store_decoration",

@@ -160,14 +160,6 @@
       "phase_name": "a",
       "action": "Activate",
       "why": "A resident standing with a can, next to the repairman. Use phase a (the can spot); the entry's b phase is the vigil move-to spot activated by vanilla openworld."
-    },
-    {
-      "spawner": "#sts_ep1_03_gunfight_com",
-      "entry_name": "hana",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "Briana Dolson, the Stacks' chosen local representative (the gig's client record sts_ep1_03_client), as the one named resident who gives the yard an owner figure. Phase A is her initial idle state; the b/c phases are her vigil conversation with V, so they are not used. No spot map resolved for this community, so her position needs a tour check.",
-      "needs_tour_check": true
     }
   ],
   "spawn_sets": [],

@@ -15,15 +15,7 @@
   "prefabs": [
     "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_garage_prefabTKDSS5A/#loc_sts_wbr_jpn_01_tygerclaw_garage_openworld/#sts_wbr_jpn_01_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#jpn_01_com_sergei",
-      "entry_name": "sergei",
-      "phase_name": "0_default",
-      "action": "Activate",
-      "why": "Sergei Karasinsky is the solo who keeps this lock-up and unlocks it for the gig; in our timeline he is alive and the gig never happens, so he stands at his own waiting spot outside the gate, arms crossed, calm. The spot is a plain stand-around workspot, not a quest scene."
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

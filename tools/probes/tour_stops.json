@@ -418,13 +418,7 @@
     34.49
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.mq303_scav_1",
-    "Character.mq303_scav_2",
-    "Character.mq303_scav_4",
-    "Character.mq303_scav_5",
-    "Character.mq303_scav_6"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -441,16 +435,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #mq303_com_gangers (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
-     "source": "community"
-    },
-    {
-     "label": "Calm and on post: #mq303_com_ganger_veh (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: car/start.",
-     "source": "community"
     },
     {
      "label": "Approach the residence from the street and confirm the five scavengers are outside, calm, in loitering poses and do not attack on sight.",
@@ -485,77 +469,6 @@
     {
      "label": "Confirm no schedule display or other quest prop is visible on Lina's computer (var_schedule 0).",
      "detail": "Confirm no schedule display or other quest prop is visible on Lina's computer (var_schedule 0).",
-     "source": "open question"
-    }
-   ],
-   "done": true
-  },
-  {
-   "code": "mq304_ce_2",
-   "name": "Longshore Stacks container yard (Dogtown)",
-   "kind": "approved",
-   "venue": "loc_mq304_ce_2",
-   "pos": [
-    -2473.49,
-    -2773.12,
-    28.52
-   ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.con_scavenger_grunt1_melee1_fists_ma",
-    "Character.con_scavenger_grunt1_melee1_pipewrench_ma",
-    "Character.con_scavenger_grunt1_melee1_tireiron_ma"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Calm and on post: #mq304_com_ce_2_scavs (3 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: scav_1/a, scav_2/a, scav_3/a.",
-     "source": "community"
-    },
-    {
-     "label": "Check the yard has a calm scav camp.",
-     "detail": "Check the yard has a calm scav camp. Stand in the container yard: three scavengers should be idle on routine spots (one on a phone, one taking drugs, one standing), not crouched, aiming or fighting.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the scavengers actually appear in the yard.",
-     "detail": "Check the scavengers actually appear in the yard. Their community has no area node in the converted sectors, so confirm all three spawn inside this yard (not floating, inside a container or a block away) and are not T-posing.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the yard is not a restricted area.",
-     "detail": "Check the yard is not a restricted area. Walk across the whole yard: no trespass banner or Barghest warning should appear; both vanilla security areas are DISABLED and must stay so.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the anchor flips on approach.",
-     "detail": "Check the anchor flips on approach. Walk toward the yard and confirm the tour breadcrumb _prox turns on; the wait is on the scav side's security-area controller at the yard's north edge.",
-     "source": "open question"
-    },
-    {
-     "label": "Check nothing of the quest scene is left.",
-     "detail": "Check nothing of the quest scene is left. There should be no second Barghest pair, no quest cars, no shootout, no invisible encounter trigger and no lingering combat music or attitude change.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the yard does not double-populate.",
-     "detail": "Check the yard does not double-populate. If the combat zone's own ambient encounters also spawn scavs or Barghest inside this prefab, report the overlap so the camp can be dropped.",
      "source": "open question"
     }
    ],
@@ -775,10 +688,7 @@
     "Character.HomelessFemale",
     "Character.HomelessMan",
     "Character.q302_homeless_ma",
-    "Character.q302_homeless_wa",
-    "Character.q302_jacob",
-    "Character.q302_james",
-    "Character.q302_sts13_mia"
+    "Character.q302_homeless_wa"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -803,23 +713,8 @@
      "source": "community"
     },
     {
-     "label": "Calm and on post: #q302_jacob (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: q302_jacob/q302_jacob_squot_relaxed.",
-     "source": "community"
-    },
-    {
-     "label": "Calm and on post: #q302_james (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: q302_james/q302_james_guard_door.",
-     "source": "community"
-    },
-    {
      "label": "Calm and on post: #q302_hobos (2 unmapped)",
      "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: q302_hobo_f_1_talking/peace_no_fix, q302_hobo_m_2_talking/peace_no_fix.",
-     "source": "community"
-    },
-    {
-     "label": "Calm and on post: #q302_com_sts13 (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: mia/default.",
      "source": "community"
     },
     {
@@ -962,9 +857,7 @@
     "Character.ep1_combat_zone_service_sexworker_poor_wa",
     "Character.q303_droid"
    ],
-   "spawn_sets": [
-    "#alex"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Normal business",
@@ -1114,7 +1007,6 @@
    ],
    "radius": 42.1,
    "expected_records": [
-    "Character.sts_ep1_03_client",
     "Character.sts_ep1_03_gunfight_citizen_stacks_child",
     "Character.sts_ep1_03_gunfight_citizen_stacks_elder_wa",
     "Character.sts_ep1_03_gunfight_citizen_stacks_ma",
@@ -1142,11 +1034,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #sts_ep1_03_gunfight_com (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: hana/A.",
-     "source": "community"
     },
     {
      "label": "Walk the yard and confirm no murder-scene dressing remains.",
@@ -1389,129 +1276,6 @@
     {
      "label": "Confirm the Valentino customer's nervous stand reads as an annoyed customer arguing at the counter, with the arms-crossed Animal (enemy_001) facing...",
      "detail": "Confirm the Valentino customer's nervous stand reads as an annoyed customer arguing at the counter, with the arms-crossed Animal (enemy_001) facing him at {spr_06_ws_enemy_vendor_001_A}, not as someone about to fight.",
-     "source": "open question"
-    }
-   ],
-   "done": true
-  },
-  {
-   "code": "mq304_bennett_meeting",
-   "name": "Bennett's meeting alley (Downtown back court)",
-   "kind": "approved",
-   "venue": "loc_mq304_bennett_meeting",
-   "pos": [
-    -2279.37,
-    487.22,
-    7.26
-   ],
-   "radius": 50.3,
-   "expected_records": [
-    "Character.mq304_bennett_driver"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Calm and on post: #mq304_com_bennett_friendly (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: car_01/start.",
-     "source": "community"
-    },
-    {
-     "label": "Check the alley's ordinary clutter is visible: the arcade machine, bench, crates and dumpster, with no quest stage dressing.",
-     "detail": "Check the alley's ordinary clutter is visible: the arcade machine, bench, crates and dumpster, with no quest stage dressing. This is the arena 0 / hide 0 toggle; hide is 1 by vanilla default, so confirm the result looks like everyday street furniture rather than a quest set.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the driver: he should lean on the wall by the meeting house smoking and stay calm, not stand in a combat, cover or T-pose.",
-     "detail": "Check the driver: he should lean on the wall by the meeting house smoking and stay calm, not stand in a combat, cover or T-pose. If he looks wrong, the start phase's wall-lean workspot pairing is the first thing to re-check.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the Thrax: it should sit parked at the alley mouth about 35 m from the driver, level and clear of the lane, not floating, half-sunk or blocki...",
-     "detail": "Check the Thrax: it should sit parked at the alley mouth about 35 m from the driver, level and clear of the lane, not floating, half-sunk or blocking the only way in.",
-     "source": "open question"
-    },
-    {
-     "label": "Walk the alley from the street in both directions and confirm no invisible boundary, locked gate or blocked path stops you; the mq304 boundary vari...",
-     "detail": "Walk the alley from the street in both directions and confirm no invisible boundary, locked gate or blocked path stops you; the mq304 boundary variants live in the quest prefab we deliberately do not load.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest'...",
-     "detail": "Check the rest of the alley: no shard case, no body by the dumpster, no changing spot, and the arcade machine is not stuck unusable from the quest's ForceDisabled action.",
-     "source": "open question"
-    }
-   ],
-   "done": true
-  },
-  {
-   "code": "q306_meeting_spot",
-   "name": "Downtown back-alley meeting spot (City Center, Songbird's pickup)",
-   "kind": "approved",
-   "venue": "loc_q306_meeting_spot",
-   "pos": [
-    -2325.47,
-    300.19,
-    12.13
-   ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.q306_hobo"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Check the alley has its sleeper.",
-     "detail": "Check the alley has its sleeper. Walk into the back alley off the City Center street and confirm one homeless man sits on the ground smoking by the dumpster at about (-2325, 300, 12); report if the alley is empty or if he is lying stretched out like a body.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the alley has no meeting-scene leftovers.",
-     "detail": "Check the alley has no meeting-scene leftovers. There should be no stolen spy van parked in the alley, no Songbird trash pile, no activity-log shard on the ground, and no tracer or objective markers.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the alley is open on foot.",
-     "detail": "Check the alley is open on foot. Walk in from the street side and confirm no gate, shutter, door or invisible barrier stops you; the venue drives no door, so access must be plain walking.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the neighbouring street is alive.",
-     "detail": "Check the neighbouring street is alive. Vanilla switches the whole #ce_cct_dtn_113_com crowd off for the meeting scene, which suggests it is normally on; confirm the nearby building and street crowd is present and the alley does not feel cut off.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the anchor fires.",
-     "detail": "Check the anchor fires. Approach the alley past the ce_cct_dtn_10 access point and confirm the venue's _prox breadcrumb flips in red4ext/logs/neonascendancy-*.log.",
      "source": "open question"
     }
    ],
@@ -1866,9 +1630,7 @@
    ],
    "radius": 40.0,
    "expected_records": [],
-   "spawn_sets": [
-    "#mq303_main_characters"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Normal business",
@@ -2028,22 +1790,17 @@
    "kind": "approved",
    "venue": "loc_q302_06_basketball",
    "pos": [
-    -1832.59,
-    -2742.92,
+    -1836.51,
+    -2750.27,
     81.82
    ],
-   "radius": 69.5,
+   "radius": 76.5,
    "expected_records": [
     "Character.ep1_combat_zone_citizen_obese_mf",
     "Character.ep1_combat_zone_citizen_obese_waf",
     "Character.ep1_combat_zone_citizen_outcast_ma",
     "Character.ep1_combat_zone_citizen_outcast_wa",
-    "Character.ep1_combat_zone_citizen_stacks_child",
-    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_ma",
-    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_wa",
-    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_ma",
-    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_wa",
-    "Character.hpark_voodooboys_grunt1coat_shotgun2_palica_ma"
+    "Character.ep1_combat_zone_citizen_stacks_child"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2120,9 +1877,7 @@
     39.92
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.q302_homeless_scav_caliente"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -2139,11 +1894,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #q302_com_caliente_scav (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: scav_hobo/a.",
-     "source": "community"
     },
     {
      "label": "Stand on Monument Ave outside the bar and check the squatter appears at the door.",
@@ -2367,20 +2117,15 @@
    "kind": "approved",
    "venue": "loc_q304_songbird_meeting",
    "pos": [
-    -1724.98,
-    -2684.86,
-    78.07
+    -1739.06,
+    -2672.58,
+    67.49
    ],
-   "radius": 69.8,
+   "radius": 59.0,
    "expected_records": [
     "Character.ep1_combat_zone_citizen_outcast_ma",
     "Character.ep1_combat_zone_citizen_outcast_wa",
-    "Character.ep1_combat_zone_citizen_stacks_child",
-    "Character.hpark_scavenger_butcher3_hmelee2_machete_mb_rare",
-    "Character.hpark_scavenger_grunt2_melee2_knife_wa",
-    "Character.hpark_voodooboys_grunt1_fmelee2rare_baseball_ma_rare",
-    "Character.hpark_voodooboys_grunt1_ranged2_saratoga_ma",
-    "Character.hpark_voodooboys_grunt1_ranged2_sidewinder_wa"
+    "Character.ep1_combat_zone_citizen_stacks_child"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2955,8 +2700,7 @@
    "spawn_sets": [
     "#placide",
     "#q110_com_market_chats",
-    "#q110_com_netrunners_den_voodoo_boys",
-    "#voodoo_queen"
+    "#q110_com_netrunners_den_voodoo_boys"
    ],
    "checklist": [
     {
@@ -3470,10 +3214,7 @@
     -5.8
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.q000_kid_parking_corpo_bodyguard",
-    "Character.q000_kid_parking_security"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -3490,11 +3231,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #q000_kid_com_parking_corporates (3 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: parking_security/q000_booth, bodyguard1/q000_kid_bodyguard_elevator, bodyguard2/q000_kid_bodyguard_elevator.",
-     "source": "community"
     },
     {
      "label": "Cars: the garage's 22 parked cars are questSpawner_NodeType refs (#q000_car_001..025) inside the prefab, and the venue builder has no 'spawners' ke...",
@@ -3964,9 +3700,7 @@
     5.28
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.sts_hey_gle_05_el_gallo"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -3983,11 +3717,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #gle_05_combat_com (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: #gle_05_ws_gallo/rout.",
-     "source": "community"
     },
     {
      "label": "Check the H1 basement lift: vanilla's gig phase disables floors 1 and 2 and the clean slate runs no such action, so confirm all three stops land on...",
@@ -4224,10 +3953,7 @@
    "radius": 40.0,
    "expected_records": [
     "Character.CitizenRichFemale",
-    "Character.CitizenRichMale",
-    "Character.mq030_jinguji_bodyguard_1",
-    "Character.mq030_jinguji_bodyguard_2",
-    "Character.mq030_jinguji_bodyguard_new"
+    "Character.CitizenRichMale"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -4391,11 +4117,11 @@
    "kind": "approved",
    "venue": "loc_megabuilding_a",
    "pos": [
-    -1385.22,
-    1301.8,
-    119.1
+    -1393.08,
+    1316.02,
+    119.08
    ],
-   "radius": 84.0,
+   "radius": 69.8,
    "expected_records": [
     "Character.AsianVendorMale",
     "Character.FattyMale",
@@ -4403,7 +4129,6 @@
     "Character.SlackerFemale",
     "Character.StoopKing",
     "Character.StoopQueen",
-    "Character.mq010_barry",
     "Character.mq011_contestant_01",
     "Character.mq011_contestant_03"
    ],
@@ -4427,11 +4152,6 @@
     {
      "label": "Calm and on post: #q001_com_residents_gate (2 unmapped)",
      "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: resident1/after_chat1, resident2/after_chat1.",
-     "source": "community"
-    },
-    {
-     "label": "Calm and on post: #mq010_com_barry (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: barry/sit_inside.",
      "source": "community"
     },
     {
@@ -4640,9 +4360,7 @@
    ],
    "radius": 40.0,
    "expected_records": [],
-   "spawn_sets": [
-    "#lizzy_wizzy"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Normal business",
@@ -4953,10 +4671,7 @@
     21.5
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.StoopKing",
-    "Character.sts_wat_kab_03_solo"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -4973,11 +4688,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #kab_03_com_ar (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
-     "source": "community"
     },
     {
      "label": "Confirm the alley reads normal, not a gig setup: the kept street crowd plus two StoopKing neighbours standing around, nobody in a confrontation, no...",
@@ -5166,25 +4876,17 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_101_slums",
    "pos": [
-    -1100.93,
-    1452.54,
-    19.45
+    -1106.35,
+    1453.05,
+    16.36
    ],
-   "radius": 57.4,
+   "radius": 40.0,
    "expected_records": [
     "Character.HomelessMan",
     "Character.HomelessManBackpack",
     "Character.JunkieFemale",
     "Character.JunkieMale",
-    "Character.StoopKing",
-    "Character.sts_wat_kab_101_enemy_scav_handgun",
-    "Character.sts_wat_kab_101_enemy_scav_hmg",
-    "Character.sts_wat_kab_101_enemy_scav_melee1_tireiron",
-    "Character.sts_wat_kab_101_enemy_scav_officer_shotgun2",
-    "Character.sts_wat_kab_101_enemy_scav_shotgun",
-    "Character.sts_wat_kab_101_enemy_scav_smg",
-    "Character.sts_wat_kab_101_enemy_scav_smg_wa",
-    "Character.sts_wat_kab_101_enemy_scav_sniper"
+    "Character.StoopKing"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -7585,19 +7287,13 @@
    "kind": "approved",
    "venue": "loc_sts_hey_rey_08",
    "pos": [
-    -922.8,
-    -217.81,
-    7.72
+    -926.37,
+    -206.95,
+    7.71
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_hey_rey_08_karubo",
-    "Character.sts_hey_rey_08_officer",
-    "Character.sts_hey_rey_08_valentions_dual",
-    "Character.sts_hey_rey_08_valentions_melee_big",
-    "Character.sts_hey_rey_08_valentions_melee_ma",
-    "Character.sts_hey_rey_08_valentions_rifle",
-    "Character.sts_hey_rey_08_valentions_shotgun"
+    "Character.sts_hey_rey_08_karubo"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -8146,9 +7842,9 @@
    "kind": "approved",
    "venue": "loc_q105_fingers_appartment",
    "pos": [
-    -579.95,
-    802.01,
-    20.9
+    -572.85,
+    801.33,
+    24.9
    ],
    "radius": 40.0,
    "expected_records": [
@@ -8157,9 +7853,6 @@
     "Character.FreakMale",
     "Character.ProstituteFemale",
     "Character.ProstituteMale",
-    "Character.q105_jigjig_goon_01",
-    "Character.q105_jigjig_goon_02",
-    "Character.q105_jigjig_goon_03",
     "Character.q105_jigjig_pimp",
     "Character.q105_jigjig_prostitue_queue_01",
     "Character.q105_jigjig_prostitue_queue_02",
@@ -8351,9 +8044,7 @@
     "Character.sq012_tyger_claw"
    ],
    "spawn_sets": [
-    "#mq023_bootleg_karim",
     "#mq023_bootleg_performer",
-    "#ozob",
     "#sq006_ramen_shop"
    ],
    "checklist": [
@@ -8545,22 +8236,16 @@
    "kind": "approved",
    "venue": "loc_sts_hey_rey_01",
    "pos": [
-    -971.01,
-    87.07,
-    48.34
+    -964.1,
+    112.21,
+    48.36
    ],
-   "radius": 41.1,
+   "radius": 40.0,
    "expected_records": [
     "Character.HomelessMan",
     "Character.TenantMale",
     "Character.TenantWoman",
-    "Character.WorkerMale",
-    "Character.sts_hey_rey_01_gustavo",
-    "Character.sts_hey_rey_01_officer",
-    "Character.sts_hey_rey_01_valentions_apartment_range",
-    "Character.sts_hey_rey_01_valentions_apartment_range_wa",
-    "Character.sts_hey_rey_01_valentions_apartment_rifleman",
-    "Character.sts_hey_rey_01_valentions_ground"
+    "Character.WorkerMale"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -8617,14 +8302,12 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_jpn_01_tygerclaw_garage",
    "pos": [
-    -565.01,
-    691.06,
-    34.42
+    -564.03,
+    697.44,
+    34.51
    ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.sts_wbr_jpn_01_sergei"
-   ],
+   "radius": 120.0,
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -8678,9 +8361,7 @@
    "expected_records": [
     "Character.LowlifeWoman"
    ],
-   "spawn_sets": [
-    "#chang_hoon_nam"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Normal business",
@@ -8986,8 +8667,7 @@
    "expected_records": [
     "Character.ChildPoorDE",
     "Character.JunkieMaleDE",
-    "Character.MorningCrowdWoman",
-    "Character.sts_hey_rey_09_tobias"
+    "Character.MorningCrowdWoman"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -9029,81 +8709,6 @@
     {
      "label": "Check the curb outside for a Wakako van and driver.",
      "detail": "Check the curb outside for a Wakako van and driver. None should be waiting, since the extraction transport is excluded.",
-     "source": "open question"
-    }
-   ]
-  },
-  {
-   "code": "sts_wbr_jpn_01_tygerclaw_restaurant",
-   "name": "Tyger Claws Diner (Japantown)",
-   "kind": "approved",
-   "venue": "loc_sts_wbr_jpn_01_tygerclaw_restaurant",
-   "pos": [
-    -466.12,
-    1384.45,
-    37.29
-   ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.sts_wbr_jpn_01_tygerclaw_dual_melee",
-    "Character.sts_wbr_jpn_01_tygerclaw_handgun",
-    "Character.sts_wbr_jpn_01_tygerclaw_rifle"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Walk up to the diner and confirm you can get in.",
-     "detail": "Walk up to the diner and confirm you can get in. Vanilla closes and unpowers #jpn_01_restarant_doors during the gig and only the post-delivery phase unlocks it; check the front door opens from the terrace/street without a terminal or keycard, and report any DoorPolicy unlock.",
-     "source": "open question"
-    },
-    {
-     "label": "Count the Claws.",
-     "detail": "Count the Claws. Four Tyger Claws should be on their stands - Enemy_01/03 handguns, Enemy_02 blade, Enemy_04 rifle - leaning, smoking or standing guard around the diner, with one cellphone stand inside; confirm nobody is in a combat crouch or inside the kitchen.",
-     "source": "open question"
-    },
-    {
-     "label": "Check they do not attack on sight.",
-     "detail": "Check they do not attack on sight. The wiki says the Claws only turn hostile if the delivery is antagonized; the diner should read as an occupied gang hangout and the security area must not flag combat.",
-     "source": "open question"
-    },
-    {
-     "label": "Confirm the diner is not fight-staged.",
-     "detail": "Confirm the diner is not fight-staged. interior_trigger must be 0: the dining room open, furniture upright, no knocked-over tables, bodies or sealed-off area left from the shootout variant.",
-     "source": "open question"
-    },
-    {
-     "label": "Check nothing starts the gig.",
-     "detail": "Check nothing starts the gig. Walking in must not start Gig: Olive Branch, show a quest marker, or spawn Sergei's car, Alex or a delivery trigger; report any journal pop-up or marker.",
-     "source": "open question"
-    },
-    {
-     "label": "Watch the VenueProbe log on approach.",
-     "detail": "Watch the VenueProbe log on approach. The anchor is the restaurant door in the always-loaded devices prefab; confirm _prox is reached so the second activation runs.",
-     "source": "open question"
-    },
-    {
-     "label": "Judge the crowd.",
-     "detail": "Judge the crowd. Vanilla has no staff, cook or patron community here, so the diner is four armed Claws and no customers; tell the lead if that looks too empty for an open restaurant.",
-     "source": "open question"
-    },
-    {
-     "label": "Confirm the venue has an in-game name.",
-     "detail": "Confirm the venue has an in-game name. The wiki calls it only the Tyger Claws' restaurant/diner; read the sign and report any proper name so the display name can be corrected.",
      "source": "open question"
     }
    ]
@@ -9182,70 +8787,6 @@
     {
      "label": "Confirm nothing starts the gig.",
      "detail": "Confirm nothing starts the gig. The prefab also carries the street-story manager's trigger and map-pin plumbing; walking in must not start We Have Your Wife or spawn a quest marker.",
-     "source": "open question"
-    }
-   ]
-  },
-  {
-   "code": "sts_wbr_jpn_09_netrunner_parking_lot",
-   "name": "Netrunner Parking Lot (Japantown)",
-   "kind": "approved",
-   "venue": "loc_sts_wbr_jpn_09_netrunner_parking_lot",
-   "pos": [
-    -376.71,
-    1441.03,
-    35.76
-   ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.sts_wbr_jpn_09_netrunner",
-    "Character.sts_wbr_jpn_09_walt_ozark"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Walk into the lot from the street and confirm the netrunner scene is alive.",
-     "detail": "Walk into the lot from the street and confirm the netrunner scene is alive. The netrunner should be leaning on the wall smoking and Walt Ozark sitting on the chair by the parked Chevalier Thrax, both calm and on their spots.",
-     "source": "open question"
-    },
-    {
-     "label": "Confirm the lot has no quest actors or leftovers.",
-     "detail": "Confirm the lot has no quest actors or leftovers. No Militech soldiers, no Chevalier Emperor blocking the lot, no chase car, no map pin and no chase trigger - and walking in must not start sts_wbr_jpn_09.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the proximity wait fires.",
-     "detail": "Check the proximity wait fires. The venue has no device of its own, so the anchor is the gun-shop screen 76 m east with a 90 m radius; approach the lot and confirm _prox is reached before the people are re-issued.",
-     "source": "open question"
-    },
-    {
-     "label": "Walk the three former ambush spots and confirm they are ordinary street.",
-     "detail": "Walk the three former ambush spots and confirm they are ordinary street. The rooftop spot north of the lot, the street west of it and the street east of it should have no Militech fireteam standing around a car.",
-     "source": "open question"
-    },
-    {
-     "label": "Confirm the lot geometry streams in correctly.",
-     "detail": "Confirm the lot geometry streams in correctly. The section is loaded only by this venue phase; check the lot floor, the chairs and wall by the truck and the netrunner spots are present with no holes or missing building geometry.",
-     "source": "open question"
-    },
-    {
-     "label": "Look at the truck up close.",
-     "detail": "Look at the truck up close. It should read as a parked prop with no get-in prompt or quest interaction tied to the unfired gig.",
      "source": "open question"
     }
    ]
@@ -9377,9 +8918,7 @@
     57.75
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.sts_wat_nid_07_aaron"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -9425,69 +8964,6 @@
     {
      "label": "If the flat renders as a bare shell, check whether the parent openworld prefab is also required.",
      "detail": "If the flat renders as a bare shell, check whether the parent openworld prefab is also required. This proposal loads only the nested street-story section; a missing interior would mean the parent #loc_sts_wat_nid_07b_aaron_mccarlson_apartment_openworld must be added as a second prefab.",
-     "source": "open question"
-    }
-   ]
-  },
-  {
-   "code": "sq017_emptystreet",
-   "name": "Empty Street coffee cart (Rancho Coronado)",
-   "kind": "approved",
-   "venue": "loc_sq017_emptystreet",
-   "pos": [
-    348.69,
-    -1416.84,
-    15.32
-   ],
-   "radius": 40.0,
-   "expected_records": [
-    "Character.sq017_filipino_barista"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Calm and on post: #sq017_com_filipino_barista (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: sq017_filipino_barista/sq017_barista_start.",
-     "source": "community"
-    },
-    {
-     "label": "Stand at the cart and check the barista is serving.",
-     "detail": "Stand at the cart and check the barista is serving. Walk to (348.7,-1416.8) and confirm Character.sq017_filipino_barista is standing at the counter in the relaxed bar-lean, not missing, T-posed or crouched.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the cart, counter and cups read as a normal coffee stand.",
-     "detail": "Check the cart, counter and cups read as a normal coffee stand. The coffee cups, sit/stand interaction entities and food tokens are always-streamed quest props; confirm they look like an ordinary cart and no invisible sit prompt appears at an empty counter.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the door beside the cart opens.",
-     "detail": "Check the door beside the cart opens. The anchor door at (348.1,-1411.1) is a plain world single_door with no quest action; confirm it is powered and unlocked in normal play.",
-     "source": "open question"
-    },
-    {
-     "label": "Check the corner appears once.",
-     "detail": "Check the corner appears once. Confirm the coffee cart, barista and storefront are not duplicated after the venue phase and the district stream have both run.",
-     "source": "open question"
-    },
-    {
-     "label": "Check no sq017 scene leftovers are visible.",
-     "detail": "Check no sq017 scene leftovers are visible. Confirm there is no parked Galena, no Kerry, and no meeting-position marker or scene prop floating at the corner.",
      "source": "open question"
     }
    ]
@@ -9671,12 +9147,7 @@
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_std_rcr_03_flavio",
-    "Character.sts_std_rcr_03_gangers_ajax",
-    "Character.sts_std_rcr_03_gangers_dave",
-    "Character.sts_std_rcr_03_gangers_melee_med",
-    "Character.sts_std_rcr_03_gangers_officer",
-    "Character.sts_std_rcr_03_gangers_short_med_m"
+    "Character.sts_std_rcr_03_flavio"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -9694,11 +9165,6 @@
      "label": "You can get in",
      "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
      "source": "base"
-    },
-    {
-     "label": "Calm and on post: #rcr_03_com_house_gangers (1 unmapped)",
-     "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, not alert or in combat: the whole community.",
-     "source": "community"
     },
     {
      "label": "Calm and on post: #rcr_03_com (1 unmapped)",
@@ -10375,62 +9841,6 @@
     {
      "label": "Confirm Judy is not duplicated here.",
      "detail": "Confirm Judy is not duplicated here. She should still be at her Charter Street apartment, not at the cottage or on the pier.",
-     "source": "open question"
-    }
-   ]
-  },
-  {
-   "code": "sq030_underwater_house",
-   "name": "Laguna Bend (submerged town)",
-   "kind": "approved",
-   "venue": "loc_sq030_underwater_house",
-   "pos": [
-    1183.16,
-    -3349.93,
-    125.36
-   ],
-   "radius": 40.0,
-   "expected_records": [],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Normal business",
-     "detail": "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene.",
-     "source": "base"
-    },
-    {
-     "label": "People at their posts",
-     "detail": "The people are there and doing their routine; nobody alert, hostile or in a combat stance.",
-     "source": "base"
-    },
-    {
-     "label": "You can get in",
-     "detail": "Doors, gates and lifts you would expect to use work, or there is an in-world way through.",
-     "source": "base"
-    },
-    {
-     "label": "Swim or teleport to the lake bed at the tour stop and confirm the ruined town is physically there without the quest prefab.",
-     "detail": "Swim or teleport to the lake bed at the tour stop and confirm the ruined town is physically there without the quest prefab. The houses, diner, fuel station and church should stream from the env sections around (1183, -3350, 125); report grey proxies, holes or a missing town.",
-     "source": "open question"
-    },
-    {
-     "label": "Look for quest clue markers and glowsticks among the ruins.",
-     "detail": "Look for quest clue markers and glowsticks among the ruins. None of the scannable clue props (photo, hockey stick, umbrella, doll, car, cross necklace) and no lit route sticks should be visible or scannable after the var_clues/glowstick pin.",
-     "source": "open question"
-    },
-    {
-     "label": "Look north from the abandoned lake dwelling dock and confirm the dive crane is absent.",
-     "detail": "Look north from the abandoned lake dwelling dock and confirm the dive crane is absent. It only exists inside the quest prefab; if its absence reads as a hole at the dive site, that is the one reason to load the quest prefab, so say so on the checklist.",
-     "source": "open question"
-    },
-    {
-     "label": "Check whether V can reach the sunken town at all without the quest.",
-     "detail": "Check whether V can reach the sunken town at all without the quest. Walk the dam slope or swim from the shore and report whether the lake bed is walkable, swimmable or blocked; that answer decides whether this venue ever needs an access feature.",
-     "source": "open question"
-    },
-    {
-     "label": "Confirm the #sq030_dvc_hut_door_entry anchor streams at the dive site.",
-     "detail": "Confirm the #sq030_dvc_hut_door_entry anchor streams at the dive site. It is the lake dwelling's front door, about 150 m from the ruins and outside the 80 m wait radius; with no people restored the wait gates nothing, but the tour should log the door so the anchor choice is verified.",
      "source": "open question"
     }
    ]

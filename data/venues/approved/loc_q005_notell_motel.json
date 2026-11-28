@@ -19,16 +19,7 @@
     "$/03_night_city/c_watson/kabuki/#loc_q005_notell_motel/loc_q005_notell_motel_questdesign_prefab4LPWTFY/#mq019_pr_notell_motel"
   ],
   "communities": [],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#lizzy_wizzy",
-      "entry_name": "lizzy_wizzy",
-      "phase_name": "mq019_01_at_window",
-      "why": "Lizzy Wizzy is alive and working in this timeline (Violence never runs), and she is the motel's only named guest: vanilla seats her standing at the room window smoking while she waits for her visitor, which is exactly a celebrity holed up in an incognito room. No dialogue, scene or quest marker; this is the calm pre-finale placement, not the at_bed pose used over Liam's body.",
-      "needs_tour_check": true
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#notell_motel_gate_entrance",

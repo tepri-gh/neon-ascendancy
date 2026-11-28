@@ -20,14 +20,6 @@
   ],
   "communities": [
     {
-      "spawner": "#rcr_03_com_house_gangers",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The house's gang presence and the only crowd the venue has: eight 6th Street members (two melee, an Ajax, an officer, a shotgunner and two turret gangers) plus two parked 6th Street Archer Hellas. The site record's own faction is 6th Street (default_faction_id 4), so a crew hanging around a 6th Street house in their own turf is the normal reading; their workspots are lean, smoke, phone, tablet, sit-on-stairs and patrol poses, i.e. hanging out and keeping an eye out, not a firefight. Vanilla's own action is the whole-community Activate from the openworld phase, so this is a proven activation, not an invention. Posture is unknown because no compiled community area node for this community was found, so the tour must confirm they are spread around the house instead of stacked at the spawner; combat groups come first under rule 11a.",
-      "needs_tour_check": true
-    },
-    {
       "spawner": "#rcr_03_com",
       "entry_name": "flavio",
       "phase_name": "#rcr_03_ws_flavio_appear",

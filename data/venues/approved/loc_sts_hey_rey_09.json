@@ -19,13 +19,6 @@
   "communities": [
     {
       "spawner": "#rey_09_com",
-      "entry_name": "rey_09_target",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "8ug8ear at home in her own apartment: the default phase's only spot is the netrunner chair (generic__lie_netrunner_chair__netrun__01), so she is seated and jacked in, not the incapacitated in_room/throwed states from the gig. In our timeline the Tyger Claws never came for her."
-    },
-    {
-      "spawner": "#rey_09_com",
       "entry_name": "rey_09_basement_left",
       "phase_name": "default",
       "action": "Activate",

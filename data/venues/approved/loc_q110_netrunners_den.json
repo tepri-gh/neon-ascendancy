@@ -182,13 +182,6 @@
       "entry_name": "placide",
       "phase_name": "q110_04_placide_at_netrunners_den",
       "why": "Placide, the den's boss, sitting at the keyboard desk in his office inside the den: vanilla's own 'at the netrunners den' phase, the state V finds him in when the quest takes her down. Alive and leading the Voodoo Boys in our timeline."
-    },
-    {
-      "action": "Activate",
-      "reference": "#voodoo_queen",
-      "entry_name": "voodoo_queen",
-      "phase_name": "q110_00_voodoo_queen_chair_den",
-      "why": "Brigitte (the Voodoo Queen) in a netrunner chair in the den, jacked in: her working state, not a story scene. The workspot is lie_netrunner_chair__netrun, so she reads as a netrunner at work rather than a body."
     }
   ],
   "variant_toggles": [],

@@ -8,7 +8,7 @@
     "open_questions": [
       "Confirm the roof is populated: about eight Scavengers squatting, leaning, sitting on the couch and standing guard, plus five homeless residents sleeping, smoking and drinking among the huts.",
       "Check whether the five residents were already on the roof before this venue phase ran; the kept Kabuki district phase activates the same community at district boot, so this stops being a redundant activation only if streaming missed them.",
-      "Check the three residents whose catalogue spot is the same point (-1106.35, 1453.05, 16.36) — HomelessMan, JunkieFemale, JunkieMale — are standing or sitting apart, not stacked on one spot.",
+      "Check the three residents whose catalogue spot is the same point (-1106.35, 1453.05, 16.36) \u2014 HomelessMan, JunkieFemale, JunkieMale \u2014 are standing or sitting apart, not stacked on one spot.",
       "Walk up from Allen St. to the roof: this venue has no doors, so confirm the ladder/stairs route works without the gig and that nothing blocks the way.",
       "Check whether the Scavenger crew turns hostile the moment you step onto the restricted part of the roof; that is vanilla gang behaviour, so judge whether the venue should read that way.",
       "Confirm the TV chosen as the proximity anchor is on the roof and not inside a locked hut, so the second activation pass fires when you arrive.",
@@ -20,13 +20,6 @@
     "$/03_night_city/c_watson/kabuki/loc_sts_wat_kab_101_slums_prefabTADN6HA/loc_sts_wat_kab_101_slums_openworld_prefabKO7CBMA/#sts_wat_kab_101_streetstory/sts_wat_kab_101_combat_prefabGVTDOOA"
   ],
   "communities": [
-    {
-      "spawner": "#kab_101_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Vanilla's own whole-community activation from the combat phase puts all eight Scavengers on the roof in their single 'default' phase: an SMG, handgun, shotgun, HMG, sniper, tire-iron melee and an officer, at squat/lean/couch/stand-guard spots. That is the crew that holds the restricted part of the slums, so it reads as the site's squatters and guards rather than as a quest firefight, and it satisfies the combat-first population rule (there is no netrunner here)."
-    },
     {
       "spawner": "#wat_kab_101_residential_com",
       "entry_name": "None",

@@ -1,6 +1,6 @@
 {
   "code": "sts_hey_gle_05",
-  "display_name": "Megabuilding H1 — basement lift-repair workshop (Gig: Going Up or Down?)",
+  "display_name": "Megabuilding H1 \u2014 basement lift-repair workshop (Gig: Going Up or Down?)",
   "why": "This is the basement of Megabuilding H1 in the Glen: sublevels holding the building's lift-repair workshop, reached by the building lift from the ground-floor concourse above, which is already a live courtyard with vendors, a musician, kids and homeless regulars. Only the workshop itself is quest-authored, and in a world without gigs it is missing along with El Gallo (Juan Troy), the building's brilliant but drug-addicted technician. The proposal loads that one quest section and puts El Gallo back at his routine work, so H1 reads as a working megablock rather than a locked basement.",
   "source": {
     "proposal": "research/loc_sts_hey_gle_05/proposal.json",
@@ -16,16 +16,7 @@
   "prefabs": [
     "$/03_night_city/#c_heywood/glen/loc_sts_hey_gle_05_prefabOLM76BQ/#sts_hey_gle_05_openworld/#sts_hey_gle_05_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#gle_05_combat_com",
-      "entry_name": "#gle_05_ws_gallo",
-      "phase_name": "rout",
-      "action": "Activate",
-      "why": "El Gallo is H1's lift technician, so he belongs in the basement workshop in normal play. rout is his work routine: four relaxed spots (kneeling over a tool, using a tablet, standing at the dirt routine, and his syn-coke inhale). Vanilla's street-story phases activate exactly this entry and phase; Talk is the pre-gig conversation stance and Combat3 is the gig fight, so neither is used.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

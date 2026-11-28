@@ -1,6 +1,6 @@
 {
   "code": "q304_songbird_meeting",
-  "display_name": "Tranquil Terrace — Luxor Heights park and basketball court",
+  "display_name": "Tranquil Terrace \u2014 Luxor Heights park and basketball court",
   "why": "Tranquil Terrace is the public park on Luxor Heights in Dogtown: gardens and terraces over the combat zone, the Mysterium sculpture and a basketball court in the south-west, the Eventide resort to the east. In vanilla the park is only ever populated for the q304 Songbird meeting (which first clears the people away) and for the sa_ep1_37 airdrop on its lower terrace, so in normal play it stands empty. This proposal restores the two communities the venue itself defines: the homeless camp crowd that lives on the terraces and the scavenger and Voodoo Boys groups that hold the park's two security areas, and it clears the meeting AV out of the sky.",
   "source": {
     "proposal": "research/loc_q304_songbird_meeting/proposal.json",
@@ -30,41 +30,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The whole lower-terrace camp crowd in its default phase: ten homeless outcasts and a stacks child on the shanty level (lie ground asleep, sit stairs crying or drinking, comfort a crying friend, wounded leg, pee, drug spots, child playing with cans). Vanilla activates it whole from inside the sa_ep1_37 airdrop activity, which lands on this terrace; the entries are the camp's residents, not event actors, so the camp should be lived-in the rest of the time. The airdrop phase deactivates them again when the drop ends, which is the only caveat (see notes)."
-    },
-    {
-      "spawner": "#pac_cz_q304_meeting_gang_com_01",
-      "entry_name": "gang_f",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "A scavenger woman on the basketball-court level, standing and showing off a knife at her own spot. The venue ships a scavenger security area and system at the court (#pac_cz_q304_meeting_gang_01_sec_area/_sec_sys), and q304_03 clears this group together with the crowd before the meeting, so they are the park's normal court-side presence. Kept ahead of the civilians' comfort by the owner's population rule."
-    },
-    {
-      "spawner": "#pac_cz_q304_meeting_gang_com_01",
-      "entry_name": "gang_mb",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "The scavenger butcher of the same court group, sitting back on a couch with his weapon at rest (big__sit_couch_lean_back_gun__relax). Same vanilla group and same security area as gang_f; the group's third entry gang_m is left out because its only spot plays a quest phone scene."
-    },
-    {
-      "spawner": "#pac_cz_q304_meeting_gang_com_02",
-      "entry_name": "gang_01",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "A Voodoo Boys gunwoman on the upper terrace (z ~93) beside the second security area the venue ships for them. Relaxed default phase on a stand-and-smoke spot, not a combat line. The group is the park's other resident gang per the wiki, and ep1_community/ep1_quest_community only ever reactivate it after a fight, never spawn it initially."
-    },
-    {
-      "spawner": "#pac_cz_q304_meeting_gang_com_02",
-      "entry_name": "gang_02",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "The second Voodoo Boys member of the upper-terrace post, leaning on a wall with a can. Same group, same security area, relaxed default phase."
-    },
-    {
-      "spawner": "#pac_cz_q304_meeting_gang_com_02",
-      "entry_name": "gang_03",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "The third Voodoo Boys member, standing around with a baseball bat on the upper terrace. Completes the three-person post; all three entries of this community are relaxed and use plain stand/lean spots."
     }
   ],
   "spawn_sets": [],

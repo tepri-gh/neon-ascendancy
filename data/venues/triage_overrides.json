@@ -190,6 +190,51 @@
       "venue": "loc_q302_spidertank_arena",
       "decision": "excluded",
       "why": "Owner 2026-11-27: the game hangs loading the Founding Our Future Expo (the Spidertank arena) during the sweep, once out of two loads. Its entry was the only thing loading the q302 boss-fight prefab (#q302_pr_spidertank, the Chimera) outside q302_02_spider. Stripped; the hall stays sealed and empty as vanilla leaves it before the quest."
+    },
+    {
+      "venue": "loc_mq304_bennett_meeting",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): empty back-alley quest staging wrapper, no ownable asset."
+    },
+    {
+      "venue": "loc_mq304_ce_2",
+      "decision": "excluded",
+      "why": "Owner call (2026-11-27): overlaps Stacks Container Yard (loc_q301_crashsite_way_up); dropped."
+    },
+    {
+      "venue": "loc_mq304_vdb_meeting",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): empty High Peak quest meeting staging wrapper; dropped."
+    },
+    {
+      "venue": "loc_mq305_wanted_lab",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): Cynosure Site D excluded per Cynosure lore-cleanliness rule."
+    },
+    {
+      "venue": "loc_q306_meeting_spot",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): empty Downtown back-alley staging wrapper; dropped."
+    },
+    {
+      "venue": "loc_sq004_abandoned_farmhouse",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): empty derelict story farmhouse landmark; dropped."
+    },
+    {
+      "venue": "loc_sq030_underwater_house",
+      "decision": "excluded",
+      "why": "Owner decision #54 (2026-11-27): submerged Laguna Bend stays unreachable; dropped."
+    },
+    {
+      "venue": "loc_sts_wbr_jpn_09_netrunner_parking_lot",
+      "decision": "excluded",
+      "why": "Automated classification (2026-11-27): empty roadside gig staging lot; dropped."
+    },
+    {
+      "venue": "loc_sq017_emptystreet",
+      "decision": "excluded",
+      "why": "Owner decision #52 (2026-11-27): empty coffee-cart corner dropped from venues."
     }
   ]
 }

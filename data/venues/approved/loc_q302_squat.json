@@ -84,22 +84,6 @@
       "needs_tour_check": true
     },
     {
-      "spawner": "#q302_jacob",
-      "entry_name": "q302_jacob",
-      "phase_name": "q302_jacob_squot_relaxed",
-      "action": "Activate",
-      "why": "Jacob Long, the squatter who lives in the 8th-floor hideout; q302's persistent-content phase already uses this relaxed squat phase when no quest is running, and the wiki lists him as an occupant of the building.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q302_james",
-      "entry_name": "q302_james",
-      "phase_name": "q302_james_guard_door",
-      "action": "Activate",
-      "why": "Taylor Gibbs (the second squatter, internal record q302_james; the taylor_* phases drive this entry) watching the hideout door, the ambient state the persistent-content phase uses before the quest starts.",
-      "needs_tour_check": true
-    },
-    {
       "spawner": "#q302_hobos",
       "entry_name": "q302_hobo_f_1_talking",
       "phase_name": "peace_no_fix",
@@ -113,14 +97,6 @@
       "phase_name": "peace_no_fix",
       "action": "Activate",
       "why": "A resident man talking in the hideout; peace_no_fix is the only calm phase beside militia/ambush for this entry.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q302_com_sts13",
-      "entry_name": "mia",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Mia is a baked ambient street-story civilian attached to this squat's persistent-content prefab; vanilla defines her default phase but never activates it, so she adds one more neighbour without inventing anyone.",
       "needs_tour_check": true
     }
   ],

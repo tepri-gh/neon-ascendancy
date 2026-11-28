@@ -1,7 +1,7 @@
 {
   "code": "sts_wbr_jpn_05_burned_store",
   "display_name": "Ginger Panda (Chang-Hoon Nam's netrunner den)",
-  "why": "Ginger Panda is an operating Japantown restaurant with Chang-Hoon Nam’s netrunner den in the basement. Restore the interior and den lighting and place Chang at his working chair. The district phase supplies the restaurant crowd.",
+  "why": "Ginger Panda is an operating Japantown restaurant with Chang-Hoon Nam\u2019s netrunner den in the basement. Restore the interior and den lighting and place Chang at his working chair. The district phase supplies the restaurant crowd.",
   "source": {
     "proposal": "research/loc_sts_wbr_jpn_05_burned_store/proposal.json",
     "confidence": "medium",
@@ -24,15 +24,7 @@
       "why": "The whole two-person sidewalk pair (LowlifeWoman x2) leaning on the wall by the shop, in their only phase A, activated exactly as vanilla does. They are ordinary passers-by on the block, and their spots sit inside the street-story section this proposal already loads, so they cost nothing."
     }
   ],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#chang_hoon_nam",
-      "entry_name": "chang_hoon_nam",
-      "phase_name": "jpn_05_A",
-      "why": "Chang-Hoon Nam (Character.sts_wbr_jpn_05_chang_hoon_nam), the netrunner who rents the basement as his den and works Wakako Okada's jobs from it. In jpn_05_A he is in his netrunner chair playing generic__lie_netrunner_chair__netrun__01 (netrunning), which is exactly the normal working pose for the venue; the gig's unresponsive/aphasia state comes from the gig itself and is not reproduced. This is the one named occupant vanilla only spawns from the street story."
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#loc_sts_wbr_jpn_05_gameplay",

@@ -16,20 +16,6 @@
   "prefabs": [],
   "communities": [
     {
-      "spawner": "#loc_q302_06_combat_com_001",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Three hpark Voodoo Boys grunts (Saratoga/ Sidewinder) hold the court. Vanilla switches the whole community on from the open-world community phase and the q302 court community phase; the workspots are relaxed (phone call, cigarette, leaning on a wall, pee, sitting on the ground), so it is a hanging-around guard group, not a fight. Combat group, kept first per rule 11a."
-    },
-    {
-      "spawner": "#loc_q302_06_combat_com_002",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The second Voodoo Boys group at the court: four grunts including a coat shotgun (Palica). Relaxed spots only (show off a gun, lean on a ledge, slav squat, bottle drink, baseball bat), i.e. the same holding pattern, not a combat setup. Combat group, kept second per rule 11a."
-    },
-    {
       "spawner": "#loc_q302_06_court_ow_com",
       "entry_name": "None",
       "phase_name": "None",

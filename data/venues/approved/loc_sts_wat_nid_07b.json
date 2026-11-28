@@ -17,15 +17,7 @@
   "prefabs": [
     "$/03_night_city/c_watson/northside/loc_sts_wat_nid_07b_prefabHX2ZIQA/#loc_sts_wat_nid_07b_aaron_mccarlson_apartment_openworld/#sts_wat_nid_07b_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#nid_07_com_building",
-      "entry_name": "aaron",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "The flat's only occupant: Sergeant Aaron McCarlson at his own spot inside the apartment, standing around in the relaxed generic stand-around workspot. Vanilla activates exactly this entry phase in the always-running open-world story phase, so it is the normal at-home state; the post-gig default_after (sitting at a diner table far south) and the recording_scene (angry stand) are quest outcomes and are not used."
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

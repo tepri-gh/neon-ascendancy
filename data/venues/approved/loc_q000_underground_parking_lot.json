@@ -19,32 +19,7 @@
   "prefabs": [
     "#q000_kid_pr_undeground_parking_lot"
   ],
-  "communities": [
-    {
-      "spawner": "#q000_kid_com_parking_corporates",
-      "entry_name": "parking_security",
-      "phase_name": "q000_booth",
-      "action": "Activate",
-      "why": "The garage's own duty guard, the phase vanilla activates when V steps off the lift. The venue has exactly one security spot, #q000_kid_ws_security_booth, and its workspot is q000__male__sit_chair_lean_back__sit_around__01: a relaxed sit/lean in the booth. One guard for a 22-bay garage is the vanilla staffing, so it is the right ambient baseline.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_kid_com_parking_corporates",
-      "entry_name": "bodyguard1",
-      "phase_name": "q000_kid_bodyguard_elevator",
-      "action": "Activate",
-      "why": "The garage's VIP lift is guarded in vanilla by two corpo bodyguards in their 'waiting at the elevator' phase. Their only spots are #q000_kid_ws_bodyguard_stand_elevator_001/002, on the generic stand-and-wait workspot, so they read as a relaxed posted guard pair at the garage's north lift. No principal is placed, so they are lift security, not the Arinobu arrival scene. Judgment call; see open_questions.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_kid_com_parking_corporates",
-      "entry_name": "bodyguard2",
-      "phase_name": "q000_kid_bodyguard_elevator",
-      "action": "Activate",
-      "why": "Second half of the vanilla VIP-lift guard pair, sharing the two stand-and-wait spots with bodyguard1. Without it the elevator pair is a lone guard.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [],
   "doors": [],

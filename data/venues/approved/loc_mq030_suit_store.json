@@ -1,6 +1,6 @@
 {
   "code": "mq030_suit_store",
-  "display_name": "Jinguji — Downtown clothing store (Senate Avenue)",
+  "display_name": "Jinguji \u2014 Downtown clothing store (Senate Avenue)",
   "why": "Jinguji is the high-end clothing store on Senate Avenue in Downtown, City Center: one open showroom with the manager Zane Jagger behind the counter, two bouncers at the entrance and rich clients browsing, posing, appraising and waiting. The mod already keeps the downtown community phase that switches the store's crowd on and the vendor layer already places Zane, but that crowd is switched on once at boot (no proximity re-issue) and leaves the store dressed in the post-attack set: a replacement guard and after_mq030 client poses. This proposal re-activates the shop's own two original bouncers, three pre-quest clients and the walking designer after proximity, and restores the intact non-combat showroom variant so the store reads as open for business. No quest prefab is needed: the interior, the door, the spots and the gameplay variant group are world-streamed.",
   "source": {
     "proposal": "research/loc_mq030_suit_store/proposal.json",
@@ -17,13 +17,6 @@
     {
       "spawner": "#mq030_suit_store_com",
       "entry_name": "client",
-      "phase_name": "after_mq030",
-      "action": "Deactivate",
-      "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
-    },
-    {
-      "spawner": "#mq030_suit_store_com",
-      "entry_name": "bodyguard_new",
       "phase_name": "after_mq030",
       "action": "Deactivate",
       "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
@@ -62,20 +55,6 @@
       "phase_name": "after_mq030",
       "action": "Deactivate",
       "why": "Lead agent: the kept cct_dtn_phase activates the store whole, which brings up the after-attack set; vanilla's own pre-attack branch (cct_dtn_phase nodes 31/34) deactivates exactly these seven after_mq030 entries. Mirrored so the shop shows its normal staff and clients."
-    },
-    {
-      "spawner": "#mq030_suit_store_com",
-      "entry_name": "bodyguard_1",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "First of Jinguji's two entrance bouncers, standing casually at his post (big__stand__stand_around__01). default is the entry's pre-quest phase and the one the whole-community activation gives him; re-issuing it after proximity covers the fresh-start case where the kept downtown phase fired before the district streamed."
-    },
-    {
-      "spawner": "#mq030_suit_store_com",
-      "entry_name": "bodyguard_2",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Second entrance bouncer on the opposite side of the showroom, same relaxed stand-around workspot set; the pair is the store's visible security and rule 11a keeps combat groups ahead of the shoppers."
     },
     {
       "spawner": "#mq030_suit_store_com",

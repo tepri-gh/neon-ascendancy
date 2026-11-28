@@ -82,14 +82,6 @@
   "spawn_sets": [
     {
       "action": "Activate",
-      "reference": "#mq023_bootleg_karim",
-      "entry_name": "karim",
-      "phase_name": "01_street",
-      "why": "Karim Noel at his vinyl stall, leaning on the counter (player__stand_bar_lean_front) at (-670.33,913.58). He is one of the market's documented vendors and the stall exists in normal play; the phase is the street/idle phase the quest uses before V talks to him.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
       "reference": "#mq023_bootleg_performer",
       "entry_name": "performer",
       "phase_name": "01_street",
@@ -102,13 +94,6 @@
       "phase_name": "talking_to_eliz",
       "why": "The Ramen Joint cook behind the counter taking orders on a tablet (generic__stand_tablet__take_order) at (-650.93,924.76). The Ramen Joint is a permanent vendor, so a cook behind the counter is the normal look; the phase is the counter-service pose, not a cutscene.",
       "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#ozob",
-      "entry_name": "ozob",
-      "phase_name": "mq035_default",
-      "why": "Ozob Bozo waiting at his pickup spot by the market, standing idle (stand_around) at (-709.83,908.48). He is alive in our timeline and this is his only vanilla placement; the phase is the pre-pickup idle, not a combat or drive phase."
     }
   ],
   "variant_toggles": [],

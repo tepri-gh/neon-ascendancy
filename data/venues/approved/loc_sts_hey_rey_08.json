@@ -20,13 +20,6 @@
   ],
   "communities": [
     {
-      "spawner": "#rey_08_combat_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The bar's whole staff-and-regulars set in its own initial phases, which are the ones the gig's gameplay phase turns on the moment the bar opens: the bartender standing at the bar (#rey_08_combat_com bartender, default), one Valentino smoking on the rail (enemy_001, drink), the officer listening to the music and then leaning on a wall (enemy_002, distract), a shotgun Valentino smoking against a wall (enemy_003, watch), two talking at the wall and rail (enemy_004, enemy_005, talk), two on a tablet and the barstool (enemy_006, enemy_007, default) and one more on the rail (player_run_away, default). Every one of those phases has a relaxed routine workspot (bar work, rail lean, wall lean with cigarette, barstool, tablet, music listen), not a gun/alert workspot, so the group reads as a gang bar on a normal day. Rule 11a: a Valentinos hangout keeps its combat group first."
-    },
-    {
       "spawner": "#rey_08_karubo_com",
       "entry_name": "karubo",
       "phase_name": "bar",

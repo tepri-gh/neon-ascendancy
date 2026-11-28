@@ -18,14 +18,6 @@
   ],
   "communities": [
     {
-      "spawner": "#arr_05_com_enemies",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The factory's whole security detail (eight Independent security guards) in its initial phase A. Every phase-A spot is an idle on-post pose: fixing a device, leaning on a rail, standing around, drinking coffee, using a tablet, smoking, a standing patrol, checking a phone. Vanilla activates the same community whole from the bugfixing and openworld phases; phase B is only guard_001/002's combat reposition and is not used. This is the combat-role group the population rule puts first.",
-      "needs_tour_check": true
-    },
-    {
       "spawner": "#arr_05_com",
       "entry_name": "truck",
       "phase_name": "garage",
