@@ -2,12 +2,14 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <unordered_set>
 #include <vector>
 
 #include "era.hpp"
+#include "garrison.hpp"
 #include "sim.hpp"
 #include "store.hpp"
 
@@ -479,6 +481,190 @@ void TestCausalSimAndSaveBranching(const std::string& world_db_path) {
   std::filesystem::remove(tmp_db + "-shm");
 }
 
+void TestGarrisonRosterAndPowerLevel(const std::string& world_db_path) {
+  using namespace neon::sim;
+
+  // 1. Gear bracket mapping across tiers 1..5 (plus out-of-range clamping).
+  NC_CHECK(ComputeGearBracket(0) == GearBracket::Low);
+  NC_CHECK(ComputeGearBracket(1) == GearBracket::Low);
+  NC_CHECK(ComputeGearBracket(2) == GearBracket::Low);
+  NC_CHECK(ComputeGearBracket(3) == GearBracket::Mid);
+  NC_CHECK(ComputeGearBracket(4) == GearBracket::High);
+  NC_CHECK(ComputeGearBracket(5) == GearBracket::High);
+  NC_CHECK(ComputeGearBracket(9) == GearBracket::High);
+
+  // 2. PowerLevel de-scaling formula: FactionTierBase + RarityOffset + SizeOffset clamped [10, 65].
+  NC_CHECK(ComputePowerLevel(1, UnitRarity::Normal, NodeSize::Small) == 14);
+  NC_CHECK(ComputePowerLevel(1, UnitRarity::Specialist, NodeSize::Small) == 17);
+  NC_CHECK(ComputePowerLevel(1, UnitRarity::Elite, NodeSize::Small) == 20);
+  NC_CHECK(ComputePowerLevel(2, UnitRarity::Normal, NodeSize::Medium) == 24);
+  NC_CHECK(ComputePowerLevel(3, UnitRarity::Boss, NodeSize::Medium) == 44);
+  NC_CHECK(ComputePowerLevel(4, UnitRarity::Elite, NodeSize::Large) == 55);
+  NC_CHECK(ComputePowerLevel(5, UnitRarity::Specialist, NodeSize::Large) == 62);
+  NC_CHECK(ComputePowerLevel(5, UnitRarity::Boss, NodeSize::Large) == 65);      // 54+10+5=69 -> clamp 65
+  NC_CHECK(ComputePowerLevel(5, UnitRarity::Boss, NodeSize::VeryLarge) == 65);  // 54+10+8=72 -> clamp 65
+
+  // 3. Boss tier & node influence rules.
+  {
+    const auto s = ResolveBossTier(NodeSize::Small);
+    NC_CHECK(s.primary_boss_rarity == UnitRarity::Elite && s.boss_guard_elites == 0 && s.max_sub_lt_count == 0);
+    const auto m = ResolveBossTier(NodeSize::Medium);
+    NC_CHECK(m.primary_boss_rarity == UnitRarity::Boss && m.boss_guard_elites == 0 && m.max_sub_lt_count == 0);
+    const auto l = ResolveBossTier(NodeSize::Large);
+    NC_CHECK(l.primary_boss_rarity == UnitRarity::Boss && l.boss_guard_elites == 2 && l.max_sub_lt_count == 0);
+    const auto vl = ResolveBossTier(NodeSize::VeryLarge);
+    NC_CHECK(vl.primary_boss_rarity == UnitRarity::Boss && vl.boss_guard_elites == 2 &&
+             vl.min_sub_lt_count == 1 && vl.max_sub_lt_count == 2 && vl.zone_count >= 2);
+
+    NC_CHECK(ComputeNodeInfluence(NodeSize::Small, false) == 1);
+    NC_CHECK(ComputeNodeInfluence(NodeSize::Medium, false) == 2);
+    NC_CHECK(ComputeNodeInfluence(NodeSize::Large, false) == 3);
+    NC_CHECK(ComputeNodeInfluence(NodeSize::VeryLarge, false) == 5);
+    NC_CHECK(ComputeNodeInfluence(NodeSize::Small, true) == 5);
+    NC_CHECK(ComputeNodeInfluence(NodeSize::Medium, true) == 5);
+  }
+
+  // 4. Exhaustive size x type x seed invariant check against §1 table.
+  struct ExpectedRow {
+    NodeSize size;
+    int32_t min_tot, max_tot;
+    int32_t min_net, max_net;
+    int32_t min_spec, max_spec;
+    int32_t min_g, max_g;
+    int32_t min_boss, max_boss;
+  };
+  const ExpectedRow rows[] = {
+      {NodeSize::Small, 6, 10, 1, 1, 0, 2, 4, 6, 1, 1},
+      {NodeSize::Medium, 11, 20, 1, 2, 2, 5, 7, 12, 1, 1},
+      {NodeSize::Large, 21, 30, 2, 3, 5, 8, 13, 18, 1, 1},
+      {NodeSize::VeryLarge, 31, 40, 3, 4, 8, 12, 18, 23, 2, 3},
+  };
+  const NodeType types[] = {NodeType::Economy, NodeType::Espionage, NodeType::Tech, NodeType::Military};
+
+  for (const auto& r : rows) {
+    int32_t military_sum = 0;
+    int32_t economy_sum = 0;
+    for (NodeType t : types) {
+      for (uint64_t seed = 1; seed <= 25; ++seed) {
+        const auto b = ComputeGarrisonBudget(r.size, t, seed);
+        NC_CHECK(b.total_security >= r.min_tot && b.total_security <= r.max_tot);
+        NC_CHECK(b.netrunners >= 1);  // Hard rule: always >= 1 Netrunner.
+        NC_CHECK(b.netrunners >= r.min_net && b.netrunners <= r.max_net);
+        NC_CHECK(b.SpecialistsAndElites() >= r.min_spec && b.SpecialistsAndElites() <= r.max_spec);
+        NC_CHECK(b.RankAndFileGuards() >= r.min_g && b.RankAndFileGuards() <= r.max_g);
+        NC_CHECK(b.TotalBosses() >= r.min_boss && b.TotalBosses() <= r.max_boss);
+        NC_CHECK(b.TotalBosses() + b.netrunners + b.SpecialistsAndElites() + b.RankAndFileGuards() ==
+                 b.total_security);
+        NC_CHECK(b.post_units + b.patrol_units + b.TotalBosses() == b.total_security);
+        NC_CHECK(b.netrunner_intel_bonus == b.netrunners);
+
+        if (t == NodeType::Espionage) {
+          NC_CHECK(b.netrunners == r.max_net);
+          NC_CHECK(b.heavies == 0);
+        }
+        if (t == NodeType::Economy) {
+          NC_CHECK(b.civilian_crowd_target > 0);
+          economy_sum += b.total_security;
+        } else {
+          NC_CHECK(b.civilian_crowd_target == 0);
+        }
+        if (t == NodeType::Military) {
+          military_sum += b.total_security;
+        }
+      }
+    }
+    // Military nodes must average higher security than Economy nodes of the same size.
+    NC_CHECK(military_sum > economy_sum);
+  }
+
+  // 5. Weakened garrison (strength_ratio < 1.0) still preserves Boss + >= 1 Netrunner; 0.0 clears node.
+  {
+    const auto cleared = ComputeGarrisonBudget(NodeSize::Large, NodeType::Military, 42, 0.0F);
+    NC_CHECK(cleared.total_security == 0);
+    const auto weakened = ComputeGarrisonBudget(NodeSize::Large, NodeType::Military, 42, 0.25F);
+    NC_CHECK(weakened.total_security >= 2 && weakened.total_security < 15);
+    NC_CHECK(weakened.primary_bosses == 1);
+    NC_CHECK(weakened.netrunners >= 1);
+  }
+
+  // 6. Lore boss override + determinism + cross-check EVERY generated record ID against GarrisonTemplates.yaml!
+  const auto yaml_path =
+      std::filesystem::path(world_db_path).parent_path().parent_path() /
+      "src" / "r6" / "tweaks" / "NeonAscendancy" / "GarrisonTemplates.yaml";
+  std::unordered_set<std::string> defined_records;
+  {
+    std::ifstream in(yaml_path);
+    NC_CHECK(in.is_open());
+    std::string line;
+    while (std::getline(in, line)) {
+      if (!line.empty() && line[0] != '#' && line[0] != ' ' && line.back() == ':') {
+        defined_records.insert(line.substr(0, line.size() - 1));
+      }
+    }
+  }
+  NC_CHECK(defined_records.size() >= 432);
+
+  const int32_t all_factions[] = {
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 20, 21, 22, 23, 43, 50, 53, kPlayerFactionIdBase};
+  for (int32_t fid : all_factions) {
+    for (int32_t tier = 1; tier <= 5; ++tier) {
+      for (const auto& r : rows) {
+        GarrisonSpec spec;
+        spec.faction_id = fid;
+        spec.fielded_tier = tier;
+        spec.size = r.size;
+        spec.type = types[(static_cast<size_t>(fid) + static_cast<size_t>(tier)) % 4U];
+        spec.is_hq = (r.size == NodeSize::VeryLarge);
+        spec.node_seed = static_cast<uint64_t>(fid) * 131ULL + static_cast<uint64_t>(tier) * 17ULL;
+
+        const auto roster_a = BuildGarrisonRoster(spec);
+        const auto roster_b = BuildGarrisonRoster(spec);
+        NC_CHECK(roster_a.units.size() == static_cast<size_t>(roster_a.budget.total_security));
+        NC_CHECK(roster_a.units.size() == roster_b.units.size());
+
+        int32_t boss_guards_seen = 0;
+        int32_t netrunners_seen = 0;
+        for (size_t i = 0; i < roster_a.units.size(); ++i) {
+          const auto& u = roster_a.units[i];
+          NC_CHECK(u.record_id == roster_b.units[i].record_id);
+          NC_CHECK(u.power_level == roster_b.units[i].power_level);
+          NC_CHECK(u.power_level >= kMinPowerLevel && u.power_level <= kMaxPowerLevel);
+          NC_CHECK(defined_records.contains(u.record_id));
+          if (u.is_boss_guard) {
+            ++boss_guards_seen;
+            NC_CHECK(u.rarity == UnitRarity::Elite);
+            NC_CHECK(u.assignment == AssignmentKind::Post);
+          }
+          if (!u.is_boss && u.role == GarrisonRole::Netrunner) {
+            ++netrunners_seen;
+          }
+        }
+        NC_CHECK(boss_guards_seen == roster_a.budget.boss_guard_elites);
+        NC_CHECK(netrunners_seen >= 1);
+      }
+    }
+  }
+
+  // Lore boss override replaces only the primary boss record_id cleanly.
+  {
+    GarrisonSpec spec;
+    spec.faction_id = 2;  // Tyger Claws
+    spec.fielded_tier = 3;
+    spec.size = NodeSize::Large;
+    spec.type = NodeType::Economy;
+    spec.is_hq = true;
+    spec.node_seed = 777;
+    spec.lore_boss_record_id = "Character.sts_wat_kab_07_jotaro";
+    const auto roster = BuildGarrisonRoster(spec);
+    NC_CHECK(!roster.units.empty());
+    NC_CHECK(roster.units[0].is_boss);
+    NC_CHECK(roster.units[0].record_id == "Character.sts_wat_kab_07_jotaro");
+    NC_CHECK(roster.units[0].rarity == UnitRarity::Boss);
+    NC_CHECK(roster.units[0].power_level == ComputePowerLevel(3, UnitRarity::Boss, NodeSize::Large));
+    NC_CHECK(roster.influence == 5);
+  }
+}
+
 } // namespace
 
 int main(int argc, char** argv) {
@@ -488,6 +674,7 @@ int main(int argc, char** argv) {
   }
   const std::string world_db_path = argv[1];
   TestEraAndSanitizerPolicy();
+  TestGarrisonRosterAndPowerLevel(world_db_path);
   TestWorldDbAndSpatialLookups(world_db_path);
   TestCausalSimAndSaveBranching(world_db_path);
 

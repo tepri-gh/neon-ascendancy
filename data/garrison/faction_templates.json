@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "description": "Single source of truth for Neon Ascendancy §4 TweakXL faction template matrix. Every vanilla base, affiliation, weapon preset, archetype, ability, and slot record is verified against Cyberpunk 2077 2.5 EP1 tweakdb_ep1.bin by tools/generate-garrison-tweaks.py.",
+  "roles": [
+    "GuardRanged",
+    "GuardMelee",
+    "Heavy",
+    "Sniper",
+    "Netrunner",
+    "Elite"
+  ],
+  "gear_brackets": [
+    "Low",
+    "Mid",
+    "High"
+  ],
+  "boss_archetypes": [
+    "Enforcer",
+    "Netrunner",
+    "Vanguard"
+  ],
+  "factions": [
+    {
+      "code": "tyger_claws",
+      "pascal": "TygerClaws",
+      "faction_id": 2,
+      "affiliation": "Factions.TygerClaws",
+      "attitude_group": "tygerClaws",
+      "bases": {
+        "GuardRanged": "Character.tyger_claws_biker1_ranged1_nue_wa",
+        "GuardMelee": "Character.tyger_claws_biker2_melee2_baseball_ma",
+        "Heavy": "Character.tyger_claws_biker3_shotgun3_zhuo_ma_elite",
+        "Sniper": "Character.tyger_claws_biker2_ranged2_shingen_ma",
+        "Netrunner": "Character.tygerclaw_gangster3_netrunner_nue_wa_rare",
+        "Elite": "Character.tyger_claws_kunoichi_fmelee3_katana_wa_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nue_Default", "Items.Preset_Shingen_Default", "Items.Preset_Yukimura_Default"],
+        "GuardMelee": ["Items.Preset_Baseball_Bat_Default", "Items.Preset_Katana_Default", "Items.Preset_Katana_Default"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Tactician_Default", "Items.Preset_Zhuo_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Ashura_Default"],
+        "Netrunner": ["Items.Preset_Nue_Default", "Items.Preset_Chao_Default", "Items.Preset_Yukimura_Default"],
+        "Elite": ["Items.Preset_Katana_Default", "Items.Preset_Shingen_Default", "Items.Preset_Katana_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Zhuo_Default",
+        "Netrunner": "Items.Preset_Shingen_Default",
+        "Vanguard": "Items.Preset_Katana_Default"
+      }
+    },
+    {
+      "code": "valentinos",
+      "pascal": "Valentinos",
+      "faction_id": 3,
+      "affiliation": "Factions.Valentinos",
+      "attitude_group": "valentinos",
+      "bases": {
+        "GuardRanged": "Character.valentinos_grunt1_ranged1_nova_ma",
+        "GuardMelee": "Character.valentinos_grunt2_melee2_machete_ma",
+        "Heavy": "Character.dtn_valentinos_strong2_shotgun2_igla_ma_rare",
+        "Sniper": "Character.valentinos_sniper_sniper3_grad_wa_elite",
+        "Netrunner": "Character.valentinos_grunt2_ranged2_ajax_ma",
+        "Elite": "Character.dtn_valentinos_machete_hmelee3_machete_mb_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Overture_Default", "Items.Preset_Ajax_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Machete_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Testera_Default", "Items.Preset_Defender_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Nue_Default", "Items.Preset_Overture_Default", "Items.Preset_Unity_Default"],
+        "Elite": ["Items.Preset_Overture_Default", "Items.Preset_Ajax_Default", "Items.Preset_Testera_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Testera_Default",
+        "Netrunner": "Items.Preset_Overture_Default",
+        "Vanguard": "Items.Preset_Machete_Default"
+      }
+    },
+    {
+      "code": "maelstrom",
+      "pascal": "Maelstrom",
+      "faction_id": 1,
+      "affiliation": "Factions.Maelstrom",
+      "attitude_group": "maelstrom",
+      "bases": {
+        "GuardRanged": "Character.maelstrom_grunt1_ranged1_lexington_ma",
+        "GuardMelee": "Character.maelstrom_grunt2_melee2_machete_ma",
+        "Heavy": "Character.maelstrom_strong_gunner2_defender_mb_rare",
+        "Sniper": "Character.maelstrom_fast_sniper2_grad_ma",
+        "Netrunner": "Character.maelstrom_netrunner_netrunner2_lexington_ma",
+        "Elite": "Character.maelstrom_fast_franged2_pulsar_ma_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Lexington_Default", "Items.Preset_Pulsar_Default", "Items.Preset_Ajax_Default"],
+        "GuardMelee": ["Items.Preset_Pipe_Wrench_Default", "Items.Preset_Machete_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Satara_Default", "Items.Preset_Defender_Default", "Items.Preset_MA70_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Nekomata_Default", "Items.Preset_Nekomata_Default"],
+        "Netrunner": ["Items.Preset_Omaha_Default", "Items.Preset_Quasar_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Satara_Default", "Items.Preset_Achilles_Default", "Items.Preset_MA70_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Defender_Default",
+        "Netrunner": "Items.Preset_Quasar_Default",
+        "Vanguard": "Items.Preset_Satara_Default"
+      }
+    },
+    {
+      "code": "sixth_street",
+      "pascal": "SixthStreet",
+      "faction_id": 4,
+      "affiliation": "Factions.SixthStreet",
+      "attitude_group": "sixthStreet",
+      "bases": {
+        "GuardRanged": "Character.sixthstreet_hooligan_ranged1_nova_ma",
+        "GuardMelee": "Character.sixthstreet_hooligan_melee1_knife_ma",
+        "Heavy": "Character.sixthstreet_menace1_shotgun2_igla_ma",
+        "Sniper": "Character.sixthstreet_sniper2_sniper2_grad_ma_rare",
+        "Netrunner": "Character.sts_std_arr_11_6thStreet_ganger_netrunner",
+        "Elite": "Character.sixthstreet_patrol2_shotgun3_satara_ma_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Copperhead_Default", "Items.Preset_Ajax_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Baseball_Bat_Default", "Items.Preset_Baton_Alpha"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Satara_Default", "Items.Preset_Defender_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Lexington_Default", "Items.Preset_Saratoga_Default", "Items.Preset_Ajax_Default"],
+        "Elite": ["Items.Preset_Ajax_Default", "Items.Preset_Satara_Default", "Items.Preset_Kyubi_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Defender_Default",
+        "Netrunner": "Items.Preset_Saratoga_Default",
+        "Vanguard": "Items.Preset_Ajax_Default"
+      }
+    },
+    {
+      "code": "voodoo_boys",
+      "pascal": "VoodooBoys",
+      "faction_id": 5,
+      "affiliation": "Factions.VoodooBoys",
+      "attitude_group": "voodooBoys",
+      "bases": {
+        "GuardRanged": "Character.sts_ep1_12_voodooboy_ranged2_saratoga_ma",
+        "GuardMelee": "Character.sts_ep1_12_voodooboy_ranged2_sidewinder_wa",
+        "Heavy": "Character.sts_ep1_12_voodooboy_shotgun2_palica_ma",
+        "Sniper": "Character.sts_ep1_12_voodooboy_ranged2_sidewinder_wa",
+        "Netrunner": "Character.voodooboys_netrunner2_netrunner2_lexington_ma_rare",
+        "Elite": "Character.voodooboys_netrunner2_netrunner2_lexington_wa_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Saratoga_Default", "Items.Preset_Sidewinder_Default", "Items.Preset_Dian_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Machete_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Palica_Default", "Items.Preset_Palica_Default", "Items.Preset_Zhuo_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Ashura_Default", "Items.Preset_Ashura_Default"],
+        "Netrunner": ["Items.Preset_Lexington_Default", "Items.Preset_Yukimura_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Sidewinder_Default", "Items.Preset_Palica_Default", "Items.Preset_Senkoh_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Palica_Default",
+        "Netrunner": "Items.Preset_Yukimura_Default",
+        "Vanguard": "Items.Preset_Sidewinder_Default"
+      }
+    },
+    {
+      "code": "animals",
+      "pascal": "Animals",
+      "faction_id": 6,
+      "affiliation": "Factions.Animals",
+      "attitude_group": "animals",
+      "bases": {
+        "GuardRanged": "Character.animals_grunt1_ranged1_nova_mb",
+        "GuardMelee": "Character.animals_grunt1_melee1_fists_mb",
+        "Heavy": "Character.animals_bouncer2_hmelee2_hammer_mba_rare",
+        "Sniper": "Character.animals_grunt2_ranged2_overture_mb",
+        "Netrunner": "Character.dtn_animals_elite2_ranged3_burya_mba_rare",
+        "Elite": "Character.animals_elite3_shotgun3_carnage_mba_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Overture_Default", "Items.Preset_Burya_Default"],
+        "GuardMelee": ["Items.Preset_Baseball_Bat_Default", "Items.Preset_Hammer_Default", "Items.Preset_Hammer_Default"],
+        "Heavy": ["Items.Preset_Carnage_Default", "Items.Preset_Hammer_Default", "Items.Preset_Defender_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Omaha_Default", "Items.Preset_Burya_Default", "Items.Preset_Burya_Default"],
+        "Elite": ["Items.Preset_Carnage_Default", "Items.Preset_Hammer_Default", "Items.Preset_Testera_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Hammer_Default",
+        "Netrunner": "Items.Preset_Burya_Default",
+        "Vanguard": "Items.Preset_Carnage_Default"
+      }
+    },
+    {
+      "code": "scavengers",
+      "pascal": "Scavengers",
+      "faction_id": 7,
+      "affiliation": "Factions.Scavengers",
+      "attitude_group": "scavengers",
+      "bases": {
+        "GuardRanged": "Character.scavenger_grunt1_ranged1_nova_ma",
+        "GuardMelee": "Character.cvi_scavenger_grunt2_melee2_knife_wa",
+        "Heavy": "Character.scavenger_strong3_gunner2_defender_mb_rare",
+        "Sniper": "Character.scavenger_elite3_sniper2_grad_ma",
+        "Netrunner": "Character.scavenger_grunt3_netrunner2_nova_ma_rare",
+        "Elite": "Character.scavenger_fast3_fmelee3_machete_wa_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Pulsar_Default", "Items.Preset_Copperhead_Default"],
+        "GuardMelee": ["Items.Preset_Pipe_Wrench_Default", "Items.Preset_Knife_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Defender_Default", "Items.Preset_Carnage_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Nova_Default", "Items.Preset_Omaha_Default", "Items.Preset_Guillotine_Default"],
+        "Elite": ["Items.Preset_Machete_Default", "Items.Preset_Igla_Default", "Items.Preset_Pozhar_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Defender_Default",
+        "Netrunner": "Items.Preset_Omaha_Default",
+        "Vanguard": "Items.Preset_Machete_Default"
+      }
+    },
+    {
+      "code": "wraiths",
+      "pascal": "Wraiths",
+      "faction_id": 8,
+      "affiliation": "Factions.Wraiths",
+      "attitude_group": "wraiths",
+      "bases": {
+        "GuardRanged": "Character.wraiths_grunt1_ranged1_nova_ma",
+        "GuardMelee": "Character.wraiths_grunt2_melee2_crowbar_ma",
+        "Heavy": "Character.wraiths_strong_gunner3_hmg_mb_elite",
+        "Sniper": "Character.wraiths_ghost2_sniper2_achilles_ma_rare",
+        "Netrunner": "Character.wraiths_grunt2_ranged2_copperhead_ma",
+        "Elite": "Character.wraiths_warrior3_shotgun3_palica_ma_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Copperhead_Default", "Items.Preset_Ajax_Default"],
+        "GuardMelee": ["Items.Preset_Crowbar_Default", "Items.Preset_Machete_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Defender_Default", "Items.Preset_HMG_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Achilles_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Nova_Default", "Items.Preset_Quasar_Default", "Items.Preset_Achilles_Default"],
+        "Elite": ["Items.Preset_Palica_Default", "Items.Preset_Achilles_Default", "Items.Preset_Pozhar_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_HMG_Default",
+        "Netrunner": "Items.Preset_Achilles_Default",
+        "Vanguard": "Items.Preset_Palica_Default"
+      }
+    },
+    {
+      "code": "aldecaldos",
+      "pascal": "Aldecaldos",
+      "faction_id": 9,
+      "affiliation": "Factions.Aldecaldos",
+      "attitude_group": "aldecaldos",
+      "bases": {
+        "GuardRanged": "Character.aldecaldos_grunt2_melee2__ma",
+        "GuardMelee": "Character.aldecaldos_grunt2_melee2__ma",
+        "Heavy": "Character.aldecaldos_grunt2_melee2__ma",
+        "Sniper": "Character.aldecaldos_grunt2_melee2__ma",
+        "Netrunner": "Character.aldecaldos_grunt2_melee2__ma",
+        "Elite": "Character.aldecaldos_grunt2_melee2__ma"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Nova_Default", "Items.Preset_Copperhead_Default", "Items.Preset_Ajax_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Machete_Default", "Items.Preset_Machete_Default"],
+        "Heavy": ["Items.Preset_Igla_Default", "Items.Preset_Tactician_Default", "Items.Preset_Defender_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Grad_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Overture_Default", "Items.Preset_Omaha_Default", "Items.Preset_Achilles_Default"],
+        "Elite": ["Items.Preset_Overture_Default", "Items.Preset_Ajax_Default", "Items.Preset_Grad_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Defender_Default",
+        "Netrunner": "Items.Preset_Achilles_Default",
+        "Vanguard": "Items.Preset_Ajax_Default"
+      }
+    },
+    {
+      "code": "barghest",
+      "pascal": "Barghest",
+      "faction_id": 10,
+      "affiliation": "Factions.Barghest",
+      "attitude_group": "kurtz",
+      "bases": {
+        "GuardRanged": "Character.kurtz_soldier1_ranged2_rifle_ma",
+        "GuardMelee": "Character.kurtz_grunt1_ranged1_saratoga_ma",
+        "Heavy": "Character.kurtz_elite3_gunner3_HMG_mb_elite",
+        "Sniper": "Character.kurtz_recon_sniper2_achilles_ma_rare",
+        "Netrunner": "Character.kurtz_netrunner2_netrunner2_lexington_ma_rare",
+        "Elite": "Character.bou_kurtz_strongarms_hmelee3_fists_mb_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Saratoga_Default", "Items.Preset_Ajax_Default", "Items.Preset_Kyubi_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Machete_Default", "Items.Preset_Baton_Beta"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_MA70_Default", "Items.Preset_HMG_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Grad_Default", "Items.Preset_Osprey_Default"],
+        "Netrunner": ["Items.Preset_Lexington_Default", "Items.Preset_Omaha_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Pozhar_Default", "Items.Preset_Kyubi_Default", "Items.Preset_MA70_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_HMG_Default",
+        "Netrunner": "Items.Preset_Senkoh_Default",
+        "Vanguard": "Items.Preset_Pozhar_Default"
+      }
+    },
+    {
+      "code": "the_mox",
+      "pascal": "TheMox",
+      "faction_id": 11,
+      "affiliation": "Factions.TheMox",
+      "attitude_group": "mox",
+      "bases": {
+        "GuardRanged": "Character.the_mox_1_ranged1_lexington_wa",
+        "GuardMelee": "Character.the_mox_1_melee2_baseball_wa",
+        "Heavy": "Character.the_mox_1_ranged1_pulsar_wa",
+        "Sniper": "Character.the_mox_1_ranged1_lexington_wa",
+        "Netrunner": "Character.the_mox_1_ranged1_pulsar_wa",
+        "Elite": "Character.the_mox_elite2_fmelee2_machete_wa_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Lexington_Default", "Items.Preset_Pulsar_Default", "Items.Preset_Saratoga_Default"],
+        "GuardMelee": ["Items.Preset_Baseball_Bat_Default", "Items.Preset_Machete_Default", "Items.Preset_Katana_Default"],
+        "Heavy": ["Items.Preset_Carnage_Default", "Items.Preset_Tactician_Default", "Items.Preset_Crusher_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Achilles_Default", "Items.Preset_Nekomata_Default"],
+        "Netrunner": ["Items.Preset_Lexington_Default", "Items.Preset_Omaha_Default", "Items.Preset_Yukimura_Default"],
+        "Elite": ["Items.Preset_Machete_Default", "Items.Preset_Carnage_Default", "Items.Preset_Katana_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Carnage_Default",
+        "Netrunner": "Items.Preset_Yukimura_Default",
+        "Vanguard": "Items.Preset_Katana_Default"
+      }
+    },
+    {
+      "code": "arasaka",
+      "pascal": "Arasaka",
+      "faction_id": 20,
+      "affiliation": "Factions.Arasaka",
+      "attitude_group": "arasaka",
+      "bases": {
+        "GuardRanged": "Character.arasaka_guard2_ranged1_kenshin_ma",
+        "GuardMelee": "Character.arasaka_ninja_fmelee3_katana_wa_elite",
+        "Heavy": "Character.arasaka_terminator_shotgun3_zhuo_mah_elite",
+        "Sniper": "Character.arasaka_sniper_sniper3_ashura_ma_elite",
+        "Netrunner": "Character.arasaka_agent_fshotgun2_tactician_wa_rare",
+        "Elite": "Character.arasaka_ninja_fmelee3_katana_wa_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Kenshin_Default", "Items.Preset_Shingen_Default", "Items.Preset_Masamune_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Beta", "Items.Preset_Katana_Default", "Items.Preset_Katana_Default"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Zhuo_Default", "Items.Preset_MA70_Default"],
+        "Sniper": ["Items.Preset_Nekomata_Default", "Items.Preset_Ashura_Default", "Items.Preset_Ashura_Default"],
+        "Netrunner": ["Items.Preset_Kenshin_Default", "Items.Preset_Yukimura_Default", "Items.Preset_Shingen_Default"],
+        "Elite": ["Items.Preset_Katana_Default", "Items.Preset_Masamune_Default", "Items.Preset_Katana_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Zhuo_Default",
+        "Netrunner": "Items.Preset_Shingen_Default",
+        "Vanguard": "Items.Preset_Katana_Default"
+      }
+    },
+    {
+      "code": "militech",
+      "pascal": "Militech",
+      "faction_id": 21,
+      "affiliation": "Factions.Militech",
+      "attitude_group": "militech",
+      "bases": {
+        "GuardRanged": "Character.militech_ranger1_ranged1_saratoga_ma",
+        "GuardMelee": "Character.militech_strongarms_hmelee3_fists_mb_elite",
+        "Heavy": "Character.militech_enforcer3_gunner3_HMG_mb_elite",
+        "Sniper": "Character.militech_recon_sniper2_achilles_ma_rare",
+        "Netrunner": "Character.militech_ranger2_ranged2_ajax_ma",
+        "Elite": "Character.militech_enforcer2_shotgun2_tactician_mah_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Saratoga_Default", "Items.Preset_Ajax_Default", "Items.Preset_Kyubi_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Alpha", "Items.Preset_Baton_Beta", "Items.Preset_Baton_Beta"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Crusher_Default", "Items.Preset_HMG_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Achilles_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Omaha_Default", "Items.Preset_Saratoga_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Ajax_Default", "Items.Preset_Crusher_Default", "Items.Preset_MA70_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_HMG_Default",
+        "Netrunner": "Items.Preset_Achilles_Default",
+        "Vanguard": "Items.Preset_Crusher_Default"
+      }
+    },
+    {
+      "code": "kang_tao",
+      "pascal": "KangTao",
+      "faction_id": 22,
+      "affiliation": "Factions.KangTao",
+      "attitude_group": "kang_tao",
+      "bases": {
+        "GuardRanged": "Character.kangtao_ranger1_ranged2_dian_ma",
+        "GuardMelee": "Character.kangtao_ranger1_ranged2_dian_ma",
+        "Heavy": "Character.kangtao_soldier2_shotgun3_zhuo_mah_elite",
+        "Sniper": "Character.kangtao_ranger1_ranged2_dian_ma",
+        "Netrunner": "Character.kangtao_soldier2_shotgun2_zhuo_mah_rare",
+        "Elite": "Character.kangtao_officer_grenadier3_mah_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Chao_Default", "Items.Preset_Dian_Default", "Items.Preset_Dian_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Alpha", "Items.Preset_Baton_Beta", "Items.Preset_Katana_Default"],
+        "Heavy": ["Items.Preset_Palica_Default", "Items.Preset_Zhuo_Default", "Items.Preset_Zhuo_Default"],
+        "Sniper": ["Items.Preset_Ashura_Default", "Items.Preset_Ashura_Default", "Items.Preset_Ashura_Default"],
+        "Netrunner": ["Items.Preset_Chao_Default", "Items.Preset_Yukimura_Default", "Items.Preset_Dian_Default"],
+        "Elite": ["Items.Preset_Dian_Default", "Items.Preset_Zhuo_Default", "Items.Preset_Zhuo_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Zhuo_Default",
+        "Netrunner": "Items.Preset_Dian_Default",
+        "Vanguard": "Items.Preset_Zhuo_Default"
+      }
+    },
+    {
+      "code": "biotechnica",
+      "pascal": "Biotechnica",
+      "faction_id": 23,
+      "affiliation": "Factions.Biotechnica",
+      "attitude_group": "biotechnica",
+      "override_affiliation": true,
+      "visual_tags_override": ["Corporate"],
+      "bases": {
+        "GuardRanged": "Character.security_security2_ranged2_saratoga_ma",
+        "GuardMelee": "Character.security_security2_ranged2_saratoga_ma",
+        "Heavy": "Character.security_security2_gunner2_defender_mb_rare",
+        "Sniper": "Character.security_blackmasked_sniper3_grad_ma_elite",
+        "Netrunner": "Character.militech_ranger1_ranged1_saratoga_ma",
+        "Elite": "Character.militech_enforcer2_shotgun2_tactician_mah_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Saratoga_Default", "Items.Preset_Copperhead_Default", "Items.Preset_Masamune_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Alpha", "Items.Preset_Baton_Beta", "Items.Preset_Baton_Beta"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Defender_Default", "Items.Preset_Crusher_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Nekomata_Default", "Items.Preset_Nekomata_Default"],
+        "Netrunner": ["Items.Preset_Kenshin_Default", "Items.Preset_Omaha_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Masamune_Default", "Items.Preset_Crusher_Default", "Items.Preset_Senkoh_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Crusher_Default",
+        "Netrunner": "Items.Preset_Senkoh_Default",
+        "Vanguard": "Items.Preset_Masamune_Default"
+      }
+    },
+    {
+      "code": "petrochem",
+      "pascal": "Petrochem",
+      "faction_id": 43,
+      "affiliation": "Factions.NA_Petrochem",
+      "custom_affiliation_base": "Factions.UnaffiliatedCorpo",
+      "attitude_group": "petrochem",
+      "override_affiliation": true,
+      "visual_tags_override": ["Corporate"],
+      "bases": {
+        "GuardRanged": "Character.militech_ranger1_ranged1_saratoga_ma",
+        "GuardMelee": "Character.security_security2_ranged2_saratoga_ma",
+        "Heavy": "Character.security_security2_gunner2_defender_mb_rare",
+        "Sniper": "Character.militech_recon_sniper2_achilles_ma_rare",
+        "Netrunner": "Character.militech_ranger2_ranged2_ajax_ma",
+        "Elite": "Character.militech_enforcer2_shotgun2_tactician_mah_rare"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Saratoga_Default", "Items.Preset_Ajax_Default", "Items.Preset_Kyubi_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Alpha", "Items.Preset_Baton_Beta", "Items.Preset_Baton_Beta"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Defender_Default", "Items.Preset_MA70_Default"],
+        "Sniper": ["Items.Preset_Sor22_Default", "Items.Preset_Achilles_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Unity_Default", "Items.Preset_Omaha_Default", "Items.Preset_Ajax_Default"],
+        "Elite": ["Items.Preset_Ajax_Default", "Items.Preset_Crusher_Default", "Items.Preset_MA70_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_MA70_Default",
+        "Netrunner": "Items.Preset_Achilles_Default",
+        "Vanguard": "Items.Preset_Ajax_Default"
+      }
+    },
+    {
+      "code": "ncpd",
+      "pascal": "NCPD",
+      "faction_id": 50,
+      "affiliation": "Factions.NCPD",
+      "attitude_group": "police",
+      "bases": {
+        "GuardRanged": "Character.ncpd_police_ranged2_saratoga_ma",
+        "GuardMelee": "Character.ncpd_police_melee2_baton_ma",
+        "Heavy": "Character.ncpd_enforcer_shotgun2_tactician_ma_rare",
+        "Sniper": "Character.maxtac_av_sniper_wa_elite",
+        "Netrunner": "Character.maxtac_av_netrunner_ma",
+        "Elite": "Character.maxtac_shotgun_ma_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Lexington_Default", "Items.Preset_Saratoga_Default", "Items.Preset_Copperhead_Default"],
+        "GuardMelee": ["Items.Preset_Baton_Alpha", "Items.Preset_Baton_Beta", "Items.Preset_Baton_Beta"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Crusher_Default", "Items.Preset_Defender_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Nekomata_Default", "Items.Preset_Grad_Default"],
+        "Netrunner": ["Items.Preset_Lexington_Default", "Items.Preset_Omaha_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Crusher_Default", "Items.Preset_Ajax_Default", "Items.Preset_Masamune_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_Crusher_Default",
+        "Netrunner": "Items.Preset_Senkoh_Default",
+        "Vanguard": "Items.Preset_Masamune_Default"
+      }
+    },
+    {
+      "code": "afterlife",
+      "pascal": "Afterlife",
+      "faction_id": 53,
+      "affiliation": "Factions.AfterlifeMercs",
+      "attitude_group": "neutral",
+      "override_affiliation": true,
+      "bases": {
+        "GuardRanged": "Character.security_security2_ranged2_saratoga_ma",
+        "GuardMelee": "Character.security_security2_ranged2_saratoga_ma",
+        "Heavy": "Character.security_security2_gunner2_defender_mb_rare",
+        "Sniper": "Character.security_blackmasked_sniper3_grad_ma_elite",
+        "Netrunner": "Character.security_security2_ranged2_saratoga_ma",
+        "Elite": "Character.security_blackmasked_sniper3_grad_ma_elite"
+      },
+      "weapons": {
+        "GuardRanged": ["Items.Preset_Unity_Default", "Items.Preset_Ajax_Default", "Items.Preset_Kyubi_Default"],
+        "GuardMelee": ["Items.Preset_Knife_Default", "Items.Preset_Katana_Default", "Items.Preset_Katana_Default"],
+        "Heavy": ["Items.Preset_Tactician_Default", "Items.Preset_Crusher_Default", "Items.Preset_MA70_Default"],
+        "Sniper": ["Items.Preset_Achilles_Default", "Items.Preset_Grad_Default", "Items.Preset_Nekomata_Default"],
+        "Netrunner": ["Items.Preset_Unity_Default", "Items.Preset_Yukimura_Default", "Items.Preset_Senkoh_Default"],
+        "Elite": ["Items.Preset_Kyubi_Default", "Items.Preset_Crusher_Default", "Items.Preset_Katana_Default"]
+      },
+      "boss_weapons": {
+        "Enforcer": "Items.Preset_MA70_Default",
+        "Netrunner": "Items.Preset_Senkoh_Default",
+        "Vanguard": "Items.Preset_Katana_Default"
+      }
+    }
+  ]
+}

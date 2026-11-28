@@ -68,6 +68,8 @@ endfunction()
 add_library(neon_sim STATIC
   lib/sim/era.cpp
   lib/sim/era.hpp
+  lib/sim/garrison.cpp
+  lib/sim/garrison.hpp
   lib/sim/sim.cpp
   lib/sim/sim.hpp
 )
