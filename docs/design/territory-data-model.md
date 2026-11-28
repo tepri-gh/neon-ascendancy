@@ -184,3 +184,40 @@ Steps:
 5. **Untitled efficiency** multiplier and **bloc satisfaction** model (need
    the politics design).
 6. **Patron/client direction** is kept as flavour (`kind`) only. Enough?
+
+## Node anchors (candidates for the dynamic garrison)
+
+`data/territory/node_anchors.json` holds, for each of the 123 nodes, the
+anchors `docs/design/node-garrison-and-assault.md` section 5 asks for. It is
+built by `tools/extract-node-anchors.py` (`--check` for drift) from local
+research extracts: the venue catalogue, the mine-venues sector AI-spot index,
+the device registry, the lift audit and `data/roads/nodes.json`.
+
+Anchors are **candidates**, not proven placements. Each one carries a
+`confidence` (`vanilla` as found, `derived` computed from vanilla data,
+`generated` placed by rule) and a `source`. The garrison spike and the sweep
+validate them in game. The fields per node:
+- `id`, `catalogue_venue`: the classification id and the catalogue venue
+  key (two aliases: Black Sapphire, Ho-Oh).
+- `area`: the first tour stop's centre and radius. Spots count as inside
+  when they are within any of the venue's stops (Arasaka Tower spans three),
+  horizontally, and within 35 m vertically.
+- `guard_posts[]`: vanilla guard community spots, plus sector AI spots
+  whose workspot file reads as `guard` or `idle_stand` (`spot_kind`). Sit,
+  work, civilian and unknown spots are not posts. They are capped at 3× the
+  size's maximum headcount, picked for spread across rooms and floors.
+- `boss_seat`: a vanilla boss, lieutenant or miniboss spot; otherwise the
+  work or sit spot deepest from the main breach point (`derived`).
+- `patrol_splines[]`: generated loops through posts on one floor. No
+  vanilla spline points are in the index yet.
+- `breach_points[]`: the 1–2 doors farthest from the area centre.
+- `staging`: a road-graph node 35–60 m from the breach point, outside the
+  area.
+- `interior_waypoints[]`: up to three posts nearest the line from the
+  breach point to the boss seat.
+- `lift_links[]`: usable lift cars in the area (lift exclusions applied),
+  with their floors, the floors nearest the breach and the boss seat, and
+  a cab capacity of 4.
+- `capacity`: posts plus patrols against the size's minimum headcount. The
+  10 nodes short of it are listed in the file and need generated posts or a
+  larger area.
