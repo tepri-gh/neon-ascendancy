@@ -177,8 +177,10 @@ already define all four; we copy them, never invent them.
 13. **Lifts work everywhere** (owner decision 58, 2026-11-27): no area is
     out of reach unless it has strict lore implications we cannot remove
     (the Space Force One crash site, the Cynosure bunker). At runtime every
-    lift car and floor terminal is enabled, powered and has its
-    authorization turned off, and every lift door is enabled and powered
+    lift car and floor terminal is enabled, powered, switched ON (a car
+    only moves when ON, and `ForceEnabled` leaves a disabled car OFF) and
+    has its authorization turned off, and every lift door is enabled and
+    powered
     (`DeviceOverrides.reds`, `DoorPolicy.reds`). Never write a lift, floor
     terminal or lift door as "kept vanilla" in a venue entry. Floor access
     comes from the floor terminals (`liftController.swift`,
