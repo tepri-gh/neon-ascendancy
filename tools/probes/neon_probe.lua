@@ -643,11 +643,30 @@ local function sweep_protect(enable)
   Probe.invisible(enable)
 end
 
+-- Stops whose checklist was already saved on this tour (any session), read
+-- back from tour.log, so a probe reload or a new session resumes the tour
+-- instead of starting over.
+local function saved_on_tour(which)
+  local seen = {}
+  local f = io.open("tour.log", "r")
+  if not f then return seen end
+  for line in f:lines() do
+    if line:find('"event":"checklist"', 1, true) and line:find('"tour":"' .. which .. '"', 1, true) then
+      local c = line:match('"code":"([^"]+)"')
+      if c then seen[c] = true end
+    end
+  end
+  f:close()
+  return seen
+end
+
 local function tour_goto(i)
   local stops = cur_stops()
   if not stops then return end
-  if tour.mode == "tour" and tour.which ~= "access" then
-    while stops[i] and (stops[i].done or stops[i].tour ~= tour.which) do i = i + 1 end
+  if tour.mode == "tour" then
+    local saved = tour.saved or {}
+    while stops[i] and (saved[stops[i].code] or (tour.which ~= "access"
+        and (stops[i].done or stops[i].tour ~= tour.which))) do i = i + 1 end
   end
   if tour.mode == "sweep" and stops[i] then
     -- Written before the teleport: if the game hangs loading this stop, the
@@ -763,6 +782,8 @@ function Probe.tour_start(code, which)
   end
   local stops = cur_stops()
   if not stops then return end
+  -- Named stops are always visited; otherwise skip what this tour already saved.
+  tour.saved = code and {} or saved_on_tour(which)
   local start = (tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
   if code then
     for i, s in ipairs(stops) do if s.code == code then start = i end end
@@ -882,10 +903,21 @@ on("onUpdate", function(dt)
         emit(string.format("TOUR %s: %.0f m off after teleport, retrying", s.code, off))
         return
       end
-      emit(string.format("TOUR %s: did not arrive (%.0f m off), skipped", s.code, off))
-      append("tour.log", json_enc({ event = "skip", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code,
-        reason = "not arrived", off = off, mode = tour.mode }))
-      tour_goto(tour.i + 1)
+      if tour.mode == "sweep" then
+        emit(string.format("TOUR %s: did not arrive (%.0f m off), skipped", s.code, off))
+        append("tour.log", json_enc({ event = "skip", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code,
+          reason = "not arrived", off = off, mode = tour.mode }))
+        tour_goto(tour.i + 1)
+        return
+      end
+      -- The owner's tour never moves on by itself (it skipped Hill Park Spa,
+      -- 2026-11-27): stay on this stop with its checklist open. Walk or
+      -- noclip there, or press Next stop.
+      emit(string.format("TOUR %s: did not arrive (%.0f m off); go there, or press Next stop", s.code, off))
+      append("tour.log", json_enc({ event = "not_arrived", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code,
+        off = off, mode = tour.mode, tour = tour.which }))
+      tour.state = "review"
+      Probe.checklist_open(s, true)
       return
     end
     tour.state = "scan"

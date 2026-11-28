@@ -508,6 +508,9 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
     (`data/venues/access_checks.json`), grouped by place, no NPC scan.
   - Civilian venues get no tour; the sweep still visits every stop.
   Start each from the probe panel ("Node tour", "Hub tour", "Access tour").
+  A tour never moves on by itself: if a teleport misses a stop, it waits
+  there with the checklist open. Starting a tour again resumes it, skipping
+  stops already saved on that tour (read from `tour.log`).
   Tick what works, then "Save + next stop"; anything left unticked goes to
   `tour.log` as a problem and the tour report lists it (access problems in
   their own section). "Checklist here" opens the nearest venue's checkbox
