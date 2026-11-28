@@ -16,3 +16,8 @@ cp -a "$TOOLS_DIR/probes/neon_probe.lua" "$DEST/init.lua"
 cp -a "$TOOLS_DIR/probes/tour_stops.lua" "$DEST/tour_stops.lua"
 cp -a "$TOOLS_DIR/probes/access_stops.lua" "$DEST/access_stops.lua"
 echo "Deployed NeonAscendancyProbe (init.lua, tour_stops.lua, access_stops.lua) to $DEST"
+
+SPIKE_DEST="$GAME_DIR/bin/x64/plugins/cyber_engine_tweaks/mods/NeonAscendancySpike"
+mkdir -p "$SPIKE_DEST"
+cp -a "$TOOLS_DIR/probes/spike/init.lua" "$SPIKE_DEST/init.lua"
+echo "Deployed NeonAscendancySpike to $SPIKE_DEST"
