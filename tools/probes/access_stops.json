@@ -1,0 +1,1467 @@
+{
+ "generated_by": "tools/venue-proposals.py tour-stops",
+ "stops": [
+  {
+   "code": "access_01_q000_radio_tower",
+   "name": "q000_radio_tower",
+   "kind": "access",
+   "venue": "loc_q000_radio_tower",
+   "pos": [
+    -4091.0,
+    -6620.0,
+    88.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 8449225943234870983 opens",
+     "detail": "Owner tour 2026-11-26: the Yucca radio tower fence gate does not open. Unlocked and unsealed but gated by an authorization module only the prologue satisfied.",
+     "source": "door override",
+     "pos": [
+      -4091.0,
+      -6620.0,
+      88.1
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_02_q000_roadhouse_town",
+   "name": "Yucca",
+   "kind": "access",
+   "venue": "q000_roadhouse_town",
+   "pos": [
+    -3991.9,
+    -6504.2,
+    75.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The roadhouse garage door (#q000_dvc_garage_door) opens.",
+     "detail": "route roadhouse_garage_door: the sweep never logged it: its controller comes from an entity template (S4 sweep triage)",
+     "source": "route",
+     "pos": [
+      -3991.9,
+      -6504.2,
+      75.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_03_q000_border_crossing",
+   "name": "SoCal Border Crossing",
+   "kind": "access",
+   "venue": "loc_q000_border_crossing",
+   "pos": [
+    -2811.5,
+    -5658.9,
+    101.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 9614311589775865692 opens",
+     "detail": "Owner tour 2026-11-26: the checkpoint office doors stay shut. Locked and impassable behind an authorization module with no keycard in our timeline.",
+     "source": "door override",
+     "pos": [
+      -2811.5,
+      -5658.9,
+      101.1
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_04_mq306_tech_expo",
+   "name": "Digimmortal (Terra Cognita exhibition hall)",
+   "kind": "access",
+   "venue": "loc_mq306_tech_expo",
+   "pos": [
+    -2400.0,
+    -3095.8,
+    144.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 7278308239135850386 opens",
+     "detail": "Owner tour 2026-11-26: the glass single door by Damir's clinic is sealed. The prefab ships single_door_1_prefabRS5MNXQ with initial state SEALED, no vanilla phase drives it, and its untagged ref never entered the door scope. The policy may unseal it but must not force it open.",
+     "source": "door override",
+     "pos": [
+      -2400.0,
+      -3095.8,
+      144.5
+     ]
+    },
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 127) and you can step out.",
+     "detail": "floor 8521280569027143297: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -2383.9,
+      -3079.7,
+      127
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 147) and you can step out.",
+     "detail": "floor 8521277270492258664: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -2388.8,
+      -3078.1,
+      147
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_05_sts_ep1_botanic_gardens",
+   "name": "Organitopia",
+   "kind": "access",
+   "venue": "loc_sts_ep1_botanic_gardens",
+   "pos": [
+    -2177.6,
+    -3030.1,
+    111.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 17388178938208074557 opens",
+     "detail": "Sweep 2026-11-27: single_door_002 is locked and static, one-sided NONE/INTERACTIVE, with an empty authorization module and no skill/hack; with the front gate pinned shut it is the east/balcony fallback into the lower hall, so unlock it, disable the empty module and let fixSides give both sides the usable type.",
+     "source": "door override",
+     "pos": [
+      -2177.6,
+      -3030.1,
+      111.1
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_06_sts_ep1_13",
+   "name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
+   "kind": "access",
+   "venue": "loc_sts_ep1_13",
+   "pos": [
+    -2004.7,
+    -3003.7,
+    84.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 10846427555440147780 opens",
+     "detail": "Sweep 2026-11-27: #sts_ep1_13_info_center_doors is the public exhibition/info-center entrance but is typed REMOTELY_CONTROLLED on one side and INTERACTIVE on the other, so the policy logs oneSided=true and keeps it; the override makes DoorPolicy.reds fixSides give both sides the usable type (the door is already unlocked and powered).",
+     "source": "door override",
+     "pos": [
+      -2004.7,
+      -3003.7,
+      84.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_07_q303_nighthawks_bar",
+   "name": "The Moth",
+   "kind": "access",
+   "venue": "loc_q303_nighthawks_bar",
+   "pos": [
+    -2433.4,
+    -2653.6,
+    28.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 13400032501529177363 opens",
+     "detail": "Owner tour 2026-11-26: #q303_04_safehouse_door_01, the way from the bar to Alex's flat, does not open. It ships locked with an empty authorization module (no valid keycard or password), which the policy counted as a way in. Only the hidden NUSA door is a door_exclusion here; this one must be usable.",
+     "source": "door override",
+     "pos": [
+      -2433.4,
+      -2653.6,
+      28.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_08_q302_squat",
+   "name": "Rindo Hotel",
+   "kind": "access",
+   "venue": "q302_squat",
+   "pos": [
+    -2217.0,
+    -2540.7,
+    -0.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z -0.9) and you can step out.",
+     "detail": "floor 6122449354356018431: the audit could not settle it: terminal not found",
+     "source": "floor",
+     "pos": [
+      -2217.0,
+      -2540.7,
+      -0.9
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 18.1) and you can step out.",
+     "detail": "floor 6122450453867646642: the audit could not settle it: terminal not found",
+     "source": "floor",
+     "pos": [
+      -2218.4,
+      -2546.8,
+      18.1
+     ]
+    },
+    {
+     "label": "The lift reaches floor 3 here (its terminal at z 26.7) and you can step out.",
+     "detail": "floor 6122451553379274853: the audit could not settle it: terminal not found",
+     "source": "floor",
+     "pos": [
+      -2218.8,
+      -2546.4,
+      26.7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_09_mq305_wanted",
+   "name": "Bree Whitney's Apartment (Skyline West, Wellsprings)",
+   "kind": "access",
+   "venue": "loc_mq305_wanted",
+   "pos": [
+    -2345.4,
+    -181.9,
+    16.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 14651295146389086030 opens",
+     "detail": "Owner tour 2026-11-26: the Wellsprings apartment street door (#mq305_apartment_building_main_door) stays shut. It ships locked; only mq305 unlocks it, and its door terminal was read as a way in.",
+     "source": "door override",
+     "pos": [
+      -2345.4,
+      -181.9,
+      16.0
+     ]
+    },
+    {
+     "label": "Door 3843216534750408631 opens",
+     "detail": "Owner tour 2026-11-26: the lobby lift's inner door stays locked, so the car door closes onto it (the 'doubled lift'). Only mq305 unlocks it.",
+     "source": "door override",
+     "pos": [
+      -2331.8,
+      -172.9,
+      15.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_10_sts_hey_spr_06",
+   "name": "Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise)",
+   "kind": "access",
+   "venue": "loc_sts_hey_spr_06",
+   "pos": [
+    -2255.1,
+    -418.9,
+    3.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 7285717058466177479 opens",
+     "detail": "Owner tour 2026-11-26: the street door opens from inside but not from the street. It is neither locked nor sealed; its two sides are typed INTERACTIVE and REMOTELY_CONTROLLED, so the street side offers no interaction at all. No vanilla phase drives it, hence no policy line. Bringing it into policy lets the side-type fix in fixes/A-doors.md reach it; the override also disables its empty authorization module.",
+     "source": "door override",
+     "pos": [
+      -2255.1,
+      -418.9,
+      3.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_11_sts_cct_dtn_04",
+   "name": "Biotechnica Hotel (Republic Way, Downtown)",
+   "kind": "access",
+   "venue": "loc_sts_cct_dtn_04",
+   "pos": [
+    -2129.2,
+    482.7,
+    9.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 5474562508547213513 opens",
+     "detail": "Owner tour 2026-11-26: the ground-floor lift gate does not open (look-at powered=false) while the lift itself works. It is #dtn_04_dvc_lift/#dtn_04_dvc_lift_door, a lift door whose catalogue path never resolved, so the policy never even powered it. DoorPolicy must only power lift doors, never unlock them (see fixes/A-doors.md, Needs code).",
+     "source": "door override",
+     "pos": [
+      -2129.2,
+      482.7,
+      9.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_12_q104_gas_station",
+   "name": "SovOil Fuel Station (Highway 101)",
+   "kind": "access",
+   "venue": "loc_q104_gas_station",
+   "pos": [
+    -1844.1,
+    -4286.8,
+    74.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 17741768246805157947 opens",
+     "detail": "Owner tour 2026-11-26: the garage gates start locked shut and have to be forced with a Body/Athletics check. #q104_gas_station_gate_garage_combat carries a HARD force-open check, which the policy rightly counts as an in-world way through; the owner wants a normal garage gate instead of a forced one. Unlock it (never force-open).",
+     "source": "door override",
+     "pos": [
+      -1844.1,
+      -4286.8,
+      74.0
+     ]
+    },
+    {
+     "label": "Door 827506936858081459 opens",
+     "detail": "Owner tour 2026-11-26: the second garage gate (#q104_gas_station_gate_garage_combat_001) starts locked with the same HARD force-open check as the first. Owner wants it to work as a normal garage gate, so unlock it; never force-open.",
+     "source": "door override",
+     "pos": [
+      -1849.1,
+      -4293.1,
+      74.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_13_q303_combat_zone_gate",
+   "name": "Dogtown Gate Checkpoint (Combat Zone Border)",
+   "kind": "access",
+   "venue": "q303_combat_zone_gate",
+   "pos": [
+    -1934.3,
+    -2322.8,
+    43.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 16388162350038486557: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -1934.3,
+      -2322.8,
+      43.5
+     ]
+    },
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 823321618836541111: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -1934.3,
+      -2310.8,
+      43.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_14_mq303_shanks_store",
+   "name": "Brainporium (BD shop in the Jason Exiled head, Eden Plaza, Dogtown)",
+   "kind": "access",
+   "venue": "mq303_shanks_store",
+   "pos": [
+    -1850.1,
+    -2343.1,
+    40.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 17337257861505130411: vanilla starts it UNPOWERED; the lift policy now switches it on",
+     "source": "lift",
+     "pos": [
+      -1850.1,
+      -2343.1,
+      40.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_15_mq303_shanks_store",
+   "name": "Brainporium (BD shop in the Jason Exiled head, Eden Plaza, Dogtown)",
+   "kind": "access",
+   "venue": "loc_mq303_shanks_store",
+   "pos": [
+    -1716.4,
+    -2421.3,
+    62.6
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 15265392420759227790 opens",
+     "detail": "Owner tour 2026-11-26: the Brainporium's front door stays shut. #mq303_dvc_store_door ships locked, and its authorization module has no valid keycard or password (look-at authValid=false), so nothing in the world authorizes it. The policy read the empty module as an in-world way in and kept the lock.",
+     "source": "door override",
+     "pos": [
+      -1716.4,
+      -2421.3,
+      62.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_16_sts_ep1_01",
+   "name": "Haven Clinic",
+   "kind": "access",
+   "venue": "sts_ep1_01",
+   "pos": [
+    -1628.7,
+    -2508.1,
+    35.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 14050812098016282707: vanilla starts it UNPOWERED; the lift policy now switches it on",
+     "source": "lift",
+     "pos": [
+      -1628.7,
+      -2508.1,
+      35.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_17_sts_ep1_06",
+   "name": "Heavy Hearts",
+   "kind": "access",
+   "venue": "sts_ep1_06",
+   "pos": [
+    -1568.8,
+    -2350.1,
+    44.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 11346050311544385789: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -1568.8,
+      -2350.1,
+      44.1
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 52.3) and you can step out.",
+     "detail": "floor 13018022837935937555: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1569.2,
+      -2347.6,
+      52.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_18_pr_stadium",
+   "name": "EBM Petrochem Stadium (Dogtown black market and Barghest base)",
+   "kind": "access",
+   "venue": "pr_stadium",
+   "pos": [
+    -1398.8,
+    -2152.2,
+    38.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 6861990148558522338: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -1398.8,
+      -2152.2,
+      38.4
+     ]
+    },
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 34.3) and you can step out.",
+     "detail": "floor 7623129950343532391: the audit could not settle it: terminal not found",
+     "source": "floor",
+     "pos": [
+      -1402.0,
+      -2151.6,
+      34.3
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 70.3) and you can step out.",
+     "detail": "floor 7623131049855160602: the audit could not settle it: terminal not found",
+     "source": "floor",
+     "pos": [
+      -1402.1,
+      -2151.3,
+      70.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_19_q110_netrunners_den",
+   "name": "Voodoo Boys' Netrunners Den (Batty's Hotel / Coastview market)",
+   "kind": "access",
+   "venue": "loc_q110_netrunners_den",
+   "pos": [
+    -1918.6,
+    -1907.4,
+    49.2
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 15858866253258795943 opens",
+     "detail": "Sweep 2026-11-27: #q110_dvc_den_front_lift_door_1 is disabled and locked with an empty module and is outside DoorScope, so the policy never enabled or powered it; it must enable and power with the hotel-front lift. The lift itself is a separate Needs code item; if the lift-door guard is moved before the override branch, this override will only enable/power and not unlock.",
+     "source": "door override",
+     "pos": [
+      -1918.6,
+      -1907.4,
+      49.2
+     ]
+    },
+    {
+     "label": "Door 15858867352770424154 opens",
+     "detail": "Sweep 2026-11-27: #q110_dvc_den_front_lift_door_2 is the upper gate of the same disabled, unscoped hotel-front lift and is disabled and locked; enable and power it so the car can open it at the den floor. Same lift-door guard caveat as door 1.",
+     "source": "door override",
+     "pos": [
+      -1918.6,
+      -1907.5,
+      57.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_20_q110_netrunners_den",
+   "name": "Voodoo Boys' Netrunners Den (Batty's Hotel / Coastview market)",
+   "kind": "access",
+   "venue": "q110_netrunners_den",
+   "pos": [
+    -1877.2,
+    -1877.1,
+    45.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 45.1) and you can step out.",
+     "detail": "floor 8090661230483066952: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1877.2,
+      -1877.1,
+      45.1
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 59.0) and you can step out.",
+     "detail": "floor 8090664529017951585: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1877.2,
+      -1877.1,
+      59.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_21_q110_butcher_shop",
+   "name": "Rolland's Butcher Shop (Voodoo Boys front, Coastview)",
+   "kind": "access",
+   "venue": "loc_q110_butcher_shop",
+   "pos": [
+    -1814.3,
+    -1972.1,
+    52.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 11381510476531899714 opens",
+     "detail": "Sweep 2026-11-27: #q110_dvc_butcher_shop_back_room_door_001 ships locked and static with an empty authorization module and no skill/hack, so the locked workroom and butcher_01 at the meat grinder are unreachable; unlock it and disable the empty module, never force open.",
+     "source": "door override",
+     "pos": [
+      -1814.3,
+      -1972.1,
+      52.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_22_q110_surroundings",
+   "name": "Coastview Relay Tower (Charon Exotics tracking station)",
+   "kind": "access",
+   "venue": "loc_q110_surroundings",
+   "pos": [
+    -1767.7,
+    -1909.8,
+    56.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 13894025792123919791 opens",
+     "detail": "Sweep 2026-11-27: the relay-tower compound gate {gate_}_002 in loc_q110_surroundings_decoration is locked and static with an empty authorization module and no skill/hack, ~11 m below the crew's platform, so the climb from the coast road is walled off; unlock it and disable the empty module, never force open.",
+     "source": "door override",
+     "pos": [
+      -1767.7,
+      -1909.8,
+      56.8
+     ]
+    },
+    {
+     "label": "Door 18433186265195378279 opens",
+     "detail": "Sweep 2026-11-27: the second relay-tower compound gate {gate_}1 has the same locked/static empty-module state as its partner and blocks the platform climb; unlock it and disable the empty module, never force open.",
+     "source": "door override",
+     "pos": [
+      -1760.0,
+      -1913.4,
+      56.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_23_sts_hey_gle_03",
+   "name": "Gaston Slayton's Apartment (Lobos St, floor 17)",
+   "kind": "access",
+   "venue": "sts_hey_gle_03",
+   "pos": [
+    -1445.0,
+    -1043.3,
+    6.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 6.8) and you can step out.",
+     "detail": "floor 16154857172387032408: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1445.0,
+      -1043.3,
+      6.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_24_q000_underground_parking_lot",
+   "name": "Embers Underground Parking (The Glen)",
+   "kind": "access",
+   "venue": "q000_underground_parking_lot",
+   "pos": [
+    -1853.0,
+    -465.0,
+    -4.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z -4.4) and you can step out.",
+     "detail": "floor 13814652511189228330: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1853.0,
+      -465.0,
+      -4.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_25_q000_underground_parking_lot",
+   "name": "Embers Underground Parking (The Glen)",
+   "kind": "access",
+   "venue": "loc_q000_underground_parking_lot",
+   "pos": [
+    -1827.6,
+    -518.2,
+    -5.7
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 11613254734045441668 opens",
+     "detail": "Sweep 2026-11-27: the garage's security-room door (doors_single_neomilitary_n_frameless) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static; the venue's only staffed post, the booth guard's q000_kid_ws_security_booth spot, is 3.8 m inside that room and no vanilla phase drives the door. Its node path never resolved, so an override is the only route; confirm on the second tour that it is the security room.",
+     "source": "door override",
+     "pos": [
+      -1827.6,
+      -518.2,
+      -5.7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_26_q000_underground_parking_lot",
+   "name": "Embers Underground Parking (The Glen)",
+   "kind": "access",
+   "venue": "q000_underground_parking_lot",
+   "pos": [
+    -1794.7,
+    -535.9,
+    10.1
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 14518883267160039971: vanilla starts it UNPOWERED; the lift policy now switches it on",
+     "source": "lift",
+     "pos": [
+      -1794.7,
+      -535.9,
+      10.1
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_27_sts_cct_cpz_01",
+   "name": "Memorial Park NCART Station (concourse and security annex)",
+   "kind": "access",
+   "venue": "loc_sts_cct_cpz_01",
+   "pos": [
+    -1342.0,
+    -12.5,
+    -3.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 10233653145271604022 opens",
+     "detail": "Sweep 2026-11-27: an annex glass door between the station's server and control rooms is unpowered; its leaf ref is untagged so it never entered DoorScope and the policy never ran its power branch, leaving it dead to interaction. It is neither locked nor sealed, so powering it is the whole fix.",
+     "source": "door override",
+     "pos": [
+      -1342.0,
+      -12.5,
+      -3.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_28_sq017_nightclub",
+   "name": "Riot",
+   "kind": "access",
+   "venue": "loc_sq017_nightclub",
+   "pos": [
+    -1614.3,
+    999.4,
+    23.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 14118118983733731532 opens",
+     "detail": "Sweep 2026-11-27: the door entity under #sq017_dvc_door_nightclub_main_entrance is typed INTERACTIVE on one side and REMOTELY_CONTROLLED on the other, so Riot's only street entrance offers no direct open from the street and the policy logs oneSided=true decision=keep; the override lets the existing fixSides branch normalize both sides (never force-open).",
+     "source": "door override",
+     "pos": [
+      -1614.3,
+      999.4,
+      23.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_29_arasaka_tower",
+   "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+   "kind": "access",
+   "venue": "loc_arasaka_tower",
+   "pos": [
+    -1491.1,
+    144.4,
+    142.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 8199370105313776332 opens",
+     "detail": "Sweep 2026-11-27: the AV hangar door on floor 33 (doors_single_neomilitary_k) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static and the two restored AV-garage guards, whose only spots are 20-23 m inside, are unreachable.",
+     "source": "door override",
+     "pos": [
+      -1491.1,
+      144.4,
+      142.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_30_arasaka_tower",
+   "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+   "kind": "access",
+   "venue": "loc_arasaka_tower",
+   "pos": [
+    -1448.8,
+    170.7,
+    594.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 13682849672020846830: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -1448.8,
+      170.7,
+      594.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_31_arasaka_tower",
+   "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+   "kind": "access",
+   "venue": "arasaka_tower",
+   "pos": [
+    -1443.4,
+    184.8,
+    16.7
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 16.7) and you can step out.",
+     "detail": "floor 14575864618084765393: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1443.4,
+      184.8,
+      16.7
+     ]
+    },
+    {
+     "label": "The tower lift takes you up to the floor-33 counter-intelligence suite (Jenkins's office).",
+     "detail": "route arasaka_floor_33: the floor-33 doors open now, but the suite is only useful if a lift reaches it (S4 sweep triage)",
+     "source": "route",
+     "pos": [
+      -1437.5,
+      182.3,
+      15.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_32_arasaka_tower",
+   "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+   "kind": "access",
+   "venue": "loc_arasaka_tower",
+   "pos": [
+    -1415.0,
+    121.4,
+    142.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 10816106407039862326 opens",
+     "detail": "Sweep 2026-11-27: the floor-33 counter-intelligence suite's outer door (#q000_corpo_jenkins_office_outer_door, doors_double_custom_konpeki_glass) ships LOCKED/AUTOMATIC with an authorization module on but empty (keycard 0, ESL_NONE) and inactive skill checks, so it is static and the venue's restored Jenkins and assistant are sealed behind it 26 m inside.",
+     "source": "door override",
+     "pos": [
+      -1415.0,
+      121.4,
+      142.0
+     ]
+    },
+    {
+     "label": "Door 12984383574850828901 opens",
+     "detail": "Sweep 2026-11-27: the second door on the way from the floor-33 antechamber to Jenkins' upper office (doors_double_neomilitary_n) ships LOCKED/AUTOMATIC with an empty authorization module and no toggle, skill check or quickhack, so it is static and Jenkins' restored desk is behind it.",
+     "source": "door override",
+     "pos": [
+      -1415.6,
+      109.4,
+      142.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_33_sts_wat_lch_03_dojo",
+   "name": "Deravaja Dojo",
+   "kind": "access",
+   "venue": "loc_sts_wat_lch_03_dojo",
+   "pos": [
+    -1880.4,
+    1235.0,
+    22.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 8967766290057624278 opens",
+     "detail": "Sweep 2026-11-27: the dojo's roof window 1 is a WindowControllerPS, which door-scope excludes (it keeps only DoorControllerPS), and vanilla only powers it from the unrun street story. The venue's tour check expects this roof route into the training hall to keep working.",
+     "source": "door override",
+     "pos": [
+      -1880.4,
+      1235.0,
+      22.3
+     ]
+    },
+    {
+     "label": "Door 4972740044018178447 opens",
+     "detail": "Sweep 2026-11-27: the second roof window (roof_top_window_002, no skill check) is likewise an unscoped WindowControllerPS that vanilla only powers from the unrun street story, leaving the dojo's easier roof entrance shut.",
+     "source": "door override",
+     "pos": [
+      -1894.8,
+      1254.0,
+      22.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_34_mystic_mistys_ripperdoc",
+   "name": "Misty's Esoterica and Viktor's Clinic",
+   "kind": "access",
+   "venue": "mystic_mistys_ripperdoc",
+   "pos": [
+    -1446.8,
+    1198.2,
+    39.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 39.4) and you can step out.",
+     "detail": "floor 17624722757141404688: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1446.8,
+      1198.2,
+      39.4
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_35_sts_wat_lch_01_server_room",
+   "name": "Megabuilding H11 Server Room",
+   "kind": "access",
+   "venue": "sts_wat_lch_01_server_room",
+   "pos": [
+    -1427.4,
+    1966.4,
+    27.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 139346519329754073: vanilla starts it UNPOWERED; the lift policy now switches it on",
+     "source": "lift",
+     "pos": [
+      -1427.4,
+      1966.4,
+      27.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_36_q005_notell_motel",
+   "name": "No-Tell Motel (Kabuki)",
+   "kind": "access",
+   "venue": "q005_notell_motel",
+   "pos": [
+    -1206.7,
+    1392.5,
+    22.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 22.8) and you can step out.",
+     "detail": "floor 8891740505520089224: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1206.7,
+      1392.5,
+      22.8
+     ]
+    },
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z 22.8) and you can step out.",
+     "detail": "floor 4258382022579611109: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1208.4,
+      1392.6,
+      22.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_37_q005_notell_motel",
+   "name": "No-Tell Motel (Kabuki)",
+   "kind": "access",
+   "venue": "q005_notell_motel",
+   "pos": [
+    -1204.4,
+    1392.5,
+    106.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z 106.9) and you can step out.",
+     "detail": "floor 8891743804054973857: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      -1204.4,
+      1392.5,
+      106.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_38_q104_power_plant",
+   "name": "Satwave Power Plant (Jackson Plains)",
+   "kind": "access",
+   "venue": "loc_q104_power_plant",
+   "pos": [
+    -200.4,
+    -2800.6,
+    20.2
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 15039471994222279878 opens",
+     "detail": "Sweep 2026-11-27: the control-station bunker door (#q104_power_plant_bunker_door) ships SEALED with no auth, skill check or quickhack, is unscoped, and only q104_02_power_plant (never kept) opens the station, so the plant interior is unreachable; unseal it (never force-open).",
+     "source": "door override",
+     "pos": [
+      -200.4,
+      -2800.6,
+      20.2
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_39_hvdr_02_batty",
+   "name": "Batty's Hotel",
+   "kind": "access",
+   "venue": "hvdr_02_batty",
+   "pos": [
+    -977.3,
+    -306.4,
+    12.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 9001416501692447195: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -977.3,
+      -306.4,
+      12.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_40_site",
+   "name": "Access check",
+   "kind": "access",
+   "venue": null,
+   "pos": [
+    -168.7,
+    -871.4,
+    11.5
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 9270233879068750141: vanilla starts it UNPOWERED; the lift policy now switches it on",
+     "source": "lift",
+     "pos": [
+      -168.7,
+      -871.4,
+      11.5
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_41_q112_parade_area",
+   "name": "Japantown Parade Route (market bridge and shrine)",
+   "kind": "access",
+   "venue": "q112_parade_area",
+   "pos": [
+    -456.9,
+    769.7,
+    135.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 10976311473501837974: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -456.9,
+      769.7,
+      135.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_42_q112_parade_area",
+   "name": "Japantown Parade Route (market bridge and shrine)",
+   "kind": "access",
+   "venue": "q112_parade_area",
+   "pos": [
+    -413.0,
+    661.7,
+    46.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 12065031370387650131: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      -413.0,
+      661.7,
+      46.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_43_q105_braindance_studio",
+   "name": "Electric Corporation Power Plant (Scavenger XBD studio)",
+   "kind": "access",
+   "venue": "loc_q105_braindance_studio",
+   "pos": [
+    90.5,
+    -506.0,
+    7.4
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 12027680313946780587 opens",
+     "detail": "Sweep 2026-11-27: the studio's main door (#q105_dvc_bd_00_door_main) is ForceDisabled and ForceUnpowered by the unrun q105 setup/bugfix phases, and its catalogue path carries a ';#tag' suffix that makes door-scope hash a phantom id, so the policy never saw it. It is the way from the yard into the warehouse the venue restores.",
+     "source": "door override",
+     "pos": [
+      90.5,
+      -506.0,
+      7.4
+     ]
+    },
+    {
+     "label": "Door 17983755826252344959 opens",
+     "detail": "Sweep 2026-11-27: the netrunner room's door (#q105_dvc_bd_00_door_netrunner) is left disabled and unpowered by the unrun q105 phases and never entered the door scope for the same ';#tag' hash reason. The venue's ground-floor netrunner sits in that room.",
+     "source": "door override",
+     "pos": [
+      95.5,
+      -516.6,
+      13.3
+     ]
+    },
+    {
+     "label": "Call this lift and ride it to each floor it offers.",
+     "detail": "lift 7857943837363780513: the audit could not read its starting state",
+     "source": "lift",
+     "pos": [
+      95.7,
+      -504.4,
+      -4.7
+     ]
+    },
+    {
+     "label": "The lift reaches floor 1 here (its terminal at z -15.5) and you can step out.",
+     "detail": "floor 942629466536667850: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      93.0,
+      -504.7,
+      -15.5
+     ]
+    },
+    {
+     "label": "The lift reaches floor 2 here (its terminal at z -3.5) and you can step out.",
+     "detail": "floor 942628367025039639: it asks for a keycard vanilla may never give; the lift policy turns its authorization off",
+     "source": "floor",
+     "pos": [
+      92.9,
+      -504.7,
+      -3.5
+     ]
+    },
+    {
+     "label": "You can reach levels -1 and -2 of the studio, where most of the crew work, by the studio lift or stairs.",
+     "detail": "route braindance_lower_levels: the second interior lift (4877245821613819237) stays vanilla because vanilla never switches it on",
+     "source": "route",
+     "pos": [
+      95.7,
+      -504.4,
+      -4.7
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_44_sts_wbr_jpn_03_shrine",
+   "name": "Chram Denya Jinja",
+   "kind": "access",
+   "venue": "loc_sts_wbr_jpn_03_shrine",
+   "pos": [
+    57.1,
+    1630.6,
+    126.6
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 9194771067692410915 opens",
+     "detail": "Sweep 2026-11-27: the shrine's back-lounge door is unpowered because its catalogue row names a stale prefab (prefab2FYTMBQ), so door-scope hashed a phantom id and the policy never ran on it. Two of the seven Tyger guards the venue restores sit in the lounge behind it.",
+     "source": "door override",
+     "pos": [
+      57.1,
+      1630.6,
+      126.6
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_45_q113_arasaka_estate",
+   "name": "Arasaka Estate (North Oak)",
+   "kind": "access",
+   "venue": "loc_q113_arasaka_estate",
+   "pos": [
+    303.9,
+    1024.0,
+    224.9
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 12728868596234902505 opens",
+     "detail": "Sweep 2026-11-27: the estate's guard-room door (doors_single_neokitsch_l at single_door_5_010) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static; the restored shift officer's desk spot q113_ws_arasaka_estate_guard_005_C is 3.5 m inside and no phase drives this door. The private-suite door #q113_dvc_estate_hanako_door stays a door_exclusion.",
+     "source": "door override",
+     "pos": [
+      303.9,
+      1024.0,
+      224.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_46_sts_bls_ina_03",
+   "name": "Union Railroad Station (Wraiths outpost)",
+   "kind": "access",
+   "venue": "sts_bls_ina_03",
+   "pos": [
+    1878.2,
+    -548.7,
+    54.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "The upper floor and roof are reachable, by the service lift or another way.",
+     "detail": "route ina_03_service_lift: its two service-lift doors are unpowered and the data has no lift car for them (S5 sweep triage)",
+     "source": "route",
+     "pos": [
+      1878.2,
+      -548.7,
+      54.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_47_q103_ghost_town",
+   "name": "Rocky Ridge (Wraith-held ghost town)",
+   "kind": "access",
+   "venue": "loc_q103_ghost_town",
+   "pos": [
+    2582.1,
+    -4.1,
+    80.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 3564020175120358415 opens",
+     "detail": "Sweep 2026-11-27: the fuel-station store door (#q103_dvc_gas_station_door_02) ships closed and is unpowered because the town's main fusebox is only powered by q103_03_ghost_town, which never runs; it is unscoped, so the policy never powers it, and the fuel-station interior (with its loot) is otherwise shut.",
+     "source": "door override",
+     "pos": [
+      2582.1,
+      -4.1,
+      80.8
+     ]
+    },
+    {
+     "label": "Door 1589154947246569493 opens",
+     "detail": "Sweep 2026-11-27: the second leaf of the fuel-station entrance (#q103_dvc_gas_station_door_01) is closed and unpowered by the same dead town grid and is unscoped, so the workshop/store cannot be entered; power it (never open it) like the other door.",
+     "source": "door override",
+     "pos": [
+      2576.0,
+      -6.1,
+      80.9
+     ]
+    },
+    {
+     "label": "Door 730560179976154084 opens",
+     "detail": "Sweep 2026-11-27: the Rocky Ridge bar main door (#q103_dvc_arcade_main_door) is a closed AUTOMATIC door, unpowered by the town grid (q103_03 never runs) and unscoped, so the bar/pool/arcade interior is unreachable; power it so it auto-opens.",
+     "source": "door override",
+     "pos": [
+      2561.1,
+      -35.4,
+      80.8
+     ]
+    }
+   ]
+  }
+ ]
+}

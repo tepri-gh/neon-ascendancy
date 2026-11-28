@@ -458,10 +458,14 @@ end)
 -- (or skipped); "Neon: checklist here" opens the nearest venue's list anytime.
 -- Console: p.tour_start("code") starts at a named stop.
 
--- mode "tour" skips stops already toured (tour_stops.lua `done`) and waits
--- for checklists; mode "sweep" visits every stop unattended and also logs the
--- doors, lifts and lift terminals in range (see Probe.sweep_start).
-local tour = { stops = nil, i = 0, state = "idle", t = 0.0, settle = 20.0, mode = "tour" }
+-- mode "tour" walks one of three tours (owner, 2026-11-27), set by `which`:
+-- "nodes" (simulation-node venues) and "hubs" (neutral hubs) visit the venue
+-- stops of that tour not yet toured (tour_stops.lua `tour`, `done`) with one
+-- "Looks right" checkbox each; "access" walks access_stops.lua, one checkbox
+-- per door, lift or stairs check, without an NPC scan. Mode "sweep" visits
+-- every venue stop unattended and also logs the doors, lifts and lift
+-- terminals in range (see Probe.sweep_start).
+local tour = { stops = nil, i = 0, state = "idle", t = 0.0, settle = 20.0, mode = "tour", which = "nodes" }
 
 local function json_str(s)
   s = tostring(s)
@@ -496,15 +500,26 @@ local function append(file, line)
   end
 end
 
-local function load_stops()
-  if tour.stops then return tour.stops end
+local lists = {}
+local function load_list(name)
+  if lists[name] then return lists[name] end
   -- CET resolves require() inside this mod's folder; dofile is the fallback.
-  local ok, stops = pcall(require, "tour_stops")
-  if not ok or type(stops) ~= "table" then ok, stops = pcall(dofile, "tour_stops.lua") end
+  local ok, stops = pcall(require, name)
+  if not ok or type(stops) ~= "table" then ok, stops = pcall(dofile, name .. ".lua") end
   if not ok or type(stops) ~= "table" then
-    emit("TOUR cannot load tour_stops.lua: " .. tostring(stops))
+    emit("TOUR cannot load " .. name .. ".lua: " .. tostring(stops))
     return nil
   end
+  lists[name] = stops
+  return stops
+end
+
+-- Every venue stop (the sweep, the node and hub tours, "checklist here").
+local function load_stops() return load_list("tour_stops") end
+
+-- The list the running tour or sweep walks; tour.stops always points at it.
+local function cur_stops()
+  local stops = (tour.mode == "tour" and tour.which == "access") and load_list("access_stops") or load_stops()
   tour.stops = stops
   return stops
 end
@@ -629,10 +644,10 @@ local function sweep_protect(enable)
 end
 
 local function tour_goto(i)
-  local stops = load_stops()
+  local stops = cur_stops()
   if not stops then return end
-  if tour.mode == "tour" then
-    while stops[i] and stops[i].done do i = i + 1 end
+  if tour.mode == "tour" and tour.which ~= "access" then
+    while stops[i] and (stops[i].done or stops[i].tour ~= tour.which) do i = i + 1 end
   end
   if tour.mode == "sweep" and stops[i] then
     -- Written before the teleport: if the game hangs loading this stop, the
@@ -659,6 +674,13 @@ end
 
 local function tour_scan()
   local s = tour.stops[tour.i]
+  if tour.mode == "tour" and tour.which == "access" then
+    -- Access stops need no NPC scan: straight to the checkboxes.
+    tour.state = "review"
+    Probe.checklist_open(s, true)
+    emit(string.format("ACCESS %s: %d checks - open the CET overlay", s.code, #s.checklist))
+    return
+  end
   local npcs = scan_npcs(s.radius)
   local found = {}
   for _, n in ipairs(npcs) do found[n.record] = true end
@@ -691,11 +713,11 @@ local function tour_scan()
 end
 
 -- ---------------------------------------------------------------- tour checklist
--- One window per venue: the generated checklist (tour_stops.lua `checklist`),
--- each item marked OK or Problem. Saving logs a "checklist" line to tour.log
--- for tools/venue-tour-report.py; unmarked items are reported as unchecked.
+-- One window per stop: the generated checklist, one checkbox per item. Tick
+-- what works; saving logs a "checklist" line to tour.log for
+-- tools/venue-tour-report.py, with every unticked item as a problem.
 
-local review = nil       -- { stop, marks = {i -> "ok"|"problem"}, from_tour }
+local review = nil       -- { stop, marks = {i -> true}, from_tour }
 local last_review = nil  -- the checklist most recently closed without saving
 
 function Probe.checklist_open(stop, from_tour)
@@ -717,12 +739,12 @@ local function checklist_save()
   end
   local s, results = review.stop, {}
   for i, c in ipairs(s.checklist or {}) do
-    results[#results + 1] = { label = c.label, source = c.source, mark = review.marks[i] or "unchecked" }
+    results[#results + 1] = { label = c.label, source = c.source, mark = review.marks[i] and "ok" or "problem" }
   end
   local p = Game.GetPlayer():GetWorldPosition()
   append("tour.log", json_enc({
     event = "checklist", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code, venue = s.venue,
-    player = { p.x, p.y, p.z }, items = results,
+    tour = review.from_tour and tour.which or "walk", player = { p.x, p.y, p.z }, items = results,
   }))
   emit("CHECKLIST saved for " .. s.code)
   local next_stop = review.from_tour and tour.state == "review"
@@ -731,19 +753,22 @@ local function checklist_save()
 end
 Probe.checklist_save = checklist_save
 
-function Probe.tour_start(code)
-  local stops = load_stops()
-  if not stops then return end
-  if tour.mode ~= "tour" then
-    -- Coming from a sweep: start the tour from the top, not the sweep's index.
-    tour.mode, tour.i = "tour", 0
-    sweep_protect(false)
+-- which: "nodes", "hubs" or "access" (default: the tour last walked).
+function Probe.tour_start(code, which)
+  which = which or tour.which
+  if tour.mode ~= "tour" or which ~= tour.which then
+    -- Coming from a sweep or another tour: start from the top, not its index.
+    if tour.mode == "sweep" then sweep_protect(false) end
+    tour.mode, tour.which, tour.i, tour.state = "tour", which, 0, "idle"
   end
+  local stops = cur_stops()
+  if not stops then return end
   local start = (tour.state == "idle" and tour.i > 0 and tour.i < #stops) and tour.i or 1
   if code then
     for i, s in ipairs(stops) do if s.code == code then start = i end end
   end
-  append("tour.log", json_enc({ event = "start", time = os.date("%Y-%m-%d %H:%M:%S"), from = stops[start].code }))
+  append("tour.log", json_enc({ event = "start", time = os.date("%Y-%m-%d %H:%M:%S"), from = stops[start].code,
+    tour = which }))
   tour_goto(start)
 end
 
@@ -916,15 +941,14 @@ on("onDraw", function()
   if ImGui.Begin("Neon tour checklist") then
     ImGui.TextWrapped(string.format("%s  (%s)", s.name or s.code, s.code))
     local done = 0
-    for i in pairs(review.marks) do done = done + 1 end
-    ImGui.Text(string.format("%d of %d marked", done, #s.checklist))
+    for _ in pairs(review.marks) do done = done + 1 end
+    ImGui.Text(string.format("%d of %d ticked. Tick what works; unticked items are saved as problems.",
+      done, #s.checklist))
     ImGui.Separator()
     for i, c in ipairs(s.checklist) do
       ImGui.PushID(i)
-      local m = review.marks[i]
-      if ImGui.RadioButton("OK", m == "ok") then review.marks[i] = "ok" end
-      ImGui.SameLine()
-      if ImGui.RadioButton("Problem", m == "problem") then review.marks[i] = "problem" end
+      local ticked = ImGui.Checkbox("##ok", review.marks[i] == true)
+      review.marks[i] = ticked or nil
       ImGui.SameLine()
       if ImGui.TreeNode(c.label) then
         ImGui.TextWrapped(c.detail)
@@ -951,9 +975,9 @@ end)
 on("onDraw", function()
   if not note.overlay then return end
   if ImGui.Begin("Neon tour") then
-    local stops = load_stops()
+    local stops = tour.stops or load_stops()
     if tour.state ~= "idle" and stops and stops[tour.i] then
-      ImGui.Text(string.format("%s: stop %d/%d %s (%s)", tour.mode == "sweep" and "Sweep" or "Tour",
+      ImGui.Text(string.format("%s: stop %d/%d %s (%s)", tour.mode == "sweep" and "Sweep" or ("Tour: " .. tour.which),
         tour.i, #stops, stops[tour.i].code, tour.state))
       if tour.mode == "sweep" then
         if ImGui.Button("Stop sweep") then Probe.tour_stop() end
@@ -963,8 +987,11 @@ on("onDraw", function()
       if tour.mode == "sweep" then
         if ImGui.Button("End sweep protection") then Probe.tour_stop() end
       end
-      if ImGui.Button("Start tour") then Probe.tour_start() end
+      if ImGui.Button("Node tour") then Probe.tour_start(nil, "nodes") end
       ImGui.SameLine()
+      if ImGui.Button("Hub tour") then Probe.tour_start(nil, "hubs") end
+      ImGui.SameLine()
+      if ImGui.Button("Access tour") then Probe.tour_start(nil, "access") end
       if ImGui.Button("Sweep all stops") then Probe.sweep_start() end
     end
     local nc = ImGui.Checkbox("Noclip", fly.on)

@@ -1,5 +1,5 @@
 {
-  "description": "Owner tour checks that belong to no single venue entry. tools/venue-proposals.py tour-stops appends each one to the checklist of the named stop (a stop code from tools/probes/tour_stops.json).",
+  "description": "Parked (owner, 2026-11-27): the tours now cover only simulation nodes, neutral hubs and access checks, so these checks of excluded venues' leftovers and cross-venue systems are in no tour. Each named the stop it was shown at (a stop code from tools/probes/tour_stops.json); move one into data/venues/access_checks.json or a venue's review if it matters again.",
   "checks": [
     {
       "stop": "q303_combat_zone_gate",

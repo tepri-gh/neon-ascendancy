@@ -83,6 +83,15 @@ Still open:
 - **Sweep radius**: Wired Head's stop also sweeps the Scavenger Den's
   garage gate; cap overlapping radii.
 
+## Tours from 2026-11-27
+
+Three short tours replace the long checklist tour (playbook section 7):
+the node tour (81 simulation nodes not yet toured), the hub tour (8 stops)
+and the access tour (47 stops, 71 checks: every door override and the lift,
+floor and route checks in `data/venues/access_checks.json`). Civilian
+venues get no tour. 18 nodes have no tour position yet, so they are in no
+tour until one is found.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

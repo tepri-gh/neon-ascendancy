@@ -15,8 +15,9 @@ Flags:
   DEAD         dead NPCs (bodies that should not be there)
   MISSING      expected character records that were not found
   DOORS        doors the policy still found impassable after its recheck
-  PROBLEMS     checklist items the owner marked Problem
-  UNCHECKED    checklist items left unmarked when the checklist was saved
+  PROBLEMS     checklist items the owner left unticked (or marked Problem on
+               the old OK/Problem checklist)
+  UNCHECKED    old checklists only: items left unmarked when saved
   STUCK        (sweep) policy-covered devices with a potentially restrictive
                state; access and remote controls require inspection
   BLOCKED-UNSCOPED  (sweep) the same for devices outside the policy's scope
@@ -147,9 +148,12 @@ def main() -> int:
         latest[s["code"]] = s  # the last visit of each stop wins
 
     checks: dict[str, dict] = {}
+    access: dict[str, dict] = {}
     for r in read_jsonl(PROBE / "tour.log"):
         if r.get("event") == "checklist" and r.get("time", "") >= a.since:
-            checks[r["code"]] = r  # the last saved checklist of each venue wins
+            # The last saved checklist of each stop wins; the access tour's
+            # door, lift and stairs checks get their own section.
+            (access if r.get("tour") == "access" else checks)[r["code"]] = r
     for code, c in checks.items():
         # A checklist saved while walking, without a tour scan of that stop.
         latest.setdefault(code, {"code": code, "venue": c.get("venue"), "kind": "walk", "player": c["player"],
@@ -254,6 +258,11 @@ def main() -> int:
             lines.append(f"- Note ({n.get('time')}): {n.get('text')}")
         lines.append("")
 
+    if access:
+        bad = [(c, i) for c, r in sorted(access.items()) for i in r.get("items") or [] if i.get("mark") != "ok"]
+        n = sum(len(r.get("items") or []) for r in access.values())
+        lines += ["## Access tour", "", f"{len(access)} stops, {n} checks, {len(bad)} problems.", ""]
+        lines += [f"- **{c}**: {i['label']} ({i.get('source')})" for c, i in bad] + [""]
     flagged = [(c, f) for c, f in summary if f]
     lines[4:4] = ["## Summary", ""] + [f"- **{c}**: {', '.join(f)}" for c, f in flagged] + [""]
     if fix_rows:

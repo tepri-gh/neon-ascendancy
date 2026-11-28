@@ -370,8 +370,8 @@ Two local tools feed venue research. Their output is never committed;
 - **Empty venues get no entry.** A venue that is intact and empty in
   vanilla, or already filled by kept phases, has nothing to restore. The
   builder rejects an entry that declares nothing, so `approve` skips it and
-  `check` warns. Put its open questions into `data/venues/tour_checks.json`
-  on the nearest stop instead (lesson from Dry Creek, wave 11).
+  `check` warns (lesson from Dry Creek, wave 11). An access question about
+  it goes in `data/venues/access_checks.json`; `tour_checks.json` is parked.
 - **Legacy community actions.** Vanilla writes some community actions as
   `questLegacy_NodeType` (same fields as `questCommunityTemplate_NodeType`).
   The miner reads both; any new tool that scans community actions must too
@@ -497,20 +497,23 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   state, stance, workspot, attitude and dead flag, plus the expected records
   it did not find. Run it in a dev session (dev debug arms the venue gate and
   the door policy).
-- **Checklist** (owner request, 2026-11-26). Each stop carries a
-  `checklist`: three base checks (normal business, people at their posts,
-  you can get in), the entry's `tour_checks` lines, one "calm and on post"
-  item per spawner with `needs_tour_check` entries, and every
-  `source.open_questions` line (first sentence as the label, full text
-  behind it). `data/venues/tour_checks.json` adds checks that belong to no
-  venue entry (an excluded venue's leftovers) to a named stop. On the tour,
-  a stop with a checklist waits after its scan. Open the CET overlay, mark
-  each item OK or Problem, then "Save + next stop" (or the skip hotkey).
-  "Neon: checklist here" opens the nearest venue's list without the tour.
-  Saved lists go to `tour.log` as `checklist` lines. When a research agent's
-  open question is really a thing to look at, put it in the proposal; a
-  check the owner should repeat at a hand-built venue goes in its
-  `tour_checks`.
+- **Three tours** (owner, 2026-11-27). The rules in
+  `docs/design/venue-node-policy.md` settle lighting, quest dressing,
+  attitude and the cast, so a venue needs one look:
+  - **Node tour**: every simulation node (`data/venues/classification.json`
+    bucket `node`) not yet toured, one "Looks right" checkbox.
+  - **Hub tour**: the neutral hubs, the same checkbox.
+  - **Access tour**: `tools/probes/access_stops.lua`, one checkbox per door
+    override (`door_overrides.json`) and per lift, floor or route check
+    (`data/venues/access_checks.json`), grouped by place, no NPC scan.
+  - Civilian venues get no tour; the sweep still visits every stop.
+  Start each from the probe panel ("Node tour", "Hub tour", "Access tour").
+  Tick what works, then "Save + next stop"; anything left unticked goes to
+  `tour.log` as a problem and the tour report lists it (access problems in
+  their own section). "Checklist here" opens the nearest venue's checkbox
+  anytime. A check worth asking again goes in `access_checks.json` (access)
+  or stays a venue's single look; agent open questions no longer reach the
+  tour.
 - **Sweep first, tour second** (owner, 2026-11-26: 28 hand-toured stops
   took hours, mostly on doors and lifts). "Neon: sweep start/resume" or the
   panel's "Sweep all stops" visits every stop unattended, including toured

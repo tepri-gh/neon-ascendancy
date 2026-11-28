@@ -35,6 +35,7 @@ import json
 import math
 import re
 import sys
+from collections import Counter
 from pathlib import Path
 from typing import Any
 
@@ -676,44 +677,71 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
 # ---------------------------------------------------------------- tour stops
 
 TOUR_OUT = ROOT / "tools" / "probes" / "tour_stops.json"
-# Owner-facing checks that belong to no venue entry (an excluded venue's
-# leftovers, a cross-venue system). Each names the stop it is shown at.
-TOUR_CHECKS = ROOT / "data" / "venues" / "tour_checks.json"
+ACCESS_OUT = ROOT / "tools" / "probes" / "access_stops.json"
 # Stops the owner has already toured, by date; the tour leaves them out.
 TOUR_DONE = ROOT / "data" / "venues" / "tour_done.json"
-# Asked at every stop, before the venue's own items.
-BASE_CHECKS = [
-    ("Normal business", "The place looks like an ordinary day: no quest dressing, blood, debris or crime scene."),
-    ("People at their posts", "The people are there and doing their routine; nobody alert, hostile or in a combat stance."),
-    ("You can get in", "Doors, gates and lifts you would expect to use work, or there is an in-world way through."),
-]
+# The venue buckets of docs/design/venue-node-policy.md; they pick the tour.
+CLASSIFICATION = ROOT / "data" / "venues" / "classification.json"
+# Owner, 2026-11-27: one tour of simulation nodes, one of neutral hubs, and a
+# separate access tour; civilian venues get no tour (the sweep still visits
+# every stop). Lighting, quest dressing, attitude and the cast are settled
+# by rule (venue-node-policy.md section 5), so a venue needs one look.
+TOUR_OF_BUCKET = {"node": "nodes", "neutral_hub": "hubs"}
+VENUE_CHECK = [{"label": "Looks right",
+                "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until "
+                          "provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+                "source": "base"}]
+# Door, lift and stairs checks for the access tour: every door override plus
+# data/venues/access_checks.json, grouped into stops of items within this range.
+ACCESS_CHECKS = ROOT / "data" / "venues" / "access_checks.json"
+ACCESS_GROUP_M = 40.0
 
 
-def _check_item(text: str, source: str) -> dict[str, str]:
-    """One checklist line: a short label for the list, the full text behind it."""
-    first = re.split(r"(?<=[.?!])\s", text.strip(), maxsplit=1)[0]
-    label = first if len(first) <= 150 else first[:147].rstrip() + "..."
-    return {"label": label, "detail": text.strip(), "source": source}
+def venue_buckets() -> dict[str, str]:
+    """Classification id -> bucket."""
+    return {x["id"]: x["bucket"] for x in json.loads(CLASSIFICATION.read_text(encoding="utf-8"))["items"]}
 
 
-def tour_checklist(e: dict) -> list[dict[str, str]]:
-    """What the owner should look at at this venue on the tour."""
-    items = [{"label": a, "detail": b, "source": "base"} for a, b in BASE_CHECKS]
-    for t in e.get("tour_checks") or []:
-        items.append(_check_item(t, "venue"))
-    unsure: dict[str, list[str]] = {}
-    for c in e.get("communities") or []:
-        if c.get("needs_tour_check") and c.get("action", "Activate") == "Activate":
-            entry = "the whole community" if c["entry_name"] == "None" else f"{c['entry_name']}/{c['phase_name']}"
-            unsure.setdefault(c["spawner"], []).append(entry)
-    for sp, entries in unsure.items():
-        items.append({"label": f"Calm and on post: {sp} ({len(entries)} unmapped)",
-                      "detail": "No spot map, so their posture is unknown; confirm they stand or work calmly, "
-                                "not alert or in combat: " + ", ".join(entries) + ".",
-                      "source": "community"})
-    for q in (e.get("source") or {}).get("open_questions") or []:
-        items.append(_check_item(q, "open question"))
-    return items
+def stop_bucket(buckets: dict[str, str], code: str, venue: str) -> str | None:
+    """A stop's bucket: approved stops carry their classification id as the
+    venue key, hand-built ones as loc_<code>; a hand-built venue's second
+    stop (q303_paradise_sneak_in) takes its venue's (loc_q303_paradise)."""
+    for key in (f"loc_{code}", venue):
+        if key in buckets:
+            return buckets[key]
+    owners = [k for k in buckets if f"loc_{code}".startswith(k + "_")]
+    return buckets[max(owners, key=len)] if owners else None
+
+
+def access_stops(names: dict[str, str]) -> list[dict]:
+    """The access tour: one checkbox per door override and access check,
+    grouped by place. A stop is named after the venue of its first item."""
+    items = []
+    for d in json.loads((ROOT / "data" / "venues" / "door_overrides.json").read_text(encoding="utf-8"))["doors"]:
+        items.append({"label": f"Door {d['id']} opens", "detail": d["why"], "pos": d["pos"],
+                      "venue": d.get("venue"), "source": "door override"})
+    for x in json.loads(ACCESS_CHECKS.read_text(encoding="utf-8"))["items"] if ACCESS_CHECKS.exists() else []:
+        items.append({"label": x["check"], "detail": f"{x['kind']} {x['id']}: {x['why']}", "pos": x["pos"],
+                      "venue": x.get("venue"), "source": x["kind"]})
+    stops: list[dict] = []
+    for it in items:
+        st = next((s for s in stops if dist3(s["pos"], it["pos"]) <= ACCESS_GROUP_M), None)
+        if st is None:
+            v = (it.get("venue") or "").removeprefix("loc_")
+            st = {"code": f"access_{len(stops) + 1:02d}_{v or 'site'}", "name": names.get(v) or v or "Access check",
+                  "kind": "access", "venue": it.get("venue"), "pos": it["pos"], "radius": ACCESS_GROUP_M,
+                  "expected_records": [], "spawn_sets": [], "checklist": []}
+            stops.append(st)
+        st["checklist"].append({k: it[k] for k in ("label", "detail", "source")}
+                               | {"pos": it["pos"]})
+    stops.sort(key=lambda s: (s["pos"][0] // 1000, s["pos"][1] // 1000, s["pos"][0], s["pos"][1]))
+    for i, st in enumerate(stops, 1):
+        st["code"] = f"access_{i:02d}_" + st["code"].split("_", 2)[2]
+    return stops
+
+
+def dist3(a: list[float], b: list[float]) -> float:
+    return math.dist(a[:3], b[:3])
 
 
 def _median(vals: list[float]) -> float:
@@ -777,15 +805,14 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
                       "radius": float((tour_stop or {}).get("radius") or round(min(max(spread + 15.0, 40.0), 120.0), 1)),
                       "expected_records": sorted(records),
                       "spawn_sets": sorted({s["reference"] for s in e.get("spawn_sets") or []}),
-                      "checklist": tour_checklist(e)})
-    extra = json.loads(TOUR_CHECKS.read_text(encoding="utf-8"))["checks"] if TOUR_CHECKS.exists() else []
+                      "checklist": VENUE_CHECK})
+    buckets = venue_buckets()
+    for st in stops:
+        st["bucket"] = stop_bucket(buckets, st["code"], st["venue"])
+        st["tour"] = TOUR_OF_BUCKET.get(st["bucket"])
+        if st["bucket"] is None:
+            print(f"  {st['code']}: not in classification.json, so in no tour")
     by_code = {st["code"]: st for st in stops}
-    for x in extra:
-        st = by_code.get(x["stop"])
-        if st is None:
-            print(f"  tour check for unknown stop {x['stop']}: {x['text'][:60]}")
-            continue
-        st["checklist"].append(_check_item(x["text"], "extra"))
     done = {c for codes in (json.loads(TOUR_DONE.read_text(encoding="utf-8"))["done"].values()
                             if TOUR_DONE.exists() else []) for c in codes}
     # Toured stops stay in the list for the unattended sweep; the tour skips
@@ -811,10 +838,18 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         if isinstance(v, dict):
             return "{" + ", ".join(f"{k} = {lua(x)}" for k, x in v.items()) + "}"
         return "nil"
-    TOUR_OUT.with_suffix(".lua").write_text(
-        "-- GENERATED by tools/venue-proposals.py tour-stops. Do not edit.\nreturn {\n"
-        + "".join(f"  {lua(st)},\n" for st in stops) + "}\n", encoding="utf-8")
-    print(f"tour stops: {len(stops)} of {len(entries)} venues -> {TOUR_OUT.relative_to(ROOT)}")
+    def write_lua(path: Path, rows: list[dict]) -> None:
+        path.write_text("-- GENERATED by tools/venue-proposals.py tour-stops. Do not edit.\nreturn {\n"
+                        + "".join(f"  {lua(st)},\n" for st in rows) + "}\n", encoding="utf-8")
+    write_lua(TOUR_OUT.with_suffix(".lua"), stops)
+    access = access_stops({st["code"]: st["name"] for st in stops})
+    ACCESS_OUT.write_text(json.dumps({"generated_by": "tools/venue-proposals.py tour-stops", "stops": access},
+                                     indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    write_lua(ACCESS_OUT.with_suffix(".lua"), access)
+    per_tour = Counter(st["tour"] for st in stops if st["tour"] and not st.get("done"))
+    print(f"tour stops: {len(stops)} of {len(entries)} venues -> {TOUR_OUT.relative_to(ROOT)} "
+          f"(to tour: {per_tour.get('nodes', 0)} nodes, {per_tour.get('hubs', 0)} hubs)")
+    print(f"access stops: {len(access)} stops, {sum(len(s['checklist']) for s in access)} checks -> {ACCESS_OUT.relative_to(ROOT)}")
     return 0
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Copy the dev-only CET probe (tools/probes/) into the game's CET mods folder:
-# neon_probe.lua -> init.lua, plus the generated tour stop list. Idempotent; does
+# neon_probe.lua -> init.lua, plus the generated tour and access stop lists. Idempotent; does
 # not touch CET itself (tools/install-dev-cet.sh installs CET). Dev-only, never
 # part of the shipping mod.
 set -euo pipefail
@@ -14,4 +14,5 @@ fi
 mkdir -p "$DEST"
 cp -a "$TOOLS_DIR/probes/neon_probe.lua" "$DEST/init.lua"
 cp -a "$TOOLS_DIR/probes/tour_stops.lua" "$DEST/tour_stops.lua"
-echo "Deployed NeonAscendancyProbe (init.lua, tour_stops.lua) to $DEST"
+cp -a "$TOOLS_DIR/probes/access_stops.lua" "$DEST/access_stops.lua"
+echo "Deployed NeonAscendancyProbe (init.lua, tour_stops.lua, access_stops.lua) to $DEST"
