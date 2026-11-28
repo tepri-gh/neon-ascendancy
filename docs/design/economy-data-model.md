@@ -58,12 +58,16 @@ penalty) live in `data/economy/tunables.json`.
 ## 4. Rules (pure functions, settled each turn in this order)
 
 1. **Income.** For each node: `base_eddies` of its revenue streams, scaled
-   by node **size** (`small / medium / large`), title efficiency, node strength,
-   loyalty, sub-district holding, policies and archetype modifiers (per-subdistrict
-   scarcity scaling is deferred until simulation testing shows whether it is
-   needed). Each node also produces Influence, its primary pillar output, and
-   **Culture** (`economy > espionage > tech > military`). Blocs add their base
-   Influence (history and leader).
+   by node **size** (`small / medium / large / very_large`), title efficiency,
+   node strength, loyalty, sub-district holding, policies and archetype
+   modifiers (per-subdistrict scarcity scaling is deferred until simulation
+   testing shows whether it is needed). Each node also produces Influence
+   (`1 / 2 / 3 / 5`), its primary pillar output, **Culture**
+   (`economy > espionage > tech > military`), and per-netrunner **Intel**
+   bonuses. Blocs add their base Influence (history and leader). Factions with
+   0 `is_logistics` nodes suffer a **Supply Chokepoint** penalty (materiel cost
+   spike + slower garrison recovery) unless covered by a recurring **Logistics
+   Access Deal** with a Friendly or Allied faction.
 2. **Branch budgets.** Corps receive their subsidy; performance (territory
    held, losses, later the stock market) moves it for the next turn.
 3. **Deals.** Recurring deals settle; one-off deals execute on acceptance.

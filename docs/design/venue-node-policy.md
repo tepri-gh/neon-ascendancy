@@ -17,7 +17,7 @@ Every mapped venue (and shortlisted hustle site) falls into exactly one bucket:
 
 | Bucket | Meaning | Population rule |
 | --- | --- | --- |
-| `node` | Participates in territory control, capture, pillar output, and faction occupation. | Staff/crowd (if public-facing) + **5+ neutral-until-provoked security garrison** + **1 lieutenant boss**. |
+| `node` | Participates in territory control, capture, pillar output, and faction occupation. | Staff/crowd (if public-facing) + **size-scaled neutral-until-provoked security garrison** (`small` 6–10, `medium` 11–20, `large` 21–30, `very_large` 31–40; **≥ 1 Netrunner** everywhere) + **1 Boss** (Faction Leader at HQ; lieutenant boss elsewhere). |
 | `civilian_venue` | Already mapped, but does not fit the node system. Kept as living world scenery or vendor space. | **Civilian population only** (ambient patrons, residents, vendors). Strip gang/security garrisons, bosses, and hostile restricted-area crews. |
 | `neutral_hub` | Protected non-capturable hub required by a gameplay system: **Fixer HQs**, **Companion homes**, or **Neutral service orgs** (Delamain HQ). | System-owned (fixers static in `cast_and_hubs`; companions despawn from home while rolling with V). Never flips. |
 | `excluded` | Unremovable campaign/gig lore implications (Space Force One crash, Cynosure bunker, Spidertank arena, submerged Laguna Bend) or empty street-corner / road-staging wrappers with nothing to restore. | Excluded / sealed as vanilla leaves it. |
@@ -73,21 +73,23 @@ A venue is a `node` if and only if **all four** conditions hold:
   stronghold).
 - **Every node produces Culture**, ordered by node type:
   `economy > espionage > tech > military`.
-- **Node size:** every node gets a `size` in `{small, medium, large}`:
-  - `large` — flagship HQs, major complexes, megaclubs, malls, hotels,
-    industrial parks, stadiums (e.g. Totentanz, Clouds, Arasaka Tower,
-    Black Sapphire, Konpeki Plaza, Grand Imperial Mall, All Foods, EBM
-    Stadium, Ho-Oh).
+- **Node size:** every node gets a `size` in `{small, medium, large, very_large}`
+  (with derived territory influence `small = 1`, `medium = 2`, `large = 3`,
+  `very_large` or `is_hq = 5`; see [`node-garrison-and-assault.md`](node-garrison-and-assault.md)):
+  - `very_large` — flagship multi-type headquarters (31–40 zoned security; e.g.
+    Arasaka Tower, Lizzie's Bar).
+  - `large` — HQs, major complexes, megaclubs, malls, hotels, industrial parks,
+    stadiums, major markets (21–30 security; e.g. Ho-Oh, Totentanz, Black
+    Sapphire, Konpeki Plaza, Grand Imperial Mall, All Foods, EBM Stadium).
   - `medium` — full standalone businesses, warehouses, container yards,
-    garages/chop shops, mid-sized clubs, clinics, apartments/towers,
-    compounds (e.g. 7th Hell, Empathy, Biotechnica Hotel, Revere
-    Courier, Peralez apartment building, El Pinche Pollo, Deravaja Dojo).
+    garages/chop shops, mid-sized clubs, clinics, apartments/towers, compounds
+    (11–20 security; e.g. Clouds, 7th Hell, Biotechnica Hotel, Revere Courier,
+    Peralez apartment building, El Pinche Pollo).
   - `small` — compact outposts, small chop-shop gas stations, relay stations,
-    smaller fortified dens or single-floor gang hideouts that still support 5+
-    guards + a lieutenant boss.
-- Output scales directly from `size` (`small / medium / large`). Per-subdistrict
-  scarcity multipliers are **deferred** until simulation testing shows whether
-  they are needed.
+    VIP penthouses, smaller fortified dens (6–10 security).
+- Output scales directly from `size` (`small / medium / large / very_large`).
+  Per-subdistrict scarcity multipliers are **deferred** until simulation
+  testing shows whether they are needed.
 
 ---
 

@@ -78,34 +78,41 @@ lieutenants) are to be represented. Design pending.
 ## 2. Territory: nodes and sub-districts
 
 - **Node:** every meaningful place a faction holds counts toward territory (see
-  [`venue-node-policy.md`](venue-node-policy.md) for the strict node criteria).
-  Each node has exactly one controller (no co-owners), a **type** in
-  `{economy, espionage, tech, military}` (big clubs and hotels fold into
-  `economy`), and a **size** in `{small, medium, large}` (e.g. Totentanz is
-  `large`). Every node must plausibly support staff, a **5+ security team**,
-  and a **lieutenant boss**. Small one-off shops, street corners, and venues
-  that fail the 5+ security test are dropped from nodes (if mapped, kept as
-  civilian-only venues). Dynamic events, patrols and convoys are presence only,
-  not nodes.
+  [`venue-node-policy.md`](venue-node-policy.md) and
+  [`node-garrison-and-assault.md`](node-garrison-and-assault.md)). Each node has
+  exactly one controller (no co-owners), a **type** in
+  `{economy, espionage, tech, military}` (big clubs, hotels, and open-air
+  economy hubs fold into `economy`; garages and drug labs are `tech`), and a
+  **size** in `{small, medium, large, very_large}` (with optional `is_hq`,
+  `is_multi_type`, `is_logistics`, and `is_meeting_spot` flags). Security scales
+  by size (`small` 6–10, `medium` 11–20, `large` 21–30, `very_large` 31–40,
+  always including ≥ 1 Netrunner and 1 Boss). Small one-off shops, street
+  corners, and venues that cannot hold a garrison are dropped from nodes (if
+  mapped, kept as civilian-only venues). Dynamic events, patrols and convoys
+  are presence only, not nodes.
 - **Pillar resources & universal culture:** Every node produces its primary
-  pillar output plus Influence (Politics) and **Culture**, scaled by node
-  `size` (`small / medium / large`). Cultural output is ordered by node type:
+  pillar output plus Influence (Politics: `small = 1`, `medium = 2`,
+  `large = 3`, `very_large` or `is_hq = 5`) and **Culture**, scaled by node
+  `size`. Cultural output is ordered by node type:
   **`economy > espionage > tech > military`**. Sub-district scarcity scaling
   (boosting yield when a sub-district has fewer nodes) is **deferred** until
   simulation testing shows whether it is needed.
-- **Bosses & replacement:** Every node is staffed by a **lieutenant boss**
-  (lore faction character where there is no placement conflict — on conflict,
-  the lore character sits at the larger, more meaningful node and the smaller
-  node gets a dynamically generated boss). Any lieutenant, gang/corp leader, or
-  city politician can be killed and dynamically replaced; losing a lieutenant
-  imposes a replacement cost on the owning gang/corp.
+- **Bosses & replacement:** Every non-HQ node is staffed by a **lieutenant
+  boss**, and each territorial faction's active **Leader** (or Council chair)
+  sits physically at its **HQ** (lore character at their largest/most
+  meaningful node; no duplicate placements; dynamically generated otherwise).
+  Any lieutenant, faction leader, or city politician can be killed and
+  dynamically replaced; losing a lieutenant imposes a replacement cost on the
+  owning gang/corp.
 - **Connected capture:** important nodes cannot be taken directly. You must
   first secure the connected nodes around them, so an HQ cannot
   be walked into, turf and gang wars play out realistically, and control does
   not flip easily. Rule (agreed): nodes form an adjacency graph;
-  a node is attackable only from an adjacent node you own; a Business,
-  Stronghold or HQ is attackable only once its owner holds at most half of
-  its connected nodes (its "guard ring"); an HQ needs its whole ring taken.
+  a node is attackable only from an adjacent node you own; `small` and `medium`
+  nodes are attackable directly; a `large` node is attackable only once its
+  controller holds at most half of its adjacent nodes (its "guard ring"); an
+  `is_hq` or `very_large` node needs all controller-held adjacent nodes taken
+  first.
 - **Sub-district holding:** a faction holds a sub-district when it owns
   ≥ 50% of the sub-district's total influence. Otherwise the sub-district is
   contested (anarchy). A tie is contested. Neutral/abandoned nodes count

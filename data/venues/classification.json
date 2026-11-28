@@ -39,8 +39,8 @@
       "biotechnica": 1,
       "kang_tao": 1
     },
-    "lore_boss_count": 13,
-    "generated_boss_count": 110,
+    "lore_boss_count": 18,
+    "generated_boss_count": 105,
     "hqs_mapped": {
       "aldecaldos": "loc_sq004_mobile_camp",
       "animals": "loc_q110_pacifica_mall",
@@ -56,7 +56,8 @@
     },
     "owner_decisions_resolved_count": 121,
     "logistics_node_count": 23,
-    "meeting_spot_count": 12
+    "meeting_spot_count": 12,
+    "total_influence": 284
   },
   "items": [
     {
@@ -1584,7 +1585,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq004_mobile_camp",
@@ -1610,7 +1612,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sq024_mariannes_garage",
@@ -1636,7 +1639,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q110_pacifica_mall",
@@ -1664,7 +1668,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_rosebud",
@@ -1692,7 +1697,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq017_nightclub",
@@ -1718,7 +1724,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_cct_dtn_02_metal_club",
@@ -1745,7 +1752,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_cct_dtn_03",
@@ -1771,7 +1779,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_hey_spr_06",
@@ -1800,7 +1809,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_sts_pac_wwd_05_paint_factory",
@@ -1826,7 +1836,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_arasaka_tower",
@@ -1841,9 +1852,9 @@
       "is_hq": true,
       "initial_controller": "arasaka",
       "boss": {
-        "kind": "generated",
-        "name": "Arasaka counter-intelligence lieutenant",
-        "conflict_note": ""
+        "kind": "lore",
+        "name": "Yorinobu Arasaka",
+        "conflict_note": "Arasaka Leader (HQ)"
       },
       "strip_from_static": [
         "Lifepath quest actors and staging"
@@ -1854,7 +1865,8 @@
       },
       "is_multi_type": true,
       "is_logistics": true,
-      "is_meeting_spot": false
+      "is_meeting_spot": false,
+      "influence": 5
     },
     {
       "id": "loc_mq059_freedom",
@@ -1884,7 +1896,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q004_q005_arasaka_hotel",
@@ -1914,7 +1927,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q112_arasaka_industrial_park_warehouse",
@@ -1940,7 +1954,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q113_arasaka_estate",
@@ -1966,7 +1981,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q115_fancy_restaurant",
@@ -1992,7 +2008,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_pr_stadium",
@@ -2018,7 +2035,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q301_crashsite_way_up",
@@ -2046,7 +2064,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q303_combat_zone_gate",
@@ -2073,7 +2092,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q303_paradise",
@@ -2099,7 +2119,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sts_ep1_10",
@@ -2128,7 +2149,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_ep1_13",
@@ -2155,7 +2177,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_cct_dtn_04",
@@ -2184,7 +2207,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q104_gas_station",
@@ -2214,7 +2238,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "hustle_wat_nid_02",
@@ -2240,7 +2265,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_mq032_maelstrom_warehouse",
@@ -2269,7 +2295,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q003_meat_factory",
@@ -2284,9 +2311,9 @@
       "is_hq": false,
       "initial_controller": "maelstrom",
       "boss": {
-        "kind": "generated",
-        "name": "Maelstrom lieutenant",
-        "conflict_note": ""
+        "kind": "lore",
+        "name": "Declan \"Brick\" Griffin",
+        "conflict_note": "Maelstrom rival bloc leader (All Foods)"
       },
       "strip_from_static": [
         "Quest negotiation, hostages and combat staging"
@@ -2295,7 +2322,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sq011_totentanz",
@@ -2310,9 +2338,9 @@
       "is_hq": true,
       "initial_controller": "maelstrom",
       "boss": {
-        "kind": "generated",
-        "name": "Maelstrom Lieutenant",
-        "conflict_note": ""
+        "kind": "lore",
+        "name": "Simon \"Royce\" Randall",
+        "conflict_note": "Maelstrom Leader (HQ; Brick leads rival bloc at All Foods)"
       },
       "strip_from_static": [
         "side-job conflict and quest-only actors"
@@ -2321,7 +2349,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sq031_ruinedship",
@@ -2348,7 +2377,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_wat_kab_02_ripperdoc_lab",
@@ -2377,7 +2407,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_sts_wat_nid_04_netrunner_hideout",
@@ -2407,7 +2438,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_nid_05",
@@ -2436,7 +2468,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_nid_06",
@@ -2464,7 +2497,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_nid_07",
@@ -2494,7 +2528,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_bls_ina_se1_05",
@@ -2521,7 +2556,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "hustle_bls_ina_se1_23",
@@ -2547,7 +2583,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_cct_dtn_15",
@@ -2573,7 +2610,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "hustle_wbr_hil_01",
@@ -2601,7 +2639,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q000_border_crossing",
@@ -2629,7 +2668,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q114_tunnel_site",
@@ -2655,7 +2695,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bla_ina_04",
@@ -2684,7 +2725,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_05",
@@ -2712,7 +2754,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_cct_dtn_05_luxury_yacht",
@@ -2742,7 +2785,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_gle_01",
@@ -2771,7 +2815,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_rcr_01",
@@ -2798,7 +2843,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_mq062",
@@ -2825,7 +2871,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q000_roadhouse_town",
@@ -2851,7 +2898,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q111_pumpstation",
@@ -2883,7 +2931,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sq006_jefferson_residence",
@@ -2909,7 +2958,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq021_police_lab",
@@ -2936,7 +2986,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_cct_cpz_01",
@@ -2964,7 +3015,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_gle_03",
@@ -2993,7 +3045,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_rcr_02",
@@ -3023,7 +3076,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_hil_01",
@@ -3051,7 +3105,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_bls_ina_se5_09",
@@ -3077,7 +3132,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_cct_dtn_12",
@@ -3103,7 +3159,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_wat_lch_01",
@@ -3129,7 +3186,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_mq306_tech_expo",
@@ -3157,7 +3215,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q000_scavengers",
@@ -3183,7 +3242,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q005_notell_motel",
@@ -3210,7 +3270,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q104_power_plant",
@@ -3236,7 +3297,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q105_braindance_studio",
@@ -3263,7 +3325,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sq023_braindance_studio",
@@ -3292,7 +3355,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq027_rail_junction",
@@ -3319,7 +3383,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_11",
@@ -3349,7 +3414,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_ep1_03",
@@ -3380,7 +3446,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_arr_03",
@@ -3409,7 +3476,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_std_arr_10",
@@ -3438,7 +3506,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_std_arr_12_gas_station",
@@ -3468,7 +3537,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_sts_std_arr_12_motel",
@@ -3496,7 +3566,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_kab_05_client_signal",
@@ -3525,7 +3596,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_sts_wat_kab_102_cargo",
@@ -3555,7 +3627,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_wat_nid_03_abandoned_motel",
@@ -3584,7 +3657,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_nid_12",
@@ -3615,7 +3689,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_std_arr_03",
@@ -3643,7 +3718,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_std_rcr_08",
@@ -3670,7 +3746,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q305_netwatch_ambush",
@@ -3700,7 +3777,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_gle_06",
@@ -3730,7 +3808,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_arr_01",
@@ -3759,7 +3838,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_arr_06",
@@ -3790,7 +3870,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_std_arr_11",
@@ -3805,9 +3886,9 @@
       "is_hq": true,
       "initial_controller": "sixth_street",
       "boss": {
-        "kind": "generated",
-        "name": "6th Street lieutenant",
-        "conflict_note": ""
+        "kind": "lore",
+        "name": "Will Gunner",
+        "conflict_note": "6th Street Leader (HQ)"
       },
       "strip_from_static": [
         "Lucius Thoran as gig target",
@@ -3819,7 +3900,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sts_std_rcr_04",
@@ -3847,7 +3929,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_hil_06",
@@ -3877,7 +3960,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q004_lizzys_nightclub",
@@ -3903,7 +3987,8 @@
       "owner_decisions_resolved": {},
       "is_multi_type": true,
       "is_logistics": false,
-      "is_meeting_spot": false
+      "is_meeting_spot": false,
+      "influence": 5
     },
     {
       "id": "loc_sts_wat_nid_01",
@@ -3934,7 +4019,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_wat_lch_08",
@@ -3960,7 +4046,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "hustle_wbr_jpn_20",
@@ -3989,7 +4076,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q105_dollhouse",
@@ -4015,7 +4103,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q105_jigjig_street",
@@ -4041,7 +4130,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q112_market_area",
@@ -4069,7 +4159,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sq017_pachinko_lounge",
@@ -4096,7 +4187,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": true,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_kab_07",
@@ -4112,8 +4204,8 @@
       "initial_controller": "tyger_claws",
       "boss": {
         "kind": "lore",
-        "name": "Jotaro Shobo",
-        "conflict_note": ""
+        "name": "Shinobu Imai",
+        "conflict_note": "Tyger Claws Council Chair at Ho-Oh HQ (Hiromi Sato reserved for H8 Penthouse)"
       },
       "strip_from_static": [
         "gig combat staging"
@@ -4122,7 +4214,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sts_wat_kab_08_cop_hotel",
@@ -4152,7 +4245,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_lch_01_server_room",
@@ -4182,7 +4276,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wat_lch_03_dojo",
@@ -4213,7 +4308,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_wat_lch_06_neon_basement",
@@ -4242,7 +4338,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_sts_wat_nid_02",
@@ -4268,7 +4365,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_hil_07",
@@ -4297,7 +4395,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_jpn_02_monoblade_workshop",
@@ -4327,7 +4426,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_jpn_03_shrine",
@@ -4353,7 +4453,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_wbr_jpn_12b",
@@ -4384,7 +4485,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq022_el_coyote_cojo_bar",
@@ -4412,7 +4514,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_gle_04",
@@ -4442,7 +4545,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_rey_02",
@@ -4472,7 +4576,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_rey_06",
@@ -4487,9 +4592,9 @@
       "is_hq": true,
       "initial_controller": "valentinos",
       "boss": {
-        "kind": "generated",
-        "name": "Valentinos lieutenant",
-        "conflict_note": ""
+        "kind": "lore",
+        "name": "Gustavo Orta",
+        "conflict_note": "Valentinos Interim Leader (HQ; Campo jailed)"
       },
       "strip_from_static": [
         "Staged funeral, ambush and hacked hologram"
@@ -4500,7 +4605,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sts_hey_spr_01",
@@ -4530,7 +4636,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_hey_spr_03",
@@ -4558,7 +4665,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q110_chapel_of_the_black_madonna",
@@ -4584,7 +4692,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_q110_elders_lair",
@@ -4611,7 +4720,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "loc_q110_netrunners_den",
@@ -4637,7 +4747,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_q110_surroundings",
@@ -4665,7 +4776,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q303_hill_park_spa",
@@ -4693,7 +4805,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_ep1_12",
@@ -4723,7 +4836,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 3
     },
     {
       "id": "hustle_bls_ina_se1_17",
@@ -4749,7 +4863,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "hustle_bls_ina_se5_14",
@@ -4777,7 +4892,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q103_ghost_town",
@@ -4805,7 +4921,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 1
     },
     {
       "id": "loc_q103_mine_ambush",
@@ -4833,7 +4950,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sq004_raffen_shiv_camp",
@@ -4861,7 +4979,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 5
     },
     {
       "id": "loc_sq021_farm_wrong",
@@ -4889,7 +5008,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_02",
@@ -4919,7 +5039,8 @@
       },
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_03",
@@ -4948,7 +5069,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_06",
@@ -4975,7 +5097,8 @@
       "owner_decisions_resolved": {},
       "is_logistics": false,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     },
     {
       "id": "loc_sts_bls_ina_08",
@@ -5004,7 +5127,8 @@
       },
       "is_logistics": true,
       "is_meeting_spot": false,
-      "is_multi_type": false
+      "is_multi_type": false,
+      "influence": 2
     }
   ],
   "unmatched_owner_decisions_resolved": {

@@ -1,6 +1,15 @@
-# Territory Node Candidates
+# Territory Node Candidates (Superseded)
 
-Status: draft, 2026-11-26. A shortlist of venues likely to become territory
+> **Superseded (2026-11-28):** Replaced by [`venue-classification.md`](venue-classification.md),
+> [`data/venues/classification.json`](../../data/venues/classification.json), and
+> [`node-garrison-and-assault.md`](node-garrison-and-assault.md). Kept only as
+> historical reference for pending open-world HQ sites not yet in
+> `data/venues/approved/` (Militech Offices, Kang Tao Building, Biotechnica
+> Protein Flats, Petrochem North Sunrise Oil Fields, NCPD Little China
+> Precinct). Do not use this file's retired scale names, `culture` node type,
+> or old Tyger Claws HQ pick (Clouds → now **Ho-Oh**).
+
+Status: historical draft, 2026-11-26. A shortlist of venues likely to become territory
 nodes (see [`territory-data-model.md`](territory-data-model.md) for scale and
 type). Sources: the per-faction research in
 [`../research/factions/`](../research/factions/) (each faction's "Priority

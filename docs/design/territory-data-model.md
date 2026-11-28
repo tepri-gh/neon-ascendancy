@@ -15,10 +15,10 @@ lives in one place.
 
 | Term | Meaning |
 | --- | --- |
-| **Node** | A meaningful, capturable place a faction holds (must support staff, 5+ security, and a lieutenant boss; see [`venue-node-policy.md`](venue-node-policy.md)). The unit of capture. Exactly one controller. |
-| **Size** | `small`, `medium`, `large` (e.g. Totentanz is `large`). Drives node output and influence directly (replaces legacy hangout/outpost/landmark/stronghold/business scale split; HQ flag marks each faction's capital). |
-| **Type** | The node's primary pillar focus: `economy` (markets, businesses, clubs, hotels, chop shops, logistics, ownable executive buildings), `espionage` (netrunner dens, server rooms, relay/intel hubs), `tech` (labs, workshops, clinics, power/utility facilities), `military` (strongholds, garrisons, precincts, checkpoints, depots). Every node also outputs Influence (Politics) and **Culture** (`economy > espionage > tech > military`). |
-| **Lieutenant boss** | Every node has 1 boss (lore character at their largest/most meaningful node, otherwise dynamically generated). Killable and replaceable at a cost to the owning faction. |
+| **Node** | A meaningful, capturable place a faction holds (see [`venue-node-policy.md`](venue-node-policy.md) and [`node-garrison-and-assault.md`](node-garrison-and-assault.md)). The unit of capture. Exactly one controller. |
+| **Size** | `small` (6–10 security, influence 1), `medium` (11–20, influence 2), `large` (21–30, influence 3), `very_large` (31–40 multi-type flagship HQs, influence 5). Any node with `is_hq = 1` carries influence 5. |
+| **Type** | The node's primary pillar focus: `economy` (markets, open-air hubs, businesses, clubs, hotels, logistics, ownable executive buildings), `espionage` (netrunner dens, server rooms, relay/intel hubs), `tech` (garages, chop shops, drug labs, workshops, clinics, power/utility facilities), `military` (strongholds, garrisons, precincts, checkpoints, depots). Every node also outputs Influence (Politics) and **Culture** (`economy > espionage > tech > military`), and always has ≥ 1 Netrunner. |
+| **Boss** | Every non-HQ node has 1 lieutenant boss; each faction's active **Leader** (or Council chair) sits at its HQ (lore character at largest/most meaningful node, otherwise dynamically generated). Killable and replaceable at a cost to the owning faction. |
 | **Controller** | The faction physically holding a node. Drives influence, spawns and pillar output. |
 | **Title holder** | Optional. The faction with the legal/political claim. Holding without title runs at reduced efficiency. Mechanics come with the Politics pillar. |
 | **Bloc** | An internal political faction (vassal) inside a faction, with a leader. A node may be assigned to one of its controller's blocs. |
@@ -59,9 +59,10 @@ attribution (§5), not from geometry. Map polygons are a later visual concern.
 | Column | Notes |
 | --- | --- |
 | `node_id`, `code`, `display_name` | `code` is stable across builds. |
-| `scale` | Enum above; `influence` is derived from it and stored. |
-| `node_type` | Nullable pillar focus (above). |
-| `influence` | 1–5. |
+| `size` | `small`, `medium`, `large`, `very_large`; drives `influence` and garrison sizing. |
+| `node_type` | Pillar focus: `economy`, `espionage`, `tech`, `military`. |
+| `is_hq`, `is_multi_type`, `is_logistics`, `is_meeting_spot` | Capability/role booleans (see [`node-garrison-and-assault.md`](node-garrison-and-assault.md)). |
+| `influence` | Derived from size/HQ: `small = 1`, `medium = 2`, `large = 3`, `very_large` or `is_hq = 5`. |
 | `sub_district_id` | Required. |
 | `x, y, z` | From a cited extract record only (site anchor, guard area, community, marker). Never a centroid. |
 | `interior` | Bool, proven from node names. |
@@ -107,9 +108,10 @@ existing test saves reset their territory; document it in `CHANGELOG.md`.
    50%, means contested. Scav-held nodes count toward the total.
 2. **Attackable:** a node is attackable by faction F only if F controls an
    adjacent node (`node_links`).
-3. **Guard ring:** a `business`, `stronghold` or `hq` node is attackable
-   only once its controller holds ≤ 50% of its adjacent nodes. An `hq`
-   needs all adjacent nodes taken.
+3. **Guard ring:** `small` and `medium` nodes are attackable directly from any
+   adjacent owned node. A `large` node is attackable only once its controller
+   holds ≤ 50% of its adjacent nodes. An `is_hq` or `very_large` node needs all
+   controller-held adjacent nodes taken first.
 4. **Title efficiency:** a node whose controller lacks title produces
    pillar output and strength at a reduced multiplier (value TBD).
 5. **Leadership, blocs, wars, peace, policies, relations and the sub-leader

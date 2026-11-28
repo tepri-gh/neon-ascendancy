@@ -118,11 +118,16 @@ PowerLevel = FactionTierBase + RarityOffset + SizeOffset   (clamped to [10, 65])
      pressure (Cyberware Malfunction, Weapon Glitch, Overheat) + security cams.
   2. **Tier 4–5 Elite & Boss kits:** Sandevistan/Kerenzikov Elites matching V's
      speed, `WillCounterHack`, and quickhack/takedown-resistant Bosses.
-  3. **Connected-Node QRF Reinforcements:** Attacking a node whose controller
-     still holds adjacent nodes (`node_links`) starts a short alarm timer
-     (45–60s unless the node's netrunner/officer is neutralized) that calls a
-     4–8 unit QRF squad from a neighbouring friendly node — making cutting the
-     guard ring feel tangible in combat.
+  3. **QRF Reinforcements (Adjacent vs. HQ Internal Reserve):**
+     - On `small`, `medium`, and `large` nodes: attacking a node whose
+       controller still holds friendly adjacent nodes (`node_links`) starts a
+       short alarm timer (45–60s unless the node's netrunner/officer is
+       neutralized) that calls a 4–8 unit QRF squad from a neighbouring
+       friendly node — making cutting the guard ring tangible in combat.
+     - On `is_hq` / `very_large` nodes (whose guard ring requires all
+       controller-held adjacent nodes to be cleared before assault): QRF
+       instead triggers **1–2 internal reserve waves** drawn from the faction's
+       remaining bloc Manpower (staging from back rooms / elevator lobbies).
   4. **Faction Tech Progression:** Surviving factions research up the shared
      tech tree over the campaign, raising their Fielded Tier and gear quality.
 
@@ -133,9 +138,19 @@ PowerLevel = FactionTierBase + RarityOffset + SizeOffset   (clamped to [10, 65])
 Vanilla `.community` files hardcode one faction's `characterRecordId` and cannot
 swap factions when territory flips. Every node therefore splits cleanly into:
 1. **Static Clean-Slate Layer:** geometry, doors/lifts, lighting, music/DJs,
-   and **civilian/vendor crowds** (vanilla communities).
-2. **Dynamic Garrison Layer (sim-owned):** controller-driven security,
-   specialists, elites, and boss spawned from **TweakXL** faction templates.
+   and **civilian/vendor crowds** (vanilla communities). Existing vanilla gang
+   communities in `data/venues/approved/` are a **temporary clean-slate
+   placeholder** only; once the Dynamic Garrison System is enabled for a node,
+   that node's static `.questphase` drops its combat/gang communities so it
+   never double-spawns or leaves stale faction guards after a territory flip.
+2. **Dynamic Garrison & Politics Layer (sim-owned):** controller-driven
+   security, specialists, elites, and bosses spawned from **TweakXL** faction
+   templates — plus the **3 city politicians** (Incumbent Mayor, Jefferson &
+   Elizabeth Peralez, Pro-Gang Candidate), which move out of static venue
+   `spawn_sets` (such as `loc_sq006_jefferson_residence.json`) into the
+   Politics Sim dynamic spawner so they appear only when the building's
+   controller is politically compatible, relocate on hostile capture, and stay
+   permanently dead when assassinated.
 
 ### TweakXL Faction Template Matrix
 - **Appearances & variety:** Inherit each faction's vanilla `$base`
@@ -158,10 +173,16 @@ swap factions when territory flips. Every node therefore splits cleanly into:
 - **Elites:** `NPCRarity.Elite` + `Lvl3` visual tags + Tier-3 archetypes
   (`FastMeleeT3`, `HeavyRangedT3`, `NetrunnerT3`, `FastSniperT3`); 2 Elites
   guard the boss's room/approach on `large` and `very_large` nodes.
-- **Lore & Generated Bosses:**
-  - **Lore bosses** (e.g. Sasquatch, Kurt Hansen, Placide, Brigitte, Dodger,
-    Woodman) use their canonical `Character.*` record (with a TweakXL combat
-    wrapper if vanilla is non-combat).
+- **Faction Leaders at HQs & Lore / Generated Bosses:**
+  - **Faction Leaders sit at HQs:** Each territorial faction's active **Leader**
+    (or Council representative for Tyger Claws; pack leader for packs) sits
+    physically in its HQ's `boss_seat` (e.g. Yorinobu Arasaka at Arasaka Tower,
+    Kurt Hansen at Black Sapphire, Susie Q at Lizzie's, Saul Bright at Mobile
+    Camp, Sasquatch at GIM, Royce at Totentanz, Gustavo Orta at La Catrina,
+    Will Gunner at H6 Hideout, Shinobu Imai at Ho-Oh, Placide at Batty's Hotel)
+    so HQ assaults directly confront the faction's leadership.
+  - **Lore bosses** use their canonical `Character.*` record (with a TweakXL
+    combat wrapper if vanilla is non-combat).
   - **Generated lieutenant bosses:** 3–4 TweakXL boss archetype templates per
     faction (`Character.NA_Boss_<Faction>_<Archetype>`), using `NPCRarity.Elite`
     on `small` nodes and `NPCRarity.Boss` (`bossHealthBarThresholds`,
