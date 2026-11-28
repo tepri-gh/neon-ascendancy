@@ -559,7 +559,9 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
                 continue
             if d.get("ref") in excluded or d["path"] in excluded:
                 continue
-            paths.add(d["path"])
+            # A few catalogue paths end in ";#tag" (the node's tag); the
+            # entity id hashes the path without it.
+            paths.add(d["path"].split(";", 1)[0])
     hashes = sorted({fnv1a64(p) for p in paths})
     # Laid out exactly as tools/format-redscript.sh leaves it, so regenerating
     # never makes the format check fail.
@@ -592,10 +594,25 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
         ["// Devices whose baked quest marking and forced personal link belong to a quest",
          "// the clean slate does not run (data/venues/device_quest_marks.json)."],
         "NeonAscendancy_DeviceQuestMarkClears", quest_marks)
+    # Lifts and floor terminals a skipped phase would power (device_power_overrides.json).
+    pw_path = ROOT / "data" / "venues" / "device_power_overrides.json"
+    pw = json.loads(pw_path.read_text(encoding="utf-8"))["devices"] if pw_path.exists() else []
+    power = sorted({str(d["id"]) for d in pw})
+    auth = sorted({str(d["id"]) for d in pw if d.get("disable_authorization")})
+    lines += [""]
+    lines += _string_array_func(
+        ["// Lifts and floor terminals the clean slate leaves disabled or unpowered",
+         "// (data/venues/device_power_overrides.json): enabled and powered on attach."],
+        "NeonAscendancy_DevicePowerOverrides", power)
+    lines += [""]
+    lines += _string_array_func(
+        ["// Of those, the ones whose authorization module wants a keycard the player",
+         "// cannot get: turned off as well."],
+        "NeonAscendancy_DeviceAuthorizationOverrides", auth)
     lines += ["", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears -> {SCOPE_OUT.relative_to(ROOT)}")
+    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears, {len(power)} powered lifts/terminals -> {SCOPE_OUT.relative_to(ROOT)}")
     return 0
 
 

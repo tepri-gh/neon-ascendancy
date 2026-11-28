@@ -64,6 +64,25 @@ Still open:
 - **Stadium crowd**: 31 expected records missing (gangs, Kurtz's people,
   stall staff); check on the second tour.
 
+## Sweep (2026-11-27): 153 stops, unattended
+
+The first full sweep flagged 193 devices. Five agents triaged them
+(reports and proposals in the fixes folder's `sweep/`): 23 door overrides
+and 13 lift/terminal power overrides went in; the rest are vanilla-locked,
+dressing or close terminal pairs. Owner calls are items 177 to 182.
+
+Still open:
+
+- **Miner stale prefab names**: `mine-venues.py` writes some device rows
+  under a prefab no sector holds (the shrine's `prefab2FYTMBQ`), so their
+  scope hashes are phantoms. Fix the miner and re-mine (S2 report).
+- **Roadhouse garage door** (`#q000_dvc_garage_door`): its controller comes
+  from an entity template, so the sweep never logged it; check by look-at.
+- **Dogtown main checkpoint**: running the `q303_paradise` venue phase is
+  the fix (it already unlocks the door), not an override (S3 report).
+- **Sweep radius**: Wired Head's stop also sweeps the Scavenger Den's
+  garage gate; cap overlapping radii.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).
@@ -75,3 +94,8 @@ Still open:
 - Probe: noclip, notes and checklist reopening (`f3d0008`, `7a7c8be`); the
   invisible-to-AI toggle (`b3b55f0`).
 - Everything the leg 1 fix pass changes.
+- Everything the sweep fix pass changes: each override's "Second tour" line
+  is in the sweep reports. Lifts: ride H10's apartment lift, the den lift,
+  the Haven clinic lift and the braindance studio lifts. The Badlands
+  sts_bls_ina_03 service lift (no lift device in the data) and the
+  Arasaka tower lift to floor 33.

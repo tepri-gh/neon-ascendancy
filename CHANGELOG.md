@@ -19,9 +19,21 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   entrance mines disarmed, the Dogtown west checkpoint in its calm state,
   the squat's day lamps on, the North Oak yacht's party layout and stadium
   stall interiors on. Tour stops for the mall and the hotel moved.
+- Sweep fix pass (first full sweep, 153 stops, 193 flagged devices triaged
+  by five agents): 23 door overrides (Riot's entrance, the braindance
+  studio, the shrine's back lounge, the dojo's roof windows, the butcher
+  shop, the relay-tower gates, the netrunners' den lift doors, the Dogtown
+  info centre, a Botanic Gardens door, Jenkins's floor-33 offices and AV
+  hangar, the parking-lot security room, the estate guard room, a
+  Corpo Plaza station annex, Ghost Town's fuel station and bar, the power
+  plant bunker).
+- `data/venues/device_power_overrides.json`: lifts and floor terminals a
+  skipped phase would power are enabled and powered on attach (H10's
+  apartment lift, the netrunners' den, the Haven clinic, the braindance
+  studio, H1's basement terminal, the abandoned motel).
 - Stadium vendors: each stall's vendor scene now runs
   (`dogtown_vendors.json` `scenes`), so trade works.
-- `data/venues/device_quest_marks.json` and `DeviceQuestMarks.reds`: clear
+- `data/venues/device_quest_marks.json` and `DeviceOverrides.reds`: clear
   a dead quest mark and forced personal link (the Botanic Gardens console).
 - The tour skips toured stops (`data/venues/tour_done.json`); a
   `tour_stop` can set its own scan `radius`.

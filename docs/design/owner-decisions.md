@@ -643,3 +643,25 @@ From the leg 1 fix pass (agent reports in
      toolboxes and safes with its deck lights. Fine?
 176. **Gas station shutters.** They belong to the q104 quest prefab, which
      also brings the quest's garage and mine dressing. Leave them out?
+
+From the sweep fix pass (agent reports in the fixes folder's `sweep/`):
+
+177. **Barry's flat, H10** (`megabuilding_a`). The door policy unlocks it,
+     so you can walk in; vanilla keeps it shut until his quest, and the
+     entry has Barry refusing to answer. Keep it open or lock it?
+178. **Bree's flat, Wellsprings** (`mq305_wanted`). Disabled and locked;
+     nothing is placed inside. Keep it shut or open it?
+179. **Ghost Town.** The fuel station and bar doors open now, but the town
+     stays dark (its fusebox was powered by a skipped q103 phase). Power
+     the whole town instead?
+180. **Arasaka Tower, floor 33.** Jenkins's office, its vestibule and the
+     AV hangar open now. The meeting room (the restored trio sits behind
+     its two doors) and 19 back rooms stay locked as in vanilla. Open the
+     meeting room, or more of the floor? First check the tower lift
+     reaches floor 33 at all.
+181. **Delamain garage upstairs** (`sq025_delamain_garage`). The workshop
+     and control room are sealed; vanilla opens them only for the finale.
+     Walkable in normal business?
+182. **Abandoned motel rooms** (`sts_wat_nid_03_abandoned_motel`). Two
+     first-floor rooms are empty because the gig's props are not loaded.
+     Furnish one or two, or leave them derelict?

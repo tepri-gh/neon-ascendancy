@@ -66,6 +66,144 @@
       "venue": "loc_mq305_wanted",
       "pos": [-2331.8, -172.9, 15.9],
       "why": "Owner tour 2026-11-26: the lobby lift's inner door stays locked, so the car door closes onto it (the 'doubled lift'). Only mq305 unlocks it."
+    },
+    {
+      "id": "14118118983733731532",
+      "venue": "loc_sq017_nightclub",
+      "pos": [-1614.3, 999.4, 23.9],
+      "why": "Sweep 2026-11-27: the door entity under #sq017_dvc_door_nightclub_main_entrance is typed INTERACTIVE on one side and REMOTELY_CONTROLLED on the other, so Riot's only street entrance offers no direct open from the street and the policy logs oneSided=true decision=keep; the override lets the existing fixSides branch normalize both sides (never force-open)."
+    },
+    {
+      "id": "12027680313946780587",
+      "venue": "loc_q105_braindance_studio",
+      "pos": [90.5, -506.0, 7.4],
+      "why": "Sweep 2026-11-27: the studio's main door (#q105_dvc_bd_00_door_main) is ForceDisabled and ForceUnpowered by the unrun q105 setup/bugfix phases, and its catalogue path carries a ';#tag' suffix that makes door-scope hash a phantom id, so the policy never saw it. It is the way from the yard into the warehouse the venue restores."
+    },
+    {
+      "id": "17983755826252344959",
+      "venue": "loc_q105_braindance_studio",
+      "pos": [95.5, -516.6, 13.3],
+      "why": "Sweep 2026-11-27: the netrunner room's door (#q105_dvc_bd_00_door_netrunner) is left disabled and unpowered by the unrun q105 phases and never entered the door scope for the same ';#tag' hash reason. The venue's ground-floor netrunner sits in that room."
+    },
+    {
+      "id": "9194771067692410915",
+      "venue": "loc_sts_wbr_jpn_03_shrine",
+      "pos": [57.1, 1630.6, 126.6],
+      "why": "Sweep 2026-11-27: the shrine's back-lounge door is unpowered because its catalogue row names a stale prefab (prefab2FYTMBQ), so door-scope hashed a phantom id and the policy never ran on it. Two of the seven Tyger guards the venue restores sit in the lounge behind it."
+    },
+    {
+      "id": "8967766290057624278",
+      "venue": "loc_sts_wat_lch_03_dojo",
+      "pos": [-1880.4, 1235.0, 22.3],
+      "why": "Sweep 2026-11-27: the dojo's roof window 1 is a WindowControllerPS, which door-scope excludes (it keeps only DoorControllerPS), and vanilla only powers it from the unrun street story. The venue's tour check expects this roof route into the training hall to keep working."
+    },
+    {
+      "id": "4972740044018178447",
+      "venue": "loc_sts_wat_lch_03_dojo",
+      "pos": [-1894.8, 1254.0, 22.3],
+      "why": "Sweep 2026-11-27: the second roof window (roof_top_window_002, no skill check) is likewise an unscoped WindowControllerPS that vanilla only powers from the unrun street story, leaving the dojo's easier roof entrance shut."
+    },
+    {
+      "id": "11381510476531899714",
+      "venue": "loc_q110_butcher_shop",
+      "pos": [-1814.3, -1972.1, 52.5],
+      "why": "Sweep 2026-11-27: #q110_dvc_butcher_shop_back_room_door_001 ships locked and static with an empty authorization module and no skill/hack, so the locked workroom and butcher_01 at the meat grinder are unreachable; unlock it and disable the empty module, never force open."
+    },
+    {
+      "id": "13894025792123919791",
+      "venue": "loc_q110_surroundings",
+      "pos": [-1767.7, -1909.8, 56.8],
+      "why": "Sweep 2026-11-27: the relay-tower compound gate {gate_}_002 in loc_q110_surroundings_decoration is locked and static with an empty authorization module and no skill/hack, ~11 m below the crew's platform, so the climb from the coast road is walled off; unlock it and disable the empty module, never force open."
+    },
+    {
+      "id": "18433186265195378279",
+      "venue": "loc_q110_surroundings",
+      "pos": [-1760.0, -1913.4, 56.8],
+      "why": "Sweep 2026-11-27: the second relay-tower compound gate {gate_}1 has the same locked/static empty-module state as its partner and blocks the platform climb; unlock it and disable the empty module, never force open."
+    },
+    {
+      "id": "15858866253258795943",
+      "venue": "loc_q110_netrunners_den",
+      "pos": [-1918.6, -1907.4, 49.2],
+      "why": "Sweep 2026-11-27: #q110_dvc_den_front_lift_door_1 is disabled and locked with an empty module and is outside DoorScope, so the policy never enabled or powered it; it must enable and power with the hotel-front lift. The lift itself is a separate Needs code item; if the lift-door guard is moved before the override branch, this override will only enable/power and not unlock."
+    },
+    {
+      "id": "15858867352770424154",
+      "venue": "loc_q110_netrunners_den",
+      "pos": [-1918.6, -1907.5, 57.5],
+      "why": "Sweep 2026-11-27: #q110_dvc_den_front_lift_door_2 is the upper gate of the same disabled, unscoped hotel-front lift and is disabled and locked; enable and power it so the car can open it at the den floor. Same lift-door guard caveat as door 1."
+    },
+    {
+      "id": "10846427555440147780",
+      "venue": "loc_sts_ep1_13",
+      "pos": [-2004.7, -3003.7, 84.5],
+      "why": "Sweep 2026-11-27: #sts_ep1_13_info_center_doors is the public exhibition/info-center entrance but is typed REMOTELY_CONTROLLED on one side and INTERACTIVE on the other, so the policy logs oneSided=true and keeps it; the override makes DoorPolicy.reds fixSides give both sides the usable type (the door is already unlocked and powered)."
+    },
+    {
+      "id": "17388178938208074557",
+      "venue": "loc_sts_ep1_botanic_gardens",
+      "pos": [-2177.6, -3030.1, 111.1],
+      "why": "Sweep 2026-11-27: single_door_002 is locked and static, one-sided NONE/INTERACTIVE, with an empty authorization module and no skill/hack; with the front gate pinned shut it is the east/balcony fallback into the lower hall, so unlock it, disable the empty module and let fixSides give both sides the usable type."
+    },
+    {
+      "id": "10816106407039862326",
+      "venue": "loc_arasaka_tower",
+      "pos": [-1415.0, 121.4, 142.0],
+      "why": "Sweep 2026-11-27: the floor-33 counter-intelligence suite's outer door (#q000_corpo_jenkins_office_outer_door, doors_double_custom_konpeki_glass) ships LOCKED/AUTOMATIC with an authorization module on but empty (keycard 0, ESL_NONE) and inactive skill checks, so it is static and the venue's restored Jenkins and assistant are sealed behind it 26 m inside."
+    },
+    {
+      "id": "12984383574850828901",
+      "venue": "loc_arasaka_tower",
+      "pos": [-1415.6, 109.4, 142.0],
+      "why": "Sweep 2026-11-27: the second door on the way from the floor-33 antechamber to Jenkins' upper office (doors_double_neomilitary_n) ships LOCKED/AUTOMATIC with an empty authorization module and no toggle, skill check or quickhack, so it is static and Jenkins' restored desk is behind it."
+    },
+    {
+      "id": "8199370105313776332",
+      "venue": "loc_arasaka_tower",
+      "pos": [-1491.1, 144.4, 142.0],
+      "why": "Sweep 2026-11-27: the AV hangar door on floor 33 (doors_single_neomilitary_k) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static and the two restored AV-garage guards, whose only spots are 20-23 m inside, are unreachable."
+    },
+    {
+      "id": "11613254734045441668",
+      "venue": "loc_q000_underground_parking_lot",
+      "pos": [-1827.6, -518.2, -5.7],
+      "why": "Sweep 2026-11-27: the garage's security-room door (doors_single_neomilitary_n_frameless) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static; the venue's only staffed post, the booth guard's q000_kid_ws_security_booth spot, is 3.8 m inside that room and no vanilla phase drives the door. Its node path never resolved, so an override is the only route; confirm on the second tour that it is the security room."
+    },
+    {
+      "id": "12728868596234902505",
+      "venue": "loc_q113_arasaka_estate",
+      "pos": [303.9, 1024.0, 224.9],
+      "why": "Sweep 2026-11-27: the estate's guard-room door (doors_single_neokitsch_l at single_door_5_010) ships LOCKED with an empty authorization module and no toggle, skill check or quickhack, so it is static; the restored shift officer's desk spot q113_ws_arasaka_estate_guard_005_C is 3.5 m inside and no phase drives this door. The private-suite door #q113_dvc_estate_hanako_door stays a door_exclusion."
+    },
+    {
+      "id": "10233653145271604022",
+      "venue": "loc_sts_cct_cpz_01",
+      "pos": [-1342.0, -12.5, -3.8],
+      "why": "Sweep 2026-11-27: an annex glass door between the station's server and control rooms is unpowered; its leaf ref is untagged so it never entered DoorScope and the policy never ran its power branch, leaving it dead to interaction. It is neither locked nor sealed, so powering it is the whole fix."
+    },
+    {
+      "id": "3564020175120358415",
+      "venue": "loc_q103_ghost_town",
+      "pos": [2582.1, -4.1, 80.8],
+      "why": "Sweep 2026-11-27: the fuel-station store door (#q103_dvc_gas_station_door_02) ships closed and is unpowered because the town's main fusebox is only powered by q103_03_ghost_town, which never runs; it is unscoped, so the policy never powers it, and the fuel-station interior (with its loot) is otherwise shut."
+    },
+    {
+      "id": "1589154947246569493",
+      "venue": "loc_q103_ghost_town",
+      "pos": [2576.0, -6.1, 80.9],
+      "why": "Sweep 2026-11-27: the second leaf of the fuel-station entrance (#q103_dvc_gas_station_door_01) is closed and unpowered by the same dead town grid and is unscoped, so the workshop/store cannot be entered; power it (never open it) like the other door."
+    },
+    {
+      "id": "730560179976154084",
+      "venue": "loc_q103_ghost_town",
+      "pos": [2561.1, -35.4, 80.8],
+      "why": "Sweep 2026-11-27: the Rocky Ridge bar main door (#q103_dvc_arcade_main_door) is a closed AUTOMATIC door, unpowered by the town grid (q103_03 never runs) and unscoped, so the bar/pool/arcade interior is unreachable; power it so it auto-opens."
+    },
+    {
+      "id": "15039471994222279878",
+      "venue": "loc_q104_power_plant",
+      "pos": [-200.4, -2800.6, 20.2],
+      "why": "Sweep 2026-11-27: the control-station bunker door (#q104_power_plant_bunker_door) ships SEALED with no auth, skill check or quickhack, is unscoped, and only q104_02_power_plant (never kept) opens the station, so the plant interior is unreachable; unseal it (never force-open)."
     }
   ]
 }

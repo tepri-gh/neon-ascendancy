@@ -415,7 +415,7 @@ Two local tools feed venue research. Their output is never committed;
 - **Dead quest marks.** Some devices bake `markAsQuest` and a forced
   personal link for a gig step we never run (yellow icon, V freezes on
   jack-in). List them in `data/venues/device_quest_marks.json`;
-  `DeviceQuestMarks.reds` clears both when the device attaches.
+  `DeviceOverrides.reds` clears both when the device attaches.
 
 - **Hustle set pieces leak into neighbouring venues.** NCPD hustle
   dressing (bodies, clue props, armed mines) is often on by default, with
@@ -424,6 +424,29 @@ Two local tools feed venue research. Their output is never committed;
 
 - **Tour stop radius.** A `tour_stop` pins the scan to 40 m unless it
   sets `radius`; a spread-out venue needs a larger one (Pacifica mall).
+
+- **Lifts are not doors** (sweep 2026-11-27). The door policy only touches
+  `Door` entities, so a lift car (`LiftDevice`) or floor terminal
+  (`ElevatorFloorTerminal`) that a skipped phase would enable or power
+  stays dead, and its doors with it: H10's apartment lift, the netrunners'
+  den, the Haven clinic, the braindance studio. List it by entity id in
+  `data/venues/device_power_overrides.json` (`disable_authorization` for a
+  terminal keyed to a keycard nobody can get); `DeviceOverrides.reds`
+  queues `ForceEnabled` and `ForcePower` on attach, as vanilla phases do.
+- **Windows are doors, scope is not.** `Window` extends `Door`, so the
+  policy and owner overrides reach a `WindowControllerPS`; but `door-scope`
+  keeps only `DoorControllerPS` rows, so a window a street story powered
+  needs an override (the Little China dojo's roof windows).
+- **Most blocked devices are fine.** Of the 193 the first full sweep
+  flagged, about 30 needed a fix: the rest were vanilla-locked rooms,
+  display doors and shutters, or close pairs of floor terminals. Triage
+  each against its sector node and the phase that drives it before
+  opening anything.
+- **Catalogue paths can carry a `;#tag` suffix.** The entity id hashes the
+  path without it; `door-scope` strips it (it hid the braindance studio's
+  two doors). The miner can also record a stale prefab name (the shrine's
+  `prefab2FYTMBQ` rows, real `prefab62JAV6Q`), which makes a phantom id:
+  check the id against the sweep or look-at log before trusting the scope.
 
 ## 7. Dev tour and playtest notes
 
