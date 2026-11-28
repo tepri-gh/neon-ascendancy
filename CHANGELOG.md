@@ -27,10 +27,15 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   hangar, the parking-lot security room, the estate guard room, a
   Corpo Plaza station annex, Ghost Town's fuel station and bar, the power
   plant bunker).
-- `data/venues/device_power_overrides.json`: lifts and floor terminals a
-  skipped phase would power are enabled and powered on attach (H10's
-  apartment lift, the netrunners' den, the Haven clinic, the braindance
-  studio, H1's basement terminal, the abandoned motel).
+- Lifts work everywhere (owner decision 58): every lift car and floor
+  terminal is enabled, powered and has its floor authorization turned off,
+  and every lift door is enabled and powered. Lifts in lore-sealed places
+  (excluded and deferred venues, `data/venues/lift_exclusions.json`) stay
+  vanilla. This fixes H10's apartment lift, the netrunners' den, the Haven
+  clinic, the braindance studio, H1's basement and the abandoned motel,
+  and opens keycard floors (Dark Matter, the Peralez and Gutierrez
+  penthouses).
+
 - Stadium vendors: each stall's vendor scene now runs
   (`dogtown_vendors.json` `scenes`), so trade works.
 - `data/venues/device_quest_marks.json` and `DeviceOverrides.reds`: clear
@@ -202,6 +207,10 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
 - Dev look-at logger also reports `skillCheck`, `quickhack` and `authValid`.
 
 ### Fixed
+- The door scope and lift exclusions apply the owner's triage decisions
+  directly; the Space Force One crash site, the Cynosure bunker and the
+  Spidertank hall had stayed in the door scope since the catalogue predates
+  those decisions.
 - Door overrides: owner-flagged doors (`data/venues/door_overrides.json`)
   get authorization disabled, unlocked and unsealed, in or out of scope;
   first two are the SoCal border office and the Yucca radio tower gate.

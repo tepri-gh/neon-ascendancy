@@ -370,7 +370,7 @@
           "ref": "#q105_dvc_dollhouse_lift_leave",
           "controller": "LiftControllerPS",
           "action": "ForceEnabled",
-          "why": "Woodman's private lift (vanilla q105_dollhouse_woodman ForceEnabled). Authorization stays vanilla: per-floor access comes from the slave ElevatorFloorTerminalControllerPS (liftController.swift GetFloorAuthorizationFromSlaves), and the lift offers the authorization quickhack, so door policy keeps it."
+          "why": "Woodman's private lift (vanilla q105_dollhouse_woodman ForceEnabled). Its floor authorization is turned off at runtime like every lift's (playbook rule 13, owner decision 58)."
         }
       ]
     },

@@ -174,11 +174,19 @@ already define all four; we copy them, never invent them.
     Glen terminals `3984133746229174344` / `3984134845740802555` are 0.48 m
     apart vertically. Proximity alone does not establish duplicate geometry or
     identify which device, if any, should be removed.
-13. **Lift floor access comes from its floor terminals**, the slave
-    `ElevatorFloorTerminalControllerPS` devices
-    (`liftController.swift`, `GetFloorAuthorizationFromSlaves`).
-    `AuthorizationDisable` on the `LiftControllerPS` does nothing for floor
-    access. A hackable lift stays vanilla under rule 12.
+13. **Lifts work everywhere** (owner decision 58, 2026-11-27): no area is
+    out of reach unless it has strict lore implications we cannot remove
+    (the Space Force One crash site, the Cynosure bunker). At runtime every
+    lift car and floor terminal is enabled, powered and has its
+    authorization turned off, and every lift door is enabled and powered
+    (`DeviceOverrides.reds`, `DoorPolicy.reds`). Never write a lift, floor
+    terminal or lift door as "kept vanilla" in a venue entry. Floor access
+    comes from the floor terminals (`liftController.swift`,
+    `GetFloorAuthorizationFromSlaves`), so a keycard-only floor opens too.
+    The exceptions are lift groups of excluded and deferred venues, plus
+    `data/venues/lift_exclusions.json` for any other lore-sealed lift;
+    `door-scope` grows each to its whole group (car, terminals, lift doors)
+    from the world device registry.
 14. **Baked shutters are mesh (`worldCookedStaticMeshNode`), not devices.**
     Only a variant toggle opens them (Black Sapphire tower gate).
 15. **Never touch journal, map pin, phone or holocall controllers.** The
@@ -400,6 +408,8 @@ Two local tools feed venue research. Their output is never committed;
 - **Lift doors only get enable and power.** Their lift and floor
   terminals open them; unlocking one can leave it open on a floor the car
   has left. An owner override still unlocks one (the Wellsprings lobby).
+  Every lift door outside a lore-sealed group is in the policy's scope,
+  catalogued or not (rule 13).
   A lift that looks doubled is usually two door entities in one shaft, one
   of them still quest-locked, not a second prefab.
 
@@ -425,14 +435,12 @@ Two local tools feed venue research. Their output is never committed;
 - **Tour stop radius.** A `tour_stop` pins the scan to 40 m unless it
   sets `radius`; a spread-out venue needs a larger one (Pacifica mall).
 
-- **Lifts are not doors** (sweep 2026-11-27). The door policy only touches
-  `Door` entities, so a lift car (`LiftDevice`) or floor terminal
-  (`ElevatorFloorTerminal`) that a skipped phase would enable or power
-  stays dead, and its doors with it: H10's apartment lift, the netrunners'
-  den, the Haven clinic, the braindance studio. List it by entity id in
-  `data/venues/device_power_overrides.json` (`disable_authorization` for a
-  terminal keyed to a keycard nobody can get); `DeviceOverrides.reds`
-  queues `ForceEnabled` and `ForcePower` on attach, as vanilla phases do.
+- **Lifts are not doors** (sweep 2026-11-27). The door policy only touched
+  `Door` entities, so lift cars (`LiftDevice`) and floor terminals
+  (`ElevatorFloorTerminal`) a skipped phase would enable or power stayed
+  dead, and their doors with them: H10's apartment lift, the netrunners'
+  den, the Haven clinic, the braindance studio. Rule 13 now covers every
+  lift; `LiftPolicy:` lines in the native log show what it changed.
 - **Windows are doors, scope is not.** `Window` extends `Door`, so the
   policy and owner overrides reach a `WindowControllerPS`; but `door-scope`
   keeps only `DoorControllerPS` rows, so a window a street story powered
@@ -442,6 +450,11 @@ Two local tools feed venue research. Their output is never committed;
   display doors and shutters, or close pairs of floor terminals. Triage
   each against its sector node and the phase that drives it before
   opening anything.
+- **The catalogue's tiers are as old as the last mining run.**
+  `load_catalog` applies `triage_overrides.json` on top, so a venue the
+  owner excluded since then drops out of the door scope and keeps its lifts
+  vanilla without a re-mine (the crash site, the bunker, the Spidertank
+  hall had stayed in scope).
 - **Catalogue paths can carry a `;#tag` suffix.** The entity id hashes the
   path without it; `door-scope` strips it (it hid the braindance studio's
   two doors). The miner can also record a stale prefab name (the shrine's

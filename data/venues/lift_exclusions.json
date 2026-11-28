@@ -1,0 +1,4 @@
+{
+  "description": "Owner decision 58 (2026-11-27): lifts work everywhere, unless the place is sealed for lore and cannot be made to fit our timeline. Lifts of excluded and deferred venues (the Space Force One crash site, the Cynosure bunker) stay vanilla on their own; list here, by engine entity id, any other lift or floor terminal that must stay vanilla, with why. tools/venue-proposals.py door-scope grows each id to its whole lift group and generates NeonAscendancy_LiftExclusions into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
+  "lifts": []
+}

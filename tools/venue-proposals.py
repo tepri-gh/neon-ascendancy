@@ -51,8 +51,18 @@ BAD_POSTURES = {"alert", "dead", "scene"}
 BAD_PHASE_WORDS = re.compile(r"(hostile|combat|^scene|_scene|cin_|interrogat|after_|ambush|chase|dead|death|wounded|_cover|cover_)", re.I)
 
 
+TRIAGE = ROOT / "data" / "venues" / "triage_overrides.json"
+
+
 def load_catalog(venues_dir: Path) -> dict[str, dict]:
-    return {v["venue"]: v for v in json.loads((venues_dir / "catalog.json").read_text(encoding="utf-8"))}
+    """The mined venue catalogue, with the owner's triage decisions applied:
+    the miner bakes them into each venue's tier only when it runs, so a
+    venue excluded or deferred since then would still read as live."""
+    cat = {v["venue"]: v for v in json.loads((venues_dir / "catalog.json").read_text(encoding="utf-8"))}
+    for t in json.loads(TRIAGE.read_text(encoding="utf-8"))["venues"]:
+        if t["venue"] in cat:
+            cat[t["venue"]]["tier"] = t["decision"]
+    return cat
 
 
 def hand_built_venues(catalog: dict[str, dict]) -> set[str]:
@@ -533,6 +543,51 @@ def _string_array_func(comment: list[str], name: str, values: list[str]) -> list
     return out + ["}"]
 
 
+DEVICE_REGISTRY = Path.home() / "na-prop-scratch/world_res/base/worlds/03_night_city/_compiled/default/03_night_city.devices.json"
+LIFT_CLASSES = ("LiftControllerPS", "ElevatorFloorTerminalControllerPS")
+LIFT_EXCLUSIONS = ROOT / "data" / "venues" / "lift_exclusions.json"
+
+
+def lift_exclusions(cat: dict[str, dict], registry: Path) -> list[str]:
+    """Entity ids of every lift group that stays vanilla (owner decision 58:
+    lifts work unless the place is sealed for lore). Seeds are the lifts and
+    floor terminals of excluded and deferred venues, plus the ids in
+    lift_exclusions.json; each grows to its whole group through the world
+    device registry: the car, its floor terminals and the lift doors those
+    terminals drive."""
+    if not registry.exists():
+        sys.exit(f"device registry not found: {registry} (extract 03_night_city.devices, see docs/venue-playbook.md section 4)")
+    rows = json.loads(registry.read_text(encoding="utf-8"))["Data"]["RootChunk"]["data"]["Data"]["unk1"]
+    cls = {r["hash"]: r["className"]["$value"] for r in rows}
+    links: dict[str, set[str]] = {}
+    for r in rows:
+        for parent in r["parents"]:
+            # car <-> terminal, terminal <-> its lift doors.
+            if cls.get(parent) == "ElevatorFloorTerminalControllerPS" or (
+                    cls.get(parent) == "LiftControllerPS" and r["className"]["$value"] in LIFT_CLASSES):
+                links.setdefault(parent, set()).add(r["hash"])
+                links.setdefault(r["hash"], set()).add(parent)
+    seeds: set[str] = set()
+    for v in cat.values():
+        if v["tier"] not in ("excluded", "deferred"):
+            continue
+        for d in v["devices"]:
+            if d.get("controller") in LIFT_CLASSES and d.get("path"):
+                seeds.add(str(fnv1a64(d["path"].split(";", 1)[0])))
+    if LIFT_EXCLUSIONS.exists():
+        seeds |= {str(x["id"]) for x in json.loads(LIFT_EXCLUSIONS.read_text(encoding="utf-8"))["lifts"]}
+    unknown = sorted(h for h in seeds if h not in cls)
+    if unknown:
+        sys.exit(f"lift exclusion ids not in the device registry: {', '.join(unknown)}")
+    group, todo = set(), list(seeds)
+    while todo:
+        h = todo.pop()
+        if h not in group:
+            group.add(h)
+            todo += links.get(h, ())
+    return sorted(group)
+
+
 def cmd_door_scope(a: argparse.Namespace) -> int:
     """Doors the runtime door policy may act on: every DoorControllerPS a
     vanilla quest phase drives, resolved to a full path, outside excluded and
@@ -594,25 +649,17 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
         ["// Devices whose baked quest marking and forced personal link belong to a quest",
          "// the clean slate does not run (data/venues/device_quest_marks.json)."],
         "NeonAscendancy_DeviceQuestMarkClears", quest_marks)
-    # Lifts and floor terminals a skipped phase would power (device_power_overrides.json).
-    pw_path = ROOT / "data" / "venues" / "device_power_overrides.json"
-    pw = json.loads(pw_path.read_text(encoding="utf-8"))["devices"] if pw_path.exists() else []
-    power = sorted({str(d["id"]) for d in pw})
-    auth = sorted({str(d["id"]) for d in pw if d.get("disable_authorization")})
+    lift_excl = lift_exclusions(cat, a.devices)
     lines += [""]
     lines += _string_array_func(
-        ["// Lifts and floor terminals the clean slate leaves disabled or unpowered",
-         "// (data/venues/device_power_overrides.json): enabled and powered on attach."],
-        "NeonAscendancy_DevicePowerOverrides", power)
-    lines += [""]
-    lines += _string_array_func(
-        ["// Of those, the ones whose authorization module wants a keycard the player",
-         "// cannot get: turned off as well."],
-        "NeonAscendancy_DeviceAuthorizationOverrides", auth)
+        ["// Lift groups (car, floor terminals, lift doors) that stay vanilla because",
+         "// they sit in a lore-sealed place: excluded and deferred venues plus",
+         "// data/venues/lift_exclusions.json. Every other lift is made to work."],
+        "NeonAscendancy_LiftExclusions", lift_excl)
     lines += ["", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears, {len(power)} powered lifts/terminals -> {SCOPE_OUT.relative_to(ROOT)}")
+    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears, {len(lift_excl)} lore-sealed lift devices -> {SCOPE_OUT.relative_to(ROOT)}")
     return 0
 
 
@@ -770,7 +817,9 @@ def main() -> int:
     p = sub.add_parser("prepare"); p.add_argument("names", nargs="+")
     p = sub.add_parser("check"); p.add_argument("names", nargs="*")
     p = sub.add_parser("wave"); p.add_argument("n", type=int)
-    sub.add_parser("door-scope")
+    p = sub.add_parser("door-scope")
+    p.add_argument("--devices", type=Path, default=DEVICE_REGISTRY,
+                   help="the world device registry, 03_night_city.devices as WolvenKit JSON")
     sub.add_parser("tour-stops")
     p = sub.add_parser("approve"); p.add_argument("names", nargs="+")
     p.add_argument("--within", type=float, default=80.0, help="proximity wait radius in metres")

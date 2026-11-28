@@ -9,9 +9,10 @@ import NeonAscendancy.Core.*
 // keeps its vanilla lock. Otherwise the door is enabled, powered and, only if
 // it would stay impassable, unlocked/unsealed. It is never opened.
 //
-// Scope: only doors vanilla quest phases drive (NeonAscendancy_DoorScopeHashes,
-// generated from the venue catalogue). Set-dressing doors often open onto
-// nothing. Gated by the na_door_policy fact (dev toggle first).
+// Scope: doors vanilla quest phases drive (NeonAscendancy_DoorScopeHashes,
+// generated from the venue catalogue; set-dressing doors often open onto
+// nothing), owner overrides, and every lift door outside lore-sealed areas.
+// Gated by the na_door_policy fact (dev toggle first).
 // What the policy needs to know about one door. Gathered from the live PS.
 public struct NeonAscendancy_DoorFacts {
   public let disabled: Bool;
@@ -199,6 +200,16 @@ public func NeonAscendancy_DoorFacts() -> NeonAscendancy_DoorFacts {
   return f;
 }
 
+public func NeonAscendancy_IsWorkingLiftDoor(game: GameInstance, ps: ref<DoorControllerPS>, id: EntityID) -> Bool {
+  if !IsDefined(ps) || !ps.IsLiftDoor() {
+    return false;
+  }
+  let sys = GameInstance
+    .GetScriptableSystemsContainer(game)
+    .Get(n"NeonAscendancy.World.NeonAscendancy_DeviceOverrideSystem") as NeonAscendancy_DeviceOverrideSystem;
+  return IsDefined(sys) && !sys.LiftExcluded(EntityID.ToDebugStringDecimal(id));
+}
+
 public func NeonAscendancy_DoorSideUsable(t: EDoorType) -> Bool {
   return Equals(t, EDoorType.INTERACTIVE) || Equals(t, EDoorType.AUTOMATIC);
 }
@@ -267,10 +278,15 @@ protected cb func OnGameAttached() -> Bool {
     return res;
   }
   const overridden = sys.IsOverridden(this.GetEntityID());
-  if !overridden && !sys.InScope(this.GetEntityID()) {
+  let ps = this.GetDevicePS();
+  // Lifts work everywhere outside lore-sealed areas (owner decision 58), so
+  // a lift door is in scope wherever it is; the policy only enables and
+  // powers it (see NeonAscendancy_DecideDoor).
+  if !overridden
+    && !sys.InScope(this.GetEntityID())
+    && !NeonAscendancy_IsWorkingLiftDoor(game, (ps as DoorControllerPS), this.GetEntityID()) {
     return res;
   }
-  let ps = this.GetDevicePS();
   if IsDefined(ps) {
     // The position lets the tour report attribute each decision to a venue.
     ps.NeonAscendancy_ApplyDoorPolicy(false, this.GetWorldPosition(), overridden);
