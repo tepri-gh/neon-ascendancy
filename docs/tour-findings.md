@@ -96,7 +96,7 @@ tour until one is found.
 
 Nine agents matched 166 venues to their classification strip lists and
 resolutions (reports in the extract cache's `research/strip/`). 37 approved
-entries and 4 hand-built venues changed; most items were already absent.
+entries and 2 hand-built venues (Batty's rooftop, Black Sapphire) changed; most items were already absent.
 Owner calls are items 183 to 193. Left for later:
 
 - **World-placed mines and traps** (Wraiths and Scavenger sites): not in any
