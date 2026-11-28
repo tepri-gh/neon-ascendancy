@@ -186,7 +186,12 @@ already define all four; we copy them, never invent them.
     The exceptions are lift groups of excluded and deferred venues, plus
     `data/venues/lift_exclusions.json` for any other lore-sealed lift;
     `door-scope` grows each to its whole group (car, terminals, lift doors)
-    from the world device registry.
+    from the world device registry. A single floor stays vanilla when
+    vanilla never makes it usable (owner, 2026-11-27: if no vanilla state
+    or quest ever enables a lift entry, it leads somewhere never designed
+    to be entered): a `floors` entry in the same file, grown only to that
+    floor's lift doors. The policy never shows a hidden floor or activates
+    an inactive one, so those stay as vanilla leaves them.
 14. **Baked shutters are mesh (`worldCookedStaticMeshNode`), not devices.**
     Only a variant toggle opens them (Black Sapphire tower gate).
 15. **Never touch journal, map pin, phone or holocall controllers.** The

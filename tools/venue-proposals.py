@@ -549,12 +549,14 @@ LIFT_EXCLUSIONS = ROOT / "data" / "venues" / "lift_exclusions.json"
 
 
 def lift_exclusions(cat: dict[str, dict], registry: Path) -> list[str]:
-    """Entity ids of every lift group that stays vanilla (owner decision 58:
-    lifts work unless the place is sealed for lore). Seeds are the lifts and
-    floor terminals of excluded and deferred venues, plus the ids in
-    lift_exclusions.json; each grows to its whole group through the world
-    device registry: the car, its floor terminals and the lift doors those
-    terminals drive."""
+    """Entity ids of lift devices that stay vanilla (owner decision 58: lifts
+    work unless the place is sealed for lore or was never meant to be
+    entered). Whole groups: the lifts and floor terminals of excluded and
+    deferred venues plus lift_exclusions.json "lifts", each grown through
+    the world device registry to the car, its floor terminals and the lift
+    doors those terminals drive. Single floors: lift_exclusions.json
+    "floors" (a floor terminal vanilla never makes usable), grown only to
+    that floor's lift doors."""
     if not registry.exists():
         sys.exit(f"device registry not found: {registry} (extract 03_night_city.devices, see docs/venue-playbook.md section 4)")
     rows = json.loads(registry.read_text(encoding="utf-8"))["Data"]["RootChunk"]["data"]["Data"]["unk1"]
@@ -574,8 +576,12 @@ def lift_exclusions(cat: dict[str, dict], registry: Path) -> list[str]:
         for d in v["devices"]:
             if d.get("controller") in LIFT_CLASSES and d.get("path"):
                 seeds.add(str(fnv1a64(d["path"].split(";", 1)[0])))
-    if LIFT_EXCLUSIONS.exists():
-        seeds |= {str(x["id"]) for x in json.loads(LIFT_EXCLUSIONS.read_text(encoding="utf-8"))["lifts"]}
+    spec = json.loads(LIFT_EXCLUSIONS.read_text(encoding="utf-8")) if LIFT_EXCLUSIONS.exists() else {}
+    seeds |= {str(x["id"]) for x in spec.get("lifts", [])}
+    floors = {str(x["id"]) for x in spec.get("floors", [])}
+    bad = sorted(h for h in floors if cls.get(h) != "ElevatorFloorTerminalControllerPS")
+    if bad:
+        sys.exit(f"lift_exclusions.json floors must be floor terminals: {', '.join(bad)}")
     unknown = sorted(h for h in seeds if h not in cls)
     if unknown:
         sys.exit(f"lift exclusion ids not in the device registry: {', '.join(unknown)}")
@@ -585,6 +591,9 @@ def lift_exclusions(cat: dict[str, dict], registry: Path) -> list[str]:
         if h not in group:
             group.add(h)
             todo += links.get(h, ())
+    for t in floors:
+        group.add(t)
+        group |= {c for c in links.get(t, ()) if cls.get(c) == "DoorControllerPS"}
     return sorted(group)
 
 
