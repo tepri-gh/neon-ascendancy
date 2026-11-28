@@ -1,7 +1,7 @@
 {
   "code": "sts_ep1_12",
   "display_name": "Luxor High Wellness Spa — Voodoo Boys base (Luxor Heights, Dogtown)",
-  "why": "The Luxor High Wellness Spa is the never-opened Biotechnica ziggurat on Andrew Jackson St. in Luxor Heights, taken over as a Voodoo Boys base: Milko Alexis's group holds the north wing and the pool/droid hall, with a networked server room behind glass. The gig Treating Symptoms, its Corpo of the Month stash and the south-side criminal activity are the only vanilla reasons anyone is there, so in the clean slate the building stands empty. This proposal restores the ordinary occupation: the standing guard garrison on its reception, hall, wing, office and outside posts; and the droid hall's security androids on standby, with the interior variant states set to the intact pre-story look. Owner decision 67 removes Milko, Alan, the broken android and courier vehicle from static placement.",
+  "why": "The Luxor High Wellness Spa is the never-opened Biotechnica ziggurat on Andrew Jackson St. in Luxor Heights, taken over as a Voodoo Boys base: Milko Alexis's group holds the north wing and the pool/droid hall, with a networked server room behind glass. The gig Treating Symptoms, its Corpo of the Month stash and the south-side criminal activity are the only vanilla reasons anyone is there, so in the clean slate the building stands empty. This proposal restores the ordinary occupation: the standing guard garrison on its reception, hall, wing, office and outside posts; and the droid hall's security androids on standby, with the interior variant states set to the intact pre-story look. Owner decision 67 removes Milko, Alan, the broken android and courier vehicle from static placement. Owner tour 2026-11-27: the androids, the droid miniboss (droid den) and the drone are gig content, off at a generic node (venue-node-policy section 5); the netrunner guards stay, and the den room's netrunner and boss are garrison work.",
   "source": {
     "proposal": "research/loc_sts_ep1_12/proposal.json",
     "confidence": "medium",
@@ -18,14 +18,6 @@
   },
   "prefabs": [],
   "communities": [
-    {
-      "spawner": "#sts_ep1_12_combat_com",
-      "entry_name": "drone_01",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
-      "needs_tour_check": true
-    },
     {
       "spawner": "#sts_ep1_12_combat_com",
       "entry_name": "guard _left_wing_down_02",
@@ -120,14 +112,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_12_droids_den",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The pool/jacuzzi hall's security androids, including the heavy Robot R Mk.2 the Voodoo Boys keep: 22 guards plus the miniboss, in the community's only phase (default). This is the room's normal purpose — the wiki says the gang installs the implants it cannot dismantle into old combat robots and that one has proven useful. Their markers are guard__droid_disable (dormant guard stands) and generic__android__hang_around, i.e. standby, not a combat line. Priority rule 11a: this is the combat half of the base, so it comes before any civilian dressing.",
       "needs_tour_check": true
     }
   ],

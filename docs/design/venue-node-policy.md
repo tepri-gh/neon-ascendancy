@@ -146,7 +146,17 @@ When classifying venues and settling pending `owner-decisions.md` items:
   and calm staff stay **ON**.
 - **Investigation markers (owner, tour 2026-11-27):** any object that carries a
   quest investigation marker (a scannable clue, a gig's evidence prop, a
-  destroyed quest vehicle) is removed, and the marker with it.
+  destroyed quest vehicle) is removed, and the marker with it. The game's
+  tag: a loot container (a body, a shard case) shows the quest icon when
+  `gameLootContainerBasePS.m_markAsQuest` is set or it holds an item tagged
+  `Quest` (`lootContainers.swift`, `IsQuest()`). Shard cases set the flag by
+  default. Marked bodies and cases are plain world nodes, so they go in
+  `data/venues/world_deletions.json`.
+- **Quest units at generic nodes (owner, 2026-11-27):** nodes are generic
+  places, not gig sets. Robots, androids, drones and robot minibosses that a
+  gig or street story stages are off. Human guards and netrunners stay as
+  the node's vanilla security (Luxor High Wellness Spa: the droid den is off,
+  the netrunner guards stay).
 - **Wrecks at garages (owner, tour 2026-11-27):** broken-down or stripped cars
   at a garage, chop shop or auto shop are removed; the venue reads as a working
   business.

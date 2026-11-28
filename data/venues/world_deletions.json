@@ -7,9 +7,111 @@
       "node_type": "worldEntityNode",
       "template": "base\\vehicles\\decoration\\entities\\colby_picked_apart_2.ent",
       "debug_name": "{spr_03_dvc_colby_picked_apart}",
-      "pos": [-2472.6, -912.7, 8.1],
+      "pos": [
+        -2472.6,
+        -912.7,
+        8.1
+      ],
       "venue": "loc_sts_hey_spr_03",
       "why": "Owner rule (venue-node-policy section 5, tour 2026-11-27): stripped cars at a working auto shop are removed; this picked-apart Colby is a plain world node with no variant."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-28_-30_1_0.streamingsector",
+      "global_node_id": "8599730619747893678",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\wa_corpse_container.ent",
+      "debug_name": "#ma_pac_cvi_106_loot",
+      "pos": [
+        -1742.9,
+        -1906.2,
+        71.0
+      ],
+      "venue": "loc_q110_surroundings",
+      "why": "Chapel roof corpse. Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-18_-11_0_0.streamingsector",
+      "global_node_id": "15803172232331704618",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\ma_corpse_container.ent",
+      "debug_name": "#rey_06_ws_body",
+      "pos": [
+        -1127.6,
+        -668.0,
+        5.1
+      ],
+      "venue": "loc_sts_hey_rey_06",
+      "why": "La Catrina body carrying a daemon-infected quest shard. Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-23_3_6_0.streamingsector",
+      "global_node_id": "9508043477604978802",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\ma_corpse_container.ent",
+      "debug_name": "#q113_top_atrium_ma_corpse_003",
+      "pos": [
+        -1438.2,
+        207.3,
+        388.3
+      ],
+      "venue": "loc_arasaka_tower",
+      "why": "Arasaka Tower floor 388 corpse (q113 dressing). Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-23_3_6_0.streamingsector",
+      "global_node_id": "9508044577116607013",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\ma_corpse_container.ent",
+      "debug_name": "#q113_top_atrium_ma_corpse_002",
+      "pos": [
+        -1427.2,
+        224.1,
+        388.3
+      ],
+      "venue": "loc_arasaka_tower",
+      "why": "Arasaka Tower floor 388 corpse (q113 dressing). Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-23_2_6_0.streamingsector",
+      "global_node_id": "10998722655072625024",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\ma_corpse_container.ent",
+      "debug_name": "#q113_top_atrium_ma_corpse",
+      "pos": [
+        -1447.9,
+        180.8,
+        388.3
+      ],
+      "venue": "loc_arasaka_tower",
+      "why": "Arasaka Tower floor 388 corpse (q113 dressing). Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-16_21_0_0.streamingsector",
+      "global_node_id": "8377340236471143242",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\shard_cases\\shard_case_container.ent",
+      "debug_name": "shard_case_container_002",
+      "pos": [
+        -1018.6,
+        1361.4,
+        6.0
+      ],
+      "venue": "loc_sts_wat_kab_07",
+      "why": "Ho-Oh quest-marked shard case (ShardCaseContainerPS marks itself as quest by default). Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
+    },
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-18_33_0_0.streamingsector",
+      "global_node_id": "13544734259313041988",
+      "node_type": "worldEntityNode",
+      "template": "base\\gameplay\\loot\\containers\\bodies\\ma_corpse_container.ent",
+      "debug_name": "#kab_05_aloise_body",
+      "pos": [
+        -1105.1,
+        2143.8,
+        9.3
+      ],
+      "venue": "loc_sts_wat_kab_05_client_signal",
+      "why": "Eisenhower St. body with an investigation icon. Owner tour 2026-11-27: the owner marked this body for deletion; objects carrying a quest investigation marker are removed, marker and all (venue-node-policy section 5). A plain world loot node with no variant to hide it."
     }
   ]
 }
