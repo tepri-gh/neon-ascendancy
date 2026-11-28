@@ -1,5 +1,76 @@
 {
   "description": "Owner decision 58 (2026-11-27): lifts work everywhere, unless the place is sealed for lore or was never designed to be entered. Lifts of excluded and deferred venues (the Space Force One crash site, the Cynosure bunker) stay vanilla on their own. 'lifts': any other lift group that must stay vanilla, by the engine entity id of its car or a terminal; door-scope grows it to the car, its floor terminals and their lift doors. 'floors': a single floor terminal whose floor vanilla never makes usable (owner 2026-11-27: if no vanilla state or quest ever enables that lift entry, it leads somewhere never designed to be entered); it and its lift doors stay vanilla, the rest of the lift works. Each entry: id, venue (or area), pos, why, evidence. door-scope generates NeonAscendancy_LiftExclusions into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
-  "lifts": [],
+  "lifts": [
+    {
+      "id": "4101767142246717771",
+      "venue": "Arasaka Tower upper floors",
+      "pos": [-1420.4, 127.8, 544.3],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415438618369560576 of industrial_lift_1.ent (interior_-6_0_2_3.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "2066224514664929456",
+      "venue": "Corpo Plaza station (sts_cct_cpz_01)",
+      "pos": [-1284.2, -259.0, 7.7],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (interior_-3_-1_0_4.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "9490038037906406025",
+      "venue": "Arasaka Tower upper floors",
+      "pos": [-1442.2, 178.4, 594.3],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415438618369560576 of industrial_lift_1.ent (interior_-6_0_2_3.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "15554712174723634264",
+      "venue": "Corpo Plaza station (sts_cct_cpz_01)",
+      "pos": [-1322.3, -275.1, 7.7],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (interior_-3_-1_0_4.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "11214226772376657353",
+      "venue": "Abandoned motel (sts_wat_nid_03_abandoned_motel)",
+      "pos": [-1510.8, 2177.9, 22.2],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (exterior_-6_8_0_2.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "17802235019748564514",
+      "venue": "H10, the short lift by V's floor (megabuilding_elevator_2)",
+      "pos": [-1408.7, 1269.6, 126.1],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1411311047021268992 of megabuilding_lift_1.ent (interior_-6_4_0_3.streamingsector) starts UNPOWERED; base and ep1 phases: ForceDisabled in q001_apartment; ForceOFF in mq000_vs_apartment_interactions."
+    },
+    {
+      "id": "5592049725157106050",
+      "venue": "Dogtown container area (conz_mq304_ce)",
+      "pos": [-2040.8, -2471.4, 34],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (interior_-8_-10_0_3.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "4877245821613819237",
+      "venue": "Braindance studio, untagged interior lift (q105_braindance_studio)",
+      "pos": [41.3, -499.0, -11.1],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (exterior_0_-2_-1_2.streamingsector) starts DISABLED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "7654888108434091074",
+      "venue": "Dogtown, Kress Street tower (q303_paradise)",
+      "pos": [-1880.0, -2356.6, 340.3],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1415439149754322944 of common_lift.ent (interior_-4_-5_0_4.streamingsector) starts UNPOWERED; base and ep1 phases: no action on it."
+    },
+    {
+      "id": "9768770432876289965",
+      "venue": "Megabuilding H6",
+      "pos": [-171.9, -876.1, 11.5],
+      "why": "Lift audit 2026-11-27: vanilla never switches this car ON, so it leads somewhere never designed to be entered.",
+      "evidence": "live controller component 1411311047021268992 of megabuilding_lift_1.ent (interior_-1_-4_0_3.streamingsector) starts DISABLED; base and ep1 phases: no action on it."
+    }
+  ],
   "floors": []
 }

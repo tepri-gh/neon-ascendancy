@@ -661,14 +661,15 @@ def cmd_door_scope(a: argparse.Namespace) -> int:
     lift_excl = lift_exclusions(cat, a.devices)
     lines += [""]
     lines += _string_array_func(
-        ["// Lift groups (car, floor terminals, lift doors) that stay vanilla because",
-         "// they sit in a lore-sealed place: excluded and deferred venues plus",
-         "// data/venues/lift_exclusions.json. Every other lift is made to work."],
+        ["// Lift devices that stay vanilla: groups (car, floor terminals, lift doors)",
+         "// in lore-sealed places (excluded and deferred venues) or never usable in",
+         "// vanilla, and single floors vanilla never opens (lift_exclusions.json).",
+         "// Every other lift is made to work."],
         "NeonAscendancy_LiftExclusions", lift_excl)
     lines += ["", ""]
     SCOPE_OUT.parent.mkdir(parents=True, exist_ok=True)
     SCOPE_OUT.write_text("\n".join(lines), encoding="utf-8")
-    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears, {len(lift_excl)} lore-sealed lift devices -> {SCOPE_OUT.relative_to(ROOT)}")
+    print(f"door scope: {len(hashes)} doors ({len(excluded)} excluded refs), {len(overrides)} owner overrides, {len(quest_marks)} quest-mark clears, {len(lift_excl)} vanilla-kept lift devices -> {SCOPE_OUT.relative_to(ROOT)}")
     return 0
 
 

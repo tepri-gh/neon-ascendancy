@@ -457,6 +457,14 @@ Two local tools feed venue research. Their output is never committed;
   display doors and shutters, or close pairs of floor terminals. Triage
   each against its sector node and the phase that drives it before
   opening anything.
+- **A lift can carry several controller states.** Its node's instance
+  data overrides each controller component of its `.ent` template (two or
+  three on the common, industrial and megabuilding lifts, keyed by cruid
+  in `CruidDict`), and they can disagree. Only the component the template
+  names is live; reading the first chunk got four lifts wrong. The lift
+  audit (2026-11-27, `research/lifts/` in the extract cache) has the
+  per-template choice and scripts that index every phase device action
+  and read each lift device's live state.
 - **The catalogue's tiers are as old as the last mining run.**
   `load_catalog` applies `triage_overrides.json` on top, so a venue the
   owner excluded since then drops out of the door scope and keeps its lifts

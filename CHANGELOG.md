@@ -34,7 +34,9 @@ this project adheres to [docs/versioning.md](docs/versioning.md).
   vanilla. This fixes H10's apartment lift, the netrunners' den, the Haven
   clinic, the braindance studio, H1's basement and the abandoned motel,
   and opens keycard floors (Dark Matter, the Peralez and Gutierrez
-  penthouses).
+  penthouses). An audit of every lift floor against the base game and
+  Phantom Liberty keeps ten lifts vanilla, because vanilla never switches
+  them on (`data/venues/lift_exclusions.json`).
 
 - Stadium vendors: each stall's vendor scene now runs
   (`dogtown_vendors.json` `scenes`), so trade works.
