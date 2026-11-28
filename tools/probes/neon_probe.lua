@@ -616,7 +616,7 @@ end
 -- Doors, lifts and lift terminals within the radius, with the raw state the
 -- sweep report judges (tools/venue-tour-report.py): power, locks, seals, the
 -- in-world ways in, lift door and side types. Read-only; nothing is changed.
-local DEVICE_CLASSES = { "Door", "LiftDevice", "ElevatorFloorTerminal" }
+local DEVICE_CLASSES = { "Door", "LiftDevice", "ElevatorFloorTerminal", "ElectricLight", "GameplayLight", "AlarmLight", "Fuse", "FuseBox", "DestructibleMasterLight" }
 
 local function scan_devices(radius)
   local player = Game.GetPlayer()
@@ -632,7 +632,7 @@ local function scan_devices(radius)
     local kind = nil
     if obj then
       for _, c in ipairs(DEVICE_CLASSES) do
-        if obj:IsA(c) then kind = c end
+        if safe(function() return obj:IsA(c) end) then kind = c end
       end
     end
     local id = kind and tostring(safe(function() return obj:GetEntityID().hash end))
@@ -645,7 +645,8 @@ local function scan_devices(radius)
         app = tostring(safe(function() return obj:GetCurrentAppearanceName().value end)),
       }
       if ps then
-        d.powered = safe(function() return ps:IsPowered() end) == true
+        d.powered = safe(function() return ps:IsPowered() end)
+        d.on = safe(function() return ps:IsON() end)
         d.disabled = safe(function() return ps:IsDisabled() end) == true
         if kind == "Door" then
           d.open = safe(function() return ps:IsOpen() end) == true
@@ -752,10 +753,20 @@ local function tour_scan()
   local p = Game.GetPlayer():GetWorldPosition()
   local devices = nil
   if tour.mode == "sweep" then devices = scan_devices(s.radius) end
+  local dx, dy, dz = p.x - s.pos[1], p.y - s.pos[2], p.z - s.pos[3]
+  local floor = nil
+  for _, group in ipairs({ npcs, devices or {} }) do
+    for _, item in ipairs(group) do
+      if item.pos and (not floor or item.pos[3] < floor) then floor = item.pos[3] end
+    end
+  end
+  -- tools/sweep-check.py judges these against data/venues/sweep_rules.json
+  -- (fell, far off); the probe only measures.
+  local arrival = { dx_horizontal = math.sqrt(dx * dx + dy * dy), dz = dz, floor_z = floor }
   append("tour.log", json_enc({
     event = "stop", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code, venue = s.venue, kind = s.kind,
     mode = tour.mode, player = { p.x, p.y, p.z }, radius = s.radius, npcs = npcs, missing_records = missing,
-    devices = devices, quest_objects = scan_quest_objects(s.radius),
+    devices = devices, arrival = arrival, quest_objects = scan_quest_objects(s.radius),
   }))
   if tour.mode == "sweep" then
     emit(string.format("SWEEP %d/%d %s: %d npcs, %d devices", tour.i, #tour.stops, s.code, #npcs, #devices))

@@ -494,7 +494,34 @@ Two local tools feed venue research. Their output is never committed;
   `prefab2FYTMBQ` rows, real `prefab62JAV6Q`), which makes a phantom id:
   check the id against the sweep or look-at log before trusting the scope.
 
-## 7. Dev tour and playtest notes
+## 7. Dev tour, sweep and playtest notes
+
+**Current workflow (owner, 2026-11-28).**
+Run the CET probe's **Sweep all stops** in a dev session. It visits every
+positioned stop, waits for streaming and logs NPCs, devices, quest objects and
+arrival measurements to `tour.log`. Missing fields in older logs cannot establish that a
+light or lift is on, or that a player fell.
+
+Run `tools/sweep-check.py` to write `sweep-violations.md` and
+`sweep-violations.json` under `~/.cache/neon-ascendancy/extracts/venues/`.
+Use `--log` and `--out-dir` for a copied log and scratch output, and `--since`
+to limit a run. The report contains violations and their evidence and routes:
+world deletions for quest objects and corpse containers (review corpses), door
+override candidates, lift checks, venue data, or a look during play. An
+unfinished sweep visit is a hang candidate; a failed arrival invalidates that
+scan. The optional garrison check is disabled until dynamic garrisons exist.
+Rules and allowlists live in `data/venues/sweep_rules.json`; lift exceptions
+remain in `data/venues/lift_exclusions.json`.
+
+The per-area node tour is retired. The owner checks appearance and notes
+issues during normal play using the look-at and playtest note hotkeys. The
+**access tour** remains for door, lift and route checks; save its checklist
+and use `tools/venue-tour-report.py` for those results. Stops come from
+`tools/venue-proposals.py tour-stops`; regenerate after approval changes.
+A venue without a position cannot be swept until it has a `tour_stop`.
+
+The detail below is how the tools work.
+
 
 Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
 `tools/deploy-probe.sh` after `tools/install-dev-cet.sh` has installed CET.
@@ -522,8 +549,8 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
 - **Three tours** (owner, 2026-11-27). The rules in
   `docs/design/venue-node-policy.md` settle lighting, quest dressing,
   attitude and the cast, so a venue needs one look:
-  - **Node tour**: every simulation node (`data/venues/classification.json`
-    bucket `node`) not yet toured, one "Looks right" checkbox.
+  - **Node tour**: retired on 2026-11-28 (the owner QCs in play; the sweep
+    checker covers the rules). It stays in the panel for a single venue.
   - **Hub tour**: the neutral hubs, the same checkbox.
   - **Access tour**: `tools/probes/access_stops.lua`, one checkbox per door
     override (`door_overrides.json`) and per lift, floor or route check

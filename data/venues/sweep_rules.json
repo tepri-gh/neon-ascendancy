@@ -1,0 +1,175 @@
+{
+  "arrival": {
+    "far_horizontal_m": 30,
+    "fell_below_target_m": 5,
+    "fell_below_floor_m": 2
+  },
+  "alert_states": [
+    "Alerted",
+    "Combat"
+  ],
+  "robot_record_patterns": [
+    "robot",
+    "droid",
+    "drone",
+    "minotaur",
+    "bombus",
+    "mech",
+    "android"
+  ],
+  "robot_exclude_patterns": [
+    "mechanic"
+  ],
+  "robot_allowlist": [
+    {
+      "stop": "q301_crashsite_way_up",
+      "record": "Character.mon_kurtz_base_minotaur"
+    },
+    {
+      "stop": "sts_wat_kab_102_cargo",
+      "record": "Character.BombusFriendly_ow_city_scenes"
+    },
+    {
+      "stop": "q303_nighthawks_bar",
+      "record": "Character.q303_droid"
+    },
+    {
+      "stop": "sq025_delamain_garage",
+      "record": "Character.sq025_delamain_drone_bombus_fast"
+    },
+    {
+      "stop": "q000_border_crossing",
+      "record": "Character.max_border_drone_octant"
+    },
+    {
+      "stop": "q303_combat_zone_gate",
+      "record": "Character.prevention_dogtown_droid_ma"
+    },
+    {
+      "stop": "q303_combat_zone_gate",
+      "record": "Character.prevnetion_dogtown_base_minotaur"
+    },
+    {
+      "stop": "pr_stadium",
+      "record": "Character.ep1_combat_zone_non_combat_droid"
+    },
+    {
+      "stop": "pr_stadium",
+      "record": "Character.mon_kurtz_base_minotaur"
+    },
+    {
+      "stop": "q112_arasaka_industrial_park_warehouse",
+      "record": "Character.arr_arasaka_android_android2_shingen_ma"
+    },
+    {
+      "stop": "sq025_delamain_garage",
+      "record": "Character.sq025_delamain_drone_bombus_friendly"
+    },
+    {
+      "stop": "sq025_delamain_garage",
+      "record": "Character.sq025_delamain_drone_bombus_slow"
+    }
+  ],
+  "garrison": {
+    "enabled": false,
+    "sizes": {
+      "small": {
+        "total": [
+          6,
+          10
+        ],
+        "netrunner": [
+          1,
+          1
+        ],
+        "specialist": [
+          0,
+          2
+        ],
+        "guard": [
+          4,
+          6
+        ],
+        "boss": [
+          1,
+          1
+        ]
+      },
+      "medium": {
+        "total": [
+          11,
+          20
+        ],
+        "netrunner": [
+          1,
+          2
+        ],
+        "specialist": [
+          2,
+          5
+        ],
+        "guard": [
+          7,
+          12
+        ],
+        "boss": [
+          1,
+          1
+        ]
+      },
+      "large": {
+        "total": [
+          21,
+          30
+        ],
+        "netrunner": [
+          2,
+          3
+        ],
+        "specialist": [
+          5,
+          8
+        ],
+        "guard": [
+          13,
+          18
+        ],
+        "boss": [
+          1,
+          1
+        ]
+      },
+      "very_large": {
+        "total": [
+          31,
+          40
+        ],
+        "netrunner": [
+          3,
+          4
+        ],
+        "specialist": [
+          8,
+          12
+        ],
+        "guard": [
+          18,
+          23
+        ],
+        "boss": [
+          2,
+          3
+        ]
+      }
+    }
+  },
+  "civilian_affiliations": [
+    "Civilian",
+    "Unaffiliated"
+  ],
+  "usable_door_sides": [
+    "INTERACTIVE",
+    "AUTOMATIC",
+    "PHYSICAL"
+  ]
+}
