@@ -1,0 +1,15 @@
+{
+  "description": "World nodes ArchiveXL deletes from their streaming sectors, for objects the owner's rules remove that no variant toggle hides (docs/design/venue-node-policy.md section 5; owner 2026-11-27: world edits only where genuinely needed). Each node is named by a stable identity, not an index: tools/world-deletions.py resolves the index from a fresh conversion of the sector, checks the type and template, and writes the nodeDeletions block into src/archive/pc/mod/neon_ascendancy_world.archive.xl.",
+  "nodes": [
+    {
+      "sector": "base/worlds/03_night_city/_compiled/default/exterior_-39_-15_0_0.streamingsector",
+      "global_node_id": "10224434042615224842",
+      "node_type": "worldEntityNode",
+      "template": "base\\vehicles\\decoration\\entities\\colby_picked_apart_2.ent",
+      "debug_name": "{spr_03_dvc_colby_picked_apart}",
+      "pos": [-2472.6, -912.7, 8.1],
+      "venue": "loc_sts_hey_spr_03",
+      "why": "Owner rule (venue-node-policy section 5, tour 2026-11-27): stripped cars at a working auto shop are removed; this picked-apart Colby is a plain world node with no variant."
+    }
+  ]
+}

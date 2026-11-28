@@ -106,6 +106,12 @@ Owner calls are items 183 to 193. Left for later:
 - **Stacks container yard** (`q301_crashsite_way_up`): a kept vanilla phase
   may bring back the removed Scavenger crew.
 - **Node garrisons and generated lieutenants**: wait for the simulation.
+- **Marked Ragnar** (`sts_hey_spr_01`, near -2076, -958): two agents could
+  not find what gives it the investigation marker. On the next visit, log a
+  look-at on it ("Neon: log look-at"); the id and state settle the fix.
+- **Stripped Shion** (`sts_hey_spr_03`, node 1034 of exterior_-39_-15_0_0):
+  its variant group does not match the streaming block; check whether it
+  shows in game. The stripped Colby there is deleted (world_deletions.json).
 
 ## Second tour (re-test)
 

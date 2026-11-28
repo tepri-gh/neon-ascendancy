@@ -465,6 +465,16 @@ Two local tools feed venue research. Their output is never committed;
   audit (2026-11-27, `research/lifts/` in the extract cache) has the
   per-template choice and scripts that index every phase device action
   and read each lift device's live state.
+- **A plain world node with no variant needs a world deletion.** Some objects
+  the owner's rules remove (the stripped Colby at the Wellsprings auto shop)
+  are ordinary `worldEntityNode`s in a base sector, outside any variant
+  group. List them in `data/venues/world_deletions.json` by sector, global
+  node id, type and template, never by index, and run
+  `tools/world-deletions.py`; it resolves the index from a fresh conversion
+  and writes ArchiveXL `nodeDeletions` into the world archive's `.xl`.
+  ArchiveXL refuses the sector patch if the node count or type changed (a
+  game patch): rerun the tool then. Use it only when no variant, prefab or
+  device action can do the job (owner, 2026-11-27).
 - **The catalogue's tiers are as old as the last mining run.**
   `load_catalog` applies `triage_overrides.json` on top, so a venue the
   owner excluded since then drops out of the door scope and keeps its lifts
