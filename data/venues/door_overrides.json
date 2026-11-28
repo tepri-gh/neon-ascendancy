@@ -204,6 +204,30 @@
       "venue": "loc_q104_power_plant",
       "pos": [-200.4, -2800.6, 20.2],
       "why": "Sweep 2026-11-27: the control-station bunker door (#q104_power_plant_bunker_door) ships SEALED with no auth, skill check or quickhack, is unscoped, and only q104_02_power_plant (never kept) opens the station, so the plant interior is unreachable; unseal it (never force-open)."
+    },
+    {
+      "id": "724024200774223580",
+      "venue": "loc_arasaka_tower",
+      "pos": [-1420.5, 134.4, 142.0],
+      "why": "Owner decision 180 (2026-11-27): open the floor-33 meeting room; the restored meeting_chat trio sits 2-3 m behind this door, which ships locked with an empty authorization module."
+    },
+    {
+      "id": "4649670516738394725",
+      "venue": "loc_arasaka_tower",
+      "pos": [-1418.6, 134.4, 142.0],
+      "why": "Owner decision 180 (2026-11-27): the floor-33 meeting room's second door, locked like the first."
+    },
+    {
+      "id": "11494987620393623840",
+      "venue": "loc_mq305_wanted",
+      "pos": [-2329.9, -190.4, 38.2],
+      "why": "Owner decision 178 (2026-11-27): Bree's flat (#mq305_dvc_apartment_door_main) is usable; it ships disabled, unpowered and locked with an empty authorization module."
+    },
+    {
+      "id": "4267761351077886551",
+      "venue": "loc_sq025_delamain_garage",
+      "pos": [-954.7, -111.6, 11.3],
+      "why": "Owner decision 181 (2026-11-27): the upstairs workshop hatch (#sq025_hatchet_workshop_upstairs, a WindowControllerPS) is usable in normal business; vanilla unseals it only in sq025_06/07. The finale's crawl, escape and sprinkler hatches and floor grates stay sealed."
     }
   ]
 }

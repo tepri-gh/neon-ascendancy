@@ -132,5 +132,13 @@
     "ref": "$/03_night_city/c_pacifica/#west_wind_estate_001/loc_sts_ep1_03_prefabMLORBYQ/loc_sts_ep1_03_gameplay_prefabGSTXERY/loc_sts_ep1_03_devices_prefabFP4TOLY/double_door_sliding_j_001_prefabSO5CXUA/{double_door_sliding_j}_prefabCOVBNTQ",
     "within": 80.0,
     "why": "The double sliding entrance door at the motel front, where the player arrives from the lot; a device the quest closes and powers, not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      -2159.69,
+      -2775.36,
+      35.22
+    ],
+    "source": "Vanilla AI spot sts_ep1_03_gunfight_ws_argument_002, quest_f9f56e7ec2bde6db.streamingsector: standing cigarette spot in motel lot."
   }
 }

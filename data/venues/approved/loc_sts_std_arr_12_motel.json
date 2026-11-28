@@ -34,5 +34,13 @@
     "ref": "#arr_12_motel_door",
     "within": 80.0,
     "why": "The room's working door (DoorControllerPS on single_door.ent) at (-1100.82,-1532.58,26.29), about 2.4 m from Pedro's desk spot, in the venue prefab's base-range gameplay section. It is a device entity that streams with the motel and is already in the runtime door scope (FNV-1a 64 11573107179925640345), not a workspot, so the proximity wait can fire."
+  },
+  "tour_stop": {
+    "position": [
+      -1086.67,
+      -1518.92,
+      25.78
+    ],
+    "source": "Vanilla AI spot arr_12_crowd_ws_resident_009, exterior_-9_-12_0_1.streamingsector: standing resident spot at motel."
   }
 }

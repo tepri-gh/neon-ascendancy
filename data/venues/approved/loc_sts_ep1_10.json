@@ -102,5 +102,13 @@
     "ref": "#sts_ep1_10_garage_gate",
     "within": 80.0,
     "why": "The garage vehicle gate: a DoorControllerPS in the base-world loc_sts_ep1_10_gameplay_prefabODQE2GQ/loc_sts_ep1_10_devices_prefabKMQNC6I group, driven by this venue's openworld and cleanup phases (ForceOpen during the gig, ForceClose+ForceLock afterwards). It is on the base's main vehicle entrance, next to Dodger's garage hangout and the goons' spots, and it streams with the building, so a proximity wait on it re-issues the people exactly where they stand."
+  },
+  "tour_stop": {
+    "position": [
+      -2199.88,
+      -2255.6,
+      8.04
+    ],
+    "source": "Vanilla AI spot sts_ep1_10_ws_enemy_garage_invade_spawn_003, quest_937c9f9c83661e69.streamingsector: standing spot on garage floor."
   }
 }

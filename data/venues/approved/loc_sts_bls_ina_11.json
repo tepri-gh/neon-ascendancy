@@ -85,5 +85,14 @@
     "ref": "#ina_11_warehouse_door",
     "within": 80.0,
     "why": "A real device entity in the venue's devices section (single_door_003_prefabWK7NPTY, DoorControllerPS), ungated in the catalogue and driven by sts_bls_ina_11_ow (ForceClose + ForcePower), so it is present and powered in the normal yard. It is the single car garage door on the main yard, beside the guards' and technicians' spots. It is a door, not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      1373.45,
+      -1678.81,
+      49.29
+    ],
+    "source": "Vanilla AI spot ina_11_ws_officer_patrol_06, quest_7e7a168ea90c7e18.streamingsector: standing patrol spot in facility.",
+    "radius": 60
   }
 }

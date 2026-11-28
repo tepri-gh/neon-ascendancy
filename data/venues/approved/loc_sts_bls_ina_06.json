@@ -43,5 +43,14 @@
     "ref": "#ina_06_dvc_security_system",
     "within": 80.0,
     "why": "A real device entity at the outpost (a security-system alarm/terminal), sitting on the eastern approach beside the #ina_06_tr_security_area warning trigger, and inside the very section this venue declares, so it streams in with the venue. No phase drives any door or terminal at this outpost, so the catalogue's devices list has only an unresolved NodeRef; this device comes from the venue's own sector data. It is a device, not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      2119.58,
+      -1821.18,
+      67.23
+    ],
+    "source": "Vanilla AI spot ina_06_ws_main_gate_ganger_routine_002, quest_0f0ce520d6496807.streamingsector: ground-level standing spot by main gate.",
+    "radius": 60
   }
 }

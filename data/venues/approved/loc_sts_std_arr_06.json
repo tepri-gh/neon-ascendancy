@@ -51,5 +51,13 @@
     "ref": "#arr_06_main_gate",
     "within": 40.0,
     "why": "The venue's own roller gate (DoorControllerPS) in the gameplay prefab's devices section — a world device that streams with the location, not a workspot. It is the normal way in from Hargreaves St., so reaching it is exactly the moment the venue has streamed and the people need re-issuing. The other quest-driven device is the roof door; the gate is the better anchor because a player arrives at it."
+  },
+  "tour_stop": {
+    "position": [
+      -637.44,
+      -1143.88,
+      7.83
+    ],
+    "source": "Vanilla AI spot arr_06_ws_enemy_001_A, quest_fd3f76194290ff0f.streamingsector: ground-floor standing tablet spot in garage."
   }
 }

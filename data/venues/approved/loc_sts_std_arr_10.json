@@ -42,5 +42,14 @@
     "ref": "#arr_10_main_door",
     "within": 80.0,
     "why": "The factory's front door on the normal route in, and the first device the player passes; a DoorControllerPS, not a workspot. The venue declares no anchor candidates of its own and the main door is the natural arrival point (the #arr_10_tr_enter and #arr_10_tr_start triggers sit just outside at approx. -706,-1387)."
+  },
+  "tour_stop": {
+    "position": [
+      -713.13,
+      -1417.31,
+      11.85
+    ],
+    "source": "Vanilla AI spot arr_10_ws_enemy_003_A, exterior_-6_-12_0_1.streamingsector: standing security spot in factory.",
+    "radius": 70
   }
 }

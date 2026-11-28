@@ -113,5 +113,13 @@
     "ref": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_01_prefabNMEG7PQ/sts_hey_spr_01_gameplay_prefabJUDH7UY/sts_hey_spr_01_devices_prefabJBYJEZA/screen_1_prefabZU5GHYA",
     "within": 80.0,
     "why": "The only device entity the catalogue lists for this venue: the cantina screen (TVControllerPS) in the always-streamed gameplay prefab, a few metres from the ground-floor spots. Vanilla only forces it off during the gig's combat phase, so at rest it is an ordinary world TV; it is a device, not a workspot, so the proximity wait can fire."
+  },
+  "tour_stop": {
+    "position": [
+      -2076.32,
+      -982.21,
+      7.39
+    ],
+    "source": "Vanilla AI spot spr_01_ws_enemy_015, quest_bf16d5f0c67a4136.streamingsector: standing spot by hall stock racks."
   }
 }

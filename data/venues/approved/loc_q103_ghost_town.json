@@ -73,12 +73,25 @@
     {
       "prefab": "#loc_pr_q103_ghost_town_lighting",
       "states": {
-        "power_on": 0
+        "power_on": 1
       },
-      "why": "The town grid stays off, the honest pre-quest look for an abandoned town. q103_03 sets power_on 1 when the player restores the substation, and the same phase force-powers the light fusebox; before that step the lights are off. The ref is an authored tag whose device prefab is always streamed in exterior_39_-1_1_0."
+      "why": "Owner decision 179 and the lighting rule (owner #40, 2026-11-27): the town is powered. q103_03 sets power_on 1 when the player restores the substation, and the same phase force-powers the light fusebox and switches the main fusebox on (the doors below). The ref is an authored tag whose device prefab is always streamed in exterior_39_-1_1_0."
     }
   ],
-  "doors": [],
+  "doors": [
+    {
+      "ref": "#q103_dvc_ghost_main_fusebox",
+      "controller": "FuseControllerPS",
+      "action": "ForceON",
+      "why": "Owner decision 179 (2026-11-27): power the town. Vanilla q103_03_ghost_town switches the town's main fusebox on; it is the power parent of the fuel station and bar doors."
+    },
+    {
+      "ref": "#q103_dvc_light_fusebox",
+      "controller": "FuseControllerPS",
+      "action": "ForcePower",
+      "why": "Owner decision 179 (2026-11-27): the town's lights. Vanilla q103_03_ghost_town force-powers the light fusebox with the power_on variant."
+    }
+  ],
   "door_exclusions": [],
   "proximity_wait": {
     "ref": "#q103_dvc_light_fusebox",

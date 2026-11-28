@@ -44,5 +44,13 @@
     "ref": "$/03_night_city/#c_heywood/wellsprings/loc_sts_hey_spr_03_prefabMX4ZWDY/sts_hey_spr_03_env_prefabRCBNSKA/arch_prefabCGOY22A/int_garage_prefabIBDYKRY/gate_1_t_1_prefabAZHRZVI/door1",
     "within": 80.0,
     "why": "The vehicle-bay gate is the shop's own street-facing DoorControllerPS entity and streams with the location prefab, not with the quest section; the eleven phase-A workspots all lie in and around the same bay, inside the 80 m proximity radius. Rule 8: a device entity, not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      -2462.53,
+      -936.91,
+      8.14
+    ],
+    "source": "Vanilla AI spot spr_03_ws_ganger_003, quest_dadde542161f82b2.streamingsector: standing ganger spot at auto shop."
   }
 }

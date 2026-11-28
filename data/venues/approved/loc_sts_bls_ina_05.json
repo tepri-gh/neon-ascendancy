@@ -42,5 +42,14 @@
     "ref": "#ina_05_main_gate",
     "within": 80.0,
     "why": "The compound's main gate (DoorControllerPS) is the one resolved door device vanilla drives at this venue and the gate every visitor passes. It sits in the location's devices section, which streams with the base location, so it is a device entity available before the communities are re-issued after the proximity wait."
+  },
+  "tour_stop": {
+    "position": [
+      -100.86,
+      -5226.51,
+      87.22
+    ],
+    "source": "Vanilla AI spot ina_05_ws_guard_002_A, quest_65ef8bbcfd3f13e6.streamingsector: standing guard spot in compound yard.",
+    "radius": 60
   }
 }

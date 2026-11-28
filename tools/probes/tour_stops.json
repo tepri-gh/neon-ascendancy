@@ -410,6 +410,42 @@
    "done": true
   },
   {
+   "code": "sts_ep1_03",
+   "name": "Los Osos Motel (West Wind Estate)",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_03",
+   "pos": [
+    -2159.69,
+    -2775.36,
+    35.22
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.FreakMale",
+    "Character.HomelessFemale",
+    "Character.HomelessMan",
+    "Character.sts_ep1_03_scavenger_drugged",
+    "Character.sts_ep1_03_scavenger_elite2_shotgun_igla_ma",
+    "Character.sts_ep1_03_scavenger_grunt1_melee1_pipewrench_ma",
+    "Character.sts_ep1_03_scavenger_grunt1_ranged1_nova_wa",
+    "Character.sts_ep1_03_scavenger_grunt1_ranged1_pulsar_wa",
+    "Character.sts_ep1_03_scavenger_grunt1_ranged1_slaughtomatic_wa",
+    "Character.sts_ep1_03_scavenger_grunt2_melee2_knife_ma",
+    "Character.sts_ep1_03_scavenger_grunt2_ranged2_copperhead_ma",
+    "Character.sts_ep1_03_scavenger_grunt3_netrunner2_nova_ma_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sts_ep1_03_gunfight",
    "name": "Longshore Stacks courtyard (Jason Foreman vigil site)",
    "kind": "approved",
@@ -443,6 +479,36 @@
    "bucket": "civilian_venue",
    "tour": null,
    "done": true
+  },
+  {
+   "code": "sts_ep1_10",
+   "name": "Abandoned Pacifica NCPD Precinct — Dodger's Barghest base (Coastview)",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_10",
+   "pos": [
+    -2199.88,
+    -2255.6,
+    8.04
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_ep1_10_dodger",
+    "Character.sts_ep1_10_dodger_goon_01",
+    "Character.sts_ep1_10_dodger_goon_02",
+    "Character.sts_ep1_10_kurtz_grunt1_ranged1_handgun_wa",
+    "Character.sts_ep1_10_kurtz_grunt1_ranged1_saratoga_ma",
+    "Character.sts_ep1_10_nosy_guard"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
   },
   {
    "code": "q111_pumpstation",
@@ -500,6 +566,67 @@
    "bucket": "civilian_venue",
    "tour": null,
    "done": true
+  },
+  {
+   "code": "sts_hey_spr_01",
+   "name": "Bus Depot on Benko St — Wellsprings (Valentino depot)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_spr_01",
+   "pos": [
+    -2076.32,
+    -982.21,
+    7.39
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_hey_spr_01_jose",
+    "Character.sts_hey_spr_01_officer",
+    "Character.sts_hey_spr_01_valentino_dual",
+    "Character.sts_hey_spr_01_valentino_melee_wa",
+    "Character.sts_hey_spr_01_valentino_ranged_female",
+    "Character.sts_hey_spr_01_valentino_ranged_male",
+    "Character.sts_hey_spr_01_valentino_shotgun_elite",
+    "Character.sts_hey_spr_01_valentino_sniper"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "sts_hey_spr_03",
+   "name": "Valentinos Auto Shop (Russell St., Wellsprings)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_spr_03",
+   "pos": [
+    -2462.53,
+    -936.91,
+    8.14
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.spr_03_valentinos_man_Pablo",
+    "Character.spr_03_valentinos_melee2_knife_ma",
+    "Character.spr_03_valentinos_nue_wa",
+    "Character.spr_03_valentinos_ranged2_ajax_ma",
+    "Character.spr_03_valentinos_ranged2_overture_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
   },
   {
    "code": "sts_hey_spr_06",
@@ -1073,6 +1200,43 @@
    "tour": "hubs"
   },
   {
+   "code": "sts_ep1_12",
+   "name": "Luxor High Wellness Spa — Voodoo Boys base (Luxor Heights, Dogtown)",
+   "kind": "approved",
+   "venue": "loc_sts_ep1_12",
+   "pos": [
+    -1400.84,
+    -2453.14,
+    83.0
+   ],
+   "radius": 70.0,
+   "expected_records": [
+    "Character.sts_ep1_12_alan_noel",
+    "Character.sts_ep1_12_droid_miniboss",
+    "Character.sts_ep1_12_milko_alexis",
+    "Character.sts_ep1_12_security_android_android2_ajax_ma",
+    "Character.sts_ep1_12_security_android_android2_lexington_ma",
+    "Character.sts_ep1_12_security_android_dummy",
+    "Character.sts_ep1_12_voodooboy_base_drone_griffin",
+    "Character.sts_ep1_12_voodooboy_ranged2_saratoga_ma",
+    "Character.sts_ep1_12_voodooboy_ranged2_sidewinder_wa",
+    "Character.sts_ep1_12_voodooboy_shotgun2_palica_ma",
+    "Character.sts_ep1_12_voodooboy_shotgun2_palica_wa",
+    "Character.sts_ep1_12_voodooboys_netrunner2_netrunner2_lexington_ma_rare",
+    "Character.sts_ep1_12_voodooboys_netrunner2_netrunner2_lexington_wa_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sts_ep1_13",
    "name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
    "kind": "approved",
@@ -1368,6 +1532,35 @@
    "tour": "nodes"
   },
   {
+   "code": "sts_hey_gle_06",
+   "name": "Wicked Tires Autoshop (McBride St., the Glen)",
+   "kind": "approved",
+   "venue": "loc_sts_hey_gle_06",
+   "pos": [
+    -1439.01,
+    -1289.83,
+    46.91
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_hey_gle_06_6th_street_long",
+    "Character.sts_hey_gle_06_6th_street_melee_wa",
+    "Character.sts_hey_gle_06_6th_street_officer",
+    "Character.sts_hey_gle_06_6th_street_short",
+    "Character.sts_hey_gle_06_6th_street_smg_ma"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sts_std_arr_12_gas_station",
    "name": "Tirempire Auto Shop (Arroyo)",
    "kind": "approved",
@@ -1381,6 +1574,31 @@
    "expected_records": [
     "Character.sts_std_arr_12_lowlife_wa",
     "Character.sts_std_arr_12_worker_friendly"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "sts_std_arr_12_motel",
+   "name": "Las Palapas Motel (Arroyo)",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_12_motel",
+   "pos": [
+    -1086.67,
+    -1518.92,
+    25.78
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_std_arr_12_pedro_1"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -1505,6 +1723,34 @@
    "radius": 40.0,
    "expected_records": [
     "Character.sq021_dr_mitsuko"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "sq022_el_coyote_cojo_bar",
+   "name": "El Coyote Cojo",
+   "kind": "approved",
+   "venue": "loc_sq022_el_coyote_cojo_bar",
+   "pos": [
+    -1246.9,
+    -995.55,
+    12.43
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.q000_kid_bar_bouncer",
+    "Character.q000_kid_bar_kirks_bodyguard",
+    "Character.q000_kid_bar_valentinos",
+    "Character.q000_kid_bar_waitress"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2725,6 +2971,41 @@
    "tour": "nodes"
   },
   {
+   "code": "sts_bls_ina_05",
+   "name": "Militech Detention Center",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_05",
+   "pos": [
+    -100.86,
+    -5226.51,
+    87.22
+   ],
+   "radius": 60.0,
+   "expected_records": [
+    "Character.ChildPoorDE",
+    "Character.ina_05_technician",
+    "Character.sts_bls_ina_05_militech_base_drone_wyvern",
+    "Character.sts_bls_ina_05_militech_soldier3_shotgun3_crusher_mah_elite",
+    "Character.sts_bls_ina_05_miltech_ranger2_ma",
+    "Character.sts_bls_ina_05_miltech_security_saratoga_ma",
+    "Character.sts_bls_ina_05_miltech_sniper",
+    "Character.sts_bls_ina_05_miltech_tech_grenadier2_omaha_ma",
+    "Character.sts_bls_ina_05_oficer",
+    "Character.sts_bls_ina_05_refugee_f",
+    "Character.sts_bls_ina_05_refugee_m"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sts_bls_ina_02",
    "name": "New American Autoworks (Big Pete's Garage)",
    "kind": "approved",
@@ -2917,6 +3198,68 @@
     "Character.sts_std_arr_03_security_droids",
     "Character.sts_std_arr_03_worker",
     "Character.sts_std_arr_03_worker_named"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "sts_std_arr_06",
+   "name": "Sixth Street Garage — Hargreaves St., Arroyo",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_06",
+   "pos": [
+    -637.44,
+    -1143.88,
+    7.83
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_std_arr_06_sixthstreet_hooligan_ranged1_nova_wa",
+    "Character.sts_std_arr_06_sixthstreet_hooligan_ranged1_saratoga_ma",
+    "Character.sts_std_arr_06_sixthstreet_hooligan_ranged1_saratoga_ma_Jeff",
+    "Character.sts_std_arr_06_sixthstreet_menace1_shotgun2_igla_ma",
+    "Character.sts_std_arr_06_sixthstreet_patrol2_ranged2_ajax_wa",
+    "Character.sts_std_arr_06_sixthstreet_patrol2_ranged2_ajax_wa_Patricia",
+    "Character.sts_std_arr_06_sixthstreet_veteran3_ranged2_ajax_ma_James"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "sts_std_arr_10",
+   "name": "Cytech Factory",
+   "kind": "approved",
+   "venue": "loc_sts_std_arr_10",
+   "pos": [
+    -713.13,
+    -1417.31,
+    11.85
+   ],
+   "radius": 70.0,
+   "expected_records": [
+    "Character.sts_std_arr_10_droid",
+    "Character.sts_std_arr_10_security",
+    "Character.sts_std_arr_10_security_ajax_ma",
+    "Character.sts_std_arr_10_security_nue_ma",
+    "Character.sts_std_arr_10_security_shotgun_mb",
+    "Character.sts_std_arr_10_worker",
+    "Character.sts_std_arr_10_worker_Diaz"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -3887,6 +4230,66 @@
    "tour": null
   },
   {
+   "code": "sq021_farm_wrong",
+   "name": "Poppy Farm",
+   "kind": "approved",
+   "venue": "loc_sq021_farm_wrong",
+   "pos": [
+    874.29,
+    -3615.78,
+    182.09
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sq021_wraith_handgun",
+    "Character.sq021_wraith_handgun_officer",
+    "Character.sq021_wraith_melee_pipe",
+    "Character.sq021_wraith_rifle",
+    "Character.sq021_wraith_smg"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
+   "code": "mq059_freedom",
+   "name": "Rayfield Contractor Site — Bullard & Sequoia (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_mq059_freedom",
+   "pos": [
+    513.26,
+    -1407.42,
+    20.47
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.merc_mq059_4",
+    "Character.merc_mq059_5",
+    "Character.merc_mq059_6",
+    "Character.mq059_engineer",
+    "Character.mq059_merc_1",
+    "Character.mq059_merc_2",
+    "Character.mq059_merc_3"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sq017_fast_food",
    "name": "Capitán Caliente (Rancho Coronado fast-food restaurant)",
    "kind": "approved",
@@ -3917,6 +4320,40 @@
    ],
    "bucket": "civilian_venue",
    "tour": null
+  },
+  {
+   "code": "sts_std_rcr_01",
+   "name": "C-Team Office, Carsten St (Rancho Coronado)",
+   "kind": "approved",
+   "venue": "loc_sts_std_rcr_01",
+   "pos": [
+    138.15,
+    -1576.93,
+    8.24
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.sts_std_rcr_01_enemy_security",
+    "Character.sts_std_rcr_01_enemy_security_big",
+    "Character.sts_std_rcr_01_enemy_security_shotgun",
+    "Character.sts_std_rcr_01_enemy_security_smg",
+    "Character.sts_std_rcr_01_office_man",
+    "Character.sts_std_rcr_01_office_woman",
+    "Character.sts_std_rcr_01_petent",
+    "Character.sts_std_rcr_01_recepcionist",
+    "Character.sts_std_rcr_01_vic_vega",
+    "Character.sts_std_rcr_01_wroker"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
   },
   {
    "code": "sts_std_rcr_02",
@@ -4266,6 +4703,36 @@
    "tour": null
   },
   {
+   "code": "sts_bls_ina_11",
+   "name": "Warbler Lake Hazardous Waste Facility (Junk Vendor scrapyard)",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_11",
+   "pos": [
+    1373.45,
+    -1678.81,
+    49.29
+   ],
+   "radius": 60.0,
+   "expected_records": [
+    "Character.ina_11_guard_officer",
+    "Character.ina_11_guard_rifle",
+    "Character.ina_11_guard_sniper",
+    "Character.ina_11_robot",
+    "Character.ina_11_technician_1",
+    "Character.ina_11_technician_2"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "q103_roadhouse",
    "name": "Sunset Motel (Rocky Ridge roadhouse, Interstate 9)",
    "kind": "approved",
@@ -4384,6 +4851,37 @@
    "tour": "nodes"
   },
   {
+   "code": "sq004_raffen_shiv_camp",
+   "name": "Corp-Bud Cement Factory (Wraith camp)",
+   "kind": "approved",
+   "venue": "loc_sq004_raffen_shiv_camp",
+   "pos": [
+    2958.56,
+    -2372.92,
+    118.46
+   ],
+   "radius": 90.0,
+   "expected_records": [
+    "Character.sq004_raffen_shiv_boss_gamma",
+    "Character.sq004_raffen_shiv_ganger_alpha",
+    "Character.sq004_raffen_shiv_ganger_alpha_female",
+    "Character.sq004_raffen_shiv_ganger_beta_female",
+    "Character.sq004_raffen_shiv_ganger_gamma",
+    "Character.sq004_raffen_shiv_ganger_shotgunner",
+    "Character.sq004_raffen_shiv_ganger_sniper"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sq021_farm",
    "name": "Edgewood Farm (Anthony Harris's farmstead)",
    "kind": "approved",
@@ -4405,6 +4903,35 @@
    ],
    "bucket": "civilian_venue",
    "tour": null
+  },
+  {
+   "code": "sts_bls_ina_06",
+   "name": "Wraiths Outpost (Municipal Landfill)",
+   "kind": "approved",
+   "venue": "loc_sts_bls_ina_06",
+   "pos": [
+    2119.58,
+    -1821.18,
+    67.23
+   ],
+   "radius": 60.0,
+   "expected_records": [
+    "Character.ina_06_gangers_melee_elite",
+    "Character.ina_06_gangers_officer",
+    "Character.ina_06_gangers_rifle",
+    "Character.ina_06_gangers_wraiths_strong_gunner3_hmg_mb_elite",
+    "Character.ina_06_wraiths_operator3_shotgun2_crusher_ma_rare"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
   },
   {
    "code": "q103_ghost_town",

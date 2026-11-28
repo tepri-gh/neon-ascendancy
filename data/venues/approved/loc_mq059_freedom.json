@@ -47,5 +47,13 @@
     "ref": "#mq059_laptop",
     "within": 80.0,
     "why": "The site laptop on the foreman's workbench at about (522.6,-1401.5,20.9), one to eight metres from the engineer and the guards' posts, and the only device vanilla drives at this venue with a resolved world path. It streams with mq059_variant_loc_2, which this proposal pins on, so the boot and post-proximity activations both land at the spot where the people are."
+  },
+  "tour_stop": {
+    "position": [
+      513.26,
+      -1407.42,
+      20.47
+    ],
+    "source": "Vanilla AI spot loc2_merc_1, quest_4820c94d036b904c.streamingsector: standing cigarette spot at contractor site."
   }
 }

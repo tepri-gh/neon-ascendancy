@@ -91,5 +91,14 @@
     "ref": "$/03_night_city/c_pacifica/combat_zone_prefabUEX7DCY/hillpark_prefabUSVYBBQ/loc_sts_ep1_12_prefabIXVVBAA/loc_sts_ep1_12_gameplay_prefabMBXAXII/loc_sts_ep1_12_devices_prefab5VP4ATI/glass_door_k_prefab4XETOHQ/{glass_door_k}_prefabMBQENVY",
     "within": 80.0,
     "why": "The front glass door of the spa's atrium, the door the gig walks V through: vanilla's story phase force-opens and unlocks exactly this door (and its _001 leaf) to let V in. A real door entity in the building's always-loaded gameplay prefab, so it streams with the venue and fires the post-proximity re-activation as the player reaches the entrance."
+  },
+  "tour_stop": {
+    "position": [
+      -1400.84,
+      -2453.14,
+      83.0
+    ],
+    "source": "Vanilla AI spot sts_ep1_12_lower_reception_guard_scene, quest_9e23fab606823149.streamingsector: standing spot at lower reception.",
+    "radius": 70
   }
 }

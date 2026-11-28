@@ -51,5 +51,13 @@
     "ref": "#gle_06_dvc_gate",
     "within": 80.0,
     "why": "The bay's garage door is the venue's own DoorControllerPS entity on McBride Street (the gig ForceOpens it to drive the car out), it streams with the location's device prefab, and the chosen workspots all lie in and around the same building inside the default 80 m radius. Rule 8: a device entity, not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      -1439.01,
+      -1289.83,
+      46.91
+    ],
+    "source": "Vanilla AI spot gle_06_ws_terminal, quest_639ce2cf8c975723.streamingsector: standing tablet spot on shop floor."
   }
 }

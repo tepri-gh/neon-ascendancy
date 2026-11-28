@@ -138,5 +138,14 @@
     "ref": "#sq004_dvc_camp_door_06",
     "within": 80.0,
     "why": "The camp's main entrance door (DoorControllerPS under the {main_door} prefab), i.e. the first quest-driven device a player reaches on the driveway in. It is a device entity, not a workspot, and it has a tagged ref plus a resolved full path, so the builder can wait on it and the door policy already scopes it."
+  },
+  "tour_stop": {
+    "position": [
+      2958.56,
+      -2372.92,
+      118.46
+    ],
+    "source": "Vanilla AI spot sq004_ws_wall_11b, quest_1e8bef822b874e71.streamingsector: ground-level standing tablet spot in camp.",
+    "radius": 90
   }
 }

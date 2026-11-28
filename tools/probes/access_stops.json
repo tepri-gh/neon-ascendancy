@@ -282,6 +282,16 @@
       -172.9,
       15.9
      ]
+    },
+    {
+     "label": "Door 11494987620393623840 opens",
+     "detail": "Owner decision 178 (2026-11-27): Bree's flat (#mq305_dvc_apartment_door_main) is usable; it ships disabled, unpowered and locked with an empty authorization module.",
+     "source": "door override",
+     "pos": [
+      -2329.9,
+      -190.4,
+      38.2
+     ]
     }
    ]
   },
@@ -980,6 +990,26 @@
       109.4,
       142.0
      ]
+    },
+    {
+     "label": "Door 724024200774223580 opens",
+     "detail": "Owner decision 180 (2026-11-27): open the floor-33 meeting room; the restored meeting_chat trio sits 2-3 m behind this door, which ships locked with an empty authorization module.",
+     "source": "door override",
+     "pos": [
+      -1420.5,
+      134.4,
+      142.0
+     ]
+    },
+    {
+     "label": "Door 4649670516738394725 opens",
+     "detail": "Owner decision 180 (2026-11-27): the floor-33 meeting room's second door, locked like the first.",
+     "source": "door override",
+     "pos": [
+      -1418.6,
+      134.4,
+      142.0
+     ]
     }
    ]
   },
@@ -1186,7 +1216,33 @@
    ]
   },
   {
-   "code": "access_40_site",
+   "code": "access_40_sq025_delamain_garage",
+   "name": "Delamain Corp Headquarters",
+   "kind": "access",
+   "venue": "loc_sq025_delamain_garage",
+   "pos": [
+    -954.7,
+    -111.6,
+    11.3
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 4267761351077886551 opens",
+     "detail": "Owner decision 181 (2026-11-27): the upstairs workshop hatch (#sq025_hatchet_workshop_upstairs, a WindowControllerPS) is usable in normal business; vanilla unseals it only in sq025_06/07. The finale's crawl, escape and sprinkler hatches and floor grates stay sealed.",
+     "source": "door override",
+     "pos": [
+      -954.7,
+      -111.6,
+      11.3
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_41_site",
    "name": "Access check",
    "kind": "access",
    "venue": null,
@@ -1212,7 +1268,7 @@
    ]
   },
   {
-   "code": "access_41_q112_parade_area",
+   "code": "access_42_q112_parade_area",
    "name": "Japantown Parade Route (market bridge and shrine)",
    "kind": "access",
    "venue": "q112_parade_area",
@@ -1238,7 +1294,7 @@
    ]
   },
   {
-   "code": "access_42_q112_parade_area",
+   "code": "access_43_q112_parade_area",
    "name": "Japantown Parade Route (market bridge and shrine)",
    "kind": "access",
    "venue": "q112_parade_area",
@@ -1264,7 +1320,7 @@
    ]
   },
   {
-   "code": "access_43_q105_braindance_studio",
+   "code": "access_44_q105_braindance_studio",
    "name": "Electric Corporation Power Plant (Scavenger XBD studio)",
    "kind": "access",
    "venue": "loc_q105_braindance_studio",
@@ -1340,7 +1396,7 @@
    ]
   },
   {
-   "code": "access_44_sts_wbr_jpn_03_shrine",
+   "code": "access_45_sts_wbr_jpn_03_shrine",
    "name": "Chram Denya Jinja",
    "kind": "access",
    "venue": "loc_sts_wbr_jpn_03_shrine",
@@ -1366,7 +1422,7 @@
    ]
   },
   {
-   "code": "access_45_q113_arasaka_estate",
+   "code": "access_46_q113_arasaka_estate",
    "name": "Arasaka Estate (North Oak)",
    "kind": "access",
    "venue": "loc_q113_arasaka_estate",
@@ -1392,7 +1448,7 @@
    ]
   },
   {
-   "code": "access_46_sts_bls_ina_03",
+   "code": "access_47_sts_bls_ina_03",
    "name": "Union Railroad Station (Wraiths outpost)",
    "kind": "access",
    "venue": "sts_bls_ina_03",
@@ -1418,7 +1474,7 @@
    ]
   },
   {
-   "code": "access_47_q103_ghost_town",
+   "code": "access_48_q103_ghost_town",
    "name": "Rocky Ridge (Wraith-held ghost town)",
    "kind": "access",
    "venue": "loc_q103_ghost_town",

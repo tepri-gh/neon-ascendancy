@@ -31,5 +31,13 @@
     "ref": "#sq021_dvc_wraiths_ap",
     "within": 80.0,
     "why": "The only device at Poppy Farm: a worldDeviceNode named {sq021_dvc_wraiths_ap} at 862,-3621,182, about 20 m from the Wraith spots, using virtual_accesspoint.ent with a CommunityProxyPS connection to #sq021_com_wrong_farm_wraiths. It sits in the always-loaded exterior_13_-57_2_0 sector, so it is a real, streamed device at the venue (not a workspot), unlike the catalogue's sq021 devices, which are all venue_inferred doors at Joss's trailer park or Edgewood Farm."
+  },
+  "tour_stop": {
+    "position": [
+      874.29,
+      -3615.78,
+      182.09
+    ],
+    "source": "Vanilla AI spot sq021_ws_wraith_001, exterior_6_-29_1_1.streamingsector: ground-level standing Wraith spot at farm."
   }
 }

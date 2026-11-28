@@ -74,5 +74,13 @@
     "ref": "#rcr_01_second_door",
     "within": 80.0,
     "why": "The glass double front door on Carsten St is the first device a player reaches at the office, and it is a door controller (rule 8: never a workspot)."
+  },
+  "tour_stop": {
+    "position": [
+      138.15,
+      -1576.93,
+      8.24
+    ],
+    "source": "Vanilla AI spot sts_std_rcr_01_after_regular_parter_001, exterior_1_-13_0_1.streamingsector: ground-floor standing spot in office."
   }
 }
