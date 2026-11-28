@@ -207,7 +207,6 @@
    "radius": 130.0,
    "expected_records": [
     "Character.q110_animals_mall_entrance_zone_melee2h_pizza_guy",
-    "Character.q110_boxing_robot",
     "Character.q110_mall_animals_bouncer2_hmelee2_fists_mba_rare",
     "Character.q110_mall_animals_bouncer3_hmelee3_fists_mba_elite",
     "Character.q110_mall_animals_grunt1_melee1_fists_mb",
@@ -667,7 +666,6 @@
     "Character.dtn_04_maid",
     "Character.dtn_04_receptionist",
     "Character.sts_dtn_04_security",
-    "Character.sts_dtn_04_security_droids",
     "Character.sts_dtn_04_security_officer"
    ],
    "spawn_sets": [],
@@ -1205,10 +1203,6 @@
    ],
    "radius": 70.0,
    "expected_records": [
-    "Character.sts_ep1_12_droid_miniboss",
-    "Character.sts_ep1_12_security_android_android2_ajax_ma",
-    "Character.sts_ep1_12_security_android_android2_lexington_ma",
-    "Character.sts_ep1_12_voodooboy_base_drone_griffin",
     "Character.sts_ep1_12_voodooboy_ranged2_saratoga_ma",
     "Character.sts_ep1_12_voodooboy_ranged2_sidewinder_wa",
     "Character.sts_ep1_12_voodooboy_shotgun2_palica_ma",
@@ -2877,7 +2871,6 @@
    "radius": 60.0,
    "expected_records": [
     "Character.ina_05_technician",
-    "Character.sts_bls_ina_05_militech_base_drone_wyvern",
     "Character.sts_bls_ina_05_militech_soldier3_shotgun3_crusher_mah_elite",
     "Character.sts_bls_ina_05_miltech_ranger2_ma",
     "Character.sts_bls_ina_05_miltech_security_saratoga_ma",
@@ -3110,7 +3103,6 @@
     "Character.sts_std_arr_03_enemy_security_01_wa",
     "Character.sts_std_arr_03_enemy_security_02",
     "Character.sts_std_arr_03_netrunner",
-    "Character.sts_std_arr_03_security_droids",
     "Character.sts_std_arr_03_worker",
     "Character.sts_std_arr_03_worker_named"
    ],
@@ -3168,7 +3160,6 @@
    ],
    "radius": 70.0,
    "expected_records": [
-    "Character.sts_std_arr_10_droid",
     "Character.sts_std_arr_10_security",
     "Character.sts_std_arr_10_security_ajax_ma",
     "Character.sts_std_arr_10_security_nue_ma",
@@ -3439,8 +3430,7 @@
     "Character.sts_std_arr_01_sixthstreet_hooligan_ranged1_nova_wa",
     "Character.sts_std_arr_01_sixthstreet_menace1_shotgun2_igla_ma",
     "Character.sts_std_arr_01_sixthstreet_patrol2_ranged2_ajax_wa",
-    "Character.sts_std_arr_01_worker",
-    "Character.tenant_android"
+    "Character.sts_std_arr_01_worker"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -4376,17 +4366,15 @@
    "kind": "approved",
    "venue": "loc_sts_wbr_hil_01",
    "pos": [
-    0.36,
-    16.27,
-    138.89
+    9.15,
+    20.41,
+    134.84
    ],
    "radius": 40.0,
    "expected_records": [
     "Character.CitizenRichMale",
     "Character.CorpoMan",
     "Character.CorpoWoman",
-    "Character.sts_wbr_hil_01_droid_security",
-    "Character.sts_wbr_hil_01_drone_security",
     "Character.sts_wbr_hil_01_enemy_security"
    ],
    "spawn_sets": [],
@@ -4412,7 +4400,6 @@
    ],
    "radius": 120.0,
    "expected_records": [
-    "Character.q113_estate_arasaka_mech",
     "Character.q113_estate_mansion_female_guard_rifleman",
     "Character.q113_estate_mansion_guard_ninja",
     "Character.q113_estate_mansion_guard_officer",
@@ -4469,14 +4456,13 @@
    "kind": "approved",
    "venue": "loc_q114_tunnel_site",
    "pos": [
-    203.59,
-    2366.19,
-    67.16
+    202.7,
+    2350.37,
+    67.14
    ],
    "radius": 120.0,
    "expected_records": [
     "Character.WorkerMale",
-    "Character.q114_militech_medium_drone",
     "Character.q114_militech_response_sniper"
    ],
    "spawn_sets": [],
@@ -4867,16 +4853,15 @@
    "kind": "approved",
    "venue": "loc_sts_bla_ina_04",
    "pos": [
-    3623.02,
-    -935.21,
-    120.58
+    3620.18,
+    -928.59,
+    120.61
    ],
-   "radius": 58.7,
+   "radius": 60.7,
    "expected_records": [
     "Character.ina_04_bad_technician",
     "Character.ina_04_long_hard",
     "Character.ina_04_med_hard",
-    "Character.ina_04_militech_android_android2_ajax_ma",
     "Character.ina_04_militech_enforcer2_shotgun2_tactician_mah_rare",
     "Character.ina_04_militech_officer",
     "Character.ina_04_militech_ranger2_ranged2_ajax_ma",
