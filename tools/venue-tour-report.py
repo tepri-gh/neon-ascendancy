@@ -13,6 +13,7 @@ Flags:
   HOSTILE      NPCs hostile to the player
   NO-WORKSPOT  more than half the living NPCs are not in a workspot
   DEAD         dead NPCs (bodies that should not be there)
+  QUEST        quest-marked loot or vehicles
   MISSING      expected character records that were not found
   DOORS        doors the policy still found impassable after its recheck
   PROBLEMS     checklist items the owner left unticked (or marked Problem on
@@ -33,6 +34,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shlex
 import sys
 from collections import Counter, defaultdict
 from pathlib import Path
@@ -195,6 +197,10 @@ def main() -> int:
             flags.append(f"NO-WORKSPOT {len(no_ws)}/{len(alive)}")
         if dead:
             flags.append(f"DEAD {len(dead)}")
+        quest_objects = s.get("quest_objects") or []
+        quest = [obj for obj in quest_objects if obj.get("quest") is True]
+        if quest:
+            flags.append(f"QUEST {len(quest)}")
         if s.get("missing_records"):
             flags.append(f"MISSING {len(s['missing_records'])}")
         near_doors = [d for d in doors if dist(d["pos"], s["player"]) <= s.get("radius", 60)]
@@ -246,6 +252,14 @@ def main() -> int:
             lines.append(f"- Swept devices: {len(devices)} ("
                          + ", ".join(f"{k} {v}" for k, v in Counter(dv["kind"] for dv in devices).most_common())
                          + f"); blocked {len(stuck_dev)}, duplicates {len(dups)}")
+        for obj in quest_objects:
+            node_id = str(obj.get("id", "")).removesuffix("ULL")
+            why = (f"Quest-marked object at stop {code}; venue-node-policy section 5 removes the object and marker."
+                   if obj.get("quest") else f"Owner-reviewed corpse at stop {code}.")
+            command = shlex.join(["tools/world-deletions.py", "add", node_id, "--venue", str(s.get("venue")), "--why", why])
+            lines.append(f"- {'Quest' if obj.get('quest') else 'Corpse'}: {obj.get('class')} id={node_id} "
+                         f"app={obj.get('app')} pos={obj.get('pos')} marked={obj.get('marked')}")
+            lines.append(f"  - `{command}`")
         if near_doors:
             lines.append("- Door decisions: " + ", ".join(f"{k} {v}" for k, v in
                                                      Counter(d["decision"] for d in near_doors).most_common()))

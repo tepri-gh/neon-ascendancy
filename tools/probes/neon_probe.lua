@@ -571,6 +571,48 @@ local function scan_npcs(radius)
   return out
 end
 
+-- Quest-marked loot and vehicles, plus corpse containers for owner review.
+local function scan_quest_objects(radius)
+  local player = Game.GetPlayer()
+  local out, seen = {}, {}
+  local q = Game["TSQ_ALL;"]()
+  q.maxDistance = radius
+  q.testedSet = TargetingSet.Complete
+  local ok, parts = Game.GetTargetingSystem():GetTargetParts(player, q)
+  if not ok or not parts then return out end
+  for _, part in ipairs(parts) do
+    local obj = safe(function() return part:GetComponent(part):GetEntity() end)
+    local container = obj and (safe(function() return obj:IsA("gameLootContainerBase") end)
+      or safe(function() return obj:IsA("gameLootBag") end))
+    local vehicle = obj and safe(function() return obj:IsA("VehicleObject") end)
+    if container or vehicle then
+      local id = safe(function() return obj:GetEntityID().hash end)
+      local quest = safe(function() return obj:IsQuest() end) == true
+      local app = tostring(safe(function() return obj:GetCurrentAppearanceName().value end) or "?")
+      local rec = safe(function() return obj:GetRecordID() end)
+      local record = rec and (safe(function() return TDBID.ToStringDEBUG(rec) end) or "") or ""
+      local corpse = container and (string.find(string.lower(app), "corpse", 1, true)
+        or string.find(string.lower(record), "corpse", 1, true))
+      if id and not seen[tostring(id)] and (quest or corpse) then
+        seen[tostring(id)] = true
+        local pos = safe(function() return obj:GetWorldPosition() end)
+        if pos then
+          local d = { id = tostring(id), class = tostring(safe(function() return obj:GetClassName().value end) or "?"),
+            app = app, pos = { pos.x, pos.y, pos.z }, quest = quest }
+          if container then
+            local ps = safe(function() return obj:GetPS() end)
+            local marked = ps and safe(function() return ps:IsMarkedAsQuest() end)
+            if marked == nil then marked = "unknown" end
+            d.marked = marked
+          end
+          out[#out + 1] = d
+        end
+      end
+    end
+  end
+  return out
+end
+
 -- Doors, lifts and lift terminals within the radius, with the raw state the
 -- sweep report judges (tools/venue-tour-report.py): power, locks, seals, the
 -- in-world ways in, lift door and side types. Read-only; nothing is changed.
@@ -713,7 +755,7 @@ local function tour_scan()
   append("tour.log", json_enc({
     event = "stop", time = os.date("%Y-%m-%d %H:%M:%S"), code = s.code, venue = s.venue, kind = s.kind,
     mode = tour.mode, player = { p.x, p.y, p.z }, radius = s.radius, npcs = npcs, missing_records = missing,
-    devices = devices,
+    devices = devices, quest_objects = scan_quest_objects(s.radius),
   }))
   if tour.mode == "sweep" then
     emit(string.format("SWEEP %d/%d %s: %d npcs, %d devices", tour.i, #tour.stops, s.code, #npcs, #devices))

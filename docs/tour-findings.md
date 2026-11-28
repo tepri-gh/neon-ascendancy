@@ -181,6 +181,23 @@ Still open:
 - **The S1 census**: the catalogue can't give simultaneous NPC counts, so
   `docs/research/node-security-reference.md` is partial.
 
+**Scan follow-up (2026-11-28).**
+- Deleted (ArchiveXL): the marked bodies and Ho-Oh's shard case.
+- Robots off: gig and quest robots at ten nodes, including the Luxor droid
+  den, the mall boxing robot, the estate mech, the tunnel drones and the
+  Clouds drone. Open-world robots stay.
+- **The offline object scan was dropped.** Three agent runs could not tell
+  from data which bodies and shard cases are quest-marked or even appear.
+  The probe now logs `quest_objects` at every tour and sweep stop (the
+  game's own `IsQuest()`). `tools/world-deletions.py add --from-tour
+  tour.log` turns them into deletions, and `add <look-at id> --venue
+  --why` does the same for an object the owner marks.
+- **Garage wrecks are taken from the owner's look-ats.** By radius they are
+  too broad: 289 wreck nodes at garage venues, many of them junkyard piles.
+- **Still open:**
+  - the q104 power-plant drones (the gate on their phase is untraced);
+  - the full robot audit across spawn sets and kept phases (`G2-report.md`).
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

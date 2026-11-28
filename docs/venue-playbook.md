@@ -475,8 +475,10 @@ Two local tools feed venue research. Their output is never committed;
   the owner's rules remove (the stripped Colby at the Wellsprings auto shop)
   are ordinary `worldEntityNode`s in a base sector, outside any variant
   group. List them in `data/venues/world_deletions.json` by sector, global
-  node id, type and template, never by index, and run
-  `tools/world-deletions.py`; it resolves the index from a fresh conversion
+  node id, type and template, never by index. The owner logs a look-at on an
+  object to remove, or the tour probe logs `quest_objects`; the lead runs
+  `tools/world-deletions.py add <entity-id> --venue loc_<code> --why "<reason>"`
+  or `tools/world-deletions.py add --from-tour <tour.log>`. The tool resolves the index from a fresh conversion
   and writes ArchiveXL `nodeDeletions` into the world archive's `.xl`.
   ArchiveXL refuses the sector patch if the node count or type changed (a
   game patch): rerun the tool then. Use it only when no variant, prefab or
@@ -511,7 +513,11 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   stop, waits 20 s for streaming, then writes one JSON line per stop to
   `tour.log`: every NPC in the radius with record, affiliation, high-level
   state, stance, workspot, attitude and dead flag, plus the expected records
-  it did not find. Run it in a dev session (dev debug arms the venue gate and
+  it did not find. Node, hub and sweep scans also log quest-marked loot and
+  vehicles, and corpse containers, as `quest_objects`. The owner can log a
+  look-at on a wreck or other object to remove; the lead uses its entity id
+  with `tools/world-deletions.py add` (or imports quest objects with
+  `add --from-tour <tour.log>`). Review corpse candidates individually. Run it in a dev session (dev debug arms the venue gate and
   the door policy).
 - **Three tours** (owner, 2026-11-27). The rules in
   `docs/design/venue-node-policy.md` settle lighting, quest dressing,
@@ -564,7 +570,7 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
 - **Report**: `tools/venue-tour-report.py` combines `tour.log`, `notes.log`
   and the native log's `DoorPolicy:` lines (which carry door positions) into
   `~/.cache/neon-ascendancy/extracts/venues/tour-report.md`. One section per
-  stop; flags EMPTY, ALERT, HOSTILE, NO-WORKSPOT, DEAD, MISSING, DOORS, NOTES,
+  stop; flags EMPTY, ALERT, HOSTILE, NO-WORKSPOT, DEAD, QUEST, MISSING, DOORS, NOTES,
   PROBLEMS and UNCHECKED (checklist items marked Problem or left unmarked).
   Fix what it flags, record the lesson here, and subtract what the owner
   marks as wrong.
