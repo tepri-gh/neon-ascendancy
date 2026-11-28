@@ -49,14 +49,18 @@ public func NeonAscendancy_QueueDisconnectPersonalLink() -> Void {
     .QueuePSDeviceEvent(this.ActionQuestForceDisconnectPersonalLink());
 }
 
-// The quest actions vanilla phases queue on lifts, in their order. Each
-// handler is a no-op when the device is already in that state, so this is
-// idempotent across reattaches and save loads.
+// The quest actions vanilla phases queue on lifts, in their order. ForceON
+// matters: a car only moves when it is ON (LiftControllerPS GoToFloor fails
+// "Unpowered, Disabled or Off"), and ForceEnabled on a disabled car leaves it
+// OFF, which ForcePower then skips as already powered. Each handler is a
+// no-op when the device is already in that state, so this is idempotent
+// across reattaches and save loads.
 @addMethod(ScriptableDeviceComponentPS)
 public func NeonAscendancy_QueueLiftAccess() -> Void {
   let ps = this.GetPersistencySystem();
   ps.QueuePSDeviceEvent(this.ActionQuestForceEnabled());
   ps.QueuePSDeviceEvent(this.ActionQuestForcePower());
+  ps.QueuePSDeviceEvent(this.ActionQuestForceON());
   ps.QueuePSDeviceEvent(this.ActionQuestForceAuthorizationDisabled());
 }
 
@@ -82,13 +86,13 @@ protected cb func OnGameAttached() -> Bool {
     NcLogInfo(s"DeviceOverride: quest mark cleared id=\(id)");
   }
   const lift = IsDefined(this as LiftDevice) || IsDefined(this as ElevatorFloorTerminal);
-  if lift && (ps.IsDisabled() || ps.IsUnpowered() || ps.IsAuthorizationModuleOn()) {
+  if lift && (!ps.IsON() || ps.IsAuthorizationModuleOn()) {
     if sys.LiftExcluded(id) {
       NcLogInfo(s"LiftPolicy: id=\(id) excluded (lore-sealed area), kept vanilla");
     } else {
       const pos = this.GetWorldPosition();
       NcLogInfo(
-        s"LiftPolicy: id=\(id) pos=(\(pos.X),\(pos.Y),\(pos.Z)) disabled=\(ps.IsDisabled()) unpowered=\(ps.IsUnpowered()) authorization=\(ps.IsAuthorizationModuleOn())"
+        s"LiftPolicy: id=\(id) pos=(\(pos.X),\(pos.Y),\(pos.Z)) disabled=\(ps.IsDisabled()) unpowered=\(ps.IsUnpowered()) on=\(ps.IsON()) authorization=\(ps.IsAuthorizationModuleOn())"
       );
       ps.NeonAscendancy_QueueLiftAccess();
     }

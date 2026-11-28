@@ -188,8 +188,8 @@ already define all four; we copy them, never invent them.
     `door-scope` grows each to its whole group (car, terminals, lift doors)
     from the world device registry. A single floor stays vanilla when
     vanilla never makes it usable (owner, 2026-11-27: if no vanilla state
-    or quest ever enables a lift entry, it leads somewhere never designed
-    to be entered): a `floors` entry in the same file, grown only to that
+    or quest, base game or Phantom Liberty, ever enables a lift entry, it
+    leads somewhere never designed to be entered): a `floors` entry in the same file, grown only to that
     floor's lift doors. The policy never shows a hidden floor or activates
     an inactive one, so those stay as vanilla leaves them.
 14. **Baked shutters are mesh (`worldCookedStaticMeshNode`), not devices.**
