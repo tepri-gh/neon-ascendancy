@@ -818,7 +818,33 @@
    ]
   },
   {
-   "code": "access_27_sts_cct_cpz_01",
+   "code": "access_27_sts_hey_gle_01",
+   "name": "Tucker Albach's Condo (Scoffield & Sinkyone, The Glen)",
+   "kind": "access",
+   "venue": "sts_hey_gle_01",
+   "pos": [
+    -1682.2,
+    -988.4,
+    10.8
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Try the condo door from both sides and log a look-at if it still does not work.",
+     "detail": "route condo_door: Owner tour 2026-11-27: access rule 24; policy powered and unsealed it but owner marked it.",
+     "source": "route",
+     "pos": [
+      -1682.2,
+      -988.4,
+      10.8
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_28_sts_cct_cpz_01",
    "name": "Memorial Park NCART Station (concourse and security annex)",
    "kind": "access",
    "venue": "loc_sts_cct_cpz_01",
@@ -844,7 +870,73 @@
    ]
   },
   {
-   "code": "access_28_sq017_nightclub",
+   "code": "access_29_sts_cct_dtn_03",
+   "name": "Empathy",
+   "kind": "access",
+   "venue": "loc_sts_cct_dtn_03",
+   "pos": [
+    -1639.265,
+    367.865,
+    14.105
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 8043901340688814898 opens",
+     "detail": "Owner tour 2026-11-27: this Empathy upstairs door requires authorization, is locked with no skill check or quickhack, and has no DoorPolicy line. Access rule 24 requires a usable door; disable authorization and unlock it, never force-open.",
+     "source": "door override",
+     "pos": [
+      -1639.265,
+      367.865,
+      14.105
+     ]
+    },
+    {
+     "label": "Open the upstairs authorization door from both sides.",
+     "detail": "route empathy_auth_door: Owner tour 2026-11-27: access rule 24; the authorization override needs a re-check.",
+     "source": "route",
+     "pos": [
+      -1639.265,
+      367.865,
+      14.105
+     ]
+    },
+    {
+     "label": "Try the glass double door and its available quickhack from both sides; log a look-at if access still fails.",
+     "detail": "route empathy_glass_door: Owner tour 2026-11-27: access rule 24; policy kept the lock because another way in was present.",
+     "source": "route",
+     "pos": [
+      -1620.2,
+      396.0,
+      8.1
+     ]
+    },
+    {
+     "label": "Inspect the green double door from both sides and log a look-at while it fails to offer interaction.",
+     "detail": "route empathy_green_door: Owner tour 2026-11-27: access rule 24; it logged open and unlocked despite no interaction.",
+     "source": "route",
+     "pos": [
+      -1639.2,
+      364.3,
+      8.1
+     ]
+    },
+    {
+     "label": "Inspect the window blinders and try their control or quickhack; log a look-at on the control if they remain closed.",
+     "detail": "route empathy_blinders: Owner tour 2026-11-27: access rule 24; the WindowBlinders device is outside door override handling.",
+     "source": "route",
+     "pos": [
+      -1641.5,
+      367.9,
+      15.9
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_30_sq017_nightclub",
    "name": "Riot",
    "kind": "access",
    "venue": "loc_sq017_nightclub",
@@ -870,7 +962,7 @@
    ]
   },
   {
-   "code": "access_29_arasaka_tower",
+   "code": "access_31_arasaka_tower",
    "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
    "kind": "access",
    "venue": "loc_arasaka_tower",
@@ -896,7 +988,7 @@
    ]
   },
   {
-   "code": "access_30_arasaka_tower",
+   "code": "access_32_arasaka_tower",
    "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
    "kind": "access",
    "venue": "loc_arasaka_tower",
@@ -922,7 +1014,43 @@
    ]
   },
   {
-   "code": "access_31_arasaka_tower",
+   "code": "access_33_arasaka_tower",
+   "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
+   "kind": "access",
+   "venue": "arasaka_tower",
+   "pos": [
+    -1445.3,
+    151.0,
+    142.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Inspect both sides of the five locked floor-33 office and secret-room doors; log look-ats and identify whether rooms are built and reachable.",
+     "detail": "route arasaka_floor33_doors: Owner tour 2026-11-27: access rule 24; their destination and any remote access remain unverified.",
+     "source": "route",
+     "pos": [
+      -1445.3,
+      151.0,
+      142.0
+     ]
+    },
+    {
+     "label": "Ride the real floor-33 lift to the atrium and back; record the offered floors and log look-ats on its actual doors and terminals.",
+     "detail": "route arasaka_lift_return: Owner tour 2026-11-27: lift rule 13; the reported adjacent terminals are fake, and the round trip failed.",
+     "source": "route",
+     "pos": [
+      -1437.5,
+      182.3,
+      142.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_34_arasaka_tower",
    "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
    "kind": "access",
    "venue": "arasaka_tower",
@@ -958,7 +1086,7 @@
    ]
   },
   {
-   "code": "access_32_arasaka_tower",
+   "code": "access_35_arasaka_tower",
    "name": "Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor)",
    "kind": "access",
    "venue": "loc_arasaka_tower",
@@ -1014,7 +1142,7 @@
    ]
   },
   {
-   "code": "access_33_sts_wat_lch_03_dojo",
+   "code": "access_36_sts_wat_lch_03_dojo",
    "name": "Deravaja Dojo",
    "kind": "access",
    "venue": "loc_sts_wat_lch_03_dojo",
@@ -1050,7 +1178,7 @@
    ]
   },
   {
-   "code": "access_34_mystic_mistys_ripperdoc",
+   "code": "access_37_mystic_mistys_ripperdoc",
    "name": "Misty's Esoterica and Viktor's Clinic",
    "kind": "access",
    "venue": "mystic_mistys_ripperdoc",
@@ -1076,7 +1204,7 @@
    ]
   },
   {
-   "code": "access_35_sts_wat_lch_01_server_room",
+   "code": "access_38_sts_wat_lch_01_server_room",
    "name": "Megabuilding H11 Server Room",
    "kind": "access",
    "venue": "sts_wat_lch_01_server_room",
@@ -1102,7 +1230,7 @@
    ]
   },
   {
-   "code": "access_36_q005_notell_motel",
+   "code": "access_39_q005_notell_motel",
    "name": "No-Tell Motel (Kabuki)",
    "kind": "access",
    "venue": "q005_notell_motel",
@@ -1138,7 +1266,7 @@
    ]
   },
   {
-   "code": "access_37_q005_notell_motel",
+   "code": "access_40_q005_notell_motel",
    "name": "No-Tell Motel (Kabuki)",
    "kind": "access",
    "venue": "q005_notell_motel",
@@ -1164,7 +1292,69 @@
    ]
   },
   {
-   "code": "access_38_q104_power_plant",
+   "code": "access_41_q005_notell_motel",
+   "name": "No-Tell Motel (Kabuki)",
+   "kind": "access",
+   "venue": "loc_q005_notell_motel",
+   "pos": [
+    -1198.587,
+    1325.726,
+    28.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Door 2602734563514635870 opens",
+     "detail": "Owner tour 2026-11-27: this No-Tell Motel door reports required authorization and cannot be opened despite being unlocked. Access rule 24 requires a usable door; disable its authorization, never force-open.",
+     "source": "door override",
+     "pos": [
+      -1198.587,
+      1325.726,
+      28.0
+     ]
+    },
+    {
+     "label": "Open the motel authorization door from both sides.",
+     "detail": "route notell_auth_door: Owner tour 2026-11-27: access rule 24; the authorization override needs a re-check.",
+     "source": "route",
+     "pos": [
+      -1198.587,
+      1325.726,
+      28.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_42_sts_wat_nid_01",
+   "name": "Autowerks (Longshore North)",
+   "kind": "access",
+   "venue": "sts_wat_nid_01",
+   "pos": [
+    -1221.1,
+    2279.6,
+    7.0
+   ],
+   "radius": 40.0,
+   "expected_records": [],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "At both garage doors, log look-ats on their controls and identify whether each surface is a static shutter or an operable device.",
+     "detail": "route autowerks_garage: Owner tour 2026-11-27: access rule 24; both look-ats hit static geometry and the garage devices are not yet identified.",
+     "source": "route",
+     "pos": [
+      -1221.1,
+      2279.6,
+      7.0
+     ]
+    }
+   ]
+  },
+  {
+   "code": "access_43_q104_power_plant",
    "name": "Satwave Power Plant (Jackson Plains)",
    "kind": "access",
    "venue": "loc_q104_power_plant",
@@ -1190,7 +1380,7 @@
    ]
   },
   {
-   "code": "access_39_hvdr_02_batty",
+   "code": "access_44_hvdr_02_batty",
    "name": "Batty's Hotel",
    "kind": "access",
    "venue": "hvdr_02_batty",
@@ -1216,7 +1406,7 @@
    ]
   },
   {
-   "code": "access_40_sq025_delamain_garage",
+   "code": "access_45_sq025_delamain_garage",
    "name": "Delamain Corp Headquarters",
    "kind": "access",
    "venue": "loc_sq025_delamain_garage",
@@ -1242,7 +1432,7 @@
    ]
   },
   {
-   "code": "access_41_site",
+   "code": "access_46_site",
    "name": "Access check",
    "kind": "access",
    "venue": null,
@@ -1268,7 +1458,7 @@
    ]
   },
   {
-   "code": "access_42_q112_parade_area",
+   "code": "access_47_q112_parade_area",
    "name": "Japantown Parade Route (market bridge and shrine)",
    "kind": "access",
    "venue": "q112_parade_area",
@@ -1294,7 +1484,7 @@
    ]
   },
   {
-   "code": "access_43_q112_parade_area",
+   "code": "access_48_q112_parade_area",
    "name": "Japantown Parade Route (market bridge and shrine)",
    "kind": "access",
    "venue": "q112_parade_area",
@@ -1320,7 +1510,7 @@
    ]
   },
   {
-   "code": "access_44_q105_braindance_studio",
+   "code": "access_49_q105_braindance_studio",
    "name": "Electric Corporation Power Plant (Scavenger XBD studio)",
    "kind": "access",
    "venue": "loc_q105_braindance_studio",
@@ -1396,7 +1586,7 @@
    ]
   },
   {
-   "code": "access_45_sts_wbr_jpn_03_shrine",
+   "code": "access_50_sts_wbr_jpn_03_shrine",
    "name": "Chram Denya Jinja",
    "kind": "access",
    "venue": "loc_sts_wbr_jpn_03_shrine",
@@ -1422,7 +1612,7 @@
    ]
   },
   {
-   "code": "access_46_q113_arasaka_estate",
+   "code": "access_51_q113_arasaka_estate",
    "name": "Arasaka Estate (North Oak)",
    "kind": "access",
    "venue": "loc_q113_arasaka_estate",
@@ -1448,7 +1638,7 @@
    ]
   },
   {
-   "code": "access_47_sts_bls_ina_03",
+   "code": "access_52_sts_bls_ina_03",
    "name": "Union Railroad Station (Wraiths outpost)",
    "kind": "access",
    "venue": "sts_bls_ina_03",
@@ -1474,7 +1664,7 @@
    ]
   },
   {
-   "code": "access_48_q103_mine_ambush",
+   "code": "access_53_q103_mine_ambush",
    "name": "Corp-Bud Mine (Wraith stronghold, Rocky Ridge)",
    "kind": "access",
    "venue": "q103_mine_ambush",
@@ -1500,7 +1690,7 @@
    ]
   },
   {
-   "code": "access_49_q103_ghost_town",
+   "code": "access_54_q103_ghost_town",
    "name": "Rocky Ridge (Wraith-held ghost town)",
    "kind": "access",
    "venue": "loc_q103_ghost_town",

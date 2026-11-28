@@ -194,6 +194,62 @@
       "phase_name": "A_spawn",
       "action": "Activate",
       "why": "Sex worker working the first floor; part of 7th Hell's seedy trade as described in the location page."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "floor_table_1_m",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "floor_table_2",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "floor_table_3",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_11",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_12",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_13",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_3",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
+    },
+    {
+      "spawner": "#dtn_02_crowd_com",
+      "entry_name": "parter_table_7",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore a relaxed everyday table patron under venue-node-policy section 5; owner tour 2026-11-27 found too few civilians."
     }
   ],
   "spawn_sets": [],

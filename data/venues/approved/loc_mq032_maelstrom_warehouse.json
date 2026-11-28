@@ -65,5 +65,14 @@
     "ref": "$/03_night_city/c_watson/northside/loc_mq032_maelstrom_warehouse_prefabUQQHPKQ/loc_mq032_maelstrom_warehouse_gameplay_prefab3U5UCJY/#mq032_dvc_accss_point",
     "within": 80.0,
     "why": "The gate network access point, 9.6 m from the crew's spots: an authored worldDeviceNode in the gameplay prefab (exterior_-34_44_0_0) that streams with the venue and is a device, not a workspot, so the proximity wait can fire. The catalogue's own device entries are unusable (ref 0, path null, venue_inferred): they are the SecurityAreaControllerPS actions mq032_02_maelstrom fires inside the unloaded quest graph."
+  },
+  "tour_stop": {
+    "position": [
+      -2149.0,
+      2877.09,
+      7.42
+    ],
+    "source": "#mq032_ws_maelstrom_001, quest_ab781a8eb32f3f90.streamingsector; mapped standing crew workspot in the warehouse yard.",
+    "why": "Tour stop rule: owner tour 2026-11-27 landed at a distant container yard; use the warehouse crew’s actual standing workspot."
   }
 }

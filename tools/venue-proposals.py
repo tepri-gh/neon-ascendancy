@@ -800,12 +800,24 @@ def cmd_tour_stops(a: argparse.Namespace) -> int:
         mid = [_median([p[i] for p in pts]) for i in range(3)]
         pos = [round(v, 2) for v in min(pts, key=lambda p: sum((p[i] - mid[i]) ** 2 for i in range(3)))]
         spread = max(((p[0] - pos[0]) ** 2 + (p[1] - pos[1]) ** 2) ** 0.5 for p in pts)
+        # A hand-built entry the catalogue matches under another venue's key
+        # names its classification id (Black Sapphire matched q304's tower).
         stops.append({"code": e["code"], "name": e.get("display_name") or e["code"], "kind": kind,
-                      "venue": best, "pos": pos,
+                      "venue": e.get("classification_id") or best, "pos": pos,
                       "radius": float((tour_stop or {}).get("radius") or round(min(max(spread + 15.0, 40.0), 120.0), 1)),
                       "expected_records": sorted(records),
                       "spawn_sets": sorted({s["reference"] for s in e.get("spawn_sets") or []}),
                       "checklist": VENUE_CHECK})
+    # One place, one stop: drop a hand-built stop that lands within an
+    # approved stop's radius for the same venue (Totentanz was toured twice,
+    # 2026-11-27). Stops on other floors of the venue stay (Arasaka Tower).
+    approved = [s for s in stops if s["kind"] == "approved"]
+    dupes = {id(h) for h in stops if h["kind"] == "hand-built"
+             for s in approved if s["venue"] == h["venue"] and math.dist(s["pos"], h["pos"]) < s["radius"]}
+    for st in stops:
+        if id(st) in dupes:
+            print(f"  {st['code']}: same place as the approved stop for {st['venue']}, dropped")
+    stops = [s for s in stops if id(s) not in dupes]
     buckets = venue_buckets()
     for st in stops:
         st["bucket"] = stop_bucket(buckets, st["code"], st["venue"])

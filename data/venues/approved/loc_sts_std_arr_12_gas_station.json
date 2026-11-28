@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_12_gas_station",
   "display_name": "Tirempire Auto Shop (Arroyo)",
-  "why": "The Tirempire Auto Shop is the single-floor Arroyo garage on Valley Street that Desperate Measures uses as its drop-off and where Small Man, Big Mouth goes wrong. The building, workshop workspots, back yard gate and container bay are base-world geometry, and the kept Arroyo community phase already activates the vanilla kids-and-workers crowd there. This proposal restores the shop's own friendly workshop cohort - eight mechanics, two workshop assistants, a worker to talk to and eight customer cars in the bays and lot - so the yard reads as an open autoshop, and deliberately leaves out the heist's Valentino thugs, corpses, delivery van, stolen truck and gig loot.",
+  "why": "The Tirempire Auto Shop is the single-floor Arroyo garage on Valley Street that Desperate Measures uses as its drop-off and where Small Man, Big Mouth goes wrong. The building, workshop workspots, back yard gate and container bay are base-world geometry, and the kept Arroyo community phase already activates the vanilla kids-and-workers crowd there. This proposal restores the shop's own friendly workshop cohort - eight mechanics, two workshop assistants, a worker to talk to and eight customer cars in the bays and lot - so the yard reads as an open autoshop, and deliberately leaves out the heist's Valentino thugs, corpses, delivery van, stolen truck and gig loot. Owner tour 2026-11-27: the broken Quadra and its nearby welding and scanning scene are omitted under the garage-wreck rule.",
   "source": {
     "proposal": "research/loc_sts_std_arr_12_gas_station/proposal.json",
     "confidence": "medium",
@@ -19,10 +19,115 @@
   "communities": [
     {
       "spawner": "#arr_12_workshop_friendly_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "car_002",
+      "phase_name": "a",
       "action": "Activate",
-      "why": "The shop's own staffed-day cohort: eight Character.sts_std_arr_12_worker_friendly mechanics, two Character.sts_std_arr_12_lowlife_wa assistants and the worker_talk talker, plus eight customer vehicles parked in the bays and lot. Vanilla activates the whole community (entry None, phase None) in sts_std_arr_12_ow, which sets every entry to its entriesInitialState phase (a, and A for worker_talk). Every workspot is routine garage work - kneel_welder use, stand_tablet scanning/use, sit_couch_tablet read, stand_wall lean_back/smoke, stand_table lean_back - so nobody is alert, hostile or posed in a scene. Its only ungated vanilla node is the gig's Deactivate, so in vanilla normal play the shop sits empty of staff; restoring this cohort gives the autoshop the crew vanilla modelled for it."
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_003",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_004",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_005",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_006",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_007",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "car_008",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_002",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_003",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_004",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_007",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_008",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_wa",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "friendly_worker_wa_002",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
+    },
+    {
+      "spawner": "#arr_12_workshop_friendly_com",
+      "entry_name": "worker_talk",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27: remove the broken Quadra and nearby welding/scanning scene under the garage-wreck rule; retain this other initial workshop entry."
     }
   ],
   "spawn_sets": [],

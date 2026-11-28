@@ -102,6 +102,13 @@
       "phase_name": "sq017_backstage",
       "action": "Activate",
       "why": "Second backstage make-up artist on a smoking/standing workspot; keeps the artist preparation rooms alive."
+    },
+    {
+      "spawner": "#nightclub_com",
+      "entry_name": "dj_on_scene",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Restore the ordinary DJ workspot for calm club staff under venue-node-policy section 5; owner tour 2026-11-27 found the booth empty. Reissue after proximity along with the venue population."
     }
   ],
   "spawn_sets": [],

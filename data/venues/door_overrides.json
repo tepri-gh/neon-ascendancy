@@ -2,6 +2,26 @@
   "description": "Owner-flagged doors the runtime door policy must open up regardless of its normal rules: disable authorization, unlock and unseal (never force open). Used where the normal rules leave a door shut or one-sided: an authorization module with no obtainable keycard or password, a seal no phase lifts, a one-sided door type, an out-of-scope unpowered lift gate, or an owner-preferred no-force garage gate. id is the engine entity id the policy and look-at logger print. tools/venue-proposals.py door-scope generates the list into src/r6/scripts/NeonAscendancy/World/DoorScope.reds.",
   "doors": [
     {
+      "id": "8043901340688814898",
+      "venue": "loc_sts_cct_dtn_03",
+      "pos": [
+        -1639.265,
+        367.865,
+        14.105
+      ],
+      "why": "Owner tour 2026-11-27: this Empathy upstairs door requires authorization, is locked with no skill check or quickhack, and has no DoorPolicy line. Access rule 24 requires a usable door; disable authorization and unlock it, never force-open."
+    },
+    {
+      "id": "2602734563514635870",
+      "venue": "loc_q005_notell_motel",
+      "pos": [
+        -1198.587,
+        1325.726,
+        28.0
+      ],
+      "why": "Owner tour 2026-11-27: this No-Tell Motel door reports required authorization and cannot be opened despite being unlocked. Access rule 24 requires a usable door; disable its authorization, never force-open."
+    },
+    {
       "id": "9614311589775865692",
       "venue": "loc_q000_border_crossing",
       "pos": [-2811.5, -5658.9, 101.1],

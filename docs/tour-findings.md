@@ -147,6 +147,40 @@ extract cache's `research/tour-2026-11-27b/`:
   mode and Konpeki's lockdown dressing. The mechanics' workspots at
   Tirempire, for the later vehicle-service system.
 
+**Fix pass result.** Changed, waiting for the second tour:
+- the chapel projectors are switched off (GenericDeviceControllerPS ForceOFF);
+- the AV at Slayton's apartment is removed;
+- Tirempire's broken Quadra is removed, with its welding scene;
+- Empathy's upstairs door and the No-Tell Motel door have overrides;
+- Riot's DJ is restored;
+- 7th Hell has eight calm table patrons;
+- Ho-Oh has its vanilla ground-floor crowd and dancers;
+- new tour stops for the Elders' Lair, the Maelstrom stash and Claire's
+  Garage;
+- one stop per place (the Totentanz, Clouds and Afterlife duplicates are
+  dropped);
+- Black Sapphire's two stops are renamed and filed under loc_q303_paradise.
+
+Still open:
+- **Bodies and the shard case** (the chapel roof, La Catrina, Arasaka 388,
+  Eisenhower St., Ho-Oh): they are plain world loot nodes, not q110 or gig
+  content. Check their variant membership before an ArchiveXL deletion.
+- **The investigation-marker signature, and the scan of every node**: not
+  found.
+- **Wicked Tires and Eisenhower St. cars**: the look-at hit geometry. Aim at
+  the car body itself.
+- **The chapel's floating light.**
+- **Arasaka Tower**: the lift route, the alert-mode lobby, and Konpeki's
+  lockdown dressing. These need look-ats at a light and at a barrier.
+- **Club music**: all four clubs keep a dancefloor controller, but its
+  audio wiring is unproven.
+- **Lizzie's**: empty, though its crowd is requested. Vanilla opens 18:00 to
+  06:00; visit at night.
+- **Luxor spa**: the netrunners and the robot miniboss are configured but
+  were not seen.
+- **The S1 census**: the catalogue can't give simultaneous NPC counts, so
+  `docs/research/node-security-reference.md` is partial.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

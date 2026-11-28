@@ -54,7 +54,20 @@
       "why": "The dim service lighting vanilla uses while the chapel is full (q110_02_sermon sets var_funeral=1); the after-funeral clean-up state belongs to the post-service story and is left off. It only drives lighting, not funeral props, so no body or aftermath is introduced."
     }
   ],
-  "doors": [],
+  "doors": [
+    {
+      "ref": "#q110_dvc_chapel_projector_no_hacks_001",
+      "controller": "GenericDeviceControllerPS",
+      "action": "ForceOFF",
+      "why": "Owner tour 2026-11-27: two wall projectors still show by day. They are GenericDevice entities, not part of the chapel FX variant; vanilla q110_03_butcher_shop and q110_08_voodoo_queen switch both off with GenericDeviceControllerPS ForceOFF (batch A report)."
+    },
+    {
+      "ref": "#q110_dvc_chapel_projector_no_hacks_002",
+      "controller": "GenericDeviceControllerPS",
+      "action": "ForceOFF",
+      "why": "Owner tour 2026-11-27: two wall projectors still show by day. They are GenericDevice entities, not part of the chapel FX variant; vanilla q110_03_butcher_shop and q110_08_voodoo_queen switch both off with GenericDeviceControllerPS ForceOFF (batch A report)."
+    }
+  ],
   "door_exclusions": [],
   "proximity_wait": {
     "ref": "#q110_dvc_chapel_front_door",

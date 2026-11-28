@@ -50,5 +50,14 @@
     "ref": "#sq024_dvc_garage_gate",
     "within": 80.0,
     "why": "The garage's roll-up door is the only quest-driven device at the venue, lives in the always-streamed gameplay prefab and is exactly what the player arrives at; not a workspot."
+  },
+  "tour_stop": {
+    "position": [
+      -642.85,
+      -1247.85,
+      9.62
+    ],
+    "source": "#sq024_ws_claire_garage_worker, quest_08c271a2979d7aab.streamingsector; mechanic workspot inside the garage.",
+    "why": "Tour stop rule: owner tour 2026-11-27 requires a position for the garage; use its mechanic workspot."
   }
 }

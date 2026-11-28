@@ -756,6 +756,33 @@
    "done": true
   },
   {
+   "code": "mq032_maelstrom_warehouse",
+   "name": "Abandoned Warehouse — Northside docks (Maelstrom stash)",
+   "kind": "approved",
+   "venue": "loc_mq032_maelstrom_warehouse",
+   "pos": [
+    -2149.0,
+    2877.09,
+    7.42
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.mq032_maelstrom_medium_range_medium",
+    "Character.mq032_maelstrom_medium_range_w_easy",
+    "Character.mq032_maelstrom_techie_medium"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "q104_gas_station",
    "name": "SovOil Fuel Station (Highway 101)",
    "kind": "approved",
@@ -990,9 +1017,9 @@
   },
   {
    "code": "q303_paradise",
-   "name": "Black Sapphire main entrance",
+   "name": "Black Sapphire technical floor (infiltration route)",
    "kind": "hand-built",
-   "venue": "loc_q304_combat_tower",
+   "venue": "loc_q303_paradise",
    "pos": [
     -1926.74,
     -2314.42,
@@ -1020,9 +1047,9 @@
   },
   {
    "code": "q303_paradise_sneak_in",
-   "name": "Black Sapphire sneak-in route (q303 technical floor to floor 99)",
+   "name": "Black Sapphire casino and stage (floor 99)",
    "kind": "hand-built",
-   "venue": "loc_q304_combat_tower",
+   "venue": "loc_q303_paradise",
    "pos": [
     -1885.04,
     -2269.82,
@@ -1298,9 +1325,9 @@
    "kind": "approved",
    "venue": "loc_q110_elders_lair",
    "pos": [
-    -1743.86,
-    -1924.05,
-    66.16
+    -1672.48,
+    -1869.04,
+    55.19
    ],
    "radius": 40.0,
    "expected_records": [
@@ -1518,11 +1545,11 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_12_gas_station",
    "pos": [
-    -1032.42,
-    -1702.84,
-    11.02
+    -1027.79,
+    -1693.43,
+    11.22
    ],
-   "radius": 46.0,
+   "radius": 42.1,
    "expected_records": [
     "Character.sts_std_arr_12_lowlife_wa",
     "Character.sts_std_arr_12_worker_friendly"
@@ -1748,6 +1775,7 @@
    ],
    "radius": 40.8,
    "expected_records": [
+    "Character.AsianMale",
     "Character.CorpoMan",
     "Character.CorpoManAfterWork",
     "Character.CorpoWoman",
@@ -1757,6 +1785,7 @@
     "Character.NightlifeMale",
     "Character.NightlifeWoman",
     "Character.NonBinaryFemaleBodyNightlife",
+    "Character.NonBinaryFemaleBodyYoungster",
     "Character.SexworkerFemale",
     "Character.StoopKing",
     "Character.StoopQueen",
@@ -1995,29 +2024,6 @@
    "tour": "nodes"
   },
   {
-   "code": "loc_q103_afterlife_backroom",
-   "name": "Afterlife briefing room (Dexter's booth)",
-   "kind": "hand-built",
-   "venue": "loc_q103_afterlife",
-   "pos": [
-    -1433.34,
-    1018.27,
-    16.52
-   ],
-   "radius": 120.0,
-   "expected_records": [],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Looks right",
-     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
-     "source": "base"
-    }
-   ],
-   "bucket": "neutral_hub",
-   "tour": "hubs"
-  },
-  {
    "code": "megabuilding_a",
    "name": "Megabuilding H10 (V's home building)",
    "kind": "approved",
@@ -2202,6 +2208,7 @@
    "radius": 47.1,
    "expected_records": [
     "Character.HoodHottie",
+    "Character.NonBinaryFemaleBodyNightlife",
     "Character.mq019_fa_club_staff",
     "Character.mq019_ma_club_security",
     "Character.mq019_technician",
@@ -2281,19 +2288,25 @@
    "kind": "hand-built",
    "venue": "loc_sts_wat_kab_07_casino_bar",
    "pos": [
-    -1033.73,
-    1353.35,
-    9.28
+    -1031.74,
+    1348.73,
+    10.16
    ],
    "radius": 40.0,
    "expected_records": [
+    "Character.CorpoManBraindance",
+    "Character.ProstituteFemale",
+    "Character.SlackerFemale",
+    "Character.SlackerMale",
     "Character.kab_07_enemy_1st_floor_handgun",
     "Character.kab_07_enemy_1st_floor_shotgun",
     "Character.kab_07_enemy_2nd_floor_balcony",
     "Character.kab_07_enemy_2nd_floor_hadgun",
     "Character.kab_07_enemy_casino_handgun_tier1",
     "Character.kab_07_enemy_garage_melee1_tireiron",
-    "Character.kab_07_officer_1st_floor"
+    "Character.kab_07_hologram_girl",
+    "Character.kab_07_officer_1st_floor",
+    "Character.sts_wat_kab_07_croupiers"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2482,56 +2495,6 @@
     "Character.lch_06_tyger_melee",
     "Character.lch_06_tyger_officer_female",
     "Character.lch_06_tyger_rifle"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Looks right",
-     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
-     "source": "base"
-    }
-   ],
-   "bucket": "node",
-   "tour": "nodes"
-  },
-  {
-   "code": "loc_sq011_totentanz",
-   "name": "Totentanz",
-   "kind": "hand-built",
-   "venue": "loc_sq011_totentanz",
-   "pos": [
-    -1734.48,
-    2218.21,
-    90.39
-   ],
-   "radius": 64.3,
-   "expected_records": [],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Looks right",
-     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
-     "source": "base"
-    }
-   ],
-   "bucket": "node",
-   "tour": "nodes"
-  },
-  {
-   "code": "mq032_maelstrom_warehouse",
-   "name": "Abandoned Warehouse — Northside docks (Maelstrom stash)",
-   "kind": "approved",
-   "venue": "loc_mq032_maelstrom_warehouse",
-   "pos": [
-    -1920.99,
-    2765.42,
-    7.23
-   ],
-   "radius": 120.0,
-   "expected_records": [
-    "Character.mq032_maelstrom_medium_range_medium",
-    "Character.mq032_maelstrom_medium_range_w_easy",
-    "Character.mq032_maelstrom_techie_medium"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -3075,6 +3038,31 @@
    "tour": "nodes"
   },
   {
+   "code": "sq024_mariannes_garage",
+   "name": "Claire's Garage",
+   "kind": "approved",
+   "venue": "loc_sq024_mariannes_garage",
+   "pos": [
+    -642.85,
+    -1247.85,
+    9.62
+   ],
+   "radius": 40.0,
+   "expected_records": [
+    "Character.CitizenAldecaldosMaleMechanic"
+   ],
+   "spawn_sets": [],
+   "checklist": [
+    {
+     "label": "Looks right",
+     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
+     "source": "base"
+    }
+   ],
+   "bucket": "node",
+   "tour": "nodes"
+  },
+  {
    "code": "sts_pac_wwd_05_paint_factory",
    "name": "Tripple Xtreme Epic Workout Center (Old Paint Factory)",
    "kind": "approved",
@@ -3566,46 +3554,6 @@
    "tour": "nodes"
   },
   {
-   "code": "q105_dollhouse",
-   "name": "Clouds",
-   "kind": "hand-built",
-   "venue": "loc_q105_dollhouse",
-   "pos": [
-    -653.19,
-    784.08,
-    128.54
-   ],
-   "radius": 57.9,
-   "expected_records": [
-    "148367843131",
-    "Character.q105_doll_female_skye",
-    "Character.q105_doll_male_angel",
-    "Character.q105_dollhouse_drone",
-    "Character.q105_jigjig_hologram",
-    "Character.q105_yakuza_bar_barkeeper",
-    "Character.q105_yakuza_customer_female",
-    "Character.q105_yakuza_customer_male",
-    "Character.q105_yakuza_dolls_fem_04",
-    "Character.q105_yakuza_dolls_male",
-    "Character.q105_yakuza_dolls_male_01",
-    "Character.q105_yakuza_dolls_male_03",
-    "Character.q105_yakuza_dolls_male_04",
-    "Character.q105_yakuza_goons",
-    "Character.q105_yakuza_manager",
-    "Character.q105_yakuza_shop_owner"
-   ],
-   "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Looks right",
-     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
-     "source": "base"
-    }
-   ],
-   "bucket": "node",
-   "tour": "nodes"
-  },
-  {
    "code": "q105_dollhouse_additions",
    "name": "Clouds",
    "kind": "approved",
@@ -3622,37 +3570,6 @@
     "Character.q105_dollhouse_tyger_claws_ozeki_hmelee3_kanabo_mb"
    ],
    "spawn_sets": [],
-   "checklist": [
-    {
-     "label": "Looks right",
-     "detail": "An ordinary day: lights on, staff and security calm at their posts (neutral until provoked), and no quest dressing (bodies, blood, mines, hostages, wreckage).",
-     "source": "base"
-    }
-   ],
-   "bucket": "node",
-   "tour": "nodes"
-  },
-  {
-   "code": "q105_dollhouse_staff",
-   "name": "Clouds manager and Tyger Claws shop staff",
-   "kind": "hand-built",
-   "venue": "loc_q105_dollhouse",
-   "pos": [
-    -664.62,
-    768.93,
-    128.26
-   ],
-   "radius": 62.0,
-   "expected_records": [
-    "Character.q105_dollhouse_officer_tyger_claws_martial_fmelee2_katana_ma_rare",
-    "Character.q105_dollhouse_reinforcementcaller_tyger_claws_gangster3_ranged3_sidewinder_ma",
-    "Character.q105_dollhouse_tyger_claws_gangster2_ranged2_shingen_ma",
-    "Character.q105_dollhouse_tyger_claws_ozeki_hmelee3_kanabo_mb",
-    "Character.q105_yakuza_manager"
-   ],
-   "spawn_sets": [
-    "#woodman"
-   ],
    "checklist": [
     {
      "label": "Looks right",

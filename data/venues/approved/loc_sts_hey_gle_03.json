@@ -1,7 +1,7 @@
 {
   "code": "sts_hey_gle_03",
   "display_name": "Gaston Slayton's Apartment (Lobos St, floor 17)",
-  "why": "The Lobos Street apartment tower in The Glen where Samurai collector Gaston Slayton keeps apartment 1702, his shrine room and Kerry Eurodyne's guitar (gig Psychofan). Vanilla only dresses the building and spawns its private security, roof crew and lobby idlers inside the gig phases, so in the clean slate the tower is empty above the street. This proposal restores the streetstory section (which owns every one of those spawners), the calm pre-gig guard posts on the ground floor, floor 17 and the roof, the two roof workers, three lobby idlers and the parked AV, and pins the interior to its intact pre-gig variant.",
+  "why": "The Lobos Street apartment tower in The Glen where Samurai collector Gaston Slayton keeps apartment 1702, his shrine room and Kerry Eurodyne's guitar (gig Psychofan). Vanilla only dresses the building and spawns its private security, roof crew and lobby idlers inside the gig phases, so in the clean slate the tower is empty above the street. This proposal restores the streetstory section (which owns every one of those spawners), the calm pre-gig guard posts on the ground floor, floor 17 and the roof, the two roof workers, three lobby idlers, and pins the interior to its intact pre-gig variant. Owner tour 2026-11-27: the roof AV is removed at the owner’s direction by omitting its community entry.",
   "source": {
     "proposal": "research/loc_sts_hey_gle_03/proposal.json",
     "confidence": "medium",
@@ -9,7 +9,7 @@
       "Send the lobby lift to floor 17 in a clean save. Vanilla only powers the lift when the gig hands over elevator access, and no floor terminal or lift controller for this tower appears in the venue's device data, so if floor 17 is not offered the apartment has no way in and needs its floor authorization fixed (playbook rule 13).",
       "Stand in the ground-floor lobby and check the people: security holds the entrance, security7 walks his patrol, the Emperor is parked outside, and ma_rec_001/002 plus wa_rec_001 sit calmly; none of them should aim at you or crouch.",
       "Ride to floor 17 and look at the apartment door: security3 and sec_top should stand on the landing with rifles held but not raised, and the front door should still ask for its Technical check.",
-      "Look at the roof and AV pad: two workers should be working, security_roof_02 should stand by the pad, and the Zetatech AV should sit on the pad without hovering, clipping the roof or blocking the stair exit.",
+      "Look at the roof and AV pad: two workers should be working, security_roof_02 should stand by the pad, and no Zetatech AV should remain on the pad.",
       "Check apartment 1702 is intact before the gig: no NCPD crime scene, no chalk outlines or bodies, no after_sts clutter, and the balcony route still reachable from the roof fire exit."
     ]
   },
@@ -63,14 +63,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Roof guard standing by the AV pad, the calm counterpart of vanilla's roof patrol; keeps the roof from being an unguarded back door.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#gle_03_comm",
-      "entry_name": "sec_av",
-      "phase_name": "0default",
-      "action": "Activate",
-      "why": "The Zetatech security AV parked on the roof pad instead of flying in at the balcony (1in), which is the gig's approach beat. A landed corpo AV fits the building and its security.",
       "needs_tour_check": true
     },
     {

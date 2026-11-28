@@ -199,6 +199,12 @@ already define all four; we copy them, never invent them.
 15. **Never touch journal, map pin, phone or holocall controllers.** The
     spec's `forbidden_*` lists enforce this, and `allowed_device_controllers`
     lists the non-door devices we may drive.
+    A projector or other plain device that vanilla switches with
+    `GenericDeviceControllerPS` is driven by a venue `doors` action
+    (`controller`, `action`, `why`), like the fusebox actions at the ghost
+    town. Check whether the device is a variant member first: the chapel's
+    wall projectors were separate devices, so the FX variant left them on by
+    day (tour 2026-11-27).
 
 **Phantom Liberty (Dogtown)**
 
@@ -542,6 +548,11 @@ Dev-only tooling in the CET probe (`tools/probes/neon_probe.lua`). Deploy with
   Toured stops are listed in `data/venues/tour_done.json`; the tour skips
   them and the sweep does not. Venues without a known position (28) are
   not swept; give them a `tour_stop`.
+  One place gets one stop. `tour-stops` drops a hand-built stop that lands
+  inside an approved stop's radius for the same venue: Totentanz was toured
+  twice on 2026-11-27. A hand-built entry the catalogue matches under
+  another venue's key names its venue in `classification_id` (Black
+  Sapphire matched the q304 tower).
 - **CET events in the probe:** CET keeps one callback per event per mod, so
   a second `registerForEvent` for the same event silently replaces the
   first (the tour's `onUpdate` broke noclip). Register handlers through the

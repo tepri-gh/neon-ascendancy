@@ -2,6 +2,114 @@
   "description": "Access checks for the owner's door, lift and stairs tour (tools/venue-proposals.py tour-stops writes them, with every door override, into tools/probes/access_stops.json and .lua). Each item is one checkbox. Lifts and floors come from the lift floor audit of 2026-11-27 (lifts the policy has to switch on, lifts the audit could not read, and floors behind a keycard or unsettled); routes are open questions from the sweep triage. Remove an item once the owner confirms it.",
   "items": [
     {
+      "kind": "route",
+      "id": "empathy_auth_door",
+      "venue": "sts_cct_dtn_03",
+      "pos": [
+        -1639.265,
+        367.865,
+        14.105
+      ],
+      "check": "Open the upstairs authorization door from both sides.",
+      "why": "Owner tour 2026-11-27: access rule 24; the authorization override needs a re-check."
+    },
+    {
+      "kind": "route",
+      "id": "notell_auth_door",
+      "venue": "q005_notell_motel",
+      "pos": [
+        -1198.587,
+        1325.726,
+        28.0
+      ],
+      "check": "Open the motel authorization door from both sides.",
+      "why": "Owner tour 2026-11-27: access rule 24; the authorization override needs a re-check."
+    },
+    {
+      "kind": "route",
+      "id": "condo_door",
+      "venue": "sts_hey_gle_01",
+      "pos": [
+        -1682.2,
+        -988.4,
+        10.8
+      ],
+      "check": "Try the condo door from both sides and log a look-at if it still does not work.",
+      "why": "Owner tour 2026-11-27: access rule 24; policy powered and unsealed it but owner marked it."
+    },
+    {
+      "kind": "route",
+      "id": "arasaka_floor33_doors",
+      "venue": "arasaka_tower",
+      "pos": [
+        -1445.3,
+        151.0,
+        142.0
+      ],
+      "check": "Inspect both sides of the five locked floor-33 office and secret-room doors; log look-ats and identify whether rooms are built and reachable.",
+      "why": "Owner tour 2026-11-27: access rule 24; their destination and any remote access remain unverified."
+    },
+    {
+      "kind": "route",
+      "id": "arasaka_lift_return",
+      "venue": "arasaka_tower",
+      "pos": [
+        -1437.5,
+        182.3,
+        142.0
+      ],
+      "check": "Ride the real floor-33 lift to the atrium and back; record the offered floors and log look-ats on its actual doors and terminals.",
+      "why": "Owner tour 2026-11-27: lift rule 13; the reported adjacent terminals are fake, and the round trip failed."
+    },
+    {
+      "kind": "route",
+      "id": "empathy_glass_door",
+      "venue": "sts_cct_dtn_03",
+      "pos": [
+        -1620.2,
+        396.0,
+        8.1
+      ],
+      "check": "Try the glass double door and its available quickhack from both sides; log a look-at if access still fails.",
+      "why": "Owner tour 2026-11-27: access rule 24; policy kept the lock because another way in was present."
+    },
+    {
+      "kind": "route",
+      "id": "empathy_green_door",
+      "venue": "sts_cct_dtn_03",
+      "pos": [
+        -1639.2,
+        364.3,
+        8.1
+      ],
+      "check": "Inspect the green double door from both sides and log a look-at while it fails to offer interaction.",
+      "why": "Owner tour 2026-11-27: access rule 24; it logged open and unlocked despite no interaction."
+    },
+    {
+      "kind": "route",
+      "id": "empathy_blinders",
+      "venue": "sts_cct_dtn_03",
+      "pos": [
+        -1641.5,
+        367.9,
+        15.9
+      ],
+      "check": "Inspect the window blinders and try their control or quickhack; log a look-at on the control if they remain closed.",
+      "why": "Owner tour 2026-11-27: access rule 24; the WindowBlinders device is outside door override handling."
+    },
+    {
+      "kind": "route",
+      "id": "autowerks_garage",
+      "venue": "sts_wat_nid_01",
+      "pos": [
+        -1221.1,
+        2279.6,
+        7.0
+      ],
+      "check": "At both garage doors, log look-ats on their controls and identify whether each surface is a static shutter or an operable device.",
+      "why": "Owner tour 2026-11-27: access rule 24; both look-ats hit static geometry and the garage devices are not yet identified."
+    },
+    {
       "kind": "floor",
       "id": "14575864618084765393",
       "lift": "16478998843353023014",

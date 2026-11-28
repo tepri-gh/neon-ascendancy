@@ -99,5 +99,14 @@
     "ref": "#q110_dvc_chapel_door_to_basment",
     "within": 80.0,
     "why": "The chapel's basement door is the entity every route from the chapel down into the lair passes through, so the proximity wait arms exactly when the player is about to see the lair; it is a DoorControllerPS from the venue's device list, not a workspot (rule 8)."
+  },
+  "tour_stop": {
+    "position": [
+      -1672.48,
+      -1869.04,
+      55.19
+    ],
+    "source": "#q110_ws_vdb_elder_3_maglev, quest_8ffe099601a5a807.streamingsector; standing workspot inside the maglev lair.",
+    "why": "Tour stop rule: owner tour 2026-11-27 arrived in the chapel; use a standing elder workspot in the lair."
   }
 }

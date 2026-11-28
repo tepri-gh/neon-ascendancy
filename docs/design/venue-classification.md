@@ -131,7 +131,7 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `tyger_claws` | medium | economy | `hustle_wat_lch_08` | wat_lch_08 (Drake & Cartwright, Little China) | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `hustle_wbr_jpn_20` | wbr_jpn_20 (Willow St, Japantown) | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sq017_pachinko_lounge` | Dark Matter | Tyger Claws Lieutenant (gen) | yes |
-| `tyger_claws` | medium | economy | `loc_sts_wat_kab_08_cop_hotel` | Motel Kabuki | Tyger Claws Lieutenant (gen) | yes |
+| `tyger_claws` | medium | economy | `loc_sts_wat_kab_08_cop_hotel` | Kabuki Market and Motel | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | tech | `loc_sts_wat_lch_01_server_room` | Megabuilding H11 Server Room | Tyger Claws Netrunner Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wat_nid_02` | Revere Courier Services Facility | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wbr_hil_07` | Tyger Claws Casino (Charter Hill) | Tyger Claws lieutenant (gen) | yes |
