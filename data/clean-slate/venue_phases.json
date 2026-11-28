@@ -262,24 +262,241 @@
       "communities": [
         {
           "spawner": "#q105_com_dollhouse",
-          "entry_name": "None",
-          "phase_name": "None",
+          "entry_name": "guest_hint_01",
+          "phase_name": "start",
           "action": "Activate",
-          "why": "Clouds ambient staff/patron community (already present)"
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "guest_hint_02",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "guest_leaving",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_guest_f_07",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_guest_m_05",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "business_customer",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "business_doll",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_05",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_06",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_07",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_01",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_09",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
         },
         {
           "spawner": "#q105_com_dollhouse",
           "entry_name": "employees_fem",
-          "phase_name": "None",
+          "phase_name": "start",
           "action": "Activate",
-          "why": "Clouds female staff (world-activity entry; no scene)"
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
         },
         {
           "spawner": "#q105_com_dollhouse",
           "entry_name": "employees_male",
-          "phase_name": "None",
+          "phase_name": "start",
           "action": "Activate",
-          "why": "Clouds male staff (world-activity entry; no scene)"
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "bar_barkeeper",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "bar_customer",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "vip_customer_f",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "vip_customer_m",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "dollhouse_hologram_01",
+          "phase_name": "ad_01",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this hologram initial phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "dollhouse_hologram_02",
+          "phase_name": "ad",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this hologram initial phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_02",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_03",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_04",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_f_10",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_02",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_03",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_04",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_doll_m_08",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_guest_f_08",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_guest_m_06",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "gen_guest_m_10",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_owner",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_tc_01",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
+        },
+        {
+          "spawner": "#q105_com_dollhouse",
+          "entry_name": "shop_tc_02",
+          "phase_name": "start",
+          "action": "Activate",
+          "why": "Owner tour 2026-11-27: quest-units rule excludes the quest drone; preserve this vanilla calm staff or patron start phase."
         }
       ],
       "probe_refs": {
