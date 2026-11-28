@@ -153,10 +153,12 @@ When classifying venues and settling pending `owner-decisions.md` items:
   default. Marked bodies and cases are plain world nodes, so they go in
   `data/venues/world_deletions.json`.
 - **Quest units at generic nodes (owner, 2026-11-27):** nodes are generic
-  places, not gig sets. Robots, androids, drones and robot minibosses that a
-  gig or street story stages are off. Human guards and netrunners stay as
-  the node's vanilla security (Luxor High Wellness Spa: the droid den is off,
-  the netrunner guards stay).
+  places, not gig sets. Robots, androids, drones and robot minibosses that
+  only a quest, gig or street story brings out (main quests included) are
+  off. Robots vanilla's open world shows outside any quest stay, as ambient
+  security. Human guards and netrunners stay as the node's vanilla security
+  (Luxor High Wellness Spa: the droid den is off, the netrunner guards
+  stay). Dolls are people, not androids (Talent Academy).
 - **Wrecks at garages (owner, tour 2026-11-27):** broken-down or stripped cars
   at a garage, chop shop or auto shop are removed; the venue reads as a working
   business.

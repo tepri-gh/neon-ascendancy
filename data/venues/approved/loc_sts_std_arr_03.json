@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_03",
   "display_name": "Kendachi Factory, El Camino Rd (Arroyo)",
-  "why": "The El Camino Kendachi plant is a fenced industrial factory in Arroyo: a street gate and yard, a main hall with production machinery, forklifts, a security outpost and Matheus Stove's upstairs office, plus a back gate and roof/back ways in. Vanilla only populates it for El Capitan's gig 'Race to the Top', when the plant's security detail, its floor workers, an outside scaffolding/cleaning crew and a yard full of cars are switched on. This proposal keeps the single quest prefab those people need and restores the plant's normal working state: the outside crew, the five floor workers and the full security detail (guards, security droids and netrunner) in their initial at-post phases. The gig's objective computer interaction, quest shard, mappins, holocalls and 20 quest-spawned yard cars stay out.",
+  "why": "The El Camino Kendachi plant is a fenced industrial factory in Arroyo: a street gate and yard, a main hall with production machinery, forklifts, a security outpost and Matheus Stove's upstairs office, plus a back gate and roof/back ways in. Vanilla only populates it for El Capitan's gig 'Race to the Top', when the plant's security detail, its floor workers, an outside scaffolding/cleaning crew and a yard full of cars are switched on. This proposal keeps the single quest prefab those people need and restores the plant's normal working state: the outside crew, the five floor workers and the full security detail (guards, security droids and netrunner) in their initial at-post phases. The gig's objective computer interaction, quest shard, mappins, holocalls and 20 quest-spawned yard cars stay out. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_std_arr_03/proposal.json",
     "confidence": "medium",
@@ -21,11 +21,66 @@
   "communities": [
     {
       "spawner": "#arr_03_combat_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "enemy_001",
+      "phase_name": "A_spawn",
       "action": "Activate",
-      "why": "The plant's whole security detail: four security droids on their start spots, eight human security guards on patrol/courtyard posts and one netrunner for the security net, all in their initial phases (droids A, humans A_spawn). Vanilla switches this whole community on when the plant is set up and only moves enemy_001/002/005 to phase B for the alert, so A/A_spawn is the pre-alert at-post state. Rule 11a keeps the combat group first, and a private Kendachi plant should have its guards on duty. The catalogue could not resolve a community-area node for this spawner, so the calm posture and the exact workspots need the tour.",
-      "needs_tour_check": true
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_002",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_003",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_004",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_005",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_006",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_007",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_008",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_03_combat_com",
+      "entry_name": "enemy_009",
+      "phase_name": "A_spawn",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
     },
     {
       "spawner": "#arr_03_non_combat_com",

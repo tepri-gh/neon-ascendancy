@@ -1,7 +1,7 @@
 {
   "code": "sts_bla_ina_04",
   "display_name": "Sunshine Motel (Militech Outpost)",
-  "why": "The Sunshine Motel in Rocky Ridge (Badlands), a defunct motel on Interstate 9 that Militech has walled, gated and turned into a forward base: a fenced yard with a guard booth, outside guard posts, an office block, a garage bay where the P9D/2.161 mobile-radar van is being tested, and a crew of Militech troopers, technicians and androids. Vanilla only populates it while Gig: Radar Love runs, and then only as a target. This proposal loads the outpost's own quest section and puts its crew back on post in their relaxed idle phases: the officer, an enforcer, a ranger, an upper-walkway sentry, three technicians, the garage techie, a brawler sparring with an android, and the two Militech vehicles parked by the garage.",
+  "why": "The Sunshine Motel in Rocky Ridge (Badlands), a defunct motel on Interstate 9 that Militech has walled, gated and turned into a forward base: a fenced yard with a guard booth, outside guard posts, an office block, a garage bay where the P9D/2.161 mobile-radar van is being tested, and a crew of Militech troopers, technicians and androids. Vanilla only populates it while Gig: Radar Love runs, and then only as a target. This proposal loads the outpost's own quest section and puts its crew back on post in their relaxed idle phases: the officer, an enforcer, a ranger, an upper-walkway sentry, three technicians, the garage techie, a brawler sparring with an android, and the two Militech vehicles parked by the garage. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_bla_ina_04/proposal.json",
     "confidence": "medium",
@@ -54,13 +54,6 @@
       "phase_name": "0spawn",
       "action": "Activate",
       "why": "The big off-duty brawler in the garage bay, on the synced__male_big__robot_boxing workspot that pairs with the android's synced__male_average__robot_boxing spot 1 m away. Vanilla built the pair as a sparring match (#ina_04_ws_crowd_fighter, #ina_04_ws_crowd_fighter_big); it is the outpost's own entertainment and needs no quest."
-    },
-    {
-      "spawner": "#ina_04_com_outpost_crew",
-      "entry_name": "droid_fighter",
-      "phase_name": "0spawn",
-      "action": "Activate",
-      "why": "The sparring android on the other half of the synced robot-boxing pair. Both entries are needed for the synced workspot to play; without it the brawler stands alone in an empty ring."
     },
     {
       "spawner": "#ina_04_com_outpost_crew",

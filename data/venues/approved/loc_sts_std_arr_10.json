@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_10",
   "display_name": "Cytech Factory",
-  "why": "The Cytech Factory is a quest-only industrial interior in Arroyo, used by Muamar Reyes' gig 'Severance Package' (break in, reach the server room, steal ex-engineer Rihanna Kumar's research). In vanilla it is empty until the gig starts and the street-story prefab loads. This proposal loads the street-story prefab and switches on the factory's own population - Cytech private security at their posts, line workers at machines, and four utility droids - in their relaxed initial phases.",
+  "why": "The Cytech Factory is a quest-only industrial interior in Arroyo, used by Muamar Reyes' gig 'Severance Package' (break in, reach the server room, steal ex-engineer Rihanna Kumar's research). In vanilla it is empty until the gig starts and the street-story prefab loads. This proposal loads the street-story prefab and switches on the factory's own population - Cytech private security at their posts, line workers at machines, and four utility droids - in their relaxed initial phases. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_std_arr_10/proposal.json",
     "confidence": "medium",
@@ -23,14 +23,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The factory's own crowd: ten Cytech private-security guards plus three line workers, exactly as vanilla switches them on at gig start. The whole-community activation uses each entry's initial phase (A_spawn or A), whose spots are patrol, stand-around, lean-and-smoke, barstool-sleep and work-table workspots - relaxed posts, not alert. The catalogue has posture unknown only because its spot map was missing; the spot nodes are in the venue sectors and were resolved by hand.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#arr_10_workers_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Four utility droids on the factory floor, vanilla's whole-community activation in phase A. Their spots are stand-and-use-tablet workspots among the machinery; harmless and appropriate for a plant that is not under attack.",
       "needs_tour_check": true
     }
   ],

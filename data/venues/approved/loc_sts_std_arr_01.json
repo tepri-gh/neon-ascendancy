@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_01",
   "display_name": "Dewdrop Inn (Arroyo)",
-  "why": "The Dewdrop Inn is a by-the-hour motel in northern Arroyo: a street entrance on Brandon Street, a reception desk with a manager's office behind it, a ground-floor corridor of rooms 101-107 with a laundromat and storage room, and an upper floor of rooms 200-209 that 6th Street uses as a drug lab. It is rundown, dirty and used by joytoys and their clients, and 6th Street protects it. This proposal restores the motel's normal occupancy: the receptionist at her terminal, a worker fixing the corridor, the guest/joytoy crowd on both floors, and the 6th Street lab crew working the upper rooms. It hides the gig's dead investigator and its quest keycard, and leaves the room doors as vanilla.",
+  "why": "The Dewdrop Inn is a by-the-hour motel in northern Arroyo: a street entrance on Brandon Street, a reception desk with a manager's office behind it, a ground-floor corridor of rooms 101-107 with a laundromat and storage room, and an upper floor of rooms 200-209 that 6th Street uses as a drug lab. It is rundown, dirty and used by joytoys and their clients, and 6th Street protects it. This proposal restores the motel's normal occupancy: the receptionist at her terminal, a worker fixing the corridor, the guest/joytoy crowd on both floors, and the 6th Street lab crew working the upper rooms. It hides the gig's dead investigator and its quest keycard, and leaves the room doors as vanilla. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_std_arr_01/proposal.json",
     "confidence": "medium",
@@ -33,10 +33,52 @@
     },
     {
       "spawner": "#arr_01_com_crowd",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "man_002",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The whole guest crowd: two tenant androids, four lowlife men, a joytoy and a joytoy woman, and a corpo braindance client. Their only phase is 'default' and every workspot is an idle motel pose (braindance couch, bar lean, fries, phone, table search, bed/couch). Vanilla switches the whole community on when the gig's open-world phase runs; a by-the-hour motel should be busy whether or not anyone hires V."
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "man_003",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "man_004",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "man_005",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "man_006",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "woman_001",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#arr_01_com_crowd",
+      "entry_name": "woman_002",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
     },
     {
       "spawner": "#arr_01_com_combat",

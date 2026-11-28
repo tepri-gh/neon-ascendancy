@@ -1,7 +1,7 @@
 {
   "code": "sts_cct_dtn_04",
   "display_name": "Biotechnica Hotel (Republic Way, Downtown)",
-  "why": "The Biotechnica Hotel on Republic Way is a corporate staff hotel: a guarded lobby with a bar and reception, the 19th floor with apartments 191-194 and a security room, and a roof AV pad. Vanilla's kept downtown community phase already staffs the lobby bar and reception, but the hotel's own staff and security detachment and the two corporate bar patrons exist only while Gig: Guinea Pigs runs. This proposal loads the venue's street-story section and restores the hotel's in-house staff, guards, droids and its 19th-floor resident, so it reads as a working corporate hotel instead of a quest shell. Owner decision 158: remove Joanne Koch and retain ordinary guests and security.",
+  "why": "The Biotechnica Hotel on Republic Way is a corporate staff hotel: a guarded lobby with a bar and reception, the 19th floor with apartments 191-194 and a security room, and a roof AV pad. Vanilla's kept downtown community phase already staffs the lobby bar and reception, but the hotel's own staff and security detachment and the two corporate bar patrons exist only while Gig: Guinea Pigs runs. This proposal loads the venue's street-story section and restores the hotel's in-house staff, guards, droids and its 19th-floor resident, so it reads as a working corporate hotel instead of a quest shell. Owner decision 158: remove Joanne Koch and retain ordinary guests and security. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_cct_dtn_04/proposal.json",
     "confidence": "medium",
@@ -20,10 +20,94 @@
   "communities": [
     {
       "spawner": "#dtn_04_com_area",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "dtn_04_maid",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The hotel's own in-house staff and security: the maid, the hotel receptionist, six Biotechnica droids and eleven Biotechnica guards/officer posted in the lobby, back room, floor 19 corridor/security room/balcony and roof. Vanilla activates this whole community in the gig's setup and combat phases but never in free roam, so the hotel is unguarded without it. Every entry's initial phase is relaxed (default, 0start, Adefault) and plays stand/tablet/inspect/guard workspots, not combat or alarm poses."
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_receptionist",
+      "phase_name": "0start",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_roof_guard_patrol_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_roof_guard_patrol_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_sec_ap",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_sec_neu",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_back_room",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_balcony",
+      "phase_name": "Adefault",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_reinforcement",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_reinforcement_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_roof_entrance",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_roof_higher",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
+    },
+    {
+      "spawner": "#dtn_04_com_area",
+      "entry_name": "dtn_04_security_static_reception",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner tour 2026-11-27, venue-node-policy section 5: retain human staff and guards while removing gig-staged quest units."
     },
     {
       "spawner": "#dtn_04_com_npc",

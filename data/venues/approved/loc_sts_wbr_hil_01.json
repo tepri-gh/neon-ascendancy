@@ -1,7 +1,7 @@
 {
   "code": "sts_wbr_hil_01",
   "display_name": "Gutierrezes' Apartment (Charter Hill)",
-  "why": "A luxury rooftop penthouse on Palm Street in Charter Hill, with a lobby/food-court level below and a private security detail of guards, a robot, two Wyvern drones, cameras, turrets and an alarm. Vanilla only loads its interior and its people through the gig Until Death Do Us Part (sts_wbr_hil_01), which never runs in our timeline. This proposal instantiates the building's street-story prefab and switches on its pre-gig open-world population: four corporate regulars on the lobby level, three guards on their penthouse patrol, and the security robot and drones at their posts. The five street patrons are already switched on by the kept district community phase and are left alone.",
+  "why": "A luxury rooftop penthouse on Palm Street in Charter Hill, with a lobby/food-court level below and a private security detail of guards, a robot, two Wyvern drones, cameras, turrets and an alarm. Vanilla only loads its interior and its people through the gig Until Death Do Us Part (sts_wbr_hil_01), which never runs in our timeline. This proposal instantiates the building's street-story prefab and switches on its pre-gig open-world population: four corporate regulars on the lobby level, three guards on their penthouse patrol, and the security robot and drones at their posts. The five street patrons are already switched on by the kept district community phase and are left alone. Owner tour 2026-11-27: gig-staged robots and drones are off under the quest-units rule (venue-node-policy section 5); human staff and guards remain.",
   "source": {
     "proposal": "research/loc_sts_wbr_hil_01/proposal.json",
     "confidence": "medium",
@@ -29,14 +29,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The penthouse's three human guards (Character.sts_wbr_hil_01_enemy_security) on their phase A patrol spots on the top floor. Vanilla's pre-gig open-world phase activates the whole community in that initial phase; the kneel/scanning phase C, which the gameplay phase uses for the heist's search state, is deliberately left out.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#hil_01_com_drone",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The penthouse's own security hardware: the droid at the powered-down guard workspot and two Wyvern patrol drones on their scan spots, all on the rooftop floor. Vanilla only switches them on for the heist, so the tour must confirm they idle/scan calmly instead of hunting. With no gig, they read as the residence's permanent security at rest.",
       "needs_tour_check": true
     }
   ],
