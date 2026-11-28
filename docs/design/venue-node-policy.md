@@ -22,10 +22,12 @@ Every mapped venue (and shortlisted hustle site) falls into exactly one bucket:
 | `neutral_hub` | Protected non-capturable hub required by a gameplay system: **Fixer HQs**, **Companion homes**, or **Neutral service orgs** (Delamain HQ). | System-owned (fixers static in `cast_and_hubs`; companions despawn from home while rolling with V). Never flips. |
 | `excluded` | Unremovable campaign/gig lore implications (Space Force One crash, Cynosure bunker, Spidertank arena, submerged Laguna Bend) or empty street-corner / road-staging wrappers with nothing to restore. | Excluded / sealed as vanilla leaves it. |
 
-The "5+" garrison is a placeholder. The security detail per node size, a
-possible `very_large` multi-type tier, a logistics type, drug labs, garages
-as tech nodes and netrunners at non-espionage nodes are open in
-[`node-staffing.md`](node-staffing.md) (owner tour, 2026-11-27).
+The security detail per node size (`small` 6–10, `medium` 11–20, `large` 21–30,
+`very_large` 31–40 multi-type HQs; ≥ 1 Netrunner on every node), world
+de-scaling, TweakXL faction/boss templates, `is_logistics` / `is_meeting_spot`
+tags, generic allied assault + AI elevator mechanics, and convoy AI are
+specified in [`node-garrison-and-assault.md`](node-garrison-and-assault.md)
+(settling S1–S8 and S10 of [`node-staffing.md`](node-staffing.md)).
 
 ---
 

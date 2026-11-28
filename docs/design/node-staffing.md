@@ -1,6 +1,9 @@
 # Node Security and Staffing (design input)
 
-Status: **open, for the design pass.** Written from the owner's node tour on
+Status: **S1–S8 and S10 settled** in [`node-garrison-and-assault.md`](node-garrison-and-assault.md)
+(owner, 2026-11-28). S9 (garage vehicle service), S11 (large restorations:
+Arasaka Tower, Konpeki Plaza, Black Sapphire approach), and S12 (Cynosure
+bunker) remain deferred/open. Written from the owner's node tour on
 2026-11-27 (stops 13 to 86 of 163; the game hung on the teleport to stop 87).
 Policy: [`venue-node-policy.md`](venue-node-policy.md). Per-venue data:
 [`data/venues/classification.json`](../../data/venues/classification.json).

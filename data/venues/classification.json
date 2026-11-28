@@ -10,15 +10,16 @@
       "node": 123
     },
     "node_types": {
-      "military": 23,
-      "economy": 68,
-      "espionage": 13,
-      "tech": 19
+      "economy": 56,
+      "military": 24,
+      "tech": 31,
+      "espionage": 12
     },
     "node_sizes": {
-      "large": 28,
-      "medium": 79,
-      "small": 16
+      "medium": 73,
+      "large": 31,
+      "small": 17,
+      "very_large": 2
     },
     "node_controllers": {
       "scavs": 20,
@@ -38,8 +39,8 @@
       "biotechnica": 1,
       "kang_tao": 1
     },
-    "lore_boss_count": 12,
-    "generated_boss_count": 111,
+    "lore_boss_count": 13,
+    "generated_boss_count": 110,
     "hqs_mapped": {
       "aldecaldos": "loc_sq004_mobile_camp",
       "animals": "loc_q110_pacifica_mall",
@@ -48,12 +49,14 @@
       "maelstrom": "loc_sq011_totentanz",
       "sixth_street": "loc_sts_std_arr_11",
       "the_mox": "loc_q004_lizzys_nightclub",
-      "tyger_claws": "loc_q105_dollhouse",
+      "tyger_claws": "loc_sts_wat_kab_07",
       "valentinos": "loc_sts_hey_rey_06",
       "voodoo_boys": "loc_q110_netrunners_den",
       "wraiths": "loc_sq004_raffen_shiv_camp"
     },
-    "owner_decisions_resolved_count": 121
+    "owner_decisions_resolved_count": 121,
+    "logistics_node_count": 21,
+    "meeting_spot_count": 12
   },
   "items": [
     {
@@ -1578,7 +1581,10 @@
         "quest-only Panam scene"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq004_mobile_camp",
@@ -1601,7 +1607,10 @@
         "quest-specific scenes and companions duplicated from their home layer"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq024_mariannes_garage",
@@ -1611,7 +1620,7 @@
       "case_against_node": "The existing record shows only a mechanic and vehicles, with no security or boss.",
       "bucket": "node",
       "reason": "The garage and yard fit the policy\u2019s guarded workshop category.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "aldecaldos",
@@ -1624,7 +1633,10 @@
         "Claire quest scene"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q110_pacifica_mall",
@@ -1649,7 +1661,10 @@
       "needs_garrison_work": false,
       "owner_decisions_resolved": {
         "167": "Place Sasquatch here as the Animals\u2019 flagship lieutenant; generate the boss at Tripple Extreme."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_rosebud",
@@ -1674,7 +1689,10 @@
       "needs_garrison_work": false,
       "owner_decisions_resolved": {
         "78": "Set all node garrisons neutral until provoked, with faction standing and affiliation determining hostility."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq017_nightclub",
@@ -1697,7 +1715,10 @@
         "one-off side-job visitors and targets"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_cct_dtn_02_metal_club",
@@ -1721,7 +1742,10 @@
         "quest-specific conflict"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_cct_dtn_03",
@@ -1744,7 +1768,10 @@
         "Gig-specific targets and staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_spr_06",
@@ -1770,7 +1797,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "136": "Replace Rebeca with a generated lieutenant, retain calm staff and ordinary customers, add security to five and make the front door usable."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_pac_wwd_05_paint_factory",
@@ -1793,7 +1823,10 @@
         "For My Son transport van and quest staging (the gig's target, Logan Garcia, stays as the node's lore boss: owner decision 191)"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_arasaka_tower",
@@ -1804,7 +1837,7 @@
       "bucket": "node",
       "reason": "The site is a lore-cleanable espionage asset with space for a five-person garrison and lieutenant.",
       "node_type": "espionage",
-      "size": "large",
+      "size": "very_large",
       "is_hq": true,
       "initial_controller": "arasaka",
       "boss": {
@@ -1818,7 +1851,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "180": "Open the meeting room and usable floor-33 doors, verify lift access, and leave vanilla-unusable lift floors closed."
-      }
+      },
+      "is_multi_type": true,
+      "is_logistics": false,
+      "is_meeting_spot": false
     },
     {
       "id": "loc_mq059_freedom",
@@ -1845,7 +1881,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "74": "Keep the working staffed site and ordinary parked sedans, omit Mordred and dam gangers, and make security neutral until provoked."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q004_q005_arasaka_hotel",
@@ -1872,7 +1911,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "166": "Scope a dedicated restoration task to remove lockdown dressing, restore staff and guards, and make usable access and available lift floors work."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_q112_arasaka_industrial_park_warehouse",
@@ -1895,7 +1937,10 @@
         "parade quest infiltration prefab"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q113_arasaka_estate",
@@ -1918,7 +1963,10 @@
         "quest-only estate events"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_q115_fancy_restaurant",
@@ -1941,7 +1989,10 @@
         "Hanako meeting and quest-only cast"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_pr_stadium",
@@ -1964,7 +2015,10 @@
         "quest wreckage and mission staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q301_crashsite_way_up",
@@ -1989,7 +2043,10 @@
         "quest wreckage"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q303_combat_zone_gate",
@@ -2013,7 +2070,10 @@
         "quest combat waves"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q303_paradise",
@@ -2036,7 +2096,10 @@
         "quest entrance and combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_ep1_10",
@@ -2062,7 +2125,10 @@
         "quest police cars and convoy"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_ep1_13",
@@ -2086,7 +2152,10 @@
         "quest auction and hostage staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_cct_dtn_04",
@@ -2112,7 +2181,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "158": "Remove Koch as a one-off gig target, keep the full neutral security detail and open bar, and make the usable nineteenth-floor lift accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_q104_gas_station",
@@ -2122,7 +2194,7 @@
       "case_against_node": "Its normal civilian use requires new security and careful removal of quest dressing.",
       "bucket": "node",
       "reason": "Gas station with garage usable as repair/chop-shop node; Kang Tao holder per territory-node-candidates (owner #169).",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "small",
       "is_hq": false,
       "initial_controller": "kang_tao",
@@ -2139,7 +2211,10 @@
       "owner_decisions_resolved": {
         "169": "Keep the station operating and make garage doors usable; remove mines and other quest dressing while retaining or replacing shutters as needed.",
         "176": "Keep the station operating and make garage doors usable; remove mines and other quest dressing while retaining or replacing shutters as needed."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_wat_nid_02",
@@ -2162,7 +2237,10 @@
         "hustle-specific loot and combat staging"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_mq032_maelstrom_warehouse",
@@ -2188,7 +2266,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "90": "Keep the stash and neutral Maelstrom guards; remove both monks and quest-specific Fenrir loot."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q003_meat_factory",
@@ -2211,7 +2292,10 @@
         "Quest negotiation, hostages and combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq011_totentanz",
@@ -2234,7 +2318,10 @@
         "side-job conflict and quest-only actors"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq031_ruinedship",
@@ -2258,7 +2345,10 @@
         "quest-specific Smasher hideout staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_kab_02_ripperdoc_lab",
@@ -2284,7 +2374,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "130": "Keep a calm Maelstrom crew with a generated lieutenant, remove the hostage and gore, and retain the parked Thrax if ambient."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_04_netrunner_hideout",
@@ -2311,7 +2404,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "143": "Keep nine calm posted guards and normal studio staff with a generated boss, omit the named gig tuners and reinforcement wave, and open the studio."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_05",
@@ -2337,7 +2433,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "147": "Keep ordinary clinic staff and cars, replace Othmar with a generated lieutenant, and make the security neutral until provoked."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_06",
@@ -2347,7 +2446,7 @@
       "case_against_node": "The gig-specific vehicle and lockdown staging needs removal.",
       "bucket": "node",
       "reason": "The established chop shop is a full guarded business.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "maelstrom",
@@ -2362,7 +2461,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "146": "Keep both five-person crews neutral, provide a lieutenant and retain ordinary stripped cars as shop dressing."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_07",
@@ -2389,7 +2491,10 @@
       "owner_decisions_resolved": {
         "104": "Leave Aaron out as a one-off side-job character, allow ordinary access to the flat, and retain its ordinary belongings.",
         "155": "Keep the six Maelstrom neutral until provoked, use the intact pre-gig look with a usable roof hatch, and retain the homeless as ambient civilians."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_bls_ina_se1_05",
@@ -2413,7 +2518,10 @@
         "assault staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_bls_ina_se1_23",
@@ -2436,7 +2544,10 @@
         "Corpse containers and event-specific combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_cct_dtn_15",
@@ -2459,7 +2570,10 @@
         "hustle-specific loot and combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_wbr_hil_01",
@@ -2484,7 +2598,10 @@
         "execution staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q000_border_crossing",
@@ -2509,7 +2626,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "171": "Keep the usable double door accessible under the general access policy."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q114_tunnel_site",
@@ -2532,7 +2652,10 @@
         "Aldecaldo assault, barrage and battle remnants"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bla_ina_04",
@@ -2558,7 +2681,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "121": "Keep the radar van, Emperor and calm base crew, omit reinforcement waves, and make garrison attitude neutral until provoked."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_05",
@@ -2583,7 +2709,10 @@
         "Alarm response and reinforcements"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_cct_dtn_05_luxury_yacht",
@@ -2610,7 +2739,10 @@
       "owner_decisions_resolved": {
         "168": "Treat the marina and yacht as one economy node, with security covering both.",
         "175": "Keep ordinary toolboxes and safes with the party lighting, excluding gig-specific loot."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_gle_01",
@@ -2636,7 +2768,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "153": "Remove Tucker from static cast, retain an appropriately neutral security detail and ordinary renovation staff, and add the truck only as ambient scenery."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_rcr_01",
@@ -2660,7 +2795,10 @@
         "one-off gig petitioners"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_mq062",
@@ -2684,7 +2822,10 @@
         "escape scenario and cordon"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q000_roadhouse_town",
@@ -2707,7 +2848,10 @@
         "prologue-specific actors and events"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q111_pumpstation",
@@ -2736,7 +2880,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "172": "Keep the cordon, bodies and mines off; retain the ordinary beach crowd."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq006_jefferson_residence",
@@ -2759,7 +2906,10 @@
         "quest surveillance and one-off investigators"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq021_police_lab",
@@ -2783,7 +2933,10 @@
         "investigation quest variants"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_cct_cpz_01",
@@ -2808,7 +2961,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "95": "Keep the concourse and annex accessible with calm staff and the two commuters, coordinating the shared concourse with the metro venue."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_gle_03",
@@ -2834,7 +2990,10 @@
       "needs_garrison_work": false,
       "owner_decisions_resolved": {
         "126": "Keep at least five neutral security staff and ordinary parked AV and workers, omit Gaston and gig-specific collection, and make floor 17 accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_rcr_02",
@@ -2861,7 +3020,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "76": "Remove Dixon and rescue staging, retain ordinary patients and staff, and use at least five neutral-until-provoked security staff."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_hil_01",
@@ -2886,7 +3048,10 @@
       "needs_garrison_work": false,
       "owner_decisions_resolved": {
         "71": "Use generated ownership and security, calm automated defenses for normal access, and keep usable penthouse doors and lifts accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "hustle_bls_ina_se5_09",
@@ -2896,7 +3061,7 @@
       "case_against_node": "It currently has only automated defenses and no human crew.",
       "bucket": "node",
       "reason": "The salvage business can plausibly house a new garrison and lieutenant.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "scavs",
@@ -2909,7 +3074,10 @@
         "Mines and loot-cache quest remnants"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_cct_dtn_12",
@@ -2919,7 +3087,7 @@
       "case_against_node": "The operation occupies corporate property and its event crew may not represent a permanent business.",
       "bucket": "node",
       "reason": "The equipped chop shop is a substantial economy asset.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "scavs",
@@ -2932,7 +3100,10 @@
         "hustle-specific loot and event props"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_wat_lch_01",
@@ -2955,7 +3126,10 @@
         "victims and quest-specific crime-scene dressing"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_mq306_tech_expo",
@@ -2980,7 +3154,10 @@
         "Damir Kovac and assistant if one-off gig cast"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q000_scavengers",
@@ -3003,7 +3180,10 @@
         "Quest victims and rescue staging"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q005_notell_motel",
@@ -3027,7 +3207,10 @@
         "heist briefing and Liam corpse"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q104_power_plant",
@@ -3050,7 +3233,10 @@
         "EMP and alarm staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q105_braindance_studio",
@@ -3074,7 +3260,10 @@
         "campaign corpses and quest props"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq023_braindance_studio",
@@ -3100,7 +3289,10 @@
         "protester barricade"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq027_rail_junction",
@@ -3124,7 +3316,10 @@
         "Militech convoy and investigation"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_11",
@@ -3151,7 +3346,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "140": "Keep the five neutral guards and ordinary cars, open usable offices, and omit the broken quest sparring bot."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_ep1_03",
@@ -3179,7 +3377,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "109": "Keep the calm Scav den and ambient parked cars, omit Rinder and the quest heavy, and provide ordinary lighting and a generated boss."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_03",
@@ -3205,7 +3406,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "156": "Keep proportionate security neutral until provoked, omit quest-spawned cars and Matheus, and install a generated Scav lieutenant."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_10",
@@ -3231,7 +3435,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "88": "Run the plant with workers and ten neutral-until-provoked guards; leave Rihanna and the gig objective out."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_12_gas_station",
@@ -3241,7 +3448,7 @@
       "case_against_node": "The existing mechanics and customers do not provide security or a boss.",
       "bucket": "node",
       "reason": "The full auto shop meets the policy\u2019s garage-node example. Owner, tour 2026-11-27: small garage/auto node, not a gas station.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "small",
       "is_hq": false,
       "initial_controller": "scavs",
@@ -3258,7 +3465,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "129": "Keep the mechanics, assistants and ordinary customer cars, remove Kirk and Big Joe, and add neutral security and a generated boss."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_12_motel",
@@ -3283,7 +3493,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "161": "Omit Pedro, keep ordinary courtyard residents, and make usable room doors accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_kab_05_client_signal",
@@ -3309,7 +3522,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "82": "Keep a neutral territory-owned scav garrison and ordinary clinic staff, omit gig-specific BD occupants, and make the basement accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_kab_102_cargo",
@@ -3336,7 +3552,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "132": "Use the name Kabuki Docks Container Yard, keep ordinary workers and truck, add a neutral garrison and lieutenant, and omit tracker and quest markers."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_03_abandoned_motel",
@@ -3362,7 +3581,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "182": "Leave the rooms derelict unless ordinary furnishings are needed for a functioning motel; remove gig props and make usable doors accessible."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_12",
@@ -3390,7 +3612,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "77": "Remove Max Jones and quest mines and traps, make the front door usable, and install neutral security and a generated lieutenant."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_std_arr_03",
@@ -3415,7 +3640,10 @@
         "hustle loot and event props"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_std_rcr_08",
@@ -3439,7 +3667,10 @@
         "Reinforcement wave and quest casualties"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q305_netwatch_ambush",
@@ -3466,7 +3697,10 @@
         "MaxTac and ambush vehicles"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_gle_06",
@@ -3476,7 +3710,7 @@
       "case_against_node": "Its population and target vehicle are authored for a gig.",
       "bucket": "node",
       "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "sixth_street",
@@ -3493,7 +3727,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "149": "Keep the full working crew with neutral security, omit Jake and the quest Colby, and use a generated lieutenant instead of a side-job owner."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_01",
@@ -3519,7 +3756,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "111": "Keep the 6th Street lab crew as neutral-until-provoked node personnel and omit Booker Updike and his corpse."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_06",
@@ -3529,7 +3769,7 @@
       "case_against_node": "Its recorded occupation centers on a one-off stolen shard and confrontation.",
       "bucket": "node",
       "reason": "The garage is a reusable guarded vehicle asset.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "sixth_street",
@@ -3547,7 +3787,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "142": "Keep the calm gang den with a generated boss, omit Karl and quest blood, and leave unrelated vanilla variants at their defaults."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_arr_11",
@@ -3573,7 +3816,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "60": "Keep a live neutral garrison and generic tech staff, omit Lucius and reinforcements, make doors usable and computers powered."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_std_rcr_04",
@@ -3598,7 +3844,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "159": "Keep the four workers and propaganda servers, include the west building in the compound, and make the garrison neutral until provoked."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_hil_06",
@@ -3625,7 +3874,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "128": "Keep a calm crew of at least five and ordinary cars, remove Dan and the gig boss, leave the vendor with the casino, and use routine security."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q004_lizzys_nightclub",
@@ -3636,7 +3888,7 @@
       "bucket": "node",
       "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant. Owner, tour 2026-11-27: Mox HQ, multi-type, very large; needs real security work (node-staffing.md).",
       "node_type": "economy",
-      "size": "large",
+      "size": "very_large",
       "is_hq": true,
       "initial_controller": "the_mox",
       "boss": {
@@ -3648,7 +3900,10 @@
         "one-off quest visitors and staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_multi_type": true,
+      "is_logistics": false,
+      "is_meeting_spot": false
     },
     {
       "id": "loc_sts_wat_nid_01",
@@ -3658,7 +3913,7 @@
       "case_against_node": "Its current three workers do not provide the required security and lieutenant.",
       "bucket": "node",
       "reason": "The workshop, hall and container yard form an established Mox automotive business. A garrison and/or lieutenant must be added.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "the_mox",
@@ -3676,7 +3931,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "160": "Omit Hal Cantos and Anna Nox, keep the three ordinary workers, and add the required neutral garrison and generated lieutenant."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_wat_lch_08",
@@ -3699,7 +3957,10 @@
         "hustle robbery victims and scripted combat"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_wbr_jpn_20",
@@ -3725,7 +3986,10 @@
         "one-off named target"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q105_dollhouse",
@@ -3734,10 +3998,10 @@
       "case_for_node": "The multilevel dollhouse is the Tyger Claws\u2019 flagship business.",
       "case_against_node": "Its quest scenes and staff need separating from ordinary club operations.",
       "bucket": "node",
-      "reason": "Clouds is the designated Tyger Claws HQ and a large guarded business.",
+      "reason": "Owner call (2026-11-28): Clouds is a medium economy business node (too small for HQ); Ho-Oh is Tyger Claws HQ.",
       "node_type": "economy",
-      "size": "large",
-      "is_hq": true,
+      "size": "medium",
+      "is_hq": false,
       "initial_controller": "tyger_claws",
       "boss": {
         "kind": "lore",
@@ -3748,7 +4012,10 @@
         "quest-only confrontation and story staging"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_q105_jigjig_street",
@@ -3771,7 +4038,10 @@
         "one-off quest crowds"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q112_market_area",
@@ -3796,7 +4066,10 @@
         "quest-specific side-job cast"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq017_pachinko_lounge",
@@ -3820,7 +4093,10 @@
         "press and fan event crowd"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": true,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_kab_07",
@@ -3829,21 +4105,24 @@
       "case_for_node": "The multi-floor casino and club is an established Tyger business.",
       "case_against_node": "The current hand-built state activates a combat community rather than normal staffing.",
       "bucket": "node",
-      "reason": "The casino is a substantial guardable commercial node. Owner, tour 2026-11-27: large economy node; a Tyger Claws HQ candidate (node-staffing.md).",
+      "reason": "Owner call (2026-11-28): Ho-Oh is Tyger Claws HQ (3-floor street-accessible casino/club/XBD complex + garage).",
       "node_type": "economy",
       "size": "large",
-      "is_hq": false,
+      "is_hq": true,
       "initial_controller": "tyger_claws",
       "boss": {
-        "kind": "generated",
-        "name": "Tyger Claws Lieutenant",
+        "kind": "lore",
+        "name": "Jotaro Shobo",
         "conflict_note": ""
       },
       "strip_from_static": [
         "gig combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_kab_08_cop_hotel",
@@ -3870,7 +4149,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "64": "Keep the bouncer and full ordinary market crowd, omit Anna Hamill, and retain a neutral-until-provoked Tyger garrison."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_lch_01_server_room",
@@ -3897,7 +4179,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "138": "Power callable access to usable lift floors, keep five calm generic guards and a generated lieutenant, and apply neutral-until-provoked security."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_lch_03_dojo",
@@ -3925,7 +4210,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "154": "Keep the Tyger dojo and yard worker, remove the gig cast, and supply five neutral guards and a generated lieutenant."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_lch_06_neon_basement",
@@ -3951,7 +4239,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "133": "Keep generic cooks, neutral Tyger security, ordinary parked cars and the ambient junkie; remove named gig cast and make the entrance usable."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wat_nid_02",
@@ -3974,7 +4265,10 @@
         "gig chase crew and objective triggers"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_hil_07",
@@ -4000,7 +4294,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "89": "Allow free entry, retain the bar vendor and ordinary patrons, omit Vortex and post-heist guards, and use generic neutral security and staff."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_jpn_02_monoblade_workshop",
@@ -4027,7 +4324,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "127": "Drop the hostage and torturer, retain the working crew and sufficient neutral guards, and add a generated lieutenant."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_jpn_03_shrine",
@@ -4050,7 +4350,10 @@
         "one-off gig target and combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_wbr_jpn_12b",
@@ -4078,7 +4381,10 @@
       "owner_decisions_resolved": {
         "79": "Do not hand-author Leah; remove her side-job remains from static placements.",
         "81": "Keep the ten ordinary Claws neutral until provoked, omit reinforcements, and add a generated lieutenant."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq022_el_coyote_cojo_bar",
@@ -4103,7 +4409,10 @@
         "ofrenda quest dressing"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_gle_04",
@@ -4130,7 +4439,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "96": "Keep the office ordinary and inert, use generated faction staff and lieutenant, and make the garrison neutral until provoked throughout."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_rey_02",
@@ -4157,7 +4469,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "157": "Use a generated Valentino lieutenant and at least five neutral guards, retain the service worker and established club name, and do not add Se\u00f1or Ladrillo or Lena as static cast."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_rey_06",
@@ -4182,7 +4497,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "120": "Keep regular reception and visitors, add normal mortuary staff and a neutral garrison, and operate without a staged permanent wake or time gate."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_spr_01",
@@ -4209,7 +4527,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "110": "Use a generated Valentino lieutenant and the existing ten neutral guards and ordinary Thrax; omit Jos\u00e9 Luis and quest fleet."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_hey_spr_03",
@@ -4219,7 +4540,7 @@
       "case_against_node": "The original vehicle and crew are tied to a gig.",
       "bucket": "node",
       "reason": "The working automotive site supports a full economy garrison.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "valentinos",
@@ -4234,7 +4555,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "139": "Keep the calm eleven-person crew with a generated boss, remove the quest SUV, and retain the nomad truck if it is ambient."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q110_chapel_of_the_black_madonna",
@@ -4257,7 +4581,10 @@
         "Quest sermon scene actors and staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q110_elders_lair",
@@ -4281,7 +4608,10 @@
         "quest ambush waves"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q110_netrunners_den",
@@ -4304,7 +4634,10 @@
         "quest-only netrunning scenes"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q110_surroundings",
@@ -4329,7 +4662,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "69": "Keep the six calm Voodoo Boys and existing ambient people, add a generated lieutenant, and do not transplant an unrelated child crowd."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q303_hill_park_spa",
@@ -4354,7 +4690,10 @@
         "Post-quest loot and damage"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_ep1_12",
@@ -4381,7 +4720,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "67": "Replace Milko and Alan with a generated lieutenant and ordinary staff, retain proportionate neutral security and functioning androids, and leave Ayo\u2019s wing with its separate venue."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_bls_ina_se1_17",
@@ -4404,7 +4746,10 @@
         "Bruce Ward if a one-off hustle target"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "hustle_bls_ina_se5_14",
@@ -4414,7 +4759,7 @@
       "case_against_node": "The hostage and trapped lift are assault staging, and no standing boss is established.",
       "bucket": "node",
       "reason": "The roadside garage and car lift form a plausible Wraith chop-shop with six combatants. A garrison and/or lieutenant must be added.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "small",
       "is_hq": false,
       "initial_controller": "wraiths",
@@ -4429,7 +4774,10 @@
         "assault staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q103_ghost_town",
@@ -4454,7 +4802,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "179": "Power the town and keep the fuel station and bar accessible with neutral Wraith security."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_q103_mine_ambush",
@@ -4479,7 +4830,10 @@
         "quest explosives and staging"
       ],
       "needs_garrison_work": false,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq004_raffen_shiv_camp",
@@ -4504,7 +4858,10 @@
         "quest storm staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sq021_farm_wrong",
@@ -4529,7 +4886,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "70": "Keep the ten Wraiths as neutral-until-provoked security and treat the site as a working smuggling asset; defer detailed goods content."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_02",
@@ -4539,7 +4899,7 @@
       "case_against_node": "The named gig target and combat staging are not required to run it.",
       "bucket": "node",
       "reason": "The workshop and seven guards meet the node footprint test.",
-      "node_type": "economy",
+      "node_type": "tech",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "wraiths",
@@ -4556,7 +4916,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "162": "Keep a calm seven-person Wraith garrison with a generated boss and night coverage, omit Big Pete and shooting staging, and use normal access without adding a missing turret."
-      }
+      },
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_03",
@@ -4582,7 +4945,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "123": "Keep the routine garrison, omit the reinforcement car and add calm ambient Wraiths only if useful."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_06",
@@ -4606,7 +4972,10 @@
         "gig loot and combat staging"
       ],
       "needs_garrison_work": true,
-      "owner_decisions_resolved": {}
+      "owner_decisions_resolved": {},
+      "is_logistics": false,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     },
     {
       "id": "loc_sts_bls_ina_08",
@@ -4632,7 +5001,10 @@
       "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "135": "Keep the Wraith garage camp as a node with neutral security and day/night coverage, omit Trevor and his car, and use a reliable camp-side trigger if needed."
-      }
+      },
+      "is_logistics": true,
+      "is_meeting_spot": false,
+      "is_multi_type": false
     }
   ],
   "unmatched_owner_decisions_resolved": {
