@@ -1,7 +1,7 @@
 {
   "code": "sts_hey_rey_08",
   "display_name": "Jacked and Coke (Karubo's bar, Vista del Rey)",
-  "why": "Jacked and Coke is a dive bar on the corner of Pigeon and Congress in Vista del Rey, Heywood, opened by the retired solo Karubo Bairei and adopted by the Valentinos as one of their regular haunts. In vanilla it is only dressed by the street story 'Old Friends' (Padre's contract to quietly neutralize Karubo): before the gig the sign is off, the doors are unpowered and the bar holds nobody, and the gig's gameplay phase spawns Karubo, the bartender and eight Valentinos at once. This proposal loads the bar section and restores that gameplay-phase population as the bar's normal afternoon: Karubo behind the bar, the Valentino bartender working it, and the regulars leaning on the rail, the wall and the barstool with a drink, a smoke or a tablet.",
+  "why": "Jacked and Coke is a civilian dive bar. Owner decision 63 removes Karubo and retains the bartender; venue-node-policy section 1 removes the gang garrison.",
   "source": {
     "proposal": "research/loc_sts_hey_rey_08/proposal.json",
     "confidence": "medium",
@@ -20,11 +20,11 @@
   ],
   "communities": [
     {
-      "spawner": "#rey_08_karubo_com",
-      "entry_name": "karubo",
-      "phase_name": "bar",
+      "spawner": "#rey_08_combat_com",
+      "entry_name": "bartender",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "Karubo Bairei, the bar's owner, in the phase vanilla itself activates when the bar opens (bar, routine__dirt__stand_ground at the bar, -926.4 / -207.0 / 7.7). He is alive in our timeline because the hit never runs, and this is his post behind his own bar rather than the kitchen patrol the gig switches him to."
+      "why": "Owner decision 63 retains the ordinary bartender; venue-node-policy section 1 excludes the combat-role regulars from this civilian venue."
     }
   ],
   "spawn_sets": [],

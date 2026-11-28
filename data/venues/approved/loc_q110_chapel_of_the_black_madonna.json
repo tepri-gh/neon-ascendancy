@@ -1,7 +1,7 @@
 {
   "code": "q110_chapel_of_the_black_madonna",
   "display_name": "Pacifica Serenity Bible Church (Chapel of the Black Madonna)",
-  "why": "The Pacifica Serenity Bible Church is a half-finished brick chapel in Coastview that the Voodoo Boys use as a meeting place and as the cover for their netrunning den in the old maglev tunnel below. In vanilla it is only ever populated by the q110 sermon scene and is locked outside it. This proposal instantiates the chapel's sermon prefab, restores the six-person congregation and the preacher at the pulpit, and switches the audio, offerings, projector and lighting to the chapel's in-service look so the nave reads as a working church.",
+  "why": "The Pacifica Serenity Bible Church is a half-finished brick chapel in Coastview that the Voodoo Boys use as a meeting place and as the cover for their netrunning den in the old maglev tunnel below. In vanilla it is only ever populated by the q110 sermon scene and is locked outside it. This proposal instantiates the chapel's sermon prefab, restores the six-person congregation and the preacher at the pulpit, and switches the audio, offerings, projector and lighting to the chapel's in-service look so the nave reads as a working church. Venue-node-policy section 4 removes the quest sermon cast and ceremony crowd audio.",
   "source": {
     "proposal": "research/loc_q110_chapel_of_the_black_madonna/proposal.json",
     "confidence": "medium",
@@ -18,32 +18,9 @@
   "prefabs": [
     "$/03_night_city/c_pacifica/coastview/#loc_q110_chapel_of_the_black_madonna/loc_q110_chapel_of_the_black_madonna_questdesign_prefab5FVOKWI/#q110_pr_sermon"
   ],
-  "communities": [
-    {
-      "spawner": "#q110_com_sermon_faithfull",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The chapel congregation: six Creole locals (faithfull_female, faithfull_male, faithfull_male_big and three inside worshippers), all in their only phase q110_01_sermon, on church pray spots and stand-arounds. Vanilla activates the whole community from q110_02_sermon during the 08:00-18:00 service window; outside the quest nobody switches it on. A service in progress is the church's normal daytime use, not a quest-only state."
-    }
-  ],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#q110_com_sermon_contact",
-      "entry_name": "sermon_leader",
-      "phase_name": "q110_01_sermon",
-      "why": "The preacher at the pulpit: Character.q110_sermon_leader, whose only phase is q110_01_sermon and whose spot is generic__stand_ground_pulpit__lean__01. He is chapel staff rather than a story character, and his pulpit lean is the anchor that makes the congregation read as a service instead of idle loiterers."
-    }
-  ],
+  "communities": [],
+  "spawn_sets": [],
   "variant_toggles": [
-    {
-      "prefab": "#loc_q110_chapel_of_the_black_madonna_audio",
-      "states": {
-        "loc_q110_chapel_of_the_black_madonna_audio_ceremony_crowd": 1
-      },
-      "why": "Switches on the ceremony crowd soundscape so the nave sounds occupied while the congregation and preacher are present. Vanilla sets it for the sermon and never turns it back off."
-    },
     {
       "prefab": "#q110_pr_chapel_deco_int",
       "states": {
@@ -83,5 +60,13 @@
     "ref": "#q110_dvc_chapel_front_door",
     "within": 80.0,
     "why": "The chapel's front double door, a DoorControllerPS in the always-loaded loc_q110_chapel_of_the_black_madonna_devices_prefab; it is the normal way in and streams with the venue. Using the door instead of a workspot satisfies rule 8 and fires when the player actually reaches the church."
+  },
+  "tour_stop": {
+    "position": [
+      -1745.92,
+      -1922.57,
+      61.94
+    ],
+    "source": "The spot nearest the median of the chapel's restored people before the strip pass (2026-11-27) removed the sermon community, whose spots placed the stop; a vanilla AI spot inside the chapel."
   }
 }

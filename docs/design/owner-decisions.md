@@ -979,3 +979,37 @@ From the sweep fix pass (agent reports in the fixes folder's `sweep/`):
      first-floor rooms are empty because the gig's props are not loaded.
      Furnish one or two, or leave them derelict?
    **Auto-resolved (2026-11-27):** Leave the rooms derelict unless ordinary furnishings are needed for a functioning motel; remove gig props and make usable doors accessible. (`loc_sts_wat_nid_03_abandoned_motel` -> `node`, `scavs` `medium` `economy`)
+
+From the strip-list pass (2026-11-27; agent reports in the extract cache's
+`research/strip/`):
+
+183. **Nighthawks briefing boards** (`q303_nighthawks_bar`). The boards may
+     come with the safehouse dressing itself. Keep the dressing with the
+     boards, or lose both?
+184. **Silver Pixel Cloud wrecks** (`sq031_drive_in_cinema`). The wrecked
+     cars are always-streamed scenery with no toggle; removing them removes
+     the cinema shell. Keep them as scenery, or a targeted world edit?
+185. **Corp-Bud mine traps** (`q103_mine_ambush`). The trap triggers share a
+     prefab with Nash and the garrison. Keep the prefab (traps may stay
+     live) or check the traps in game first?
+186. **Ebunike ship dressing** (`sq031_ruinedship`). Quest corpses or crates
+     may share the ship prefab. Keep it, or lose ship and dock sections to
+     remove them?
+187. **Chapel projector and funeral lights** (`q110_chapel_of_the_black_madonna`).
+     Sermon dressing, or the chapel's everyday lighting (rule: lighting
+     always on)?
+188. **Squat blue lights and glowsticks** (`q302_squat`, also item 174).
+     Ambient lighting (turn on) or quest dressing (keep off)?
+189. **Elders' Lair escape prefab** (`q110_elders_lair`). It also carries
+     the crypt corridor and two guard posts. Keep it with its escape props?
+190. **Gas station shutters** (`q104_gas_station`, item 176 again). The quest
+     prefab brings the shutters with mine and garage dressing.
+191. **Logan Garcia** (`sts_pac_wwd_05_paint_factory`). The strip list says
+     remove him, the classification makes him the lore boss; he stays for
+     now. Fix the classification either way.
+192. **Ho-Oh guards** (`sts_wat_kab_07`). The relaxed guard group belongs to
+     a gig community: keep it as the casino's security, or remove the gig
+     community and the garrison with it?
+193. **Flavio's safehouse.** Decision 131 gives it a garrison; the later
+     civilian classification strips it. The pass followed the civilian
+     rule. Confirm, or reclassify as a node.

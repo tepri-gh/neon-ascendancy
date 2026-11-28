@@ -1,7 +1,7 @@
 {
   "code": "sts_hey_gle_01",
   "display_name": "Tucker Albach's Condo (Scoffield & Sinkyone, The Glen)",
-  "why": "Tucker Albach's condo is a private residence in The Glen (Kiroshi vice managing director, gig 'Eye for an Eye'), with a renovation crew working the lower level, her Militech security detail posted through the ground floor and the top-floor office where she sits at her desk. The building, doors, windows, scaffolding, safe and loot are world-streamed in every save, and the kept district phase hey_gle_phase already loads the pre-gig section with its four Militech renovation workers. What the clean slate never loads is the street story's own section, so the eight-person security and worker community and Tucker have no spawner at all. This proposal restores that one section and switches on the whole security community and Tucker in their vanilla initial (pre-gig) phases, so the venue reads as a guarded corpo home with a job in progress.",
+  "why": "A guarded condo under renovation. Owner decision 153 removes Tucker while retaining the existing security and renovation crew.",
   "source": {
     "proposal": "research/loc_sts_hey_gle_01/proposal.json",
     "confidence": "medium",
@@ -25,14 +25,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "Whole-community activation puts all eight people in vanilla's own pre-gig initial phases, and the slot map shows every one of them on a calm workspot: Enemy1 (security officer) leans on a wall watching the renovation (routine__stand_wall_lean_back), Enemy2 sits on the lounge couch with a beer, Enemy3 uses a tablet in the security room, Enemy4 stands guard on the top floor, Enemy5 stands in the security room, Enemy6 holds the front door on guard_stand, and the two gle_01_workers polish a wall and weld. That is the secured-renovation-site look the wiki describes, without any of the hit's combat phases. Catalogue posture is unknown only because it has no community-area map; needs_tour_check keeps it on the tour.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#gle_01_com_tucker",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Tucker Albach is alive in this timeline and the condo is hers; her whole-community activation seats her in 0Sit, which the slot map resolves to #gle_01_ws_boss_001 generic__sit_chair__sit_around__07 on the top floor (z 18.8, the office). Her other phases (Hide, React, Talk) are the hit's beats and are excluded.",
       "needs_tour_check": true
     }
   ],

@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_05_parking",
   "display_name": "Kendachi factory parking lot (Rancho Coronado)",
-  "why": "This is the Kendachi plant's parking lot and garage in Rancho Coronado: a fenced yard with a raised walkway, yard gates, a building with a main door, a security outpost and a rooftop window. Vanilla only puts people here for the Breaking News gig, when Ted Fox waits in his car outside while V sneaks in and plants a tracker on the Kendachi transport. This proposal keeps the one quest prefab the venue needs and activates the factory's own eight-strong security detail in its only on-post phase (A), leaving Ted Fox, his car and the alerted phase (B) out. Doors and the transport's presence are left to the runtime door policy and a tour check.",
+  "why": "Kendachi parking lot remains scenery. Owner decision 125 omits the quest transport; venue-node-policy section 1 removes the security garrison from this civilian venue.",
   "source": {
     "proposal": "research/loc_sts_std_arr_05_parking/proposal.json",
     "confidence": "medium",
@@ -16,16 +16,7 @@
   "prefabs": [
     "#sts_std_arr_05_parking_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#arr_05_com",
-      "entry_name": "truck",
-      "phase_name": "garage",
-      "action": "Activate",
-      "why": "The Kendachi transport parked in its own marked spot in the yard (-298.89, -1744.6), so the lot reads as a factory with its vehicle present rather than a bare slab. Vanilla activates this entry from the same openworld phase that sets the venue up; no gig runs here, so it is just factory property.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [],
   "doors": [],

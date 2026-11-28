@@ -1,7 +1,7 @@
 {
   "code": "sq017_nightclub",
   "display_name": "Riot",
-  "why": "Riot is Little China's main music club: a two-floor bar and dancefloor, a third-floor VIP lounge, a security room and backstage accessed from the garage. The kept Watson Little China open-world community phase still runs Riot's dancefloor crowd, staff and Animals door crew, but every other part of the venue is quest-only: the VIP lounge, the club security posts, the backstage crew and the third-floor regulars only exist while Violence or I Don't Wanna Hear It drive them. This proposal instantiates the two quest prefabs and restores the named bouncer, the friendly club security, the VIP-lounge occupancy (including Liam) and the house stage crew, with the house lighting variant.",
+  "why": "Riot is Little China's main music club: a two-floor bar and dancefloor, a third-floor VIP lounge, a security room and backstage accessed from the garage. The kept Watson Little China open-world community phase still runs Riot's dancefloor crowd, staff and Animals door crew, but every other part of the venue is quest-only: the VIP lounge, the club security posts, the backstage crew and the third-floor regulars only exist while Violence or I Don't Wanna Hear It drive them. This proposal instantiates the two quest prefabs and restores the named bouncer, the friendly club security, the VIP-lounge occupancy (including Liam) and the house stage crew, with the house lighting variant. Venue-node-policy section 4: side-job cast Liam and Jermaine are removed.",
   "source": {
     "proposal": "research/loc_sq017_nightclub/proposal.json",
     "confidence": "medium",
@@ -63,13 +63,6 @@
     },
     {
       "spawner": "#mq019_com_night_club",
-      "entry_name": "liam",
-      "phase_name": "vip_lounge",
-      "action": "Activate",
-      "why": "Liam Northom, Lizzy Wizzy's manager, is alive in this timeline (the Violence job never runs) and is a known VIP-lounge regular; seated in the VIP lounge, no scene or dialogue."
-    },
-    {
-      "spawner": "#mq019_com_night_club",
       "entry_name": "security_01",
       "phase_name": "vip_lounge",
       "action": "Activate",
@@ -111,16 +104,7 @@
       "why": "Second backstage make-up artist on a smoking/standing workspot; keeps the artist preparation rooms alive."
     }
   ],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#riot_bouncer",
-      "entry_name": "riot_bouncer",
-      "phase_name": "mq019_club_opened",
-      "why": "The named front-door bouncer in the club-open phase (the bouncer the wiki calls Jermaine Norton); the whole-community Animals crew covers the door, this adds the named greeter.",
-      "needs_tour_check": true
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#loc_sq017_nightclub_lighting",

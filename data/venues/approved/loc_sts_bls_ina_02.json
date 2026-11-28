@@ -1,7 +1,7 @@
 {
   "code": "sts_bls_ina_02",
   "display_name": "New American Autoworks (Big Pete's Garage)",
-  "why": "Big Pete's garage: a walled auto workshop and fuel station on Sage Gulch Road in the Jackson Plains, guarded by Wraiths - a roof sniper on the fuel station, a booth guard, patrols and men working the lot - with Big Pete himself at a terminal in the basement. Vanilla only ever populates it from the Inland Avenue district hub and the gig's open-world phase, neither of which is kept, so the whole place is empty in the clean slate. This proposal loads the venue's own prefab and activates the seven relaxed Wraith garrison entries in their spawn phase plus Big Pete at his keyboard; the two city-scene gunmen, the shooting-car dressing and all gig branches stay out.",
+  "why": "Big Pete's garage: a walled auto workshop and fuel station on Sage Gulch Road in the Jackson Plains, guarded by Wraiths - a roof sniper on the fuel station, a booth guard, patrols and men working the lot - with a basement office. Vanilla only ever populates it from the Inland Avenue district hub and the gig's open-world phase, neither of which is kept, so the whole place is empty in the clean slate. This proposal loads the venue's own prefab and activates the seven relaxed Wraith garrison entries in their spawn phase without Big Pete; the two city-scene gunmen, the shooting-car dressing and all gig branches stay out. Owner decision 162 removes Big Pete from static placement.",
   "source": {
     "proposal": "research/loc_sts_bls_ina_02/proposal.json",
     "confidence": "medium",
@@ -19,14 +19,6 @@
     "$/03_night_city/se5/loc_sts_bls_ina_02_prefabMB5J5UA/#loc_sts_bls_ina_02_openworld"
   ],
   "communities": [
-    {
-      "spawner": "#ina_02_com_big_pete",
-      "entry_name": "big_pete",
-      "phase_name": "spawn",
-      "action": "Activate",
-      "why": "Big Pete alive and working in his own basement. The spawn phase's only spot is #ina_02_ws_big_pete_001 at z=54.77, playing generic__stand_table_lean_front_keyboard__type__01 (typing at a table/terminal), which is exactly the manager-at-his-terminal pose. Vanilla's district hub activates this entry phase ambiently; the quest instead moves him to expects, packing or tablet.",
-      "needs_tour_check": true
-    },
     {
       "spawner": "#ina_02_com_gangers",
       "entry_name": "guard_01",

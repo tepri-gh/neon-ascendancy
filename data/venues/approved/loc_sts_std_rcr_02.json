@@ -1,7 +1,7 @@
 {
   "code": "sts_std_rcr_02",
   "display_name": "Night City Center for Psychiatric Health (Rancho Coronado)",
-  "why": "The venue is the Night City Center for Psychiatric Health (signed 'Center for Behavioral Health') on Sequoia Street in Rancho Coronado: a two-floor ward with a street-level intake lobby and reception desk, patient rooms, a restricted/safe-space wing of cells, a lift, and a roof. Vanilla only ever loads it for Gig: Cuckoo's Nest, which activates the ward's whole staff/patient/security communities and the quest prefab that holds the reception desk, Dixon's cell spot and the doctor-on-call spot. This proposal restores the ward as a working clinic: receptionist and security on post, doctors on a break, patients in beds and common areas, and Sergeant Jasmine Dixon sedated in her cell, while leaving out the rescue, the guard fight, the keycard objective and the fixer's waiting car.",
+  "why": "A working psychiatric clinic. Owner decision 76 removes Jasmine Dixon while retaining ordinary staff, patients and security.",
   "source": {
     "proposal": "research/loc_sts_std_rcr_02/proposal.json",
     "confidence": "medium",
@@ -114,14 +114,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Patient sitting back in a chair praying: a quiet common-room patient, and her spot is in the ward sector that streams with the location.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#rcr_02_com_dixon",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Sergeant Jasmine Dixon, the ward's only named patient, sitting depressed on the chair in her cell. She exists in this timeline and her detention predates any story event; the job (her rescue) never runs, so the pre-rescue state is the normal state. Whole-community activation reproduces vanilla's own entry (dixon/01, initial phase 01) exactly.",
       "needs_tour_check": true
     }
   ],

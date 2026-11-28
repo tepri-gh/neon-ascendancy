@@ -1,7 +1,7 @@
 {
   "code": "q110_pacifica_mall",
   "display_name": "Grand Imperial Mall (GIM), Coastview",
-  "why": "The Grand Imperial Mall is Pacifica's dead luxury mall, held by the Animals and used by them as a gym, garage and dormitory; behind it locals keep tinkering with the Eden Beach rollercoaster. In our timeline nothing clears the mall and nobody fights over it, so this proposal keeps the building open and populates it with relaxed Animals (hall patrol, gym users, garage crew, the boxing robot) plus the five rollercoaster regulars from Love Rollercoaster. It restores only the mall quest prefab and the rollercoaster station/ride sections, with the mall's entrance colliders and lockdown variants set to their open state.",
+  "why": "The Grand Imperial Mall is Pacifica's dead luxury mall, held by the Animals and used by them as a gym, garage and dormitory; behind it locals keep tinkering with the Eden Beach rollercoaster. In our timeline nothing clears the mall and nobody fights over it, so this proposal keeps the building open and populates it with relaxed Animals (hall patrol, gym users, garage crew, the boxing robot) plus the five rollercoaster regulars from Love Rollercoaster. It restores only the mall quest prefab and the rollercoaster station/ride sections, with the mall's entrance colliders and lockdown variants set to their open state. Venue-node-policy section 1: remove the rollercoaster side-job cast from static spawns.",
   "source": {
     "proposal": "research/loc_q110_pacifica_mall/proposal.json",
     "confidence": "medium",
@@ -110,48 +110,7 @@
       "needs_tour_check": true
     }
   ],
-  "spawn_sets": [
-    {
-      "action": "Activate",
-      "reference": "#mq006_com_party",
-      "entry_name": "jean",
-      "phase_name": "mq006_01_intro",
-      "why": "Jean kneeling at the rollercoaster control panel inspecting it — the locals' ringleader in his normal 'trying to fix the ride' pose.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#mq006_com_party",
-      "entry_name": "darline",
-      "phase_name": "mq006_01_intro",
-      "why": "Darline leaning on the wall by the ride; intro phase keeps the group together without starting the job.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#mq006_com_party",
-      "entry_name": "farah",
-      "phase_name": "mq006_01_intro",
-      "why": "Farah leaning on the ride railing, watching the track — pure hangout pose.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#mq006_com_party",
-      "entry_name": "anel",
-      "phase_name": "mq006_01_intro",
-      "why": "Anel sitting back with a cigarette; the seated half of the group so the platform isn't a row of standing mannequins.",
-      "needs_tour_check": true
-    },
-    {
-      "action": "Activate",
-      "reference": "#mq006_com_party",
-      "entry_name": "sandley",
-      "phase_name": "mq006_01_intro",
-      "why": "Sandley leaning on the wall with the others; closes out the five-person crowd the wiki describes waiting at the coaster.",
-      "needs_tour_check": true
-    }
-  ],
+  "spawn_sets": [],
   "variant_toggles": [
     {
       "prefab": "#q110_pr_pacifica_mall",

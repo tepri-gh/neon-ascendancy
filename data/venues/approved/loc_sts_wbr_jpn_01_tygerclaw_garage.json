@@ -21,9 +21,9 @@
     {
       "prefab": "$/03_night_city/c_westbrook/japan_town/loc_sts_wbr_jpn_01_tygerclaw_garage_prefabTKDSS5A/loc_sts_wbr_jpn_01_tygerclaw_garage_gameplay_prefabIFUI3XY/loc_sts_wbr_jpn_01_tygerclaw_garage_devices_prefabSDTWW2Y",
       "states": {
-        "car_forbidden_area": 1
+        "car_forbidden_area": 0
       },
-      "why": "This is the only state vanilla's own open-world phase sets for this workshop, so it is the normal in-world look: the shop forecourt stays a car-forbidden area instead of a drive-through. Setting it at boot matches vanilla and keeps traffic cars out of the restored bay, which has no quest car in it."
+      "why": "Owner decision 141: allow normal vehicle access by disabling the car-forbidden area; verify the effect in game."
     }
   ],
   "doors": [],

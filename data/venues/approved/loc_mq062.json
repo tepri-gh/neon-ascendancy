@@ -1,7 +1,7 @@
 {
   "code": "mq062",
   "display_name": "Night City Prison (Arroyo) — visitor center, cell block and security cortex",
-  "why": "The NCPD's main maximum-security prison on Mission & Republic in Arroyo: a visitor entrance with intercom, scanner and security gate, a cell block on the upper floor, and the security cortex (monitoring room) that watches both. This proposal restores those three quest-only interior sections and staffs them as a working prison: gate and desk NCPD staff plus waiting visitors and a trustee in the lobby, a cell-block guard detail with the PrisonGuard record, Spencer Calder and the canonical convict Wex, and the security-cortex patrol with its surveillance officer. The escape wing (armory, panic room, yard boss fight, morgue exfil and NCPD cordon) stays quest-only and is not restored.",
+  "why": "The NCPD's main maximum-security prison on Mission & Republic in Arroyo: a visitor entrance with intercom, scanner and security gate, a cell block on the upper floor, and the security cortex (monitoring room) that watches both. This proposal restores those three quest-only interior sections and staffs them as a working prison: gate and desk NCPD staff plus waiting visitors and a trustee in the lobby, a cell-block guard detail with the PrisonGuard record, Spencer Calder and the canonical convict Wex, and the security-cortex patrol with its surveillance officer. The escape wing (armory, panic room, yard boss fight, morgue exfil and NCPD cordon) stays quest-only and is not restored. Venue-node-policy section 4: remove one-off quest prisoner Wex.",
   "source": {
     "proposal": "research/loc_mq062/proposal.json",
     "confidence": "medium",
@@ -103,13 +103,6 @@
       "action": "Activate",
       "why": "Second cell-block body (unique Spencer Calder proxy record, filed as guard01) beside the PrisonGuard; relaxed stand-around spot. The catalogue cannot say whether he reads as staff or inmate, so the tour must look at him.",
       "needs_tour_check": true
-    },
-    {
-      "spawner": "#mq062_Stealth_Cells_CommunityArea_NPCs",
-      "entry_name": "wex",
-      "phase_name": "setup",
-      "action": "Activate",
-      "why": "Wexlyn \"Wex\" Carver is a canonical convict of this prison; vanilla activates this exact relaxed stand-around entry/phase in mq062_stealth_cells, so he belongs in the cell block when Clampdown never runs."
     },
     {
       "spawner": "#Mq062_Stealth_Cells_CommunityArea_Guards_01",

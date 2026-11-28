@@ -1,7 +1,7 @@
 {
   "code": "sts_wat_lch_06_neon_basement",
   "display_name": "Rovinj St. Glitter Lab (Neon Basement)",
-  "why": "The Heisenberg Principle's venue is a Tyger Claws glitter lab in the basement of a Rovinj St. building in Little China: a ground-floor entrance and garage/stair head above, two lab floors below, a lit drug kitchen with a computer terminal, freezers, grills, lights and security cameras. The gig never runs in our timeline, so the lab is not sabotaged and the crew is not a combat wave: the proposal loads the street-story prefab that carries the community spawner and its AI spots, then activates the eleven vanilla Default entries of #lch_06_com_combat (Joe Kaneshiro and Yusaku Ogata cooking, Tyger handgunners, a melee guard, two SMG guards, a rifle guard, the officer and the two parked Tyger cars) plus the junkie outside in his relaxed 'after' phase. Nothing quest-specific is added: no sabotage laptop, no destructible lab cylinders, no reinforcements and no dark emergency-lighting state.",
+  "why": "The Heisenberg Principle's venue is a Tyger Claws glitter lab in the basement of a Rovinj St. building in Little China: a ground-floor entrance and garage/stair head above, two lab floors below, a lit drug kitchen with a computer terminal, freezers, grills, lights and security cameras. The gig never runs in our timeline, so the lab is not sabotaged and the crew is not a combat wave: the proposal loads the street-story prefab that carries the community spawner and its AI spots, then activates the ordinary Default security and parked cars of #lch_06_com_combat, omitting Joe Kaneshiro and Yusaku Ogata under owner decision 133 plus the junkie outside in his relaxed 'after' phase. Nothing quest-specific is added: no sabotage laptop, no destructible lab cylinders, no reinforcements and no dark emergency-lighting state.",
   "source": {
     "proposal": "research/loc_sts_wat_lch_06_neon_basement/proposal.json",
     "confidence": "medium",
@@ -17,14 +17,6 @@
     "#loc_sts_wat_lch_06_streetstory"
   ],
   "communities": [
-    {
-      "spawner": "#lch_06_com_combat",
-      "entry_name": "#lch_06_ws_above",
-      "phase_name": "Default",
-      "action": "Activate",
-      "why": "Joe Kaneshiro, the glitter-lab operator named in the faction research, at the only spot vanilla gives him: a kneel-and-use-tablet pose on the upper floor. The gig's Default phase is the pre-combat state, so he reads as the cook working the lab, not a quest scene.",
-      "needs_tour_check": true
-    },
     {
       "spawner": "#lch_06_com_combat",
       "entry_name": "#lch_06_ws_above_enemy_002",
@@ -47,14 +39,6 @@
       "phase_name": "Default",
       "action": "Activate",
       "why": "A handgun guard in the first basement room on the pills-take spot, a small idle drug-use beat that fits the lab's product without being a hostile pose.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#lch_06_com_combat",
-      "entry_name": "#lch_06_ws_below_enemy_003",
-      "phase_name": "Default",
-      "action": "Activate",
-      "why": "Yusaku Ogata, the second glitter-lab operator in the faction research, standing on the lower lab floor on a dirt stand-ground spot: the cook at his station.",
       "needs_tour_check": true
     },
     {

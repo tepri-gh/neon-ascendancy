@@ -12,6 +12,9 @@
       "Check the three shopfront shutters (shutter_window_w150_002/_005/_006) are raised, so the front of the clinic does not read as boarded up.",
       "Enter the clinic and check whether the security-area controllers (#nid_05_security_area_dengerous_001/_002, #nid_05_security_area_restricted_002) trip a restricted-area warning, and whether that reads right for a gang clinic.",
       "Check the two parked Maelstrom cars (Chevalier Thrax and Thorton Galena) in the garage/yard look like the crew's rides, and confirm the upstairs server room is reachable on foot with no quest-only barrier."
+    ],
+    "stripped": [
+      "Owner decision 147: excluded Othmar Brasi (Enemy9) by activating the other community entries individually."
     ]
   },
   "prefabs": [
@@ -20,11 +23,80 @@
   "communities": [
     {
       "spawner": "#nid_05_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "Enemy1",
+      "phase_name": "0Spawn",
       "action": "Activate",
-      "why": "Vanilla switches this community on whole when the job's combat section starts (entry None, phase None), so the same switch is the clean, evidence-backed way to populate the clinic. Every entry's initial phase is an idle routine: Enemy1 a guard stand at the front, Enemy2 repairing the garage, Enemy3 patrolling with a tablet, Enemy4 scavenging drugs, Enemy5 checking the server room, Enemy6/Enemy7 talking upstairs, Enemy8 standing by the back, Enemy9 (Othmar Brasi) at a computer, Enemy10 leaning on a wall, plus car_01 (Chevalier Thrax) and car_02 (Thorton Galena) parked as the crew's rides. That is a Maelstrom clinic at work, not a quest scene: no spot uses an alert, agitated or cover workspot.",
-      "needs_tour_check": true
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy10",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy2",
+      "phase_name": "0RepairingGarage",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy3",
+      "phase_name": "0Patrol",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy4",
+      "phase_name": "0Scavenge1",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy5",
+      "phase_name": "0CheckingServer1",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy6",
+      "phase_name": "0Talking",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy7",
+      "phase_name": "0Talking",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "Enemy8",
+      "phase_name": "0Sitting",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "car_01",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
+    },
+    {
+      "spawner": "#nid_05_com",
+      "entry_name": "car_02",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Owner decision 147: retain this ordinary clinic crew member or car while excluding Othmar Brasi."
     }
   ],
   "spawn_sets": [],

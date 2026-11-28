@@ -93,8 +93,6 @@
    ],
    "radius": 57.7,
    "expected_records": [
-    "Character.mq306_Assistant",
-    "Character.mq306_damir",
     "Character.mq306_scavenger_elite2_shotgun_tactician_ma",
     "Character.mq306_scavenger_elite3_sniper2_grad_ma",
     "Character.mq306_scavenger_grunt1_melee1_pipewrench_ma",
@@ -218,9 +216,7 @@
     "Character.q110_mall_animals_grunt2_hmelee2_fists_wba_rare",
     "Character.q110_mall_animals_grunt2_hmelee2_hammer_wba_rare"
    ],
-   "spawn_sets": [
-    "#mq006_com_party"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Looks right",
@@ -257,10 +253,7 @@
     "Character.ep1_combat_zone_service_sexworker_wa",
     "Character.mon_kurtz_base_minotaur",
     "Character.mon_kurtz_soldier1_ranged2_rifle_ma",
-    "Character.mon_kurtz_soldier1_ranged2_rifle_wa",
-    "Character.mon_scrappers_grunt1_melee1_fists_ma",
-    "Character.mon_scrappers_grunt1_ranged1_nova_ma",
-    "Character.mon_scrappers_grunt1_ranged1_pulsar_wa"
+    "Character.mon_kurtz_soldier1_ranged2_rifle_wa"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -579,7 +572,6 @@
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_hey_spr_01_jose",
     "Character.sts_hey_spr_01_officer",
     "Character.sts_hey_spr_01_valentino_dual",
     "Character.sts_hey_spr_01_valentino_melee_wa",
@@ -634,17 +626,15 @@
    "kind": "approved",
    "venue": "loc_sts_hey_spr_06",
    "pos": [
-    -2256.38,
-    -404.12,
-    1.41
+    -2218.74,
+    -425.75,
+    7.22
    ],
-   "radius": 40.0,
+   "radius": 58.4,
    "expected_records": [
     "Character.sts_hey_spr_06_animals",
     "Character.sts_hey_spr_06_animals_ranged",
-    "Character.sts_hey_spr_06_officer",
-    "Character.sts_hey_spr_06_rebeca_price",
-    "Character.sts_hey_spr_06_valentinos"
+    "Character.sts_hey_spr_06_officer"
    ],
    "spawn_sets": [
     "#hey_spr_junkshop_01"
@@ -678,8 +668,7 @@
     "Character.dtn_04_receptionist",
     "Character.sts_dtn_04_security",
     "Character.sts_dtn_04_security_droids",
-    "Character.sts_dtn_04_security_officer",
-    "Character.sts_dtn_04_target"
+    "Character.sts_dtn_04_security_officer"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -1005,40 +994,18 @@
    "kind": "hand-built",
    "venue": "loc_q304_combat_tower",
    "pos": [
-    -1927.38,
-    -2318.45,
+    -1926.74,
+    -2314.42,
     337.26
    ],
-   "radius": 101.7,
+   "radius": 77.1,
    "expected_records": [
     "Character.q303_tech_floor_challange_01_guard_01",
     "Character.q303_tech_floor_challange_01_guard_02",
-    "Character.q303_tech_floor_challange_02_guard_01",
-    "Character.q303_tech_floor_challange_02_guard_02",
-    "Character.q303_tech_floor_challange_03_guard_01",
-    "Character.q303_tech_floor_challange_03_guard_02",
-    "Character.q303_tech_floor_challange_03_guard_03",
     "Character.q303_tech_floor_challange_03_sniper",
-    "Character.q303_tech_floor_challange_04_guard_01",
-    "Character.q303_tech_floor_challange_05_guard_01",
-    "Character.q303_tech_floor_challange_05_guard_02",
-    "Character.q303_tech_floor_drone_octant",
     "Character.q303_tech_floor_elevator_guard_01",
     "Character.q303_tech_floor_elevator_guard_02",
-    "Character.q303_tech_floor_elevator_guard_03",
-    "Character.q303_tech_floor_extra_guard_01",
-    "Character.q303_tech_floor_extra_guard_02",
-    "Character.q303_tech_floor_extra_guard_03",
-    "Character.q303_tech_floor_guard_drone",
-    "Character.q303_tech_floor_guard_drone_player_threat",
-    "Character.q303_tech_floor_guard_exo",
-    "Character.q303_tech_floor_guard_handgun_grunt_ma",
-    "Character.q303_tech_floor_guard_handgun_grunt_wa",
-    "Character.q303_tech_floor_guard_hmg_elite_ma",
-    "Character.q303_tech_floor_guard_rifle_soldier_ma",
-    "Character.q303_tech_floor_guard_rifle_soldier_wa",
-    "Character.q303_tech_floor_guard_shotgun_elite_ma",
-    "Character.q303_tech_floor_guard_sniper_player_threat"
+    "Character.q303_tech_floor_elevator_guard_03"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -1211,12 +1178,9 @@
    ],
    "radius": 70.0,
    "expected_records": [
-    "Character.sts_ep1_12_alan_noel",
     "Character.sts_ep1_12_droid_miniboss",
-    "Character.sts_ep1_12_milko_alexis",
     "Character.sts_ep1_12_security_android_android2_ajax_ma",
     "Character.sts_ep1_12_security_android_android2_lexington_ma",
-    "Character.sts_ep1_12_security_android_dummy",
     "Character.sts_ep1_12_voodooboy_base_drone_griffin",
     "Character.sts_ep1_12_voodooboy_ranged2_saratoga_ma",
     "Character.sts_ep1_12_voodooboy_ranged2_sidewinder_wa",
@@ -1248,9 +1212,7 @@
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_ep1_13_auctioneer_ma",
     "Character.sts_ep1_13_bartender_ma",
-    "Character.sts_ep1_13_children",
     "Character.sts_ep1_13_consierge_ma",
     "Character.sts_ep1_13_consierge_wa",
     "Character.sts_ep1_13_doll_ma",
@@ -1258,7 +1220,6 @@
     "Character.sts_ep1_13_employee_ma",
     "Character.sts_ep1_13_employee_wa",
     "Character.sts_ep1_13_enemy_mini_boss",
-    "Character.sts_ep1_13_fiona",
     "Character.sts_ep1_13_guard_005",
     "Character.sts_ep1_13_guard_hmelee2_fists_mb_rare",
     "Character.sts_ep1_13_guard_melee2_baton_ma",
@@ -1270,10 +1231,7 @@
     "Character.sts_ep1_13_guard_sniper3_grad_ma_elite",
     "Character.sts_ep1_13_human_guest_ma",
     "Character.sts_ep1_13_human_guest_scene_ma",
-    "Character.sts_ep1_13_human_guest_wa",
-    "Character.sts_ep1_13_katie",
-    "Character.sts_ep1_13_kya",
-    "Character.sts_ep1_13_tommie"
+    "Character.sts_ep1_13_human_guest_wa"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -1322,14 +1280,8 @@
     61.94
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.q110_creole_female_static_community",
-    "Character.q110_creole_male_big_static_community",
-    "Character.q110_creole_male_static_community"
-   ],
-   "spawn_sets": [
-    "#q110_com_sermon_contact"
-   ],
+   "expected_records": [],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Looks right",
@@ -1597,9 +1549,7 @@
     25.78
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.sts_std_arr_12_pedro_1"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -1622,9 +1572,7 @@
     87.2
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.batty"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -1721,9 +1669,7 @@
     7.89
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.sq021_dr_mitsuko"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -1748,7 +1694,6 @@
    "radius": 40.0,
    "expected_records": [
     "Character.q000_kid_bar_bouncer",
-    "Character.q000_kid_bar_kirks_bodyguard",
     "Character.q000_kid_bar_valentinos",
     "Character.q000_kid_bar_waitress"
    ],
@@ -1854,7 +1799,6 @@
     "Character.gle_01_security",
     "Character.gle_01_security_officer",
     "Character.gle_01_security_shotgun",
-    "Character.gle_01_tucker",
     "Character.gle_01_worker"
    ],
    "spawn_sets": [],
@@ -1942,7 +1886,6 @@
     "Character.q000_corpo_arasaka_m_receptionist",
     "Character.q000_corpo_arasaka_security",
     "Character.q000_corpo_assistant",
-    "Character.q000_corpo_jenkins",
     "Character.q000_corpo_netrunner",
     "Character.q000_corpo_propaganda_speaker"
    ],
@@ -2260,16 +2203,13 @@
    "expected_records": [
     "Character.HoodHottie",
     "Character.mq019_fa_club_staff",
-    "Character.mq019_liam",
     "Character.mq019_ma_club_security",
     "Character.mq019_technician",
     "Character.sq017_club_security_friendly",
     "Character.sq017_lighting_guy",
     "Character.sq017_makeup_artist"
    ],
-   "spawn_sets": [
-    "#riot_bouncer"
-   ],
+   "spawn_sets": [],
    "checklist": [
     {
      "label": "Looks right",
@@ -2479,8 +2419,6 @@
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_wat_lch_01_Tatsuya_Takei",
-    "Character.sts_wat_lch_01_Yuri_Shaku",
     "Character.sts_wat_lch_01_tygerclaw_smg"
    ],
    "spawn_sets": [],
@@ -2536,16 +2474,14 @@
     1527.46,
     13.75
    ],
-   "radius": 45.0,
+   "radius": 44.6,
    "expected_records": [
     "Character.JunkieMaleDE",
     "Character.lch_06_tyger_generic1_smg1",
     "Character.lch_06_tyger_handgun",
-    "Character.lch_06_tyger_joe_kaneshiro",
     "Character.lch_06_tyger_melee",
     "Character.lch_06_tyger_officer_female",
-    "Character.lch_06_tyger_rifle",
-    "Character.lch_06_tyger_yusaku_ogata"
+    "Character.lch_06_tyger_rifle"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2684,9 +2620,9 @@
    "kind": "approved",
    "venue": "loc_sts_wat_kab_05_client_signal",
    "pos": [
-    -1108.79,
-    2144.03,
-    13.28
+    -1105.37,
+    2143.76,
+    13.33
    ],
    "radius": 40.0,
    "expected_records": [
@@ -2694,9 +2630,7 @@
     "Character.sts_wat_kab_05_enemy_ganger_officer",
     "Character.sts_wat_kab_05_enemy_ganger_shotgun_tier2",
     "Character.sts_wat_kab_05_enemy_melee",
-    "Character.sts_wat_kab_05_enemy_short_range_m",
-    "Character.sts_wat_kab_05_prostitute_bd",
-    "Character.sts_wat_kab_05_prostitute_bd_male"
+    "Character.sts_wat_kab_05_enemy_short_range_m"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2801,18 +2735,16 @@
    "kind": "approved",
    "venue": "loc_sts_wat_nid_04_netrunner_hideout",
    "pos": [
-    -1818.87,
-    2668.55,
-    18.94
+    -1811.99,
+    2671.55,
+    11.03
    ],
-   "radius": 53.2,
+   "radius": 45.2,
    "expected_records": [
     "Character.sts_wat_nid_04_enemy_maelstrom_fast_sniper2_grad_ma",
     "Character.sts_wat_nid_04_enemy_rifle_ma",
     "Character.sts_wat_nid_04_enemy_security_officer_machete_ma",
-    "Character.sts_wat_nid_04_enemy_shotgun_ma",
-    "Character.sts_wat_nid_04_fredrik",
-    "Character.sts_wat_nid_04_gottfrid"
+    "Character.sts_wat_nid_04_enemy_shotgun_ma"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -2839,7 +2771,6 @@
    "expected_records": [
     "Character.nid_05_maelstrom_handgun_ma",
     "Character.nid_05_maelstrom_officer",
-    "Character.nid_05_maelstrom_othmar_brasi",
     "Character.nid_05_maelstrom_rifle_man",
     "Character.nid_05_maelstrom_server_room_wa",
     "Character.nid_05_maelstrom_shotgun_man",
@@ -2982,7 +2913,6 @@
    ],
    "radius": 60.0,
    "expected_records": [
-    "Character.ChildPoorDE",
     "Character.ina_05_technician",
     "Character.sts_bls_ina_05_militech_base_drone_wyvern",
     "Character.sts_bls_ina_05_militech_soldier3_shotgun3_crusher_mah_elite",
@@ -2990,9 +2920,7 @@
     "Character.sts_bls_ina_05_miltech_security_saratoga_ma",
     "Character.sts_bls_ina_05_miltech_sniper",
     "Character.sts_bls_ina_05_miltech_tech_grenadier2_omaha_ma",
-    "Character.sts_bls_ina_05_oficer",
-    "Character.sts_bls_ina_05_refugee_f",
-    "Character.sts_bls_ina_05_refugee_m"
+    "Character.sts_bls_ina_05_oficer"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -3021,7 +2949,6 @@
     "Character.ina_02_med_range_med",
     "Character.ina_02_melee_hard",
     "Character.ina_02_melee_med",
-    "Character.ina_02_new_big_pete",
     "Character.ina_02_officer",
     "Character.ina_02_wraiths_ghost2_sniper2_achilles_ma_rare"
    ],
@@ -3335,7 +3262,7 @@
     -648.56,
     7.96
    ],
-   "radius": 69.9,
+   "radius": 68.5,
    "expected_records": [
     "Character.CitizenAldecaldosFemale",
     "Character.LightCrowd_arroyo_ma",
@@ -3343,7 +3270,6 @@
     "Character.arr_ncpd_police_ranged2_saratoga_ma",
     "Character.mq062_PrisonGuard",
     "Character.mq062_Spencer_Calder",
-    "Character.mq062_Wex",
     "Character.mq062_ncpd_guard_ma_lexington",
     "Character.mq062_ncpd_guard_ma_saratoga",
     "Character.mq062_ncpd_guard_mb_base",
@@ -3483,13 +3409,13 @@
    "kind": "approved",
    "venue": "loc_sts_hey_rey_08",
    "pos": [
-    -926.37,
-    -206.95,
-    7.71
+    -922.48,
+    -213.06,
+    7.67
    ],
    "radius": 40.0,
    "expected_records": [
-    "Character.sts_hey_rey_08_karubo"
+    "Character.sts_hey_rey_08_valentions_melee_ma"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -3545,16 +3471,15 @@
    "kind": "approved",
    "venue": "loc_sts_std_arr_11",
    "pos": [
-    -210.57,
-    -836.02,
-    259.69
+    -176.78,
+    -855.44,
+    263.16
    ],
-   "radius": 56.1,
+   "radius": 58.7,
    "expected_records": [
     "Character.CorpoManBraindance",
     "Character.sts_std_arr_11_6thStreet_ganger",
     "Character.sts_std_arr_11_6thStreet_ganger_netrunner",
-    "Character.sts_std_arr_11_lucius",
     "Character.sts_std_arr_11_officer",
     "Character.sts_std_arr_11_shotgunner"
    ],
@@ -3744,9 +3669,9 @@
    "kind": "approved",
    "venue": "loc_q105_fingers_appartment",
    "pos": [
-    -572.85,
-    801.33,
-    24.9
+    -564.84,
+    797.6,
+    20.9
    ],
    "radius": 40.0,
    "expected_records": [
@@ -3755,7 +3680,6 @@
     "Character.FreakMale",
     "Character.ProstituteFemale",
     "Character.ProstituteMale",
-    "Character.q105_jigjig_pimp",
     "Character.q105_jigjig_prostitue_queue_01",
     "Character.q105_jigjig_prostitue_queue_02",
     "Character.q105_jigjig_prostitue_queue_03",
@@ -3830,7 +3754,6 @@
    "expected_records": [
     "Character.VendorFemale",
     "Character.VendorMale",
-    "Character.mq036_stefan",
     "Character.sq012_market_vendor",
     "Character.sq012_tyger_claw"
    ],
@@ -3854,19 +3777,17 @@
    "kind": "approved",
    "venue": "loc_q112_parade_area",
    "pos": [
-    -415.46,
-    714.47,
+    -408.12,
+    712.28,
     115.0
    ],
-   "radius": 75.5,
+   "radius": 82.1,
    "expected_records": [
     "Character.LightCrowd_japantown_ma",
     "Character.Mallrat",
     "Character.MorningCrowdWoman",
     "Character.VendorFemale",
     "Character.VendorMale",
-    "Character.ncpd_police_ranged2_lexington_ma",
-    "Character.ncpd_police_ranged2_saratoga_wa",
     "Character.q112_infiltration_construction_site_worker",
     "Character.q112_shinto_female",
     "Character.q112_shinto_male"
@@ -4375,7 +4296,6 @@
     "Character.rcr_02_enemy_security",
     "Character.rcr_02_enemy_security_keycard",
     "Character.rcr_02_enemy_security_officer",
-    "Character.rcr_02_jason_dixon",
     "Character.rcr_02_reception"
    ],
    "spawn_sets": [],
@@ -4400,9 +4320,7 @@
     28.62
    ],
    "radius": 40.0,
-   "expected_records": [
-    "Character.sts_std_rcr_03_flavio"
-   ],
+   "expected_records": [],
    "spawn_sets": [],
    "checklist": [
     {
@@ -4522,8 +4440,7 @@
    "expected_records": [
     "Character.sts_wbr_hil_06_6th_street_ganger",
     "Character.sts_wbr_hil_06_6th_street_ganger_wa",
-    "Character.sts_wbr_hil_06_6th_street_marksman_ma",
-    "Character.sts_wbr_hil_06_wyatt_alken"
+    "Character.sts_wbr_hil_06_6th_street_marksman_ma"
    ],
    "spawn_sets": [],
    "checklist": [
@@ -4717,7 +4634,6 @@
     "Character.ina_11_guard_officer",
     "Character.ina_11_guard_rifle",
     "Character.ina_11_guard_sniper",
-    "Character.ina_11_robot",
     "Character.ina_11_technician_1",
     "Character.ina_11_technician_2"
    ],

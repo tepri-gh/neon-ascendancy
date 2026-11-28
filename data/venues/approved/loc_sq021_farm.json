@@ -26,6 +26,13 @@
         "var_farm_closed_entrance": 0
       },
       "why": "The cooked streaming blocks enable the closed-entrance variant by default. Use the open state from the vanilla quest startup to make the yard accessible."
+    },
+    {
+      "prefab": "#loc_sq021_farm_devices",
+      "states": {
+        "mines": 0
+      },
+      "why": "Owner decision 70 and venue-node-policy section 5: hide the quest mine staging at the unattended farm."
     }
   ],
   "doors": [],

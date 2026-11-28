@@ -1,7 +1,7 @@
 {
   "code": "q301_crashsite_way_up",
   "display_name": "Stacks Container Yard (Dogtown, below Luxor Heights)",
-  "why": "A stacked-container housing block and container yard at the bottom of the Luxor Heights slope, between the Nighthawks container zone and the hill-park spa, with an unfinished concrete shell above it. In Phantom Liberty q301 drops V into this yard as the Space Force One crash site and q302 climbs back out through it, but the place itself is ordinary Dogtown ground: shipping-container homes with children playing in the lanes, outcasts and junkies on the walls and curbs, stacks labourers welding and scanning, a Barghest foot checkpoint, two Minotaur mechs on patrol and a small scavenger camp. This proposal restores that ambient population (four vanilla whole communities, all in their only phase, all relaxed) and forces the prefab variants back to the no-crash, no-quest-staging state; no quest prefab is needed because world streaming already loads the yard.",
+  "why": "A stacked-container housing block and container yard at the bottom of the Luxor Heights slope, between the Nighthawks container zone and the hill-park spa, with an unfinished concrete shell above it. In Phantom Liberty q301 drops V into this yard as the Space Force One crash site and q302 climbs back out through it, but the place itself is ordinary Dogtown ground: shipping-container homes with children playing in the lanes, outcasts and junkies on the walls and curbs, stacks labourers welding and scanning, a Barghest foot checkpoint, two Minotaur mechs on patrol and a small scavenger camp. This proposal restores that ambient population (four vanilla whole communities, all in their only phase, all relaxed) and forces the prefab variants back to the no-crash, no-quest-staging state; no quest prefab is needed because world streaming already loads the yard. Venue-node-policy section 4: remove the scavenger combat crew.",
   "source": {
     "proposal": "research/loc_q301_crashsite_way_up/proposal.json",
     "confidence": "medium",
@@ -40,13 +40,6 @@
       "action": "Activate",
       "why": "Two Minotaur mechs (minotaur_001_day/night, minotaur_002_day; Character.mon_kurtz_base_minotaur) patrolling the checkpoint on guard_stand/patrolling_stand workspots - the heavy unit that belongs with a Barghest strongpoint in Dogtown. Catalogue marks the community's role 'civilian' because of the record name, but these are mechs, so it is counted as combat. Needs a tour check: a mech pair must read as gate security, not as an assault wave.",
       "needs_tour_check": true
-    },
-    {
-      "spawner": "#pac_cz_q301_crashsite_way_up_scrappers_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Three scavenger grunts (nova rifle, pulsar, fists) hanging around a bar lean, a cigarette and a baseball-bat spot: the yard's small scrapping crew. Scavengers are one of the two gangs the wiki gives Longshore Stacks, and the community is activated by the ambient layer only."
     }
   ],
   "spawn_sets": [],

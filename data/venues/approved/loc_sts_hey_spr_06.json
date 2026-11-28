@@ -1,7 +1,7 @@
 {
   "code": "sts_hey_spr_06",
-  "display_name": "Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise)",
-  "why": "Data Inc. is the Wellsprings electronics shop where Hot Merchandise sends V after Rebeca Price: a two-level storefront on Berkeley Ave, an Animals crew posing as legitimate employees on the shop floor, a back room with the stolen Militech stock, and a basement where Rebeca runs the store from a terminal with one Animal watching her. In vanilla the shop only opens for the gig, and the kept Wellsprings open-world phase leaves the storefront locked and the rear route disabled. This proposal loads #sts_hey_spr_06_streetstory (the quest prefab holding the spawners, every AI spot and the junk-shop counter) and switches the shop back on for business: the junk-shop clerk behind the counter, four calm Animals (three on the shop floor and one watching Rebeca), a Valentino customer complaining at the Animals staffer across the counter, and Rebeca at her basement computer.",
+  "display_name": "Data Inc. electronics store \u2014 Wellsprings, Heywood (Hot Merchandise)",
+  "why": "Data Inc. is the Wellsprings electronics shop where Hot Merchandise sends V after Rebeca Price: a two-level storefront on Berkeley Ave, an Animals crew posing as legitimate employees on the shop floor, a back room with the stolen Militech stock, and a basement where Rebeca runs the store from a terminal with one Animal watching her. In vanilla the shop only opens for the gig, and the kept Wellsprings open-world phase leaves the storefront locked and the rear route disabled. This proposal loads #sts_hey_spr_06_streetstory (the quest prefab holding the spawners, every AI spot and the junk-shop counter) and switches the shop back on for business: the junk-shop clerk behind the counter, four calm Animals (three on the shop floor and one watching Rebeca), a Valentino customer complaining at the Animals staffer across the counter, and Rebeca at her basement computer. Owner decision 136 and venue-node-policy section 4 remove Rebeca and the gig customer.",
   "source": {
     "proposal": "research/loc_sts_hey_spr_06/proposal.json",
     "confidence": "medium",
@@ -48,21 +48,6 @@
       "action": "Activate",
       "why": "The guard the gig always puts next to Rebeca: every A_spawn spot for this entry is in the basement at z 1.37-1.41, a tablet-use and a phone-call idle two to four metres from her terminal, so the blackmail is visibly watched with no combat pose.",
       "needs_tour_check": true
-    },
-    {
-      "spawner": "#spr_06_valentino_com",
-      "entry_name": "valentino_001",
-      "phase_name": "A_spawn",
-      "action": "Activate",
-      "why": "The customer the wiki describes putting aside his complaints: phase A_spawn (the entry's initial phase) places him at a nervous stand right in front of the counter at (-2261.71, -396.41), exactly where the tour found him. Phase B, which vanilla activates after the shop scene, is only a cigarette by his parked bike 130 m down the street, so A_spawn is the one that belongs inside the store. The animal at enemy_001 A_spawn stands 2.4 m away with his arms crossed, so the nervous stand has someone to complain at instead of an empty aisle.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#spr_06_nolan_com",
-      "entry_name": "rebeca",
-      "phase_name": "A_spawn",
-      "action": "Activate",
-      "why": "Rebeca Price is alive in our timeline and still runs Data Inc.; A_spawn is her only phase and its spot is a tablet-use stand in the basement at (-2256.38, -404.12), a metre from #spr_06_dvc_nolan_computer, i.e. the manager at her terminal — the same post the gig finds her at, but working instead of waiting to be killed."
     }
   ],
   "spawn_sets": [

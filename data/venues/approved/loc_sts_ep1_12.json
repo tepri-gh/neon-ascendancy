@@ -1,7 +1,7 @@
 {
   "code": "sts_ep1_12",
   "display_name": "Luxor High Wellness Spa — Voodoo Boys base (Luxor Heights, Dogtown)",
-  "why": "The Luxor High Wellness Spa is the never-opened Biotechnica ziggurat on Andrew Jackson St. in Luxor Heights, taken over as a Voodoo Boys base: Milko Alexis's group holds the north wing and the pool/droid hall, with a networked server room behind glass. The gig Treating Symptoms, its Corpo of the Month stash and the south-side criminal activity are the only vanilla reasons anyone is there, so in the clean slate the building stands empty. This proposal restores the ordinary occupation: the standing guard garrison on its reception, hall, wing, office and outside posts; Milko jacked into his netrunner chair with the undercover NetWatch agent Alan Noël at the next terminal; and the droid hall's security androids on standby, with the interior variant states set to the intact pre-story look.",
+  "why": "The Luxor High Wellness Spa is the never-opened Biotechnica ziggurat on Andrew Jackson St. in Luxor Heights, taken over as a Voodoo Boys base: Milko Alexis's group holds the north wing and the pool/droid hall, with a networked server room behind glass. The gig Treating Symptoms, its Corpo of the Month stash and the south-side criminal activity are the only vanilla reasons anyone is there, so in the clean slate the building stands empty. This proposal restores the ordinary occupation: the standing guard garrison on its reception, hall, wing, office and outside posts; and the droid hall's security androids on standby, with the interior variant states set to the intact pre-story look. Owner decision 67 removes Milko, Alan, the broken android and courier vehicle from static placement.",
   "source": {
     "proposal": "research/loc_sts_ep1_12/proposal.json",
     "confidence": "medium",
@@ -19,19 +19,107 @@
   "prefabs": [],
   "communities": [
     {
-      "spawner": "#sts_ep1_12_main_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "drone_01",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The two named men the base exists for, in their only phase (default): Milko Alexis, the Voodoo Boys netrunner who runs the north wing, and Alan Noël, the undercover NetWatch agent riding his connection. Vanilla activates this community whole from the story phase; the spot markers in the venue's quest sector are sts_ep1_12_milko_alexis (generic__lie_netrunner_chair__netrun__01, i.e. jacked into the chair) and sts_ep1_12_alan_noel (q110__stand_netrunner_chair_keyboard__stand_around__01, standing at a keyboard). That is exactly the base's normal working state, not a scene.",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
       "needs_tour_check": true
     },
     {
       "spawner": "#sts_ep1_12_combat_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "guard _left_wing_down_02",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The base's standing garrison in the community's only phase (default), activated whole exactly as vanilla's gameplay phase does: three netrunners (left wing down x2, right wing), nine gun guards on the reception, upper reception, main hall, left wing, office, changing room and outside posts, plus the base drone, the broken office android and the courier's parked pickup. The venue's quest-sector markers for these posts are all routine workspots (stand-ground tablet/phone, kneel inspect, stand device fix) rather than cover or aim spots, so the group reads as guards on post.",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "guard_changing_room",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "guard_left_wing_down_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "guard_left_wing_upper_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "guard_main_hall",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "guard_office",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "outside_guard_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "outside_guard_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "outside_guard_03_scene",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "reception_guard_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "reception_guard_02",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#sts_ep1_12_combat_com",
+      "entry_name": "right_wing_guard_01",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 67 retains ordinary security and functioning equipment while removing the broken android and courier vehicle.",
       "needs_tour_check": true
     },
     {

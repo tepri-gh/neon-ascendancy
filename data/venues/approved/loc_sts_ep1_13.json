@@ -1,7 +1,7 @@
 {
   "code": "sts_ep1_13",
   "display_name": "Center for Neuromotor Development, Site 341 (Talent Academy)",
-  "why": "Site 341 is a Dogtown academy that selects and modifies young athletes, with an exhibition hall and bar on the main floor, a dolls/showroom wing, staff offices, a security back office and an underground lab. Vanilla only opens it for Gig: Talent Academy. This proposal loads the street-story section and restores the building as it stands at the start of the gig's own setup, before any alarm: receptionists, bartender, auctioneer and staff, the guard detail with its netrunner and head of security, Fiona at her office desk, the young athletes on exhibition, the human guests at the bar and the showroom androids. It also clears the gig-only dressing (post-alert lighting, crowd audio off, glass/tube lockdown, quest collision area, combat steam).",
+  "why": "Site 341 is a Dogtown academy that selects and modifies young athletes, with an exhibition hall and bar on the main floor, a dolls/showroom wing, staff offices, a security back office and an underground lab. Vanilla only opens it for Gig: Talent Academy. This proposal loads the street-story section and restores the building as it stands at the start of the gig's own setup, before any alarm: receptionists, bartender, auctioneer and staff, the guard detail with its netrunner and head of security, Fiona at her office desk, the young athletes on exhibition, the human guests at the bar and the showroom androids. It also clears the gig-only dressing (post-alert lighting, crowd audio off, glass/tube lockdown, quest collision area, combat steam). Venue-node-policy sections 4\u20135: remove Fiona, named gig targets, hostage staging and the quest auctioneer.",
   "source": {
     "proposal": "research/loc_sts_ep1_13/proposal.json",
     "confidence": "medium",
@@ -20,19 +20,143 @@
   "communities": [
     {
       "spawner": "#sts_ep1_13_combat_com",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "Whole-community activation, exactly as vanilla's setup phase does it. This is the academy's normal staff and security, each entry at its initial A/a post: two receptionists (human and android), the bartender, the auctioneer, three employees, the guard detail, the site netrunner (guard_009) and the head of security (mini_boss). Spots are bar leans, reception and routine tablet work and plain guard stands, not the combat phase's alert spots.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_fiona_com",
-      "entry_name": "fiona",
+      "entry_name": "consierge_for_androids",
       "phase_name": "A",
       "action": "Activate",
-      "why": "Fiona Vargas runs the center and is alive in our timeline. Phase A is her seated office idle (sts_ep1_13_fiona_ws_001, sit chair); the SCARED, SCENE_START and B phases belong to the gig's confrontation and are not used.",
-      "needs_tour_check": true
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "consierge_for_humans",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "employee_001_bar",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "employee_004",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "employee_005",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "employee_006",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_000",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_001",
+      "phase_name": "a",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_002",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_003",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_004",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_005",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_006",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_007",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_008",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_009",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_010",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_011",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "guard_012",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
+    },
+    {
+      "spawner": "#sts_ep1_13_combat_com",
+      "entry_name": "mini_boss",
+      "phase_name": "A",
+      "action": "Activate",
+      "why": "Venue-node-policy section 4: retain routine staff and security without the quest auctioneer."
     },
     {
       "spawner": "#sts_ep1_13_human_guests",
@@ -48,62 +172,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "Whole-community activation of the showroom's androids and display models in the main chamber, anteroom and dolls room. Every spot is an android hang-around, stand-idle, barstool/couch idle or tablet pose, so they read as exhibits and service staff rather than a scene. doll_stolen is simply the model in the dolls room in normal play.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_002_tommie",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "Tommie Walker, one of the athletes on exhibition, browsing files at a display (sts_ep1_13_child_002_tommie, generic__kid__browse_files). Phase A is his exhibition post; behind_fiona/despawn are gig staging.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_003",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "Kya, an athlete on exhibition, sitting on a bike (ep1__sts13__kid__sits_on_bike). Vanilla's setup activates this entry.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_004",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "One of the children on exhibition, playing with a cyberarm (synced child sit-ground cyberarm). Vanilla's setup activates this entry.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_006",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "A child resting in a bed in the recovery wing (child lie bed sleep). Vanilla's setup activates this entry; it is the facility's normal recovery-room population, not a quest scene.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_007",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "A second child resting in the recovery wing (child lie bed sleep); vanilla's setup activates this entry.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_008",
-      "phase_name": "A",
-      "action": "Activate",
-      "why": "A third child resting in the recovery wing (child lie bed sleep); vanilla's setup activates this entry.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#sts_ep1_13_children_com",
-      "entry_name": "child_010",
-      "phase_name": "a",
-      "action": "Activate",
-      "why": "Katie, an athlete on exhibition, sitting on a bike at the ws_katie spot. Vanilla's setup activates this entry; a is her initial phase.",
       "needs_tour_check": true
     }
   ],

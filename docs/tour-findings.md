@@ -92,6 +92,21 @@ floor and route checks in `data/venues/access_checks.json`). Civilian
 venues get no tour. 18 nodes have no tour position yet, so they are in no
 tour until one is found.
 
+## Strip-list pass (2026-11-27)
+
+Nine agents matched 166 venues to their classification strip lists and
+resolutions (reports in the extract cache's `research/strip/`). 37 approved
+entries and 4 hand-built venues changed; most items were already absent.
+Owner calls are items 183 to 193. Left for later:
+
+- **World-placed mines and traps** (Wraiths and Scavenger sites): not in any
+  venue toggle; they need a runtime look.
+- **Konpeki Plaza**: the lockdown dressing is not identified (item 166 keeps
+  it a separate job).
+- **Stacks container yard** (`q301_crashsite_way_up`): a kept vanilla phase
+  may bring back the removed Scavenger crew.
+- **Node garrisons and generated lieutenants**: wait for the simulation.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

@@ -9,9 +9,12 @@
       "Does #q000_kid_pr_coyote_cojo carry the community area node for #q000_kid_com_bar_crowd, so the five cherry-picked entries actually occupy the waitress/bouncer/valentino/big-joe spots? The catalogue resolves 0 workspots for that community, so the tour must confirm each entry appears at its named spot and not bunched at the bar.",
       "Does instantiating #q000_kid_pr_coyote_cojo drag Streetkid scene content into normal play (Padre's car in q000_kid_01c_car_prefab outside, q000_kid_tr_movement_tutorial_area, q000_tr_robbery, q000_tr_mappin_trigger_kirk_01/02, q000_tr_kid_bar_exit)? They should be inert without the quest, but if a car, map pin or tutorial popup appears, drop the prefab and the crowd entries with it.",
       "Is Kirk's booth reachable with only collider_kirk_booth=0, or does #q000_kid_01b_meet_your_fixer need Q000_var_open_gate=1 / q000_var_closed_gate=0 as well? q000 sets closed_gate=1 for the scene and open_gate=1 when V returns later, so the semantics of 'gate' are unverified; the tour should walk up the stairs.",
-      "Which closing state is baked into #sq018_pr_ofrenda_after, #loc_sq022_el_coyote_cojo_bar_devices and #loc_sq022_el_coyote_cojo_bar_gameplay? The toggles above assume the world cooks the pre-story state and merely re-assert it; if the cooked default is the post-ofrenda state, the altar console (var_table_console, var_offerings) and the seated var_victor/var_gang/var_mama props may need explicit 0 too \u2014 check the bar for an altar, a console table and seated mourners.",
+      "Which closing state is baked into #sq018_pr_ofrenda_after, #loc_sq022_el_coyote_cojo_bar_devices and #loc_sq022_el_coyote_cojo_bar_gameplay? The toggles above assume the world cooks the pre-story state and merely re-assert it; if the cooked default is the post-ofrenda state, the altar console (var_table_console, var_offerings) and the seated var_victor/var_gang/var_mama props may need explicit 0 too — check the bar for an altar, a console table and seated mourners.",
       "Does placing Kirk give him fixer dialogue or a quest prompt that expects mq017 state? He is a live fixer here, so a short ambient line is fine, but a broken 'meet Kirk' journal hook would not be.",
       "The proximity anchor is the entrance door, which q000 itself ForceLocks in the scene: the tour should approach from the street and confirm the door is passable and the wait fires, and that no baked ForceLock survives."
+    ],
+    "stripped": [
+      "venue-node-policy section 4: removed Big Joe from communities."
     ]
   },
   "prefabs": [
@@ -24,14 +27,6 @@
       "phase_name": "q000_kid_bar",
       "action": "Activate",
       "why": "The bar's door security: one bouncer leaning at his spot (#q000_kid_ws_bouncer_leaning) when the bar is open. Combat role first per rule 11a; vanilla activates this same entry with the whole crowd in The Streetkid, and the workspot is an idle lean, not a combat pose.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_kid_com_bar_crowd",
-      "entry_name": "big_joe",
-      "phase_name": "q000_kid_bar",
-      "action": "Activate",
-      "why": "Kirk Sawyer's bodyguard standing beside the fixer's booth (#q000_kid_ws_big_joe_standing); a bodyguard on his feet is the venue's second security face and pairs with the Kirk spawn set. Same entry vanilla activates in The Streetkid's bar crowd.",
       "needs_tour_check": true
     },
     {

@@ -1,7 +1,7 @@
 {
   "code": "sts_std_rcr_03",
   "display_name": "Flavio dos Santos's safehouse, Mallagra St. (Rancho Coronado)",
-  "why": "A run-down two-storey house with a garage off Mallagra St. in Rancho Coronado, used by Going-away Party (sts_std_rcr_03, Muamar Reyes) as 6th Street victim Flavio dos Santos's hideout. Vanilla stages the aftermath there through the street story's own phases: the openworld phase switches on Flavio, an eight-strong 6th Street crew with two Archer Hellas, and five terrified sex workers at execution/afraid workspots, and the gameplay phase runs the search, the turret and the drive to the Aldecaldo pickup. None of that section loads in the clean slate. This proposal restores the house as a 6th Street house before the purge: Flavio at home upstairs and his crew hanging around the house and the parked cars, with the massacre staging (victims, corpses, glitched turret, escape car, nomad pickup) left out.",
+  "why": "A run-down two-storey house with a garage off Mallagra St. in Rancho Coronado, used by Going-away Party (sts_std_rcr_03, Muamar Reyes) as 6th Street victim Flavio dos Santos's hideout. Vanilla stages the aftermath there through the street story's own phases: the openworld phase switches on Flavio, an eight-strong 6th Street crew with two Archer Hellas, and five terrified sex workers at execution/afraid workspots, and the gameplay phase runs the search, the turret and the drive to the Aldecaldo pickup. None of that section loads in the clean slate. This proposal restores the house as a 6th Street house before the purge: Flavio at home upstairs and his crew hanging around the house and the parked cars, with the massacre staging (victims, corpses, glitched turret, escape car, nomad pickup) left out. Owner decision 131 and venue-node-policy section 4: omit the one-off gig target Flavio.",
   "source": {
     "proposal": "research/loc_sts_std_rcr_03/proposal.json",
     "confidence": "medium",
@@ -18,16 +18,7 @@
   "prefabs": [
     "#loc_sts_std_rcr_03_openworld"
   ],
-  "communities": [
-    {
-      "spawner": "#rcr_03_com",
-      "entry_name": "flavio",
-      "phase_name": "#rcr_03_ws_flavio_appear",
-      "action": "Activate",
-      "why": "Flavio dos Santos, the house's owner and the gig's client, is alive in our timeline (no coup, no purge, no gig) and should be at home. #rcr_03_ws_flavio_appear is the entry's own initial phase in the registry and its spot is a generic stand-and-wait on the second floor (464.4, -1240.11, 34.71), which reads as the owner waiting at home rather than the gig's wounded, kneeling-by-the-car or lying-at-the-nomad poses. Posture is unknown because the community has no compiled area node, so the tour must confirm the pose and position.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

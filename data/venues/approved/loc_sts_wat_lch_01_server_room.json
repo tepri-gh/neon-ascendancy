@@ -1,7 +1,7 @@
 {
   "code": "sts_wat_lch_01_server_room",
   "display_name": "Megabuilding H11 Server Room",
-  "why": "The server-room floor of Megabuilding H11 in Northside: a main room with a netrunner chair, a stairwell down to a technical corridor and the inner server room, which a five-person Tyger Claws crew uses as a subnet hideout. The room shell, doors and devices are always streamed, and the kept global community phase already instantiates the street-story section that owns the crew's workspots, but the community's entries start inactive and vanilla only spawns them from the gig's combat phase. This proposal therefore loads no section and only activates the five Tyger Claws on their ambient states (tagging graffiti, asleep in a chair, patrolling, leaning, at the netrunner chair) instead of the gig's combat staging.",
+  "why": "The server-room floor of Megabuilding H11 in Northside: a main room with a netrunner chair, a stairwell down to a technical corridor and the inner server room, which a five-person Tyger Claws crew uses as a subnet hideout. The room shell, doors and devices are always streamed, and the kept global community phase already instantiates the street-story section that owns the crew's workspots, but the community's entries start inactive and vanilla only spawns them from the gig's combat phase. This proposal therefore loads no section and only activates the five Tyger Claws on their ambient states (tagging graffiti, asleep in a chair, patrolling, leaning, at the netrunner chair) instead of the gig's combat staging. Venue-node-policy section 4: gig characters Tatsuya Takei and Yuri Shaku are removed.",
   "source": {
     "proposal": "research/loc_sts_wat_lch_01_server_room/proposal.json",
     "confidence": "medium",
@@ -26,14 +26,6 @@
     },
     {
       "spawner": "#lch_01_community",
-      "entry_name": "TygerClaw3",
-      "phase_name": "sleep",
-      "action": "Activate",
-      "why": "Tatsuya Takei, one of the gig's two named Tyger Claws, on vanilla's own dozing state: the sleep phase drives #lch_01_ws_siting_sleeping_001 and the netrunner-chair spot, which is exactly the slack hideout look rather than a combat stance.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#lch_01_community",
       "entry_name": "TygerClaw4",
       "phase_name": "watch",
       "action": "Activate",
@@ -46,14 +38,6 @@
       "phase_name": "default",
       "action": "Activate",
       "why": "Vanilla's own non-intro phase for this entry, used after the halon intro: a walking patrol and the standing-lean spot, i.e. a calm body in the main room.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#lch_01_community",
-      "entry_name": "TygerClaw6",
-      "phase_name": "0default",
-      "action": "Activate",
-      "why": "Yuri Shaku, the gig's second named Tyger Claw, has only one phase in the registry and it is the community's initial state, so this is the only way to keep him at the post; no spot map resolved, hence the tour check.",
       "needs_tour_check": true
     }
   ],

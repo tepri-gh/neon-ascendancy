@@ -1,7 +1,7 @@
 {
   "code": "sts_std_arr_11",
   "display_name": "6th Street Hideout, Megabuilding H6 (19F)",
-  "why": "The 19th floor of Megabuilding H6 in Arroyo is a 6th Street hideout: a netrunner den with a chair, a lab/office where Lucius Thoran jailbreaks corpo tech, back rooms and a sniper nest, and an ordinary neighbour's apartment across the hall. In vanilla it is only populated as the hostile target of El Capitan's gig 'Hacking the Hacker', so without the gig the floor risks standing empty. This proposal loads the street-story section and brings back the hideout's own at-post community (eleven 6th Street gangers, their netrunner and Lucius Thoran) plus the Corpo neighbour on his couch; the balcony crowd is already kept by std_arr_phase.",
+  "why": "The 19th floor of Megabuilding H6 in Arroyo is a 6th Street hideout: a netrunner den with a chair, a lab/office where Lucius Thoran jailbreaks corpo tech, back rooms and a sniper nest, and an ordinary neighbour's apartment across the hall. In vanilla it is only populated as the hostile target of El Capitan's gig 'Hacking the Hacker', so without the gig the floor risks standing empty. This proposal loads the street-story section and brings back the hideout's own at-post community (eleven 6th Street gangers, their netrunner and Lucius Thoran) plus the Corpo neighbour on his couch; the balcony crowd is already kept by std_arr_phase. Owner decision 60: retain the garrison without Lucius Thoran.",
   "source": {
     "proposal": "research/loc_sts_std_arr_11/proposal.json",
     "confidence": "medium",
@@ -20,10 +20,90 @@
   "communities": [
     {
       "spawner": "#arr_11_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "enemy_001",
+      "phase_name": "smoke",
       "action": "Activate",
-      "why": "The hideout's own at-post state: eleven 6th Street gangers and their netrunner at the workspots vanilla uses before the gig turns loud - smoking on a wall, searching a shelf, scavenging parts, fixing a device, sitting with a rifle, lying in the netrunner chair - plus Lucius Thoran working a tablet. Vanilla activates this community whole (entry None, phase None), so every entry returns to its initial phase. The officer enemy_012 inherits a quest chair workspot tagged scene; physically he is seated and smoking, so a tour check covers him.",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_002",
+      "phase_name": "stand",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_003",
+      "phase_name": "search",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_004",
+      "phase_name": "search",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_006",
+      "phase_name": "computer",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_007",
+      "phase_name": "smoke",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_008",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_010",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_011",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_012",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
+      "needs_tour_check": true
+    },
+    {
+      "spawner": "#arr_11_com",
+      "entry_name": "enemy_013",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 60 and venue-node-policy section 4: retain the existing at-post garrison while omitting gig target Lucius.",
       "needs_tour_check": true
     },
     {

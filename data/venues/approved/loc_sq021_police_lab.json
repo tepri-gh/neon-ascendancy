@@ -1,7 +1,7 @@
 {
   "code": "sq021_police_lab",
   "display_name": "NCPD Lab (The Glen)",
-  "why": "The NCPD Lab is a subcontracted NCPD research facility in the Glen, Heywood, used in The Hunt to research neuroscience and cyberpsychosis. Its building, doors and devices are ordinary world streaming; its only community entry is the on-duty researcher (entry mitsuko, record Character.sq021_dr_mitsuko, apparently Yawen Packard). This proposal restores the ordinary lab by activating her relaxed default phase and turning the investigation and prevention-system variants off, while leaving the quest's forced door states, River/Sobchak spawn sets and the break-in staging out.",
+  "why": "The NCPD research facility retains its ordinary building; venue-node-policy section 4 removes the side-job researcher and the investigation variants stay off.",
   "source": {
     "proposal": "research/loc_sq021_police_lab/proposal.json",
     "confidence": "medium",
@@ -19,16 +19,7 @@
   "prefabs": [
     "#sq021_pr_lab"
   ],
-  "communities": [
-    {
-      "spawner": "#sq021_com_doctor_mitsuko",
-      "entry_name": "mitsuko",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "The lab's ordinary on-duty researcher. default is the only relaxed, plain stand-around phase, and vanilla's only community nodes for this entry are Deactivates in sq021_hook and sq021_ride: the quest empties the lab for the break-in, so activating default reverses that staging and puts the researcher back at her normal post. The catalogue's mitsuko/default spot resolves to #ws_yawen_default under #pr_yawen_packard_default, so the entry appears to be Yawen Packard (the wiki's lab researcher) despite the record name sq021_dr_mitsuko; the spot dependency and the name/record mismatch need the tour check.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [
     {

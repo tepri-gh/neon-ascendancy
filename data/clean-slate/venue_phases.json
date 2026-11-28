@@ -512,20 +512,12 @@
     {
       "code": "hvdr_02_batty",
       "display_name": "Batty's Hotel",
-      "why": "Quest-only entropy (mq025). Declares #batty_pr_roof and the roof community; no doors are wired by mq025 for the roof.",
+      "why": "Venue-node-policy section 4: retain the rooftop prefab but remove the side-job boxer; no doors are wired by mq025 for the roof.",
       "prefabs": [
         "#batty_pr_roof"
       ],
       "doors": [],
-      "communities": [
-        {
-          "spawner": "#batty_com_roof",
-          "entry_name": "batty",
-          "phase_name": "batty",
-          "action": "Activate",
-          "why": "Batty roof community (the only mq025 venue community with a verified ref)"
-        }
-      ],
+      "communities": [],
       "probe_refs": {
         "workspot": "$/03_night_city/#c_heywood/vista_del_rey/hvdr_02/hvdr_02_questdesign_prefabQGPW7TI/#batty_pr_roof/#batty_ws_roof",
         "door": "",
@@ -613,10 +605,45 @@
       "communities": [
         {
           "spawner": "#q303_com_paradise_technical_floor_guards",
-          "entry_name": "None",
-          "phase_name": "None",
+          "entry_name": "challenge_01_guard_01",
+          "phase_name": "guard",
           "action": "Activate",
-          "why": "Paradise technical-floor guards"
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
+        },
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "challenge_01_guard_02",
+          "phase_name": "guard",
+          "action": "Activate",
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
+        },
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "challenge_03_sniper_01",
+          "phase_name": "guard",
+          "action": "Activate",
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
+        },
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "elevator_guard_01",
+          "phase_name": "guard",
+          "action": "Activate",
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
+        },
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "elevator_guard_02",
+          "phase_name": "guard",
+          "action": "Activate",
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
+        },
+        {
+          "spawner": "#q303_com_paradise_technical_floor_guards",
+          "entry_name": "elevator_guard_03",
+          "phase_name": "guard",
+          "action": "Activate",
+          "why": "Venue-node-policy sections 1 and 5: retain existing guards without activating quest reinforcements."
         }
       ],
       "probe_refs": {

@@ -14,6 +14,9 @@
       "Check the proximity anchor #ina_11_warehouse_door streams and the proximity wait fires on approach. It is the garage door on the main yard and is ungated in the catalogue, but it has no recorded position.",
       "Check during_sts=0 leaves the normal yard intact - doors, vending machines, car lift and shutters present, no roadblock and no gig shards. If the toggle empties the devices section instead, the boot default may already be 0 and the toggle can be dropped.",
       "Check the two security-area behaviours do not alarm the guards. The security areas are connected to #ina_11_com_guards and #ina_11_com_techies and are quest-gated; with no gig they should stay inert."
+    ],
+    "stripped": [
+      "owner decision 140: removed the broken quest sparring bot from communities."
     ]
   },
   "prefabs": [
@@ -50,14 +53,6 @@
       "phase_name": "0spawn",
       "action": "Activate",
       "why": "A second technician_1 instance posted in the work shed (his only phase is 0spawn), searching a shelf and inspecting parts - the venue's parts-store worker. This is the van driver who smokes in the gig scene's staging; in the ambient state he is simply in the shed.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#ina_11_com_robot",
-      "entry_name": "robot",
-      "phase_name": "sleep",
-      "action": "Activate",
-      "why": "The broken next-gen sparring bot that was dumped at the scrapyard: vanilla switches it on in its sleep phase in the gig-available branch, and its sleep spot is a kneel-and-inspect pose, so it reads as dormant junk rather than a body. It is the venue's most distinctive prop and belongs here before the gig starts (Dakota's brief already places it at the scrapyard). Its delivered phase (lie dead) is the post-gig pose and is not used.",
       "needs_tour_check": true
     }
   ],

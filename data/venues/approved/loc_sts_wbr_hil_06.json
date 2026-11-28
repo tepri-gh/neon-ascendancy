@@ -1,7 +1,7 @@
 {
   "code": "sts_wbr_hil_06",
   "display_name": "Acorn Towers Parking Lot",
-  "why": "A fenced, booth-controlled parking lot under Acorn Towers on Crockett St, used by a 6th Street crew as a stash and chop-shop yard. In vanilla it is the Family Heirloom gig site and only the street-story phases fill it, so with gigs disabled the lot is an empty, powered-down shell. This proposal instantiates the street-story prefab and switches on its own ambient population: twelve 6th Street gangers and eleven of their parked cars in the default hangout state, plus Wyatt Alken smoking against the wall, with the lot's quest security system kept hidden.",
+  "why": "Acorn Towers parking lot is a guarded chop-shop yard. Owner decision 128 removes Wyatt Alken and retains the calm crew and ordinary cars.",
   "source": {
     "proposal": "research/loc_sts_wbr_hil_06/proposal.json",
     "confidence": "medium",
@@ -24,13 +24,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "The lot's ambient 6th Street crew and their vehicles: eleven 6th Street cars in their bays plus twelve gangers on tablet, tool, welding, drug, graffiti, phone and card-table spots. Vanilla only ever reactivates this whole community after the gig; every entry's initial phase is default and every resolved spot is an idle workspot, so it is the calm, pre-gig look for a gang-held parking lot. Combat group kept first under population priority."
-    },
-    {
-      "spawner": "#hil_06_com",
-      "entry_name": "boss",
-      "phase_name": "talk",
-      "action": "Activate",
-      "why": "Wyatt Alken, the 6th Street boss who holds the lot, leaning on the wall for a smoke. The talk phase is the calm, resolved-spot version; the other boss phases are the car/keys/write quest beats or have no spots, and the quest encounters themselves never run."
     }
   ],
   "spawn_sets": [],

@@ -1,7 +1,7 @@
 {
   "code": "q112_parade_area",
   "display_name": "Japantown Parade Route (market bridge and shrine)",
-  "why": "The elevated parade route above Japantown: a market bridge of food stands and stalls, a security room, a construction site, lifts up to the route and a small shrine, all dressed for Saburo Arasaka's funeral parade in q112. This proposal restores the everyday bazaar - stall keepers, shoppers, the market crowd, the cook's grill, construction staff, a two-officer NCPD post and the shrine's miko and priest - while leaving the parade barges, billboards, blockers, frozen spectator blobs and Arasaka parade security out.",
+  "why": "The elevated parade route above Japantown: a market bridge of food stands and stalls, a security room, a construction site, lifts up to the route and a small shrine, all dressed for Saburo Arasaka's funeral parade in q112. This proposal restores the everyday bazaar - stall keepers, shoppers, the market crowd, the cook's grill, construction staff and the shrine's miko and priest - while leaving the parade barges, billboards, blockers, frozen spectator blobs and Arasaka parade security out. Venue-node-policy section 1 removes the police security from this civilian venue.",
   "source": {
     "proposal": "research/loc_q112_parade_area/proposal.json",
     "confidence": "medium",
@@ -68,22 +68,6 @@
       "phase_name": "worker_02",
       "action": "Activate",
       "why": "Second site worker, leaning on the site wall (dirt stand_wall_lean_back)."
-    },
-    {
-      "spawner": "#q112_com_market_ncpd",
-      "entry_name": "ncpd_01",
-      "phase_name": "q112_01_market_ncpd_01_01",
-      "action": "Activate",
-      "why": "NCPD officer posted at the market rail (stand_rail_lean_front__stand_around), the market's routine police presence. Vanilla spawns ncpd_01 here for the market meeting and walks it off at the end of the phase; the same relaxed, non-hostile phase should stand here normally.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q112_com_market_ncpd",
-      "entry_name": "ncpd_02",
-      "phase_name": "q112_01_market_ncpd_02_01",
-      "action": "Activate",
-      "why": "Second officer of the market post, leaning at the stand bar (stand_bar_lean_back). Same relaxed phase vanilla uses.",
-      "needs_tour_check": true
     },
     {
       "spawner": "#q112_com_parade_crowd_02",

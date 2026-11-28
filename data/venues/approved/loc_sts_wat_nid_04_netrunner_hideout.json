@@ -1,7 +1,7 @@
 {
   "code": "sts_wat_nid_04_netrunner_hideout",
   "display_name": "Dirty Biz XBD studio (Maelstrom-guarded netrunner hideout, Northside)",
-  "why": "This is the anonymous industrial building off Shipyard Way (Watson, Northside) where XBD tuners Gottfrid and Fredrik Persson cut braindances in a small studio on the upper floor while a Maelstrom squad holds the floors below. Vanilla owns the whole site through sts_wat_nid_04 (gig Dirty Biz): the street-story prefab carries the studio set, the two BD-chair workspots and the nine-man Maelstrom community, and the always-streamed gameplay section carries the studio door, shutters, cameras and security areas. Nothing in those phases is clean-slate-kept, so the place is currently shell-only. This proposal restores the prefab and both communities in their non-hostile working phases, and switches the baked lockdown variants to the open, security-on state the studio has while it is in use.",
+  "why": "This is the anonymous industrial building off Shipyard Way (Watson, Northside) where XBD tuners Gottfrid and Fredrik Persson cut braindances in a small studio on the upper floor while a Maelstrom squad holds the floors below. Vanilla owns the whole site through sts_wat_nid_04 (gig Dirty Biz): the street-story prefab carries the studio set, the two BD-chair workspots and the nine-man Maelstrom community, and the always-streamed gameplay section carries the studio door, shutters, cameras and security areas. Nothing in those phases is clean-slate-kept, so the place is currently shell-only. This proposal restores the prefab and both communities in their non-hostile working phases, and switches the baked lockdown variants to the open, security-on state the studio has while it is in use. Owner decision 143: omit the two named gig tuners.",
   "source": {
     "proposal": "research/loc_sts_wat_nid_04_netrunner_hideout/proposal.json",
     "confidence": "medium",
@@ -18,13 +18,6 @@
     "#sts_wat_nid_04_streetstory"
   ],
   "communities": [
-    {
-      "spawner": "#nid_04_com_gaf",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The studio's two XBD tuners, Fredrik and Gottfrid Persson. Their initial phase is bd, which places each of them lying in a netrunner chair (#nid_04_ws_fredrik_bd / #nid_04_ws_gottfrid_bd, workspot generic__lie_netrunner_chair__netrun__01) - exactly what an operating XBD studio looks like. The other phases are quest reactions: conscious (stand up when confronted), cower (kneel) and pack (no spots, flee)."
-    },
     {
       "spawner": "#nid_04_com",
       "entry_name": "None",

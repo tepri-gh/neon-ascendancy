@@ -18,7 +18,8 @@
     "stripped": [
       "door action #q000_dvc_arasaka_lobby_security_gate_right ForceON",
       "door action #q000_dvc_ara_tow_lift ForceEnabled",
-      "door action #q000_dvc_ara_tow_lift_door_001 ForceUnlock"
+      "door action #q000_dvc_ara_tow_lift_door_001 ForceUnlock",
+      "venue-node-policy section 4: removed lifepath quest actors Jenkins and Sampson from communities."
     ]
   },
   "prefabs": [
@@ -276,14 +277,6 @@
     },
     {
       "spawner": "#q000_corpo_com_arasaka_office",
-      "entry_name": "jenkins",
-      "phase_name": "desk",
-      "action": "Activate",
-      "why": "Arthur Jenkins at his own desk (sitting workspot, relaxed). Vanilla stages him standing in the 'conference' phase for the prologue scene; 'desk' is the entry's other, never-activated phase and is the one that reads as him working. Tour check: confirm the desk workspot is where we want him and that he is not mid-holo-call.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#q000_corpo_com_arasaka_office",
       "entry_name": "assistant",
       "phase_name": "hall_waiting",
       "action": "Activate",
@@ -365,13 +358,6 @@
       "phase_name": "big_room",
       "action": "Activate",
       "why": "Second employee in the big room."
-    },
-    {
-      "spawner": "#q000_corpo_com_arasaka_office",
-      "entry_name": "sampson",
-      "phase_name": "floor",
-      "action": "Activate",
-      "why": "Coworker standing on the office floor (Sampson's entry)."
     },
     {
       "spawner": "#q000_corpo_com_arasaka_office",

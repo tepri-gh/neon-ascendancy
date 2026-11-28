@@ -10,6 +10,9 @@
       "Walk in from Benko St on foot and reach both the depot hall and José's upstairs office without quest help. All six depot door entities read unlocked and interactive in the sector files, so the doors should just open; confirm the baked yard gate also lets you through and that the ladder/stairs to the roof and office work.",
       "Check the cantina is on: the bar stools, grill, jukebox and TVs are ordinary world devices here, but vanilla force-offs the screen during the gig's fight. Confirm the screen and jukebox are in a normal state at rest.",
       "Approach the depot and confirm the crew reads as a gang stash at work (alert but not in a firefight the moment you cross the fence line). Instant hostility from Valentino territory is normal open-world behaviour, but the failure mode is an empty, silent yard."
+    ],
+    "stripped": [
+      "owner decision 110: removed José Luis from communities."
     ]
   },
   "prefabs": [
@@ -70,14 +73,6 @@
       "phase_name": "a",
       "action": "Activate",
       "why": "Roof overwatch, the one guard the wiki always places on the main building roof: phase a's spots are patrolling_stand at z 13.4, which is the roof/upper level, so the depot keeps a visible watch without anyone aiming.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#spr_01_jose_com",
-      "entry_name": "jose",
-      "phase_name": "corpo",
-      "action": "Activate",
-      "why": "José Luis is alive in our timeline and runs this stash; phase corpo is his initial registry phase, a table-lean idle upstairs at z 13.47 next to his computer and the office shelf, i.e. the boss at his own desk rather than a quest scene.",
       "needs_tour_check": true
     },
     {

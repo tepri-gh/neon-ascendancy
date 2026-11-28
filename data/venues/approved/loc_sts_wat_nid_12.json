@@ -1,7 +1,7 @@
 {
   "code": "sts_wat_nid_12",
   "display_name": "Old WNS Station",
-  "why": "The Old WNS Station is the abandoned World News Service broadcasting studio on Drake and Pershing in Northside, a two-storey shell of ground-floor production rooms and an upstairs studio/office where Max Jones hides out. Vanilla keeps the building itself streaming (its env prefab carries the shell, doors, ladder, turret, cameras, mines and loot) but drops every street-story phase, so in the clean slate the studio is intact and empty. This proposal restores nothing because the one person who belongs here, Max Jones, cannot yet be expressed: his community template's entries are only read under Regina's Kabuki hub, so the station's spawner #nid_12_com gets no community_options and the checker rejects max_jones/default. The venue is left exactly as it streams, with its doors and its gig-rigged security reported below for the tour.",
+  "why": "The Old WNS Station is the abandoned World News Service broadcasting studio on Drake and Pershing in Northside, a two-storey shell of ground-floor production rooms and an upstairs studio/office where Max Jones hides out. Vanilla keeps the building itself streaming (its env prefab carries the shell, doors, ladder, turret, cameras, mines and loot) but drops every street-story phase, so in the clean slate the studio is intact and empty. This proposal restores nothing because the one person who belongs here, Max Jones, cannot yet be expressed: his community template's entries are only read under Regina's Kabuki hub, so the station's spawner #nid_12_com gets no community_options and the checker rejects max_jones/default. The venue is left exactly as it streams, with its doors and its gig-rigged security reported below for the tour. Owner decision 77: remove one-off gig character Max Jones.",
   "source": {
     "proposal": "research/loc_sts_wat_nid_12/proposal.json",
     "confidence": "medium",
@@ -17,16 +17,7 @@
   "prefabs": [
     "$/03_night_city/c_watson/northside/{loc_sts_wat_nid_}12_prefabAEWIIUA/#sts_wat_nid_12_openworld/#sts_wat_nid_12_streetstory"
   ],
-  "communities": [
-    {
-      "spawner": "#nid_12_com",
-      "entry_name": "max_jones",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Lead agent: Max Jones hiding out in the Old WNS station, in his default chair. Vanilla's own sts_wat_nid_12_ow phase activates exactly max_jones/default ungated; that phase is not kept, and the catalogue could not resolve the spawner's registry, so his posture is unconfirmed.",
-      "needs_tour_check": true
-    }
-  ],
+  "communities": [],
   "spawn_sets": [],
   "variant_toggles": [],
   "doors": [],

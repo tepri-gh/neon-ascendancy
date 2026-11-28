@@ -1,7 +1,7 @@
 {
   "code": "q112_market_area",
   "display_name": "Cherry Blossom Market (Japantown market area)",
-  "why": "Cherry Blossom Market is the glass-roofed Japantown market: rows of stalls, a grill/wok food row, Karim's vinyls, a tech-repair stall, and the Ramen Joint built where the Rainbow Cadenza once stood. The ambient market crowd and the parade-market cook already run in the clean slate (kept wbr_jpn_phase activates #q112_com_market_crowd men/women and #q112_com_market_cook ungated), so this proposal restores only the quest-side people: the four market stall vendors and the tech-stall vendor from sq012, two idle Tyger Claws postings, Stefan the BD seller, Karim, the street busker, the Ramen Joint cook and Ozob waiting at his pickup spot. No variant toggle is proposed: both toggled variants are quest end states, so vanilla's world default is the normal look.",
+  "why": "Cherry Blossom Market is the glass-roofed Japantown market: rows of stalls, a grill/wok food row, Karim's vinyls, a tech-repair stall, and the Ramen Joint built where the Rainbow Cadenza once stood. The ambient market crowd and the parade-market cook already run in the clean slate (kept wbr_jpn_phase activates #q112_com_market_crowd men/women and #q112_com_market_cook ungated), so this proposal restores only the quest-side people: the four market stall vendors and the tech-stall vendor from sq012, two idle Tyger Claws postings, Stefan the BD seller, Karim, the street busker, the Ramen Joint cook and Ozob waiting at his pickup spot. No variant toggle is proposed: both toggled variants are quest end states, so vanilla's world default is the normal look. Venue-node-policy section 4 removes Stefan as side-job cast.",
   "source": {
     "proposal": "research/loc_q112_market_area/proposal.json",
     "confidence": "medium",
@@ -21,13 +21,6 @@
     "$/03_night_city/c_westbrook/japan_town/loc_q112_market_area_prefabA2BP5HA/loc_q112_market_area_questdesign_prefabXPRXVNY/#mq035_pr_pickup"
   ],
   "communities": [
-    {
-      "spawner": "#mq036_com_stefan",
-      "entry_name": "stefan",
-      "phase_name": "default",
-      "action": "Activate",
-      "why": "Stefan at work as the market's BD seller, arms crossed at his corner (generic__stand_ground_arms_crossed). This is the calm pre-quest phase mq036_01_hook activates; crying/scavs_done/spared are aftermath poses and bd_player is the wall-lean he takes when V buys the BD."
-    },
     {
       "spawner": "#sq012_com_market",
       "entry_name": "temp_vendor_01",

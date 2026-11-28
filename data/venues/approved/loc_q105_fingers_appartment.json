@@ -1,7 +1,7 @@
 {
   "code": "q105_fingers_appartment",
   "display_name": "Fingers' Clinic, Jig-Jig Street",
-  "why": "Fingers' clinic sits behind an unmarked door on Jig-Jig Street: a stairwell up from the pavement, a waiting room where joytoys queue for cut-rate chrome, the exam room with its netrunner chair, and Fingers' office behind it. Vanilla fills it only from q105 setup/persistent phases, so the clean slate has the rooms and the doors but nobody in them. This proposal restores the queue and the pimp at the clinic door, Fingers' three thugs on the stairs, and the Jig-Jig frontage crowd outside, and declares the quest-design section that owns their spawners and workspots. Fingers himself is not duplicated: cast_and_hubs.json already activates #fingers/fingers/vendor_default through its directly-wired ripperdoc vendor phase.",
+  "why": "Fingers' clinic sits behind an unmarked door on Jig-Jig Street: a stairwell up from the pavement, a waiting room where joytoys queue for cut-rate chrome, the exam room with its netrunner chair, and Fingers' office behind it. Vanilla fills it only from q105 setup/persistent phases, so the clean slate has the rooms and the doors but nobody in them. This proposal restores the queue and the pimp at the clinic door, Fingers' three thugs on the stairs, and the Jig-Jig frontage crowd outside, and declares the quest-design section that owns their spawners and workspots. Fingers himself is not duplicated: cast_and_hubs.json already activates #fingers/fingers/vendor_default through its directly-wired ripperdoc vendor phase. Venue-node-policy sections 1 and 4: remove the quest-specific pimp and bouncer while retaining civilian residents. Venue-node-policy section 1: remove the clinic bouncer.",
   "source": {
     "proposal": "research/loc_q105_fingers_appartment/proposal.json",
     "confidence": "medium",
@@ -21,17 +21,38 @@
   "communities": [
     {
       "spawner": "#wbr_jpn_jig_fingers_com",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "child",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The Jig-Jig frontage in front of the clinic: a child playing on the ground, a male and a female freak, the pimp smoking on the clinic stairs, and a joytoy couple waiting at the corner. Vanilla switches the whole community on for the duration of q105 (entry/phase None) and every entry's initial phase is `default`, all on relaxed workspots (wall lean, bench drink, ground sleep, chair, stairs smoke). The neighbouring Jig-Jig Street research explicitly left this community to this venue."
+      "why": "Venue-node-policy section 1: retain ordinary civilian residents while excluding the quest-specific pimp."
     },
     {
-      "spawner": "#q105_com_fingers",
-      "entry_name": "goon_upstairs",
-      "phase_name": "continue",
+      "spawner": "#wbr_jpn_jig_fingers_com",
+      "entry_name": "freak_female",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "Fingers' pimp/bouncer, leaning on the waiting-room wall beside the clinic door (generic__stand_wall_lean_back, spot -572.85, 801.33, 24.9). `continue` is the phase vanilla's own pre-quest setup uses; `confront` is the argument beat and `after_fight` the post-beating state, so both are dropped."
+      "why": "Venue-node-policy section 1: retain ordinary civilian residents while excluding the quest-specific pimp."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_fingers_com",
+      "entry_name": "freak_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Venue-node-policy section 1: retain ordinary civilian residents while excluding the quest-specific pimp."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_fingers_com",
+      "entry_name": "prostitute_female",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Venue-node-policy section 1: retain ordinary civilian residents while excluding the quest-specific pimp."
+    },
+    {
+      "spawner": "#wbr_jpn_jig_fingers_com",
+      "entry_name": "prostitute_male",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Venue-node-policy section 1: retain ordinary civilian residents while excluding the quest-specific pimp."
     },
     {
       "spawner": "#q105_com_fingers",

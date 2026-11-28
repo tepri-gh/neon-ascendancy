@@ -1,7 +1,7 @@
 {
   "code": "mq306_tech_expo",
   "display_name": "Digimmortal (Terra Cognita exhibition hall)",
-  "why": "Digimmortal is the main exhibition hall of the abandoned Terra Cognita technological park in Dogtown, a three-level gallery of dead corporate exhibits (CHOOH2, Militech, Satwave, Combatzone, D1G1SCAPE, Arasaka Mirai) that scavengers now pick apart for cyberware while Damir Kovac runs a ripper clinic behind the upper gallery. In our timeline nobody raids or clears it, so this proposal restores the venue as it stands in normal play: the quest's base section with the full scavenger garrison at its vanilla ambient posts (gate and lobby pair, gallery guards and snipers, a netrunner on the phone, a scavenger stripping an exhibit) and Damir and his assistant at work in the clinic. It also clears the two mine navmesh blockers and the post-combat loot variant, and leaves the turret's baked default alone.",
+  "why": "Digimmortal is the main exhibition hall of the abandoned Terra Cognita technological park in Dogtown, a three-level gallery of dead corporate exhibits (CHOOH2, Militech, Satwave, Combatzone, D1G1SCAPE, Arasaka Mirai) that scavengers now pick apart for cyberware while Damir Kovac runs a ripper clinic behind the upper gallery. In our timeline nobody raids or clears it, so this proposal restores the venue as it stands in normal play: the quest's base section with the full scavenger garrison at its vanilla ambient posts (gate and lobby pair, gallery guards and snipers, a netrunner on the phone, a scavenger stripping an exhibit) and Damir and his assistant at work in the clinic. It also clears the two mine navmesh blockers and the post-combat loot variant, and leaves the turret's baked default alone. Venue-node-policy section 4: remove one-off side-job cast Damir and his assistant.",
   "source": {
     "proposal": "research/loc_mq306_tech_expo/proposal.json",
     "confidence": "medium",
@@ -143,22 +143,6 @@
       "phase_name": "spawn",
       "action": "Activate",
       "why": "Lobby guard leaning on the rail above the entrance.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#mq306_com_damir",
-      "entry_name": "damir",
-      "phase_name": "arrival_clinic",
-      "action": "Activate",
-      "why": "Damir Kovac at his own ripper clinic behind the upper gallery, in the clinic's idle arrival phase rather than the procedure scene. He is alive in our timeline and runs the clinic whether or not Aaron ever arrives.",
-      "needs_tour_check": true
-    },
-    {
-      "spawner": "#mq306_com_damir",
-      "entry_name": "assistant",
-      "phase_name": "arrival_clinic",
-      "action": "Activate",
-      "why": "Damir's clinic assistant, working a tablet at the clinic desk in the same idle phase.",
       "needs_tour_check": true
     }
   ],

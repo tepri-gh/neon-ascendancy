@@ -1,7 +1,7 @@
 {
   "code": "sts_wat_kab_05_client_signal",
   "display_name": "Eisenhower St. scav den and Charles Bucks' clinic (Kabuki)",
-  "why": "A nondescript housing block on Eisenhower Street in Kabuki: the main floor is a Scavenger flop with a TV, couches and two braindance-addled joytoys, the floor above holds two more scavs and the back stairs lead up to Charles Bucks' illegal ripperdoc clinic. This proposal restores the street-story interior section, all three vanilla Scavenger communities in their relaxed initial phases, and the window shutters in the open/occupied state; Charles Bucks is already spawned by the kept kabuki_vendors phase, so only his interior needs loading. The corpse, laptop, databank and post-gig ripperdoc scenes stay out.",
+  "why": "A nondescript housing block on Eisenhower Street in Kabuki: the main floor is a Scavenger flop with a TV, couches and two braindance-addled joytoys, the floor above holds two more scavs and the back stairs lead up to Charles Bucks' illegal ripperdoc clinic. This proposal restores the street-story interior section, all three vanilla Scavenger communities in their relaxed initial phases, and the window shutters in the open/occupied state; Charles Bucks is already spawned by the kept kabuki_vendors phase, so only his interior needs loading. The corpse, laptop, databank and post-gig ripperdoc scenes stay out. Venue-node-policy section 1: omit quest detainees and gig-specific occupants from static population.",
   "source": {
     "proposal": "research/loc_sts_wat_kab_05_client_signal/proposal.json",
     "confidence": "medium",
@@ -30,13 +30,6 @@
       "phase_name": "None",
       "action": "Activate",
       "why": "Two more Scavengers on the upper floor: a shotgun tier-2 in default and the keycard ganger in the chat phase (routine stand ground), i.e. two guards standing and talking. Both are relaxed and no quest activates them hostile; the whole-community form keeps enemy_009 in its chat initial phase."
-    },
-    {
-      "spawner": "#kab_05_com_1st_floor_prostitutes",
-      "entry_name": "None",
-      "phase_name": "None",
-      "action": "Activate",
-      "why": "The two joytoy/braindance civilians the den keeps around the main floor: the woman slumped on a couch in a braindance, the man asleep on a bench. They are ambient in vanilla's own live-gig pass and are what makes the flop read as a place people live in, not a cleared room."
     }
   ],
   "spawn_sets": [],

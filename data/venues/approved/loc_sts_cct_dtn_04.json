@@ -1,7 +1,7 @@
 {
   "code": "sts_cct_dtn_04",
   "display_name": "Biotechnica Hotel (Republic Way, Downtown)",
-  "why": "The Biotechnica Hotel on Republic Way is a corporate staff hotel: a guarded lobby with a bar and reception, the 19th floor with apartments 191-194 and a security room, and a roof AV pad. Vanilla's kept downtown community phase already staffs the lobby bar and reception, but the hotel's own staff and security detachment and the two corporate bar patrons exist only while Gig: Guinea Pigs runs. This proposal loads the venue's street-story section and restores the hotel's in-house staff, guards, droids and its 19th-floor resident, so it reads as a working corporate hotel instead of a quest shell.",
+  "why": "The Biotechnica Hotel on Republic Way is a corporate staff hotel: a guarded lobby with a bar and reception, the 19th floor with apartments 191-194 and a security room, and a roof AV pad. Vanilla's kept downtown community phase already staffs the lobby bar and reception, but the hotel's own staff and security detachment and the two corporate bar patrons exist only while Gig: Guinea Pigs runs. This proposal loads the venue's street-story section and restores the hotel's in-house staff, guards, droids and its 19th-floor resident, so it reads as a working corporate hotel instead of a quest shell. Owner decision 158: remove Joanne Koch and retain ordinary guests and security.",
   "source": {
     "proposal": "research/loc_sts_cct_dtn_04/proposal.json",
     "confidence": "medium",
@@ -27,10 +27,17 @@
     },
     {
       "spawner": "#dtn_04_com_npc",
-      "entry_name": "None",
-      "phase_name": "None",
+      "entry_name": "dtn_04_corp_female",
+      "phase_name": "default",
       "action": "Activate",
-      "why": "The hotel's normal pre-gig residents and patrons: two corporate guests at the lobby bar (couch with champagne, chair on the phone) and Dr. Joanne Koch in apartment 193, absorbed in a braindance on the bench. Vanilla's gig dispatcher activates this whole community before the job takes the area over, and the main gig phase deactivates it again; it is exactly the 'before anything happened' state. All three entries are in the relaxed default phase, not the target's afraid/hide phase."
+      "why": "Owner decision 158: retain ordinary hotel guests while removing the gig target Koch."
+    },
+    {
+      "spawner": "#dtn_04_com_npc",
+      "entry_name": "dtn_04_corp_phone",
+      "phase_name": "default",
+      "action": "Activate",
+      "why": "Owner decision 158: retain ordinary hotel guests while removing the gig target Koch."
     }
   ],
   "spawn_sets": [],
