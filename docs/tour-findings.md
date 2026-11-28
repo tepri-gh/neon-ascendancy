@@ -113,6 +113,40 @@ Owner calls are items 183 to 193. Left for later:
   its variant group does not match the streaming block; check whether it
   shows in game. The stripped Colby there is deleted (world_deletions.json).
 
+## Node tour, 2026-11-27 evening (stops 13-86 of 163)
+
+The owner marked 31 of the 44 stops "not right". Most of them lack security
+detail or need a design call, and those wait for the design pass in
+`docs/design/node-staffing.md`. The owner's size and type calls are applied
+to `classification.json` (listed in that doc's section 2). The game hung on
+the teleport to stop 87 (`sts_wat_nid_03_abandoned_motel`) with ntsync
+already off. That is the first hang since the ntsync fix.
+
+The fix items went to five agents. Their briefs and reports are in the
+extract cache's `research/tour-2026-11-27b/`:
+- **A, removals.** The chapel projectors still on by day and a floating
+  light. Bodies at the chapel roof, La Catrina (a daemon-infected shard),
+  Arasaka Tower floor 388 and the Eisenhower St. shop (an investigation
+  icon). The AV at Slayton's apartment, the broken cars at Wicked Tires,
+  Tirempire and Eisenhower St., and Ho-Oh's quest shard case. Then the
+  investigation-marker signature and a scan of every node.
+- **B, doors and lifts.** A door at Albach's condo, Empathy's doors and
+  shutters, the No-Tell Motel's auth door, Autowerks' garage doors, and
+  Arasaka Tower's corpo-floor doors and lifts (no way down to the bottom
+  floor, nor back up to counter-intel).
+- **C, clubs and crowds.** No DJ or music at Totentanz, Riot, Empathy and
+  7th Hell. Lizzie's is empty and "closed". Thin crowds at Empathy, 7th Hell
+  and Ho-Oh.
+- **D, tour stops.** The Elders' Lair stop lands in the chapel. Totentanz
+  appears twice. The Maelstrom warehouse spawn is off. Black Sapphire's
+  "sneak-in" stop is really the casino. A fall through the world near
+  Slayton's. Claire's Garage has no stop. Motel Kabuki reads as an open-air
+  market. And the stop-87 hang.
+- **E, research.** The vanilla security counts per node, for the design
+  pass (`docs/research/node-security-reference.md`). Arasaka Tower's alert
+  mode and Konpeki's lockdown dressing. The mechanics' workspots at
+  Tirempire, for the later vehicle-service system.
+
 ## Second tour (re-test)
 
 - H10 lobby residents staring through the open gate (`fa60430`).

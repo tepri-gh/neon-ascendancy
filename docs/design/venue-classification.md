@@ -6,8 +6,8 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 
 - **Total classified:** 194 (169 approved + 6 hand-built + 19 hustle shortlist)
 - **Buckets:** `123` nodes, `51` civilian-only venues, `7` neutral hubs, `13` excluded, **`0` undecided**
-- **Node types:** {'military': 23, 'economy': 68, 'espionage': 13, 'tech': 19}
-- **Node sizes:** {'large': 28, 'medium': 79, 'small': 16}
+- **Node types:** {'military': 24, 'economy': 68, 'espionage': 12, 'tech': 19}
+- **Node sizes:** {'large': 34, 'medium': 72, 'small': 17}
 - **Bosses:** 12 lore bosses (0 conflicts), 111 dynamically generated lieutenants
 - **Pending `owner-decisions.md` items resolved:** 121 / 121
 
@@ -41,10 +41,10 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `aldecaldos` | medium | economy | `loc_q103_roadhouse` | Sunset Motel (Rocky Ridge roadhouse, Interstate 9) | Aldecaldos Roadhouse Lieutenant (gen) | yes |
 | `aldecaldos` | medium | economy | `loc_sq024_mariannes_garage` | Claire's Garage | Aldecaldos Lieutenant (gen) | yes |
 | `animals` | large | military | `loc_q110_pacifica_mall` | Grand Imperial Mall (GIM), Coastview **(HQ)** | **Sasquatch** (lore) | no |
+| `animals` | large | economy | `loc_sts_cct_dtn_03` | Empathy | Animals lieutenant (gen) | yes |
 | `animals` | medium | economy | `loc_rosebud` | Red Queen's Race (Charter Hill basement club) | Animals lieutenant (gen) | no |
 | `animals` | medium | economy | `loc_sq017_nightclub` | Riot | Animals club security lieutenant (gen) | yes |
 | `animals` | medium | economy | `loc_sts_cct_dtn_02_metal_club` | 7th Hell | Animals Lieutenant (gen) | yes |
-| `animals` | medium | economy | `loc_sts_cct_dtn_03` | Empathy | Animals lieutenant (gen) | yes |
 | `animals` | medium | economy | `loc_sts_pac_wwd_05_paint_factory` | Tripple Xtreme Epic Workout Center (Old Paint Factory) | **Logan Garcia** (lore) | no |
 | `animals` | small | economy | `loc_sts_hey_spr_06` | Data Inc. electronics store — Wellsprings, Heywood (Hot Merchandise) | Animals Lieutenant (gen) | yes |
 | `arasaka` | large | espionage | `loc_arasaka_tower` | Arasaka Tower — Corpo Plaza (lobby and counter-intelligence floor) **(HQ)** | Arasaka counter-intelligence lieutenant (gen) | yes |
@@ -52,9 +52,9 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `arasaka` | large | economy | `loc_q112_arasaka_industrial_park_warehouse` | Arasaka Industrial Park Warehouse (Arroyo) | Arasaka Lieutenant (gen) | yes |
 | `arasaka` | large | military | `loc_q113_arasaka_estate` | Arasaka Estate (North Oak) | Arasaka Lieutenant (gen) | yes |
 | `arasaka` | medium | tech | `loc_mq059_freedom` | Rayfield Contractor Site — Bullard & Sequoia (Rancho Coronado) | Arasaka contractor security lieutenant (gen) | yes |
-| `arasaka` | medium | economy | `loc_q115_fancy_restaurant` | Embers | Arasaka Venue Lieutenant (gen) | yes |
+| `arasaka` | small | economy | `loc_q115_fancy_restaurant` | Embers | Arasaka Venue Lieutenant (gen) | yes |
 | `barghest` | large | economy | `loc_pr_stadium` | EBM Petrochem Stadium (Dogtown black market and Barghest base) | Barghest market lieutenant (gen) | yes |
-| `barghest` | large | economy | `loc_q303_paradise` | Black Sapphire (Dogtown) **(HQ)** | **Kurt Hansen** (lore) | no |
+| `barghest` | large | economy | `loc_q303_paradise` | Black Sapphire (Dogtown) **(HQ)** | **Kurt Hansen** (lore) | yes |
 | `barghest` | large | tech | `loc_sts_ep1_13` | Center for Neuromotor Development, Site 341 (Talent Academy) | Barghest academy security lieutenant (gen) | yes |
 | `barghest` | medium | economy | `loc_q301_crashsite_way_up` | Stacks Container Yard (Dogtown, below Luxor Heights) | Barghest Lieutenant (gen) | yes |
 | `barghest` | medium | military | `loc_q303_combat_zone_gate` | Dogtown Gate Checkpoint (Combat Zone Border) | Barghest Lieutenant (gen) | yes |
@@ -84,9 +84,9 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `militech` | small | economy | `hustle_cct_dtn_15` | cct_dtn_15 (Downtown) | Militech Lieutenant (gen) | yes |
 | `ncpd` | large | military | `loc_mq062` | Night City Prison (Arroyo) — visitor center, cell block and security cortex | Ncpd Lieutenant (gen) | yes |
 | `ncpd` | large | tech | `loc_q111_pumpstation` | Wellsprings Water Treatment Facility (Pump Station) | Ncpd Lieutenant (gen) | yes |
+| `ncpd` | large | tech | `loc_sq021_police_lab` | NCPD Lab (The Glen) | Ncpd Lieutenant (gen) | yes |
 | `ncpd` | medium | economy | `loc_sq006_jefferson_residence` | Peralezes' Apartment (Charter Hill penthouse) | Ncpd Lieutenant (gen) | yes |
-| `ncpd` | medium | tech | `loc_sq021_police_lab` | NCPD Lab (The Glen) | Ncpd Lieutenant (gen) | yes |
-| `ncpd` | medium | tech | `loc_sts_cct_cpz_01` | Memorial Park NCART Station (concourse and security annex) | Ncpd Lieutenant (gen) | yes |
+| `ncpd` | medium | military | `loc_sts_cct_cpz_01` | Memorial Park NCART Station (concourse and security annex) | Ncpd Lieutenant (gen) | yes |
 | `ncpd` | medium | economy | `loc_sts_hey_gle_03` | Gaston Slayton's Apartment (Lobos St, floor 17) | NCPD Security Lieutenant (gen) | no |
 | `ncpd` | medium | tech | `loc_sts_std_rcr_02` | Night City Center for Psychiatric Health (Rancho Coronado) | Ncpd Lieutenant (gen) | yes |
 | `ncpd` | medium | economy | `loc_sts_wbr_hil_01` | Gutierrezes' Apartment (Charter Hill) | NCPD Security Lieutenant (gen) | no |
@@ -95,6 +95,7 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `scavs` | large | espionage | `loc_q105_braindance_studio` | Electric Corporation Power Plant (Scavenger XBD studio) | Scavs Lieutenant (gen) | yes |
 | `scavs` | large | economy | `loc_sts_std_arr_03` | Kendachi Factory, El Camino Rd (Arroyo) | Scavs Lieutenant (gen) | yes |
 | `scavs` | large | tech | `loc_sts_std_arr_10` | Cytech Factory | Scavs Lieutenant (gen) | yes |
+| `scavs` | large | economy | `loc_sts_wat_kab_102_cargo` | Kabuki Docks Container Yard | Dock security lieutenant (gen) | yes |
 | `scavs` | medium | economy | `hustle_bls_ina_se5_09` | bls_ina_se5_09 (Badlands) | Scavenger lieutenant (gen) | yes |
 | `scavs` | medium | economy | `hustle_cct_dtn_12` | cct_dtn_12 (Corpo Plaza garage) | Scavs Lieutenant (gen) | yes |
 | `scavs` | medium | economy | `loc_q005_notell_motel` | No-Tell Motel (Kabuki) | Scavenger Motel Lieutenant (gen) | yes |
@@ -103,13 +104,12 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `scavs` | medium | economy | `loc_sq027_rail_junction` | Corp-Bud Railroad Station | Scavs Lieutenant (gen) | yes |
 | `scavs` | medium | economy | `loc_sts_bls_ina_11` | Warbler Lake Hazardous Waste Facility (Junk Vendor scrapyard) | Scrapyard security lieutenant (gen) | yes |
 | `scavs` | medium | tech | `loc_sts_ep1_03` | Los Osos Motel (West Wind Estate) | Scavs Lieutenant (gen) | yes |
-| `scavs` | medium | economy | `loc_sts_std_arr_12_gas_station` | Tirempire Auto Shop (Arroyo) | Scavs Lieutenant (gen) | yes |
 | `scavs` | medium | economy | `loc_sts_std_arr_12_motel` | Las Palapas Motel (Arroyo) | Motel security lieutenant (gen) | yes |
-| `scavs` | medium | economy | `loc_sts_wat_kab_102_cargo` | Kabuki Docks Container Yard | Dock security lieutenant (gen) | yes |
 | `scavs` | medium | economy | `loc_sts_wat_nid_03_abandoned_motel` | Abandoned Motel on Martin Street | Motel security lieutenant (gen) | yes |
 | `scavs` | medium | espionage | `loc_sts_wat_nid_12` | Old WNS Station | Media intelligence lieutenant (gen) | yes |
 | `scavs` | small | tech | `hustle_wat_lch_01` | wat_lch_01 (Little China rooftop) | Scavenger cyberware lieutenant (gen) | yes |
 | `scavs` | small | military | `loc_q000_scavengers` | Scavenger Den (Japantown, room 1237) | Scavenger Den Lieutenant (gen) | no |
+| `scavs` | small | economy | `loc_sts_std_arr_12_gas_station` | Tirempire Auto Shop (Arroyo) | Scavs Lieutenant (gen) | yes |
 | `scavs` | small | tech | `loc_sts_wat_kab_05_client_signal` | Eisenhower St. scav den and Charles Bucks' clinic (Kabuki) | Scavenger lieutenant (gen) | yes |
 | `sixth_street` | large | military | `loc_sts_std_arr_11` | 6th Street Hideout, Megabuilding H6 (19F) **(HQ)** | 6th Street lieutenant (gen) | yes |
 | `sixth_street` | medium | tech | `hustle_std_arr_03` | std_arr_03 (Hargreaves St, Arroyo) | Sixth Street Lieutenant (gen) | yes |
@@ -120,24 +120,24 @@ Status: **finalized** (owner calls applied 2026-11-27). Policy: [`venue-node-pol
 | `sixth_street` | medium | espionage | `loc_sts_std_rcr_04` | 6th Street propaganda garage, Oak St. (Rancho Coronado) | Sixth Street Lieutenant (gen) | yes |
 | `sixth_street` | medium | economy | `loc_sts_wbr_hil_06` | Acorn Towers Parking Lot | Sixth Street Lieutenant (gen) | yes |
 | `sixth_street` | small | tech | `hustle_std_rcr_08` | std_rcr_08 (Rancho Coronado) | 6th Street lieutenant (gen) | yes |
-| `the_mox` | large | economy | `loc_q004_lizzys_nightclub` | Lizzie's Bar **(HQ)** | **Susie Q** (lore) | no |
+| `the_mox` | large | economy | `loc_q004_lizzys_nightclub` | Lizzie's Bar **(HQ)** | **Susie Q** (lore) | yes |
 | `the_mox` | medium | economy | `loc_sts_wat_nid_01` | Autowerks (Longshore North) | The Mox Lieutenant (gen) | yes |
 | `tyger_claws` | large | economy | `loc_q105_dollhouse` | Clouds **(HQ)** | **Oswald Forrest (Woodman)** (lore) | no |
 | `tyger_claws` | large | economy | `loc_q105_jigjig_street` | Jig-Jig Street | Tyger Claws District Lieutenant (gen) | yes |
 | `tyger_claws` | large | economy | `loc_q112_market_area` | Cherry Blossom Market (Japantown market area) | Tyger Claws Market Lieutenant (gen) | yes |
+| `tyger_claws` | large | economy | `loc_sts_wat_kab_07` | Ho-Oh Casino (Kabuki) | Tyger Claws Lieutenant (gen) | yes |
+| `tyger_claws` | large | military | `loc_sts_wat_lch_03_dojo` | Deravaja Dojo | Tyger Claws Lieutenant (gen) | yes |
+| `tyger_claws` | large | tech | `loc_sts_wat_lch_06_neon_basement` | Rovinj St. Glitter Lab (Neon Basement) | Tyger Claws lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `hustle_wat_lch_08` | wat_lch_08 (Drake & Cartwright, Little China) | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `hustle_wbr_jpn_20` | wbr_jpn_20 (Willow St, Japantown) | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sq017_pachinko_lounge` | Dark Matter | Tyger Claws Lieutenant (gen) | yes |
-| `tyger_claws` | medium | economy | `loc_sts_wat_kab_07` | Ho-Oh Casino (Kabuki) | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wat_kab_08_cop_hotel` | Motel Kabuki | Tyger Claws Lieutenant (gen) | yes |
-| `tyger_claws` | medium | military | `loc_sts_wat_lch_03_dojo` | Deravaja Dojo | Tyger Claws Lieutenant (gen) | yes |
-| `tyger_claws` | medium | tech | `loc_sts_wat_lch_06_neon_basement` | Rovinj St. Glitter Lab (Neon Basement) | Tyger Claws lieutenant (gen) | yes |
+| `tyger_claws` | medium | tech | `loc_sts_wat_lch_01_server_room` | Megabuilding H11 Server Room | Tyger Claws Netrunner Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wat_nid_02` | Revere Courier Services Facility | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wbr_hil_07` | Tyger Claws Casino (Charter Hill) | Tyger Claws lieutenant (gen) | yes |
 | `tyger_claws` | medium | tech | `loc_sts_wbr_jpn_02_monoblade_workshop` | Monokatana Workshop (Raymond St, Japantown) | Tyger Claws workshop lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wbr_jpn_03_shrine` | Chram Denya Jinja | Tyger Claws Lieutenant (gen) | yes |
 | `tyger_claws` | medium | economy | `loc_sts_wbr_jpn_12b` | Wired Head (Japantown) | Tyger Claws Lieutenant (gen) | yes |
-| `tyger_claws` | small | espionage | `loc_sts_wat_lch_01_server_room` | Megabuilding H11 Server Room | Tyger Claws Netrunner Lieutenant (gen) | no |
 | `valentinos` | large | economy | `loc_sts_hey_rey_06` | La Catrina Funeral Home **(HQ)** | Valentinos lieutenant (gen) | yes |
 | `valentinos` | medium | economy | `loc_sq022_el_coyote_cojo_bar` | El Coyote Cojo | Valentinos Lieutenant (gen) | yes |
 | `valentinos` | medium | economy | `loc_sts_hey_gle_04` | El Pinche Pollo | Valentinos Lieutenant (gen) | yes |

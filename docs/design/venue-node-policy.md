@@ -22,6 +22,11 @@ Every mapped venue (and shortlisted hustle site) falls into exactly one bucket:
 | `neutral_hub` | Protected non-capturable hub required by a gameplay system: **Fixer HQs**, **Companion homes**, or **Neutral service orgs** (Delamain HQ). | System-owned (fixers static in `cast_and_hubs`; companions despawn from home while rolling with V). Never flips. |
 | `excluded` | Unremovable campaign/gig lore implications (Space Force One crash, Cynosure bunker, Spidertank arena, submerged Laguna Bend) or empty street-corner / road-staging wrappers with nothing to restore. | Excluded / sealed as vanilla leaves it. |
 
+The "5+" garrison is a placeholder. The security detail per node size, a
+possible `very_large` multi-type tier, a logistics type, drug labs, garages
+as tech nodes and netrunners at non-espionage nodes are open in
+[`node-staffing.md`](node-staffing.md) (owner tour, 2026-11-27).
+
 ---
 
 ## 2. Strict criteria for a `node`
@@ -70,10 +75,10 @@ A venue is a `node` if and only if **all four** conditions hold:
   - `large` — flagship HQs, major complexes, megaclubs, malls, hotels,
     industrial parks, stadiums (e.g. Totentanz, Clouds, Arasaka Tower,
     Black Sapphire, Konpeki Plaza, Grand Imperial Mall, All Foods, EBM
-    Stadium).
+    Stadium, Ho-Oh).
   - `medium` — full standalone businesses, warehouses, container yards,
     garages/chop shops, mid-sized clubs, clinics, apartments/towers,
-    compounds (e.g. Ho-Oh, 7th Hell, Empathy, Biotechnica Hotel, Revere
+    compounds (e.g. 7th Hell, Empathy, Biotechnica Hotel, Revere
     Courier, Peralez apartment building, El Pinche Pollo, Deravaja Dojo).
   - `small` — compact outposts, small chop-shop gas stations, relay stations,
     smaller fortified dens or single-floor gang hideouts that still support 5+

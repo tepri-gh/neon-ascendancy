@@ -1730,9 +1730,9 @@
       "case_for_node": "Empathy is a staffed club with established Animals bouncers.",
       "case_against_node": "Its security needs a distinct lieutenant alongside the existing bouncers.",
       "bucket": "node",
-      "reason": "The full club supports patrons, staff and a guarded business node.",
+      "reason": "The full club supports patrons, staff and a guarded business node. Owner, tour 2026-11-27: large economy node; needs a much bigger crowd.",
       "node_type": "economy",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "animals",
       "boss": {
@@ -1927,9 +1927,9 @@
       "case_for_node": "The staffed upscale restaurant is a meaningful hospitality asset.",
       "case_against_node": "Only restaurant staff are specified and its quest-only interior needs normal security.",
       "bucket": "node",
-      "reason": "Embers is an Arasaka-controlled upscale venue in The Glen, not a Scav den.",
+      "reason": "Embers is an Arasaka-controlled upscale venue in The Glen, not a Scav den. Owner, tour 2026-11-27: small economy node.",
       "node_type": "economy",
-      "size": "medium",
+      "size": "small",
       "is_hq": false,
       "initial_controller": "arasaka",
       "boss": {
@@ -2022,7 +2022,7 @@
       "case_for_node": "The entrance provides access to the Black Sapphire flagship complex.",
       "case_against_node": "This record is only a door and shutter wrapper for the larger Black Sapphire, not an independent asset.",
       "bucket": "node",
-      "reason": "Barghest flagship tower, floor-99 club, and Kurt Hansen HQ (not a staging wrapper).",
+      "reason": "Barghest flagship tower, floor-99 club, and Kurt Hansen HQ (not a staging wrapper). Owner, tour 2026-11-27: many guards missing; large-node security (node-staffing.md).",
       "node_type": "economy",
       "size": "large",
       "is_hq": true,
@@ -2035,7 +2035,7 @@
       "strip_from_static": [
         "quest entrance and combat staging"
       ],
-      "needs_garrison_work": false,
+      "needs_garrison_work": true,
       "owner_decisions_resolved": {}
     },
     {
@@ -2768,9 +2768,9 @@
       "case_for_node": "The NCPD research facility is a meaningful forensic and neuroscience asset.",
       "case_against_node": "Only one researcher is currently recorded, so the security staffing is missing.",
       "bucket": "node",
-      "reason": "A full research facility can sustain a security detail and lieutenant.",
+      "reason": "A full research facility can sustain a security detail and lieutenant. Owner, tour 2026-11-27: NCPD tech area, large node.",
       "node_type": "tech",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "ncpd",
       "boss": {
@@ -2792,8 +2792,8 @@
       "case_for_node": "The staffed transit facility includes infrastructure, control systems and security rooms.",
       "case_against_node": "A public station is primarily a transit service and may overlap the metro venue.",
       "bucket": "node",
-      "reason": "Its dedicated control and security annex is a guardable utility facility.",
-      "node_type": "tech",
+      "reason": "Its dedicated control and security annex is a guardable utility facility. Owner, tour 2026-11-27: medium NCPD military node.",
+      "node_type": "military",
       "size": "medium",
       "is_hq": false,
       "initial_controller": "ncpd",
@@ -3240,9 +3240,9 @@
       "case_for_node": "The garage, bays and yard are a substantial automotive business.",
       "case_against_node": "The existing mechanics and customers do not provide security or a boss.",
       "bucket": "node",
-      "reason": "The full auto shop meets the policy\u2019s garage-node example.",
+      "reason": "The full auto shop meets the policy\u2019s garage-node example. Owner, tour 2026-11-27: small garage/auto node, not a gas station.",
       "node_type": "economy",
-      "size": "medium",
+      "size": "small",
       "is_hq": false,
       "initial_controller": "scavs",
       "boss": {
@@ -3318,9 +3318,9 @@
       "case_for_node": "The fenced container yard is an operating logistics asset with room for guards.",
       "case_against_node": "The current pre-state has only dock workers and a truck, with gig security separate.",
       "bucket": "node",
-      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant. Owner, tour 2026-11-27: large node; type waits on the logistics question (node-staffing.md).",
       "node_type": "economy",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "scavs",
       "boss": {
@@ -3634,7 +3634,7 @@
       "case_for_node": "Lizzie\u2019s is the Mox flagship club with staff, security and offices.",
       "case_against_node": "Its quest-only rooms and crowd require restoration.",
       "bucket": "node",
-      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant.",
+      "reason": "The site is a lore-cleanable economy asset with space for a five-person garrison and lieutenant. Owner, tour 2026-11-27: Mox HQ, multi-type, very large; needs real security work (node-staffing.md).",
       "node_type": "economy",
       "size": "large",
       "is_hq": true,
@@ -3647,7 +3647,7 @@
       "strip_from_static": [
         "one-off quest visitors and staging"
       ],
-      "needs_garrison_work": false,
+      "needs_garrison_work": true,
       "owner_decisions_resolved": {}
     },
     {
@@ -3829,9 +3829,9 @@
       "case_for_node": "The multi-floor casino and club is an established Tyger business.",
       "case_against_node": "The current hand-built state activates a combat community rather than normal staffing.",
       "bucket": "node",
-      "reason": "The casino is a substantial guardable commercial node.",
+      "reason": "The casino is a substantial guardable commercial node. Owner, tour 2026-11-27: large economy node; a Tyger Claws HQ candidate (node-staffing.md).",
       "node_type": "economy",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "tyger_claws",
       "boss": {
@@ -3879,9 +3879,9 @@
       "case_for_node": "A netrunner chair and inner server room support an intelligence den.",
       "case_against_node": "It is a compact single floor with only five crew and no established lieutenant.",
       "bucket": "node",
-      "reason": "Owner call (U3): keep H11 Server Room as small Tyger Claws espionage node.",
-      "node_type": "espionage",
-      "size": "small",
+      "reason": "Owner call (U3): keep H11 Server Room as small Tyger Claws espionage node. Owner, tour 2026-11-27: medium tech node, netrunner den; needs more security.",
+      "node_type": "tech",
+      "size": "medium",
       "is_hq": false,
       "initial_controller": "tyger_claws",
       "boss": {
@@ -3894,7 +3894,7 @@
         "Yuri Shaku",
         "gig combat staging"
       ],
-      "needs_garrison_work": false,
+      "needs_garrison_work": true,
       "owner_decisions_resolved": {
         "138": "Power callable access to usable lift floors, keep five calm generic guards and a generated lieutenant, and apply neutral-until-provoked security."
       }
@@ -3906,9 +3906,9 @@
       "case_for_node": "The walled Tyger dojo has a training floor, basement and guards.",
       "case_against_node": "It is a small training business whose listed routine posts include fewer than five dedicated guards.",
       "bucket": "node",
-      "reason": "The dojo is a substantial gang training stronghold.",
+      "reason": "The dojo is a substantial gang training stronghold. Owner, tour 2026-11-27: large military node (the stalls do not make it economy).",
       "node_type": "military",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "tyger_claws",
       "boss": {
@@ -3934,9 +3934,9 @@
       "case_for_node": "Two lab floors and a garage support a guarded chemical production operation.",
       "case_against_node": "Named gig cooks and sabotage props should not become permanent faction cast.",
       "bucket": "node",
-      "reason": "The multi-floor drug laboratory supports staff, security and a lieutenant.",
+      "reason": "The multi-floor drug laboratory supports staff, security and a lieutenant. Owner, tour 2026-11-27: a major drug lab, large; type waits on the drug-lab question (node-staffing.md).",
       "node_type": "tech",
-      "size": "medium",
+      "size": "large",
       "is_hq": false,
       "initial_controller": "tyger_claws",
       "boss": {
